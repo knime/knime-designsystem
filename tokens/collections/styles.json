@@ -1,0 +1,541 @@
+{
+  "base": {
+    "font-family": {
+      "title": {
+        "value": "Roboto",
+        "type": "fontFamilies"
+      },
+      "body": {
+        "value": "Roboto",
+        "type": "fontFamilies"
+      },
+      "interface": {
+        "value": "Roboto",
+        "type": "fontFamilies"
+      }
+    },
+    "font-weight": {
+      "title": {
+        "value": "700",
+        "type": "fontWeights"
+      },
+      "body": {
+        "value": "400",
+        "type": "fontWeights"
+      },
+      "interface-default": {
+        "value": "400",
+        "type": "fontWeights"
+      },
+      "interface-strong": {
+        "value": "700",
+        "type": "fontWeights"
+      }
+    },
+    "size": {
+      "web": {
+        "breakpoint": {
+          "s": {
+            "value": "576",
+            "type": "sizing"
+          },
+          "m": {
+            "value": "768",
+            "type": "sizing"
+          },
+          "l": {
+            "value": "1024",
+            "type": "sizing"
+          },
+          "xl": {
+            "value": "1200",
+            "type": "sizing"
+          },
+          "xxl": {
+            "value": "1400",
+            "type": "sizing"
+          },
+          "xxxl": {
+            "value": "1728",
+            "type": "sizing"
+          }
+        }
+      },
+      "icon": {
+        "s": {
+          "value": "{core.dimension.75}",
+          "type": "sizing",
+          "description": "Smallest icon size"
+        },
+        "m": {
+          "value": "{core.dimension.100}",
+          "type": "sizing"
+        },
+        "l": {
+          "value": "{core.dimension.125}",
+          "type": "sizing"
+        },
+        "xl": {
+          "value": "{core.dimension.150}",
+          "type": "sizing"
+        }
+      }
+    },
+    "font-size": {
+      "s": {
+        "value": "{core.font-size.scaled.75}",
+        "type": "fontSizes"
+      },
+      "sm": {
+        "value": "{core.font-size.scaled.87}",
+        "type": "fontSizes"
+      },
+      "m": {
+        "value": "{core.font-size.scaled.100}",
+        "description": "m is the size of body text which is typically the same size as h6.",
+        "type": "fontSizes"
+      },
+      "ml": {
+        "value": "{core.font-size.scaled.125}",
+        "description": "ml is large body text which is typically the same size as h5.",
+        "type": "fontSizes"
+      },
+      "l": {
+        "value": "{core.font-size.scaled.150}",
+        "type": "fontSizes"
+      },
+      "xl": {
+        "value": "{core.font-size.scaled.200}",
+        "type": "fontSizes"
+      },
+      "xxl": {
+        "value": "{core.font-size.scaled.250}",
+        "type": "fontSizes"
+      },
+      "xxxl": {
+        "value": "{core.font-size.scaled.300}",
+        "description": "xxxl is your h1, but don't tell anyone, we want to speak in tokens not in HTML markup.",
+        "type": "fontSizes"
+      }
+    },
+    "typography": {
+      "title": {
+        "m": {
+          "value": {
+            "fontFamily": "{base.font-family.title}",
+            "fontWeight": "{base.font-weight.title}",
+            "lineHeight": "{base.line-height.title}",
+            "fontSize": "{base.font-size.m}",
+            "paragraphSpacing": "{base.font-size.m} * {base.paragraph-spacing.title}"
+          },
+          "type": "typography"
+        },
+        "ml": {
+          "value": {
+            "fontFamily": "{base.font-family.title}",
+            "fontWeight": "{base.font-weight.title}",
+            "lineHeight": "{base.line-height.title}",
+            "fontSize": "{base.font-size.ml}",
+            "paragraphSpacing": "{base.font-size.ml} * {base.paragraph-spacing.title}"
+          },
+          "type": "typography"
+        },
+        "l": {
+          "value": {
+            "fontFamily": "{base.font-family.title}",
+            "fontWeight": "{base.font-weight.title}",
+            "lineHeight": "{base.line-height.title}",
+            "fontSize": "{base.font-size.l}",
+            "paragraphSpacing": "{base.font-size.l} * {base.paragraph-spacing.title}"
+          },
+          "type": "typography"
+        },
+        "xl": {
+          "value": {
+            "fontFamily": "{base.font-family.title}",
+            "fontWeight": "{base.font-weight.title}",
+            "lineHeight": "{base.line-height.title}",
+            "fontSize": "{base.font-size.xl}",
+            "paragraphSpacing": "{base.font-size.xl} * {base.paragraph-spacing.title}"
+          },
+          "type": "typography"
+        },
+        "xxl": {
+          "value": {
+            "fontFamily": "{base.font-family.title}",
+            "fontWeight": "{base.font-weight.title}",
+            "lineHeight": "{base.line-height.title}",
+            "fontSize": "{base.font-size.xxl}",
+            "paragraphSpacing": "{base.font-size.xxl} * {base.paragraph-spacing.title}"
+          },
+          "type": "typography"
+        },
+        "xxxl": {
+          "value": {
+            "fontFamily": "{base.font-family.title}",
+            "fontWeight": "{base.font-weight.title}",
+            "lineHeight": "{base.line-height.title}",
+            "fontSize": "{base.font-size.xxxl}",
+            "paragraphSpacing": "{base.font-size.xxxl} * {base.paragraph-spacing.title}"
+          },
+          "type": "typography"
+        }
+      },
+      "body": {
+        "s": {
+          "value": {
+            "fontFamily": "{base.font-family.body}",
+            "fontWeight": "{base.font-weight.body}",
+            "lineHeight": "{base.line-height.body}",
+            "fontSize": "{base.font-size.s}",
+            "paragraphSpacing": "{base.font-size.s} * {base.paragraph-spacing.body}"
+          },
+          "type": "typography"
+        },
+        "sm": {
+          "value": {
+            "fontFamily": "{base.font-family.body}",
+            "fontWeight": "{base.font-weight.body}",
+            "lineHeight": "{base.line-height.body}",
+            "fontSize": "{base.font-size.sm}",
+            "paragraphSpacing": "{base.font-size.sm} * {base.paragraph-spacing.body}"
+          },
+          "type": "typography"
+        },
+        "m": {
+          "value": {
+            "fontFamily": "{base.font-family.body}",
+            "fontWeight": "{base.font-weight.body}",
+            "lineHeight": "{base.line-height.body}",
+            "fontSize": "{base.font-size.m}",
+            "paragraphSpacing": "{base.font-size.m} * {base.paragraph-spacing.body}"
+          },
+          "type": "typography"
+        },
+        "ml": {
+          "value": {
+            "fontFamily": "{base.font-family.body}",
+            "fontWeight": "{base.font-weight.body}",
+            "lineHeight": "{base.line-height.body}",
+            "fontSize": "{base.font-size.ml}",
+            "paragraphSpacing": "{base.font-size.ml} * {base.paragraph-spacing.body}"
+          },
+          "type": "typography"
+        }
+      },
+      "interface": {
+        "strong": {
+          "s": {
+            "value": {
+              "fontFamily": "{base.font-family.interface}",
+              "fontWeight": "{base.font-weight.interface-strong}",
+              "lineHeight": "{base.line-height.interface}",
+              "fontSize": "{base.font-size.s}",
+              "paragraphSpacing": "{base.font-size.s} * {base.paragraph-spacing.interface}"
+            },
+            "type": "typography"
+          },
+          "sm": {
+            "value": {
+              "fontFamily": "{base.font-family.interface}",
+              "fontWeight": "{base.font-weight.interface-strong}",
+              "lineHeight": "{base.line-height.interface}",
+              "fontSize": "{base.font-size.sm}",
+              "paragraphSpacing": "{base.font-size.sm} * {base.paragraph-spacing.interface}"
+            },
+            "type": "typography"
+          },
+          "m": {
+            "value": {
+              "fontFamily": "{base.font-family.interface}",
+              "fontWeight": "{base.font-weight.interface-strong}",
+              "lineHeight": "{base.line-height.interface}",
+              "fontSize": "{base.font-size.m}",
+              "paragraphSpacing": "{base.font-size.m} * {base.paragraph-spacing.interface}"
+            },
+            "type": "typography"
+          },
+          "ml": {
+            "value": {
+              "fontFamily": "{base.font-family.interface}",
+              "fontWeight": "{base.font-weight.interface-strong}",
+              "lineHeight": "{base.line-height.interface}",
+              "fontSize": "{base.font-size.ml}",
+              "paragraphSpacing": "{base.font-size.ml} * {base.paragraph-spacing.interface}"
+            },
+            "type": "typography"
+          },
+          "l": {
+            "value": {
+              "fontFamily": "{base.font-family.interface}",
+              "fontWeight": "{base.font-weight.interface-strong}",
+              "lineHeight": "{base.line-height.interface}",
+              "fontSize": "{base.font-size.l}",
+              "paragraphSpacing": "{base.font-size.l} * {base.paragraph-spacing.interface}"
+            },
+            "type": "typography"
+          }
+        },
+        "default": {
+          "s": {
+            "value": {
+              "fontFamily": "{base.font-family.interface}",
+              "fontWeight": "{base.font-weight.interface-default}",
+              "lineHeight": "{base.line-height.interface}",
+              "fontSize": "{base.font-size.s}",
+              "paragraphSpacing": "{base.font-size.s} * {base.paragraph-spacing.interface}"
+            },
+            "type": "typography"
+          },
+          "sm": {
+            "value": {
+              "fontFamily": "{base.font-family.interface}",
+              "fontWeight": "{base.font-weight.interface-default}",
+              "lineHeight": "{base.line-height.interface}",
+              "fontSize": "{base.font-size.sm}",
+              "paragraphSpacing": "{base.font-size.sm} * {base.paragraph-spacing.interface}"
+            },
+            "type": "typography"
+          },
+          "m": {
+            "value": {
+              "fontFamily": "{base.font-family.interface}",
+              "fontWeight": "{base.font-weight.interface-default}",
+              "lineHeight": "{base.line-height.interface}",
+              "fontSize": "{base.font-size.m}",
+              "paragraphSpacing": "{base.font-size.m} * {base.paragraph-spacing.interface}"
+            },
+            "type": "typography"
+          },
+          "ml": {
+            "value": {
+              "fontFamily": "{base.font-family.interface}",
+              "fontWeight": "{base.font-weight.interface-default}",
+              "lineHeight": "{base.line-height.interface}",
+              "fontSize": "{base.font-size.ml}",
+              "paragraphSpacing": "{base.font-size.ml} * {base.paragraph-spacing.interface}"
+            },
+            "type": "typography"
+          },
+          "l": {
+            "value": {
+              "fontFamily": "{base.font-family.interface}",
+              "fontWeight": "{base.font-weight.interface-default}",
+              "lineHeight": "{base.line-height.interface}",
+              "fontSize": "{base.font-size.l}",
+              "paragraphSpacing": "{base.font-size.l} * {base.paragraph-spacing.interface}"
+            },
+            "type": "typography"
+          }
+        }
+      }
+    },
+    "line-height": {
+      "title": {
+        "value": "{core.line-height.m}",
+        "type": "lineHeights"
+      },
+      "body": {
+        "value": "{core.line-height.l}",
+        "type": "lineHeights"
+      },
+      "interface": {
+        "value": "{core.line-height.s}",
+        "type": "lineHeights"
+      }
+    },
+    "paragraph-spacing": {
+      "title": {
+        "value": "{core.paragraph-spacing.none}",
+        "type": "paragraphSpacing"
+      },
+      "body": {
+        "value": "{core.paragraph-spacing.m}",
+        "type": "paragraphSpacing"
+      },
+      "interface": {
+        "value": "{core.paragraph-spacing.s}",
+        "type": "paragraphSpacing"
+      }
+    },
+    "border-radius": {
+      "scale": {
+        "value": "1",
+        "description": "changing this will change the roundness of all border-radiuses simultaneously.",
+        "type": "borderRadius"
+      },
+      "container": {
+        "none": {
+          "value": "{base.border-radius.scale} * {core.border-radius.0}",
+          "type": "borderRadius"
+        },
+        "s": {
+          "value": "{base.border-radius.scale} * {core.border-radius.50}",
+          "type": "borderRadius"
+        },
+        "m": {
+          "value": "{base.border-radius.scale} * {core.border-radius.100}",
+          "type": "borderRadius"
+        },
+        "l": {
+          "value": "{base.border-radius.scale} * {core.border-radius.150}",
+          "type": "borderRadius"
+        },
+        "pill": {
+          "value": "{base.border-radius.scale} * {core.border-radius.pill}",
+          "type": "borderRadius"
+        }
+      }
+    },
+    "border-width": {
+      "none": {
+        "value": "{core.border-width.0}",
+        "type": "borderWidth"
+      },
+      "s": {
+        "value": "{core.border-width.10}",
+        "type": "borderWidth"
+      },
+      "m": {
+        "value": "{core.border-width.20}",
+        "type": "borderWidth"
+      }
+    },
+    "icon-stroke": {
+      "s": {
+        "value": "1",
+        "type": "borderWidth"
+      },
+      "m": {
+        "value": "1.13",
+        "type": "borderWidth"
+      },
+      "l": {
+        "value": "1.33",
+        "type": "borderWidth"
+      }
+    }
+  },
+  "spacing": {
+    "base": {
+      "page": {
+        "margin": {
+          "none": {
+            "value": "{core.dimension.0}",
+            "description": "This is basically your page margin (in breakpoints-speak).",
+            "type": "spacing"
+          },
+          "s": {
+            "value": "{core.dimension.100}",
+            "type": "spacing"
+          },
+          "m": {
+            "value": "{core.dimension.150}",
+            "type": "spacing"
+          },
+          "l": {
+            "value": "{core.dimension.200}",
+            "type": "spacing"
+          },
+          "xl": {
+            "value": "{core.dimension.300}",
+            "type": "spacing"
+          }
+        },
+        "padding": {
+          "none": {
+            "value": "{core.dimension.0}",
+            "description": "This is basically your page gutter (in breakpoints-speak).",
+            "type": "spacing"
+          },
+          "xxs": {
+            "value": "{core.dimension.25}",
+            "type": "spacing"
+          },
+          "xs": {
+            "value": "{core.dimension.50}",
+            "type": "spacing"
+          },
+          "s": {
+            "value": "{core.dimension.100}",
+            "type": "spacing"
+          },
+          "m": {
+            "value": "{core.dimension.200}",
+            "type": "spacing"
+          },
+          "l": {
+            "value": "{core.dimension.400}",
+            "type": "spacing"
+          },
+          "xl": {
+            "value": "{core.dimension.800}",
+            "type": "spacing"
+          },
+          "xxl": {
+            "value": "{core.dimension.1600}",
+            "type": "spacing"
+          }
+        }
+      },
+      "container": {
+        "none": {
+          "value": "{core.dimension.0}",
+          "type": "spacing"
+        },
+        "xxs": {
+          "value": "{core.dimension.12}",
+          "type": "spacing"
+        },
+        "xs": {
+          "value": "{core.dimension.25}",
+          "type": "spacing"
+        },
+        "s": {
+          "value": "{core.dimension.50}",
+          "type": "spacing"
+        },
+        "m": {
+          "value": "{core.dimension.75}",
+          "type": "spacing"
+        },
+        "l": {
+          "value": "{core.dimension.100}",
+          "type": "spacing"
+        },
+        "xl": {
+          "value": "{core.dimension.125}",
+          "type": "spacing"
+        },
+        "xxl": {
+          "value": "{core.dimension.150}",
+          "type": "spacing"
+        },
+        "3xl": {
+          "value": "{core.dimension.200}",
+          "type": "spacing"
+        },
+        "auto": {
+          "value": "AUTO",
+          "type": "spacing"
+        }
+      }
+    }
+  },
+  "dimension": {
+    "icon-button": {
+      "large": {
+        "value": "{core.dimension.225}",
+        "type": "dimension"
+      },
+      "medium": {
+        "value": "{core.dimension.175}",
+        "type": "dimension"
+      },
+      "small": {
+        "value": "{core.dimension.125}",
+        "type": "dimension"
+      }
+    }
+  }
+}

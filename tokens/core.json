@@ -1,0 +1,804 @@
+{
+  "core": {
+    "color": {
+      "transparent": {
+        "value": "rgba(#000000, 0)",
+        "type": "color"
+      },
+      "neutral": {
+        "0": {
+          "value": "hsl(0, 0%, 2%)",
+          "type": "color"
+        },
+        "10": {
+          "value": "hsl(0, 0%, 10%)",
+          "type": "color"
+        },
+        "20": {
+          "value": "hsl(0, 0%, 13%)",
+          "type": "color"
+        },
+        "30": {
+          "value": "hsl(0, 0%, 30%)",
+          "type": "color"
+        },
+        "40": {
+          "value": "hsl(0, 0%, 46%)",
+          "type": "color"
+        },
+        "50": {
+          "value": "hsl(0, 0%, 62%)",
+          "type": "color"
+        },
+        "60": {
+          "value": "hsl(0, 0%, 74%)",
+          "type": "color"
+        },
+        "70": {
+          "value": "hsl(0, 0%, 88%)",
+          "type": "color"
+        },
+        "80": {
+          "value": "hsl(0, 0%, 94%)",
+          "type": "color"
+        },
+        "90": {
+          "value": "hsl(0, 0%, 98%)",
+          "type": "color"
+        },
+        "100": {
+          "value": "hsl(0, 0%, 100%)",
+          "type": "color"
+        }
+      },
+      "yellow": {
+        "0": {
+          "value": "hsl(52, 100%, 7%)",
+          "type": "color"
+        },
+        "10": {
+          "value": "hsl(51, 100%, 11%)",
+          "type": "color"
+        },
+        "20": {
+          "value": "hsl(50, 100%, 20%)",
+          "type": "color"
+        },
+        "30": {
+          "value": "hsl(51, 100%, 31%)",
+          "type": "color"
+        },
+        "40": {
+          "value": "hsl(51, 100%, 42%)",
+          "type": "color"
+        },
+        "50": {
+          "value": "hsl(51, 100%, 50%)",
+          "type": "color"
+        },
+        "60": {
+          "value": "hsl(48, 100%, 65%)",
+          "type": "color"
+        },
+        "70": {
+          "value": "hsl(46, 100%, 76%)",
+          "type": "color"
+        },
+        "80": {
+          "value": "hsl(46, 100%, 84%)",
+          "type": "color"
+        },
+        "90": {
+          "value": "hsl(45, 100%, 90%)",
+          "type": "color"
+        },
+        "100": {
+          "value": "hsl(42, 100%, 95%)",
+          "type": "color"
+        }
+      },
+      "green": {
+        "0": {
+          "value": "hsl(89, 54%, 8%)",
+          "type": "color"
+        },
+        "10": {
+          "value": "hsl(89, 54%, 12%)",
+          "type": "color"
+        },
+        "20": {
+          "value": "hsl(90, 54%, 22%)",
+          "type": "color"
+        },
+        "30": {
+          "value": "hsl(90, 54%, 31%)",
+          "type": "color"
+        },
+        "40": {
+          "value": "hsl(90, 53%, 40%)",
+          "type": "color"
+        },
+        "50": {
+          "value": "hsl(90, 54%, 48%)",
+          "type": "color"
+        },
+        "60": {
+          "value": "hsl(90, 67%, 55%)",
+          "type": "color"
+        },
+        "70": {
+          "value": "hsl(90, 85%, 61%)",
+          "type": "color"
+        },
+        "80": {
+          "value": "hsl(90, 100%, 70%)",
+          "type": "color"
+        },
+        "90": {
+          "value": "hsl(90, 100%, 89%)",
+          "type": "color"
+        },
+        "100": {
+          "value": "hsl(92, 100%, 97%)",
+          "type": "color"
+        }
+      },
+      "orange": {
+        "0": {
+          "value": "hsl(30, 54%, 9%)",
+          "type": "color"
+        },
+        "10": {
+          "value": "hsl(30, 53%, 15%)",
+          "type": "color"
+        },
+        "20": {
+          "value": "hsl(30, 54%, 27%)",
+          "type": "color"
+        },
+        "30": {
+          "value": "hsl(30, 54%, 39%)",
+          "type": "color"
+        },
+        "40": {
+          "value": "hsl(30, 54%, 50%)",
+          "type": "color"
+        },
+        "50": {
+          "value": "hsl(30, 80%, 60%)",
+          "type": "color"
+        },
+        "60": {
+          "value": "hsl(30, 100%, 71%)",
+          "type": "color"
+        },
+        "70": {
+          "value": "hsl(30, 100%, 82%)",
+          "type": "color"
+        },
+        "80": {
+          "value": "hsl(31, 100%, 90%)",
+          "type": "color"
+        },
+        "90": {
+          "value": "hsl(30, 100%, 96%)",
+          "type": "color"
+        },
+        "100": {
+          "value": "hsl(24, 100%, 99%)",
+          "type": "color"
+        }
+      },
+      "red": {
+        "0": {
+          "value": "hsl(0, 55%, 13%)",
+          "type": "color"
+        },
+        "10": {
+          "value": "hsl(0, 53%, 20%)",
+          "type": "color"
+        },
+        "20": {
+          "value": "hsl(0, 53%, 36%)",
+          "type": "color"
+        },
+        "30": {
+          "value": "hsl(0, 56%, 51%)",
+          "type": "color"
+        },
+        "40": {
+          "value": "hsl(0, 100%, 66%)",
+          "type": "color"
+        },
+        "50": {
+          "value": "hsl(0, 100%, 77%)",
+          "type": "color"
+        },
+        "60": {
+          "value": "hsl(0, 100%, 85%)",
+          "type": "color"
+        },
+        "70": {
+          "value": "hsl(0, 100%, 90%)",
+          "type": "color"
+        },
+        "80": {
+          "value": "hsl(0, 100%, 95%)",
+          "type": "color"
+        },
+        "90": {
+          "value": "hsl(0, 100%, 98%)",
+          "type": "color"
+        },
+        "100": {
+          "value": "hsl(0, 100%, 99%)",
+          "type": "color"
+        }
+      },
+      "blue": {
+        "0": {
+          "value": "hsl(210, 54%, 11%)",
+          "type": "color"
+        },
+        "10": {
+          "value": "hsl(211, 53%, 17%)",
+          "type": "color"
+        },
+        "20": {
+          "value": "hsl(210, 54%, 31%)",
+          "type": "color"
+        },
+        "30": {
+          "value": "hsl(210, 54%, 45%)",
+          "type": "color"
+        },
+        "40": {
+          "value": "hsl(210, 73%, 58%)",
+          "type": "color"
+        },
+        "50": {
+          "value": "hsl(210, 100%, 69%)",
+          "type": "color"
+        },
+        "60": {
+          "value": "hsl(210, 100%, 79%)",
+          "type": "color"
+        },
+        "70": {
+          "value": "hsl(210, 100%, 87%)",
+          "type": "color"
+        },
+        "80": {
+          "value": "hsl(210, 100%, 93%)",
+          "type": "color"
+        },
+        "90": {
+          "value": "hsl(208, 100%, 97%)",
+          "type": "color"
+        },
+        "100": {
+          "value": "hsl(210, 100%, 99%)",
+          "type": "color"
+        }
+      }
+    },
+    "border-radius": {
+      "0": {
+        "value": "0",
+        "type": "borderRadius"
+      },
+      "6": {
+        "value": "{core.border-radius.base} * 6.25",
+        "type": "borderRadius"
+      },
+      "12": {
+        "value": "{core.border-radius.base} * 12.5",
+        "type": "borderRadius"
+      },
+      "25": {
+        "value": "{core.border-radius.base} * 25",
+        "type": "borderRadius"
+      },
+      "37": {
+        "value": "{core.border-radius.base} * 37.5",
+        "type": "borderRadius"
+      },
+      "50": {
+        "value": "{core.border-radius.base} * 50",
+        "type": "borderRadius"
+      },
+      "75": {
+        "value": "{core.border-radius.base} * 75",
+        "type": "borderRadius"
+      },
+      "100": {
+        "value": "{core.border-radius.base} * 100",
+        "type": "borderRadius"
+      },
+      "125": {
+        "value": "{core.border-radius.base} * 125",
+        "type": "borderRadius"
+      },
+      "150": {
+        "value": "{core.border-radius.base} * 150",
+        "type": "borderRadius"
+      },
+      "200": {
+        "value": "{core.border-radius.base} * 200",
+        "type": "borderRadius"
+      },
+      "300": {
+        "value": "{core.border-radius.base} * 300",
+        "type": "borderRadius"
+      },
+      "pill": {
+        "value": "1000",
+        "type": "borderRadius"
+      },
+      "base": {
+        "value": "{core.size.SCALE} / 100",
+        "type": "borderRadius"
+      }
+    },
+    "font-size": {
+      "REM": {
+        "value": "16",
+        "description": "👀 If you change this core font size, it will change all font-related tokens.",
+        "type": "fontSizes"
+      },
+      "scaled": {
+        "50": {
+          "value": "{core.font-size.scaled.base} * 50",
+          "type": "fontSizes"
+        },
+        "62": {
+          "value": "{core.font-size.scaled.base} * 62.5",
+          "type": "fontSizes"
+        },
+        "75": {
+          "value": "{core.font-size.scaled.base} * 75",
+          "type": "fontSizes"
+        },
+        "87": {
+          "value": "{core.font-size.scaled.base} * 87.5",
+          "type": "fontSizes"
+        },
+        "100": {
+          "value": "{core.font-size.scaled.base} * 100",
+          "type": "fontSizes"
+        },
+        "125": {
+          "value": "{core.font-size.scaled.base} * 125",
+          "type": "fontSizes"
+        },
+        "150": {
+          "value": "{core.font-size.scaled.base} * 150",
+          "type": "fontSizes"
+        },
+        "175": {
+          "value": "{core.font-size.scaled.base} * 175",
+          "type": "fontSizes"
+        },
+        "200": {
+          "value": "{core.font-size.scaled.base} * 200",
+          "type": "fontSizes"
+        },
+        "225": {
+          "value": "{core.font-size.scaled.base} * 225",
+          "type": "fontSizes"
+        },
+        "250": {
+          "value": "{core.font-size.scaled.base} * 250",
+          "type": "fontSizes"
+        },
+        "275": {
+          "value": "{core.font-size.scaled.base} * 275",
+          "type": "fontSizes"
+        },
+        "300": {
+          "value": "{core.font-size.scaled.base} * 300",
+          "type": "fontSizes"
+        },
+        "325": {
+          "value": "{core.font-size.scaled.base} * 325",
+          "type": "fontSizes"
+        },
+        "350": {
+          "value": "{core.font-size.scaled.base} * 350",
+          "type": "fontSizes"
+        },
+        "375": {
+          "value": "{core.font-size.scaled.base} * 375",
+          "type": "fontSizes"
+        },
+        "400": {
+          "value": "{core.font-size.scaled.base} * 400",
+          "type": "fontSizes"
+        },
+        "450": {
+          "value": "{core.font-size.scaled.base} * 450",
+          "type": "fontSizes"
+        },
+        "500": {
+          "value": "{core.font-size.scaled.base} * 500",
+          "type": "fontSizes"
+        },
+        "550": {
+          "value": "{core.font-size.scaled.base} * 550",
+          "type": "fontSizes"
+        },
+        "600": {
+          "value": "{core.font-size.scaled.base} * 600",
+          "type": "fontSizes"
+        },
+        "base": {
+          "value": "{core.font-size.REM} / 100",
+          "type": "fontSizes"
+        }
+      }
+    },
+    "border-width": {
+      "0": {
+        "value": "0",
+        "type": "borderWidth"
+      },
+      "5": {
+        "value": "0.5",
+        "type": "borderWidth"
+      },
+      "10": {
+        "value": "1",
+        "type": "borderWidth"
+      },
+      "15": {
+        "value": "1.5",
+        "type": "borderWidth"
+      },
+      "20": {
+        "value": "2",
+        "type": "borderWidth"
+      },
+      "25": {
+        "value": "2.5",
+        "type": "borderWidth"
+      },
+      "30": {
+        "value": "3",
+        "type": "borderWidth"
+      },
+      "35": {
+        "value": "3.5",
+        "type": "borderWidth"
+      },
+      "40": {
+        "value": "4",
+        "type": "borderWidth"
+      }
+    },
+    "line-height": {
+      "xs": {
+        "value": "100%",
+        "description": "headlines",
+        "type": "lineHeights"
+      },
+      "s": {
+        "value": "110%",
+        "description": "headlines.",
+        "type": "lineHeights"
+      },
+      "m": {
+        "value": "130%",
+        "type": "lineHeights"
+      },
+      "l": {
+        "value": "150%",
+        "type": "lineHeights"
+      }
+    },
+    "paragraph-spacing": {
+      "none": {
+        "value": "0.0",
+        "type": "paragraphSpacing"
+      },
+      "s": {
+        "value": "0.25",
+        "type": "paragraphSpacing"
+      },
+      "m": {
+        "value": "0.5",
+        "type": "paragraphSpacing"
+      },
+      "l": {
+        "value": "0.75",
+        "type": "paragraphSpacing"
+      },
+      "xl": {
+        "value": "1",
+        "type": "paragraphSpacing"
+      }
+    },
+    "dimension": {
+      "0": {
+        "value": "0",
+        "type": "dimension"
+      },
+      "6": {
+        "value": "{core.dimension.base} * 6.25",
+        "type": "dimension"
+      },
+      "12": {
+        "value": "{core.dimension.base} * 12.5",
+        "type": "dimension"
+      },
+      "25": {
+        "value": "{core.dimension.base} * 25",
+        "type": "dimension"
+      },
+      "37": {
+        "value": "{core.dimension.base} * 37.5",
+        "type": "dimension"
+      },
+      "50": {
+        "value": "{core.dimension.base} * 50",
+        "type": "dimension"
+      },
+      "75": {
+        "value": "{core.dimension.base} * 75",
+        "type": "dimension"
+      },
+      "100": {
+        "value": "{core.dimension.base} * 100",
+        "type": "dimension"
+      },
+      "125": {
+        "value": "{core.dimension.base} * 125",
+        "type": "dimension"
+      },
+      "150": {
+        "value": "{core.dimension.base} * 150",
+        "type": "dimension"
+      },
+      "175": {
+        "value": "{core.dimension.base} * 175",
+        "type": "dimension"
+      },
+      "200": {
+        "value": "{core.dimension.base} * 200",
+        "type": "dimension"
+      },
+      "225": {
+        "value": "{core.dimension.base} * 225",
+        "type": "dimension"
+      },
+      "250": {
+        "value": "{core.dimension.base} * 250",
+        "type": "dimension"
+      },
+      "300": {
+        "value": "{core.dimension.base} * 300",
+        "type": "dimension"
+      },
+      "350": {
+        "value": "{core.dimension.base} * 350",
+        "type": "dimension"
+      },
+      "400": {
+        "value": "{core.dimension.base} * 400",
+        "type": "dimension"
+      },
+      "450": {
+        "value": "{core.dimension.base} * 450",
+        "type": "dimension"
+      },
+      "500": {
+        "value": "{core.dimension.base} * 500",
+        "type": "dimension"
+      },
+      "600": {
+        "value": "{core.dimension.base} * 600",
+        "type": "dimension"
+      },
+      "700": {
+        "value": "{core.dimension.base} * 700",
+        "type": "dimension"
+      },
+      "800": {
+        "value": "{core.dimension.base} * 800",
+        "type": "dimension"
+      },
+      "900": {
+        "value": "{core.dimension.base} * 900",
+        "type": "dimension"
+      },
+      "1000": {
+        "value": "{core.dimension.base} * 1000",
+        "type": "dimension"
+      },
+      "1100": {
+        "value": "{core.dimension.base} * 1100",
+        "type": "dimension"
+      },
+      "1200": {
+        "value": "{core.dimension.base} * 1200",
+        "type": "dimension"
+      },
+      "1300": {
+        "value": "{core.dimension.base} * 1300",
+        "type": "dimension"
+      },
+      "1400": {
+        "value": "{core.dimension.base} * 1400",
+        "type": "dimension"
+      },
+      "1500": {
+        "value": "{core.dimension.base} * 1500",
+        "type": "dimension"
+      },
+      "1600": {
+        "value": "{core.dimension.base} * 1600",
+        "type": "dimension"
+      },
+      "2000": {
+        "value": "{core.dimension.base} * 2000",
+        "type": "dimension"
+      },
+      "2400": {
+        "value": "{core.dimension.base} * 2400",
+        "type": "dimension"
+      },
+      "base": {
+        "value": "{core.size.SCALE} / 100",
+        "type": "dimension"
+      }
+    },
+    "size": {
+      "SCALE": {
+        "value": "16",
+        "description": "base-scale of all size-related tokens (size, space, dimension). The default is 1rem = 16(px). If you change it, it will change all size-related tokens. :)",
+        "type": "sizing"
+      }
+    },
+    "box-shadow": {
+      "blurry": {
+        "0": {
+          "value": {
+            "x": "0",
+            "y": "0",
+            "blur": "0",
+            "spread": "0",
+            "color": "rgb(0,0,0,0)",
+            "type": "dropShadow"
+          },
+          "description": "Box shadow tokens don't yet support referencing each other, that's why they are a little rigid still. The feature will come soon, though.",
+          "type": "boxShadow"
+        },
+        "1": {
+          "value": {
+            "x": "0",
+            "y": "1",
+            "blur": "2",
+            "spread": "0",
+            "color": "rgba(#000000, {core.box-shadow.intensity})",
+            "type": "dropShadow"
+          },
+          "type": "boxShadow"
+        },
+        "2": {
+          "value": {
+            "x": "0",
+            "y": "2",
+            "blur": "4",
+            "spread": "0",
+            "color": "rgba(#000000, {core.box-shadow.intensity})",
+            "type": "dropShadow"
+          },
+          "type": "boxShadow"
+        },
+        "3": {
+          "value": {
+            "x": "0",
+            "y": "2",
+            "blur": "8",
+            "spread": "0",
+            "color": "rgba(#000000, {core.box-shadow.intensity})",
+            "type": "dropShadow"
+          },
+          "type": "boxShadow"
+        },
+        "4": {
+          "value": {
+            "x": "0",
+            "y": "4",
+            "blur": "16",
+            "spread": "0",
+            "color": "rgba(#000000, {core.box-shadow.intensity})",
+            "type": "dropShadow"
+          },
+          "type": "boxShadow"
+        },
+        "5": {
+          "value": {
+            "x": "0",
+            "y": "4",
+            "blur": "32",
+            "spread": "0",
+            "color": "rgba(#000000, {core.box-shadow.intensity})",
+            "type": "dropShadow"
+          },
+          "type": "boxShadow"
+        },
+        "6": {
+          "value": {
+            "x": "0",
+            "y": "4",
+            "blur": "64",
+            "spread": "0",
+            "color": "rgba(#000000, {core.box-shadow.intensity})",
+            "type": "dropShadow"
+          },
+          "type": "boxShadow"
+        }
+      },
+      "edgy": {
+        "0": {
+          "value": {
+            "x": "0",
+            "y": "0",
+            "blur": "0",
+            "spread": "0",
+            "color": "rgb(0,0,0,0)",
+            "type": "dropShadow"
+          },
+          "type": "boxShadow"
+        },
+        "1": {
+          "value": {
+            "x": "0",
+            "y": "2",
+            "blur": "0",
+            "spread": "0",
+            "color": "rgba(#000000, {core.box-shadow.intensity})",
+            "type": "dropShadow"
+          },
+          "type": "boxShadow"
+        },
+        "2": {
+          "value": {
+            "x": "0",
+            "y": "4",
+            "blur": "0",
+            "spread": "0",
+            "color": "rgba(#000000, {core.box-shadow.intensity})",
+            "type": "dropShadow"
+          },
+          "type": "boxShadow"
+        },
+        "3": {
+          "value": {
+            "x": "0",
+            "y": "8",
+            "blur": "0",
+            "spread": "0",
+            "color": "rgba(#000000, {core.box-shadow.intensity})",
+            "type": "dropShadow"
+          },
+          "type": "boxShadow"
+        }
+      }
+    },
+    "opacity": {
+      "low": {
+        "value": "10%",
+        "type": "opacity"
+      },
+      "medium": {
+        "value": "50%",
+        "type": "opacity"
+      },
+      "high": {
+        "value": "90%",
+        "type": "opacity"
+      }
+    }
+  }
+}

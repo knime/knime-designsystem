@@ -1,0 +1,9 @@
+{
+  "tokenSetOrder": [
+    "core",
+    "collections/styles",
+    "collections/component/nav-primary",
+    "collections/colors/light",
+    "collections/colors/dark"
+  ]
+}

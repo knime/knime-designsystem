@@ -1,0 +1,18 @@
+{
+  "color": {
+    "bg": {
+      "value": "{core.color.neutral.0}",
+      "type": "color"
+    }
+  },
+  "border": {
+    "brand": {
+      "value": {
+        "color": "{core.color.yellow.50}",
+        "width": "2",
+        "style": "solid"
+      },
+      "type": "border"
+    }
+  }
+}
