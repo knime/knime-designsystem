@@ -79,7 +79,7 @@
                 "studio.tokens": {
                   "modify": {
                     "type": "lighten",
-                    "value": "{interactive.color.modifiers.button.hover}",
+                    "value": "{interactive.modifiers.color.button-states.hover}",
                     "space": "lch"
                   }
                 }
@@ -106,7 +106,7 @@
                 "studio.tokens": {
                   "modify": {
                     "type": "mix",
-                    "value": "{interactive.color.modifiers.button.hover}",
+                    "value": "{interactive.modifiers.color.button-states.hover}",
                     "space": "lch",
                     "color": "{core.color.neutral.10}"
                   }
@@ -120,7 +120,7 @@
                 "studio.tokens": {
                   "modify": {
                     "type": "lighten",
-                    "value": "{interactive.color.modifiers.button.focused}",
+                    "value": "{interactive.color.modifiers.button.border.interactive.focused}",
                     "space": "lch"
                   }
                 }
@@ -143,7 +143,7 @@
                 "studio.tokens": {
                   "modify": {
                     "type": "mix",
-                    "value": "{interactive.color.modifiers.button.hover}",
+                    "value": "{interactive.modifiers.color.button-states.hover}",
                     "space": "lch",
                     "color": "{core.color.neutral.10}"
                   }
@@ -157,7 +157,7 @@
                 "studio.tokens": {
                   "modify": {
                     "type": "lighten",
-                    "value": "{interactive.color.modifiers.button.focused}",
+                    "value": "{interactive.color.modifiers.button.border.interactive.focused}",
                     "space": "lch"
                   }
                 }
@@ -191,11 +191,11 @@
         },
         "button": {
           "hover": {
-            "value": "{interactive.color.modifiers.lightness}",
+            "value": "{interactive.modifiers.lightness}",
             "type": "other"
           },
           "pressed": {
-            "value": "{interactive.color.modifiers.lightness}",
+            "value": "{interactive.modifiers.lightness}",
             "type": "other"
           },
           "focused": {
@@ -218,7 +218,7 @@
     "default": {
       "value": {
         "color": "{core.color.neutral.70}",
-        "width": "{base.border-width.s}",
+        "width": "{border-width.base.s}",
         "style": "solid"
       },
       "type": "border"
@@ -226,7 +226,7 @@
     "subtle": {
       "value": {
         "color": "{core.color.neutral.40}",
-        "width": "{base.border-width.s}",
+        "width": "{border-width.base.s}",
         "style": "solid"
       },
       "type": "border"
@@ -234,7 +234,7 @@
     "brand": {
       "value": {
         "color": "{core.color.yellow.40}",
-        "width": "{base.border-width.s}",
+        "width": "{border-width.base.s}",
         "style": "solid"
       },
       "type": "border"
