@@ -62,7 +62,7 @@
                 "studio.tokens": {
                   "modify": {
                     "type": "lighten",
-                    "value": "{interactive.modifiers.color.button-states.hover}",
+                    "value": "{interactive.modifiers.color.hover.low.high}",
                     "space": "lch"
                   }
                 }
@@ -89,7 +89,7 @@
                 "studio.tokens": {
                   "modify": {
                     "type": "mix",
-                    "value": "{interactive.modifiers.color.button-states.hover}",
+                    "value": "{interactive.modifiers.color.hover.low.low}",
                     "space": "lch",
                     "color": "{core.color.neutral.10}"
                   }
@@ -126,7 +126,7 @@
                 "studio.tokens": {
                   "modify": {
                     "type": "mix",
-                    "value": "{interactive.modifiers.color.button-states.hover}",
+                    "value": "{interactive.modifiers.color.hover.low.low}",
                     "space": "lch",
                     "color": "{core.color.neutral.10}"
                   }
@@ -159,32 +159,34 @@
   },
   "interactive": {
     "modifiers": {
-      "enabled-alpha": {
-        "value": "1",
-        "type": "other"
-      },
-      "disabled-alpha": {
-        "value": "0.5",
-        "type": "other"
-      },
       "lightness": {
-        "value": "0.08",
-        "type": "other"
+        "low": {
+          "value": "0.12",
+          "type": "other"
+        },
+        "high": {
+          "value": "0.24",
+          "type": "other"
+        }
       },
       "color": {
-        "button-states": {
-          "hover": {
-            "value": "{interactive.modifiers.lightness}",
+        "hover": {
+          "low": {
+            "value": "{interactive.modifiers.lightness.low}",
             "type": "other"
           },
-          "pressed": {
-            "value": "{interactive.modifiers.lightness}",
-            "type": "other"
-          },
-          "focused": {
-            "value": "0",
+          "high": {
+            "value": "{interactive.modifiers.lightness.high}",
             "type": "other"
           }
+        },
+        "pressed": {
+          "value": "{interactive.modifiers.lightness.low}",
+          "type": "other"
+        },
+        "focused": {
+          "value": "0",
+          "type": "other"
         }
       }
     }
