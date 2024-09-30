@@ -74,10 +74,6 @@
               "value": "{color.interactive.button.bg.default}",
               "type": "color"
             },
-            "focused": {
-              "value": "{color.interactive.button.bg.default}",
-              "type": "color"
-            },
             "activated": {
               "value": "{core.color.blue.80}",
               "type": "color"
@@ -110,19 +106,6 @@
               "value": "{color.interactive.button.bg.transparent}",
               "type": "color"
             },
-            "focused": {
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "lighten",
-                    "value": "{interactive.color.modifiers.button.border.interactive.focused}",
-                    "space": "lch"
-                  }
-                }
-              },
-              "value": "{color.interactive.button.bg.transparent}",
-              "type": "color"
-            },
             "activated": {
               "value": "{core.color.blue.80}",
               "type": "color"
@@ -149,19 +132,6 @@
                     "value": "{interactive.modifiers.color.hover.low.low}",
                     "space": "lch",
                     "color": "{core.color.neutral.10}"
-                  }
-                }
-              },
-              "value": "{color.interactive.button.bg.transparent}",
-              "type": "color"
-            },
-            "focused": {
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "lighten",
-                    "value": "{interactive.color.modifiers.button.border.interactive.focused}",
-                    "space": "lch"
                   }
                 }
               },
