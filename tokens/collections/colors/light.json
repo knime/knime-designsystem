@@ -215,7 +215,7 @@
         },
         "type": "border"
       },
-      "focus": {
+      "focused": {
         "value": {
           "color": "{core.color.blue.60}",
           "width": "{border-width.base.m}",
