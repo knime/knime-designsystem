@@ -549,7 +549,21 @@
         "type": "dimension"
       },
       "small": {
-        "value": "{core.dimension.125}",
+        "value": "{core.dimension.150}",
+        "type": "dimension"
+      }
+    },
+    "text-button": {
+      "large": {
+        "value": "{core.dimension.225}",
+        "type": "dimension"
+      },
+      "medium": {
+        "value": "{core.dimension.175}",
+        "type": "dimension"
+      },
+      "small": {
+        "value": "{core.dimension.150}",
         "type": "dimension"
       }
     }
