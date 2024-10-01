@@ -38,7 +38,7 @@
             "value": "{core.color.neutral.10}",
             "type": "color"
           },
-          "activated": {
+          "selected": {
             "value": "{core.color.blue.30}",
             "type": "color"
           },
@@ -74,11 +74,11 @@
               "value": "{color.interactive.button.bg.default}",
               "type": "color"
             },
-            "activated": {
+            "selected": {
               "value": "{core.color.blue.80}",
               "type": "color"
             },
-            "activated-hover": {
+            "selected-hover": {
               "value": "{core.color.blue.90}",
               "type": "color"
             },
@@ -97,7 +97,7 @@
                 "studio.tokens": {
                   "modify": {
                     "type": "mix",
-                    "value": "{interactive.modifiers.color.hover.low.low}",
+                    "value": "{interactive.modifiers.color.hover.low}",
                     "space": "lch",
                     "color": "{core.color.neutral.10}"
                   }
@@ -106,11 +106,11 @@
               "value": "{color.interactive.button.bg.transparent}",
               "type": "color"
             },
-            "activated": {
+            "selected": {
               "value": "{core.color.blue.80}",
               "type": "color"
             },
-            "activated-hover": {
+            "selected-hover": {
               "value": "{core.color.blue.90}",
               "type": "color"
             },
@@ -129,7 +129,7 @@
                 "studio.tokens": {
                   "modify": {
                     "type": "mix",
-                    "value": "{interactive.modifiers.color.hover.low.low}",
+                    "value": "{interactive.modifiers.color.hover.low}",
                     "space": "lch",
                     "color": "{core.color.neutral.10}"
                   }
@@ -138,11 +138,11 @@
               "value": "{color.interactive.button.bg.transparent}",
               "type": "color"
             },
-            "activated": {
+            "selected": {
               "value": "{core.color.blue.80}",
               "type": "color"
             },
-            "activated-hover": {
+            "selected-hover": {
               "value": "{core.color.blue.90}",
               "type": "color"
             },
@@ -209,7 +209,7 @@
       },
       "muted": {
         "value": {
-          "color": "{core.color.neutral.40}",
+          "color": "{core.color.neutral.60}",
           "width": "{border-width.base.s}",
           "style": "solid"
         },
@@ -223,7 +223,7 @@
         },
         "type": "border"
       },
-      "activated": {
+      "selected": {
         "value": {
           "color": "{core.color.blue.50}",
           "width": "{border-width.base.s}",

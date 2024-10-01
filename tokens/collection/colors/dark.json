@@ -304,7 +304,7 @@
       },
       "selected": {
         "value": {
-          "color": "{core.color.blue.80}",
+          "color": "{core.color.blue.40}",
           "width": "{border-width.base.s}",
           "style": "solid"
         },
