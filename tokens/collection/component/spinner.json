@@ -1,0 +1,23 @@
+{
+  "spinner": {
+    "color": {
+      "track": {
+        "value": "{color.base.fg.subtle}",
+        "type": "color",
+        "$extensions": {
+          "studio.tokens": {
+            "modify": {
+              "type": "alpha",
+              "value": "0.36",
+              "space": "lch"
+            }
+          }
+        }
+      },
+      "progress": {
+        "value": "{color.base.fg.default}",
+        "type": "color"
+      }
+    }
+  }
+}

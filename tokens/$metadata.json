@@ -4,6 +4,7 @@
     "collection/styles",
     "collection/colors/dark",
     "collection/colors/light",
-    "collection/component/nav-primary"
+    "collection/component/nav-primary",
+    "collection/component/spinner"
   ]
 }
