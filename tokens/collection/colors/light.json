@@ -62,7 +62,7 @@
                 }
               }
             },
-            "value": "{color.base.bg.brand}",
+            "value": "{color.interactive.bg.primary.default}",
             "type": "color"
           },
           "hover-transparent": {
