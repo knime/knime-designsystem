@@ -13,6 +13,10 @@
         "subtle": {
           "value": "{core.color.neutral.20}",
           "type": "color"
+        },
+        "minimal": {
+          "value": "{core.color.neutral.30}",
+          "type": "color"
         }
       },
       "fg": {
