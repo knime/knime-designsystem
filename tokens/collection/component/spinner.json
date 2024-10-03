@@ -1,22 +1,43 @@
 {
   "spinner": {
     "color": {
-      "track": {
-        "value": "{color.base.fg.subtle}",
-        "type": "color",
-        "$extensions": {
-          "studio.tokens": {
-            "modify": {
-              "type": "alpha",
-              "value": "0.36",
-              "space": "lch"
+      "base": {
+        "track": {
+          "value": "{color.base.fg.default}",
+          "type": "color",
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "alpha",
+                "value": "0.24",
+                "space": "lch"
+              }
             }
           }
+        },
+        "progress": {
+          "value": "{color.base.fg.default}",
+          "type": "color"
         }
       },
-      "progress": {
-        "value": "{color.base.fg.default}",
-        "type": "color"
+      "brand": {
+        "track": {
+          "value": "{core.color.neutral.20}",
+          "type": "color",
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "alpha",
+                "value": "0.24",
+                "space": "lch"
+              }
+            }
+          }
+        },
+        "progress": {
+          "value": "{core.color.neutral.20}",
+          "type": "color"
+        }
       }
     }
   }

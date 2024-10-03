@@ -7,8 +7,7 @@
       "core": "source",
       "collection/styles": "source",
       "collection/component/nav-primary": "enabled",
-      "collection/colors/light": "enabled",
-      "collection/component/spinner": "disabled"
+      "collection/colors/light": "enabled"
     },
     "group": "mode"
   },
@@ -20,8 +19,7 @@
       "core": "source",
       "collection/styles": "source",
       "collection/component/nav-primary": "enabled",
-      "collection/colors/dark": "enabled",
-      "collection/component/spinner": "disabled"
+      "collection/colors/dark": "enabled"
     },
     "group": "mode"
   }

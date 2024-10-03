@@ -2,6 +2,10 @@
   "color": {
     "base": {
       "bg": {
+        "transparent": {
+          "value": "{core.color.transparent}",
+          "type": "color"
+        },
         "default": {
           "value": "{core.color.neutral.100}",
           "type": "color"
@@ -12,6 +16,10 @@
         },
         "subtle": {
           "value": "{core.color.neutral.80}",
+          "type": "color"
+        },
+        "minimal": {
+          "value": "{core.color.neutral.70}",
           "type": "color"
         }
       },
@@ -32,125 +40,98 @@
       }
     },
     "interactive": {
-      "button": {
-        "fg": {
-          "default": {
-            "value": "{core.color.neutral.10}",
-            "type": "color"
+      "fg": {
+        "selected": {
+          "value": "{core.color.blue.30}",
+          "type": "color"
+        }
+      },
+      "bg": {
+        "hover-brand": {
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "lighten",
+                "value": "{interactive.modifiers.color.hover.high}",
+                "space": "lch"
+              }
+            }
           },
-          "selected": {
-            "value": "{core.color.blue.30}",
-            "type": "color"
-          },
-          "muted": {
-            "value": "{core.color.neutral.40}",
-            "type": "color"
-          }
+          "value": "{color.brand.bg.default}",
+          "type": "color"
         },
-        "bg": {
-          "default": {
-            "value": "{core.color.yellow.50}",
-            "type": "color"
-          },
-          "transparent": {
-            "value": "{core.color.transparent}",
-            "type": "color"
-          },
-          "primary": {
-            "enabled": {
-              "value": "{color.interactive.button.bg.default}",
-              "type": "color"
-            },
-            "hover": {
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "lighten",
-                    "value": "{interactive.modifiers.color.hover.high}",
-                    "space": "lch"
-                  }
-                }
-              },
-              "value": "{color.interactive.button.bg.default}",
-              "type": "color"
-            },
-            "selected": {
-              "value": "{core.color.blue.80}",
-              "type": "color"
-            },
-            "selected-hover": {
-              "value": "{core.color.blue.90}",
-              "type": "color"
-            },
-            "disabled": {
-              "value": "{core.color.neutral.70}",
-              "type": "color"
+        "hover-transparent": {
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "mix",
+                "value": "{interactive.modifiers.color.hover.low}",
+                "space": "lch",
+                "color": "{core.color.neutral.10}"
+              }
             }
           },
-          "secondary": {
-            "enabled": {
-              "value": "{color.interactive.button.bg.transparent}",
-              "type": "color"
-            },
-            "hover": {
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "mix",
-                    "value": "{interactive.modifiers.color.hover.low}",
-                    "space": "lch",
-                    "color": "{core.color.neutral.10}"
-                  }
-                }
-              },
-              "value": "{color.interactive.button.bg.transparent}",
-              "type": "color"
-            },
-            "selected": {
-              "value": "{core.color.blue.80}",
-              "type": "color"
-            },
-            "selected-hover": {
-              "value": "{core.color.blue.90}",
-              "type": "color"
-            },
-            "disabled": {
-              "value": "{color.interactive.button.bg.transparent}",
-              "type": "color"
-            }
-          },
-          "tertiary": {
-            "enabled": {
-              "value": "{color.interactive.button.bg.transparent}",
-              "type": "color"
-            },
-            "hover": {
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "mix",
-                    "value": "{interactive.modifiers.color.hover.low}",
-                    "space": "lch",
-                    "color": "{core.color.neutral.10}"
-                  }
-                }
-              },
-              "value": "{color.interactive.button.bg.transparent}",
-              "type": "color"
-            },
-            "selected": {
-              "value": "{core.color.blue.80}",
-              "type": "color"
-            },
-            "selected-hover": {
-              "value": "{core.color.blue.90}",
-              "type": "color"
-            },
-            "disabled": {
-              "value": "{color.interactive.button.bg.transparent}",
-              "type": "color"
+          "value": "{color.base.bg.transparent}",
+          "type": "color"
+        },
+        "selected": {
+          "value": "{core.color.blue.80}",
+          "type": "color"
+        },
+        "hover-selected": {
+          "value": "{core.color.blue.80}",
+          "type": "color",
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "lighten",
+                "value": "{interactive.modifiers.color.hover.high}",
+                "space": "lch"
+              }
             }
           }
+        }
+      }
+    },
+    "brand": {
+      "bg": {
+        "default": {
+          "value": "{core.color.yellow.50}",
+          "type": "color"
+        }
+      },
+      "fg": {
+        "default": {
+          "value": "{core.color.neutral.20}",
+          "type": "color"
+        }
+      }
+    },
+    "success": {
+      "bg": {
+        "default": {
+          "value": "{core.color.green.40}",
+          "type": "color"
+        }
+      },
+      "fg": {
+        "default": {
+          "value": "{core.color.green.90}",
+          "type": "color"
+        }
+      }
+    },
+    "error": {
+      "bg": {
+        "default": {
+          "value": "{core.color.red.30}",
+          "type": "color"
+        }
+      },
+      "fg": {
+        "default": {
+          "value": "{core.color.red.80}",
+          "type": "color"
         }
       }
     }
