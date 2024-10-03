@@ -1,8 +1,12 @@
 {
-  "color": {
-    "bg": {
-      "value": "{core.color.neutral.0}",
-      "type": "color"
+  "nav-primary": {
+    "color": {
+      "bg": {
+        "bg": {
+          "value": "{core.color.neutral.0}",
+          "type": "color"
+        }
+      }
     }
   },
   "border": {
