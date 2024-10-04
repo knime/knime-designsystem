@@ -1,18 +1,22 @@
 {
-  "color": {
-    "bg": {
-      "value": "{core.color.neutral.0}",
-      "type": "color"
+  "nav-primary": {
+    "color": {
+      "bg": {
+        "bg": {
+          "$type": "color",
+          "$value": "{core.color.neutral.0}"
+        }
+      }
     }
   },
   "border": {
     "brand": {
-      "value": {
+      "$type": "border",
+      "$value": {
         "color": "{core.color.yellow.50}",
         "width": "2",
         "style": "solid"
-      },
-      "type": "border"
+      }
     }
   }
 }
