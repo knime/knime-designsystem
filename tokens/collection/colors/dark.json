@@ -211,10 +211,6 @@
     "interactive": {
       "color": {
         "hover": {
-          "low": {
-            "$type": "other",
-            "$value": "0.40"
-          },
           "medium": {
             "$type": "other",
             "$value": "0.48"
