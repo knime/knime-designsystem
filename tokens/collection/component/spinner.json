@@ -4,8 +4,6 @@
       "base": {
         "bg": {
           "track": {
-            "value": "{color.base.fg.default}",
-            "type": "color",
             "$extensions": {
               "studio.tokens": {
                 "modify": {
@@ -14,19 +12,19 @@
                   "space": "lch"
                 }
               }
-            }
+            },
+            "$type": "color",
+            "$value": "{color.base.fg.default}"
           },
           "progress": {
-            "value": "{color.base.fg.default}",
-            "type": "color"
+            "$type": "color",
+            "$value": "{color.base.fg.default}"
           }
         }
       },
       "brand": {
         "bg": {
           "track": {
-            "value": "{core.color.neutral.20}",
-            "type": "color",
             "$extensions": {
               "studio.tokens": {
                 "modify": {
@@ -35,11 +33,13 @@
                   "space": "lch"
                 }
               }
-            }
+            },
+            "$type": "color",
+            "$value": "{core.color.neutral.20}"
           },
           "progress": {
-            "value": "{core.color.neutral.20}",
-            "type": "color"
+            "$type": "color",
+            "$value": "{core.color.neutral.20}"
           }
         }
       }
