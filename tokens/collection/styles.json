@@ -424,11 +424,11 @@
       },
       "m": {
         "$type": "borderWidth",
-        "$value": "1.13"
+        "$value": "1.25"
       },
       "l": {
         "$type": "borderWidth",
-        "$value": "1.33"
+        "$value": "1.5"
       }
     }
   },
