@@ -116,8 +116,12 @@
           }
         },
         "selectables": {
-          "hover": {
+          "default": {
             "value": "{core.color.blue.60}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{color.interactive.bg.selectables.default}",
             "type": "color",
             "$extensions": {
               "studio.tokens": {
@@ -128,10 +132,6 @@
                 }
               }
             }
-          },
-          "default": {
-            "value": "{core.color.blue.60}",
-            "type": "color"
           }
         }
       }
