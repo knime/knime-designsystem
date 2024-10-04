@@ -52,7 +52,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "{interactive.modifiers.color.hover.high}",
+                  "value": "{modifiers.interactive.color.hover.high}",
                   "space": "lch"
                 }
               }
@@ -75,9 +75,9 @@
               "studio.tokens": {
                 "modify": {
                   "type": "mix",
-                  "value": "{interactive.modifiers.color.hover.low}",
+                  "value": "{modifiers.interactive.color.hover.low}",
                   "space": "lch",
-                  "color": "{core.color.neutral.10}"
+                  "color": "{core.color.neutral.100}"
                 }
               }
             },
@@ -95,9 +95,9 @@
               "studio.tokens": {
                 "modify": {
                   "type": "mix",
-                  "value": "{interactive.modifiers.color.hover.low}",
+                  "value": "{modifiers.interactive.color.hover.low}",
                   "space": "lch",
-                  "color": "{core.color.neutral.10}"
+                  "color": "{core.color.neutral.100}"
                 }
               }
             },
@@ -115,7 +115,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "{interactive.modifiers.color.hover.high}",
+                  "value": "{modifiers.interactive.color.hover.high}",
                   "space": "lch"
                 }
               }
@@ -126,9 +126,11 @@
         }
       },
       "fg": {
-        "default": {
-          "$type": "color",
-          "$value": "{core.color.neutral.10}"
+        "primary": {
+          "default": {
+            "$type": "color",
+            "$value": "{core.color.neutral.10}"
+          }
         },
         "selected": {
           "$type": "color",
@@ -205,45 +207,23 @@
       }
     }
   },
-  "interactive": {
-    "modifiers": {
-      "lightness": {
-        "low": {
-          "$type": "other",
-          "$value": "0.4"
-        },
-        "high": {
-          "$type": "other",
-          "$value": "0.24"
-        }
-      },
+  "modifiers": {
+    "interactive": {
       "color": {
         "hover": {
           "low": {
             "$type": "other",
-            "$value": "{interactive.modifiers.lightness.low}"
+            "$value": "0.40"
+          },
+          "medium": {
+            "$type": "other",
+            "$value": "0.48"
           },
           "high": {
             "$type": "other",
-            "$value": "{interactive.modifiers.lightness.high}"
+            "$value": "0.56"
           }
-        },
-        "pressed": {
-          "$type": "other",
-          "$value": "{interactive.modifiers.lightness.low}"
-        },
-        "focused": {
-          "$type": "other",
-          "$value": "0"
         }
-      },
-      "disabled-alpha": {
-        "$type": "other",
-        "$value": "0.5"
-      },
-      "enabled-alpha": {
-        "$type": "other",
-        "$value": "1"
       }
     }
   },
