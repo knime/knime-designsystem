@@ -136,18 +136,26 @@
         }
       }
     },
-    "system": {
+    "function": {
       "success": {
         "bg": {
           "default": {
             "$type": "color",
-            "$value": "{core.color.green.30}"
+            "$value": "{core.color.green.40}"
+          },
+          "default-inverted": {
+            "$type": "color",
+            "$value": "{core.color.green.90}"
           }
         },
         "fg": {
           "default": {
             "$type": "color",
             "$value": "{core.color.green.90}"
+          },
+          "default-inverted": {
+            "$type": "color",
+            "$value": "{core.color.green.20}"
           }
         }
       },
@@ -156,12 +164,20 @@
           "default": {
             "$type": "color",
             "$value": "{core.color.red.20}"
+          },
+          "default-inverted": {
+            "$type": "color",
+            "$value": "{core.color.red.60}"
           }
         },
         "fg": {
           "default": {
             "$type": "color",
             "$value": "{core.color.red.70}"
+          },
+          "default-inverted": {
+            "$type": "color",
+            "$value": "{core.color.red.10}"
           }
         }
       },
@@ -170,12 +186,20 @@
           "default": {
             "$type": "color",
             "$value": "{core.color.blue.20}"
+          },
+          "default-inverted": {
+            "$type": "color",
+            "$value": "{core.color.blue.60}"
           }
         },
         "fg": {
           "default": {
             "$type": "color",
             "$value": "{core.color.blue.80}"
+          },
+          "default-inverted": {
+            "$type": "color",
+            "$value": "{core.color.blue.10}"
           }
         }
       }

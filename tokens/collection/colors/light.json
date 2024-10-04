@@ -127,18 +127,26 @@
         }
       }
     },
-    "system": {
+    "function": {
       "success": {
         "bg": {
           "default": {
             "$type": "color",
             "$value": "{core.color.green.40}"
+          },
+          "default-inverted": {
+            "$type": "color",
+            "$value": "{core.color.green.90}"
           }
         },
         "fg": {
           "default": {
             "$type": "color",
             "$value": "{core.color.green.90}"
+          },
+          "default-inverted": {
+            "$type": "color",
+            "$value": "{core.color.green.20}"
           }
         }
       },
@@ -147,12 +155,20 @@
           "default": {
             "$type": "color",
             "$value": "{core.color.red.30}"
+          },
+          "default-inverted": {
+            "$type": "color",
+            "$value": "{core.color.red.90}"
           }
         },
         "fg": {
           "default": {
             "$type": "color",
             "$value": "{core.color.red.80}"
+          },
+          "default-inverted": {
+            "$type": "color",
+            "$value": "{core.color.red.20}"
           }
         }
       },
@@ -161,12 +177,20 @@
           "default": {
             "$type": "color",
             "$value": "{core.color.blue.80}"
+          },
+          "default-inverted": {
+            "$type": "color",
+            "$value": "{core.color.blue.30}"
           }
         },
         "fg": {
           "default": {
             "$type": "color",
             "$value": "{core.color.blue.40}"
+          },
+          "default-inverted": {
+            "$type": "color",
+            "$value": "{core.color.blue.80}"
           }
         }
       }
