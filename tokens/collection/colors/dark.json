@@ -32,16 +32,6 @@
       }
     },
     "interactive": {
-      "fg": {
-        "default": {
-          "$type": "color",
-          "$value": "{core.color.neutral.10}"
-        },
-        "selected": {
-          "$type": "color",
-          "$value": "{core.color.blue.20}"
-        }
-      },
       "bg": {
         "primary": {
           "default": {
@@ -133,6 +123,16 @@
             "$type": "color",
             "$value": "{color.interactive.bg.selectables.default}"
           }
+        }
+      },
+      "fg": {
+        "default": {
+          "$type": "color",
+          "$value": "{core.color.neutral.10}"
+        },
+        "selected": {
+          "$type": "color",
+          "$value": "{core.color.blue.20}"
         }
       }
     },
