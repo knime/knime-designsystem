@@ -64,25 +64,6 @@
             "$value": "1728"
           }
         }
-      },
-      "icon": {
-        "s": {
-          "$type": "sizing",
-          "$value": "{core.dimension.75}",
-          "$description": "Smallest icon size"
-        },
-        "m": {
-          "$type": "sizing",
-          "$value": "{core.dimension.100}"
-        },
-        "l": {
-          "$type": "sizing",
-          "$value": "{core.dimension.125}"
-        },
-        "xl": {
-          "$type": "sizing",
-          "$value": "{core.dimension.150}"
-        }
       }
     }
   },
