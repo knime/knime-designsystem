@@ -383,6 +383,10 @@
           "$type": "borderRadius",
           "$value": "{border-radius.base.scale} * {core.border-radius.0}"
         },
+        "xs": {
+          "$type": "borderRadius",
+          "$value": "{border-radius.base.scale} * {core.border-radius.25}"
+        },
         "s": {
           "$type": "borderRadius",
           "$value": "{border-radius.base.scale} * {core.border-radius.50}"
