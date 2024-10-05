@@ -383,10 +383,6 @@
           "$type": "borderRadius",
           "$value": "{border-radius.base.scale} * {core.border-radius.0}"
         },
-        "xs": {
-          "$type": "borderRadius",
-          "$value": "{border-radius.base.scale} * {core.border-radius.25}"
-        },
         "s": {
           "$type": "borderRadius",
           "$value": "{border-radius.base.scale} * {core.border-radius.50}"
@@ -569,6 +565,23 @@
       "small": {
         "$type": "dimension",
         "$value": "{core.dimension.150}"
+      }
+    },
+    "icon": {
+      "s": {
+        "$type": "dimension",
+        "$value": "{core.dimension.125}",
+        "$description": "Smallest icon size used in checkboxes, small icon-buttons, small progress-buttons, small split-buttons and small text-buttons."
+      },
+      "m": {
+        "$type": "dimension",
+        "$value": "{core.dimension.100}",
+        "$description": "Medium icon size used in medium icon-buttons, medium progress-buttons, medium split-buttons and medium text-buttons."
+      },
+      "l": {
+        "$type": "dimension",
+        "$value": "{core.dimension.125}",
+        "$description": "Largest icon size used in large icon-buttons, large progress-buttons, large split-buttons and large text-buttons."
       }
     }
   }

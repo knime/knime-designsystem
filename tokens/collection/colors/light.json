@@ -43,7 +43,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "{modifiers.interactive.color.hover.high}",
+                  "value": "{interactive.modifiers.color.hover.high}",
                   "space": "lch"
                 }
               }
@@ -66,7 +66,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "mix",
-                  "value": "{modifiers.interactive.color.hover.low}",
+                  "value": "{interactive.modifiers.color.hover.low}",
                   "space": "lch",
                   "color": "{core.color.neutral.10}"
                 }
@@ -86,7 +86,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "mix",
-                  "value": "{modifiers.interactive.color.hover.low}",
+                  "value": "{interactive.modifiers.color.hover.low}",
                   "space": "lch",
                   "color": "{core.color.neutral.10}"
                 }
@@ -106,7 +106,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "{modifiers.interactive.color.hover.high}",
+                  "value": "{interactive.modifiers.color.hover.high}",
                   "space": "lch"
                 }
               }
@@ -117,11 +117,9 @@
         }
       },
       "fg": {
-        "primary": {
-          "default": {
-            "$type": "color",
-            "$value": "{core.color.neutral.10}"
-          }
+        "default": {
+          "$type": "color",
+          "$value": "{core.color.neutral.10}"
         },
         "selected": {
           "$type": "color",
@@ -198,22 +196,36 @@
       }
     }
   },
-  "modifiers": {
-    "interactive": {
+  "interactive": {
+    "modifiers": {
+      "lightness": {
+        "low": {
+          "$type": "other",
+          "$value": "0.12"
+        },
+        "high": {
+          "$type": "other",
+          "$value": "0.24"
+        }
+      },
       "color": {
         "hover": {
           "low": {
             "$type": "other",
-            "$value": "0.12"
-          },
-          "medium": {
-            "$type": "other",
-            "$value": "0.24"
+            "$value": "{interactive.modifiers.lightness.low}"
           },
           "high": {
             "$type": "other",
-            "$value": "0.40"
+            "$value": "{interactive.modifiers.lightness.high}"
           }
+        },
+        "pressed": {
+          "$type": "other",
+          "$value": "{interactive.modifiers.lightness.low}"
+        },
+        "focused": {
+          "$type": "other",
+          "$value": "0"
         }
       }
     }
