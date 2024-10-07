@@ -52,7 +52,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "{interactive.modifiers.color.hover.high}",
+                  "value": "{modifiers.color.interactive.hover.high}",
                   "space": "lch"
                 }
               }
@@ -75,9 +75,9 @@
               "studio.tokens": {
                 "modify": {
                   "type": "mix",
-                  "value": "{interactive.modifiers.color.hover.low}",
+                  "value": "{modifiers.color.interactive.hover.high}",
                   "space": "lch",
-                  "color": "{core.color.neutral.10}"
+                  "color": "{core.color.neutral.40}"
                 }
               }
             },
@@ -95,9 +95,9 @@
               "studio.tokens": {
                 "modify": {
                   "type": "mix",
-                  "value": "{interactive.modifiers.color.hover.low}",
+                  "value": "{modifiers.color.interactive.hover.high}",
                   "space": "lch",
-                  "color": "{core.color.neutral.10}"
+                  "color": "{core.color.neutral.40}"
                 }
               }
             },
@@ -115,7 +115,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "{interactive.modifiers.color.hover.high}",
+                  "value": "{modifiers.color.interactive.hover.high}",
                   "space": "lch"
                 }
               }
@@ -205,45 +205,19 @@
       }
     }
   },
-  "interactive": {
-    "modifiers": {
-      "lightness": {
-        "low": {
-          "$type": "other",
-          "$value": "0.4"
-        },
-        "high": {
-          "$type": "other",
-          "$value": "0.24"
-        }
-      },
-      "color": {
+  "modifiers": {
+    "color": {
+      "interactive": {
         "hover": {
           "low": {
             "$type": "other",
-            "$value": "{interactive.modifiers.lightness.low}"
+            "$value": "0.12"
           },
           "high": {
             "$type": "other",
-            "$value": "{interactive.modifiers.lightness.high}"
+            "$value": "0.72"
           }
-        },
-        "pressed": {
-          "$type": "other",
-          "$value": "{interactive.modifiers.lightness.low}"
-        },
-        "focused": {
-          "$type": "other",
-          "$value": "0"
         }
-      },
-      "disabled-alpha": {
-        "$type": "other",
-        "$value": "0.5"
-      },
-      "enabled-alpha": {
-        "$type": "other",
-        "$value": "1"
       }
     }
   },
