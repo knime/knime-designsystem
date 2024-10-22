@@ -249,6 +249,14 @@
           "width": "{border-width.base.s}",
           "style": "solid"
         }
+      },
+      "split-divider": {
+        "$type": "border",
+        "$value": {
+          "color": "{core.color.yellow.40}",
+          "width": "{border-width.base.s}",
+          "style": "solid"
+        }
       }
     },
     "base": {

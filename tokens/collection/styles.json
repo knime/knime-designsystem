@@ -525,31 +525,31 @@
   },
   "dimension": {
     "icon-button": {
-      "large": {
+      "small": {
         "$type": "dimension",
-        "$value": "{core.dimension.225}"
+        "$value": "{core.dimension.150}"
       },
       "medium": {
         "$type": "dimension",
         "$value": "{core.dimension.175}"
       },
-      "small": {
+      "large": {
         "$type": "dimension",
-        "$value": "{core.dimension.150}"
+        "$value": "{core.dimension.225}"
       }
     },
     "text-button": {
-      "large": {
+      "small": {
         "$type": "dimension",
-        "$value": "{core.dimension.225}"
+        "$value": "{core.dimension.150}"
       },
       "medium": {
         "$type": "dimension",
         "$value": "{core.dimension.175}"
       },
-      "small": {
+      "large": {
         "$type": "dimension",
-        "$value": "{core.dimension.150}"
+        "$value": "{core.dimension.225}"
       }
     },
     "icon": {

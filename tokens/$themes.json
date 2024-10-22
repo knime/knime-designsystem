@@ -6,7 +6,6 @@
     "selectedTokenSets": {
       "core": "source",
       "collection/styles": "source",
-      "collection/component/nav-primary": "enabled",
       "collection/colors/light": "enabled"
     },
     "group": "mode"
@@ -18,7 +17,6 @@
     "selectedTokenSets": {
       "core": "source",
       "collection/styles": "source",
-      "collection/component/nav-primary": "enabled",
       "collection/colors/dark": "enabled"
     },
     "group": "mode"

@@ -52,7 +52,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "{modifiers.color.interactive.hover.high}",
+                  "value": "{modifiers.color.interactive.hover.medium}",
                   "space": "lch"
                 }
               }
