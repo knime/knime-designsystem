@@ -401,6 +401,58 @@
             "paragraphSpacing": "{font-size.base.l} * {paragraph-spacing.base.interface}"
           }
         }
+      },
+      "medium": {
+        "s": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font-family.base.interface}",
+            "fontWeight": "{font-weight.base.interface-medium}",
+            "lineHeight": "{line-height.base.interface}",
+            "fontSize": "{font-size.base.s}",
+            "paragraphSpacing": "{font-size.base.s} * {paragraph-spacing.base.interface}"
+          }
+        },
+        "sm": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font-family.base.interface}",
+            "fontWeight": "{font-weight.base.interface-medium}",
+            "lineHeight": "{line-height.base.interface}",
+            "fontSize": "{font-size.base.sm}",
+            "paragraphSpacing": "{font-size.base.sm} * {paragraph-spacing.base.interface}"
+          }
+        },
+        "m": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font-family.base.interface}",
+            "fontWeight": "{font-weight.base.interface-medium}",
+            "lineHeight": "{line-height.base.interface}",
+            "fontSize": "{font-size.base.m}",
+            "paragraphSpacing": "{font-size.base.m} * {paragraph-spacing.base.interface}"
+          }
+        },
+        "ml": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font-family.base.interface}",
+            "fontWeight": "{font-weight.base.interface-medium}",
+            "lineHeight": "{line-height.base.interface}",
+            "fontSize": "{font-size.base.ml}",
+            "paragraphSpacing": "{font-size.base.ml} * {paragraph-spacing.base.interface}"
+          }
+        },
+        "l": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font-family.base.interface}",
+            "fontWeight": "{font-weight.base.interface-medium}",
+            "lineHeight": "{line-height.base.interface}",
+            "fontSize": "{font-size.base.l}",
+            "paragraphSpacing": "{font-size.base.l} * {paragraph-spacing.base.interface}"
+          }
+        }
       }
     }
   },
