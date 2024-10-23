@@ -126,7 +126,7 @@
         }
       },
       "fg": {
-        "default": {
+        "on-primary": {
           "$type": "color",
           "$value": "{core.color.neutral.10}"
         },
@@ -167,17 +167,17 @@
           },
           "default-inverted": {
             "$type": "color",
-            "$value": "{core.color.red.60}"
+            "$value": "{core.color.red.10}"
           }
         },
         "fg": {
           "default": {
             "$type": "color",
-            "$value": "{core.color.red.70}"
+            "$value": "{core.color.red.80}"
           },
           "default-inverted": {
             "$type": "color",
-            "$value": "{core.color.red.10}"
+            "$value": "{core.color.red.60}"
           }
         }
       },
@@ -259,6 +259,14 @@
         "$type": "border",
         "$value": {
           "color": "{core.color.blue.40}",
+          "width": "{border-width.base.s}",
+          "style": "solid"
+        }
+      },
+      "error": {
+        "$type": "border",
+        "$value": {
+          "color": "{core.color.red.60}",
           "width": "{border-width.base.s}",
           "style": "solid"
         }

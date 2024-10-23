@@ -568,6 +568,12 @@
         "$value": "{core.dimension.125}",
         "$description": "Largest icon size used in large icon-buttons, large progress-buttons, large split-buttons and large text-buttons."
       }
+    },
+    "list-item": {
+      "small": {
+        "$type": "dimension",
+        "$value": "{core.dimension.200}"
+      }
     }
   }
 }

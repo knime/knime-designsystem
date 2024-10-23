@@ -36,7 +36,7 @@
         "primary": {
           "default": {
             "$type": "color",
-            "$value": "{core.color.yellow.50}"
+            "$value": "{color.base.fg.default}"
           },
           "hover": {
             "$extensions": {
@@ -113,13 +113,30 @@
             },
             "$type": "color",
             "$value": "{color.interactive.bg.selectables.default}"
+          },
+          "selected-test": {
+            "$type": "color",
+            "$value": "#E5B400"
+          },
+          "selected-hover-test": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "{modifiers.color.interactive.hover.medium}",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{color.interactive.bg.selectables.selected-test}"
           }
         }
       },
       "fg": {
-        "default": {
+        "on-primary": {
           "$type": "color",
-          "$value": "{core.color.neutral.10}"
+          "$value": "{core.color.neutral.90}"
         },
         "selected": {
           "$type": "color",
@@ -250,10 +267,10 @@
           "style": "solid"
         }
       },
-      "split-divider": {
+      "error": {
         "$type": "border",
         "$value": {
-          "color": "{core.color.yellow.40}",
+          "color": "{color.function.error.fg.default-inverted}",
           "width": "{border-width.base.s}",
           "style": "solid"
         }
