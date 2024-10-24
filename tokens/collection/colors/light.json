@@ -113,30 +113,13 @@
             },
             "$type": "color",
             "$value": "{color.interactive.bg.selectables.default}"
-          },
-          "selected-test": {
-            "$type": "color",
-            "$value": "#E5B400"
-          },
-          "selected-hover-test": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "lighten",
-                  "value": "{modifiers.color.interactive.hover.medium}",
-                  "space": "lch"
-                }
-              }
-            },
-            "$type": "color",
-            "$value": "{color.interactive.bg.selectables.selected-test}"
           }
         }
       },
       "fg": {
         "on-primary": {
           "$type": "color",
-          "$value": "{core.color.neutral.90}"
+          "$value": "{core.color.neutral.20}"
         },
         "selected": {
           "$type": "color",
