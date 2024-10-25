@@ -36,7 +36,7 @@
         "primary": {
           "default": {
             "$type": "color",
-            "$value": "{color.base.fg.default}"
+            "$value": "{core.color.yellow.50}"
           },
           "hover": {
             "$extensions": {
