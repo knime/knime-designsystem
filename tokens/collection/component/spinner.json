@@ -1,9 +1,9 @@
 {
   "spinner": {
     "color": {
-      "base": {
+      "track": {
         "bg": {
-          "track": {
+          "default": {
             "$extensions": {
               "studio.tokens": {
                 "modify": {
@@ -15,8 +15,12 @@
             },
             "$type": "color",
             "$value": "{color.base.fg.default}"
-          },
-          "progress": {
+          }
+        }
+      },
+      "progress": {
+        "bg": {
+          "default": {
             "$type": "color",
             "$value": "{color.base.fg.default}"
           }

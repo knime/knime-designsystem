@@ -141,7 +141,7 @@
         "bg": {
           "default": {
             "$type": "color",
-            "$value": "{core.color.green.40}"
+            "$value": "{core.color.green.20}"
           },
           "default-inverted": {
             "$type": "color",

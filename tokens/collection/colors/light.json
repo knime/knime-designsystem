@@ -132,7 +132,7 @@
         "bg": {
           "default": {
             "$type": "color",
-            "$value": "{core.color.green.40}"
+            "$value": "{core.color.green.30}"
           },
           "default-inverted": {
             "$type": "color",
@@ -164,7 +164,7 @@
         "fg": {
           "default": {
             "$type": "color",
-            "$value": "{core.color.red.80}"
+            "$value": "{core.color.red.90}"
           },
           "default-inverted": {
             "$type": "color",
