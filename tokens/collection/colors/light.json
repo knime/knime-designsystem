@@ -218,6 +218,14 @@
   },
   "border": {
     "interactive": {
+      "transparent": {
+        "$type": "border",
+        "$value": {
+          "color": "{core.color.transparent}",
+          "width": "{border-width.base.s}",
+          "style": "solid"
+        }
+      },
       "default": {
         "$type": "border",
         "$value": {
@@ -226,7 +234,7 @@
           "style": "solid"
         }
       },
-      "muted": {
+      "disabled": {
         "$type": "border",
         "$value": {
           "color": "{core.color.neutral.60}",
@@ -242,7 +250,7 @@
           "style": "solid"
         }
       },
-      "selected": {
+      "active": {
         "$type": "border",
         "$value": {
           "color": "{core.color.blue.50}",
