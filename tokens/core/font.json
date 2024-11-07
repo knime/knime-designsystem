@@ -1,0 +1,194 @@
+{
+  "core": {
+    "font-size": {
+      "REM": {
+        "value": "16",
+        "type": "fontSizes",
+        "description": "👀 If you change this core font size, it will change all font-related tokens."
+      },
+      "scaled": {
+        "50": {
+          "value": "{core.font-size.scaled.base} * 50",
+          "type": "fontSizes"
+        },
+        "62": {
+          "value": "{core.font-size.scaled.base} * 62.5",
+          "type": "fontSizes"
+        },
+        "75": {
+          "value": "{core.font-size.scaled.base} * 75",
+          "type": "fontSizes"
+        },
+        "87": {
+          "value": "{core.font-size.scaled.base} * 87.5",
+          "type": "fontSizes"
+        },
+        "100": {
+          "value": "{core.font-size.scaled.base} * 100",
+          "type": "fontSizes"
+        },
+        "125": {
+          "value": "{core.font-size.scaled.base} * 125",
+          "type": "fontSizes"
+        },
+        "150": {
+          "value": "{core.font-size.scaled.base} * 150",
+          "type": "fontSizes"
+        },
+        "175": {
+          "value": "{core.font-size.scaled.base} * 175",
+          "type": "fontSizes"
+        },
+        "200": {
+          "value": "{core.font-size.scaled.base} * 200",
+          "type": "fontSizes"
+        },
+        "225": {
+          "value": "{core.font-size.scaled.base} * 225",
+          "type": "fontSizes"
+        },
+        "250": {
+          "value": "{core.font-size.scaled.base} * 250",
+          "type": "fontSizes"
+        },
+        "275": {
+          "value": "{core.font-size.scaled.base} * 275",
+          "type": "fontSizes"
+        },
+        "300": {
+          "value": "{core.font-size.scaled.base} * 300",
+          "type": "fontSizes"
+        },
+        "325": {
+          "value": "{core.font-size.scaled.base} * 325",
+          "type": "fontSizes"
+        },
+        "350": {
+          "value": "{core.font-size.scaled.base} * 350",
+          "type": "fontSizes"
+        },
+        "375": {
+          "value": "{core.font-size.scaled.base} * 375",
+          "type": "fontSizes"
+        },
+        "400": {
+          "value": "{core.font-size.scaled.base} * 400",
+          "type": "fontSizes"
+        },
+        "450": {
+          "value": "{core.font-size.scaled.base} * 450",
+          "type": "fontSizes"
+        },
+        "500": {
+          "value": "{core.font-size.scaled.base} * 500",
+          "type": "fontSizes"
+        },
+        "550": {
+          "value": "{core.font-size.scaled.base} * 550",
+          "type": "fontSizes"
+        },
+        "600": {
+          "value": "{core.font-size.scaled.base} * 600",
+          "type": "fontSizes"
+        },
+        "base": {
+          "value": "{core.font-size.REM} / 100",
+          "type": "fontSizes"
+        }
+      }
+    },
+    "line-height": {
+      "xs": {
+        "value": "100%",
+        "type": "lineHeights",
+        "description": "headlines"
+      },
+      "s": {
+        "value": "110%",
+        "type": "lineHeights",
+        "description": "headlines."
+      },
+      "m": {
+        "value": "130%",
+        "type": "lineHeights"
+      },
+      "l": {
+        "value": "150%",
+        "type": "lineHeights"
+      }
+    },
+    "paragraph-spacing": {
+      "none": {
+        "value": "0.0",
+        "type": "paragraphSpacing"
+      },
+      "s": {
+        "value": "0.25",
+        "type": "paragraphSpacing"
+      },
+      "m": {
+        "value": "0.5",
+        "type": "paragraphSpacing"
+      },
+      "l": {
+        "value": "0.75",
+        "type": "paragraphSpacing"
+      },
+      "xl": {
+        "value": "1",
+        "type": "paragraphSpacing"
+      }
+    }
+  },
+  "size": {
+    "SCALE": {
+      "value": "16",
+      "type": "sizing",
+      "description": "base-scale of all size-related tokens (size, space, dimension). The default is 1rem = 16(px). If you change it, it will change all size-related tokens. :)"
+    }
+  },
+  "font-family": {
+    "base": {
+      "title": {
+        "value": "Roboto",
+        "type": "fontFamilies"
+      },
+      "body": {
+        "value": "Roboto",
+        "type": "fontFamilies"
+      },
+      "interface": {
+        "value": "Roboto",
+        "type": "fontFamilies"
+      }
+    }
+  },
+  "font-weight": {
+    "base": {
+      "default": {
+        "value": "400",
+        "type": "fontWeights"
+      },
+      "medium": {
+        "value": "500",
+        "type": "fontWeights"
+      },
+      "strong": {
+        "value": "700",
+        "type": "fontWeights"
+      },
+      "interface-default": {
+        "value": "400",
+        "type": "fontWeights"
+      },
+      "interface-medium": {
+        "value": "500",
+        "type": "fontWeights"
+      },
+      "interface-strong": {
+        "value": "700",
+        "type": "fontWeights"
+      }
+    }
+  }
+}

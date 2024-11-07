@@ -1,10 +1,13 @@
 {
   "tokenSetOrder": [
-    "core",
-    "collection/styles",
-    "collection/colors/dark",
-    "collection/colors/light",
-    "collection/component/nav-primary",
-    "collection/component/spinner"
+    "core/color",
+    "core/dimension",
+    "core/font",
+    "theme/color-dark",
+    "theme/color-light",
+    "style/typography",
+    "style/spacing",
+    "style/border",
+    "components/global"
   ]
 }

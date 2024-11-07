@@ -1,0 +1,143 @@
+{
+  "dimension": {
+    "0": {
+      "value": "0",
+      "type": "dimension"
+    },
+    "6": {
+      "value": "{dimension.base} * 6.25",
+      "type": "dimension"
+    },
+    "12": {
+      "value": "{dimension.base} * 12.5",
+      "type": "dimension"
+    },
+    "25": {
+      "value": "{dimension.base} * 25",
+      "type": "dimension"
+    },
+    "37": {
+      "value": "{dimension.base} * 37.5",
+      "type": "dimension"
+    },
+    "50": {
+      "value": "{dimension.base} * 50",
+      "type": "dimension"
+    },
+    "75": {
+      "value": "{dimension.base} * 75",
+      "type": "dimension"
+    },
+    "100": {
+      "value": "{dimension.base} * 100",
+      "type": "dimension"
+    },
+    "125": {
+      "value": "{dimension.base} * 125",
+      "type": "dimension"
+    },
+    "150": {
+      "value": "{dimension.base} * 150",
+      "type": "dimension"
+    },
+    "175": {
+      "value": "{dimension.base} * 175",
+      "type": "dimension"
+    },
+    "200": {
+      "value": "{dimension.base} * 200",
+      "type": "dimension"
+    },
+    "225": {
+      "value": "{dimension.base} * 225",
+      "type": "dimension"
+    },
+    "250": {
+      "value": "{dimension.base} * 250",
+      "type": "dimension"
+    },
+    "300": {
+      "value": "{dimension.base} * 300",
+      "type": "dimension"
+    },
+    "350": {
+      "value": "{dimension.base} * 350",
+      "type": "dimension"
+    },
+    "400": {
+      "value": "{dimension.base} * 400",
+      "type": "dimension"
+    },
+    "450": {
+      "value": "{dimension.base} * 450",
+      "type": "dimension"
+    },
+    "500": {
+      "value": "{dimension.base} * 500",
+      "type": "dimension"
+    },
+    "600": {
+      "value": "{dimension.base} * 600",
+      "type": "dimension"
+    },
+    "700": {
+      "value": "{dimension.base} * 700",
+      "type": "dimension"
+    },
+    "800": {
+      "value": "{dimension.base} * 800",
+      "type": "dimension"
+    },
+    "900": {
+      "value": "{dimension.base} * 900",
+      "type": "dimension"
+    },
+    "1000": {
+      "value": "{dimension.base} * 1000",
+      "type": "dimension"
+    },
+    "1100": {
+      "value": "{dimension.base} * 1100",
+      "type": "dimension"
+    },
+    "1200": {
+      "value": "{dimension.base} * 1200",
+      "type": "dimension"
+    },
+    "1300": {
+      "value": "{dimension.base} * 1300",
+      "type": "dimension"
+    },
+    "1400": {
+      "value": "{dimension.base} * 1400",
+      "type": "dimension"
+    },
+    "1500": {
+      "value": "{dimension.base} * 1500",
+      "type": "dimension"
+    },
+    "1600": {
+      "value": "{dimension.base} * 1600",
+      "type": "dimension"
+    },
+    "2000": {
+      "value": "{dimension.base} * 2000",
+      "type": "dimension"
+    },
+    "2400": {
+      "value": "{dimension.base} * 2400",
+      "type": "dimension"
+    },
+    "base": {
+      "value": "{size.SCALE} / 100",
+      "type": "dimension"
+    }
+  },
+  "size": {
+    "SCALE": {
+      "value": "16",
+      "type": "sizing",
+      "description": "base-scale of all size-related tokens (size, space, dimension). The default is 1rem = 16(px). If you change it, it will change all size-related tokens. :)"
+    }
+  }
+}

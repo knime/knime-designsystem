@@ -1,0 +1,140 @@
+{
+  "size": {
+    "base": {
+      "web": {
+        "breakpoint": {
+          "s": {
+            "value": "576",
+            "type": "sizing"
+          },
+          "m": {
+            "value": "768",
+            "type": "sizing"
+          },
+          "l": {
+            "value": "1024",
+            "type": "sizing"
+          },
+          "xl": {
+            "value": "1200",
+            "type": "sizing"
+          },
+          "2xl": {
+            "value": "1400",
+            "type": "sizing"
+          },
+          "3xl": {
+            "value": "1728",
+            "type": "sizing"
+          }
+        }
+      }
+    }
+  },
+  "spacing": {
+    "base": {
+      "page": {
+        "margin": {
+          "none": {
+            "value": "{dimension.0}",
+            "type": "spacing",
+            "description": "This is basically your page margin (in breakpoints-speak)."
+          },
+          "s": {
+            "value": "{dimension.100}",
+            "type": "spacing"
+          },
+          "m": {
+            "value": "{dimension.150}",
+            "type": "spacing"
+          },
+          "l": {
+            "value": "{dimension.200}",
+            "type": "spacing"
+          },
+          "xl": {
+            "value": "{dimension.300}",
+            "type": "spacing"
+          }
+        },
+        "padding": {
+          "none": {
+            "value": "{dimension.0}",
+            "type": "spacing",
+            "description": "This is basically your page gutter (in breakpoints-speak)."
+          },
+          "xxs": {
+            "value": "{dimension.25}",
+            "type": "spacing"
+          },
+          "xs": {
+            "value": "{dimension.50}",
+            "type": "spacing"
+          },
+          "s": {
+            "value": "{dimension.100}",
+            "type": "spacing"
+          },
+          "m": {
+            "value": "{dimension.200}",
+            "type": "spacing"
+          },
+          "l": {
+            "value": "{dimension.400}",
+            "type": "spacing"
+          },
+          "xl": {
+            "value": "{dimension.800}",
+            "type": "spacing"
+          },
+          "2xl": {
+            "value": "{dimension.1600}",
+            "type": "spacing"
+          }
+        }
+      },
+      "container": {
+        "none": {
+          "value": "{dimension.0}",
+          "type": "spacing"
+        },
+        "xxs": {
+          "value": "{dimension.12}",
+          "type": "spacing"
+        },
+        "xs": {
+          "value": "{dimension.25}",
+          "type": "spacing"
+        },
+        "s": {
+          "value": "{dimension.50}",
+          "type": "spacing"
+        },
+        "m": {
+          "value": "{dimension.75}",
+          "type": "spacing"
+        },
+        "l": {
+          "value": "{dimension.100}",
+          "type": "spacing"
+        },
+        "xl": {
+          "value": "{dimension.125}",
+          "type": "spacing"
+        },
+        "2xl": {
+          "value": "{dimension.150}",
+          "type": "spacing"
+        },
+        "3xl": {
+          "value": "{dimension.200}",
+          "type": "spacing"
+        },
+        "auto": {
+          "value": "AUTO",
+          "type": "spacing"
+        }
+      }
+    }
+  }
+}

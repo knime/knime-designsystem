@@ -2,27 +2,33 @@
   {
     "id": "f390b93e59ebb79800fc3be6c3726d17a4727d13",
     "name": "light",
-    "$figmaStyleReferences": {},
+    "group": "mode",
     "selectedTokenSets": {
-      "core": "source",
-      "collection/styles": "source",
-      "collection/colors/light": "enabled",
-      "collection/component/spinner": "enabled",
-      "collection/component/nav-primary": "enabled"
+      "core/color": "source",
+      "core/dimension": "source",
+      "core/font": "source",
+      "style/border": "enabled",
+      "style/typography": "enabled",
+      "style/spacing": "enabled",
+      "theme/color-light": "enabled",
+      "components/global": "enabled"
     },
-    "group": "mode"
+    "$figmaStyleReferences": {}
   },
   {
     "id": "6991ad03613f98af6f4a929aae70d7d4a9567ff0",
     "name": "dark",
-    "$figmaStyleReferences": {},
+    "group": "mode",
     "selectedTokenSets": {
-      "core": "source",
-      "collection/styles": "source",
-      "collection/colors/dark": "enabled",
-      "collection/component/nav-primary": "enabled",
-      "collection/component/spinner": "enabled"
+      "core/color": "source",
+      "theme/color-dark": "enabled",
+      "core/dimension": "source",
+      "core/font": "source",
+      "style/border": "enabled",
+      "style/typography": "enabled",
+      "style/spacing": "enabled",
+      "components/global": "enabled"
     },
-    "group": "mode"
+    "$figmaStyleReferences": {}
   }
 ]
