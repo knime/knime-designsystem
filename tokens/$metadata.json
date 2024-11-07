@@ -5,9 +5,9 @@
     "core/font",
     "theme/color-dark",
     "theme/color-light",
-    "style/typography",
-    "style/spacing",
     "style/border",
+    "style/spacing",
+    "style/typography",
     "components/global"
   ]
 }
