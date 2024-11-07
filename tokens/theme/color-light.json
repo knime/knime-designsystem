@@ -49,6 +49,10 @@
         "type": "color",
         "description": "color for elements that are placed on interactive transparent background colors - in our system: secondary and tertiary elements"
       },
+      "brand": {
+        "value": "{colors.yellow.50}",
+        "type": "color"
+      },
       "state": {
         "disable": {
           "value": "{colors.neutral.70}",
