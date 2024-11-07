@@ -49,11 +49,17 @@
         "type": "color",
         "description": "color for elements that are placed on interactive transparent background colors - in our system: secondary and tertiary elements"
       },
-      "brand": {
-        "value": "{colors.yellow.50}",
-        "type": "color"
-      },
       "state": {
+        "hover": {
+          "value": "{colors.neutral.50}",
+          "type": "color",
+          "description": "Backgrounf color for state overlay on a transparent hovered element"
+        },
+        "onHover": {
+          "value": "{color.selectable.primary}",
+          "type": "color",
+          "description": "Backgrounf color for state overlay on a transparent hovered element"
+        },
         "disable": {
           "value": "{colors.neutral.70}",
           "type": "color",
@@ -63,35 +69,6 @@
           "value": "{color.fg.muted}",
           "type": "color",
           "description": "color for elements that are palced on disabled background color"
-        },
-        "hoverPrimary": {
-          "value": "{color.selectable.brand}",
-          "type": "color",
-          "description": "Background color for state overlay of a primary hovered element",
-          "$extensions": {
-            "studio.tokens": {
-              "modify": {
-                "type": "lighten",
-                "value": "0.24",
-                "space": "lch"
-              }
-            }
-          }
-        },
-        "hoverTransparent": {
-          "value": "{color.selectable.transparent}",
-          "type": "color",
-          "description": "Backgrounf color for state overlay on a transparent hovered element",
-          "$extensions": {
-            "studio.tokens": {
-              "modify": {
-                "type": "mix",
-                "value": "0.08",
-                "space": "lch",
-                "color": "{colors.neutral.10} "
-              }
-            }
-          }
         },
         "select": {
           "value": "{colors.blue.80}",
@@ -182,6 +159,12 @@
           "value": "{colors.red.20}",
           "type": "color",
           "description": "foreground color for elements placed on warning purpose background"
+        }
+      },
+      "brand": {
+        "default": {
+          "value": "{colors.yellow.50}",
+          "type": "color"
         }
       }
     },

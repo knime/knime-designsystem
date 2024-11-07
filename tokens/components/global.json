@@ -24,7 +24,7 @@
         "type": "color"
       },
       "bg-hover": {
-        "value": "{color.selectable.state.hoverTransparent}",
+        "value": "{color.selectable.state.hover}",
         "type": "color"
       },
       "fg": {
@@ -38,7 +38,7 @@
         "type": "color"
       },
       "bg-hover": {
-        "value": "{color.selectable.state.hoverTransparent}",
+        "value": "{color.selectable.state.hover}",
         "type": "color"
       },
       "fg": {

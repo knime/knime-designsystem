@@ -63,6 +63,16 @@
         "description": "Color that indicates interactions"
       },
       "state": {
+        "hover": {
+          "value": "{colors.neutral.40}",
+          "type": "color",
+          "description": "Backgrounf color for state overlay on a transparent hovered element"
+        },
+        "onHover": {
+          "value": "{colors.neutral.20}",
+          "type": "color",
+          "description": "Backgrounf color for state overlay on a transparent hovered element"
+        },
         "disable": {
           "value": "{colors.neutral.30}",
           "type": "color",
@@ -72,35 +82,6 @@
           "value": "{color.fg.muted}",
           "type": "color",
           "description": "color for elements that are palced on disabled background color"
-        },
-        "hoverPrimary": {
-          "value": "{color.selectable.brand}",
-          "type": "color",
-          "description": "Background color for state overlay of a primary hovered element",
-          "$extensions": {
-            "studio.tokens": {
-              "modify": {
-                "type": "lighten",
-                "value": "0.24",
-                "space": "lch"
-              }
-            }
-          }
-        },
-        "hoverTransparent": {
-          "value": "{color.selectable.transparent}",
-          "type": "color",
-          "description": "Backgrounf color for state overlay on a transparent hovered element",
-          "$extensions": {
-            "studio.tokens": {
-              "modify": {
-                "type": "mix",
-                "value": "0.72",
-                "space": "lch",
-                "color": "{colors.neutral.40} "
-              }
-            }
-          }
         },
         "select": {
           "value": "{colors.blue.60}",
