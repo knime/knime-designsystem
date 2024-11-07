@@ -30,21 +30,11 @@
     },
     "selectable": {
       "primary": {
-        "value": "{colors.yellow.50}",
-        "type": "color",
-        "description": "Color that indicates interactions",
-        "$extensions": {
-          "studio.tokens": {
-            "modify": {
-              "type": "darken",
-              "value": ".012",
-              "space": "lch"
-            }
-          }
-        }
+        "value": "{colors.neutral.30}",
+        "type": "color"
       },
       "onPrimary": {
-        "value": "{colors.neutral.10}",
+        "value": "{colors.neutral.90}",
         "type": "color",
         "description": "color for elements that are placed on interactive background colors"
       },
@@ -58,6 +48,20 @@
         "type": "color",
         "description": "color for elements that are placed on interactive transparent background colors - in our system: secondary and tertiary elements"
       },
+      "brand": {
+        "value": "{colors.yellow.50}",
+        "type": "color",
+        "$extensions": {
+          "studio.tokens": {
+            "modify": {
+              "type": "darken",
+              "value": ".012",
+              "space": "lch"
+            }
+          }
+        },
+        "description": "Color that indicates interactions"
+      },
       "state": {
         "disable": {
           "value": "{colors.neutral.30}",
@@ -70,7 +74,7 @@
           "description": "color for elements that are palced on disabled background color"
         },
         "hoverPrimary": {
-          "value": "{color.selectable.primary}",
+          "value": "{color.selectable.brand}",
           "type": "color",
           "description": "Background color for state overlay of a primary hovered element",
           "$extensions": {

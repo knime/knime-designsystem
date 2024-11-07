@@ -30,12 +30,12 @@
     },
     "selectable": {
       "primary": {
-        "value": "{colors.yellow.50}",
+        "value": "{colors.neutral.20}",
         "type": "color",
         "description": "Color that indicates interactions"
       },
       "onPrimary": {
-        "value": "{colors.neutral.20}",
+        "value": "{colors.neutral.90}",
         "type": "color",
         "description": "color for elements that are placed on interactive background colors"
       },
@@ -65,7 +65,7 @@
           "description": "color for elements that are palced on disabled background color"
         },
         "hoverPrimary": {
-          "value": "{color.selectable.primary}",
+          "value": "{color.selectable.brand}",
           "type": "color",
           "description": "Background color for state overlay of a primary hovered element",
           "$extensions": {

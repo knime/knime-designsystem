@@ -2,7 +2,7 @@
   "button": {
     "primary": {
       "bg": {
-        "value": "{color.selectable.primary}",
+        "value": "{color.selectable.brand}",
         "type": "color"
       },
       "bg-hover": {
