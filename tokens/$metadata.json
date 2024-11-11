@@ -4,7 +4,7 @@
     "core/dimension",
     "core/font",
     "style/border",
-    "style/spacing",
+    "style/size",
     "style/typography",
     "theme/color-dark",
     "theme/color-light",

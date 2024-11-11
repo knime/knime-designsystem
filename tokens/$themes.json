@@ -9,9 +9,9 @@
       "core/font": "source",
       "style/border": "enabled",
       "style/typography": "enabled",
-      "style/spacing": "enabled",
       "theme/color-light": "enabled",
-      "components/global": "enabled"
+      "components/global": "enabled",
+      "style/size": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -26,8 +26,8 @@
       "core/font": "source",
       "style/border": "enabled",
       "style/typography": "enabled",
-      "style/spacing": "enabled",
-      "components/global": "enabled"
+      "components/global": "enabled",
+      "style/size": "enabled"
     },
     "$figmaStyleReferences": {}
   }
