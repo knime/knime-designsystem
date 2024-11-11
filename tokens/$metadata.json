@@ -1,13 +1,13 @@
 {
   "tokenSetOrder": [
+    "components/global",
     "core/color",
     "core/dimension",
     "core/font",
-    "theme/color-dark",
-    "theme/color-light",
     "style/border",
     "style/spacing",
     "style/typography",
-    "components/global"
+    "theme/color-dark",
+    "theme/color-light"
   ]
 }

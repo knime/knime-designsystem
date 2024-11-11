@@ -119,15 +119,7 @@
       },
       "subtle": {
         "value": {
-          "color": "{color.border.subtle}",
-          "width": "{border-width.base.s}",
-          "style": "solid"
-        },
-        "type": "border"
-      },
-      "muted": {
-        "value": {
-          "color": "{color.border.muted}",
+          "color": "{colors.neutral.40}",
           "width": "{border-width.base.s}",
           "style": "solid"
         },

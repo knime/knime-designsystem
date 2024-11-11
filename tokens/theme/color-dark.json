@@ -188,6 +188,10 @@
         "value": "{colors.neutral.30}",
         "type": "color"
       },
+      "muted": {
+        "value": "{colors.neutral.40}",
+        "type": "color"
+      },
       "focused": {
         "value": "{color.selectable.state.select}",
         "type": "color"

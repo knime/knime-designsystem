@@ -181,10 +181,6 @@
         "value": "{colors.neutral.60}",
         "type": "color"
       },
-      "muted": {
-        "value": "{colors.neutral.80}",
-        "type": "color"
-      },
       "focused": {
         "value": "{colors.blue.60}",
         "type": "color"
