@@ -28,7 +28,7 @@
         "type": "color"
       }
     },
-    "selectable": {
+    "action": {
       "primary": {
         "value": "{colors.neutral.30}",
         "type": "color"
@@ -44,7 +44,7 @@
         "description": "Background color for interactive secondary and tertiary elements"
       },
       "onTransparent": {
-        "value": "{color.fg.default}",
+        "value": "{color.base.foreground.default}",
         "type": "color",
         "description": "color for elements that are placed on interactive transparent background colors - in our system: secondary and tertiary elements"
       },
@@ -79,7 +79,7 @@
           "description": "background color for disabled elements"
         },
         "onDisable": {
-          "value": "{color.fg.muted}",
+          "value": "{color.base.foreground.muted}",
           "type": "color",
           "description": "color for elements that are palced on disabled background color"
         },
@@ -94,7 +94,7 @@
           "description": "Foreground color for selected elements"
         },
         "hoverSelect": {
-          "value": "{color.selectable.state.select}",
+          "value": "{color.action.filled.selected}",
           "type": "color",
           "description": "Backgrounf color for state overlay on a select hovered element",
           "$extensions": {
@@ -193,7 +193,7 @@
         "type": "color"
       },
       "focused": {
-        "value": "{color.selectable.state.select}",
+        "value": "{color.action.filled.selected}",
         "type": "color"
       },
       "active": {

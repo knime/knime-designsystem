@@ -2,7 +2,7 @@
   "button": {
     "primary": {
       "bg": {
-        "value": "{color.selectable.brand}",
+        "value": "{color.action.brand}",
         "type": "color"
       },
       "bg-hover": {
@@ -10,7 +10,7 @@
         "type": "color"
       },
       "fg": {
-        "value": "{color.selectable.onPrimary}",
+        "value": "{color.action.filled.onEnabled}",
         "type": "color"
       }
     },
@@ -20,53 +20,53 @@
     },
     "secondary": {
       "bg": {
-        "value": "{color.selectable.transparent}",
+        "value": "{color.action.transparent.enabled}",
         "type": "color"
       },
       "bg-hover": {
-        "value": "{color.selectable.state.hover}",
+        "value": "{color.action.filled.hover}",
         "type": "color"
       },
       "fg": {
-        "value": "{color.selectable.onTransparent}",
+        "value": "{color.action.transparent.onEnabled}",
         "type": "color"
       }
     },
     "tertiary": {
       "bg": {
-        "value": "{color.selectable.transparent}",
+        "value": "{color.action.transparent.enabled}",
         "type": "color"
       },
       "bg-hover": {
-        "value": "{color.selectable.state.hover}",
+        "value": "{color.action.filled.hover}",
         "type": "color"
       },
       "fg": {
-        "value": "{color.selectable.onTransparent}",
+        "value": "{color.action.transparent.onEnabled}",
         "type": "color"
       }
     },
     "selected": {
       "bg": {
-        "value": "{color.selectable.state.select}",
+        "value": "{color.action.filled.selected}",
         "type": "color"
       },
       "bg-hover": {
-        "value": "{color.selectable.state.hoverSelect}",
+        "value": "{color.action.filled.hoverSelected}",
         "type": "color"
       },
       "fg": {
-        "value": "{color.selectable.state.onSelect}",
+        "value": "{color.action.filled.onSelect}",
         "type": "color"
       }
     },
     "disable": {
       "bg": {
-        "value": "{color.selectable.state.disable}",
+        "value": "{color.action.filled.disabled}",
         "type": "color"
       },
       "fg": {
-        "value": "{color.selectable.state.onDisable}",
+        "value": "{color.action.filled.onDisabled}",
         "type": "color"
       }
     }

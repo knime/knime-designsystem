@@ -1,76 +1,68 @@
 {
   "color": {
-    "bg": {
-      "default": {
-        "value": "{colors.neutral.100}",
-        "type": "color"
+    "base": {
+      "background": {
+        "default": {
+          "value": "{colors.neutral.100}",
+          "type": "color"
+        },
+        "muted": {
+          "value": "{colors.neutral.90}",
+          "type": "color"
+        },
+        "subtle": {
+          "value": "{colors.neutral.80}",
+          "type": "color"
+        }
       },
-      "muted": {
-        "value": "{colors.neutral.90}",
-        "type": "color"
-      },
-      "subtle": {
-        "value": "{colors.neutral.80}",
-        "type": "color"
+      "foreground": {
+        "default": {
+          "value": "{colors.neutral.10}",
+          "type": "color"
+        },
+        "muted": {
+          "value": "{colors.neutral.40}",
+          "type": "color"
+        },
+        "subtle": {
+          "value": "{colors.neutral.60}",
+          "type": "color"
+        }
       }
     },
-    "fg": {
-      "default": {
-        "value": "{colors.neutral.10}",
-        "type": "color"
-      },
-      "muted": {
-        "value": "{colors.neutral.40}",
-        "type": "color"
-      },
-      "subtle": {
-        "value": "{colors.neutral.60}",
-        "type": "color"
-      }
-    },
-    "selectable": {
-      "primary": {
-        "value": "{colors.neutral.20}",
-        "type": "color",
-        "description": "Color that indicates interactions"
-      },
-      "onPrimary": {
-        "value": "{colors.neutral.90}",
-        "type": "color",
-        "description": "color for elements that are placed on interactive background colors"
-      },
-      "transparent": {
-        "value": "{colors.transparent}",
-        "type": "color",
-        "description": "Background color for interactive secondary and tertiary elements"
-      },
-      "onTransparent": {
-        "value": "{color.fg.default}",
-        "type": "color",
-        "description": "color for elements that are placed on interactive transparent background colors - in our system: secondary and tertiary elements"
-      },
-      "state": {
+    "action": {
+      "filled": {
+        "enabled": {
+          "value": "{colors.neutral.20}",
+          "type": "color",
+          "description": "Color that indicates interactions"
+        },
+        "onEnabled": {
+          "value": "{colors.neutral.90}",
+          "type": "color",
+          "description": "color for elements that are placed on interactive background colors"
+        },
         "hover": {
-          "value": "{colors.neutral.50}",
+          "value": "{colors.neutral.30}",
           "type": "color",
           "description": "Backgrounf color for state overlay on a transparent hovered element"
         },
         "onHover": {
-          "value": "{color.selectable.primary}",
+          "value": "{colors.neutral.90}",
           "type": "color",
           "description": "Backgrounf color for state overlay on a transparent hovered element"
         },
-        "disable": {
+        "disabled": {
           "value": "{colors.neutral.70}",
           "type": "color",
           "description": "background color for disabled elements"
         },
-        "onDisable": {
-          "value": "{color.fg.muted}",
+        "onDisabled": {
+          "value": "{color.base.foreground.muted}",
           "type": "color",
           "description": "color for elements that are palced on disabled background color"
         },
-        "select": {
+        "selected": {
           "value": "{colors.blue.80}",
           "type": "color",
           "description": "background color for selected elements"
@@ -80,10 +72,9 @@
           "type": "color",
           "description": "Foreground color for selected elements"
         },
-        "hoverSelect": {
-          "value": "{color.selectable.state.select}",
+        "hoverSelected": {
+          "value": "{color.action.filled.selected}",
           "type": "color",
-          "description": "Backgrounf color for state overlay on a select hovered element",
           "$extensions": {
             "studio.tokens": {
               "modify": {
@@ -92,7 +83,102 @@
                 "space": "lch"
               }
             }
+          },
+          "description": "Backgrounf color for state overlay on a select hovered element"
+        },
+        "pressed": {
+          "value": "{colors.blue.10}",
+          "type": "color",
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "lighten",
+                "value": "0.24",
+                "space": "lch",
+                "color": "{colors.yellow.50}"
+              }
+            }
           }
+        },
+        "onPressed": {
+          "value": "{colors.neutral.90}",
+          "type": "color",
+          "description": "color for elements that are placed on interactive background colors"
+        }
+      },
+      "transparent": {
+        "onEnabled": {
+          "value": "{color.base.foreground.default}",
+          "type": "color",
+          "description": "color for elements that are placed on interactive transparent background colors - in our system: secondary and tertiary elements"
+        },
+        "enabled": {
+          "value": "{colors.transparent}",
+          "type": "color",
+          "description": "Background color for interactive secondary and tertiary elements"
+        },
+        "hover": {
+          "value": "{colors.neutral.70}",
+          "type": "color",
+          "description": "Backgrounf color for state overlay on a transparent hovered element"
+        },
+        "onHover": {
+          "value": "{colors.neutral.90}",
+          "type": "color",
+          "description": "Backgrounf color for state overlay on a transparent hovered element"
+        },
+        "disabled": {
+          "value": "{color.action.transparent}",
+          "type": "color",
+          "description": "background color for disabled elements"
+        },
+        "onDisabled": {
+          "value": "{color.base.foreground.muted}",
+          "type": "color",
+          "description": "color for elements that are palced on disabled background color"
+        },
+        "selected": {
+          "value": "{colors.blue.80}",
+          "type": "color",
+          "description": "background color for selected elements"
+        },
+        "onSelected": {
+          "value": "{colors.blue.30}",
+          "type": "color",
+          "description": "Foreground color for selected elements"
+        },
+        "hoverSelected": {
+          "value": "{color.action.filled.selected}",
+          "type": "color",
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "lighten",
+                "value": "0.64",
+                "space": "lch"
+              }
+            }
+          },
+          "description": "Backgrounf color for state overlay on a select hovered element"
+        },
+        "pressed": {
+          "value": "{colors.blue.10}",
+          "type": "color",
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "lighten",
+                "value": "0.72",
+                "space": "lch",
+                "color": "{colors.yellow.50}"
+              }
+            }
+          }
+        },
+        "onPressed": {
+          "value": "{colors.neutral.20}",
+          "type": "color",
+          "description": "color for elements that are placed on interactive background colors"
         }
       }
     },
@@ -186,7 +272,7 @@
         "type": "color"
       },
       "focused": {
-        "value": "{colors.blue.60}",
+        "value": "{colors.blue.50}",
         "type": "color"
       },
       "active": {
@@ -195,6 +281,10 @@
       },
       "error": {
         "value": "{color.purpose.inverted.onWarning}",
+        "type": "color"
+      },
+      "success": {
+        "value": "{color.purpose.inverted.onSuccess}",
         "type": "color"
       }
     }
