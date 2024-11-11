@@ -86,7 +86,7 @@
           },
           "description": "Backgrounf color for state overlay on a select hovered element"
         },
-        "pressed": {
+        "active": {
           "value": "{colors.blue.10}",
           "type": "color",
           "$extensions": {
@@ -100,7 +100,7 @@
             }
           }
         },
-        "onPressed": {
+        "onActive": {
           "value": "{colors.neutral.90}",
           "type": "color",
           "description": "color for elements that are placed on interactive background colors"
@@ -161,7 +161,7 @@
           },
           "description": "Backgrounf color for state overlay on a select hovered element"
         },
-        "pressed": {
+        "active": {
           "value": "{colors.blue.10}",
           "type": "color",
           "$extensions": {
@@ -175,7 +175,7 @@
             }
           }
         },
-        "onPressed": {
+        "onActive": {
           "value": "{colors.neutral.20}",
           "type": "color",
           "description": "color for elements that are placed on interactive background colors"
