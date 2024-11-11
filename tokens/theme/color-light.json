@@ -58,7 +58,7 @@
           "description": "background color for disabled elements"
         },
         "onDisabled": {
-          "value": "{color.base.foreground.muted}",
+          "value": "{colors.neutral.40}",
           "type": "color",
           "description": "color for elements that are palced on disabled background color"
         },
@@ -107,15 +107,15 @@
         }
       },
       "transparent": {
-        "onEnabled": {
-          "value": "{color.base.foreground.default}",
-          "type": "color",
-          "description": "color for elements that are placed on interactive transparent background colors - in our system: secondary and tertiary elements"
-        },
         "enabled": {
           "value": "{colors.transparent}",
           "type": "color",
           "description": "Background color for interactive secondary and tertiary elements"
+        },
+        "onEnabled": {
+          "value": "{color.base.foreground.default}",
+          "type": "color",
+          "description": "color for elements that are placed on interactive transparent background colors - in our system: secondary and tertiary elements"
         },
         "hover": {
           "value": "{colors.neutral.70}",
@@ -123,7 +123,7 @@
           "description": "Backgrounf color for state overlay on a transparent hovered element"
         },
         "onHover": {
-          "value": "{colors.neutral.90}",
+          "value": "{colors.neutral.20}",
           "type": "color",
           "description": "Backgrounf color for state overlay on a transparent hovered element"
         },
@@ -133,7 +133,7 @@
           "description": "background color for disabled elements"
         },
         "onDisabled": {
-          "value": "{color.base.foreground.muted}",
+          "value": "{colors.neutral.50}",
           "type": "color",
           "description": "color for elements that are palced on disabled background color"
         },
