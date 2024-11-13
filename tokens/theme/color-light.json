@@ -78,7 +78,7 @@
         },
         "onActive": {
           "$type": "color",
-          "$value": "{colors.neutral.90}"
+          "$value": "{colors.neutral.20}"
         }
       },
       "selected": {

@@ -48,7 +48,7 @@
         },
         "onHover": {
           "$type": "color",
-          "$value": "{colors.neutral.20}",
+          "$value": "{colors.neutral.80}",
           "$description": "Backgrounf color for state overlay on a transparent hovered element"
         },
         "disabled": {
@@ -108,7 +108,7 @@
         },
         "onDisabled": {
           "$type": "color",
-          "$value": "{colors.neutral.40}",
+          "$value": "{colors.neutral.50}",
           "$description": "Backgrounf color for state overlay on a transparent hovered element"
         },
         "active": {
