@@ -62,30 +62,6 @@
           "type": "color",
           "description": "color for elements that are palced on disabled background color"
         },
-        "selected": {
-          "value": "{colors.blue.80}",
-          "type": "color",
-          "description": "background color for selected elements"
-        },
-        "onSelect": {
-          "value": "{colors.blue.30}",
-          "type": "color",
-          "description": "Foreground color for selected elements"
-        },
-        "hoverSelected": {
-          "value": "{color.action.filled.selected}",
-          "type": "color",
-          "$extensions": {
-            "studio.tokens": {
-              "modify": {
-                "type": "lighten",
-                "value": "0.64",
-                "space": "lch"
-              }
-            }
-          },
-          "description": "Backgrounf color for state overlay on a select hovered element"
-        },
         "active": {
           "value": "{colors.blue.10}",
           "type": "color",
@@ -102,8 +78,38 @@
         },
         "onActive": {
           "value": "{colors.neutral.90}",
+          "type": "color"
+        }
+      },
+      "selected": {
+        "enabled": {
+          "value": "{colors.blue.80}",
           "type": "color",
-          "description": "color for elements that are placed on interactive background colors"
+          "description": "background color for selected elements"
+        },
+        "onEnabled": {
+          "value": "{colors.blue.30}",
+          "type": "color",
+          "description": "Foreground color for selected elements"
+        },
+        "hover": {
+          "value": "{color.action.selected.enabled}",
+          "type": "color",
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "lighten",
+                "value": "0.64",
+                "space": "lch"
+              }
+            }
+          },
+          "description": "Backgrounf color for state overlay on a select hovered element"
+        },
+        "onHover": {
+          "value": "{colors.blue.30}",
+          "type": "color",
+          "description": "Foreground color for selected elements"
         }
       },
       "transparent": {
@@ -128,7 +134,7 @@
           "description": "Backgrounf color for state overlay on a transparent hovered element"
         },
         "disabled": {
-          "value": "{color.action.transparent}",
+          "value": "{color.action.transparent.enabled}",
           "type": "color",
           "description": "background color for disabled elements"
         },
@@ -136,30 +142,6 @@
           "value": "{colors.neutral.50}",
           "type": "color",
           "description": "color for elements that are palced on disabled background color"
-        },
-        "selected": {
-          "value": "{colors.blue.80}",
-          "type": "color",
-          "description": "background color for selected elements"
-        },
-        "onSelected": {
-          "value": "{colors.blue.30}",
-          "type": "color",
-          "description": "Foreground color for selected elements"
-        },
-        "hoverSelected": {
-          "value": "{color.action.filled.selected}",
-          "type": "color",
-          "$extensions": {
-            "studio.tokens": {
-              "modify": {
-                "type": "lighten",
-                "value": "0.64",
-                "space": "lch"
-              }
-            }
-          },
-          "description": "Backgrounf color for state overlay on a select hovered element"
         },
         "active": {
           "value": "{colors.blue.10}",

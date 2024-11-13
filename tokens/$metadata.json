@@ -6,8 +6,8 @@
     "style/border",
     "style/size",
     "style/typography",
-    "theme/color-dark",
     "theme/color-light",
+    "theme/color-dark",
     "components/global"
   ]
 }

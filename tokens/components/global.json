@@ -2,7 +2,7 @@
   "button": {
     "primary": {
       "bg": {
-        "value": "{color.action.brand}",
+        "value": "{color.purpose.brand.default}",
         "type": "color"
       },
       "bg-hover": {
@@ -48,15 +48,15 @@
     },
     "selected": {
       "bg": {
-        "value": "{color.action.filled.selected}",
+        "value": "{color.action.selected.enabled}",
         "type": "color"
       },
       "bg-hover": {
-        "value": "{color.action.filled.hoverSelected}",
+        "value": "{color.action.selected.hover}",
         "type": "color"
       },
       "fg": {
-        "value": "{color.action.filled.onSelect}",
+        "value": "{color.action.selected.onEnabled}",
         "type": "color"
       }
     },
