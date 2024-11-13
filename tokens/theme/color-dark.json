@@ -3,67 +3,65 @@
     "base": {
       "background": {
         "default": {
-          "value": "{colors.neutral.0}",
-          "type": "color"
+          "$type": "color",
+          "$value": "{colors.neutral.0}"
         },
         "muted": {
-          "value": "{colors.neutral.10}",
-          "type": "color"
+          "$type": "color",
+          "$value": "{colors.neutral.10}"
         },
         "subtle": {
-          "value": "{colors.neutral.20}",
-          "type": "color"
+          "$type": "color",
+          "$value": "{colors.neutral.20}"
         }
       },
       "foreground": {
         "default": {
-          "value": "{colors.neutral.90}",
-          "type": "color"
+          "$type": "color",
+          "$value": "{colors.neutral.90}"
         },
         "muted": {
-          "value": "{colors.neutral.60}",
-          "type": "color"
+          "$type": "color",
+          "$value": "{colors.neutral.60}"
         },
         "subtle": {
-          "value": "{colors.neutral.50}",
-          "type": "color"
+          "$type": "color",
+          "$value": "{colors.neutral.50}"
         }
       }
     },
     "action": {
       "filled": {
         "enabled": {
-          "value": "{colors.neutral.30}",
-          "type": "color"
+          "$type": "color",
+          "$value": "{colors.neutral.30}"
         },
         "onEnabled": {
-          "value": "{colors.neutral.90}",
-          "type": "color",
-          "description": "color for elements that are placed on interactive background colors"
+          "$type": "color",
+          "$value": "{colors.neutral.90}",
+          "$description": "color for elements that are placed on interactive background colors"
         },
         "hover": {
-          "value": "{colors.neutral.40}",
-          "type": "color",
-          "description": "Backgrounf color for state overlay on a transparent hovered element"
+          "$type": "color",
+          "$value": "{colors.neutral.40}",
+          "$description": "Backgrounf color for state overlay on a transparent hovered element"
         },
         "onHover": {
-          "value": "{colors.neutral.20}",
-          "type": "color",
-          "description": "Backgrounf color for state overlay on a transparent hovered element"
+          "$type": "color",
+          "$value": "{colors.neutral.20}",
+          "$description": "Backgrounf color for state overlay on a transparent hovered element"
         },
         "disabled": {
-          "value": "{colors.neutral.30}",
-          "type": "color",
-          "description": "background color for disabled elements"
+          "$type": "color",
+          "$value": "{colors.neutral.30}",
+          "$description": "background color for disabled elements"
         },
         "onDisabled": {
-          "value": "{color.base.foreground.muted}",
-          "type": "color",
-          "description": "color for elements that are palced on disabled background color"
+          "$type": "color",
+          "$value": "{color.base.foreground.muted}",
+          "$description": "color for elements that are palced on disabled background color"
         },
         "active": {
-          "value": "{colors.blue.20}",
-          "type": "color",
           "$extensions": {
             "studio.tokens": {
               "modify": {
@@ -73,47 +71,47 @@
                 "color": "{colors.yellow.50}"
               }
             }
-          }
+          },
+          "$type": "color",
+          "$value": "{colors.blue.20}"
         },
         "onActive": {
-          "value": "{colors.neutral.90}",
-          "type": "color"
+          "$type": "color",
+          "$value": "{colors.neutral.90}"
         }
       },
       "transparent": {
         "enabled": {
-          "value": "{colors.transparent}",
-          "type": "color",
-          "description": "Background color for interactive secondary and tertiary elements"
+          "$type": "color",
+          "$value": "{colors.transparent}",
+          "$description": "Background color for interactive secondary and tertiary elements"
         },
         "onEnabled": {
-          "value": "{color.base.foreground.default}",
-          "type": "color",
-          "description": "color for elements that are placed on interactive transparent background colors - in our system: secondary and tertiary elements"
+          "$type": "color",
+          "$value": "{color.base.foreground.default}",
+          "$description": "color for elements that are placed on interactive transparent background colors - in our system: secondary and tertiary elements"
         },
         "hover": {
-          "value": "{colors.neutral.30}",
-          "type": "color",
-          "description": "Backgrounf color for state overlay on a transparent hovered element"
+          "$type": "color",
+          "$value": "{colors.neutral.30}",
+          "$description": "Backgrounf color for state overlay on a transparent hovered element"
         },
         "onHover": {
-          "value": "{colors.neutral.90}",
-          "type": "color",
-          "description": "Backgrounf color for state overlay on a transparent hovered element"
+          "$type": "color",
+          "$value": "{colors.neutral.90}",
+          "$description": "Backgrounf color for state overlay on a transparent hovered element"
         },
         "disabled": {
-          "value": "{colors.transparent}",
-          "type": "color",
-          "description": "Background color for interactive secondary and tertiary elements"
+          "$type": "color",
+          "$value": "{colors.transparent}",
+          "$description": "Background color for interactive secondary and tertiary elements"
         },
         "onDisabled": {
-          "value": "{colors.neutral.40}",
-          "type": "color",
-          "description": "Backgrounf color for state overlay on a transparent hovered element"
+          "$type": "color",
+          "$value": "{colors.neutral.40}",
+          "$description": "Backgrounf color for state overlay on a transparent hovered element"
         },
         "active": {
-          "value": "{colors.blue.20}",
-          "type": "color",
           "$extensions": {
             "studio.tokens": {
               "modify": {
@@ -123,27 +121,27 @@
                 "color": "{colors.yellow.50}"
               }
             }
-          }
+          },
+          "$type": "color",
+          "$value": "{colors.blue.20}"
         },
         "onActive": {
-          "value": "{colors.neutral.90}",
-          "type": "color"
+          "$type": "color",
+          "$value": "{colors.neutral.90}"
         }
       },
       "selected": {
         "enabled": {
-          "value": "{colors.blue.80}",
-          "type": "color",
-          "description": "background color for selected elements"
+          "$type": "color",
+          "$value": "{colors.blue.80}",
+          "$description": "background color for selected elements"
         },
         "onEnabled": {
-          "value": "{colors.blue.30}",
-          "type": "color",
-          "description": "Foreground color for selected elements"
+          "$type": "color",
+          "$value": "{colors.blue.30}",
+          "$description": "Foreground color for selected elements"
         },
         "hover": {
-          "value": "{color.action.selected.enabled}",
-          "type": "color",
           "$extensions": {
             "studio.tokens": {
               "modify": {
@@ -153,84 +151,84 @@
               }
             }
           },
-          "description": "Backgrounf color for state overlay on a select hovered element"
+          "$type": "color",
+          "$value": "{color.action.selected.enabled}",
+          "$description": "Backgrounf color for state overlay on a select hovered element"
         },
         "onHover": {
-          "value": "{colors.blue.30}",
-          "type": "color",
-          "description": "Foreground color for selected elements"
+          "$type": "color",
+          "$value": "{colors.blue.30}",
+          "$description": "Foreground color for selected elements"
         }
       }
     },
     "purpose": {
       "default": {
         "info": {
-          "value": "{colors.blue.20}",
-          "type": "color",
-          "description": "background color for elements with informational purpose "
+          "$type": "color",
+          "$value": "{colors.blue.20}",
+          "$description": "background color for elements with informational purpose "
         },
         "onInfo": {
-          "value": "{colors.blue.80}",
-          "type": "color",
-          "description": "foreground color for elements placed on informational purpose background"
+          "$type": "color",
+          "$value": "{colors.blue.80}",
+          "$description": "foreground color for elements placed on informational purpose background"
         },
         "success": {
-          "value": "{colors.green.20}",
-          "type": "color",
-          "description": "background color for elements with success purpose "
+          "$type": "color",
+          "$value": "{colors.green.20}",
+          "$description": "background color for elements with success purpose "
         },
         "onSuccess": {
-          "value": "{colors.green.90}",
-          "type": "color",
-          "description": "foreground color for elements placed on success purpose background"
+          "$type": "color",
+          "$value": "{colors.green.90}",
+          "$description": "foreground color for elements placed on success purpose background"
         },
         "warning": {
-          "value": "{colors.red.20}",
-          "type": "color",
-          "description": "background color for elements with warning purpose"
+          "$type": "color",
+          "$value": "{colors.red.20}",
+          "$description": "background color for elements with warning purpose"
         },
         "onWarning": {
-          "value": "{colors.red.80}",
-          "type": "color",
-          "description": "foreground color for elements placed on warning purpose background"
+          "$type": "color",
+          "$value": "{colors.red.80}",
+          "$description": "foreground color for elements placed on warning purpose background"
         }
       },
       "inverted": {
         "info": {
-          "value": "{colors.blue.60}",
-          "type": "color",
-          "description": "background color for elements with informational purpose"
+          "$type": "color",
+          "$value": "{colors.blue.60}",
+          "$description": "background color for elements with informational purpose"
         },
         "onInfo": {
-          "value": "{colors.blue.10}",
-          "type": "color",
-          "description": "foreground color for elements placed on informational purpose background"
+          "$type": "color",
+          "$value": "{colors.blue.10}",
+          "$description": "foreground color for elements placed on informational purpose background"
         },
         "success": {
-          "value": "{colors.green.90}",
-          "type": "color",
-          "description": "background color for elements with success purpose"
+          "$type": "color",
+          "$value": "{colors.green.90}",
+          "$description": "background color for elements with success purpose"
         },
         "onSuccess": {
-          "value": "{colors.green.20}",
-          "type": "color",
-          "description": "foreground color for elements placed on success purpose background"
+          "$type": "color",
+          "$value": "{colors.green.20}",
+          "$description": "foreground color for elements placed on success purpose background"
         },
         "warning": {
-          "value": "{colors.red.10}",
-          "type": "color",
-          "description": "background color for elements with warning purpose"
+          "$type": "color",
+          "$value": "{colors.red.10}",
+          "$description": "background color for elements with warning purpose"
         },
         "onWarning": {
-          "value": "{colors.red.60}",
-          "type": "color",
-          "description": "foreground color for elements placed on warning purpose background"
+          "$type": "color",
+          "$value": "{colors.red.60}",
+          "$description": "foreground color for elements placed on warning purpose background"
         }
       },
       "brand": {
         "default": {
-          "value": "{colors.yellow.50}",
-          "type": "color",
           "$extensions": {
             "studio.tokens": {
               "modify": {
@@ -240,42 +238,44 @@
               }
             }
           },
-          "description": "Color that indicates interactions"
+          "$type": "color",
+          "$value": "{colors.yellow.50}",
+          "$description": "Color that indicates interactions"
         }
       }
     },
     "border": {
       "transparent": {
-        "value": "{colors.transparent}",
-        "type": "color"
+        "$type": "color",
+        "$value": "{colors.transparent}"
       },
       "default": {
-        "value": "{colors.neutral.50}",
-        "type": "color"
+        "$type": "color",
+        "$value": "{colors.neutral.50}"
       },
       "subtle": {
-        "value": "{colors.neutral.30}",
-        "type": "color"
+        "$type": "color",
+        "$value": "{colors.neutral.30}"
       },
       "muted": {
-        "value": "{colors.neutral.40}",
-        "type": "color"
+        "$type": "color",
+        "$value": "{colors.neutral.40}"
       },
       "focused": {
-        "value": "{colors.blue.70}",
-        "type": "color"
+        "$type": "color",
+        "$value": "{colors.blue.70}"
       },
       "active": {
-        "value": "{colors.blue.40}",
-        "type": "color"
+        "$type": "color",
+        "$value": "{colors.blue.40}"
       },
       "error": {
-        "value": "{colors.red.60}",
-        "type": "color"
+        "$type": "color",
+        "$value": "{colors.red.60}"
       },
       "success": {
-        "value": "{colors.green.40}",
-        "type": "color"
+        "$type": "color",
+        "$value": "{colors.green.40}"
       }
     }
   }

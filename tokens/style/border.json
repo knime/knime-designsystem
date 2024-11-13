@@ -2,136 +2,136 @@
   "border-radius": {
     "container": {
       "none": {
-        "value": "{dimension.0}",
-        "type": "borderRadius"
+        "$type": "borderRadius",
+        "$value": "{dimension.0}"
       },
       "xs": {
-        "value": "{dimension.12}",
-        "type": "borderRadius"
+        "$type": "borderRadius",
+        "$value": "{dimension.12}"
       },
       "s": {
-        "value": "{dimension.25}",
-        "type": "borderRadius"
+        "$type": "borderRadius",
+        "$value": "{dimension.25}"
       },
       "m": {
-        "value": "{dimension.50}",
-        "type": "borderRadius"
+        "$type": "borderRadius",
+        "$value": "{dimension.50}"
       },
       "l": {
-        "value": "{dimension.100}",
-        "type": "borderRadius"
+        "$type": "borderRadius",
+        "$value": "{dimension.100}"
       },
       "pill": {
-        "value": "1000",
-        "type": "borderRadius"
+        "$type": "borderRadius",
+        "$value": "1000"
       }
     }
   },
   "border-width": {
     "base": {
       "none": {
-        "value": "{dimension.0}",
-        "type": "borderWidth"
+        "$type": "borderWidth",
+        "$value": "{dimension.0}"
       },
       "s": {
-        "value": "{dimension.6}",
-        "type": "borderWidth"
+        "$type": "borderWidth",
+        "$value": "{dimension.6}"
       },
       "m": {
-        "value": "{dimension.12}",
-        "type": "borderWidth"
+        "$type": "borderWidth",
+        "$value": "{dimension.12}"
       }
     },
     "icon-stroke": {
       "s": {
-        "value": "1",
-        "type": "borderWidth"
+        "$type": "borderWidth",
+        "$value": "1"
       },
       "m": {
-        "value": "1.25",
-        "type": "borderWidth"
+        "$type": "borderWidth",
+        "$value": "1.25"
       },
       "l": {
-        "value": "1.5",
-        "type": "borderWidth"
+        "$type": "borderWidth",
+        "$value": "1.5"
       }
     }
   },
   "border": {
     "interactive": {
       "transparent": {
-        "value": {
+        "$type": "border",
+        "$value": {
           "color": "{color.border.transparent}",
           "width": "{border-width.base.s}",
           "style": "solid"
-        },
-        "type": "border"
+        }
       },
       "default": {
-        "value": {
+        "$type": "border",
+        "$value": {
           "color": "{color.border.default}",
           "width": "{border-width.base.s}",
           "style": "solid"
-        },
-        "type": "border"
+        }
       },
       "disabled": {
-        "value": {
+        "$type": "border",
+        "$value": {
           "color": "{color.border.subtle}",
           "width": "{border-width.base.s}",
           "style": "solid"
-        },
-        "type": "border"
+        }
       },
       "focused": {
-        "value": {
+        "$type": "border",
+        "$value": {
           "color": "{color.border.focused}",
           "width": "{border-width.base.m}",
           "style": "solid"
-        },
-        "type": "border"
+        }
       },
       "active": {
-        "value": {
+        "$type": "border",
+        "$value": {
           "color": "{color.border.active}",
           "width": "{border-width.base.s}",
           "style": "solid"
-        },
-        "type": "border"
+        }
       },
       "error": {
-        "value": {
+        "$type": "border",
+        "$value": {
           "color": "{color.border.error}",
           "width": "{border-width.base.s}",
           "style": "solid"
-        },
-        "type": "border"
+        }
       }
     },
     "base": {
       "default": {
-        "value": {
+        "$type": "border",
+        "$value": {
           "color": "{colors.neutral.20}",
           "width": "{border-width.base.s}",
           "style": "solid"
-        },
-        "type": "border"
+        }
       },
       "subtle": {
-        "value": {
+        "$type": "border",
+        "$value": {
           "color": "{color.border.subtle}",
           "width": "{border-width.base.s}",
           "style": "solid"
-        },
-        "type": "border"
+        }
       },
       "muted": {
-        "value": {
+        "$type": "border",
+        "$value": {
           "color": "{color.border.muted}",
           "width": "{border-width.base.s}",
           "style": "solid"
-        },
-        "type": "border"
+        }
       }
     }
   }

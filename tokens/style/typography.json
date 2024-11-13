@@ -3,304 +3,304 @@
     "base": {
       "title-strong": {
         "sm": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.title}",
             "fontWeight": "{font-weight.base.strong}",
             "lineHeight": "{line-height.base.title}",
             "fontSize": "{font-size.base.sm}"
-          },
-          "type": "typography"
+          }
         },
         "m": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.title}",
             "fontWeight": "{font-weight.base.strong}",
             "lineHeight": "{line-height.base.title}",
             "fontSize": "{font-size.base.m}"
-          },
-          "type": "typography"
+          }
         },
         "ml": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.title}",
             "fontWeight": "{font-weight.base.strong}",
             "lineHeight": "{line-height.base.title}",
             "fontSize": "{font-size.base.ml}"
-          },
-          "type": "typography"
+          }
         },
         "l": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.title}",
             "fontWeight": "{font-weight.base.strong}",
             "lineHeight": "{line-height.base.title}",
             "fontSize": "{font-size.base.l}"
-          },
-          "type": "typography"
+          }
         },
         "xl": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.title}",
             "fontWeight": "{font-weight.base.strong}",
             "lineHeight": "{line-height.base.title}",
             "fontSize": "{font-size.base.xl}"
-          },
-          "type": "typography"
+          }
         },
         "2xl": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.title}",
             "fontWeight": "{font-weight.base.strong}",
             "lineHeight": "{line-height.base.title}",
             "fontSize": "{font-size.base.2xl}"
-          },
-          "type": "typography"
+          }
         },
         "3xl": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.title}",
             "fontWeight": "{font-weight.base.strong}",
             "lineHeight": "{line-height.base.title}",
             "fontSize": "{font-size.base.3xl}"
-          },
-          "type": "typography"
+          }
         }
       },
       "title-medium": {
         "sm": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.title}",
             "fontWeight": "{font-weight.base.medium}",
             "lineHeight": "{line-height.base.title}",
             "fontSize": "{font-size.base.sm}"
-          },
-          "type": "typography"
+          }
         },
         "m": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.title}",
             "fontWeight": "{font-weight.base.medium}",
             "lineHeight": "{line-height.base.title}",
             "fontSize": "{font-size.base.m}"
-          },
-          "type": "typography"
+          }
         },
         "ml": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.title}",
             "fontWeight": "{font-weight.base.medium}",
             "lineHeight": "{line-height.base.title}",
             "fontSize": "{font-size.base.ml}"
-          },
-          "type": "typography"
+          }
         },
         "l": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.title}",
             "fontWeight": "{font-weight.base.medium}",
             "lineHeight": "{line-height.base.title}",
             "fontSize": "{font-size.base.l}"
-          },
-          "type": "typography"
+          }
         },
         "xl": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.title}",
             "fontWeight": "{font-weight.base.medium}",
             "lineHeight": "{line-height.base.title}",
             "fontSize": "{font-size.base.xl}"
-          },
-          "type": "typography"
+          }
         }
       },
       "body": {
         "xs": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.body}",
             "fontWeight": "{font-weight.base.default}",
             "lineHeight": "{line-height.base.body}",
             "fontSize": "{font-size.base.xs}"
-          },
-          "type": "typography"
+          }
         },
         "s": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.body}",
             "fontWeight": "{font-weight.base.default}",
             "lineHeight": "{line-height.base.body}",
             "fontSize": "{font-size.base.s}"
-          },
-          "type": "typography"
+          }
         },
         "sm": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.body}",
             "fontWeight": "{font-weight.base.default}",
             "lineHeight": "{line-height.base.body}",
             "fontSize": "{font-size.base.sm}"
-          },
-          "type": "typography"
+          }
         },
         "m": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.body}",
             "fontWeight": "{font-weight.base.default}",
             "lineHeight": "{line-height.base.body}",
             "fontSize": "{font-size.base.m}"
-          },
-          "type": "typography"
+          }
         },
         "ml": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.body}",
             "fontWeight": "{font-weight.base.default}",
             "lineHeight": "{line-height.base.body}",
             "fontSize": "{font-size.base.ml}"
-          },
-          "type": "typography"
+          }
         }
       }
     },
     "interactive": {
       "strong": {
         "s": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.interface}",
             "fontWeight": "{font-weight.base.interface-strong}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.s}"
-          },
-          "type": "typography"
+          }
         },
         "sm": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.interface}",
             "fontWeight": "{font-weight.base.interface-strong}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.sm}"
-          },
-          "type": "typography"
+          }
         },
         "m": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.interface}",
             "fontWeight": "{font-weight.base.interface-strong}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.m}"
-          },
-          "type": "typography"
+          }
         },
         "ml": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.interface}",
             "fontWeight": "{font-weight.base.interface-strong}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.ml}"
-          },
-          "type": "typography"
+          }
         },
         "l": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.interface}",
             "fontWeight": "{font-weight.base.interface-strong}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.l}"
-          },
-          "type": "typography"
+          }
         }
       },
       "medium": {
         "s": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.interface}",
             "fontWeight": "{font-weight.base.interface-medium}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.s}"
-          },
-          "type": "typography"
+          }
         },
         "sm": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.interface}",
             "fontWeight": "{font-weight.base.interface-medium}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.sm}"
-          },
-          "type": "typography"
+          }
         },
         "m": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.interface}",
             "fontWeight": "{font-weight.base.interface-medium}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.m}"
-          },
-          "type": "typography"
+          }
         },
         "ml": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.interface}",
             "fontWeight": "{font-weight.base.interface-medium}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.ml}"
-          },
-          "type": "typography"
+          }
         },
         "l": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.interface}",
             "fontWeight": "{font-weight.base.interface-medium}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.l}"
-          },
-          "type": "typography"
+          }
         }
       },
       "default": {
         "s": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.interface}",
             "fontWeight": "{font-weight.base.interface-default}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.s}"
-          },
-          "type": "typography"
+          }
         },
         "sm": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.interface}",
             "fontWeight": "{font-weight.base.interface-default}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.sm}"
-          },
-          "type": "typography"
+          }
         },
         "m": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.interface}",
             "fontWeight": "{font-weight.base.interface-default}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.m}"
-          },
-          "type": "typography"
+          }
         },
         "ml": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.interface}",
             "fontWeight": "{font-weight.base.interface-default}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.ml}"
-          },
-          "type": "typography"
+          }
         },
         "l": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{font-family.base.interface}",
             "fontWeight": "{font-weight.base.interface-default}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.l}"
-          },
-          "type": "typography"
+          }
         }
       }
     }
@@ -308,59 +308,59 @@
   "font-size": {
     "base": {
       "xs": {
-        "value": "{core.font-size.scaled.62}",
-        "type": "fontSizes"
+        "$type": "fontSizes",
+        "$value": "{core.font-size.scaled.62}"
       },
       "s": {
-        "value": "{core.font-size.scaled.75}",
-        "type": "fontSizes"
+        "$type": "fontSizes",
+        "$value": "{core.font-size.scaled.75}"
       },
       "sm": {
-        "value": "{core.font-size.scaled.87}",
-        "type": "fontSizes"
+        "$type": "fontSizes",
+        "$value": "{core.font-size.scaled.87}"
       },
       "m": {
-        "value": "{core.font-size.scaled.100}",
-        "type": "fontSizes",
-        "description": "m is the size of body text which is typically the same size as h6."
+        "$type": "fontSizes",
+        "$value": "{core.font-size.scaled.100}",
+        "$description": "m is the size of body text which is typically the same size as h6."
       },
       "ml": {
-        "value": "{core.font-size.scaled.125}",
-        "type": "fontSizes",
-        "description": "ml is large body text which is typically the same size as h5."
+        "$type": "fontSizes",
+        "$value": "{core.font-size.scaled.125}",
+        "$description": "ml is large body text which is typically the same size as h5."
       },
       "l": {
-        "value": "{core.font-size.scaled.150}",
-        "type": "fontSizes"
+        "$type": "fontSizes",
+        "$value": "{core.font-size.scaled.150}"
       },
       "xl": {
-        "value": "{core.font-size.scaled.200}",
-        "type": "fontSizes"
+        "$type": "fontSizes",
+        "$value": "{core.font-size.scaled.200}"
       },
       "2xl": {
-        "value": "{core.font-size.scaled.250}",
-        "type": "fontSizes"
+        "$type": "fontSizes",
+        "$value": "{core.font-size.scaled.250}"
       },
       "3xl": {
-        "value": "{core.font-size.scaled.300}",
-        "type": "fontSizes",
-        "description": "xxxl is your h1, but don't tell anyone, we want to speak in tokens not in HTML markup."
+        "$type": "fontSizes",
+        "$value": "{core.font-size.scaled.300}",
+        "$description": "xxxl is your h1, but don't tell anyone, we want to speak in tokens not in HTML markup."
       }
     }
   },
   "line-height": {
     "base": {
       "title": {
-        "value": "{core.line-height.m}",
-        "type": "lineHeights"
+        "$type": "lineHeights",
+        "$value": "{core.line-height.m}"
       },
       "body": {
-        "value": "{core.line-height.l}",
-        "type": "lineHeights"
+        "$type": "lineHeights",
+        "$value": "{core.line-height.l}"
       },
       "interface": {
-        "value": "{core.line-height.s}",
-        "type": "lineHeights"
+        "$type": "lineHeights",
+        "$value": "{core.line-height.s}"
       }
     }
   }

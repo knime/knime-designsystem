@@ -2,192 +2,192 @@
   "core": {
     "font-size": {
       "REM": {
-        "value": "16",
-        "type": "fontSizes",
-        "description": "👀 If you change this core font size, it will change all font-related tokens."
+        "$type": "fontSizes",
+        "$value": "16",
+        "$description": "👀 If you change this core font size, it will change all font-related tokens."
       },
       "scaled": {
         "50": {
-          "value": "{core.font-size.scaled.base} * 50",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 50"
         },
         "62": {
-          "value": "{core.font-size.scaled.base} * 62.5",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 62.5"
         },
         "75": {
-          "value": "{core.font-size.scaled.base} * 75",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 75"
         },
         "87": {
-          "value": "{core.font-size.scaled.base} * 87.5",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 87.5"
         },
         "100": {
-          "value": "{core.font-size.scaled.base} * 100",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 100"
         },
         "125": {
-          "value": "{core.font-size.scaled.base} * 125",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 125"
         },
         "150": {
-          "value": "{core.font-size.scaled.base} * 150",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 150"
         },
         "175": {
-          "value": "{core.font-size.scaled.base} * 175",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 175"
         },
         "200": {
-          "value": "{core.font-size.scaled.base} * 200",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 200"
         },
         "225": {
-          "value": "{core.font-size.scaled.base} * 225",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 225"
         },
         "250": {
-          "value": "{core.font-size.scaled.base} * 250",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 250"
         },
         "275": {
-          "value": "{core.font-size.scaled.base} * 275",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 275"
         },
         "300": {
-          "value": "{core.font-size.scaled.base} * 300",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 300"
         },
         "325": {
-          "value": "{core.font-size.scaled.base} * 325",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 325"
         },
         "350": {
-          "value": "{core.font-size.scaled.base} * 350",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 350"
         },
         "375": {
-          "value": "{core.font-size.scaled.base} * 375",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 375"
         },
         "400": {
-          "value": "{core.font-size.scaled.base} * 400",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 400"
         },
         "450": {
-          "value": "{core.font-size.scaled.base} * 450",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 450"
         },
         "500": {
-          "value": "{core.font-size.scaled.base} * 500",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 500"
         },
         "550": {
-          "value": "{core.font-size.scaled.base} * 550",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 550"
         },
         "600": {
-          "value": "{core.font-size.scaled.base} * 600",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 600"
         },
         "base": {
-          "value": "{core.font-size.REM} / 100",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{core.font-size.REM} / 100"
         }
       }
     },
     "line-height": {
       "xs": {
-        "value": "100%",
-        "type": "lineHeights",
-        "description": "headlines"
+        "$type": "lineHeights",
+        "$value": "100%",
+        "$description": "headlines"
       },
       "s": {
-        "value": "110%",
-        "type": "lineHeights",
-        "description": "headlines."
+        "$type": "lineHeights",
+        "$value": "110%",
+        "$description": "headlines."
       },
       "m": {
-        "value": "130%",
-        "type": "lineHeights"
+        "$type": "lineHeights",
+        "$value": "130%"
       },
       "l": {
-        "value": "150%",
-        "type": "lineHeights"
+        "$type": "lineHeights",
+        "$value": "150%"
       }
     },
     "paragraph-spacing": {
       "none": {
-        "value": "0.0",
-        "type": "paragraphSpacing"
+        "$type": "paragraphSpacing",
+        "$value": "0.0"
       },
       "s": {
-        "value": "0.25",
-        "type": "paragraphSpacing"
+        "$type": "paragraphSpacing",
+        "$value": "0.25"
       },
       "m": {
-        "value": "0.5",
-        "type": "paragraphSpacing"
+        "$type": "paragraphSpacing",
+        "$value": "0.5"
       },
       "l": {
-        "value": "0.75",
-        "type": "paragraphSpacing"
+        "$type": "paragraphSpacing",
+        "$value": "0.75"
       },
       "xl": {
-        "value": "1",
-        "type": "paragraphSpacing"
+        "$type": "paragraphSpacing",
+        "$value": "1"
       }
     }
   },
   "size": {
     "SCALE": {
-      "value": "16",
-      "type": "sizing",
-      "description": "base-scale of all size-related tokens (size, space, dimension). The default is 1rem = 16(px). If you change it, it will change all size-related tokens. :)"
+      "$type": "sizing",
+      "$value": "16",
+      "$description": "base-scale of all size-related tokens (size, space, dimension). The default is 1rem = 16(px). If you change it, it will change all size-related tokens. :)"
     }
   },
   "font-family": {
     "base": {
       "title": {
-        "value": "Roboto",
-        "type": "fontFamilies"
+        "$type": "fontFamilies",
+        "$value": "Roboto"
       },
       "body": {
-        "value": "Roboto",
-        "type": "fontFamilies"
+        "$type": "fontFamilies",
+        "$value": "Roboto"
       },
       "interface": {
-        "value": "Roboto",
-        "type": "fontFamilies"
+        "$type": "fontFamilies",
+        "$value": "Roboto"
       }
     }
   },
   "font-weight": {
     "base": {
       "default": {
-        "value": "400",
-        "type": "fontWeights"
+        "$type": "fontWeights",
+        "$value": "400"
       },
       "medium": {
-        "value": "500",
-        "type": "fontWeights"
+        "$type": "fontWeights",
+        "$value": "500"
       },
       "strong": {
-        "value": "700",
-        "type": "fontWeights"
+        "$type": "fontWeights",
+        "$value": "700"
       },
       "interface-default": {
-        "value": "400",
-        "type": "fontWeights"
+        "$type": "fontWeights",
+        "$value": "400"
       },
       "interface-medium": {
-        "value": "500",
-        "type": "fontWeights"
+        "$type": "fontWeights",
+        "$value": "500"
       },
       "interface-strong": {
-        "value": "700",
-        "type": "fontWeights"
+        "$type": "fontWeights",
+        "$value": "700"
       }
     }
   }

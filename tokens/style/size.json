@@ -2,28 +2,28 @@
   "view": {
     "breakpoint": {
       "s": {
-        "value": "576",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "576"
       },
       "m": {
-        "value": "768",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "768"
       },
       "l": {
-        "value": "1024",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "1024"
       },
       "xl": {
-        "value": "1200",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "1200"
       },
       "2xl": {
-        "value": "1400",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "1400"
       },
       "3xl": {
-        "value": "1728",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "1728"
       }
     }
   },
@@ -32,103 +32,103 @@
       "page": {
         "margin": {
           "none": {
-            "value": "{dimension.0}",
-            "type": "spacing",
-            "description": "This is basically your page margin (in breakpoints-speak)."
+            "$type": "spacing",
+            "$value": "{dimension.0}",
+            "$description": "This is basically your page margin (in breakpoints-speak)."
           },
           "s": {
-            "value": "{dimension.100}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{dimension.100}"
           },
           "m": {
-            "value": "{dimension.150}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{dimension.150}"
           },
           "l": {
-            "value": "{dimension.200}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{dimension.200}"
           },
           "xl": {
-            "value": "{dimension.300}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{dimension.300}"
           }
         },
         "padding": {
           "none": {
-            "value": "{dimension.0}",
-            "type": "spacing",
-            "description": "This is basically your page gutter (in breakpoints-speak)."
+            "$type": "spacing",
+            "$value": "{dimension.0}",
+            "$description": "This is basically your page gutter (in breakpoints-speak)."
           },
           "xxs": {
-            "value": "{dimension.25}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{dimension.25}"
           },
           "xs": {
-            "value": "{dimension.50}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{dimension.50}"
           },
           "s": {
-            "value": "{dimension.100}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{dimension.100}"
           },
           "m": {
-            "value": "{dimension.200}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{dimension.200}"
           },
           "l": {
-            "value": "{dimension.400}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{dimension.400}"
           },
           "xl": {
-            "value": "{dimension.800}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{dimension.800}"
           },
           "2xl": {
-            "value": "{dimension.1600}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{dimension.1600}"
           }
         }
       },
       "container": {
         "none": {
-          "value": "{dimension.0}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{dimension.0}"
         },
         "xxs": {
-          "value": "{dimension.12}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{dimension.12}"
         },
         "xs": {
-          "value": "{dimension.25}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{dimension.25}"
         },
         "s": {
-          "value": "{dimension.50}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{dimension.50}"
         },
         "m": {
-          "value": "{dimension.75}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{dimension.75}"
         },
         "l": {
-          "value": "{dimension.100}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{dimension.100}"
         },
         "xl": {
-          "value": "{dimension.125}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{dimension.125}"
         },
         "2xl": {
-          "value": "{dimension.150}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{dimension.150}"
         },
         "3xl": {
-          "value": "{dimension.200}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{dimension.200}"
         },
         "auto": {
-          "value": "AUTO",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "AUTO"
         }
       }
     }
@@ -137,16 +137,16 @@
     "button": {
       "height": {
         "s": {
-          "value": "{dimension.150}",
-          "type": "dimension"
+          "$type": "dimension",
+          "$value": "{dimension.150}"
         },
         "m": {
-          "value": "{dimension.175}",
-          "type": "dimension"
+          "$type": "dimension",
+          "$value": "{dimension.175}"
         },
         "l": {
-          "value": "{dimension.225}",
-          "type": "dimension"
+          "$type": "dimension",
+          "$value": "{dimension.225}"
         }
       }
     }

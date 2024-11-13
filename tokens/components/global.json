@@ -2,83 +2,83 @@
   "button": {
     "primary": {
       "bg": {
-        "value": "{color.purpose.brand.default}",
-        "type": "color"
+        "$type": "color",
+        "$value": "{color.purpose.brand.default}"
       },
       "bg-hover": {
-        "value": "{color.selectable.state.hoverPrimary}",
-        "type": "color"
+        "$type": "color",
+        "$value": "{color.selectable.state.hoverPrimary}"
       },
       "fg": {
-        "value": "{color.action.filled.onEnabled}",
-        "type": "color"
+        "$type": "color",
+        "$value": "{color.action.filled.onEnabled}"
       }
     },
     "borderRadius": {
-      "value": "{border-radius.container.s}",
-      "type": "borderRadius"
+      "$type": "borderRadius",
+      "$value": "{border-radius.container.s}"
     },
     "secondary": {
       "bg": {
-        "value": "{color.action.transparent.enabled}",
-        "type": "color"
+        "$type": "color",
+        "$value": "{color.action.transparent.enabled}"
       },
       "bg-hover": {
-        "value": "{color.action.filled.hover}",
-        "type": "color"
+        "$type": "color",
+        "$value": "{color.action.filled.hover}"
       },
       "fg": {
-        "value": "{color.action.transparent.onEnabled}",
-        "type": "color"
+        "$type": "color",
+        "$value": "{color.action.transparent.onEnabled}"
       }
     },
     "tertiary": {
       "bg": {
-        "value": "{color.action.transparent.enabled}",
-        "type": "color"
+        "$type": "color",
+        "$value": "{color.action.transparent.enabled}"
       },
       "bg-hover": {
-        "value": "{color.action.filled.hover}",
-        "type": "color"
+        "$type": "color",
+        "$value": "{color.action.filled.hover}"
       },
       "fg": {
-        "value": "{color.action.transparent.onEnabled}",
-        "type": "color"
+        "$type": "color",
+        "$value": "{color.action.transparent.onEnabled}"
       }
     },
     "selected": {
       "bg": {
-        "value": "{color.action.selected.enabled}",
-        "type": "color"
+        "$type": "color",
+        "$value": "{color.action.selected.enabled}"
       },
       "bg-hover": {
-        "value": "{color.action.selected.hover}",
-        "type": "color"
+        "$type": "color",
+        "$value": "{color.action.selected.hover}"
       },
       "fg": {
-        "value": "{color.action.selected.onEnabled}",
-        "type": "color"
+        "$type": "color",
+        "$value": "{color.action.selected.onEnabled}"
       }
     },
     "disable": {
       "bg": {
-        "value": "{color.action.filled.disabled}",
-        "type": "color"
+        "$type": "color",
+        "$value": "{color.action.filled.disabled}"
       },
       "fg": {
-        "value": "{color.action.filled.onDisabled}",
-        "type": "color"
+        "$type": "color",
+        "$value": "{color.action.filled.onDisabled}"
       }
     }
   },
   "checkbox": {
     "borderRadius": {
-      "value": "{border-radius.container.s}",
-      "type": "borderRadius"
+      "$type": "borderRadius",
+      "$value": "{border-radius.container.s}"
     },
     "background": {
-      "value": "#",
-      "type": "color"
+      "$type": "color",
+      "$value": "#"
     }
   }
 }
