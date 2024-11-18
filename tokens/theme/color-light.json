@@ -188,10 +188,18 @@
         },
         "warning": {
           "$type": "color",
+          "$value": "{colors.orange.90}"
+        },
+        "onWarning": {
+          "$type": "color",
+          "$value": "{colors.orange.40}"
+        },
+        "error": {
+          "$type": "color",
           "$value": "{colors.red.90}",
           "$description": "foreground color for elements placed on warning purpose background"
         },
-        "onWarning": {
+        "onError": {
           "$type": "color",
           "$value": "{colors.red.30}",
           "$description": "background color for elements with warning purpose"
@@ -218,15 +226,23 @@
           "$value": "{colors.green.90}",
           "$description": "background color for elements with success purpose"
         },
-        "warning": {
+        "error": {
           "$type": "color",
           "$value": "{colors.red.20}",
           "$description": "foreground color for elements placed on warning purpose background"
         },
-        "onWarning": {
+        "onError": {
           "$type": "color",
           "$value": "{colors.red.90}",
           "$description": "background color for elements with warning purpose"
+        },
+        "warning": {
+          "$type": "color",
+          "$value": "{colors.orange.30}"
+        },
+        "onWarning": {
+          "$type": "color",
+          "$value": "{colors.orange.90}"
         }
       },
       "brand": {
@@ -263,7 +279,7 @@
       },
       "error": {
         "$type": "color",
-        "$value": "{color.purpose.inverted.warning}"
+        "$value": "{color.purpose.inverted.error}"
       },
       "success": {
         "$type": "color",
