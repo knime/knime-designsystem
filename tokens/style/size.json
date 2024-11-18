@@ -1,0 +1,154 @@
+{
+  "view": {
+    "breakpoint": {
+      "s": {
+        "$type": "sizing",
+        "$value": "576"
+      },
+      "m": {
+        "$type": "sizing",
+        "$value": "768"
+      },
+      "l": {
+        "$type": "sizing",
+        "$value": "1024"
+      },
+      "xl": {
+        "$type": "sizing",
+        "$value": "1200"
+      },
+      "2xl": {
+        "$type": "sizing",
+        "$value": "1400"
+      },
+      "3xl": {
+        "$type": "sizing",
+        "$value": "1728"
+      }
+    }
+  },
+  "spacing": {
+    "base": {
+      "page": {
+        "margin": {
+          "none": {
+            "$type": "spacing",
+            "$value": "{dimension.0}",
+            "$description": "This is basically your page margin (in breakpoints-speak)."
+          },
+          "s": {
+            "$type": "spacing",
+            "$value": "{dimension.100}"
+          },
+          "m": {
+            "$type": "spacing",
+            "$value": "{dimension.150}"
+          },
+          "l": {
+            "$type": "spacing",
+            "$value": "{dimension.200}"
+          },
+          "xl": {
+            "$type": "spacing",
+            "$value": "{dimension.300}"
+          }
+        },
+        "padding": {
+          "none": {
+            "$type": "spacing",
+            "$value": "{dimension.0}",
+            "$description": "This is basically your page gutter (in breakpoints-speak)."
+          },
+          "xxs": {
+            "$type": "spacing",
+            "$value": "{dimension.25}"
+          },
+          "xs": {
+            "$type": "spacing",
+            "$value": "{dimension.50}"
+          },
+          "s": {
+            "$type": "spacing",
+            "$value": "{dimension.100}"
+          },
+          "m": {
+            "$type": "spacing",
+            "$value": "{dimension.200}"
+          },
+          "l": {
+            "$type": "spacing",
+            "$value": "{dimension.400}"
+          },
+          "xl": {
+            "$type": "spacing",
+            "$value": "{dimension.800}"
+          },
+          "2xl": {
+            "$type": "spacing",
+            "$value": "{dimension.1600}"
+          }
+        }
+      },
+      "container": {
+        "none": {
+          "$type": "spacing",
+          "$value": "{dimension.0}"
+        },
+        "xxs": {
+          "$type": "spacing",
+          "$value": "{dimension.12}"
+        },
+        "xs": {
+          "$type": "spacing",
+          "$value": "{dimension.25}"
+        },
+        "s": {
+          "$type": "spacing",
+          "$value": "{dimension.50}"
+        },
+        "m": {
+          "$type": "spacing",
+          "$value": "{dimension.75}"
+        },
+        "l": {
+          "$type": "spacing",
+          "$value": "{dimension.100}"
+        },
+        "xl": {
+          "$type": "spacing",
+          "$value": "{dimension.125}"
+        },
+        "2xl": {
+          "$type": "spacing",
+          "$value": "{dimension.150}"
+        },
+        "3xl": {
+          "$type": "spacing",
+          "$value": "{dimension.200}"
+        },
+        "auto": {
+          "$type": "spacing",
+          "$value": "AUTO"
+        }
+      }
+    }
+  },
+  "dimension": {
+    "button": {
+      "height": {
+        "s": {
+          "$type": "dimension",
+          "$value": "{dimension.150}"
+        },
+        "m": {
+          "$type": "dimension",
+          "$value": "{dimension.175}"
+        },
+        "l": {
+          "$type": "dimension",
+          "$value": "{dimension.225}"
+        }
+      }
+    }
+  }
+}

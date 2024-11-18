@@ -1,0 +1,194 @@
+{
+  "core": {
+    "font-size": {
+      "REM": {
+        "$type": "fontSizes",
+        "$value": "16",
+        "$description": "👀 If you change this core font size, it will change all font-related tokens."
+      },
+      "scaled": {
+        "50": {
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 50"
+        },
+        "62": {
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 62.5"
+        },
+        "75": {
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 75"
+        },
+        "87": {
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 87.5"
+        },
+        "100": {
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 100"
+        },
+        "125": {
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 125"
+        },
+        "150": {
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 150"
+        },
+        "175": {
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 175"
+        },
+        "200": {
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 200"
+        },
+        "225": {
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 225"
+        },
+        "250": {
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 250"
+        },
+        "275": {
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 275"
+        },
+        "300": {
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 300"
+        },
+        "325": {
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 325"
+        },
+        "350": {
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 350"
+        },
+        "375": {
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 375"
+        },
+        "400": {
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 400"
+        },
+        "450": {
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 450"
+        },
+        "500": {
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 500"
+        },
+        "550": {
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 550"
+        },
+        "600": {
+          "$type": "fontSizes",
+          "$value": "{core.font-size.scaled.base} * 600"
+        },
+        "base": {
+          "$type": "fontSizes",
+          "$value": "{core.font-size.REM} / 100"
+        }
+      }
+    },
+    "line-height": {
+      "xs": {
+        "$type": "lineHeights",
+        "$value": "100%",
+        "$description": "headlines"
+      },
+      "s": {
+        "$type": "lineHeights",
+        "$value": "110%",
+        "$description": "headlines."
+      },
+      "m": {
+        "$type": "lineHeights",
+        "$value": "130%"
+      },
+      "l": {
+        "$type": "lineHeights",
+        "$value": "150%"
+      }
+    },
+    "paragraph-spacing": {
+      "none": {
+        "$type": "paragraphSpacing",
+        "$value": "0.0"
+      },
+      "s": {
+        "$type": "paragraphSpacing",
+        "$value": "0.25"
+      },
+      "m": {
+        "$type": "paragraphSpacing",
+        "$value": "0.5"
+      },
+      "l": {
+        "$type": "paragraphSpacing",
+        "$value": "0.75"
+      },
+      "xl": {
+        "$type": "paragraphSpacing",
+        "$value": "1"
+      }
+    }
+  },
+  "size": {
+    "SCALE": {
+      "$type": "sizing",
+      "$value": "16",
+      "$description": "base-scale of all size-related tokens (size, space, dimension). The default is 1rem = 16(px). If you change it, it will change all size-related tokens. :)"
+    }
+  },
+  "font-family": {
+    "base": {
+      "title": {
+        "$type": "fontFamilies",
+        "$value": "Roboto"
+      },
+      "body": {
+        "$type": "fontFamilies",
+        "$value": "Roboto"
+      },
+      "interface": {
+        "$type": "fontFamilies",
+        "$value": "Roboto"
+      }
+    }
+  },
+  "font-weight": {
+    "base": {
+      "default": {
+        "$type": "fontWeights",
+        "$value": "400"
+      },
+      "medium": {
+        "$type": "fontWeights",
+        "$value": "500"
+      },
+      "strong": {
+        "$type": "fontWeights",
+        "$value": "700"
+      },
+      "interface-default": {
+        "$type": "fontWeights",
+        "$value": "400"
+      },
+      "interface-medium": {
+        "$type": "fontWeights",
+        "$value": "500"
+      },
+      "interface-strong": {
+        "$type": "fontWeights",
+        "$value": "700"
+      }
+    }
+  }
+}

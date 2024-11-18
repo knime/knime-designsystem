@@ -1,0 +1,84 @@
+{
+  "button": {
+    "primary": {
+      "bg": {
+        "$type": "color",
+        "$value": "{color.purpose.brand.default}"
+      },
+      "bg-hover": {
+        "$type": "color",
+        "$value": "{color.selectable.state.hoverPrimary}"
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "{color.action.filled.onEnabled}"
+      }
+    },
+    "borderRadius": {
+      "$type": "borderRadius",
+      "$value": "{border-radius.container.s}"
+    },
+    "secondary": {
+      "bg": {
+        "$type": "color",
+        "$value": "{color.action.transparent.enabled}"
+      },
+      "bg-hover": {
+        "$type": "color",
+        "$value": "{color.action.filled.hover}"
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "{color.action.transparent.onEnabled}"
+      }
+    },
+    "tertiary": {
+      "bg": {
+        "$type": "color",
+        "$value": "{color.action.transparent.enabled}"
+      },
+      "bg-hover": {
+        "$type": "color",
+        "$value": "{color.action.filled.hover}"
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "{color.action.transparent.onEnabled}"
+      }
+    },
+    "selected": {
+      "bg": {
+        "$type": "color",
+        "$value": "{color.action.selected.enabled}"
+      },
+      "bg-hover": {
+        "$type": "color",
+        "$value": "{color.action.selected.hover}"
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "{color.action.selected.onEnabled}"
+      }
+    },
+    "disable": {
+      "bg": {
+        "$type": "color",
+        "$value": "{color.action.filled.disabled}"
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "{color.action.filled.onDisabled}"
+      }
+    }
+  },
+  "checkbox": {
+    "borderRadius": {
+      "$type": "borderRadius",
+      "$value": "{border-radius.container.s}"
+    },
+    "background": {
+      "$type": "color",
+      "$value": "#"
+    }
+  }
+}
