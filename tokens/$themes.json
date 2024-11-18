@@ -10,7 +10,6 @@
       "style/border": "enabled",
       "style/typography": "enabled",
       "theme/color-light": "enabled",
-      "components/global": "enabled",
       "style/size": "enabled"
     },
     "$figmaStyleReferences": {}
@@ -26,7 +25,6 @@
       "core/font": "source",
       "style/border": "enabled",
       "style/typography": "enabled",
-      "components/global": "enabled",
       "style/size": "enabled"
     },
     "$figmaStyleReferences": {}
