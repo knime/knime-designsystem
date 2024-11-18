@@ -166,6 +166,14 @@
     },
     "purpose": {
       "default": {
+        "neutral": {
+          "$type": "color",
+          "$value": "{colors.neutral.80}"
+        },
+        "onNeutral": {
+          "$type": "color",
+          "$value": "{colors.neutral.10}"
+        },
         "info": {
           "$type": "color",
           "$value": "{colors.blue.80}",
