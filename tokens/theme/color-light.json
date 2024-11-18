@@ -126,12 +126,12 @@
         "hover": {
           "$type": "color",
           "$value": "{colors.neutral.70}",
-          "$description": "Backgrounf color for state overlay on a transparent hovered element"
+          "$description": "Background color for state overlay on a transparent hovered element"
         },
         "onHover": {
           "$type": "color",
           "$value": "{colors.neutral.20}",
-          "$description": "Backgrounf color for state overlay on a transparent hovered element"
+          "$description": "Background color for state overlay on a transparent hovered element"
         },
         "disabled": {
           "$type": "color",
@@ -168,11 +168,13 @@
       "default": {
         "neutral": {
           "$type": "color",
-          "$value": "{colors.neutral.80}"
+          "$value": "{colors.neutral.80}",
+          "$description": "background color for elements with neutral purpose "
         },
         "onNeutral": {
           "$type": "color",
-          "$value": "{colors.neutral.10}"
+          "$value": "{colors.neutral.10}",
+          "$description": "foreground color for elements placed on neutral purpose background"
         },
         "info": {
           "$type": "color",
@@ -187,33 +189,45 @@
         "success": {
           "$type": "color",
           "$value": "{colors.green.90}",
-          "$description": "foreground color for elements placed on success purpose background"
+          "$description": "background color for elements with success purpose background"
         },
         "onSuccess": {
           "$type": "color",
           "$value": "{colors.green.30}",
-          "$description": "background color for elements with success purpose "
+          "$description": "foreground color for elements placed on success purpose background"
         },
         "warning": {
           "$type": "color",
-          "$value": "{colors.orange.90}"
+          "$value": "{colors.orange.90}",
+          "$description": "background color for elements with warning purpose background"
         },
         "onWarning": {
           "$type": "color",
-          "$value": "{colors.orange.40}"
+          "$value": "{colors.orange.40}",
+          "$description": "foreground color for elements placed on warning purpose background"
         },
         "error": {
           "$type": "color",
           "$value": "{colors.red.90}",
-          "$description": "foreground color for elements placed on warning purpose background"
+          "$description": "background color for elements with error purpose background"
         },
         "onError": {
           "$type": "color",
           "$value": "{colors.red.30}",
-          "$description": "background color for elements with warning purpose"
+          "$description": "foreground color for elements placed on error purpose background"
         }
       },
       "inverted": {
+        "neutral": {
+          "$type": "color",
+          "$value": "{colors.neutral.10}",
+          "$description": "background color for elements with neutral purpose "
+        },
+        "onNeutral": {
+          "$type": "color",
+          "$value": "{colors.neutral.90}",
+          "$description": "foreground color for elements placed on neutral purpose background"
+        },
         "info": {
           "$type": "color",
           "$value": "{colors.blue.30}",
@@ -227,12 +241,12 @@
         "success": {
           "$type": "color",
           "$value": "{colors.green.20}",
-          "$description": "foreground color for elements placed on success purpose background"
+          "$description": "background color for elements with success purpose background"
         },
         "onSuccess": {
           "$type": "color",
           "$value": "{colors.green.90}",
-          "$description": "background color for elements with success purpose"
+          "$description": "color for elements placed on success purpose background"
         },
         "warning": {
           "$type": "color",
@@ -245,12 +259,12 @@
         "error": {
           "$type": "color",
           "$value": "{colors.red.20}",
-          "$description": "foreground color for elements placed on warning purpose background"
+          "$description": "background color for elements with error purpose background"
         },
         "onError": {
           "$type": "color",
           "$value": "{colors.red.90}",
-          "$description": "background color for elements with warning purpose"
+          "$description": "foreground color for elements placed on error purpose background"
         }
       },
       "brand": {

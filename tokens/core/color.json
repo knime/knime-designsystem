@@ -279,6 +279,52 @@
         "$type": "color",
         "$value": "hsl(210, 100%, 99%)"
       }
+    },
+    "turquoise": {
+      "0": {
+        "$type": "color",
+        "$value": "hsl(180, 82%, 9%)"
+      },
+      "10": {
+        "$type": "color",
+        "$value": "hsl(180, 81%, 16%)"
+      },
+      "20": {
+        "$type": "color",
+        "$value": "hsl(180, 81%, 33%)"
+      },
+      "30": {
+        "$type": "color",
+        "$value": "hsl(180, 80%, 49%)"
+      },
+      "40": {
+        "$type": "color",
+        "$value": "hsl(180, 81%, 65%)"
+      },
+      "50": {
+        "$type": "color",
+        "$value": "hsl(180, 80%, 82%)"
+      },
+      "60": {
+        "$type": "color",
+        "$value": "hsl(180, 79%, 91%)"
+      },
+      "70": {
+        "$type": "color",
+        "$value": "hsl(180, 78%, 93%)"
+      },
+      "80": {
+        "$type": "color",
+        "$value": "hsl(180, 79%, 95%)"
+      },
+      "90": {
+        "$type": "color",
+        "$value": "hsl(180, 79%, 96%)"
+      },
+      "100": {
+        "$type": "color",
+        "$value": "hsl(180, 78%, 98%)"
+      }
     }
   }
 }
