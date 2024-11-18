@@ -91,7 +91,7 @@
           "style": "solid"
         }
       },
-      "active": {
+      "selected": {
         "$type": "border",
         "$value": {
           "color": "{color.border.active}",
