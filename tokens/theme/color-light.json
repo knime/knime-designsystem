@@ -178,23 +178,23 @@
         },
         "success": {
           "$type": "color",
-          "$value": "{colors.green.30}",
-          "$description": "background color for elements with success purpose "
-        },
-        "onSuccess": {
-          "$type": "color",
           "$value": "{colors.green.90}",
           "$description": "foreground color for elements placed on success purpose background"
         },
-        "warning": {
+        "onSuccess": {
           "$type": "color",
-          "$value": "{colors.red.30}",
-          "$description": "background color for elements with warning purpose"
+          "$value": "{colors.green.30}",
+          "$description": "background color for elements with success purpose "
         },
-        "onWarning": {
+        "warning": {
           "$type": "color",
           "$value": "{colors.red.90}",
           "$description": "foreground color for elements placed on warning purpose background"
+        },
+        "onWarning": {
+          "$type": "color",
+          "$value": "{colors.red.30}",
+          "$description": "background color for elements with warning purpose"
         }
       },
       "inverted": {
@@ -210,23 +210,23 @@
         },
         "success": {
           "$type": "color",
-          "$value": "{colors.green.90}",
-          "$description": "background color for elements with success purpose"
-        },
-        "onSuccess": {
-          "$type": "color",
           "$value": "{colors.green.20}",
           "$description": "foreground color for elements placed on success purpose background"
         },
-        "warning": {
+        "onSuccess": {
           "$type": "color",
-          "$value": "{colors.red.90}",
-          "$description": "background color for elements with warning purpose"
+          "$value": "{colors.green.90}",
+          "$description": "background color for elements with success purpose"
         },
-        "onWarning": {
+        "warning": {
           "$type": "color",
           "$value": "{colors.red.20}",
           "$description": "foreground color for elements placed on warning purpose background"
+        },
+        "onWarning": {
+          "$type": "color",
+          "$value": "{colors.red.90}",
+          "$description": "background color for elements with warning purpose"
         }
       },
       "brand": {
@@ -263,11 +263,11 @@
       },
       "error": {
         "$type": "color",
-        "$value": "{color.purpose.inverted.onWarning}"
+        "$value": "{color.purpose.inverted.warning}"
       },
       "success": {
         "$type": "color",
-        "$value": "{color.purpose.inverted.onSuccess}"
+        "$value": "{color.purpose.inverted.success}"
       }
     }
   }
