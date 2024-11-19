@@ -164,8 +164,8 @@
         }
       }
     },
-    "purpose": {
-      "default": {
+    "system": {
+      "status": {
         "neutral": {
           "$type": "color",
           "$value": "{colors.neutral.80}",
@@ -186,6 +186,38 @@
           "$value": "{colors.blue.40}",
           "$description": "foreground color for elements placed on informational purpose background"
         },
+        "promotion": {
+          "$type": "color",
+          "$value": "{colors.turquoise.90}"
+        },
+        "onPromotion": {
+          "$type": "color",
+          "$value": "{colors.turquoise.10}"
+        }
+      },
+      "status-inverted": {
+        "neutral": {
+          "$type": "color",
+          "$value": "{colors.neutral.10}",
+          "$description": "background color for elements with neutral purpose "
+        },
+        "onNeutral": {
+          "$type": "color",
+          "$value": "{colors.neutral.90}",
+          "$description": "foreground color for elements placed on neutral purpose background"
+        },
+        "info": {
+          "$type": "color",
+          "$value": "{colors.blue.30}",
+          "$description": "background color for elements with informational purpose"
+        },
+        "onInfo": {
+          "$type": "color",
+          "$value": "{colors.blue.80}",
+          "$description": "foreground color for elements placed on informational purpose background"
+        }
+      },
+      "feedback": {
         "success": {
           "$type": "color",
           "$value": "{colors.green.90}",
@@ -215,37 +247,9 @@
           "$type": "color",
           "$value": "{colors.red.30}",
           "$description": "foreground color for elements placed on error purpose background"
-        },
-        "promotion": {
-          "$type": "color",
-          "$value": "{colors.turquoise.90}"
-        },
-        "onPromotion": {
-          "$type": "color",
-          "$value": "{colors.turquoise.10}"
         }
       },
-      "inverted": {
-        "neutral": {
-          "$type": "color",
-          "$value": "{colors.neutral.10}",
-          "$description": "background color for elements with neutral purpose "
-        },
-        "onNeutral": {
-          "$type": "color",
-          "$value": "{colors.neutral.90}",
-          "$description": "foreground color for elements placed on neutral purpose background"
-        },
-        "info": {
-          "$type": "color",
-          "$value": "{colors.blue.30}",
-          "$description": "background color for elements with informational purpose"
-        },
-        "onInfo": {
-          "$type": "color",
-          "$value": "{colors.blue.80}",
-          "$description": "foreground color for elements placed on informational purpose background"
-        },
+      "feedback-inverted": {
         "success": {
           "$type": "color",
           "$value": "{colors.green.20}",
@@ -309,11 +313,11 @@
       },
       "error": {
         "$type": "color",
-        "$value": "{color.purpose.inverted.error}"
+        "$value": "{color.system.feedback-inverted.error}"
       },
       "success": {
         "$type": "color",
-        "$value": "{color.purpose.inverted.success}"
+        "$value": "{color.system.feedback-inverted.success}"
       }
     }
   }

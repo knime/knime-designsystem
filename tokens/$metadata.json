@@ -3,10 +3,10 @@
     "core/color",
     "core/dimension",
     "core/font",
+    "mode/color-dark",
+    "mode/color-light",
     "style/border",
     "style/size",
-    "style/typography",
-    "mode/color-dark",
-    "mode/color-light"
+    "style/typography"
   ]
 }
