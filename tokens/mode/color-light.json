@@ -166,19 +166,19 @@
       "feedback": {
         "success": {
           "$type": "color",
-          "$value": "#"
+          "$value": "{color.system.feedback-inverted.success}"
         },
         "onSuccess": {
           "$type": "color",
-          "$value": "#"
+          "$value": "{color.system.feedback-inverted.onSuccess}"
         },
         "error": {
           "$type": "color",
-          "$value": "#"
+          "$value": "{color.system.feedback-inverted.error}"
         },
         "onError": {
           "$type": "color",
-          "$value": "#"
+          "$value": "{color.system.feedback-inverted.onError}"
         }
       }
     },
@@ -201,7 +201,7 @@
         },
         "onInfo": {
           "$type": "color",
-          "$value": "{colors.blue.40}",
+          "$value": "{colors.blue.20}",
           "$description": "foreground color for elements placed on informational purpose background"
         },
         "promotion": {
@@ -270,12 +270,12 @@
       "feedback-inverted": {
         "success": {
           "$type": "color",
-          "$value": "{colors.green.20}",
+          "$value": "{colors.green.30}",
           "$description": "background color for elements with success purpose background"
         },
         "onSuccess": {
           "$type": "color",
-          "$value": "{colors.green.90}",
+          "$value": "{colors.green.100}",
           "$description": "color for elements placed on success purpose background"
         },
         "warning": {
@@ -288,12 +288,12 @@
         },
         "error": {
           "$type": "color",
-          "$value": "{colors.red.20}",
+          "$value": "{colors.red.30}",
           "$description": "background color for elements with error purpose background"
         },
         "onError": {
           "$type": "color",
-          "$value": "{colors.red.90}",
+          "$value": "{colors.red.100}",
           "$description": "foreground color for elements placed on error purpose background"
         }
       },

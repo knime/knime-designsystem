@@ -134,8 +134,12 @@
     }
   },
   "dimension": {
-    "button": {
+    "action": {
       "height": {
+        "xs": {
+          "$type": "dimension",
+          "$value": "{dimension.125}"
+        },
         "s": {
           "$type": "dimension",
           "$value": "{dimension.150}"
@@ -167,15 +171,15 @@
     "icon": {
       "0_5x": {
         "$type": "dimension",
-        "$value": "{dimension.150}"
+        "$value": "{dimension.75}"
       },
       "0_75x": {
         "$type": "dimension",
-        "$value": "{dimension.175}"
+        "$value": "{dimension.100}"
       },
       "1x": {
         "$type": "dimension",
-        "$value": "{dimension.225}"
+        "$value": "{dimension.125}"
       }
     }
   }
