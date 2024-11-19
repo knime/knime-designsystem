@@ -188,11 +188,11 @@
         },
         "promotion": {
           "$type": "color",
-          "$value": "{colors.turquoise.90}"
+          "$value": "{colors.turquoise.20}"
         },
         "onPromotion": {
           "$type": "color",
-          "$value": "{colors.turquoise.10}"
+          "$value": "{colors.turquoise.100}"
         }
       },
       "status-inverted": {
