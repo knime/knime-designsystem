@@ -215,6 +215,14 @@
           "$type": "color",
           "$value": "{colors.red.30}",
           "$description": "foreground color for elements placed on error purpose background"
+        },
+        "promotion": {
+          "$type": "color",
+          "$value": "{colors.turquoise.90}"
+        },
+        "onPromotion": {
+          "$type": "color",
+          "$value": "{colors.turquoise.10}"
         }
       },
       "inverted": {

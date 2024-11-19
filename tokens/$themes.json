@@ -10,7 +10,6 @@
       "style/border": "enabled",
       "style/typography": "enabled",
       "style/size": "enabled",
-      "mode/color-dark": "disabled",
       "mode/color-light": "enabled"
     },
     "$figmaStyleReferences": {}
@@ -26,8 +25,7 @@
       "style/border": "enabled",
       "style/typography": "enabled",
       "style/size": "enabled",
-      "mode/color-dark": "enabled",
-      "mode/color-light": "disabled"
+      "mode/color-dark": "enabled"
     },
     "$figmaStyleReferences": {}
   }
