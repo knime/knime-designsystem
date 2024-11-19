@@ -13,6 +13,10 @@
         "$type": "borderRadius",
         "$value": "{dimension.25}"
       },
+      "s6": {
+        "$type": "borderRadius",
+        "$value": "{dimension.37}"
+      },
       "m": {
         "$type": "borderRadius",
         "$value": "{dimension.50}"

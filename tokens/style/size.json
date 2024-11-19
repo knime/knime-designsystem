@@ -148,6 +148,34 @@
           "$type": "dimension",
           "$value": "{dimension.225}"
         }
+      },
+      "width": {
+        "s": {
+          "$type": "dimension",
+          "$value": "{dimension.150}"
+        },
+        "m": {
+          "$type": "dimension",
+          "$value": "{dimension.175}"
+        },
+        "l": {
+          "$type": "dimension",
+          "$value": "{dimension.225}"
+        }
+      }
+    },
+    "icon": {
+      "0_5x": {
+        "$type": "dimension",
+        "$value": "{dimension.150}"
+      },
+      "0_75x": {
+        "$type": "dimension",
+        "$value": "{dimension.175}"
+      },
+      "1x": {
+        "$type": "dimension",
+        "$value": "{dimension.225}"
       }
     }
   }

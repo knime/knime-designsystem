@@ -162,6 +162,24 @@
           "$value": "{colors.neutral.20}",
           "$description": "color for elements that are placed on interactive background colors"
         }
+      },
+      "feedback": {
+        "success": {
+          "$type": "color",
+          "$value": "#"
+        },
+        "onSuccess": {
+          "$type": "color",
+          "$value": "#"
+        },
+        "error": {
+          "$type": "color",
+          "$value": "#"
+        },
+        "onError": {
+          "$type": "color",
+          "$value": "#"
+        }
       }
     },
     "system": {
@@ -188,11 +206,11 @@
         },
         "promotion": {
           "$type": "color",
-          "$value": "{colors.turquoise.20}"
+          "$value": "{colors.turquoise.90}"
         },
         "onPromotion": {
           "$type": "color",
-          "$value": "{colors.turquoise.100}"
+          "$value": "{colors.turquoise.10}"
         }
       },
       "status-inverted": {
