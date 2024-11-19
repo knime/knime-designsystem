@@ -6,7 +6,7 @@
     "style/border",
     "style/size",
     "style/typography",
-    "theme/color-dark",
-    "theme/color-light"
+    "mode/color-dark",
+    "mode/color-light"
   ]
 }

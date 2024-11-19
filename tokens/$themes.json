@@ -9,8 +9,9 @@
       "core/font": "source",
       "style/border": "enabled",
       "style/typography": "enabled",
-      "theme/color-light": "enabled",
-      "style/size": "enabled"
+      "style/size": "enabled",
+      "mode/color-dark": "disabled",
+      "mode/color-light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -20,12 +21,13 @@
     "group": "mode",
     "selectedTokenSets": {
       "core/color": "source",
-      "theme/color-dark": "enabled",
       "core/dimension": "source",
       "core/font": "source",
       "style/border": "enabled",
       "style/typography": "enabled",
-      "style/size": "enabled"
+      "style/size": "enabled",
+      "mode/color-dark": "enabled",
+      "mode/color-light": "disabled"
     },
     "$figmaStyleReferences": {}
   }
