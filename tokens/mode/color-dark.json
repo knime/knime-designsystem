@@ -162,8 +162,8 @@
         }
       }
     },
-    "purpose": {
-      "default": {
+    "system": {
+      "status": {
         "neutral": {
           "$type": "color",
           "$value": "{colors.neutral.40}"
@@ -182,6 +182,36 @@
           "$value": "{colors.blue.80}",
           "$description": "foreground color for elements placed on informational purpose background"
         },
+        "promotion": {
+          "$type": "color",
+          "$value": "{colors.turquoise.10}"
+        },
+        "onPromotion": {
+          "$type": "color",
+          "$value": "{colors.turquoise.90}"
+        }
+      },
+      "status-inverted": {
+        "neutral": {
+          "$type": "color",
+          "$value": "{colors.neutral.80}"
+        },
+        "onNeutral": {
+          "$type": "color",
+          "$value": "{colors.neutral.20}"
+        },
+        "info": {
+          "$type": "color",
+          "$value": "{colors.blue.60}",
+          "$description": "background color for elements with informational purpose"
+        },
+        "onInfo": {
+          "$type": "color",
+          "$value": "{colors.blue.10}",
+          "$description": "foreground color for elements placed on informational purpose background"
+        }
+      },
+      "feedback": {
         "success": {
           "$type": "color",
           "$value": "{colors.green.20}",
@@ -213,25 +243,7 @@
           "$description": "foreground color for elements placed on error purpose background"
         }
       },
-      "inverted": {
-        "neutral": {
-          "$type": "color",
-          "$value": "{colors.neutral.80}"
-        },
-        "onNeutral": {
-          "$type": "color",
-          "$value": "{colors.neutral.20}"
-        },
-        "info": {
-          "$type": "color",
-          "$value": "{colors.blue.60}",
-          "$description": "background color for elements with informational purpose"
-        },
-        "onInfo": {
-          "$type": "color",
-          "$value": "{colors.blue.10}",
-          "$description": "foreground color for elements placed on informational purpose background"
-        },
+      "feedback-inverted": {
         "success": {
           "$type": "color",
           "$value": "{colors.green.90}",
