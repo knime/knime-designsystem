@@ -238,7 +238,7 @@
       "feedback": {
         "success": {
           "$type": "color",
-          "$value": "{colors.green.90}",
+          "$value": "{colors.green.100}",
           "$description": "background color for elements with success purpose background"
         },
         "onSuccess": {
