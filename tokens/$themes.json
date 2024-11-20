@@ -2,7 +2,6 @@
   {
     "id": "f390b93e59ebb79800fc3be6c3726d17a4727d13",
     "name": "light",
-    "group": "mode",
     "selectedTokenSets": {
       "core/color": "source",
       "core/dimension": "source",
@@ -10,14 +9,15 @@
       "style/border": "enabled",
       "style/typography": "enabled",
       "style/size": "enabled",
-      "mode/color-light": "enabled"
+      "mode/color-light": "enabled",
+      "components": "enabled"
     },
-    "$figmaStyleReferences": {}
+    "$figmaStyleReferences": {},
+    "group": "mode"
   },
   {
     "id": "6991ad03613f98af6f4a929aae70d7d4a9567ff0",
     "name": "dark",
-    "group": "mode",
     "selectedTokenSets": {
       "core/color": "source",
       "core/dimension": "source",
@@ -25,8 +25,10 @@
       "style/border": "enabled",
       "style/typography": "enabled",
       "style/size": "enabled",
-      "mode/color-dark": "enabled"
+      "mode/color-dark": "enabled",
+      "components": "enabled"
     },
-    "$figmaStyleReferences": {}
+    "$figmaStyleReferences": {},
+    "group": "mode"
   }
 ]

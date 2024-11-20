@@ -1,0 +1,44 @@
+{
+  "color": {
+    "spinner": {
+      "progress": {
+        "onFilled": {
+          "$type": "color",
+          "$value": "{color.system.status-inverted.onNeutral}"
+        },
+        "onTransparent": {
+          "$type": "color",
+          "$value": "{color.system.status.onNeutral}"
+        }
+      },
+      "track": {
+        "onFilled": {
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "alpha",
+                "value": "0.24",
+                "space": "lch"
+              }
+            }
+          },
+          "$type": "color",
+          "$value": "{color.system.status.neutral}"
+        },
+        "onTransparent": {
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "alpha",
+                "value": "0.24",
+                "space": "lch"
+              }
+            }
+          },
+          "$type": "color",
+          "$value": "{color.system.status-inverted.neutral}"
+        }
+      }
+    }
+  }
+}

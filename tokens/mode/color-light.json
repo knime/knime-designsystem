@@ -81,37 +81,6 @@
           "$value": "{colors.neutral.90}"
         }
       },
-      "selected": {
-        "enabled": {
-          "$type": "color",
-          "$value": "{colors.blue.80}",
-          "$description": "background color for selected elements"
-        },
-        "onEnabled": {
-          "$type": "color",
-          "$value": "{colors.blue.30}",
-          "$description": "Foreground color for selected elements"
-        },
-        "hover": {
-          "$extensions": {
-            "studio.tokens": {
-              "modify": {
-                "type": "lighten",
-                "value": "0.64",
-                "space": "lch"
-              }
-            }
-          },
-          "$type": "color",
-          "$value": "{color.action.selected.enabled}",
-          "$description": "Backgrounf color for state overlay on a select hovered element"
-        },
-        "onHover": {
-          "$type": "color",
-          "$value": "{colors.blue.30}",
-          "$description": "Foreground color for selected elements"
-        }
-      },
       "transparent": {
         "enabled": {
           "$type": "color",
@@ -161,6 +130,37 @@
           "$type": "color",
           "$value": "{colors.neutral.20}",
           "$description": "color for elements that are placed on interactive background colors"
+        }
+      },
+      "selected": {
+        "enabled": {
+          "$type": "color",
+          "$value": "{colors.blue.80}",
+          "$description": "background color for selected elements"
+        },
+        "onEnabled": {
+          "$type": "color",
+          "$value": "{colors.blue.30}",
+          "$description": "Foreground color for selected elements"
+        },
+        "hover": {
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "lighten",
+                "value": "0.64",
+                "space": "lch"
+              }
+            }
+          },
+          "$type": "color",
+          "$value": "{color.action.selected.enabled}",
+          "$description": "Backgrounf color for state overlay on a select hovered element"
+        },
+        "onHover": {
+          "$type": "color",
+          "$value": "{colors.blue.30}",
+          "$description": "Foreground color for selected elements"
         }
       },
       "feedback": {
