@@ -172,11 +172,11 @@
         },
         "error": {
           "$type": "color",
-          "$value": "{color.system.feedback.error}"
+          "$value": "{color.system.feedback-inverted.error}"
         },
         "onError": {
           "$type": "color",
-          "$value": "{color.system.feedback.onError}"
+          "$value": "{color.system.feedback-inverted.onError}"
         }
       }
     },

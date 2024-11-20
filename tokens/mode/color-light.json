@@ -166,19 +166,19 @@
       "feedback": {
         "success": {
           "$type": "color",
-          "$value": "{color.system.feedback-inverted.success}"
+          "$value": "{color.system.feedback.success}"
         },
         "onSuccess": {
           "$type": "color",
-          "$value": "{color.system.feedback-inverted.onSuccess}"
+          "$value": "{color.system.feedback.onSuccess}"
         },
         "error": {
           "$type": "color",
-          "$value": "{color.system.feedback-inverted.error}"
+          "$value": "{color.system.feedback.error}"
         },
         "onError": {
           "$type": "color",
-          "$value": "{color.system.feedback-inverted.onError}"
+          "$value": "{color.system.feedback.onError}"
         }
       }
     },
@@ -235,7 +235,7 @@
           "$description": "foreground color for elements placed on informational purpose background"
         }
       },
-      "feedback": {
+      "feedback-inverted": {
         "success": {
           "$type": "color",
           "$value": "{colors.green.100}",
@@ -267,7 +267,7 @@
           "$description": "foreground color for elements placed on error purpose background"
         }
       },
-      "feedback-inverted": {
+      "feedback": {
         "success": {
           "$type": "color",
           "$value": "{colors.green.30}",
@@ -331,11 +331,11 @@
       },
       "error": {
         "$type": "color",
-        "$value": "{color.system.feedback-inverted.error}"
+        "$value": "{color.system.feedback.error}"
       },
       "success": {
         "$type": "color",
-        "$value": "{color.system.feedback-inverted.success}"
+        "$value": "{color.system.feedback.success}"
       }
     }
   }
