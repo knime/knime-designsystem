@@ -7,10 +7,10 @@
       "core/dimension": "source",
       "core/font": "source",
       "style/border": "enabled",
-      "style/typography": "enabled",
       "style/size": "enabled",
       "mode/color-light": "enabled",
-      "components": "enabled"
+      "components": "enabled",
+      "style/font": "enabled"
     },
     "$figmaStyleReferences": {},
     "group": "mode"
@@ -23,10 +23,10 @@
       "core/dimension": "source",
       "core/font": "source",
       "style/border": "enabled",
-      "style/typography": "enabled",
       "style/size": "enabled",
       "mode/color-dark": "enabled",
-      "components": "enabled"
+      "components": "enabled",
+      "style/font": "enabled"
     },
     "$figmaStyleReferences": {},
     "group": "mode"

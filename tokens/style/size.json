@@ -34,35 +34,35 @@
           "$type": "spacing",
           "$value": "{kds.core.dimension.0}"
         },
-        "xxs": {
+        "0_12x": {
           "$type": "spacing",
           "$value": "{kds.core.dimension.12}"
         },
-        "xs": {
+        "0_25x": {
           "$type": "spacing",
           "$value": "{kds.core.dimension.25}"
         },
-        "s": {
+        "0_50x": {
           "$type": "spacing",
           "$value": "{kds.core.dimension.50}"
         },
-        "m": {
+        "0_75x": {
           "$type": "spacing",
           "$value": "{kds.core.dimension.75}"
         },
-        "l": {
+        "1x": {
           "$type": "spacing",
           "$value": "{kds.core.dimension.100}"
         },
-        "xl": {
+        "1_25x": {
           "$type": "spacing",
           "$value": "{kds.core.dimension.125}"
         },
-        "2xl": {
+        "1_5x": {
           "$type": "spacing",
           "$value": "{kds.core.dimension.150}"
         },
-        "3xl": {
+        "2x": {
           "$type": "spacing",
           "$value": "{kds.core.dimension.200}"
         },

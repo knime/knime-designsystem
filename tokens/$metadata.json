@@ -7,7 +7,7 @@
     "mode/color-light",
     "style/border",
     "style/size",
-    "style/typography",
+    "style/font",
     "components"
   ]
 }
