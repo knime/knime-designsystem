@@ -1,153 +1,155 @@
 {
   "kds": {
     "font": {
-      "heading-strong": {
-        "H6": {
-          "$type": "typography",
-          "$value": {
-            "fontFamily": "{kds.core.font-family.title}",
-            "fontWeight": "{kds.core.font-weight.strong}",
-            "lineHeight": "{kds.line-height.title}",
-            "fontSize": "{kds.font-size.0_87x}"
+      "base": {
+        "heading-strong": {
+          "H6": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.title}",
+              "fontWeight": "{kds.core.font-weight.strong}",
+              "lineHeight": "{kds.line-height.title}",
+              "fontSize": "{kds.font-size.0_87x}"
+            }
+          },
+          "H5": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.title}",
+              "fontWeight": "{kds.core.font-weight.strong}",
+              "lineHeight": "{kds.line-height.title}",
+              "fontSize": "{kds.font-size.1x}"
+            }
+          },
+          "H4": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.title}",
+              "fontWeight": "{kds.core.font-weight.strong}",
+              "lineHeight": "{kds.line-height.title}",
+              "fontSize": "{kds.font-size.1_25x}"
+            }
+          },
+          "H3": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.title}",
+              "fontWeight": "{kds.core.font-weight.strong}",
+              "lineHeight": "{kds.line-height.title}",
+              "fontSize": "{kds.font-size.1_50x}"
+            }
+          },
+          "H2": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.title}",
+              "fontWeight": "{kds.core.font-weight.strong}",
+              "lineHeight": "{kds.line-height.title}",
+              "fontSize": "{kds.font-size.2x}"
+            }
+          },
+          "H1": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.title}",
+              "fontWeight": "{kds.core.font-weight.strong}",
+              "lineHeight": "{kds.line-height.title}",
+              "fontSize": "{kds.font-size.2_50x}"
+            }
           }
         },
-        "H5": {
-          "$type": "typography",
-          "$value": {
-            "fontFamily": "{kds.core.font-family.title}",
-            "fontWeight": "{kds.core.font-weight.strong}",
-            "lineHeight": "{kds.line-height.title}",
-            "fontSize": "{kds.font-size.1x}"
+        "heading-medium": {
+          "H5": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.title}",
+              "fontWeight": "{kds.core.font-weight.medium}",
+              "lineHeight": "{kds.line-height.title}",
+              "fontSize": "{kds.font-size.0_87x}"
+            }
+          },
+          "H4": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.title}",
+              "fontWeight": "{kds.core.font-weight.medium}",
+              "lineHeight": "{kds.line-height.title}",
+              "fontSize": "{kds.font-size.1x}"
+            }
+          },
+          "H3": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.title}",
+              "fontWeight": "{kds.core.font-weight.medium}",
+              "lineHeight": "{kds.line-height.title}",
+              "fontSize": "{kds.font-size.1_25x}"
+            }
+          },
+          "H2": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.title}",
+              "fontWeight": "{kds.core.font-weight.medium}",
+              "lineHeight": "{kds.line-height.title}",
+              "fontSize": "{kds.font-size.1_50x}"
+            }
+          },
+          "H1": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.title}",
+              "fontWeight": "{kds.core.font-weight.medium}",
+              "lineHeight": "{kds.line-height.title}",
+              "fontSize": "{kds.font-size.2x}"
+            }
           }
         },
-        "H4": {
-          "$type": "typography",
-          "$value": {
-            "fontFamily": "{kds.core.font-family.title}",
-            "fontWeight": "{kds.core.font-weight.strong}",
-            "lineHeight": "{kds.line-height.title}",
-            "fontSize": "{kds.font-size.1_25x}"
-          }
-        },
-        "H3": {
-          "$type": "typography",
-          "$value": {
-            "fontFamily": "{kds.core.font-family.title}",
-            "fontWeight": "{kds.core.font-weight.strong}",
-            "lineHeight": "{kds.line-height.title}",
-            "fontSize": "{kds.font-size.1_50x}"
-          }
-        },
-        "H2": {
-          "$type": "typography",
-          "$value": {
-            "fontFamily": "{kds.core.font-family.title}",
-            "fontWeight": "{kds.core.font-weight.strong}",
-            "lineHeight": "{kds.line-height.title}",
-            "fontSize": "{kds.font-size.2x}"
-          }
-        },
-        "H1": {
-          "$type": "typography",
-          "$value": {
-            "fontFamily": "{kds.core.font-family.title}",
-            "fontWeight": "{kds.core.font-weight.strong}",
-            "lineHeight": "{kds.line-height.title}",
-            "fontSize": "{kds.font-size.2_50x}"
-          }
-        }
-      },
-      "heading-medium": {
-        "H5": {
-          "$type": "typography",
-          "$value": {
-            "fontFamily": "{kds.core.font-family.title}",
-            "fontWeight": "{kds.core.font-weight.medium}",
-            "lineHeight": "{kds.line-height.title}",
-            "fontSize": "{kds.font-size.0_87x}"
-          }
-        },
-        "H4": {
-          "$type": "typography",
-          "$value": {
-            "fontFamily": "{kds.core.font-family.title}",
-            "fontWeight": "{kds.core.font-weight.medium}",
-            "lineHeight": "{kds.line-height.title}",
-            "fontSize": "{kds.font-size.1x}"
-          }
-        },
-        "H3": {
-          "$type": "typography",
-          "$value": {
-            "fontFamily": "{kds.core.font-family.title}",
-            "fontWeight": "{kds.core.font-weight.medium}",
-            "lineHeight": "{kds.line-height.title}",
-            "fontSize": "{kds.font-size.1_25x}"
-          }
-        },
-        "H2": {
-          "$type": "typography",
-          "$value": {
-            "fontFamily": "{kds.core.font-family.title}",
-            "fontWeight": "{kds.core.font-weight.medium}",
-            "lineHeight": "{kds.line-height.title}",
-            "fontSize": "{kds.font-size.1_50x}"
-          }
-        },
-        "H1": {
-          "$type": "typography",
-          "$value": {
-            "fontFamily": "{kds.core.font-family.title}",
-            "fontWeight": "{kds.core.font-weight.medium}",
-            "lineHeight": "{kds.line-height.title}",
-            "fontSize": "{kds.font-size.2x}"
-          }
-        }
-      },
-      "body": {
-        "xs": {
-          "$type": "typography",
-          "$value": {
-            "fontFamily": "{kds.core.font-family.body}",
-            "fontWeight": "{kds.core.font-weight.default}",
-            "lineHeight": "{kds.line-height.body}",
-            "fontSize": "{kds.font-size.0_62x}"
-          }
-        },
-        "s": {
-          "$type": "typography",
-          "$value": {
-            "fontFamily": "{kds.core.font-family.body}",
-            "fontWeight": "{kds.core.font-weight.default}",
-            "lineHeight": "{kds.line-height.body}",
-            "fontSize": "{kds.font-size.0_75x}"
-          }
-        },
-        "sm": {
-          "$type": "typography",
-          "$value": {
-            "fontFamily": "{kds.core.font-family.body}",
-            "fontWeight": "{kds.core.font-weight.default}",
-            "lineHeight": "{kds.line-height.body}",
-            "fontSize": "{kds.font-size.0_87x}"
-          }
-        },
-        "m": {
-          "$type": "typography",
-          "$value": {
-            "fontFamily": "{kds.core.font-family.body}",
-            "fontWeight": "{kds.core.font-weight.default}",
-            "lineHeight": "{kds.line-height.body}",
-            "fontSize": "{kds.font-size.1x}"
-          }
-        },
-        "ml": {
-          "$type": "typography",
-          "$value": {
-            "fontFamily": "{kds.core.font-family.body}",
-            "fontWeight": "{kds.core.font-weight.default}",
-            "lineHeight": "{kds.line-height.body}",
-            "fontSize": "{kds.font-size.1_25x}"
+        "body": {
+          "xs": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.body}",
+              "fontWeight": "{kds.core.font-weight.default}",
+              "lineHeight": "{kds.line-height.body}",
+              "fontSize": "{kds.font-size.0_62x}"
+            }
+          },
+          "s": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.body}",
+              "fontWeight": "{kds.core.font-weight.default}",
+              "lineHeight": "{kds.line-height.body}",
+              "fontSize": "{kds.font-size.0_75x}"
+            }
+          },
+          "sm": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.body}",
+              "fontWeight": "{kds.core.font-weight.default}",
+              "lineHeight": "{kds.line-height.body}",
+              "fontSize": "{kds.font-size.0_87x}"
+            }
+          },
+          "m": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.body}",
+              "fontWeight": "{kds.core.font-weight.default}",
+              "lineHeight": "{kds.line-height.body}",
+              "fontSize": "{kds.font-size.1x}"
+            }
+          },
+          "ml": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.body}",
+              "fontWeight": "{kds.core.font-weight.default}",
+              "lineHeight": "{kds.line-height.body}",
+              "fontSize": "{kds.font-size.1_25x}"
+            }
           }
         }
       },
