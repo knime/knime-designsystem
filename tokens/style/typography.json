@@ -5,8 +5,8 @@
         "sm": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.title}",
-            "fontWeight": "{font-weight.base.strong}",
+            "fontFamily": "{kds.core.font-family.title}",
+            "fontWeight": "{kds.core.font-weight.strong}",
             "lineHeight": "{line-height.base.title}",
             "fontSize": "{font-size.base.sm}"
           }
@@ -14,8 +14,8 @@
         "m": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.title}",
-            "fontWeight": "{font-weight.base.strong}",
+            "fontFamily": "{kds.core.font-family.title}",
+            "fontWeight": "{kds.core.font-weight.strong}",
             "lineHeight": "{line-height.base.title}",
             "fontSize": "{font-size.base.m}"
           }
@@ -23,8 +23,8 @@
         "ml": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.title}",
-            "fontWeight": "{font-weight.base.strong}",
+            "fontFamily": "{kds.core.font-family.title}",
+            "fontWeight": "{kds.core.font-weight.strong}",
             "lineHeight": "{line-height.base.title}",
             "fontSize": "{font-size.base.ml}"
           }
@@ -32,8 +32,8 @@
         "l": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.title}",
-            "fontWeight": "{font-weight.base.strong}",
+            "fontFamily": "{kds.core.font-family.title}",
+            "fontWeight": "{kds.core.font-weight.strong}",
             "lineHeight": "{line-height.base.title}",
             "fontSize": "{font-size.base.l}"
           }
@@ -41,8 +41,8 @@
         "xl": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.title}",
-            "fontWeight": "{font-weight.base.strong}",
+            "fontFamily": "{kds.core.font-family.title}",
+            "fontWeight": "{kds.core.font-weight.strong}",
             "lineHeight": "{line-height.base.title}",
             "fontSize": "{font-size.base.xl}"
           }
@@ -50,8 +50,8 @@
         "2xl": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.title}",
-            "fontWeight": "{font-weight.base.strong}",
+            "fontFamily": "{kds.core.font-family.title}",
+            "fontWeight": "{kds.core.font-weight.strong}",
             "lineHeight": "{line-height.base.title}",
             "fontSize": "{font-size.base.2xl}"
           }
@@ -59,8 +59,8 @@
         "3xl": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.title}",
-            "fontWeight": "{font-weight.base.strong}",
+            "fontFamily": "{kds.core.font-family.title}",
+            "fontWeight": "{kds.core.font-weight.strong}",
             "lineHeight": "{line-height.base.title}",
             "fontSize": "{font-size.base.3xl}"
           }
@@ -70,8 +70,8 @@
         "sm": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.title}",
-            "fontWeight": "{font-weight.base.medium}",
+            "fontFamily": "{kds.core.font-family.title}",
+            "fontWeight": "{kds.core.font-weight.medium}",
             "lineHeight": "{line-height.base.title}",
             "fontSize": "{font-size.base.sm}"
           }
@@ -79,8 +79,8 @@
         "m": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.title}",
-            "fontWeight": "{font-weight.base.medium}",
+            "fontFamily": "{kds.core.font-family.title}",
+            "fontWeight": "{kds.core.font-weight.medium}",
             "lineHeight": "{line-height.base.title}",
             "fontSize": "{font-size.base.m}"
           }
@@ -88,8 +88,8 @@
         "ml": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.title}",
-            "fontWeight": "{font-weight.base.medium}",
+            "fontFamily": "{kds.core.font-family.title}",
+            "fontWeight": "{kds.core.font-weight.medium}",
             "lineHeight": "{line-height.base.title}",
             "fontSize": "{font-size.base.ml}"
           }
@@ -97,8 +97,8 @@
         "l": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.title}",
-            "fontWeight": "{font-weight.base.medium}",
+            "fontFamily": "{kds.core.font-family.title}",
+            "fontWeight": "{kds.core.font-weight.medium}",
             "lineHeight": "{line-height.base.title}",
             "fontSize": "{font-size.base.l}"
           }
@@ -106,8 +106,8 @@
         "xl": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.title}",
-            "fontWeight": "{font-weight.base.medium}",
+            "fontFamily": "{kds.core.font-family.title}",
+            "fontWeight": "{kds.core.font-weight.medium}",
             "lineHeight": "{line-height.base.title}",
             "fontSize": "{font-size.base.xl}"
           }
@@ -117,8 +117,8 @@
         "xs": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.body}",
-            "fontWeight": "{font-weight.base.default}",
+            "fontFamily": "{kds.core.font-family.body}",
+            "fontWeight": "{kds.core.font-weight.default}",
             "lineHeight": "{line-height.base.body}",
             "fontSize": "{font-size.base.xs}"
           }
@@ -126,8 +126,8 @@
         "s": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.body}",
-            "fontWeight": "{font-weight.base.default}",
+            "fontFamily": "{kds.core.font-family.body}",
+            "fontWeight": "{kds.core.font-weight.default}",
             "lineHeight": "{line-height.base.body}",
             "fontSize": "{font-size.base.s}"
           }
@@ -135,8 +135,8 @@
         "sm": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.body}",
-            "fontWeight": "{font-weight.base.default}",
+            "fontFamily": "{kds.core.font-family.body}",
+            "fontWeight": "{kds.core.font-weight.default}",
             "lineHeight": "{line-height.base.body}",
             "fontSize": "{font-size.base.sm}"
           }
@@ -144,8 +144,8 @@
         "m": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.body}",
-            "fontWeight": "{font-weight.base.default}",
+            "fontFamily": "{kds.core.font-family.body}",
+            "fontWeight": "{kds.core.font-weight.default}",
             "lineHeight": "{line-height.base.body}",
             "fontSize": "{font-size.base.m}"
           }
@@ -153,8 +153,8 @@
         "ml": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.body}",
-            "fontWeight": "{font-weight.base.default}",
+            "fontFamily": "{kds.core.font-family.body}",
+            "fontWeight": "{kds.core.font-weight.default}",
             "lineHeight": "{line-height.base.body}",
             "fontSize": "{font-size.base.ml}"
           }
@@ -166,8 +166,8 @@
         "s": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.interface}",
-            "fontWeight": "{font-weight.base.interface-strong}",
+            "fontFamily": "{kds.core.font-family.interface}",
+            "fontWeight": "{kds.core.font-weight.interface-strong}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.s}"
           }
@@ -175,8 +175,8 @@
         "sm": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.interface}",
-            "fontWeight": "{font-weight.base.interface-strong}",
+            "fontFamily": "{kds.core.font-family.interface}",
+            "fontWeight": "{kds.core.font-weight.interface-strong}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.sm}"
           }
@@ -184,8 +184,8 @@
         "m": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.interface}",
-            "fontWeight": "{font-weight.base.interface-strong}",
+            "fontFamily": "{kds.core.font-family.interface}",
+            "fontWeight": "{kds.core.font-weight.interface-strong}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.m}"
           }
@@ -193,8 +193,8 @@
         "ml": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.interface}",
-            "fontWeight": "{font-weight.base.interface-strong}",
+            "fontFamily": "{kds.core.font-family.interface}",
+            "fontWeight": "{kds.core.font-weight.interface-strong}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.ml}"
           }
@@ -202,8 +202,8 @@
         "l": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.interface}",
-            "fontWeight": "{font-weight.base.interface-strong}",
+            "fontFamily": "{kds.core.font-family.interface}",
+            "fontWeight": "{kds.core.font-weight.interface-strong}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.l}"
           }
@@ -213,8 +213,8 @@
         "s": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.interface}",
-            "fontWeight": "{font-weight.base.interface-medium}",
+            "fontFamily": "{kds.core.font-family.interface}",
+            "fontWeight": "{kds.core.font-weight.interface-medium}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.s}"
           }
@@ -222,8 +222,8 @@
         "sm": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.interface}",
-            "fontWeight": "{font-weight.base.interface-medium}",
+            "fontFamily": "{kds.core.font-family.interface}",
+            "fontWeight": "{kds.core.font-weight.interface-medium}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.sm}"
           }
@@ -231,8 +231,8 @@
         "m": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.interface}",
-            "fontWeight": "{font-weight.base.interface-medium}",
+            "fontFamily": "{kds.core.font-family.interface}",
+            "fontWeight": "{kds.core.font-weight.interface-medium}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.m}"
           }
@@ -240,8 +240,8 @@
         "ml": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.interface}",
-            "fontWeight": "{font-weight.base.interface-medium}",
+            "fontFamily": "{kds.core.font-family.interface}",
+            "fontWeight": "{kds.core.font-weight.interface-medium}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.ml}"
           }
@@ -249,8 +249,8 @@
         "l": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.interface}",
-            "fontWeight": "{font-weight.base.interface-medium}",
+            "fontFamily": "{kds.core.font-family.interface}",
+            "fontWeight": "{kds.core.font-weight.interface-medium}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.l}"
           }
@@ -260,8 +260,8 @@
         "s": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.interface}",
-            "fontWeight": "{font-weight.base.interface-default}",
+            "fontFamily": "{kds.core.font-family.interface}",
+            "fontWeight": "{kds.core.font-weight.interface-default}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.s}"
           }
@@ -269,8 +269,8 @@
         "sm": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.interface}",
-            "fontWeight": "{font-weight.base.interface-default}",
+            "fontFamily": "{kds.core.font-family.interface}",
+            "fontWeight": "{kds.core.font-weight.interface-default}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.sm}"
           }
@@ -278,8 +278,8 @@
         "m": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.interface}",
-            "fontWeight": "{font-weight.base.interface-default}",
+            "fontFamily": "{kds.core.font-family.interface}",
+            "fontWeight": "{kds.core.font-weight.interface-default}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.m}"
           }
@@ -287,8 +287,8 @@
         "ml": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.interface}",
-            "fontWeight": "{font-weight.base.interface-default}",
+            "fontFamily": "{kds.core.font-family.interface}",
+            "fontWeight": "{kds.core.font-weight.interface-default}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.ml}"
           }
@@ -296,8 +296,8 @@
         "l": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{font-family.base.interface}",
-            "fontWeight": "{font-weight.base.interface-default}",
+            "fontFamily": "{kds.core.font-family.interface}",
+            "fontWeight": "{kds.core.font-weight.interface-default}",
             "lineHeight": "{line-height.base.interface}",
             "fontSize": "{font-size.base.l}"
           }
@@ -309,41 +309,41 @@
     "base": {
       "xs": {
         "$type": "fontSizes",
-        "$value": "{core.font-size.scaled.62}"
+        "$value": "{kds.core.font-size.scaled.62}"
       },
       "s": {
         "$type": "fontSizes",
-        "$value": "{core.font-size.scaled.75}"
+        "$value": "{kds.core.font-size.scaled.75}"
       },
       "sm": {
         "$type": "fontSizes",
-        "$value": "{core.font-size.scaled.87}"
+        "$value": "{kds.core.font-size.scaled.87}"
       },
       "m": {
         "$type": "fontSizes",
-        "$value": "{core.font-size.scaled.100}",
+        "$value": "{kds.core.font-size.scaled.100}",
         "$description": "m is the size of body text which is typically the same size as h6."
       },
       "ml": {
         "$type": "fontSizes",
-        "$value": "{core.font-size.scaled.125}",
+        "$value": "{kds.core.font-size.scaled.125}",
         "$description": "ml is large body text which is typically the same size as h5."
       },
       "l": {
         "$type": "fontSizes",
-        "$value": "{core.font-size.scaled.150}"
+        "$value": "{kds.core.font-size.scaled.150}"
       },
       "xl": {
         "$type": "fontSizes",
-        "$value": "{core.font-size.scaled.200}"
+        "$value": "{kds.core.font-size.scaled.200}"
       },
       "2xl": {
         "$type": "fontSizes",
-        "$value": "{core.font-size.scaled.250}"
+        "$value": "{kds.core.font-size.scaled.250}"
       },
       "3xl": {
         "$type": "fontSizes",
-        "$value": "{core.font-size.scaled.300}",
+        "$value": "{kds.core.font-size.scaled.300}",
         "$description": "xxxl is your h1, but don't tell anyone, we want to speak in tokens not in HTML markup."
       }
     }
@@ -352,15 +352,15 @@
     "base": {
       "title": {
         "$type": "lineHeights",
-        "$value": "{core.line-height.m}"
+        "$value": "{kds.core.line-height.m}"
       },
       "body": {
         "$type": "lineHeights",
-        "$value": "{core.line-height.l}"
+        "$value": "{kds.core.line-height.l}"
       },
       "interface": {
         "$type": "lineHeights",
-        "$value": "{core.line-height.s}"
+        "$value": "{kds.core.line-height.s}"
       }
     }
   }

@@ -4,29 +4,29 @@
       "background": {
         "default": {
           "$type": "color",
-          "$value": "{colors.neutral.100}"
+          "$value": "{kds.core.colors.neutral.100}"
         },
         "muted": {
           "$type": "color",
-          "$value": "{colors.neutral.90}"
+          "$value": "{kds.core.colors.neutral.90}"
         },
         "subtle": {
           "$type": "color",
-          "$value": "{colors.neutral.80}"
+          "$value": "{kds.core.colors.neutral.80}"
         }
       },
       "foreground": {
         "default": {
           "$type": "color",
-          "$value": "{colors.neutral.10}"
+          "$value": "{kds.core.colors.neutral.10}"
         },
         "muted": {
           "$type": "color",
-          "$value": "{colors.neutral.40}"
+          "$value": "{kds.core.colors.neutral.40}"
         },
         "subtle": {
           "$type": "color",
-          "$value": "{colors.neutral.60}"
+          "$value": "{kds.core.colors.neutral.60}"
         }
       }
     },
@@ -34,32 +34,32 @@
       "filled": {
         "enabled": {
           "$type": "color",
-          "$value": "{colors.neutral.20}",
+          "$value": "{kds.core.colors.neutral.20}",
           "$description": "Color that indicates interactions"
         },
         "onEnabled": {
           "$type": "color",
-          "$value": "{colors.neutral.90}",
+          "$value": "{kds.core.colors.neutral.90}",
           "$description": "color for elements that are placed on interactive background colors"
         },
         "hover": {
           "$type": "color",
-          "$value": "{colors.neutral.30}",
+          "$value": "{kds.core.colors.neutral.30}",
           "$description": "Backgrounf color for state overlay on a transparent hovered element"
         },
         "onHover": {
           "$type": "color",
-          "$value": "{colors.neutral.90}",
+          "$value": "{kds.core.colors.neutral.90}",
           "$description": "Backgrounf color for state overlay on a transparent hovered element"
         },
         "disabled": {
           "$type": "color",
-          "$value": "{colors.neutral.70}",
+          "$value": "{kds.core.colors.neutral.70}",
           "$description": "background color for disabled elements"
         },
         "onDisabled": {
           "$type": "color",
-          "$value": "{colors.neutral.40}",
+          "$value": "{kds.core.colors.neutral.40}",
           "$description": "color for elements that are palced on disabled background color"
         },
         "active": {
@@ -69,22 +69,22 @@
                 "type": "lighten",
                 "value": "0.24",
                 "space": "lch",
-                "color": "{colors.yellow.50}"
+                "color": "{kds.core.colors.yellow.50}"
               }
             }
           },
           "$type": "color",
-          "$value": "{colors.blue.10}"
+          "$value": "{kds.core.colors.blue.10}"
         },
         "onActive": {
           "$type": "color",
-          "$value": "{colors.neutral.90}"
+          "$value": "{kds.core.colors.neutral.90}"
         }
       },
       "transparent": {
         "enabled": {
           "$type": "color",
-          "$value": "{colors.transparent}",
+          "$value": "{kds.core.colors.transparent}",
           "$description": "Background color for interactive secondary and tertiary elements"
         },
         "onEnabled": {
@@ -94,12 +94,12 @@
         },
         "hover": {
           "$type": "color",
-          "$value": "{colors.neutral.70}",
+          "$value": "{kds.core.colors.neutral.70}",
           "$description": "Background color for state overlay on a transparent hovered element"
         },
         "onHover": {
           "$type": "color",
-          "$value": "{colors.neutral.20}",
+          "$value": "{kds.core.colors.neutral.20}",
           "$description": "Background color for state overlay on a transparent hovered element"
         },
         "disabled": {
@@ -109,7 +109,7 @@
         },
         "onDisabled": {
           "$type": "color",
-          "$value": "{colors.neutral.50}",
+          "$value": "{kds.core.colors.neutral.50}",
           "$description": "color for elements that are palced on disabled background color"
         },
         "active": {
@@ -119,28 +119,28 @@
                 "type": "lighten",
                 "value": "0.72",
                 "space": "lch",
-                "color": "{colors.yellow.50}"
+                "color": "{kds.core.colors.yellow.50}"
               }
             }
           },
           "$type": "color",
-          "$value": "{colors.blue.10}"
+          "$value": "{kds.core.colors.blue.10}"
         },
         "onActive": {
           "$type": "color",
-          "$value": "{colors.neutral.20}",
+          "$value": "{kds.core.colors.neutral.20}",
           "$description": "color for elements that are placed on interactive background colors"
         }
       },
       "selected": {
         "enabled": {
           "$type": "color",
-          "$value": "{colors.blue.80}",
+          "$value": "{kds.core.colors.blue.80}",
           "$description": "background color for selected elements"
         },
         "onEnabled": {
           "$type": "color",
-          "$value": "{colors.blue.30}",
+          "$value": "{kds.core.colors.blue.30}",
           "$description": "Foreground color for selected elements"
         },
         "hover": {
@@ -159,7 +159,7 @@
         },
         "onHover": {
           "$type": "color",
-          "$value": "{colors.blue.30}",
+          "$value": "{kds.core.colors.blue.30}",
           "$description": "Foreground color for selected elements"
         }
       },
@@ -186,148 +186,148 @@
       "status": {
         "neutral": {
           "$type": "color",
-          "$value": "{colors.neutral.80}",
+          "$value": "{kds.core.colors.neutral.80}",
           "$description": "background color for elements with neutral purpose "
         },
         "onNeutral": {
           "$type": "color",
-          "$value": "{colors.neutral.10}",
+          "$value": "{kds.core.colors.neutral.10}",
           "$description": "foreground color for elements placed on neutral purpose background"
         },
         "info": {
           "$type": "color",
-          "$value": "{colors.blue.80}",
+          "$value": "{kds.core.colors.blue.80}",
           "$description": "background color for elements with informational purpose "
         },
         "onInfo": {
           "$type": "color",
-          "$value": "{colors.blue.20}",
+          "$value": "{kds.core.colors.blue.20}",
           "$description": "foreground color for elements placed on informational purpose background"
         },
         "promotion": {
           "$type": "color",
-          "$value": "{colors.turquoise.20}"
+          "$value": "{kds.core.colors.teal.20}"
         },
         "onPromotion": {
           "$type": "color",
-          "$value": "{colors.turquoise.90}"
+          "$value": "{kds.core.colors.teal.90}"
         }
       },
       "status-inverted": {
         "neutral": {
           "$type": "color",
-          "$value": "{colors.neutral.10}",
+          "$value": "{kds.core.colors.neutral.10}",
           "$description": "background color for elements with neutral purpose "
         },
         "onNeutral": {
           "$type": "color",
-          "$value": "{colors.neutral.90}",
+          "$value": "{kds.core.colors.neutral.90}",
           "$description": "foreground color for elements placed on neutral purpose background"
         },
         "info": {
           "$type": "color",
-          "$value": "{colors.blue.30}",
+          "$value": "{kds.core.colors.blue.30}",
           "$description": "background color for elements with informational purpose"
         },
         "onInfo": {
           "$type": "color",
-          "$value": "{colors.blue.80}",
+          "$value": "{kds.core.colors.blue.80}",
           "$description": "foreground color for elements placed on informational purpose background"
         }
       },
       "feedback-inverted": {
         "success": {
           "$type": "color",
-          "$value": "{colors.green.100}",
+          "$value": "{kds.core.colors.green.100}",
           "$description": "background color for elements with success purpose background"
         },
         "onSuccess": {
           "$type": "color",
-          "$value": "{colors.green.30}",
+          "$value": "{kds.core.colors.green.30}",
           "$description": "foreground color for elements placed on success purpose background"
         },
         "warning": {
           "$type": "color",
-          "$value": "{colors.orange.90}",
+          "$value": "{kds.core.colors.orange.90}",
           "$description": "background color for elements with warning purpose background"
         },
         "onWarning": {
           "$type": "color",
-          "$value": "{colors.orange.40}",
+          "$value": "{kds.core.colors.orange.40}",
           "$description": "foreground color for elements placed on warning purpose background"
         },
         "error": {
           "$type": "color",
-          "$value": "{colors.red.90}",
+          "$value": "{kds.core.colors.red.90}",
           "$description": "background color for elements with error purpose background"
         },
         "onError": {
           "$type": "color",
-          "$value": "{colors.red.30}",
+          "$value": "{kds.core.colors.red.30}",
           "$description": "foreground color for elements placed on error purpose background"
         }
       },
       "feedback": {
         "success": {
           "$type": "color",
-          "$value": "{colors.green.30}",
+          "$value": "{kds.core.colors.green.30}",
           "$description": "background color for elements with success purpose background"
         },
         "onSuccess": {
           "$type": "color",
-          "$value": "{colors.green.100}",
+          "$value": "{kds.core.colors.green.100}",
           "$description": "color for elements placed on success purpose background"
         },
         "warning": {
           "$type": "color",
-          "$value": "{colors.orange.30}"
+          "$value": "{kds.core.colors.orange.30}"
         },
         "onWarning": {
           "$type": "color",
-          "$value": "{colors.orange.90}"
+          "$value": "{kds.core.colors.orange.90}"
         },
         "error": {
           "$type": "color",
-          "$value": "{colors.red.30}",
+          "$value": "{kds.core.colors.red.30}",
           "$description": "background color for elements with error purpose background"
         },
         "onError": {
           "$type": "color",
-          "$value": "{colors.red.100}",
+          "$value": "{kds.core.colors.red.100}",
           "$description": "foreground color for elements placed on error purpose background"
         }
       },
       "brand": {
         "default": {
           "$type": "color",
-          "$value": "{colors.yellow.50}"
+          "$value": "{kds.core.colors.yellow.50}"
         }
       }
     },
     "border": {
       "transparent": {
         "$type": "color",
-        "$value": "{colors.transparent}"
+        "$value": "{kds.core.colors.transparent}"
       },
       "default": {
         "$type": "color",
-        "$value": "{colors.neutral.20}"
+        "$value": "{kds.core.colors.neutral.20}"
       },
       "subtle": {
         "$type": "color",
-        "$value": "{colors.neutral.60}"
+        "$value": "{kds.core.colors.neutral.60}"
       },
       "muted": {
         "$type": "color",
-        "$value": "{colors.neutral.80}"
+        "$value": "{kds.core.colors.neutral.80}"
       },
       "focused": {
         "$type": "color",
-        "$value": "{colors.blue.50}"
+        "$value": "{kds.core.colors.blue.50}"
       },
       "active": {
         "$type": "color",
-        "$value": "{colors.blue.50}"
+        "$value": "{kds.core.colors.blue.50}"
       },
       "error": {
         "$type": "color",

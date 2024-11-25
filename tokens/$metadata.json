@@ -1,5 +1,6 @@
 {
   "tokenSetOrder": [
+    "components",
     "core/color",
     "core/dimension",
     "core/font",
@@ -7,7 +8,6 @@
     "mode/color-light",
     "style/border",
     "style/size",
-    "style/typography",
-    "components"
+    "style/typography"
   ]
 }

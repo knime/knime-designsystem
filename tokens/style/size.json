@@ -33,98 +33,98 @@
         "margin": {
           "none": {
             "$type": "spacing",
-            "$value": "{dimension.0}",
+            "$value": "{kds.core.dimension.0}",
             "$description": "This is basically your page margin (in breakpoints-speak)."
           },
           "s": {
             "$type": "spacing",
-            "$value": "{dimension.100}"
+            "$value": "{kds.core.dimension.100}"
           },
           "m": {
             "$type": "spacing",
-            "$value": "{dimension.150}"
+            "$value": "{kds.core.dimension.150}"
           },
           "l": {
             "$type": "spacing",
-            "$value": "{dimension.200}"
+            "$value": "{kds.core.dimension.200}"
           },
           "xl": {
             "$type": "spacing",
-            "$value": "{dimension.300}"
+            "$value": "{kds.core.dimension.300}"
           }
         },
         "padding": {
           "none": {
             "$type": "spacing",
-            "$value": "{dimension.0}",
+            "$value": "{kds.core.dimension.0}",
             "$description": "This is basically your page gutter (in breakpoints-speak)."
           },
           "xxs": {
             "$type": "spacing",
-            "$value": "{dimension.25}"
+            "$value": "{kds.core.dimension.25}"
           },
           "xs": {
             "$type": "spacing",
-            "$value": "{dimension.50}"
+            "$value": "{kds.core.dimension.50}"
           },
           "s": {
             "$type": "spacing",
-            "$value": "{dimension.100}"
+            "$value": "{kds.core.dimension.100}"
           },
           "m": {
             "$type": "spacing",
-            "$value": "{dimension.200}"
+            "$value": "{kds.core.dimension.200}"
           },
           "l": {
             "$type": "spacing",
-            "$value": "{dimension.400}"
+            "$value": "{kds.core.dimension.400}"
           },
           "xl": {
             "$type": "spacing",
-            "$value": "{dimension.800}"
+            "$value": "{kds.core.dimension.800}"
           },
           "2xl": {
             "$type": "spacing",
-            "$value": "{dimension.1600}"
+            "$value": "{kds.core.dimension.1600}"
           }
         }
       },
       "container": {
         "none": {
           "$type": "spacing",
-          "$value": "{dimension.0}"
+          "$value": "{kds.core.dimension.0}"
         },
         "xxs": {
           "$type": "spacing",
-          "$value": "{dimension.12}"
+          "$value": "{kds.core.dimension.12}"
         },
         "xs": {
           "$type": "spacing",
-          "$value": "{dimension.25}"
+          "$value": "{kds.core.dimension.25}"
         },
         "s": {
           "$type": "spacing",
-          "$value": "{dimension.50}"
+          "$value": "{kds.core.dimension.50}"
         },
         "m": {
           "$type": "spacing",
-          "$value": "{dimension.75}"
+          "$value": "{kds.core.dimension.75}"
         },
         "l": {
           "$type": "spacing",
-          "$value": "{dimension.100}"
+          "$value": "{kds.core.dimension.100}"
         },
         "xl": {
           "$type": "spacing",
-          "$value": "{dimension.125}"
+          "$value": "{kds.core.dimension.125}"
         },
         "2xl": {
           "$type": "spacing",
-          "$value": "{dimension.150}"
+          "$value": "{kds.core.dimension.150}"
         },
         "3xl": {
           "$type": "spacing",
-          "$value": "{dimension.200}"
+          "$value": "{kds.core.dimension.200}"
         },
         "auto": {
           "$type": "spacing",
@@ -138,62 +138,62 @@
       "height": {
         "xs": {
           "$type": "dimension",
-          "$value": "{dimension.125}"
+          "$value": "{kds.core.dimension.125}"
         },
         "s": {
           "$type": "dimension",
-          "$value": "{dimension.150}"
+          "$value": "{kds.core.dimension.150}"
         },
         "m": {
           "$type": "dimension",
-          "$value": "{dimension.175}"
+          "$value": "{kds.core.dimension.175}"
         },
         "l": {
           "$type": "dimension",
-          "$value": "{dimension.225}"
+          "$value": "{kds.core.dimension.225}"
         }
       },
       "width": {
         "s": {
           "$type": "dimension",
-          "$value": "{dimension.150}"
+          "$value": "{kds.core.dimension.150}"
         },
         "m": {
           "$type": "dimension",
-          "$value": "{dimension.175}"
+          "$value": "{kds.core.dimension.175}"
         },
         "l": {
           "$type": "dimension",
-          "$value": "{dimension.225}"
+          "$value": "{kds.core.dimension.225}"
         }
       }
     },
     "icon": {
       "0_5x": {
         "$type": "dimension",
-        "$value": "{dimension.75}"
+        "$value": "{kds.core.dimension.75}"
       },
       "0_75x": {
         "$type": "dimension",
-        "$value": "{dimension.100}"
+        "$value": "{kds.core.dimension.100}"
       },
       "1x": {
         "$type": "dimension",
-        "$value": "{dimension.125}"
+        "$value": "{kds.core.dimension.125}"
       }
     },
     "spinner": {
       "0_5x": {
         "$type": "dimension",
-        "$value": "{dimension.75}"
+        "$value": "{kds.core.dimension.75}"
       },
       "0_75x": {
         "$type": "dimension",
-        "$value": "{dimension.100}"
+        "$value": "{kds.core.dimension.100}"
       },
       "1x": {
         "$type": "dimension",
-        "$value": "{dimension.125}"
+        "$value": "{kds.core.dimension.125}"
       }
     }
   }
