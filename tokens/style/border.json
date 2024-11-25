@@ -6,23 +6,23 @@
           "$type": "borderRadius",
           "$value": "{kds.core.dimension.0}"
         },
-        "xs": {
+        "0_12x": {
           "$type": "borderRadius",
           "$value": "{kds.core.dimension.12}"
         },
-        "s": {
+        "0_25x": {
           "$type": "borderRadius",
           "$value": "{kds.core.dimension.25}"
         },
-        "s6": {
+        "0_37x": {
           "$type": "borderRadius",
           "$value": "{kds.core.dimension.37}"
         },
-        "m": {
+        "0_50x": {
           "$type": "borderRadius",
           "$value": "{kds.core.dimension.50}"
         },
-        "l": {
+        "1x": {
           "$type": "borderRadius",
           "$value": "{kds.core.dimension.100}"
         },
