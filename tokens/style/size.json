@@ -1,34 +1,76 @@
 {
-  "view": {
-    "breakpoint": {
-      "s": {
-        "$type": "sizing",
-        "$value": "576"
-      },
-      "m": {
-        "$type": "sizing",
-        "$value": "768"
-      },
-      "l": {
-        "$type": "sizing",
-        "$value": "1024"
-      },
-      "xl": {
-        "$type": "sizing",
-        "$value": "1200"
-      },
-      "2xl": {
-        "$type": "sizing",
-        "$value": "1400"
-      },
-      "3xl": {
-        "$type": "sizing",
-        "$value": "1728"
+  "kds": {
+    "sizing": {
+      "viewport-breakpoints": {
+        "s": {
+          "$type": "sizing",
+          "$value": "576"
+        },
+        "m": {
+          "$type": "sizing",
+          "$value": "768"
+        },
+        "l": {
+          "$type": "sizing",
+          "$value": "1024"
+        },
+        "xl": {
+          "$type": "sizing",
+          "$value": "1200"
+        },
+        "2xl": {
+          "$type": "sizing",
+          "$value": "1400"
+        },
+        "3xl": {
+          "$type": "sizing",
+          "$value": "1728"
+        }
       }
-    }
-  },
-  "spacing": {
-    "base": {
+    },
+    "spacing": {
+      "container": {
+        "none": {
+          "$type": "spacing",
+          "$value": "{kds.core.dimension.0}"
+        },
+        "xxs": {
+          "$type": "spacing",
+          "$value": "{kds.core.dimension.12}"
+        },
+        "xs": {
+          "$type": "spacing",
+          "$value": "{kds.core.dimension.25}"
+        },
+        "s": {
+          "$type": "spacing",
+          "$value": "{kds.core.dimension.50}"
+        },
+        "m": {
+          "$type": "spacing",
+          "$value": "{kds.core.dimension.75}"
+        },
+        "l": {
+          "$type": "spacing",
+          "$value": "{kds.core.dimension.100}"
+        },
+        "xl": {
+          "$type": "spacing",
+          "$value": "{kds.core.dimension.125}"
+        },
+        "2xl": {
+          "$type": "spacing",
+          "$value": "{kds.core.dimension.150}"
+        },
+        "3xl": {
+          "$type": "spacing",
+          "$value": "{kds.core.dimension.200}"
+        },
+        "auto": {
+          "$type": "spacing",
+          "$value": "AUTO"
+        }
+      },
       "page": {
         "margin": {
           "none": {
@@ -88,112 +130,70 @@
             "$value": "{kds.core.dimension.1600}"
           }
         }
+      }
+    },
+    "dimension": {
+      "action": {
+        "height": {
+          "xs": {
+            "$type": "dimension",
+            "$value": "{kds.core.dimension.125}"
+          },
+          "s": {
+            "$type": "dimension",
+            "$value": "{kds.core.dimension.150}"
+          },
+          "m": {
+            "$type": "dimension",
+            "$value": "{kds.core.dimension.175}"
+          },
+          "l": {
+            "$type": "dimension",
+            "$value": "{kds.core.dimension.225}"
+          }
+        },
+        "width": {
+          "s": {
+            "$type": "dimension",
+            "$value": "{kds.core.dimension.150}"
+          },
+          "m": {
+            "$type": "dimension",
+            "$value": "{kds.core.dimension.175}"
+          },
+          "l": {
+            "$type": "dimension",
+            "$value": "{kds.core.dimension.225}"
+          }
+        }
       },
-      "container": {
-        "none": {
-          "$type": "spacing",
-          "$value": "{kds.core.dimension.0}"
-        },
-        "xxs": {
-          "$type": "spacing",
-          "$value": "{kds.core.dimension.12}"
-        },
-        "xs": {
-          "$type": "spacing",
-          "$value": "{kds.core.dimension.25}"
-        },
-        "s": {
-          "$type": "spacing",
-          "$value": "{kds.core.dimension.50}"
-        },
-        "m": {
-          "$type": "spacing",
+      "icon": {
+        "0_5x": {
+          "$type": "dimension",
           "$value": "{kds.core.dimension.75}"
         },
-        "l": {
-          "$type": "spacing",
+        "0_75x": {
+          "$type": "dimension",
           "$value": "{kds.core.dimension.100}"
         },
-        "xl": {
-          "$type": "spacing",
-          "$value": "{kds.core.dimension.125}"
-        },
-        "2xl": {
-          "$type": "spacing",
-          "$value": "{kds.core.dimension.150}"
-        },
-        "3xl": {
-          "$type": "spacing",
-          "$value": "{kds.core.dimension.200}"
-        },
-        "auto": {
-          "$type": "spacing",
-          "$value": "AUTO"
-        }
-      }
-    }
-  },
-  "dimension": {
-    "action": {
-      "height": {
-        "xs": {
+        "1x": {
           "$type": "dimension",
           "$value": "{kds.core.dimension.125}"
-        },
-        "s": {
-          "$type": "dimension",
-          "$value": "{kds.core.dimension.150}"
-        },
-        "m": {
-          "$type": "dimension",
-          "$value": "{kds.core.dimension.175}"
-        },
-        "l": {
-          "$type": "dimension",
-          "$value": "{kds.core.dimension.225}"
         }
       },
-      "width": {
-        "s": {
+      "spinner": {
+        "0_5x": {
           "$type": "dimension",
-          "$value": "{kds.core.dimension.150}"
+          "$value": "{kds.core.dimension.75}"
         },
-        "m": {
+        "0_75x": {
           "$type": "dimension",
-          "$value": "{kds.core.dimension.175}"
+          "$value": "{kds.core.dimension.100}"
         },
-        "l": {
+        "1x": {
           "$type": "dimension",
-          "$value": "{kds.core.dimension.225}"
+          "$value": "{kds.core.dimension.125}"
         }
-      }
-    },
-    "icon": {
-      "0_5x": {
-        "$type": "dimension",
-        "$value": "{kds.core.dimension.75}"
-      },
-      "0_75x": {
-        "$type": "dimension",
-        "$value": "{kds.core.dimension.100}"
-      },
-      "1x": {
-        "$type": "dimension",
-        "$value": "{kds.core.dimension.125}"
-      }
-    },
-    "spinner": {
-      "0_5x": {
-        "$type": "dimension",
-        "$value": "{kds.core.dimension.75}"
-      },
-      "0_75x": {
-        "$type": "dimension",
-        "$value": "{kds.core.dimension.100}"
-      },
-      "1x": {
-        "$type": "dimension",
-        "$value": "{kds.core.dimension.125}"
       }
     }
   }
