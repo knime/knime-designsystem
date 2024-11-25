@@ -2,27 +2,27 @@
   "kds": {
     "sizing": {
       "viewport-breakpoints": {
-        "s": {
+        "576": {
           "$type": "sizing",
           "$value": "576"
         },
-        "m": {
+        "768": {
           "$type": "sizing",
           "$value": "768"
         },
-        "l": {
+        "1024": {
           "$type": "sizing",
           "$value": "1024"
         },
-        "xl": {
+        "1200": {
           "$type": "sizing",
           "$value": "1200"
         },
-        "2xl": {
+        "1400": {
           "$type": "sizing",
           "$value": "1400"
         },
-        "3xl": {
+        "1728": {
           "$type": "sizing",
           "$value": "1728"
         }
@@ -42,7 +42,7 @@
           "$type": "spacing",
           "$value": "{kds.core.dimension.25}"
         },
-        "0_50x": {
+        "0_5x": {
           "$type": "spacing",
           "$value": "{kds.core.dimension.50}"
         },
@@ -78,19 +78,19 @@
             "$value": "{kds.core.dimension.0}",
             "$description": "This is basically your page margin (in breakpoints-speak)."
           },
-          "s": {
+          "1x": {
             "$type": "spacing",
             "$value": "{kds.core.dimension.100}"
           },
-          "m": {
+          "1_5x": {
             "$type": "spacing",
             "$value": "{kds.core.dimension.150}"
           },
-          "l": {
+          "2x": {
             "$type": "spacing",
             "$value": "{kds.core.dimension.200}"
           },
-          "xl": {
+          "3x": {
             "$type": "spacing",
             "$value": "{kds.core.dimension.300}"
           }
@@ -101,31 +101,31 @@
             "$value": "{kds.core.dimension.0}",
             "$description": "This is basically your page gutter (in breakpoints-speak)."
           },
-          "xxs": {
+          "0_25x": {
             "$type": "spacing",
             "$value": "{kds.core.dimension.25}"
           },
-          "xs": {
+          "0_5x": {
             "$type": "spacing",
             "$value": "{kds.core.dimension.50}"
           },
-          "s": {
+          "1x": {
             "$type": "spacing",
             "$value": "{kds.core.dimension.100}"
           },
-          "m": {
+          "2x": {
             "$type": "spacing",
             "$value": "{kds.core.dimension.200}"
           },
-          "l": {
+          "4x": {
             "$type": "spacing",
             "$value": "{kds.core.dimension.400}"
           },
-          "xl": {
+          "8x": {
             "$type": "spacing",
             "$value": "{kds.core.dimension.800}"
           },
-          "2xl": {
+          "16x": {
             "$type": "spacing",
             "$value": "{kds.core.dimension.1600}"
           }
@@ -135,33 +135,33 @@
     "dimension": {
       "action": {
         "height": {
-          "xs": {
+          "1_25x": {
             "$type": "dimension",
             "$value": "{kds.core.dimension.125}"
           },
-          "s": {
+          "1_5x": {
             "$type": "dimension",
             "$value": "{kds.core.dimension.150}"
           },
-          "m": {
+          "1_75x": {
             "$type": "dimension",
             "$value": "{kds.core.dimension.175}"
           },
-          "l": {
+          "2_25x": {
             "$type": "dimension",
             "$value": "{kds.core.dimension.225}"
           }
         },
         "width": {
-          "s": {
+          "1_5x": {
             "$type": "dimension",
             "$value": "{kds.core.dimension.150}"
           },
-          "m": {
+          "1_75x": {
             "$type": "dimension",
             "$value": "{kds.core.dimension.175}"
           },
-          "l": {
+          "2_25x": {
             "$type": "dimension",
             "$value": "{kds.core.dimension.225}"
           }
