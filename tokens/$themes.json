@@ -25,8 +25,7 @@
       "style/border": "enabled",
       "style/size": "enabled",
       "components": "enabled",
-      "style/font": "enabled",
-      "mode/light": "disabled"
+      "style/font": "enabled"
     },
     "$figmaStyleReferences": {},
     "group": "mode"
