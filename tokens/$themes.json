@@ -8,9 +8,9 @@
       "core/font": "source",
       "style/border": "enabled",
       "style/size": "enabled",
-      "mode/color-light": "enabled",
       "components": "enabled",
-      "style/font": "enabled"
+      "style/font": "enabled",
+      "mode/light": "enabled"
     },
     "$figmaStyleReferences": {},
     "group": "mode"
@@ -24,9 +24,9 @@
       "core/font": "source",
       "style/border": "enabled",
       "style/size": "enabled",
-      "mode/color-dark": "enabled",
       "components": "enabled",
-      "style/font": "enabled"
+      "style/font": "enabled",
+      "mode/light": "disabled"
     },
     "$figmaStyleReferences": {},
     "group": "mode"

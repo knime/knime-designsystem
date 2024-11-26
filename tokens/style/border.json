@@ -67,7 +67,7 @@
         "transparent": {
           "$type": "border",
           "$value": {
-            "color": "{color.border.transparent}",
+            "color": "{kds.color.border.transparent}",
             "width": "{kds.border-width.base.s}",
             "style": "solid"
           }
@@ -75,7 +75,7 @@
         "default": {
           "$type": "border",
           "$value": {
-            "color": "{color.border.default}",
+            "color": "{kds.color.border.default}",
             "width": "{kds.border-width.base.s}",
             "style": "solid"
           }
@@ -83,7 +83,7 @@
         "disabled": {
           "$type": "border",
           "$value": {
-            "color": "{color.border.subtle}",
+            "color": "{kds.color.border.disabled.default}",
             "width": "{kds.border-width.base.s}",
             "style": "solid"
           }
@@ -91,7 +91,7 @@
         "focused": {
           "$type": "border",
           "$value": {
-            "color": "{color.border.focused}",
+            "color": "{kds.color.border.focused}",
             "width": "{kds.border-width.base.m}",
             "style": "solid"
           }
@@ -99,7 +99,7 @@
         "selected": {
           "$type": "border",
           "$value": {
-            "color": "{color.border.active}",
+            "color": "{kds.color.border.active}",
             "width": "{kds.border-width.base.s}",
             "style": "solid"
           }
@@ -107,7 +107,7 @@
         "error": {
           "$type": "border",
           "$value": {
-            "color": "{color.border.error}",
+            "color": "{kds.color.border.error}",
             "width": "{kds.border-width.base.s}",
             "style": "solid"
           }
@@ -125,7 +125,7 @@
         "subtle": {
           "$type": "border",
           "$value": {
-            "color": "{color.border.subtle}",
+            "color": "{kds.color.border.subtle}",
             "width": "{kds.border-width.base.s}",
             "style": "solid"
           }
@@ -133,7 +133,7 @@
         "muted": {
           "$type": "border",
           "$value": {
-            "color": "{color.border.muted}",
+            "color": "{kds.color.border.muted}",
             "width": "{kds.border-width.base.s}",
             "style": "solid"
           }
