@@ -10,8 +10,7 @@
       "style/size": "enabled",
       "components": "enabled",
       "style/font": "enabled",
-      "mode/light": "enabled",
-      "style/font_femke": "disabled"
+      "mode/light": "enabled"
     },
     "$figmaStyleReferences": {},
     "group": "mode"
@@ -26,8 +25,7 @@
       "style/border": "enabled",
       "style/size": "enabled",
       "components": "enabled",
-      "style/font": "enabled",
-      "style/font_femke": "disabled"
+      "style/font": "enabled"
     },
     "$figmaStyleReferences": {},
     "group": "mode"
