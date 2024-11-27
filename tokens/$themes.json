@@ -10,8 +10,7 @@
       "style/size": "enabled",
       "components": "enabled",
       "style/font": "enabled",
-      "mode/light": "enabled",
-      "mode/dark": "disabled"
+      "mode/light": "enabled"
     },
     "$figmaStyleReferences": {},
     "group": "mode"
