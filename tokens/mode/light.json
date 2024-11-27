@@ -241,7 +241,7 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.core.colors.teal.90}",
+            "$value": "{kds.color.background.primary.enabled}",
             "$description": "Primary hover color to ber used for main CTAs and promotional content, e.g. badges."
           },
           "active": {
