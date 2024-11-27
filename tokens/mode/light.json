@@ -380,6 +380,12 @@
           "$value": "{kds.core.colors.neutral.50}"
         }
       },
+      "focus": {
+        "outline": {
+          "$type": "color",
+          "$value": "{kds.core.colors.blue.60}"
+        }
+      },
       "surface": {
         "default": {
           "$type": "color",
@@ -417,12 +423,6 @@
           "$type": "color",
           "$value": "#",
           "$description": "Not yet scoped"
-        }
-      },
-      "focus": {
-        "outline": {
-          "$type": "color",
-          "$value": "{kds.core.colors.blue.60}"
         }
       }
     }
