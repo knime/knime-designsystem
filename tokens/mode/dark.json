@@ -320,7 +320,7 @@
         "success": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.green.80}"
+            "$value": "{kds.core.colors.green.90}"
           },
           "hover": {
             "$extensions": {
@@ -504,20 +504,29 @@
         },
         "selected": {
           "$type": "color",
-          "$value": "{kds.core.colors.blue.30}"
+          "$value": "{kds.core.colors.blue.80}"
         },
         "selected-bold": {
           "$type": "color",
-          "$value": "{kds.core.colors.blue.80}"
+          "$value": "{kds.core.colors.blue.30}"
         },
         "primary": {
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "lighten",
+                "value": "0.48",
+                "space": "lch"
+              }
+            }
+          },
           "$type": "color",
-          "$value": "{kds.core.colors.teal.50}",
+          "$value": "{kds.core.colors.teal.100}",
           "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
         },
         "primary-bold": {
           "$type": "color",
-          "$value": "{kds.core.colors.teal.100}",
+          "$value": "{kds.core.colors.teal.50}",
           "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
         },
         "warning": {
@@ -534,15 +543,15 @@
         },
         "danger-bold": {
           "$type": "color",
-          "$value": "{kds.core.colors.red.40}"
+          "$value": "{kds.core.colors.red.10}"
         },
         "success": {
           "$type": "color",
-          "$value": "{kds.core.colors.green.100}"
+          "$value": "{kds.core.colors.green.90}"
         },
         "success-bold": {
           "$type": "color",
-          "$value": "{kds.core.colors.green.40}"
+          "$value": "{kds.core.colors.green.20}"
         },
         "disabled": {
           "$type": "color",
@@ -552,7 +561,7 @@
       "border": {
         "neutral": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.20}"
+          "$value": "{kds.core.colors.neutral.50}"
         },
         "neutral-inverted": {
           "$type": "color",
@@ -590,7 +599,7 @@
         },
         "danger-bold": {
           "$type": "color",
-          "$value": "{kds.core.colors.red.40}"
+          "$value": "{kds.core.colors.red.10}"
         },
         "success": {
           "$type": "color",
@@ -598,7 +607,7 @@
         },
         "success-bold": {
           "$type": "color",
-          "$value": "{kds.core.colors.green.40}"
+          "$value": "{kds.core.colors.green.20}"
         },
         "disabled": {
           "$type": "color",
