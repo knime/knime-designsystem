@@ -540,7 +540,7 @@
       "focus": {
         "outline": {
           "$type": "color",
-          "$value": "{kds.core.colors.blue.50}"
+          "$value": "{kds.core.colors.blue.60}"
         }
       }
     }
