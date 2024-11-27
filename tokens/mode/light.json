@@ -472,171 +472,175 @@
             "$type": "color",
             "$value": "{kds.core.colors.neutral.70}"
           }
+        }
+      },
+      "text-and-icon": {
+        "brand": {
+          "$type": "color",
+          "$value": "{kds.core.colors.yellow.50}"
         },
-        "text-and-icon": {
-          "brand": {
-            "$type": "color",
-            "$value": "{kds.core.colors.yellow.50}"
-          },
-          "neutral": {
-            "$type": "color",
-            "$value": "{kds.core.colors.neutral.20}"
-          },
-          "neutral-inverted": {
-            "$type": "color",
-            "$value": "{kds.core.colors.neutral.100}"
-          },
-          "selected": {
-            "$type": "color",
-            "$value": "{kds.core.colors.blue.80}"
-          },
-          "selected-bold": {
-            "$type": "color",
-            "$value": "{kds.core.colors.blue.30}"
-          },
-          "primary": {
-            "$type": "color",
-            "$value": "{kds.core.colors.teal.100}",
-            "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
-          },
-          "primary-bold": {
-            "$type": "color",
-            "$value": "{kds.core.colors.teal.50}",
-            "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
-          },
-          "warning": {
-            "$type": "color",
-            "$value": "{kds.core.colors.yellow.90}"
-          },
-          "warning-bold": {
-            "$type": "color",
-            "$value": "{kds.core.colors.yellow.40}"
-          },
-          "danger": {
-            "$type": "color",
-            "$value": "{kds.core.colors.red.80}"
-          },
-          "danger-bold": {
-            "$type": "color",
-            "$value": "{kds.core.colors.red.40}"
-          },
-          "success": {
-            "$type": "color",
-            "$value": "{kds.core.colors.green.90}"
-          },
-          "success-bold": {
-            "$type": "color",
-            "$value": "{kds.core.colors.green.40}"
-          },
-          "disabled": {
-            "$type": "color",
-            "$value": "{kds.core.colors.neutral.50}"
-          }
+        "neutral": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.20}"
         },
-        "border": {
-          "brand": {
-            "$type": "color",
-            "$value": "{kds.core.colors.yellow.50}"
-          },
-          "neutral": {
-            "$type": "color",
-            "$value": "{kds.core.colors.neutral.20}"
-          },
-          "neutral-inverted": {
-            "$type": "color",
-            "$value": "{kds.core.colors.neutral.100}"
-          },
-          "selected": {
-            "$type": "color",
-            "$value": "{kds.core.colors.blue.80}"
-          },
-          "selected-bold": {
-            "$type": "color",
-            "$value": "{kds.core.colors.blue.30}"
-          },
-          "primary": {
-            "$type": "color",
-            "$value": "{kds.core.colors.teal.100}",
-            "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
-          },
-          "primary-bold": {
-            "$type": "color",
-            "$value": "{kds.core.colors.teal.50}",
-            "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
-          },
-          "warning": {
-            "$type": "color",
-            "$value": "{kds.core.colors.yellow.90}"
-          },
-          "warning-bold": {
-            "$type": "color",
-            "$value": "{kds.core.colors.yellow.40}"
-          },
-          "danger": {
-            "$type": "color",
-            "$value": "{kds.core.colors.red.80}"
-          },
-          "danger-bold": {
-            "$type": "color",
-            "$value": "{kds.core.colors.red.40}"
-          },
-          "success": {
-            "$type": "color",
-            "$value": "{kds.core.colors.green.90}"
-          },
-          "success-bold": {
-            "$type": "color",
-            "$value": "{kds.core.colors.green.40}"
-          },
-          "disabled": {
-            "$type": "color",
-            "$value": "{kds.core.colors.neutral.50}"
-          }
+        "neutral-inverted": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.100}"
         },
-        "focus": {
-          "outline": {
-            "$type": "color",
-            "$value": "{kds.core.colors.blue.60}"
-          }
+        "selected": {
+          "$type": "color",
+          "$value": "{kds.core.colors.blue.80}"
         },
-        "surface": {
-          "default": {
-            "$type": "color",
-            "$value": "{kds.core.colors.neutral.90}"
-          },
-          "muted": {
-            "$type": "color",
-            "$value": "{kds.core.colors.neutral.80}"
-          }
+        "selected-bold": {
+          "$type": "color",
+          "$value": "{kds.core.colors.blue.30}"
         },
-        "blanket": {
-          "default": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "alpha",
-                  "value": "0.8",
-                  "space": "lch"
-                }
+        "primary": {
+          "$type": "color",
+          "$value": "{kds.core.colors.teal.100}",
+          "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
+        },
+        "primary-bold": {
+          "$type": "color",
+          "$value": "{kds.core.colors.teal.50}",
+          "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
+        },
+        "warning": {
+          "$type": "color",
+          "$value": "{kds.core.colors.yellow.90}"
+        },
+        "warning-bold": {
+          "$type": "color",
+          "$value": "{kds.core.colors.yellow.40}"
+        },
+        "danger": {
+          "$type": "color",
+          "$value": "{kds.core.colors.red.80}"
+        },
+        "danger-bold": {
+          "$type": "color",
+          "$value": "{kds.core.colors.red.40}"
+        },
+        "success": {
+          "$type": "color",
+          "$value": "{kds.core.colors.green.90}"
+        },
+        "success-bold": {
+          "$type": "color",
+          "$value": "{kds.core.colors.green.40}"
+        },
+        "disabled": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.50}"
+        }
+      },
+      "border": {
+        "brand": {
+          "$type": "color",
+          "$value": "{kds.core.colors.yellow.50}"
+        },
+        "neutral": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.20}"
+        },
+        "neutral-inverted": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.100}"
+        },
+        "selected": {
+          "$type": "color",
+          "$value": "{kds.core.colors.blue.80}"
+        },
+        "selected-bold": {
+          "$type": "color",
+          "$value": "{kds.core.colors.blue.30}"
+        },
+        "primary": {
+          "$type": "color",
+          "$value": "{kds.core.colors.teal.100}",
+          "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
+        },
+        "primary-bold": {
+          "$type": "color",
+          "$value": "{kds.core.colors.teal.50}",
+          "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
+        },
+        "warning": {
+          "$type": "color",
+          "$value": "{kds.core.colors.yellow.90}"
+        },
+        "warning-bold": {
+          "$type": "color",
+          "$value": "{kds.core.colors.yellow.40}"
+        },
+        "danger": {
+          "$type": "color",
+          "$value": "{kds.core.colors.red.80}"
+        },
+        "danger-bold": {
+          "$type": "color",
+          "$value": "{kds.core.colors.red.40}"
+        },
+        "success": {
+          "$type": "color",
+          "$value": "{kds.core.colors.green.90}"
+        },
+        "success-bold": {
+          "$type": "color",
+          "$value": "{kds.core.colors.green.40}"
+        },
+        "disabled": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.50}"
+        },
+        "transparent": {
+          "$type": "color",
+          "$value": "{kds.core.colors.transparent}"
+        }
+      },
+      "focus": {
+        "outline": {
+          "$type": "color",
+          "$value": "{kds.core.colors.blue.60}"
+        }
+      },
+      "surface": {
+        "default": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.90}"
+        },
+        "muted": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.80}"
+        }
+      },
+      "blanket": {
+        "default": {
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "alpha",
+                "value": "0.8",
+                "space": "lch"
               }
-            },
-            "$type": "color",
-            "$value": "{kds.core.colors.neutral.10}"
-          }
-        },
-        "node": {
-          "default": {
-            "$type": "color",
-            "$value": "#",
-            "$description": "Not yet scoped"
-          }
-        },
-        "editor": {
-          "default": {
-            "$type": "color",
-            "$value": "#",
-            "$description": "Not yet scoped"
-          }
+            }
+          },
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.10}"
+        }
+      },
+      "node": {
+        "default": {
+          "$type": "color",
+          "$value": "#",
+          "$description": "Not yet scoped"
+        }
+      },
+      "editor": {
+        "default": {
+          "$type": "color",
+          "$value": "#",
+          "$description": "Not yet scoped"
         }
       }
     }

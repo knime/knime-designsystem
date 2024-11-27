@@ -63,7 +63,7 @@
       }
     },
     "border": {
-      "interactive": {
+      "action": {
         "transparent": {
           "$type": "border",
           "$value": {
@@ -75,7 +75,7 @@
         "default": {
           "$type": "border",
           "$value": {
-            "color": "{kds.color.border.neutral.default}",
+            "color": "{kds.color.border.neutral}",
             "width": "{kds.border-width.base.s}",
             "style": "solid"
           }
@@ -83,7 +83,7 @@
         "disabled": {
           "$type": "border",
           "$value": {
-            "color": "{kds.color.border.disabled.default}",
+            "color": "{kds.color.border.disabled}",
             "width": "{kds.border-width.base.s}",
             "style": "solid"
           }
@@ -99,7 +99,7 @@
         "selected": {
           "$type": "border",
           "$value": {
-            "color": "{kds.color.border.active}",
+            "color": "{kds.color.border.selected-bold}",
             "width": "{kds.border-width.base.s}",
             "style": "solid"
           }
