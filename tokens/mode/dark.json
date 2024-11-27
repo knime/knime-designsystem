@@ -454,7 +454,7 @@
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.16",
                   "space": "lch"
                 }
@@ -467,7 +467,7 @@
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.36",
                   "space": "lch"
                 }
@@ -496,28 +496,28 @@
       "text-and-icon": {
         "neutral": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.20}"
+          "$value": "{kds.core.colors.neutral.90}"
         },
         "neutral-inverted": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.100}"
+          "$value": "{kds.core.colors.neutral.20}"
         },
         "selected": {
           "$type": "color",
-          "$value": "{kds.core.colors.blue.80}"
+          "$value": "{kds.core.colors.blue.30}"
         },
         "selected-bold": {
           "$type": "color",
-          "$value": "{kds.core.colors.blue.30}"
+          "$value": "{kds.core.colors.blue.80}"
         },
         "primary": {
           "$type": "color",
-          "$value": "{kds.core.colors.teal.100}",
+          "$value": "{kds.core.colors.teal.50}",
           "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
         },
         "primary-bold": {
           "$type": "color",
-          "$value": "{kds.core.colors.teal.50}",
+          "$value": "{kds.core.colors.teal.100}",
           "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
         },
         "warning": {
@@ -538,7 +538,7 @@
         },
         "success": {
           "$type": "color",
-          "$value": "{kds.core.colors.green.90}"
+          "$value": "{kds.core.colors.green.100}"
         },
         "success-bold": {
           "$type": "color",
