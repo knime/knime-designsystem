@@ -202,15 +202,33 @@
         "info": {
           "enabled": {
             "$type": "color",
-            "$value": "{kds.core.colors.blue.90}"
+            "$value": "{kds.core.colors.blue.80}"
           },
           "hover": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "darken",
+                  "value": "0.16",
+                  "space": "lch"
+                }
+              }
+            },
             "$type": "color",
-            "$value": "#"
+            "$value": "{kds.color.background.info.enabled}"
           },
           "active": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "darken",
+                  "value": "0.36",
+                  "space": "lch"
+                }
+              }
+            },
             "$type": "color",
-            "$value": "#"
+            "$value": "{kds.color.background.info.enabled}"
           }
         },
         "brand": {
