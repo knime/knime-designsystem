@@ -5,6 +5,7 @@
     "core/dimension",
     "core/font",
     "mode/light",
+    "mode/dark",
     "style/border",
     "style/font",
     "style/font_femke",

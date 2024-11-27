@@ -67,7 +67,7 @@
         "transparent": {
           "$type": "border",
           "$value": {
-            "color": "{kds.color.border.transparent.default}",
+            "color": "{kds.color.border.transparent}",
             "width": "{kds.border-width.base.s}",
             "style": "solid"
           }
