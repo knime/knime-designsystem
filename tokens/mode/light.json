@@ -256,7 +256,7 @@
         "warning": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.yellow.90}"
+            "$value": "{kds.core.colors.yellow.80}"
           },
           "hover": {
             "$extensions": {
@@ -288,7 +288,7 @@
         "warning-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.yellow.70}"
+            "$value": "{kds.core.colors.yellow.40}"
           },
           "hover": {
             "$extensions": {

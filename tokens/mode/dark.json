@@ -4,18 +4,18 @@
       "surface": {
         "default": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.90}"
+          "$value": "{kds.core.colors.neutral.10}"
         },
         "muted": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.80}"
+          "$value": "{kds.core.colors.neutral.20}"
         }
       },
       "background": {
         "page": {
           "default": {
             "$type": "color",
-            "$value": "{kds.core.colors.neutral.100}"
+            "$value": "{kds.core.colors.neutral.0}"
           }
         },
         "neutral": {
@@ -58,14 +58,14 @@
         "primary": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.teal.100}",
+            "$value": "{kds.core.colors.teal.90}",
             "$description": "Primary color to ber used for main CTAs and promotional content, e.g. badges."
           },
           "hover": {
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.08",
                   "space": "lch"
                 }
@@ -79,7 +79,7 @@
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.16",
                   "space": "lch"
                 }
@@ -100,7 +100,7 @@
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.16",
                   "space": "lch"
                 }
@@ -114,7 +114,7 @@
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.36",
                   "space": "lch"
                 }
@@ -134,7 +134,7 @@
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.08",
                   "space": "lch"
                 }
@@ -147,7 +147,7 @@
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.16",
                   "space": "lch"
                 }
@@ -166,7 +166,7 @@
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.16",
                   "space": "lch"
                 }
@@ -179,7 +179,7 @@
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.36",
                   "space": "lch"
                 }
@@ -192,13 +192,13 @@
         "danger": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.red.80}"
+            "$value": "{kds.core.colors.red.70}"
           },
           "hover": {
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.08",
                   "space": "lch"
                 }
@@ -211,7 +211,7 @@
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.16",
                   "space": "lch"
                 }
@@ -224,13 +224,13 @@
         "danger-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.red.30}"
+            "$value": "{kds.core.colors.red.10}"
           },
           "hover": {
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.16",
                   "space": "lch"
                 }
@@ -243,7 +243,7 @@
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.36",
                   "space": "lch"
                 }
@@ -256,13 +256,13 @@
         "warning": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.yellow.90}"
+            "$value": "{kds.core.colors.yellow.60}"
           },
           "hover": {
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.08",
                   "space": "lch"
                 }
@@ -275,7 +275,7 @@
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.16",
                   "space": "lch"
                 }
@@ -288,13 +288,13 @@
         "warning-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.yellow.70}"
+            "$value": "{kds.core.colors.yellow.30}"
           },
           "hover": {
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.16",
                   "space": "lch"
                 }
@@ -307,7 +307,7 @@
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.36",
                   "space": "lch"
                 }
@@ -320,13 +320,13 @@
         "success": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.green.90}"
+            "$value": "{kds.core.colors.green.80}"
           },
           "hover": {
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.08",
                   "space": "lch"
                 }
@@ -339,7 +339,7 @@
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.16",
                   "space": "lch"
                 }
@@ -352,13 +352,13 @@
         "success-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.green.30}"
+            "$value": "{kds.core.colors.green.20}"
           },
           "hover": {
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.16",
                   "space": "lch"
                 }
@@ -371,7 +371,7 @@
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.36",
                   "space": "lch"
                 }
@@ -384,13 +384,13 @@
         "info": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.blue.70}"
+            "$value": "{kds.core.colors.blue.60}"
           },
           "hover": {
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.08",
                   "space": "lch"
                 }
@@ -403,7 +403,7 @@
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.16",
                   "space": "lch"
                 }
@@ -416,13 +416,13 @@
         "info-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.blue.50}"
+            "$value": "{kds.core.colors.blue.20}"
           },
           "hover": {
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.16",
                   "space": "lch"
                 }
@@ -435,7 +435,7 @@
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.36",
                   "space": "lch"
                 }
