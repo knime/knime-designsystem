@@ -80,8 +80,8 @@
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "lighten",
-                  "value": "0.64",
+                  "type": "darken",
+                  "value": "0.16",
                   "space": "lch"
                 }
               }
@@ -94,7 +94,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "darken",
-                  "value": "0.24",
+                  "value": "0.36",
                   "space": "lch"
                 }
               }
@@ -141,12 +141,30 @@
             "$value": "{kds.core.colors.yellow.70}"
           },
           "hover": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "darken",
+                  "value": "0.16",
+                  "space": "lch"
+                }
+              }
+            },
             "$type": "color",
-            "$value": "#"
+            "$value": "{kds.color.background.warning.enabled}"
           },
           "active": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "darken",
+                  "value": "0.36",
+                  "space": "lch"
+                }
+              }
+            },
             "$type": "color",
-            "$value": "#"
+            "$value": "{kds.color.background.warning.enabled}"
           }
         },
         "success": {
