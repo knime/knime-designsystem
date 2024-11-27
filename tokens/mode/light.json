@@ -15,7 +15,7 @@
           },
           "hover": {
             "$type": "color",
-            "$value": "{kds.core.colors.transparent}"
+            "$value": "{kds.core.colors.teal.100}"
           },
           "active": {
             "$type": "color",
@@ -36,7 +36,7 @@
             "$value": "{kds.core.colors.neutral.60}"
           }
         },
-        "primary": {
+        "primary-bold": {
           "enabled": {
             "$type": "color",
             "$value": "{kds.core.colors.teal.50}",
@@ -46,14 +46,14 @@
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "darken",
+                  "type": "lighten",
                   "value": "0.16",
                   "space": "lch"
                 }
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.primary.enabled}",
+            "$value": "{kds.color.background.primary-bold.enabled}",
             "$description": "Primary hover color to ber used for main CTAs and promotional content, e.g. badges."
           },
           "active": {
@@ -67,7 +67,7 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.primary.enabled}",
+            "$value": "{kds.color.background.primary-bold.enabled}",
             "$description": "Primary color to ber used for main CTAs and promotional content, e.g. badges."
           }
         },
@@ -211,8 +211,52 @@
         },
         "disabled": {
           "default": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.48",
+                  "space": "lch"
+                }
+              }
+            },
             "$type": "color",
             "$value": "{kds.core.colors.neutral.70}"
+          }
+        },
+        "primary": {
+          "enabled": {
+            "$type": "color",
+            "$value": "{kds.core.colors.teal.100}",
+            "$description": "Primary color to ber used for main CTAs and promotional content, e.g. badges."
+          },
+          "hover": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "darken",
+                  "value": "0.08",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.core.colors.teal.90}",
+            "$description": "Primary hover color to ber used for main CTAs and promotional content, e.g. badges."
+          },
+          "active": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "darken",
+                  "value": "0.16",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.color.background.primary.enabled}",
+            "$description": "Primary color to ber used for main CTAs and promotional content, e.g. badges."
           }
         }
       },
@@ -341,7 +385,7 @@
         "disabled": {
           "onDefault": {
             "$type": "color",
-            "$value": "{kds.core.colors.neutral.40}"
+            "$value": "{kds.core.colors.neutral.50}"
           }
         }
       },
