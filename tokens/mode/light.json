@@ -109,7 +109,7 @@
         "selected": {
           "enabled": {
             "$type": "color",
-            "$value": "{kds.core.colors.blue.70}"
+            "$value": "{kds.core.colors.blue.80}"
           },
           "hover": {
             "$extensions": {
@@ -141,7 +141,7 @@
         "selected-bold": {
           "enabled": {
             "$type": "color",
-            "$value": "{kds.core.colors.blue.70}"
+            "$value": "{kds.core.colors.blue.30}"
           },
           "hover": {
             "$extensions": {
@@ -365,7 +365,7 @@
         "info": {
           "enabled": {
             "$type": "color",
-            "$value": "{kds.core.colors.blue.80}"
+            "$value": "{kds.core.colors.blue.70}"
           },
           "hover": {
             "$extensions": {
