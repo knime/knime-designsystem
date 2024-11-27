@@ -260,16 +260,6 @@
           }
         }
       },
-      "surface": {
-        "default": {
-          "$type": "color",
-          "$value": "{kds.core.colors.neutral.90}"
-        },
-        "muted": {
-          "$type": "color",
-          "$value": "{kds.core.colors.neutral.80}"
-        }
-      },
       "text-and-icon": {
         "brand": {
           "$type": "color",
@@ -330,41 +320,6 @@
           "$value": "{kds.core.colors.neutral.50}"
         }
       },
-      "blanket": {
-        "default": {
-          "$extensions": {
-            "studio.tokens": {
-              "modify": {
-                "type": "alpha",
-                "value": "0.8",
-                "space": "lch"
-              }
-            }
-          },
-          "$type": "color",
-          "$value": "{kds.core.colors.neutral.10}"
-        }
-      },
-      "node": {
-        "default": {
-          "$type": "color",
-          "$value": "#",
-          "$description": "Not yet scoped"
-        }
-      },
-      "editor": {
-        "default": {
-          "$type": "color",
-          "$value": "#",
-          "$description": "Not yet scoped"
-        }
-      },
-      "focus": {
-        "outline": {
-          "$type": "color",
-          "$value": "{kds.core.colors.blue.60}"
-        }
-      },
       "border": {
         "brand": {
           "$type": "color",
@@ -423,6 +378,51 @@
         "disabled": {
           "$type": "color",
           "$value": "{kds.core.colors.neutral.50}"
+        }
+      },
+      "surface": {
+        "default": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.90}"
+        },
+        "muted": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.80}"
+        }
+      },
+      "blanket": {
+        "default": {
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "alpha",
+                "value": "0.8",
+                "space": "lch"
+              }
+            }
+          },
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.10}"
+        }
+      },
+      "node": {
+        "default": {
+          "$type": "color",
+          "$value": "#",
+          "$description": "Not yet scoped"
+        }
+      },
+      "editor": {
+        "default": {
+          "$type": "color",
+          "$value": "#",
+          "$description": "Not yet scoped"
+        }
+      },
+      "focus": {
+        "outline": {
+          "$type": "color",
+          "$value": "{kds.core.colors.blue.60}"
         }
       }
     }
