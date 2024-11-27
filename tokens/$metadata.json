@@ -7,6 +7,7 @@
     "mode/light",
     "style/border",
     "style/font",
+    "style/font_femke",
     "style/size"
   ]
 }

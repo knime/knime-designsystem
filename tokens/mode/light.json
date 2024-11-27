@@ -25,7 +25,7 @@
         "neutral-bold": {
           "enabled": {
             "$type": "color",
-            "$value": "{kds.core.colors.neutral.70}"
+            "$value": "{kds.core.colors.neutral.90}"
           },
           "hover": {
             "$type": "color",
@@ -270,7 +270,7 @@
           "$value": "{kds.core.colors.neutral.80}"
         }
       },
-      "text-icon": {
+      "text-and-icon": {
         "brand": {
           "$type": "color",
           "$value": "{kds.core.colors.yellow.50}"
