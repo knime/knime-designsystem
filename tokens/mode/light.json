@@ -8,22 +8,30 @@
             "$value": "{kds.core.colors.neutral.100}"
           }
         },
-        "transparent": {
+        "neutral": {
           "enabled": {
+            "$type": "color",
+            "$value": "{kds.core.colors.transparent}"
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{kds.core.colors.transparent}"
+          },
+          "active": {
             "$type": "color",
             "$value": "{kds.core.colors.transparent}"
           }
         },
-        "neutral": {
-          "default": {
+        "neutral-bold": {
+          "enabled": {
             "$type": "color",
             "$value": "{kds.core.colors.neutral.70}"
           },
-          "muted": {
+          "hover": {
             "$type": "color",
             "$value": "{kds.core.colors.neutral.80}"
           },
-          "subtle": {
+          "active": {
             "$type": "color",
             "$value": "{kds.core.colors.neutral.60}"
           }
