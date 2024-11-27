@@ -8,6 +8,12 @@
             "$value": "{kds.core.colors.neutral.100}"
           }
         },
+        "transparent": {
+          "enabled": {
+            "$type": "color",
+            "$value": "{kds.core.colors.transparent}"
+          }
+        },
         "neutral": {
           "default": {
             "$type": "color",
@@ -29,13 +35,31 @@
             "$description": "Primary color to ber used for main CTAs and promotional content, e.g. badges."
           },
           "hover": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "darken",
+                  "value": "0.16",
+                  "space": "lch"
+                }
+              }
+            },
             "$type": "color",
-            "$value": "#",
-            "$description": "Primary color to ber used for main CTAs and promotional content, e.g. badges."
+            "$value": "{kds.color.background.primary.enabled}",
+            "$description": "Primary hover color to ber used for main CTAs and promotional content, e.g. badges."
           },
           "active": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "darken",
+                  "value": "0.36",
+                  "space": "lch"
+                }
+              }
+            },
             "$type": "color",
-            "$value": "#",
+            "$value": "{kds.color.background.primary.enabled}",
             "$description": "Primary color to ber used for main CTAs and promotional content, e.g. badges."
           }
         },
@@ -45,12 +69,30 @@
             "$value": "{kds.core.colors.blue.70}"
           },
           "hover": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.64",
+                  "space": "lch"
+                }
+              }
+            },
             "$type": "color",
-            "$value": "#"
+            "$value": "{kds.color.background.selected.enabled}"
           },
           "active": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "darken",
+                  "value": "0.24",
+                  "space": "lch"
+                }
+              }
+            },
             "$type": "color",
-            "$value": "#"
+            "$value": "{kds.color.background.selected.enabled}"
           }
         },
         "danger": {
@@ -59,12 +101,30 @@
             "$value": "{kds.core.colors.red.30}"
           },
           "hover": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "darken",
+                  "value": "0.16",
+                  "space": "lch"
+                }
+              }
+            },
             "$type": "color",
-            "$value": "#"
+            "$value": "{kds.color.background.danger.enabled}"
           },
           "active": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "darken",
+                  "value": "0.36",
+                  "space": "lch"
+                }
+              }
+            },
             "$type": "color",
-            "$value": "#"
+            "$value": "{kds.color.background.danger.enabled}"
           }
         },
         "warning": {
@@ -84,15 +144,33 @@
         "success": {
           "enabled": {
             "$type": "color",
-            "$value": "{kds.core.colors.green.50}"
+            "$value": "{kds.core.colors.green.30}"
           },
           "hover": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.24",
+                  "space": "lch"
+                }
+              }
+            },
             "$type": "color",
-            "$value": "#"
+            "$value": "{kds.color.background.success.enabled}"
           },
           "active": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "darken",
+                  "value": "0.24",
+                  "space": "lch"
+                }
+              }
+            },
             "$type": "color",
-            "$value": "#"
+            "$value": "{kds.color.background.success.enabled}"
           }
         },
         "info": {
@@ -125,17 +203,8 @@
         },
         "disabled": {
           "default": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "alpha",
-                  "value": "0.36",
-                  "space": "lch"
-                }
-              }
-            },
             "$type": "color",
-            "$value": "{kds.core.colors.neutral.40}"
+            "$value": "{kds.core.colors.neutral.70}"
           }
         }
       },
@@ -159,7 +228,7 @@
         "neutral": {
           "default": {
             "$type": "color",
-            "$value": "{kds.core.colors.neutral.100}"
+            "$value": "{kds.core.colors.neutral.20}"
           },
           "muted": {
             "$type": "color",
@@ -171,10 +240,10 @@
           }
         },
         "primary": {
-          "default": {
+          "onDefault": {
             "$type": "color",
-            "$value": "#",
-            "$description": "Primary color to ber used for main CTAs and promotional content, e.g. badges."
+            "$value": "{kds.core.colors.neutral.90}",
+            "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
           }
         },
         "selected": {
@@ -262,9 +331,9 @@
           }
         },
         "disabled": {
-          "default": {
+          "onDefault": {
             "$type": "color",
-            "$value": "{kds.core.colors.neutral.50}"
+            "$value": "{kds.core.colors.neutral.40}"
           }
         }
       },
@@ -275,16 +344,16 @@
             "$value": "{kds.core.colors.neutral.50}"
           }
         },
-        "page": {
+        "transparent": {
           "default": {
             "$type": "color",
-            "$value": "{kds.core.colors.neutral.100}"
+            "$value": "{kds.core.colors.transparent}"
           }
         },
         "neutral": {
           "default": {
             "$type": "color",
-            "$value": "{kds.core.colors.neutral.100}"
+            "$value": "{kds.core.colors.neutral.20}"
           },
           "muted": {
             "$type": "color",

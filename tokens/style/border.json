@@ -67,7 +67,7 @@
         "transparent": {
           "$type": "border",
           "$value": {
-            "color": "{kds.color.border.transparent}",
+            "color": "{kds.color.border.transparent.default}",
             "width": "{kds.border-width.base.s}",
             "style": "solid"
           }
@@ -75,7 +75,7 @@
         "default": {
           "$type": "border",
           "$value": {
-            "color": "{kds.color.border.default}",
+            "color": "{kds.color.border.neutral.default}",
             "width": "{kds.border-width.base.s}",
             "style": "solid"
           }
@@ -91,7 +91,7 @@
         "focused": {
           "$type": "border",
           "$value": {
-            "color": "{kds.color.border.focused}",
+            "color": "{kds.color.focus.outline}",
             "width": "{kds.border-width.base.m}",
             "style": "solid"
           }
