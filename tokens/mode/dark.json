@@ -4,18 +4,18 @@
       "surface": {
         "default": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.10}"
+          "$value": "{kds.core.colors.neutral.20}"
         },
         "muted": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.20}"
+          "$value": "{kds.core.colors.neutral.30}"
         }
       },
       "background": {
         "page": {
           "default": {
             "$type": "color",
-            "$value": "{kds.core.colors.neutral.0}"
+            "$value": "{kds.core.colors.neutral.10}"
           }
         },
         "neutral": {
@@ -566,6 +566,14 @@
         "neutral-inverted": {
           "$type": "color",
           "$value": "{kds.core.colors.neutral.100}"
+        },
+        "subtle": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.20}"
+        },
+        "muted": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.30}"
         },
         "selected": {
           "$type": "color",

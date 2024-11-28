@@ -567,6 +567,15 @@
           "$type": "color",
           "$value": "{kds.core.colors.neutral.100}"
         },
+        "subtle": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.60}"
+        },
+        "muted": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.80}",
+          "$description": "added defualt, subtle muted border colors"
+        },
         "selected": {
           "$type": "color",
           "$value": "{kds.core.colors.blue.80}"

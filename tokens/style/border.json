@@ -117,7 +117,7 @@
         "default": {
           "$type": "border",
           "$value": {
-            "color": "{kds.core.colors.neutral.20}",
+            "color": "{kds.color.border.neutral}",
             "width": "{kds.border-width.base.s}",
             "style": "solid"
           }

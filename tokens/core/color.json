@@ -17,11 +17,11 @@
           },
           "20": {
             "$type": "color",
-            "$value": "hsl(0, 0%, 13%)"
+            "$value": "#2d2d2d"
           },
           "30": {
             "$type": "color",
-            "$value": "hsl(0, 0%, 30%)"
+            "$value": "#373737"
           },
           "40": {
             "$type": "color",
