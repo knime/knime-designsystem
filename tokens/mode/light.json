@@ -511,15 +511,6 @@
           "$value": "{kds.core.colors.blue.30}"
         },
         "primary": {
-          "$extensions": {
-            "studio.tokens": {
-              "modify": {
-                "type": "lighten",
-                "value": "0.48",
-                "space": "lch"
-              }
-            }
-          },
           "$type": "color",
           "$value": "{kds.core.colors.teal.100}",
           "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
