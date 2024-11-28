@@ -416,7 +416,7 @@
         "info-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.blue.50}"
+            "$value": "{kds.core.colors.blue.30}"
           },
           "hover": {
             "$extensions": {
@@ -504,45 +504,45 @@
         },
         "selected": {
           "$type": "color",
-          "$value": "{kds.core.colors.blue.80}"
-        },
-        "selected-bold": {
-          "$type": "color",
           "$value": "{kds.core.colors.blue.30}"
         },
+        "selected-inverted": {
+          "$type": "color",
+          "$value": "{kds.core.colors.blue.80}"
+        },
         "primary": {
+          "$type": "color",
+          "$value": "{kds.core.colors.teal.50}",
+          "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
+        },
+        "primary-inverted": {
           "$type": "color",
           "$value": "{kds.core.colors.teal.100}",
           "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
         },
-        "primary-bold": {
+        "warning-inverted": {
           "$type": "color",
-          "$value": "{kds.core.colors.teal.50}",
-          "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
+          "$value": "{kds.core.colors.yellow.40}"
         },
         "warning": {
           "$type": "color",
           "$value": "{kds.core.colors.yellow.90}"
         },
-        "warning-bold": {
-          "$type": "color",
-          "$value": "{kds.core.colors.yellow.40}"
-        },
         "danger": {
-          "$type": "color",
-          "$value": "{kds.core.colors.red.80}"
-        },
-        "danger-bold": {
           "$type": "color",
           "$value": "{kds.core.colors.red.40}"
         },
+        "danger-inverted": {
+          "$type": "color",
+          "$value": "{kds.core.colors.red.100}"
+        },
         "success": {
           "$type": "color",
-          "$value": "{kds.core.colors.green.90}"
-        },
-        "success-bold": {
-          "$type": "color",
           "$value": "{kds.core.colors.green.40}"
+        },
+        "success-inverted": {
+          "$type": "color",
+          "$value": "{kds.core.colors.green.100}"
         },
         "disabled": {
           "$type": "color",
