@@ -111,6 +111,14 @@
             "width": "{kds.border-width.base.s}",
             "style": "solid"
           }
+        },
+        "brand": {
+          "$type": "border",
+          "$value": {
+            "color": "{kds.core.colors.yellow.50}",
+            "width": "2px",
+            "style": "solid"
+          }
         }
       },
       "base": {
