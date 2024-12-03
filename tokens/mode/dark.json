@@ -2,13 +2,13 @@
   "kds": {
     "color": {
       "surface": {
-        "default": {
-          "$type": "color",
-          "$value": "{kds.core.colors.neutral.20}"
-        },
         "muted": {
           "$type": "color",
           "$value": "{kds.core.colors.neutral.30}"
+        },
+        "default": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.20}"
         }
       },
       "background": {
@@ -501,6 +501,10 @@
         "neutral-inverted": {
           "$type": "color",
           "$value": "{kds.core.colors.neutral.10}"
+        },
+        "muted": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.60}"
         },
         "selected": {
           "$type": "color",

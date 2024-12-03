@@ -502,6 +502,10 @@
           "$type": "color",
           "$value": "{kds.core.colors.neutral.100}"
         },
+        "muted": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.40}"
+        },
         "selected": {
           "$type": "color",
           "$value": "{kds.core.colors.blue.30}"
