@@ -9,6 +9,10 @@
         "muted": {
           "$type": "color",
           "$value": "{kds.core.colors.neutral.80}"
+        },
+        "subtle": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.100}"
         }
       },
       "background": {
