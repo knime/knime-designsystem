@@ -551,6 +551,14 @@
         "disabled": {
           "$type": "color",
           "$value": "{kds.core.colors.neutral.50}"
+        },
+        "brand": {
+          "$type": "color",
+          "$value": "{kds.core.colors.yellow.50}"
+        },
+        "brand-inverted": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.0}"
         }
       },
       "border": {
