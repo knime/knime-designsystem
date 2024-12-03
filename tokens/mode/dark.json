@@ -2,13 +2,13 @@
   "kds": {
     "color": {
       "surface": {
-        "muted": {
-          "$type": "color",
-          "$value": "{kds.core.colors.neutral.30}"
-        },
         "default": {
           "$type": "color",
           "$value": "{kds.core.colors.neutral.20}"
+        },
+        "muted": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.30}"
         }
       },
       "background": {
