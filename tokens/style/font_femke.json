@@ -2,42 +2,16 @@
   "kds": {
     "font": {
       "base": {
-        "heading-strong": {
-          "H6": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.title}",
-              "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.line-height.title}",
-              "fontSize": "{kds.font-size.0_87x}"
-            }
-          },
-          "H5": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.title}",
-              "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.line-height.title}",
-              "fontSize": "{kds.font-size.1x}"
-            }
-          },
-          "H4": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.title}",
-              "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.line-height.title}",
-              "fontSize": "{kds.font-size.1_25x}"
-            }
-          },
+        "display": {
           "H3": {
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.title}",
               "fontWeight": "{kds.core.font-weight.strong}",
               "lineHeight": "{kds.line-height.title}",
-              "fontSize": "{kds.font-size.1_50x}"
-            }
+              "fontSize": "{kds.core.font-size.scaled.175}"
+            },
+            "$description": "suitable for pagetitles, brand and marketing content"
           },
           "H2": {
             "$type": "typography",
@@ -46,7 +20,8 @@
               "fontWeight": "{kds.core.font-weight.strong}",
               "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.2x}"
-            }
+            },
+            "$description": "suitable for pagetitles, brand and marketing content"
           },
           "H1": {
             "$type": "typography",
@@ -55,11 +30,12 @@
               "fontWeight": "{kds.core.font-weight.strong}",
               "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.2_50x}"
-            }
+            },
+            "$description": "suitable for pagetitles, brand and marketing content"
           }
         },
-        "heading-medium": {
-          "H5": {
+        "heading": {
+          "small": {
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.title}",
@@ -68,7 +44,7 @@
               "fontSize": "{kds.font-size.0_87x}"
             }
           },
-          "H4": {
+          "medium": {
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.title}",
@@ -77,7 +53,7 @@
               "fontSize": "{kds.font-size.1x}"
             }
           },
-          "H3": {
+          "large": {
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.title}",
@@ -86,22 +62,13 @@
               "fontSize": "{kds.font-size.1_25x}"
             }
           },
-          "H2": {
+          "xlarge": {
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.title}",
               "fontWeight": "{kds.core.font-weight.medium}",
               "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.1_50x}"
-            }
-          },
-          "H1": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.title}",
-              "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.title}",
-              "fontSize": "{kds.font-size.2x}"
             }
           }
         },
@@ -304,7 +271,58 @@
           "$value": {
             "fontFamily": "{kds.core.font-family.title}",
             "fontWeight": "{kds.core.font-weight.strong}",
-            "lineHeight": "{kds.core.line-height.l}"
+            "lineHeight": "{kds.core.line-height.l}",
+            "fontSize": "{kds.core.font-size.scaled.225}"
+          },
+          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+        },
+        "H2": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{kds.core.font-family.title}",
+            "fontWeight": "{kds.core.font-weight.strong}",
+            "lineHeight": "{kds.core.line-height.l}",
+            "fontSize": "30"
+          },
+          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+        },
+        "H3": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{kds.core.font-family.title}",
+            "fontWeight": "{kds.core.font-weight.strong}",
+            "lineHeight": "{kds.core.line-height.l}",
+            "fontSize": "26"
+          },
+          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+        },
+        "H4": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{kds.core.font-family.title}",
+            "fontWeight": "{kds.core.font-weight.strong}",
+            "lineHeight": "{kds.core.line-height.l}",
+            "fontSize": "22"
+          },
+          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+        },
+        "H5": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{kds.core.font-family.title}",
+            "fontWeight": "{kds.core.font-weight.strong}",
+            "lineHeight": "{kds.core.line-height.l}",
+            "fontSize": "{kds.core.font-size.scaled.100}"
+          },
+          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+        },
+        "H6": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{kds.core.font-family.title}",
+            "fontWeight": "{kds.core.font-weight.strong}",
+            "lineHeight": "{kds.core.line-height.l}",
+            "fontSize": "13"
           },
           "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
         }
