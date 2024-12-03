@@ -107,7 +107,7 @@
         "error": {
           "$type": "border",
           "$value": {
-            "color": "{kds.color.border.danger-bold}",
+            "color": "{kds.color.border.error}",
             "width": "{kds.border-width.base.s}",
             "style": "solid"
           }
