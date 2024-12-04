@@ -9,6 +9,10 @@
         "muted": {
           "$type": "color",
           "$value": "{kds.core.colors.neutral.80}"
+        },
+        "subtle": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.100}"
         }
       },
       "background": {
@@ -502,6 +506,10 @@
           "$type": "color",
           "$value": "{kds.core.colors.neutral.100}"
         },
+        "muted": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.40}"
+        },
         "selected": {
           "$type": "color",
           "$value": "{kds.core.colors.blue.30}"
@@ -547,6 +555,14 @@
         "disabled": {
           "$type": "color",
           "$value": "{kds.core.colors.neutral.50}"
+        },
+        "brand": {
+          "$type": "color",
+          "$value": "{kds.core.colors.yellow.50}"
+        },
+        "brand-inverted": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.0}"
         }
       },
       "border": {
