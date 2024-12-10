@@ -119,6 +119,14 @@
             "width": "2px",
             "style": "solid"
           }
+        },
+        "primary": {
+          "$type": "border",
+          "$value": {
+            "color": "{kds.color.border.primary-bold}",
+            "width": "{kds.border-width.base.m}",
+            "style": "solid"
+          }
         }
       },
       "base": {
