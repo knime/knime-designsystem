@@ -543,7 +543,7 @@
         },
         "primary": {
           "$type": "color",
-          "$value": "{kds.core.colors.teal.20}",
+          "$value": "{kds.core.colors.teal.40}",
           "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
         },
         "primary-inverted": {
@@ -620,7 +620,7 @@
         },
         "primary-bold": {
           "$type": "color",
-          "$value": "{kds.core.colors.teal.50}",
+          "$value": "{kds.core.colors.teal.70}",
           "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
         },
         "warning": {
