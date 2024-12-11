@@ -12,7 +12,7 @@
         },
         "subtle": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.100}"
+          "$value": "{kds.core.colors.neutral.70}"
         }
       },
       "background": {
