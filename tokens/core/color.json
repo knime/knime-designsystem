@@ -27,6 +27,10 @@
             "$type": "color",
             "$value": "hsl(0, 0%, 22%)"
           },
+          "45": {
+            "$type": "color",
+            "$value": "hsl(0, 0%, 42%)"
+          },
           "50": {
             "$type": "color",
             "$value": "hsl(0, 0%, 62%)"
@@ -37,7 +41,7 @@
           },
           "70": {
             "$type": "color",
-            "$value": "hsl(0, 0%, 88%)"
+            "$value": "hsl(0, 0%, 90%)"
           },
           "80": {
             "$type": "color",
