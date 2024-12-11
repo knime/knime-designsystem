@@ -4,11 +4,11 @@
       "progress": {
         "onFilled": {
           "$type": "color",
-          "$value": "{color.system.status-inverted.onNeutral}"
+          "$value": "{kds.color.surface.status-inverted.onNeutral}"
         },
         "onTransparent": {
           "$type": "color",
-          "$value": "{color.system.status.onNeutral}"
+          "$value": "{kds.color.surface.status.onNeutral}"
         }
       },
       "track": {
@@ -23,7 +23,7 @@
             }
           },
           "$type": "color",
-          "$value": "{color.system.status.neutral}"
+          "$value": "{kds.color.surface.status.neutral}"
         },
         "onTransparent": {
           "$extensions": {
@@ -36,7 +36,7 @@
             }
           },
           "$type": "color",
-          "$value": "{color.system.status-inverted.neutral}"
+          "$value": "{kds.color.surface.status-inverted.neutral}"
         }
       }
     }

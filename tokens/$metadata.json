@@ -4,10 +4,11 @@
     "core/color",
     "core/dimension",
     "core/font",
-    "mode/color-dark",
-    "mode/color-light",
+    "mode/dark",
+    "mode/light",
     "style/border",
-    "style/size",
-    "style/typography"
+    "style/font",
+    "style/font_femke",
+    "style/size"
   ]
 }
