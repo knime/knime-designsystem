@@ -603,7 +603,7 @@
         },
         "muted": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.30}"
+          "$value": "{kds.core.colors.neutral.50}"
         },
         "selected": {
           "$type": "color",

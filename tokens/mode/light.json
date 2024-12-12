@@ -4,11 +4,11 @@
       "surface": {
         "default": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.90}"
+          "$value": "{kds.core.colors.neutral.110}"
         },
         "muted": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.80}"
+          "$value": "{kds.core.colors.neutral.100}"
         },
         "subtle": {
           "$type": "color",
@@ -19,7 +19,7 @@
         "page": {
           "default": {
             "$type": "color",
-            "$value": "{kds.core.colors.neutral.100}"
+            "$value": "{kds.core.colors.neutral.120}"
           }
         },
         "neutral": {
@@ -554,7 +554,7 @@
         },
         "disabled": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.50}"
+          "$value": "{kds.core.colors.neutral.70}"
         },
         "brand": {
           "$type": "color",
@@ -568,7 +568,7 @@
       "border": {
         "neutral": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.20}"
+          "$value": "{kds.core.colors.neutral.60}"
         },
         "neutral-inverted": {
           "$type": "color",
@@ -576,11 +576,11 @@
         },
         "subtle": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.60}"
+          "$value": "{kds.core.colors.neutral.80}"
         },
         "muted": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.80}",
+          "$value": "{kds.core.colors.neutral.100}",
           "$description": "added defualt, subtle muted border colors"
         },
         "selected": {
@@ -627,7 +627,7 @@
         },
         "disabled": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.50}"
+          "$value": "{kds.core.colors.neutral.70}"
         },
         "transparent": {
           "$type": "color",

@@ -27,31 +27,35 @@
             "$type": "color",
             "$value": "hsl(0, 0%, 22%)"
           },
-          "45": {
-            "$type": "color",
-            "$value": "hsl(0, 0%, 42%)"
-          },
           "50": {
             "$type": "color",
-            "$value": "hsl(0, 0%, 62%)"
+            "$value": "hsl(0, 0%, 24%)"
           },
           "60": {
             "$type": "color",
-            "$value": "hsl(0, 0%, 74%)"
+            "$value": "hsl(0, 0%, 42%)"
           },
           "70": {
             "$type": "color",
-            "$value": "hsl(0, 0%, 90%)"
+            "$value": "hsl(0, 0%, 62%)"
           },
           "80": {
             "$type": "color",
-            "$value": "hsl(0, 0%, 94%)"
+            "$value": "hsl(0, 0%, 74%)"
           },
           "90": {
             "$type": "color",
-            "$value": "hsl(0, 0%, 98%)"
+            "$value": "hsl(0, 0%, 90%)"
           },
           "100": {
+            "$type": "color",
+            "$value": "hsl(0, 0%, 94%)"
+          },
+          "110": {
+            "$type": "color",
+            "$value": "hsl(0, 0%, 98%)"
+          },
+          "120": {
             "$type": "color",
             "$value": "hsl(0, 0%, 100%)"
           }
