@@ -39,6 +39,28 @@
           "$value": "{kds.color.surface.status-inverted.neutral}"
         }
       }
+    },
+    "desktop-header": {
+      "background": {
+        "default": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.0}"
+        },
+        "tab": {
+          "$type": "color",
+          "$value": "{kds.color.surface.default}"
+        }
+      },
+      "text-and-icon": {
+        "neutral": {
+          "$type": "color",
+          "$value": "{kds.core.colors.neutral.100}"
+        },
+        "tab": {
+          "$type": "color",
+          "$value": "{kds.color.text-and-icon.neutral}"
+        }
+      }
     }
   }
 }
