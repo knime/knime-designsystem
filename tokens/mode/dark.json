@@ -531,7 +531,7 @@
         },
         "muted": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.60}"
+          "$value": "{kds.core.colors.neutral.80}"
         },
         "selected": {
           "$type": "color",
@@ -577,7 +577,7 @@
         },
         "disabled": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.50}"
+          "$value": "{kds.core.colors.neutral.70}"
         },
         "brand": {
           "$type": "color",
@@ -599,11 +599,11 @@
         },
         "subtle": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.20}"
+          "$value": "{kds.core.colors.neutral.40}"
         },
         "muted": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.50}"
+          "$value": "{kds.core.colors.neutral.60}"
         },
         "selected": {
           "$type": "color",
