@@ -13,7 +13,8 @@
       "mode/light": "enabled"
     },
     "$figmaStyleReferences": {},
-    "group": "mode"
+    "group": "mode",
+    "$figmaVariableReferences": {}
   },
   {
     "id": "6991ad03613f98af6f4a929aae70d7d4a9567ff0",
@@ -29,6 +30,7 @@
       "mode/dark": "enabled"
     },
     "$figmaStyleReferences": {},
-    "group": "mode"
+    "group": "mode",
+    "$figmaVariableReferences": {}
   }
 ]

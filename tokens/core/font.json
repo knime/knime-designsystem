@@ -99,15 +99,10 @@
         }
       },
       "line-height": {
-        "xs": {
-          "$type": "lineHeights",
-          "$value": "100%",
-          "$description": "headlines"
-        },
         "s": {
           "$type": "lineHeights",
-          "$value": "110%",
-          "$description": "headlines."
+          "$value": "100%",
+          "$description": "Labels, Buttontext"
         },
         "m": {
           "$type": "lineHeights",
