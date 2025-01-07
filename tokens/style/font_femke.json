@@ -2,8 +2,8 @@
   "kds": {
     "font": {
       "base": {
-        "heading-strong": {
-          "H6": {
+        "title": {
+          "H6-strong": {
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.title}",
@@ -12,7 +12,7 @@
               "fontSize": "{kds.font-size.0_87x}"
             }
           },
-          "H5": {
+          "H5-strong": {
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.title}",
@@ -21,6 +21,53 @@
               "fontSize": "{kds.font-size.1x}"
             }
           },
+          "H5": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.title}",
+              "fontWeight": "{kds.core.font-weight.medium}",
+              "lineHeight": "{kds.line-height.title}",
+              "fontSize": "{kds.font-size.0_87x}"
+            }
+          },
+          "H4": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.title}",
+              "fontWeight": "{kds.core.font-weight.medium}",
+              "lineHeight": "{kds.line-height.title}",
+              "fontSize": "{kds.font-size.1x}"
+            }
+          },
+          "H3": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.title}",
+              "fontWeight": "{kds.core.font-weight.medium}",
+              "lineHeight": "{kds.line-height.title}",
+              "fontSize": "{kds.font-size.1_25x}"
+            }
+          },
+          "H2": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.title}",
+              "fontWeight": "{kds.core.font-weight.medium}",
+              "lineHeight": "{kds.line-height.title}",
+              "fontSize": "{kds.font-size.1_50x}"
+            }
+          },
+          "H1": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.title}",
+              "fontWeight": "{kds.core.font-weight.medium}",
+              "lineHeight": "{kds.line-height.title}",
+              "fontSize": "{kds.font-size.2x}"
+            }
+          }
+        },
+        "display": {
           "H4": {
             "$type": "typography",
             "$value": {
@@ -28,7 +75,8 @@
               "fontWeight": "{kds.core.font-weight.strong}",
               "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.1_25x}"
-            }
+            },
+            "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels"
           },
           "H3": {
             "$type": "typography",
@@ -37,7 +85,8 @@
               "fontWeight": "{kds.core.font-weight.strong}",
               "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.1_50x}"
-            }
+            },
+            "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels"
           },
           "H2": {
             "$type": "typography",
@@ -46,7 +95,8 @@
               "fontWeight": "{kds.core.font-weight.strong}",
               "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.2x}"
-            }
+            },
+            "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels"
           },
           "H1": {
             "$type": "typography",
@@ -55,54 +105,8 @@
               "fontWeight": "{kds.core.font-weight.strong}",
               "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.2_50x}"
-            }
-          }
-        },
-        "heading-medium": {
-          "H5": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.title}",
-              "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.title}",
-              "fontSize": "{kds.font-size.0_87x}"
-            }
-          },
-          "H4": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.title}",
-              "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.title}",
-              "fontSize": "{kds.font-size.1x}"
-            }
-          },
-          "H3": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.title}",
-              "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.title}",
-              "fontSize": "{kds.font-size.1_25x}"
-            }
-          },
-          "H2": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.title}",
-              "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.title}",
-              "fontSize": "{kds.font-size.1_50x}"
-            }
-          },
-          "H1": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.title}",
-              "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.title}",
-              "fontSize": "{kds.font-size.2x}"
-            }
+            },
+            "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels"
           }
         },
         "body": {
