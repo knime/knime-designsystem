@@ -92,6 +92,10 @@
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 600"
           },
+          "81_25": {
+            "$type": "fontSizes",
+            "$value": "{kds.core.font-size.scaled.base} * 81.25"
+          },
           "base": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.REM} / 100"
@@ -143,15 +147,11 @@
         }
       },
       "font-family": {
-        "title": {
+        "roboto": {
           "$type": "fontFamilies",
           "$value": "Roboto"
         },
-        "body": {
-          "$type": "fontFamilies",
-          "$value": "Roboto"
-        },
-        "interface": {
+        "roboto-condensed": {
           "$type": "fontFamilies",
           "$value": "Roboto"
         }

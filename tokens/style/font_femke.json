@@ -2,76 +2,11 @@
   "kds": {
     "font": {
       "base": {
-        "title": {
-          "H6-strong": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.title}",
-              "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.line-height.title}",
-              "fontSize": "{kds.font-size.0_87x}"
-            }
-          },
-          "H5-strong": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.title}",
-              "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.line-height.title}",
-              "fontSize": "{kds.font-size.1x}"
-            }
-          },
-          "H5": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.title}",
-              "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.title}",
-              "fontSize": "{kds.font-size.0_87x}"
-            }
-          },
-          "H4": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.title}",
-              "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.title}",
-              "fontSize": "{kds.font-size.1x}"
-            }
-          },
-          "H3": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.title}",
-              "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.title}",
-              "fontSize": "{kds.font-size.1_25x}"
-            }
-          },
-          "H2": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.title}",
-              "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.title}",
-              "fontSize": "{kds.font-size.1_50x}"
-            }
-          },
-          "H1": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.title}",
-              "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.title}",
-              "fontSize": "{kds.font-size.2x}"
-            }
-          }
-        },
         "display": {
           "H4": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{kds.core.font-family.title}",
+              "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
               "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.1_25x}"
@@ -81,7 +16,7 @@
           "H3": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{kds.core.font-family.title}",
+              "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
               "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.1_50x}"
@@ -91,7 +26,7 @@
           "H2": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{kds.core.font-family.title}",
+              "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
               "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.2x}"
@@ -101,7 +36,7 @@
           "H1": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{kds.core.font-family.title}",
+              "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
               "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.2_50x}"
@@ -109,11 +44,49 @@
             "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels"
           }
         },
+        "title": {
+          "XSmall": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.roboto}",
+              "fontWeight": "{kds.core.font-weight.medium}",
+              "lineHeight": "{kds.line-height.title}",
+              "fontSize": "{kds.font-size.0_62x}"
+            }
+          },
+          "Small": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.roboto}",
+              "fontWeight": "{kds.core.font-weight.medium}",
+              "lineHeight": "{kds.line-height.title}",
+              "fontSize": "{kds.font-size.0_75x}"
+            }
+          },
+          "Medium": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.roboto}",
+              "fontWeight": "{kds.core.font-weight.medium}",
+              "lineHeight": "{kds.line-height.title}",
+              "fontSize": "{kds.font-size.0_87x}"
+            }
+          },
+          "Large": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.roboto}",
+              "fontWeight": "{kds.core.font-weight.medium}",
+              "lineHeight": "{kds.line-height.title}",
+              "fontSize": "{kds.font-size.1x}"
+            }
+          }
+        },
         "body": {
           "s": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{kds.core.font-family.body}",
+              "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.default}",
               "lineHeight": "{kds.line-height.body}",
               "fontSize": "{kds.font-size.0_75x}"
@@ -122,7 +95,7 @@
           "sm": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{kds.core.font-family.body}",
+              "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.default}",
               "lineHeight": "{kds.line-height.body}",
               "fontSize": "{kds.font-size.0_87x}"
@@ -131,7 +104,7 @@
           "m": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{kds.core.font-family.body}",
+              "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.default}",
               "lineHeight": "{kds.line-height.body}",
               "fontSize": "{kds.font-size.1x}"
@@ -140,7 +113,7 @@
           "ml": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{kds.core.font-family.body}",
+              "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.default}",
               "lineHeight": "{kds.line-height.body}",
               "fontSize": "{kds.font-size.1_25x}"
@@ -151,7 +124,7 @@
           "default": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{kds.core.font-family.interface}",
+              "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-default}",
               "fontSize": "{kds.core.font-size.scaled.62}"
             },
@@ -164,7 +137,7 @@
           "s": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{kds.core.font-family.interface}",
+              "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-strong}",
               "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.0_75x}"
@@ -173,7 +146,7 @@
           "sm": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{kds.core.font-family.interface}",
+              "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-strong}",
               "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.0_87x}"
@@ -182,7 +155,7 @@
           "m": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{kds.core.font-family.interface}",
+              "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-strong}",
               "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1x}"
@@ -191,7 +164,7 @@
           "ml": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{kds.core.font-family.interface}",
+              "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-strong}",
               "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1_25x}"
@@ -200,7 +173,7 @@
           "l": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{kds.core.font-family.interface}",
+              "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-strong}",
               "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1_50x}"
@@ -211,7 +184,7 @@
           "s": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{kds.core.font-family.interface}",
+              "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-medium}",
               "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.0_75x}"
@@ -220,7 +193,7 @@
           "sm": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{kds.core.font-family.interface}",
+              "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-medium}",
               "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.0_87x}"
@@ -229,7 +202,7 @@
           "m": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{kds.core.font-family.interface}",
+              "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-medium}",
               "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1x}"
@@ -238,7 +211,7 @@
           "ml": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{kds.core.font-family.interface}",
+              "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-medium}",
               "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1_25x}"
@@ -247,7 +220,7 @@
           "l": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{kds.core.font-family.interface}",
+              "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-medium}",
               "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1_50x}"
@@ -258,7 +231,7 @@
           "s": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{kds.core.font-family.interface}",
+              "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-default}",
               "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.0_75x}"
@@ -267,7 +240,7 @@
           "sm": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{kds.core.font-family.interface}",
+              "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-default}",
               "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.0_87x}"
@@ -276,7 +249,7 @@
           "m": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{kds.core.font-family.interface}",
+              "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-default}",
               "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1x}"
@@ -285,7 +258,7 @@
           "ml": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{kds.core.font-family.interface}",
+              "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-default}",
               "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1_25x}"
@@ -294,7 +267,7 @@
           "l": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{kds.core.font-family.interface}",
+              "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-default}",
               "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1_50x}"
@@ -302,13 +275,74 @@
           }
         }
       },
-      "annotations_and_dataapps": {
+      "annotations": {
         "H1": {
           "$type": "typography",
           "$value": {
-            "fontFamily": "{kds.core.font-family.title}",
+            "fontFamily": "{kds.core.font-family.roboto-condensed}",
             "fontWeight": "{kds.core.font-weight.strong}",
-            "lineHeight": "{kds.core.line-height.l}"
+            "lineHeight": "{kds.core.line-height.l}",
+            "fontSize": "{kds.font-size.2_25x}"
+          },
+          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+        },
+        "H2": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{kds.core.font-family.roboto-condensed}",
+            "fontWeight": "{kds.core.font-weight.strong}",
+            "lineHeight": "{kds.core.line-height.l}",
+            "fontSize": "30"
+          },
+          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+        },
+        "H3": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{kds.core.font-family.roboto-condensed}",
+            "fontWeight": "{kds.core.font-weight.strong}",
+            "lineHeight": "{kds.core.line-height.l}",
+            "fontSize": "26"
+          },
+          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+        },
+        "H4": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{kds.core.font-family.roboto-condensed}",
+            "fontWeight": "{kds.core.font-weight.strong}",
+            "lineHeight": "{kds.core.line-height.l}",
+            "fontSize": "22"
+          },
+          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+        },
+        "H5": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{kds.core.font-family.roboto-condensed}",
+            "fontWeight": "{kds.core.font-weight.strong}",
+            "lineHeight": "{kds.core.line-height.l}",
+            "fontSize": "{kds.font-size.1x}"
+          },
+          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+        },
+        "H6": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{kds.core.font-family.roboto-condensed}",
+            "fontWeight": "{kds.core.font-weight.strong}",
+            "lineHeight": "{kds.core.line-height.l}",
+            "fontSize": "{kds.font-size.0_81_25x}"
+          },
+          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+        },
+        "Body": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{kds.core.font-family.roboto-condensed}",
+            "fontWeight": "{kds.core.font-weight.strong}",
+            "lineHeight": "{kds.core.line-height.l}",
+            "fontSize": "{kds.font-size.0_81_25x}"
           },
           "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
         }
