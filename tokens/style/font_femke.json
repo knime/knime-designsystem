@@ -8,7 +8,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.line-height.multiline_small}",
+              "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.1_25x}"
             },
             "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels"
@@ -18,7 +18,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.line-height.multiline_small}",
+              "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.1_50x}"
             },
             "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels"
@@ -28,7 +28,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.line-height.multiline_small}",
+              "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.2x}"
             },
             "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels"
@@ -38,7 +38,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.line-height.multiline_small}",
+              "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.2_50x}"
             },
             "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels"
@@ -50,7 +50,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.0_62x}"
             }
           },
@@ -59,7 +59,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.0_75x}"
             }
           },
@@ -68,7 +68,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.0_75x}"
             }
           },
@@ -77,7 +77,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.0_87x}"
             }
           },
@@ -86,7 +86,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1x}"
             }
           },
@@ -95,7 +95,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1x}"
             }
           }
@@ -105,8 +105,8 @@
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
-              "fontWeight": "{kds.core.font-weight.default}",
-              "lineHeight": "{kds.line-height.multiline_wider}",
+              "fontWeight": "{kds.core.font-weight.regular}",
+              "lineHeight": "{kds.line-height.body}",
               "fontSize": "{kds.font-size.0_75x}"
             }
           },
@@ -114,8 +114,8 @@
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
-              "fontWeight": "{kds.core.font-weight.default}",
-              "lineHeight": "{kds.line-height.multiline_wider}",
+              "fontWeight": "{kds.core.font-weight.regular}",
+              "lineHeight": "{kds.line-height.body}",
               "fontSize": "{kds.font-size.0_87x}"
             }
           },
@@ -123,8 +123,8 @@
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
-              "fontWeight": "{kds.core.font-weight.default}",
-              "lineHeight": "{kds.line-height.multiline_wider}",
+              "fontWeight": "{kds.core.font-weight.regular}",
+              "lineHeight": "{kds.line-height.body}",
               "fontSize": "{kds.font-size.1x}"
             }
           },
@@ -132,8 +132,8 @@
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
-              "fontWeight": "{kds.core.font-weight.default}",
-              "lineHeight": "{kds.line-height.multiline_wider}",
+              "fontWeight": "{kds.core.font-weight.regular}",
+              "lineHeight": "{kds.line-height.body}",
               "fontSize": "{kds.font-size.1_25x}"
             }
           }
@@ -143,8 +143,8 @@
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
-              "fontWeight": "{kds.core.font-weight.interface-default}",
-              "fontSize": "{kds.core.font-size.scaled.62}"
+              "fontWeight": "{kds.core.font-weight.regular}",
+              "fontSize": "{kds.core.font-size.scaled.56}"
             },
             "$description": "Caption is used for disclosing extra information or smaller items in hierarchical relationships of text. \n\nExamples: Input helping Text, Character Count, # Columns in Twinlist, Datatypes...)"
           }
@@ -157,7 +157,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-strong}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.0_75x}"
             }
           },
@@ -166,7 +166,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-strong}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.0_87x}"
             }
           },
@@ -175,7 +175,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-strong}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1x}"
             }
           },
@@ -184,7 +184,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-strong}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1_25x}"
             }
           },
@@ -193,7 +193,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-strong}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1_50x}"
             }
           }
@@ -204,7 +204,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-medium}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.0_75x}"
             }
           },
@@ -213,7 +213,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-medium}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.0_87x}"
             }
           },
@@ -222,7 +222,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-medium}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1x}"
             }
           },
@@ -231,7 +231,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-medium}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1_25x}"
             }
           },
@@ -240,7 +240,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-medium}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1_50x}"
             }
           }
@@ -251,7 +251,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-default}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.0_75x}"
             }
           },
@@ -260,7 +260,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-default}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.0_87x}"
             }
           },
@@ -269,7 +269,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-default}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1x}"
             }
           },
@@ -278,7 +278,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-default}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1_25x}"
             }
           },
@@ -287,7 +287,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-default}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1_50x}"
             }
           }
@@ -300,7 +300,7 @@
             "fontFamily": "{kds.core.font-family.roboto-condensed}",
             "fontWeight": "{kds.core.font-weight.strong}",
             "lineHeight": "{kds.core.line-height.l}",
-            "fontSize": "{kds.font-size.2_25x}"
+            "fontSize": "36"
           },
           "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
         },
@@ -340,7 +340,7 @@
             "fontFamily": "{kds.core.font-family.roboto-condensed}",
             "fontWeight": "{kds.core.font-weight.strong}",
             "lineHeight": "{kds.core.line-height.l}",
-            "fontSize": "{kds.font-size.1x}"
+            "fontSize": "16"
           },
           "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
         },
@@ -350,7 +350,7 @@
             "fontFamily": "{kds.core.font-family.roboto-condensed}",
             "fontWeight": "{kds.core.font-weight.strong}",
             "lineHeight": "{kds.core.line-height.l}",
-            "fontSize": "{kds.font-size.0_81_25x}"
+            "fontSize": "13"
           },
           "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
         },
@@ -360,16 +360,24 @@
             "fontFamily": "{kds.core.font-family.roboto-condensed}",
             "fontWeight": "{kds.core.font-weight.strong}",
             "lineHeight": "{kds.core.line-height.l}",
-            "fontSize": "{kds.font-size.0_81_25x}"
+            "fontSize": "13"
           },
           "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
         }
       }
     },
     "font-size": {
+      "0_56x": {
+        "$type": "fontSizes",
+        "$value": "{kds.core.font-size.scaled.56}"
+      },
       "0_62x": {
         "$type": "fontSizes",
         "$value": "{kds.core.font-size.scaled.62}"
+      },
+      "0_68x": {
+        "$type": "fontSizes",
+        "$value": "{kds.core.font-size.scaled.68}"
       },
       "0_75x": {
         "$type": "fontSizes",
@@ -408,15 +416,15 @@
       }
     },
     "line-height": {
-      "title": {
+      "multiline_narrow": {
         "$type": "lineHeights",
         "$value": "{kds.core.line-height.m}"
       },
-      "body": {
+      "multiline_wide": {
         "$type": "lineHeights",
         "$value": "{kds.core.line-height.l}"
       },
-      "interface": {
+      "singleline": {
         "$type": "lineHeights",
         "$value": "{kds.core.line-height.s}"
       }

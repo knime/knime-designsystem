@@ -12,13 +12,25 @@
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 50"
           },
+          "56": {
+            "$type": "fontSizes",
+            "$value": "{kds.core.font-size.scaled.base} * 56.25"
+          },
           "62": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 62.5"
           },
+          "68": {
+            "$type": "fontSizes",
+            "$value": "{kds.core.font-size.scaled.base} * 68.75"
+          },
           "75": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 75"
+          },
+          "81": {
+            "$type": "fontSizes",
+            "$value": "{kds.core.font-size.scaled.base} * 81.25"
           },
           "87": {
             "$type": "fontSizes",
@@ -92,10 +104,6 @@
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 600"
           },
-          "81_25": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 81.25"
-          },
           "base": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.REM} / 100"
@@ -157,7 +165,7 @@
         }
       },
       "font-weight": {
-        "default": {
+        "regular": {
           "$type": "fontWeights",
           "$value": "400"
         },
@@ -166,18 +174,6 @@
           "$value": "500"
         },
         "strong": {
-          "$type": "fontWeights",
-          "$value": "700"
-        },
-        "interface-default": {
-          "$type": "fontWeights",
-          "$value": "400"
-        },
-        "interface-medium": {
-          "$type": "fontWeights",
-          "$value": "500"
-        },
-        "interface-strong": {
           "$type": "fontWeights",
           "$value": "700"
         }

@@ -8,7 +8,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.title}",
               "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.line-height.multiline_small}",
+              "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.0_87x}"
             }
           },
@@ -17,7 +17,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.title}",
               "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.line-height.multiline_small}",
+              "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.1x}"
             }
           },
@@ -26,7 +26,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.title}",
               "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.line-height.multiline_small}",
+              "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.1_25x}"
             }
           },
@@ -35,7 +35,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.title}",
               "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.line-height.multiline_small}",
+              "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.1_50x}"
             }
           },
@@ -44,7 +44,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.title}",
               "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.line-height.multiline_small}",
+              "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.2x}"
             }
           },
@@ -53,7 +53,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.title}",
               "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.line-height.multiline_small}",
+              "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.2_50x}"
             }
           }
@@ -64,7 +64,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.title}",
               "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.multiline_small}",
+              "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.0_87x}"
             }
           },
@@ -73,7 +73,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.title}",
               "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.multiline_small}",
+              "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.1x}"
             }
           },
@@ -82,7 +82,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.title}",
               "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.multiline_small}",
+              "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.1_25x}"
             }
           },
@@ -91,7 +91,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.title}",
               "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.multiline_small}",
+              "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.1_50x}"
             }
           },
@@ -100,7 +100,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.title}",
               "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.multiline_small}",
+              "lineHeight": "{kds.line-height.title}",
               "fontSize": "{kds.font-size.2x}"
             }
           }
@@ -110,8 +110,8 @@
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.body}",
-              "fontWeight": "{kds.core.font-weight.default}",
-              "lineHeight": "{kds.line-height.multiline_wider}",
+              "fontWeight": "{kds.core.font-weight.regular}",
+              "lineHeight": "{kds.line-height.body}",
               "fontSize": "{kds.font-size.0_62x}"
             }
           },
@@ -119,8 +119,8 @@
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.body}",
-              "fontWeight": "{kds.core.font-weight.default}",
-              "lineHeight": "{kds.line-height.multiline_wider}",
+              "fontWeight": "{kds.core.font-weight.regular}",
+              "lineHeight": "{kds.line-height.body}",
               "fontSize": "{kds.font-size.0_75x}"
             }
           },
@@ -128,8 +128,8 @@
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.body}",
-              "fontWeight": "{kds.core.font-weight.default}",
-              "lineHeight": "{kds.line-height.multiline_wider}",
+              "fontWeight": "{kds.core.font-weight.regular}",
+              "lineHeight": "{kds.line-height.body}",
               "fontSize": "{kds.font-size.0_87x}"
             }
           },
@@ -137,8 +137,8 @@
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.body}",
-              "fontWeight": "{kds.core.font-weight.default}",
-              "lineHeight": "{kds.line-height.multiline_wider}",
+              "fontWeight": "{kds.core.font-weight.regular}",
+              "lineHeight": "{kds.line-height.body}",
               "fontSize": "{kds.font-size.1x}"
             }
           },
@@ -146,8 +146,8 @@
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.body}",
-              "fontWeight": "{kds.core.font-weight.default}",
-              "lineHeight": "{kds.line-height.multiline_wider}",
+              "fontWeight": "{kds.core.font-weight.regular}",
+              "lineHeight": "{kds.line-height.body}",
               "fontSize": "{kds.font-size.1_25x}"
             }
           }
@@ -160,7 +160,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-strong}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.0_75x}"
             }
           },
@@ -169,7 +169,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-strong}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.0_87x}"
             }
           },
@@ -178,7 +178,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-strong}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1x}"
             }
           },
@@ -187,7 +187,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-strong}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1_25x}"
             }
           },
@@ -196,7 +196,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-strong}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1_50x}"
             }
           }
@@ -207,7 +207,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-medium}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.0_75x}"
             }
           },
@@ -216,7 +216,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-medium}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.0_87x}"
             }
           },
@@ -225,7 +225,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-medium}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1x}"
             }
           },
@@ -234,7 +234,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-medium}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1_25x}"
             }
           },
@@ -243,7 +243,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-medium}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1_50x}"
             }
           }
@@ -254,7 +254,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-default}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.0_75x}"
             }
           },
@@ -263,7 +263,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-default}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.0_87x}"
             }
           },
@@ -272,7 +272,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-default}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1x}"
             }
           },
@@ -281,7 +281,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-default}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1_25x}"
             }
           },
@@ -290,7 +290,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.interface-default}",
-              "lineHeight": "{kds.line-height.singleline}",
+              "lineHeight": "{kds.line-height.interface}",
               "fontSize": "{kds.font-size.1_50x}"
             }
           }
@@ -308,7 +308,7 @@
       },
       "0_81_25x": {
         "$type": "fontSizes",
-        "$value": "{kds.core.font-size.scaled.81_25}"
+        "$value": "{kds.core.font-size.scaled.81}"
       },
       "0_87x": {
         "$type": "fontSizes",
@@ -351,15 +351,15 @@
       }
     },
     "line-height": {
-      "multiline_small": {
+      "title": {
         "$type": "lineHeights",
         "$value": "{kds.core.line-height.m}"
       },
-      "multiline_wider": {
+      "body": {
         "$type": "lineHeights",
         "$value": "{kds.core.line-height.l}"
       },
-      "singleline": {
+      "interface": {
         "$type": "lineHeights",
         "$value": "{kds.core.line-height.s}"
       }
