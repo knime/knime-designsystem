@@ -139,7 +139,7 @@
           }
         },
         "caption": {
-          "default": {
+          "small": {
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
@@ -151,53 +151,6 @@
         }
       },
       "interactive": {
-        "strong": {
-          "s": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.roboto}",
-              "fontWeight": "{kds.core.font-weight.interface-strong}",
-              "lineHeight": "{kds.line-height.interface}",
-              "fontSize": "{kds.font-size.0_75x}"
-            }
-          },
-          "sm": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.roboto}",
-              "fontWeight": "{kds.core.font-weight.interface-strong}",
-              "lineHeight": "{kds.line-height.interface}",
-              "fontSize": "{kds.font-size.0_87x}"
-            }
-          },
-          "m": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.roboto}",
-              "fontWeight": "{kds.core.font-weight.interface-strong}",
-              "lineHeight": "{kds.line-height.interface}",
-              "fontSize": "{kds.font-size.1x}"
-            }
-          },
-          "ml": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.roboto}",
-              "fontWeight": "{kds.core.font-weight.interface-strong}",
-              "lineHeight": "{kds.line-height.interface}",
-              "fontSize": "{kds.font-size.1_25x}"
-            }
-          },
-          "l": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.roboto}",
-              "fontWeight": "{kds.core.font-weight.interface-strong}",
-              "lineHeight": "{kds.line-height.interface}",
-              "fontSize": "{kds.font-size.1_50x}"
-            }
-          }
-        },
         "medium": {
           "s": {
             "$type": "typography",
