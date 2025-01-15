@@ -45,7 +45,7 @@
           }
         },
         "title": {
-          "XSmall": {
+          "xsmall": {
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
@@ -54,7 +54,7 @@
               "fontSize": "{kds.font-size.0_62x}"
             }
           },
-          "Small": {
+          "small": {
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
@@ -63,7 +63,7 @@
               "fontSize": "{kds.font-size.0_75x}"
             }
           },
-          "Small-strong": {
+          "small-strong": {
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
@@ -72,7 +72,7 @@
               "fontSize": "{kds.font-size.0_75x}"
             }
           },
-          "Medium": {
+          "medium": {
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
@@ -81,7 +81,7 @@
               "fontSize": "{kds.font-size.0_87x}"
             }
           },
-          "Large": {
+          "large": {
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
@@ -90,7 +90,7 @@
               "fontSize": "{kds.font-size.1x}"
             }
           },
-          "Large-strong": {
+          "large-strong": {
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
@@ -101,7 +101,7 @@
           }
         },
         "body": {
-          "s": {
+          "small": {
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
@@ -110,7 +110,7 @@
               "fontSize": "{kds.font-size.0_75x}"
             }
           },
-          "sm": {
+          "medium": {
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
@@ -119,7 +119,7 @@
               "fontSize": "{kds.font-size.0_87x}"
             }
           },
-          "m": {
+          "large": {
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
@@ -128,7 +128,7 @@
               "fontSize": "{kds.font-size.1x}"
             }
           },
-          "ml": {
+          "xlarge": {
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
@@ -139,7 +139,7 @@
           }
         },
         "caption": {
-          "small": {
+          "default": {
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
@@ -148,100 +148,60 @@
             },
             "$description": "Caption is used for disclosing extra information or smaller items in hierarchical relationships of text. \n\nExamples: Input helping Text, Character Count, # Columns in Twinlist, Datatypes...)"
           }
-        }
-      },
-      "interactive": {
-        "medium": {
-          "s": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.roboto}",
-              "fontWeight": "{kds.core.font-weight.interface-medium}",
-              "lineHeight": "{kds.line-height.interface}",
-              "fontSize": "{kds.font-size.0_75x}"
-            }
-          },
-          "sm": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.roboto}",
-              "fontWeight": "{kds.core.font-weight.interface-medium}",
-              "lineHeight": "{kds.line-height.interface}",
-              "fontSize": "{kds.font-size.0_87x}"
-            }
-          },
-          "m": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.roboto}",
-              "fontWeight": "{kds.core.font-weight.interface-medium}",
-              "lineHeight": "{kds.line-height.interface}",
-              "fontSize": "{kds.font-size.1x}"
-            }
-          },
-          "ml": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.roboto}",
-              "fontWeight": "{kds.core.font-weight.interface-medium}",
-              "lineHeight": "{kds.line-height.interface}",
-              "fontSize": "{kds.font-size.1_25x}"
-            }
-          },
-          "l": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.roboto}",
-              "fontWeight": "{kds.core.font-weight.interface-medium}",
-              "lineHeight": "{kds.line-height.interface}",
-              "fontSize": "{kds.font-size.1_50x}"
-            }
-          }
         },
-        "default": {
-          "s": {
+        "interactive": {
+          "small": {
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
-              "fontWeight": "{kds.core.font-weight.interface-default}",
-              "lineHeight": "{kds.line-height.interface}",
+              "fontWeight": "{kds.core.font-weight.regular}",
+              "lineHeight": "{kds.line-height.singleline}",
               "fontSize": "{kds.font-size.0_75x}"
             }
           },
-          "sm": {
+          "small-strong": {
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
-              "fontWeight": "{kds.core.font-weight.interface-default}",
-              "lineHeight": "{kds.line-height.interface}",
+              "fontWeight": "{kds.core.font-weight.medium}",
+              "lineHeight": "{kds.line-height.singleline}",
+              "fontSize": "{kds.font-size.0_75x}"
+            }
+          },
+          "medium": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.roboto}",
+              "fontWeight": "{kds.core.font-weight.regular}",
+              "lineHeight": "{kds.line-height.singleline}",
               "fontSize": "{kds.font-size.0_87x}"
             }
           },
-          "m": {
+          "medium-strong": {
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
-              "fontWeight": "{kds.core.font-weight.interface-default}",
-              "lineHeight": "{kds.line-height.interface}",
+              "fontWeight": "{kds.core.font-weight.medium}",
+              "lineHeight": "{kds.line-height.singleline}",
+              "fontSize": "{kds.font-size.0_87x}"
+            }
+          },
+          "large": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.roboto}",
+              "fontWeight": "{kds.core.font-weight.regular}",
+              "lineHeight": "{kds.line-height.singleline}",
               "fontSize": "{kds.font-size.1x}"
             }
           },
-          "ml": {
+          "large-strong": {
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
-              "fontWeight": "{kds.core.font-weight.interface-default}",
-              "lineHeight": "{kds.line-height.interface}",
-              "fontSize": "{kds.font-size.1_25x}"
-            }
-          },
-          "l": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.roboto}",
-              "fontWeight": "{kds.core.font-weight.interface-default}",
-              "lineHeight": "{kds.line-height.interface}",
-              "fontSize": "{kds.font-size.1_50x}"
+              "fontWeight": "{kds.core.font-weight.medium}",
+              "lineHeight": "{kds.line-height.singleline}",
+              "fontSize": "{kds.font-size.1x}"
             }
           }
         }
