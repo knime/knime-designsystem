@@ -110,39 +110,24 @@
           }
         }
       },
-      "line-height": {
-        "s": {
-          "$type": "lineHeights",
-          "$value": "100%",
-          "$description": "Labels, Buttontext"
-        },
-        "m": {
-          "$type": "lineHeights",
-          "$value": "130%"
-        },
-        "l": {
-          "$type": "lineHeights",
-          "$value": "150%"
-        }
-      },
       "paragraph-spacing": {
         "none": {
           "$type": "paragraphSpacing",
           "$value": "0.0"
         },
-        "s": {
+        "small": {
           "$type": "paragraphSpacing",
           "$value": "0.25"
         },
-        "m": {
+        "medium": {
           "$type": "paragraphSpacing",
           "$value": "0.5"
         },
-        "l": {
+        "large": {
           "$type": "paragraphSpacing",
           "$value": "0.75"
         },
-        "xl": {
+        "extra-large": {
           "$type": "paragraphSpacing",
           "$value": "1"
         }
@@ -176,6 +161,21 @@
         "strong": {
           "$type": "fontWeights",
           "$value": "700"
+        }
+      },
+      "line-height": {
+        "small": {
+          "$type": "lineHeights",
+          "$value": "100%",
+          "$description": "Labels, Buttontext"
+        },
+        "medium": {
+          "$type": "lineHeights",
+          "$value": "130%"
+        },
+        "large": {
+          "$type": "lineHeights",
+          "$value": "150%"
         }
       }
     }
