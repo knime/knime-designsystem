@@ -18,7 +18,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.line-height.title}",
+              "lineHeight": "{kds.line-height.singleline}",
               "fontSize": "{kds.font-size.1_50x}"
             },
             "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels"
