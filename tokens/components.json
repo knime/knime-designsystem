@@ -1,42 +1,66 @@
 {
-  "color": {
-    "spinner": {
-      "progress": {
-        "onFilled": {
-          "$type": "color",
-          "$value": "{kds.color.surface.status-inverted.onNeutral}"
+  "kds": {
+    "color": {
+      "spinner": {
+        "progress": {
+          "onFilled": {
+            "$type": "color",
+            "$value": "{kds.color.surface.status-inverted.onNeutral}"
+          },
+          "onTransparent": {
+            "$type": "color",
+            "$value": "{kds.color.surface.status.onNeutral}"
+          }
         },
-        "onTransparent": {
-          "$type": "color",
-          "$value": "{kds.color.surface.status.onNeutral}"
+        "track": {
+          "onFilled": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.24",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.color.surface.status.neutral}"
+          },
+          "onTransparent": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.24",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.color.surface.status-inverted.neutral}"
+          }
         }
       },
-      "track": {
-        "onFilled": {
-          "$extensions": {
-            "studio.tokens": {
-              "modify": {
-                "type": "alpha",
-                "value": "0.24",
-                "space": "lch"
-              }
-            }
+      "desktop-header": {
+        "background": {
+          "default": {
+            "$type": "color",
+            "$value": "{kds.core.colors.neutral.0}"
           },
-          "$type": "color",
-          "$value": "{kds.color.surface.status.neutral}"
+          "tab": {
+            "$type": "color",
+            "$value": "{kds.color.surface.default}"
+          }
         },
-        "onTransparent": {
-          "$extensions": {
-            "studio.tokens": {
-              "modify": {
-                "type": "alpha",
-                "value": "0.24",
-                "space": "lch"
-              }
-            }
+        "text-and-icon": {
+          "neutral": {
+            "$type": "color",
+            "$value": "{kds.core.colors.neutral.100}"
           },
-          "$type": "color",
-          "$value": "{kds.color.surface.status-inverted.neutral}"
+          "tab": {
+            "$type": "color",
+            "$value": "{kds.color.text-and-icon.neutral}"
+          }
         }
       }
     },

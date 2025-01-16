@@ -12,13 +12,25 @@
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 50"
           },
+          "56": {
+            "$type": "fontSizes",
+            "$value": "{kds.core.font-size.scaled.base} * 56.25"
+          },
           "62": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 62.5"
           },
+          "68": {
+            "$type": "fontSizes",
+            "$value": "{kds.core.font-size.scaled.base} * 68.75"
+          },
           "75": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 75"
+          },
+          "81": {
+            "$type": "fontSizes",
+            "$value": "{kds.core.font-size.scaled.base} * 81.25"
           },
           "87": {
             "$type": "fontSizes",
@@ -98,44 +110,24 @@
           }
         }
       },
-      "line-height": {
-        "xs": {
-          "$type": "lineHeights",
-          "$value": "100%",
-          "$description": "headlines"
-        },
-        "s": {
-          "$type": "lineHeights",
-          "$value": "110%",
-          "$description": "headlines."
-        },
-        "m": {
-          "$type": "lineHeights",
-          "$value": "130%"
-        },
-        "l": {
-          "$type": "lineHeights",
-          "$value": "150%"
-        }
-      },
       "paragraph-spacing": {
         "none": {
           "$type": "paragraphSpacing",
           "$value": "0.0"
         },
-        "s": {
+        "small": {
           "$type": "paragraphSpacing",
           "$value": "0.25"
         },
-        "m": {
+        "medium": {
           "$type": "paragraphSpacing",
           "$value": "0.5"
         },
-        "l": {
+        "large": {
           "$type": "paragraphSpacing",
           "$value": "0.75"
         },
-        "xl": {
+        "extra-large": {
           "$type": "paragraphSpacing",
           "$value": "1"
         }
@@ -148,21 +140,17 @@
         }
       },
       "font-family": {
-        "title": {
+        "roboto": {
           "$type": "fontFamilies",
           "$value": "Roboto"
         },
-        "body": {
+        "roboto-condensed": {
           "$type": "fontFamilies",
-          "$value": "Roboto"
-        },
-        "interface": {
-          "$type": "fontFamilies",
-          "$value": "Roboto"
+          "$value": "Roboto Condensed"
         }
       },
       "font-weight": {
-        "default": {
+        "regular": {
           "$type": "fontWeights",
           "$value": "400"
         },
@@ -173,18 +161,21 @@
         "strong": {
           "$type": "fontWeights",
           "$value": "700"
+        }
+      },
+      "line-height": {
+        "small": {
+          "$type": "lineHeights",
+          "$value": "100%",
+          "$description": "Labels, Buttontext"
         },
-        "interface-default": {
-          "$type": "fontWeights",
-          "$value": "400"
+        "medium": {
+          "$type": "lineHeights",
+          "$value": "130%"
         },
-        "interface-medium": {
-          "$type": "fontWeights",
-          "$value": "500"
-        },
-        "interface-strong": {
-          "$type": "fontWeights",
-          "$value": "700"
+        "large": {
+          "$type": "lineHeights",
+          "$value": "150%"
         }
       }
     }
