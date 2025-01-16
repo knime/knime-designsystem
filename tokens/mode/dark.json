@@ -12,7 +12,7 @@
         },
         "subtle": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.10}"
+          "$value": "{kds.core.colors.neutral.40}"
         }
       },
       "background": {
@@ -62,7 +62,7 @@
         "primary": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.teal.90}",
+            "$value": "{kds.core.colors.marine-blue.80}",
             "$description": "Primary color to ber used for main CTAs and promotional content, e.g. badges."
           },
           "hover": {
@@ -97,7 +97,7 @@
         "primary-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.teal.50}",
+            "$value": "{kds.core.colors.marine-blue.40}",
             "$description": "Primary color to ber used for main CTAs and promotional content, e.g. badges."
           },
           "hover": {
@@ -132,7 +132,7 @@
         "selected": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.blue.70}"
+            "$value": "{kds.core.colors.marine-blue.90}"
           },
           "hover": {
             "$extensions": {
@@ -535,7 +535,7 @@
         },
         "selected": {
           "$type": "color",
-          "$value": "{kds.core.colors.blue.30}"
+          "$value": "{kds.core.colors.marine-blue.40}"
         },
         "selected-inverted": {
           "$type": "color",
@@ -543,12 +543,12 @@
         },
         "primary": {
           "$type": "color",
-          "$value": "{kds.core.colors.teal.40}",
+          "$value": "{kds.core.colors.marine-blue.30}",
           "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
         },
         "primary-inverted": {
           "$type": "color",
-          "$value": "{kds.core.colors.teal.100}",
+          "$value": "{kds.core.colors.marine-blue.100}",
           "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
         },
         "warning": {
@@ -577,7 +577,7 @@
         },
         "disabled": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.50}"
+          "$value": "{kds.core.colors.neutral.70}"
         },
         "brand": {
           "$type": "color",
@@ -591,7 +591,7 @@
       "border": {
         "neutral": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.50}"
+          "$value": "{kds.core.colors.neutral.70}"
         },
         "neutral-inverted": {
           "$type": "color",
@@ -603,24 +603,24 @@
         },
         "muted": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.30}"
+          "$value": "{kds.core.colors.neutral.50}"
         },
         "selected": {
           "$type": "color",
-          "$value": "{kds.core.colors.blue.80}"
+          "$value": "{kds.core.colors.marine-blue.50}"
         },
         "selected-bold": {
           "$type": "color",
-          "$value": "{kds.core.colors.blue.40}"
+          "$value": "{kds.core.colors.marine-blue.70}"
         },
         "primary": {
           "$type": "color",
-          "$value": "{kds.core.colors.teal.100}",
+          "$value": "{kds.core.colors.marine-blue.100}",
           "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
         },
         "primary-bold": {
           "$type": "color",
-          "$value": "{kds.core.colors.teal.70}",
+          "$value": "{kds.core.colors.marine-blue.70}",
           "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
         },
         "warning": {
@@ -649,7 +649,7 @@
         },
         "disabled": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.50}"
+          "$value": "{kds.core.colors.neutral.70}"
         },
         "transparent": {
           "$type": "color",
@@ -659,7 +659,7 @@
       "focus": {
         "outline": {
           "$type": "color",
-          "$value": "{kds.core.colors.blue.60}"
+          "$value": "{kds.core.colors.marine-blue.90}"
         }
       },
       "blanket": {
