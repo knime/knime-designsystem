@@ -62,7 +62,7 @@
         "primary": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.teal.100}",
+            "$value": "{kds.core.colors.marine-blue.100}",
             "$description": "Primary color to ber used for main CTAs and promotional content, e.g. badges."
           },
           "hover": {
@@ -97,7 +97,7 @@
         "primary-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.teal.50}",
+            "$value": "{kds.core.colors.marine-blue.40}",
             "$description": "Primary color to ber used for main CTAs and promotional content, e.g. badges."
           },
           "hover": {
@@ -132,7 +132,7 @@
         "selected": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.blue.80}"
+            "$value": "{kds.core.colors.marine-blue.100}"
           },
           "hover": {
             "$extensions": {
@@ -512,7 +512,7 @@
         },
         "selected": {
           "$type": "color",
-          "$value": "{kds.core.colors.blue.30}"
+          "$value": "{kds.core.colors.marine-blue.40}"
         },
         "selected-inverted": {
           "$type": "color",
@@ -520,12 +520,12 @@
         },
         "primary": {
           "$type": "color",
-          "$value": "{kds.core.colors.teal.50}",
+          "$value": "{kds.core.colors.marine-blue.40}",
           "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
         },
         "primary-inverted": {
           "$type": "color",
-          "$value": "{kds.core.colors.teal.100}",
+          "$value": "{kds.core.colors.marine-blue.100}",
           "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
         },
         "warning-inverted": {
@@ -580,7 +580,7 @@
         },
         "muted": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.90}",
+          "$value": "{kds.core.colors.neutral.100}",
           "$description": "added defualt, subtle muted border colors"
         },
         "selected": {
@@ -589,16 +589,16 @@
         },
         "selected-bold": {
           "$type": "color",
-          "$value": "{kds.core.colors.blue.30}"
+          "$value": "{kds.core.colors.marine-blue.60}"
         },
         "primary": {
           "$type": "color",
-          "$value": "{kds.core.colors.teal.100}",
+          "$value": "{kds.core.colors.marine-blue.100}",
           "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
         },
         "primary-bold": {
           "$type": "color",
-          "$value": "{kds.core.colors.teal.50}",
+          "$value": "{kds.core.colors.marine-blue.60}",
           "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
         },
         "warning": {
@@ -637,7 +637,7 @@
       "focus": {
         "outline": {
           "$type": "color",
-          "$value": "{kds.core.colors.blue.60}"
+          "$value": "{kds.core.colors.marine-blue.80}"
         }
       },
       "blanket": {
