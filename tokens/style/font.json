@@ -8,8 +8,8 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.line-height.singleline}",
-              "fontSize": "{kds.font-size.1_25x}"
+              "lineHeight": "{kds.core.line-height.multiline_narrow}",
+              "fontSize": "{kds.core.font-size.scaled.1_25x}"
             },
             "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels"
           },
@@ -18,8 +18,8 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.line-height.singleline}",
-              "fontSize": "{kds.font-size.1_50x}"
+              "lineHeight": "{kds.core.line-height.multiline_narrow}",
+              "fontSize": "{kds.core.font-size.scaled.1_5x}"
             },
             "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels"
           },
@@ -28,8 +28,8 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.line-height.title}",
-              "fontSize": "{kds.font-size.2x}"
+              "lineHeight": "{kds.core.line-height.multiline_narrow}",
+              "fontSize": "{kds.core.font-size.scaled.2x}"
             },
             "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels"
           },
@@ -38,8 +38,8 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.line-height.title}",
-              "fontSize": "{kds.font-size.2_50x}"
+              "lineHeight": "{kds.core.line-height.multiline_narrow}",
+              "fontSize": "{ {kds.core.font-size.scaled.2_5x}"
             },
             "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels"
           }
@@ -50,8 +50,8 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.singleline}",
-              "fontSize": "{kds.font-size.0_62x}"
+              "lineHeight": "{kds.core.line-height.singleline}",
+              "fontSize": "{kds.core.font-size.scaled.0_62x}"
             },
             "$description": "singleline text, used for labels on top of inputs, as titles inside components, pages or panels"
           },
@@ -60,8 +60,8 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.singleline}",
-              "fontSize": "{kds.font-size.0_75x}"
+              "lineHeight": "{kds.core.line-height.singleline}",
+              "fontSize": "{kds.core.font-size.scaled.0_75x}"
             },
             "$description": "singleline text, used for labels on top of inputs, as titles inside components, pages or panels"
           },
@@ -70,8 +70,8 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.line-height.singleline}",
-              "fontSize": "{kds.font-size.0_75x}"
+              "lineHeight": "{kds.core.line-height.singleline}",
+              "fontSize": "{kds.core.font-size.scaled.0_75x}"
             },
             "$description": "singleline text, used for labels on top of inputs, as titles inside components, pages or panels"
           },
@@ -80,8 +80,8 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.singleline}",
-              "fontSize": "{kds.font-size.0_87x}"
+              "lineHeight": "{kds.core.line-height.singleline}",
+              "fontSize": "{kds.core.font-size.scaled.0_87x}"
             },
             "$description": "singleline text, used for labels on top of inputs, as titles inside components, pages or panels"
           },
@@ -90,8 +90,8 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.singleline}",
-              "fontSize": "{kds.font-size.1x}"
+              "lineHeight": "{kds.core.line-height.singleline}",
+              "fontSize": "{kds.core.font-size.scaled.0_87x}"
             },
             "$description": "singleline text, used for labels on top of inputs, as titles inside components, pages or panels"
           },
@@ -100,8 +100,8 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.line-height.singleline}",
-              "fontSize": "{kds.font-size.1x}"
+              "lineHeight": "{kds.core.line-height.singleline}",
+              "fontSize": "{kds.core.font-size.scaled.1x}"
             },
             "$description": "singleline text, used for labels on top of inputs, as titles inside components, pages or panels"
           }
@@ -112,8 +112,8 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.regular}",
-              "lineHeight": "{kds.line-height.body}",
-              "fontSize": "{kds.font-size.0_75x}"
+              "lineHeight": "{kds.core.line-height.multiline_wide}",
+              "fontSize": "{kds.core.font-size.scaled.0_75x}"
             },
             "$description": "multiline text, used for paragraphes inside components, pages or panels"
           },
@@ -122,8 +122,8 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.regular}",
-              "lineHeight": "{kds.line-height.body}",
-              "fontSize": "{kds.font-size.0_87x}"
+              "lineHeight": "{kds.core.line-height.multiline_wide}",
+              "fontSize": "{kds.core.font-size.scaled.0_87x}"
             },
             "$description": "multiline text, used for paragraphes inside components, pages or panels"
           },
@@ -132,8 +132,8 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.regular}",
-              "lineHeight": "{kds.line-height.body}",
-              "fontSize": "{kds.font-size.1x}"
+              "lineHeight": "{kds.core.line-height.multiline_wide}",
+              "fontSize": "{kds.core.font-size.scaled.1x}"
             },
             "$description": "multiline text, used for paragraphes inside components, pages or panels"
           },
@@ -142,8 +142,8 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.regular}",
-              "lineHeight": "{kds.line-height.body}",
-              "fontSize": "{kds.font-size.1_25x}"
+              "lineHeight": "{kds.core.line-height.multiline_wide}",
+              "fontSize": "{kds.core.font-size.scaled.1_25x}"
             },
             "$description": "multiline text, used for paragraphes inside components, pages or panels"
           }
@@ -154,7 +154,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.regular}",
-              "fontSize": "{kds.core.font-size.scaled.56}"
+              "fontSize": "{kds.core.font-size.scaled.0_56x}"
             },
             "$description": "Caption is used for disclosing extra information or smaller items in hierarchical relationships of text. \n\nExamples: Input helping Text, Character Count, # Columns in Twinlist, Datatypes...)"
           }
@@ -165,8 +165,8 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.regular}",
-              "lineHeight": "{kds.line-height.singleline}",
-              "fontSize": "{kds.font-size.0_75x}"
+              "lineHeight": "{kds.core.line-height.singleline}",
+              "fontSize": "{kds.core.font-size.scaled.0_75x}"
             },
             "$description": "singleline text, used for button labels, breadcrumbs, chips and everything that is clickable."
           },
@@ -175,8 +175,8 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.singleline}",
-              "fontSize": "{kds.font-size.0_75x}"
+              "lineHeight": "{kds.core.line-height.singleline}",
+              "fontSize": "{kds.core.font-size.scaled.0_75x}"
             },
             "$description": "singleline text, used for button labels, breadcrumbs, chips and everything that is clickable."
           },
@@ -185,8 +185,8 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.regular}",
-              "lineHeight": "{kds.line-height.singleline}",
-              "fontSize": "{kds.font-size.0_87x}"
+              "lineHeight": "{kds.core.line-height.singleline}",
+              "fontSize": "{kds.core.font-size.scaled.0_87x}"
             },
             "$description": "singleline text, used for button labels, breadcrumbs, chips and everything that is clickable."
           },
@@ -195,8 +195,8 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.singleline}",
-              "fontSize": "{kds.font-size.0_87x}"
+              "lineHeight": "{kds.core.line-height.singleline}",
+              "fontSize": "{kds.core.font-size.scaled.0_87x}"
             },
             "$description": "singleline text, used for button labels, breadcrumbs, chips and everything that is clickable."
           },
@@ -205,8 +205,8 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.regular}",
-              "lineHeight": "{kds.line-height.singleline}",
-              "fontSize": "{kds.font-size.1x}"
+              "lineHeight": "{kds.core.line-height.singleline}",
+              "fontSize": "{kds.core.font-size.scaled.1x}"
             },
             "$description": "singleline text, used for button labels, breadcrumbs, chips and everything that is clickable."
           },
@@ -215,8 +215,8 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.medium}",
-              "lineHeight": "{kds.line-height.singleline}",
-              "fontSize": "{kds.font-size.1x}"
+              "lineHeight": "{kds.core.line-height.singleline}",
+              "fontSize": "{kds.core.font-size.scaled.1x}"
             },
             "$description": "singleline text, used for button labels, breadcrumbs, chips and everything that is clickable."
           }
@@ -228,8 +228,8 @@
           "$value": {
             "fontFamily": "{kds.core.font-family.roboto-condensed}",
             "fontWeight": "{kds.core.font-weight.strong}",
-            "lineHeight": "{kds.core.line-height.large}",
-            "fontSize": "36"
+            "lineHeight": "{kds.core.line-height.multiline_wide}",
+            "fontSize": "{kds.core.font-size.scaled.2_25x}"
           },
           "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
         },
@@ -238,7 +238,7 @@
           "$value": {
             "fontFamily": "{kds.core.font-family.roboto-condensed}",
             "fontWeight": "{kds.core.font-weight.strong}",
-            "lineHeight": "{kds.core.line-height.large}",
+            "lineHeight": "{kds.core.line-height.multiline_wide}",
             "fontSize": "30"
           },
           "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
@@ -248,7 +248,7 @@
           "$value": {
             "fontFamily": "{kds.core.font-family.roboto-condensed}",
             "fontWeight": "{kds.core.font-weight.strong}",
-            "lineHeight": "{kds.core.line-height.large}",
+            "lineHeight": "{kds.core.line-height.multiline_wide}",
             "fontSize": "26"
           },
           "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
@@ -258,7 +258,7 @@
           "$value": {
             "fontFamily": "{kds.core.font-family.roboto-condensed}",
             "fontWeight": "{kds.core.font-weight.strong}",
-            "lineHeight": "{kds.core.line-height.large}",
+            "lineHeight": "{kds.core.line-height.multiline_wide}",
             "fontSize": "22"
           },
           "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
@@ -268,8 +268,8 @@
           "$value": {
             "fontFamily": "{kds.core.font-family.roboto-condensed}",
             "fontWeight": "{kds.core.font-weight.strong}",
-            "lineHeight": "{kds.core.line-height.large}",
-            "fontSize": "16"
+            "lineHeight": "{kds.core.line-height.multiline_wide}",
+            "fontSize": "{kds.core.font-size.scaled.1x}"
           },
           "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
         },
@@ -278,8 +278,8 @@
           "$value": {
             "fontFamily": "{kds.core.font-family.roboto-condensed}",
             "fontWeight": "{kds.core.font-weight.strong}",
-            "lineHeight": "{kds.core.line-height.large}",
-            "fontSize": "13"
+            "lineHeight": "{kds.core.line-height.multiline_wide}",
+            "fontSize": "{kds.core.font-size.scaled.0_81x}"
           },
           "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
         },
@@ -288,8 +288,8 @@
           "$value": {
             "fontFamily": "{kds.core.font-family.roboto-condensed}",
             "fontWeight": "{kds.core.font-weight.strong}",
-            "lineHeight": "{kds.core.line-height.large}",
-            "fontSize": "13"
+            "lineHeight": "{kds.core.line-height.multiline_wide}",
+            "fontSize": "{kds.core.font-size.scaled.0_81x}"
           },
           "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
         }
@@ -300,8 +300,8 @@
           "$value": {
             "fontFamily": "{kds.core.font-family.roboto}",
             "fontWeight": "{kds.core.font-weight.strong}",
-            "lineHeight": "{kds.core.line-height.large}",
-            "fontSize": "36"
+            "lineHeight": "{kds.core.line-height.multiline_wide}",
+            "fontSize": "{kds.core.font-size.scaled.2_25x}"
           },
           "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
         },
@@ -310,7 +310,7 @@
           "$value": {
             "fontFamily": "{kds.core.font-family.roboto}",
             "fontWeight": "{kds.core.font-weight.strong}",
-            "lineHeight": "{kds.core.line-height.large}",
+            "lineHeight": "{kds.core.line-height.multiline_wide}",
             "fontSize": "30"
           },
           "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
@@ -320,7 +320,7 @@
           "$value": {
             "fontFamily": "{kds.core.font-family.roboto}",
             "fontWeight": "{kds.core.font-weight.strong}",
-            "lineHeight": "{kds.core.line-height.large}",
+            "lineHeight": "{kds.core.line-height.multiline_wide}",
             "fontSize": "26"
           },
           "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
@@ -330,7 +330,7 @@
           "$value": {
             "fontFamily": "{kds.core.font-family.roboto}",
             "fontWeight": "{kds.core.font-weight.strong}",
-            "lineHeight": "{kds.core.line-height.large}",
+            "lineHeight": "{kds.core.line-height.multiline_wide}",
             "fontSize": "22"
           },
           "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
@@ -340,8 +340,8 @@
           "$value": {
             "fontFamily": "{kds.core.font-family.roboto}",
             "fontWeight": "{kds.core.font-weight.strong}",
-            "lineHeight": "{kds.core.line-height.large}",
-            "fontSize": "16"
+            "lineHeight": "{kds.core.line-height.multiline_wide}",
+            "fontSize": "{kds.core.font-size.scaled.1x}"
           },
           "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
         },
@@ -350,8 +350,8 @@
           "$value": {
             "fontFamily": "{kds.core.font-family.roboto}",
             "fontWeight": "{kds.core.font-weight.strong}",
-            "lineHeight": "{kds.core.line-height.large}",
-            "fontSize": "13"
+            "lineHeight": "{kds.core.line-height.multiline_wide}",
+            "fontSize": "{kds.core.font-size.scaled.0_81x}"
           },
           "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
         },
@@ -360,8 +360,8 @@
           "$value": {
             "fontFamily": "{kds.core.font-family.roboto}",
             "fontWeight": "{kds.core.font-weight.strong}",
-            "lineHeight": "{kds.core.line-height.large}",
-            "fontSize": "13"
+            "lineHeight": "{kds.core.line-height.multiline_wide}",
+            "fontSize": "{kds.core.font-size.scaled.0_81x}"
           },
           "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
         },
@@ -370,74 +370,11 @@
           "$value": {
             "fontFamily": "{kds.core.font-family.roboto}",
             "fontWeight": "{kds.core.font-weight.strong}",
-            "lineHeight": "{kds.core.line-height.large}",
-            "fontSize": "10"
+            "lineHeight": "{kds.core.line-height.multiline_wide}",
+            "fontSize": "{kds.core.font-size.scaled.0_62x}"
           },
           "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
         }
-      }
-    },
-    "font-size": {
-      "0_56x": {
-        "$type": "fontSizes",
-        "$value": "{kds.core.font-size.scaled.56}"
-      },
-      "0_62x": {
-        "$type": "fontSizes",
-        "$value": "{kds.core.font-size.scaled.62}"
-      },
-      "0_68x": {
-        "$type": "fontSizes",
-        "$value": "{kds.core.font-size.scaled.68}"
-      },
-      "0_75x": {
-        "$type": "fontSizes",
-        "$value": "{kds.core.font-size.scaled.75}"
-      },
-      "0_87x": {
-        "$type": "fontSizes",
-        "$value": "{kds.core.font-size.scaled.87}"
-      },
-      "1x": {
-        "$type": "fontSizes",
-        "$value": "{kds.core.font-size.scaled.100}",
-        "$description": "m is the size of body text which is typically the same size as h6."
-      },
-      "1_25x": {
-        "$type": "fontSizes",
-        "$value": "{kds.core.font-size.scaled.125}",
-        "$description": "ml is large body text which is typically the same size as h5."
-      },
-      "1_50x": {
-        "$type": "fontSizes",
-        "$value": "{kds.core.font-size.scaled.150}"
-      },
-      "2x": {
-        "$type": "fontSizes",
-        "$value": "{kds.core.font-size.scaled.200}"
-      },
-      "2_50x": {
-        "$type": "fontSizes",
-        "$value": "{kds.core.font-size.scaled.250}"
-      },
-      "3x": {
-        "$type": "fontSizes",
-        "$value": "{kds.core.font-size.scaled.300}",
-        "$description": "xxxl is your h1, but don't tell anyone, we want to speak in tokens not in HTML markup."
-      }
-    },
-    "line-height": {
-      "multiline_narrow": {
-        "$type": "lineHeights",
-        "$value": "{kds.core.line-height.medium}"
-      },
-      "multiline_wide": {
-        "$type": "lineHeights",
-        "$value": "{kds.core.line-height.large}"
-      },
-      "singleline": {
-        "$type": "lineHeights",
-        "$value": "{kds.core.line-height.small}"
       }
     }
   }
