@@ -8,99 +8,99 @@
           "$description": "👀 If you change this core font size, it will change all font-related tokens."
         },
         "scaled": {
-          "50": {
+          "0_5x": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 50"
           },
-          "56": {
+          "0_56x": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 56.25"
           },
-          "62": {
+          "0_62x": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 62.5"
           },
-          "68": {
+          "0_68x": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 68.75"
           },
-          "75": {
+          "0_75x": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 75"
           },
-          "81": {
+          "0_81x": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 81.25"
           },
-          "87": {
+          "0_87x": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 87.5"
           },
-          "100": {
+          "1x": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 100"
           },
-          "125": {
+          "1_25x": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 125"
           },
-          "150": {
+          "1_5x": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 150"
           },
-          "175": {
+          "1_75x": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 175"
           },
-          "200": {
+          "2x": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 200"
           },
-          "225": {
+          "2_25x": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 225"
           },
-          "250": {
+          "2_5x": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 250"
           },
-          "275": {
+          "2_75x": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 275"
           },
-          "300": {
+          "3x": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 300"
           },
-          "325": {
+          "3_25x": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 325"
           },
-          "350": {
+          "3_5x": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 350"
           },
-          "375": {
+          "3_75x": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 375"
           },
-          "400": {
+          "4x": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 400"
           },
-          "450": {
+          "4_5x": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 450"
           },
-          "500": {
+          "5x": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 500"
           },
-          "550": {
+          "5_5x": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 550"
           },
-          "600": {
+          "6x": {
             "$type": "fontSizes",
             "$value": "{kds.core.font-size.scaled.base} * 600"
           },
@@ -164,16 +164,15 @@
         }
       },
       "line-height": {
-        "small": {
+        "singleline": {
           "$type": "lineHeights",
-          "$value": "100%",
-          "$description": "Labels, Buttontext"
+          "$value": "100%"
         },
-        "medium": {
+        "multiline_narrow": {
           "$type": "lineHeights",
           "$value": "130%"
         },
-        "large": {
+        "multiline_wide": {
           "$type": "lineHeights",
           "$value": "150%"
         }
