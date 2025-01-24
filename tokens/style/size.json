@@ -42,6 +42,10 @@
           "$type": "spacing",
           "$value": "{kds.core.dimension.25}"
         },
+        "0_37x": {
+          "$type": "spacing",
+          "$value": "{kds.core.dimension.37}"
+        },
         "0_5x": {
           "$type": "spacing",
           "$value": "{kds.core.dimension.50}"
