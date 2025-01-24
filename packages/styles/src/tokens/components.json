@@ -5,7 +5,7 @@
         "progress": {
           "onFilled": {
             "$type": "color",
-            "$value": "kds.core.colors.neutral.100"
+            "$value": "{kds.core.colors.neutral.100}"
           },
           "onTransparent": {
             "$type": "color",
