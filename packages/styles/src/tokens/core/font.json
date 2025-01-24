@@ -132,13 +132,6 @@
           "$value": "1"
         }
       },
-      "size": {
-        "SCALE": {
-          "$type": "sizing",
-          "$value": "16",
-          "$description": "base-scale of all size-related tokens (size, space, dimension). The default is 1rem = 16(px). If you change it, it will change all size-related tokens. :)"
-        }
-      },
       "font-family": {
         "roboto": {
           "$type": "fontFamilies",

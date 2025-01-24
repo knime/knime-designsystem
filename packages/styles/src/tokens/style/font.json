@@ -39,7 +39,7 @@
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
               "lineHeight": "{kds.core.line-height.multiline_narrow}",
-              "fontSize": "{ {kds.core.font-size.scaled.2_5x}"
+              "fontSize": "{kds.core.font-size.scaled.2_5x}"
             },
             "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels"
           }
@@ -156,7 +156,7 @@
               "fontWeight": "{kds.core.font-weight.regular}",
               "fontSize": "{kds.core.font-size.scaled.0_56x}"
             },
-            "$description": "Caption is used for disclosing extra information or smaller items in hierarchical relationships of text. \n\nExamples: Input helping Text, Character Count, # Columns in Twinlist, Datatypes...)"
+            "$description": "Caption is used for disclosing extra information or smaller items in hierarchical relationships of text. Examples: Input helping Text, Character Count, # Columns in Twinlist, Datatypes...)"
           }
         },
         "interactive": {

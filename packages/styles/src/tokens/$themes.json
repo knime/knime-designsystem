@@ -12,7 +12,8 @@
       "style/border": "enabled",
       "style/font": "enabled",
       "style/size": "enabled"
-    }
+    },
+    "$figmaVariableReferences": {}
   },
   {
     "id": "f9f95113925b301a2d35a67f268c2b5727e2c424",
@@ -27,6 +28,7 @@
       "style/border": "enabled",
       "style/font": "enabled",
       "style/size": "enabled"
-    }
+    },
+    "$figmaVariableReferences": {}
   }
 ]
