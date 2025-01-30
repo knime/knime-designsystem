@@ -39,7 +39,7 @@
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
               "lineHeight": "{kds.core.line-height.multiline_narrow}",
-              "fontSize": "{kds.core.font-size.scaled.2_5x}"
+              "fontSize": "{ {kds.core.font-size.scaled.2_5x}"
             },
             "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels"
           }
@@ -91,7 +91,7 @@
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.medium}",
               "lineHeight": "{kds.core.line-height.singleline}",
-              "fontSize": "{kds.core.font-size.scaled.0_87x}"
+              "fontSize": "{kds.core.font-size.scaled.1x}"
             },
             "$description": "singleline text, used for labels on top of inputs, as titles inside components, pages or panels"
           },
@@ -132,7 +132,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.regular}",
-              "lineHeight": "{kds.core.line-height.multiline_wide}",
+              "lineHeight": "{kds.core.line-height.multiline_narrow}",
               "fontSize": "{kds.core.font-size.scaled.1x}"
             },
             "$description": "multiline text, used for paragraphes inside components, pages or panels"
@@ -156,7 +156,7 @@
               "fontWeight": "{kds.core.font-weight.regular}",
               "fontSize": "{kds.core.font-size.scaled.0_56x}"
             },
-            "$description": "Caption is used for disclosing extra information or smaller items in hierarchical relationships of text. Examples: Input helping Text, Character Count, # Columns in Twinlist, Datatypes...)"
+            "$description": "Caption is used for disclosing extra information or smaller items in hierarchical relationships of text. \n\nExamples: Input helping Text, Character Count, # Columns in Twinlist, Datatypes...)"
           }
         },
         "interactive": {

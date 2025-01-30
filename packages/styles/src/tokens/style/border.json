@@ -115,7 +115,7 @@
         "brand": {
           "$type": "border",
           "$value": {
-            "color": "{kds.core.colors.yellow.50}",
+            "color": "{kds.core.color.yellow.250}",
             "width": "2px",
             "style": "solid"
           }
@@ -124,7 +124,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.primary-bold}",
-            "width": "{kds.border-width.base.m}",
+            "width": "{kds.border-width.base.s}",
             "style": "solid"
           }
         }

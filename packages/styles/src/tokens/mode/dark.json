@@ -4,28 +4,28 @@
       "surface": {
         "default": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.20}"
+          "$value": "{kds.core.color.neutral.650}"
         },
         "muted": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.30}"
+          "$value": "{kds.core.color.neutral.550}"
         },
         "subtle": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.40}"
+          "$value": "{kds.core.color.neutral.475}"
         }
       },
       "background": {
         "page": {
           "default": {
             "$type": "color",
-            "$value": "{kds.core.colors.neutral.10}"
+            "$value": "{kds.core.color.neutral.725}"
           }
         },
         "neutral": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.transparent}"
+            "$value": "{kds.core.color.transparent}"
           },
           "hover": {
             "$extensions": {
@@ -38,31 +38,40 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.core.colors.neutral.40}"
+            "$value": "{kds.core.color.neutral.175}"
           },
           "active": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.24",
+                  "space": "lch"
+                }
+              }
+            },
             "$type": "color",
-            "$value": "{kds.core.colors.transparent}"
+            "$value": "{kds.core.color.neutral.325}"
           }
         },
         "neutral-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.neutral.90}"
+            "$value": "{kds.core.color.neutral.175}"
           },
           "hover": {
             "$type": "color",
-            "$value": "{kds.core.colors.neutral.80}"
+            "$value": "{kds.core.color.neutral.250}"
           },
           "active": {
             "$type": "color",
-            "$value": "{kds.core.colors.neutral.60}"
+            "$value": "{kds.core.color.neutral.325}"
           }
         },
         "primary": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.marine-blue.80}",
+            "$value": "{kds.core.color.teal.250}",
             "$description": "Primary color to ber used for main CTAs and promotional content, e.g. badges."
           },
           "hover": {
@@ -97,7 +106,7 @@
         "primary-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.marine-blue.40}",
+            "$value": "{kds.core.color.teal.550}",
             "$description": "Primary color to ber used for main CTAs and promotional content, e.g. badges."
           },
           "hover": {
@@ -119,7 +128,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "0.32",
+                  "value": "0.36",
                   "space": "lch"
                 }
               }
@@ -132,7 +141,7 @@
         "selected": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.marine-blue.90}"
+            "$value": "{kds.core.color.teal.650}"
           },
           "hover": {
             "$extensions": {
@@ -161,42 +170,10 @@
             "$value": "{kds.color.background.selected.initial}"
           }
         },
-        "selected-bold": {
-          "initial": {
-            "$type": "color",
-            "$value": "{kds.core.colors.blue.50}"
-          },
-          "hover": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "lighten",
-                  "value": "0.16",
-                  "space": "lch"
-                }
-              }
-            },
-            "$type": "color",
-            "$value": "{kds.color.background.selected-bold.initial}"
-          },
-          "active": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "lighten",
-                  "value": "0.36",
-                  "space": "lch"
-                }
-              }
-            },
-            "$type": "color",
-            "$value": "{kds.color.background.selected-bold.initial}"
-          }
-        },
         "danger": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.red.70}"
+            "$value": "{kds.core.color.red.725}"
           },
           "hover": {
             "$extensions": {
@@ -228,7 +205,7 @@
         "danger-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.red.40}"
+            "$value": "{kds.core.color.red.550}"
           },
           "hover": {
             "$extensions": {
@@ -260,7 +237,7 @@
         "warning": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.yellow.60}"
+            "$value": "{kds.core.color.orange.100}"
           },
           "hover": {
             "$extensions": {
@@ -292,7 +269,7 @@
         "warning-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.yellow.30}"
+            "$value": "{kds.core.color.orange.475}"
           },
           "hover": {
             "$extensions": {
@@ -324,7 +301,7 @@
         "success": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.green.90}"
+            "$value": "{kds.core.color.green.100}"
           },
           "hover": {
             "$extensions": {
@@ -356,7 +333,7 @@
         "success-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.green.40}"
+            "$value": "{kds.core.color.green.475}"
           },
           "hover": {
             "$extensions": {
@@ -388,7 +365,7 @@
         "info": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.blue.70}"
+            "$value": "{kds.core.color.blue.100}"
           },
           "hover": {
             "$extensions": {
@@ -420,7 +397,7 @@
         "info-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.blue.50}"
+            "$value": "{kds.core.color.blue.400}"
           },
           "hover": {
             "$extensions": {
@@ -452,7 +429,7 @@
         "brand": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.colors.yellow.50}"
+            "$value": "{kds.core.color.yellow.250}"
           },
           "hover": {
             "$extensions": {
@@ -493,173 +470,144 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.core.colors.neutral.70}"
-          }
-        },
-        "input": {
-          "initial": {
-            "$type": "color",
-            "$value": "{kds.core.colors.transparent}"
-          },
-          "hover": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "alpha",
-                  "value": "0.16",
-                  "space": "lch"
-                }
-              }
-            },
-            "$type": "color",
-            "$value": "{kds.core.colors.neutral.40}"
-          },
-          "active": {
-            "$type": "color",
-            "$value": "{kds.core.colors.transparent}"
+            "$value": "{kds.core.color.neutral.325}"
           }
         }
       },
       "text-and-icon": {
-        "neutral": {
-          "$type": "color",
-          "$value": "{kds.core.colors.neutral.90}"
-        },
-        "neutral-inverted": {
-          "$type": "color",
-          "$value": "{kds.core.colors.neutral.10}"
-        },
-        "muted": {
-          "$type": "color",
-          "$value": "{kds.core.colors.neutral.60}"
-        },
-        "selected": {
-          "$type": "color",
-          "$value": "{kds.core.colors.marine-blue.40}"
-        },
-        "selected-inverted": {
-          "$type": "color",
-          "$value": "{kds.core.colors.blue.80}"
-        },
         "primary": {
           "$type": "color",
-          "$value": "{kds.core.colors.marine-blue.30}",
+          "$value": "{kds.core.color.teal.650}",
           "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
         },
         "primary-inverted": {
           "$type": "color",
-          "$value": "{kds.core.colors.marine-blue.100}",
+          "$value": "{kds.core.color.teal.50}",
           "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
         },
-        "warning": {
-          "$type": "color",
-          "$value": "{kds.core.colors.yellow.20}"
-        },
-        "warning-inverted": {
-          "$type": "color",
-          "$value": "{kds.core.colors.yellow.90}"
-        },
-        "danger": {
-          "$type": "color",
-          "$value": "{kds.core.colors.red.10}"
-        },
-        "danger-inverted": {
-          "$type": "color",
-          "$value": "{kds.core.colors.red.80}"
-        },
-        "success": {
-          "$type": "color",
-          "$value": "{kds.core.colors.green.10}"
-        },
-        "success-inverted": {
-          "$type": "color",
-          "$value": "{kds.core.colors.green.90}"
-        },
-        "disabled": {
-          "$type": "color",
-          "$value": "{kds.core.colors.neutral.70}"
-        },
-        "brand": {
-          "$type": "color",
-          "$value": "{kds.core.colors.yellow.50}"
-        },
-        "brand-inverted": {
-          "$type": "color",
-          "$value": "{kds.core.colors.neutral.0}"
-        }
-      },
-      "border": {
         "neutral": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.70}"
+          "$value": "{kds.core.color.neutral.100}"
         },
         "neutral-inverted": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.100}"
-        },
-        "subtle": {
-          "$type": "color",
-          "$value": "{kds.core.colors.neutral.20}"
+          "$value": "{kds.core.color.neutral.650}"
         },
         "muted": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.50}"
+          "$value": "{kds.core.color.neutral.250}"
         },
         "selected": {
           "$type": "color",
-          "$value": "{kds.core.colors.marine-blue.50}"
+          "$value": "{kds.core.color.teal.400}"
         },
-        "selected-bold": {
+        "selected-inverted": {
           "$type": "color",
-          "$value": "{kds.core.colors.marine-blue.70}"
+          "$value": "{kds.core.color.teal.50}"
         },
+        "warning": {
+          "$type": "color",
+          "$value": "{kds.core.color.orange.550}"
+        },
+        "warning-inverted": {
+          "$type": "color",
+          "$value": "{kds.core.color.orange.100}"
+        },
+        "danger": {
+          "$type": "color",
+          "$value": "{kds.core.color.red.250}"
+        },
+        "danger-inverted": {
+          "$type": "color",
+          "$value": "{kds.core.color.red.100}"
+        },
+        "success": {
+          "$type": "color",
+          "$value": "{kds.core.color.green.650}"
+        },
+        "success-inverted": {
+          "$type": "color",
+          "$value": "{kds.core.color.green.100}"
+        },
+        "disabled": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.325}"
+        },
+        "brand": {
+          "$type": "color",
+          "$value": "{kds.core.color.yellow.250}"
+        }
+      },
+      "border": {
         "primary": {
           "$type": "color",
-          "$value": "{kds.core.colors.marine-blue.100}",
+          "$value": "{kds.core.color.teal.725}",
           "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
         },
         "primary-bold": {
           "$type": "color",
-          "$value": "{kds.core.colors.marine-blue.70}",
+          "$value": "{kds.core.color.teal.50}",
           "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
+        },
+        "neutral": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.250}"
+        },
+        "subtle": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.250}"
+        },
+        "muted": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.325}",
+          "$description": "added defualt, subtle muted border colors"
+        },
+        "selected": {
+          "$type": "color",
+          "$value": "{kds.core.color.teal.100}"
+        },
+        "selected-bold": {
+          "$type": "color",
+          "$value": "{kds.core.color.teal.400}"
         },
         "warning": {
           "$type": "color",
-          "$value": "{kds.core.colors.yellow.90}"
+          "$value": "{kds.core.color.orange.175}"
         },
         "warning-bold": {
           "$type": "color",
-          "$value": "{kds.core.colors.yellow.40}"
+          "$value": "{kds.core.color.orange.550}"
         },
         "danger": {
           "$type": "color",
-          "$value": "{kds.core.colors.red.80}"
+          "$value": "{kds.core.color.red.475}"
         },
         "danger-bold": {
           "$type": "color",
-          "$value": "{kds.core.colors.red.10}"
+          "$value": "{kds.core.color.red.250}"
         },
         "success": {
           "$type": "color",
-          "$value": "{kds.core.colors.green.90}"
+          "$value": "{kds.core.color.green.175}"
         },
         "success-bold": {
           "$type": "color",
-          "$value": "{kds.core.colors.green.20}"
+          "$value": "{kds.core.color.green.650}"
         },
         "disabled": {
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.70}"
+          "$value": "{kds.core.color.neutral.325}"
         },
         "transparent": {
           "$type": "color",
-          "$value": "{kds.core.colors.transparent}"
+          "$value": "{kds.core.color.transparent}"
         }
       },
       "focus": {
         "outline": {
           "$type": "color",
-          "$value": "{kds.core.colors.marine-blue.90}"
+          "$value": "{kds.core.color.blue.250}",
+          "$description": "Used to be applied to the focus state of elements."
         }
       },
       "blanket": {
@@ -674,7 +622,7 @@
             }
           },
           "$type": "color",
-          "$value": "{kds.core.colors.neutral.10}"
+          "$value": "{kds.core.color.neutral.800}"
         }
       },
       "node": {
