@@ -139,6 +139,10 @@
     "dimension": {
       "action": {
         "height": {
+          "0_88x": {
+            "$type": "dimension",
+            "$value": "{kds.core.dimension.88}"
+          },
           "1_25x": {
             "$type": "dimension",
             "$value": "{kds.core.dimension.125}"
@@ -157,6 +161,14 @@
           }
         },
         "width": {
+          "0_88x": {
+            "$type": "dimension",
+            "$value": "{kds.core.dimension.88}"
+          },
+          "1_25x": {
+            "$type": "dimension",
+            "$value": "{kds.core.dimension.125}"
+          },
           "1_5x": {
             "$type": "dimension",
             "$value": "{kds.core.dimension.150}"
