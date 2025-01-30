@@ -10,8 +10,8 @@
       "core/font": "source",
       "mode/dark": "enabled",
       "style/border": "enabled",
-      "style/font": "enabled",
-      "style/size": "enabled"
+      "style/size": "enabled",
+      "style/typography": "enabled"
     },
     "$figmaVariableReferences": {}
   },
@@ -26,8 +26,8 @@
       "core/font": "source",
       "mode/light": "enabled",
       "style/border": "enabled",
-      "style/font": "enabled",
-      "style/size": "enabled"
+      "style/size": "enabled",
+      "style/typography": "enabled"
     },
     "$figmaVariableReferences": {}
   }

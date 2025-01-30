@@ -7,7 +7,7 @@
     "mode/dark",
     "mode/light",
     "style/border",
-    "style/font",
+    "style/typography",
     "style/size"
   ]
 }
