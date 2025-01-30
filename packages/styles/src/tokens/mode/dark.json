@@ -148,7 +148,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "0.08",
+                  "value": "0.16",
                   "space": "lch"
                 }
               }
@@ -161,7 +161,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "0.16",
+                  "value": "0.48",
                   "space": "lch"
                 }
               }
@@ -244,7 +244,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "0.08",
+                  "value": "0.36",
                   "space": "lch"
                 }
               }
@@ -257,7 +257,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "0.16",
+                  "value": "0.64",
                   "space": "lch"
                 }
               }
@@ -546,7 +546,7 @@
         },
         "primary-bold": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.50}",
+          "$value": "{kds.core.color.teal.325}",
           "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
         },
         "neutral": {
@@ -568,7 +568,7 @@
         },
         "selected-bold": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.400}"
+          "$value": "{kds.core.color.teal.650}"
         },
         "warning": {
           "$type": "color",
