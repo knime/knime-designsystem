@@ -160,6 +160,16 @@
           }
         },
         "interactive": {
+          "xsmall-strong": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.roboto}",
+              "fontWeight": "{kds.core.font-weight.medium}",
+              "lineHeight": "{kds.core.line-height.singleline}",
+              "fontSize": "{kds.core.font-size.scaled.0_68x}"
+            },
+            "$description": "singleline text, used for button labels, breadcrumbs, chips and everything that is clickable."
+          },
           "small": {
             "$type": "typography",
             "$value": {

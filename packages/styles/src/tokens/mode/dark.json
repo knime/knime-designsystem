@@ -475,6 +475,18 @@
         }
       },
       "text-and-icon": {
+        "neutral": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.100}"
+        },
+        "muted": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.250}"
+        },
+        "neutral-inverted": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.650}"
+        },
         "primary": {
           "$type": "color",
           "$value": "{kds.core.color.teal.650}",
@@ -484,18 +496,6 @@
           "$type": "color",
           "$value": "{kds.core.color.teal.50}",
           "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
-        },
-        "neutral": {
-          "$type": "color",
-          "$value": "{kds.core.color.neutral.100}"
-        },
-        "neutral-inverted": {
-          "$type": "color",
-          "$value": "{kds.core.color.neutral.650}"
-        },
-        "muted": {
-          "$type": "color",
-          "$value": "{kds.core.color.neutral.250}"
         },
         "selected": {
           "$type": "color",
@@ -532,26 +532,12 @@
         "disabled": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.325}"
-        },
-        "brand": {
-          "$type": "color",
-          "$value": "{kds.core.color.yellow.250}"
         }
       },
       "border": {
-        "primary": {
-          "$type": "color",
-          "$value": "{kds.core.color.teal.725}",
-          "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
-        },
-        "primary-bold": {
-          "$type": "color",
-          "$value": "{kds.core.color.teal.325}",
-          "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
-        },
         "neutral": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.250}"
+          "$value": "{kds.core.color.neutral.175}"
         },
         "subtle": {
           "$type": "color",
@@ -562,37 +548,47 @@
           "$value": "{kds.core.color.neutral.325}",
           "$description": "added defualt, subtle muted border colors"
         },
-        "selected": {
+        "primary-bold": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.100}"
+          "$value": "{kds.core.color.teal.725}",
+          "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
+        },
+        "primary": {
+          "$type": "color",
+          "$value": "{kds.core.color.teal.175}",
+          "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
         },
         "selected-bold": {
           "$type": "color",
           "$value": "{kds.core.color.teal.650}"
         },
-        "warning": {
+        "selected": {
           "$type": "color",
-          "$value": "{kds.core.color.orange.175}"
+          "$value": "{kds.core.color.teal.100}"
         },
         "warning-bold": {
           "$type": "color",
           "$value": "{kds.core.color.orange.550}"
         },
-        "danger": {
+        "warning": {
           "$type": "color",
-          "$value": "{kds.core.color.red.475}"
+          "$value": "{kds.core.color.orange.175}"
         },
         "danger-bold": {
           "$type": "color",
           "$value": "{kds.core.color.red.250}"
         },
-        "success": {
+        "danger": {
           "$type": "color",
-          "$value": "{kds.core.color.green.175}"
+          "$value": "{kds.core.color.red.475}"
         },
         "success-bold": {
           "$type": "color",
           "$value": "{kds.core.color.green.650}"
+        },
+        "success": {
+          "$type": "color",
+          "$value": "{kds.core.color.green.175}"
         },
         "disabled": {
           "$type": "color",

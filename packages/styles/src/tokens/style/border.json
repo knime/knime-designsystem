@@ -18,6 +18,10 @@
           "$type": "borderRadius",
           "$value": "{kds.core.dimension.37}"
         },
+        "0_44x": {
+          "$type": "borderRadius",
+          "$value": "{kds.core.dimension.44}"
+        },
         "0_50x": {
           "$type": "borderRadius",
           "$value": "{kds.core.dimension.50}"
@@ -99,7 +103,7 @@
         "selected": {
           "$type": "border",
           "$value": {
-            "color": "{kds.color.border.selected-bold}",
+            "color": "{kds.color.border.selected}",
             "width": "{kds.border-width.base.s}",
             "style": "solid"
           }
