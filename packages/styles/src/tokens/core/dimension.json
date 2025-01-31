@@ -18,6 +18,10 @@
           "$type": "dimension",
           "$value": "{kds.core.dimension.base} * 25"
         },
+        "31": {
+          "$type": "dimension",
+          "$value": "{kds.core.dimension.base} * 31.25"
+        },
         "37": {
           "$type": "dimension",
           "$value": "{kds.core.dimension.base} * 37.5"
@@ -29,6 +33,10 @@
         "50": {
           "$type": "dimension",
           "$value": "{kds.core.dimension.base} * 50"
+        },
+        "56": {
+          "$type": "dimension",
+          "$value": "{kds.core.dimension.base} * 56.25"
         },
         "75": {
           "$type": "dimension",
