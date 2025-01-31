@@ -597,6 +597,10 @@
         "transparent": {
           "$type": "color",
           "$value": "{kds.core.color.transparent}"
+        },
+        "input": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.650}"
         }
       },
       "focus": {

@@ -537,16 +537,16 @@
       "border": {
         "neutral": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.175}"
-        },
-        "subtle": {
-          "$type": "color",
-          "$value": "{kds.core.color.neutral.250}"
+          "$value": "{kds.core.color.neutral.325}"
         },
         "muted": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.325}",
+          "$value": "{kds.core.color.neutral.400}",
           "$description": "added defualt, subtle muted border colors"
+        },
+        "subtle": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.475}"
         },
         "primary-bold": {
           "$type": "color",
@@ -560,7 +560,7 @@
         },
         "selected-bold": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.650}"
+          "$value": "{kds.core.color.teal.400}"
         },
         "selected": {
           "$type": "color",
@@ -597,6 +597,10 @@
         "transparent": {
           "$type": "color",
           "$value": "{kds.core.color.transparent}"
+        },
+        "input": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.250}"
         }
       },
       "focus": {

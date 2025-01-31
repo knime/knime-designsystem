@@ -124,14 +124,6 @@
             "style": "solid"
           }
         },
-        "brand": {
-          "$type": "border",
-          "$value": {
-            "color": "{kds.core.color.yellow.250}",
-            "width": "2px",
-            "style": "solid"
-          }
-        },
         "primary": {
           "$type": "border",
           "$value": {
