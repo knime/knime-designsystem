@@ -111,7 +111,7 @@
         "selected": {
           "$type": "border",
           "$value": {
-            "color": "{kds.color.border.selected}",
+            "color": "{kds.color.border.selected-bold}",
             "width": "{kds.border-width.base.s}",
             "style": "solid"
           }

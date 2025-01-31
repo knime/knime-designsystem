@@ -184,29 +184,33 @@
         }
       },
       "icon": {
-        "0_5x": {
+        "0_56x": {
           "$type": "dimension",
-          "$value": "{kds.core.dimension.75}"
+          "$value": "{kds.core.dimension.56}"
         },
         "0_75x": {
           "$type": "dimension",
-          "$value": "{kds.core.dimension.100}"
+          "$value": "{kds.core.dimension.75}"
         },
         "1x": {
+          "$type": "dimension",
+          "$value": "{kds.core.dimension.100}"
+        },
+        "1_25x": {
           "$type": "dimension",
           "$value": "{kds.core.dimension.125}"
         }
       },
       "spinner": {
-        "0_5x": {
+        "0_75x": {
           "$type": "dimension",
           "$value": "{kds.core.dimension.75}"
         },
-        "0_75x": {
+        "1x": {
           "$type": "dimension",
           "$value": "{kds.core.dimension.100}"
         },
-        "1x": {
+        "1_25x": {
           "$type": "dimension",
           "$value": "{kds.core.dimension.125}"
         }
