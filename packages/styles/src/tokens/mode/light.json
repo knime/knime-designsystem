@@ -237,7 +237,7 @@
         "warning": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.orange.100}"
+            "$value": "{kds.core.color.orange.50}"
           },
           "hover": {
             "$extensions": {
@@ -301,7 +301,7 @@
         "success": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.green.100}"
+            "$value": "{kds.core.color.green.50}"
           },
           "hover": {
             "$extensions": {
@@ -532,6 +532,10 @@
         "disabled": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.325}"
+        },
+        "info": {
+          "$type": "color",
+          "$value": "{kds.core.color.blue.650}"
         }
       },
       "border": {

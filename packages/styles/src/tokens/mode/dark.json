@@ -57,15 +57,15 @@
         "neutral-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.neutral.175}"
+            "$value": "{kds.core.color.neutral.400}"
           },
           "hover": {
             "$type": "color",
-            "$value": "{kds.core.color.neutral.250}"
+            "$value": "{kds.core.color.neutral.325}"
           },
           "active": {
             "$type": "color",
-            "$value": "{kds.core.color.neutral.325}"
+            "$value": "{kds.core.color.neutral.250}"
           }
         },
         "primary": {
@@ -237,7 +237,7 @@
         "warning": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.orange.100}"
+            "$value": "{kds.core.color.orange.175}"
           },
           "hover": {
             "$extensions": {
@@ -507,7 +507,7 @@
         },
         "warning": {
           "$type": "color",
-          "$value": "{kds.core.color.orange.550}"
+          "$value": "{kds.core.color.orange.650}"
         },
         "warning-inverted": {
           "$type": "color",

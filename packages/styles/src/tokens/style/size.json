@@ -137,11 +137,19 @@
       }
     },
     "dimension": {
-      "action": {
+      "component": {
         "height": {
+          "0_75x": {
+            "$type": "dimension",
+            "$value": "{kds.core.dimension.75}"
+          },
           "0_88x": {
             "$type": "dimension",
             "$value": "{kds.core.dimension.88}"
+          },
+          "1x": {
+            "$type": "dimension",
+            "$value": "{kds.core.dimension.100}"
           },
           "1_25x": {
             "$type": "dimension",
@@ -161,9 +169,17 @@
           }
         },
         "width": {
+          "0_75x": {
+            "$type": "dimension",
+            "$value": "{kds.core.dimension.75}"
+          },
           "0_88x": {
             "$type": "dimension",
             "$value": "{kds.core.dimension.88}"
+          },
+          "1x": {
+            "$type": "dimension",
+            "$value": "{kds.core.dimension.100}"
           },
           "1_25x": {
             "$type": "dimension",
@@ -188,20 +204,6 @@
           "$type": "dimension",
           "$value": "{kds.core.dimension.56}"
         },
-        "0_75x": {
-          "$type": "dimension",
-          "$value": "{kds.core.dimension.75}"
-        },
-        "1x": {
-          "$type": "dimension",
-          "$value": "{kds.core.dimension.100}"
-        },
-        "1_25x": {
-          "$type": "dimension",
-          "$value": "{kds.core.dimension.125}"
-        }
-      },
-      "spinner": {
         "0_75x": {
           "$type": "dimension",
           "$value": "{kds.core.dimension.75}"
