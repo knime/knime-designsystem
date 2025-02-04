@@ -4,12 +4,21 @@
       "spinner": {
         "progress": {
           "onFilled": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0",
+                  "space": "lch"
+                }
+              }
+            },
             "$type": "color",
-            "$value": "{kds.color.surface.status-inverted.onNeutral}"
+            "$value": "{kds.color.text-and-icon.primary-inverted}"
           },
           "onTransparent": {
             "$type": "color",
-            "$value": "{kds.color.surface.status.onNeutral}"
+            "$value": "{kds.color.text-and-icon.neutral}"
           }
         },
         "track": {
@@ -24,7 +33,7 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.surface.status.neutral}"
+            "$value": "{kds.color.text-and-icon.primary-inverted}"
           },
           "onTransparent": {
             "$extensions": {
@@ -37,7 +46,7 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.surface.status-inverted.neutral}"
+            "$value": "{kds.color.text-and-icon.neutral}"
           }
         }
       },
@@ -61,28 +70,6 @@
             "$type": "color",
             "$value": "{kds.color.text-and-icon.neutral}"
           }
-        }
-      }
-    },
-    "desktop-header": {
-      "background": {
-        "default": {
-          "$type": "color",
-          "$value": "{kds.core.colors.neutral.0}"
-        },
-        "tab": {
-          "$type": "color",
-          "$value": "{kds.color.surface.default}"
-        }
-      },
-      "text-and-icon": {
-        "neutral": {
-          "$type": "color",
-          "$value": "{kds.core.colors.neutral.100}"
-        },
-        "tab": {
-          "$type": "color",
-          "$value": "{kds.color.text-and-icon.neutral}"
         }
       }
     }
