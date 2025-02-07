@@ -5,7 +5,7 @@
         "neutral": {
           "25": {
             "$type": "color",
-            "$value": "hsl(0, 0%, 97.6%)"
+            "$value": "hsl(0, 0%, 99%)"
           },
           "50": {
             "$type": "color",
