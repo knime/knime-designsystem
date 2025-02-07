@@ -57,15 +57,33 @@
         "neutral-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.neutral.175}"
+            "$value": "{kds.core.color.neutral.50}"
           },
           "hover": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "darken",
+                  "value": "0.16",
+                  "space": "lch"
+                }
+              }
+            },
             "$type": "color",
-            "$value": "{kds.core.color.neutral.250}"
+            "$value": "{kds.color.background.neutral-bold.initial}"
           },
           "active": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "darken",
+                  "value": "0.24",
+                  "space": "lch"
+                }
+              }
+            },
             "$type": "color",
-            "$value": "{kds.core.color.neutral.325}"
+            "$value": "{kds.color.background.neutral-bold.initial}"
           }
         },
         "primary": {
