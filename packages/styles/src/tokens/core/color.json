@@ -5,379 +5,379 @@
         "neutral": {
           "25": {
             "$type": "color",
-            "$value": "#f9f9f9"
+            "$value": "hsl(0, 0%, 97.6%)"
           },
           "50": {
             "$type": "color",
-            "$value": "#fafafa"
+            "$value": "hsl(0, 0%, 98%)"
           },
           "100": {
             "$type": "color",
-            "$value": "#f0f0f0"
+            "$value": "hsl(0, 0%, 94.1%)"
           },
           "175": {
             "$type": "color",
-            "$value": "#e6e6e6"
+            "$value": "hsl(0, 0%, 90.2%)"
           },
           "250": {
             "$type": "color",
-            "$value": "#b9b9b9"
+            "$value": "hsl(0, 0%, 72.5%)"
           },
           "325": {
             "$type": "color",
-            "$value": "#7b7b7b"
+            "$value": "hsl(0, 0%, 48.2%)"
           },
           "400": {
             "$type": "color",
-            "$value": "#525252"
+            "$value": "hsl(0, 0%, 32.2%)"
           },
           "475": {
             "$type": "color",
-            "$value": "#383838"
+            "$value": "hsl(0, 0%, 22%)"
           },
           "550": {
             "$type": "color",
-            "$value": "#303030"
+            "$value": "hsl(0, 0%, 18.8%)"
           },
           "650": {
             "$type": "color",
-            "$value": "#2e2e2e"
+            "$value": "hsl(0, 0%, 15.7%)"
           },
           "725": {
             "$type": "color",
-            "$value": "#212121"
+            "$value": "hsl(0, 0%, 12.9%)"
           },
           "800": {
             "$type": "color",
-            "$value": "#1d1d1d"
+            "$value": "hsl(0, 0%, 11.4%)"
           },
           "875": {
             "$type": "color",
-            "$value": "#1a1a1a"
+            "$value": "hsl(0, 0%, 10.2%)"
           }
         },
         "red": {
           "25": {
             "$type": "color",
-            "$value": "#fdf8f8"
+            "$value": "hsl(0, 55.6%, 98.2%)"
           },
           "50": {
             "$type": "color",
-            "$value": "#fff0f0"
+            "$value": "hsl(0, 100%, 97.1%)"
           },
           "100": {
             "$type": "color",
-            "$value": "#ffd9d8"
+            "$value": "hsl(1.5, 100%, 92.4%)"
           },
           "175": {
             "$type": "color",
-            "$value": "#ffbcb8"
+            "$value": "hsl(3.4, 100%, 86.1%)"
           },
           "250": {
             "$type": "color",
-            "$value": "#ff9d97"
+            "$value": "hsl(3.5, 100%, 79.6%)"
           },
           "325": {
             "$type": "color",
-            "$value": "#ff7872"
+            "$value": "hsl(2.6, 100%, 72.4%)"
           },
           "400": {
             "$type": "color",
-            "$value": "#ff5252"
+            "$value": "hsl(0, 100%, 66.1%)"
           },
           "475": {
             "$type": "color",
-            "$value": "#e4313c"
+            "$value": "hsl(356.3, 76.8%, 54.3%)"
           },
           "550": {
             "$type": "color",
-            "$value": "#c81d31"
+            "$value": "hsl(353, 74.7%, 44.9%)"
           },
           "650": {
             "$type": "color",
-            "$value": "#a80826"
+            "$value": "hsl(348.8, 90.9%, 34.5%)"
           },
           "725": {
             "$type": "color",
-            "$value": "#89021e"
+            "$value": "hsl(347.6, 97.1%, 27.3%)"
           },
           "800": {
             "$type": "color",
-            "$value": "#670317"
+            "$value": "hsl(348, 94.3%, 20.8%)"
           },
           "875": {
             "$type": "color",
-            "$value": "#47060e"
+            "$value": "hsl(352.6, 84.4%, 15.1%)"
           }
         },
         "orange": {
           "25": {
             "$type": "color",
-            "$value": "#fcf9f5"
+            "$value": "hsl(34.3, 53.8%, 97.5%)"
           },
           "50": {
             "$type": "color",
-            "$value": "#feead6"
+            "$value": "hsl(30, 95.2%, 91.8%)"
           },
           "100": {
             "$type": "color",
-            "$value": "#ffd4a6"
+            "$value": "hsl(31, 100%, 82.5%)"
           },
           "175": {
             "$type": "color",
-            "$value": "#f1bd86"
+            "$value": "hsl(30.8, 79.3%, 73.5%)"
           },
           "250": {
             "$type": "color",
-            "$value": "#f0ab60"
+            "$value": "hsl(31.2, 82.8%, 65.9%)"
           },
           "325": {
             "$type": "color",
-            "$value": "#eb9947"
+            "$value": "hsl(30, 80.4%, 60%)"
           },
           "400": {
             "$type": "color",
-            "$value": "#da853e"
+            "$value": "hsl(27.3, 67.8%, 54.9%)"
           },
           "475": {
             "$type": "color",
-            "$value": "#cb7437"
+            "$value": "hsl(24.7, 58.7%, 50.6%)"
           },
           "550": {
             "$type": "color",
-            "$value": "#b65f2d"
+            "$value": "hsl(21.9, 60.4%, 44.5%)"
           },
           "650": {
             "$type": "color",
-            "$value": "#9f4b24"
+            "$value": "hsl(19, 63.1%, 38.2%)"
           },
           "725": {
             "$type": "color",
-            "$value": "#83361a"
+            "$value": "hsl(16, 66.9%, 30.8%)"
           },
           "800": {
             "$type": "color",
-            "$value": "#622514"
+            "$value": "hsl(13.1, 66.1%, 23.1%)"
           },
           "875": {
             "$type": "color",
-            "$value": "#38180f"
+            "$value": "hsl(13.2, 57.7%, 13.9%)"
           }
         },
         "yellow": {
           "25": {
             "$type": "color",
-            "$value": "#fdf9ef"
+            "$value": "hsl(42.9, 77.8%, 96.5%)"
           },
           "50": {
             "$type": "color",
-            "$value": "#ffefc7"
+            "$value": "hsl(42.9, 100%, 89%)"
           },
           "100": {
             "$type": "color",
-            "$value": "#ffe38c"
+            "$value": "hsl(45.4, 100%, 77.5%)"
           },
           "175": {
             "$type": "color",
-            "$value": "#ffdd5a"
+            "$value": "hsl(47.6, 100%, 67.6%)"
           },
           "250": {
             "$type": "color",
-            "$value": "#ffd900"
+            "$value": "hsl(50.8, 100%, 50%)"
           },
           "325": {
             "$type": "color",
-            "$value": "#eecb01"
+            "$value": "hsl(51.1, 99.2%, 46.9%)"
           },
           "400": {
             "$type": "color",
-            "$value": "#deb601"
+            "$value": "hsl(49.1, 99.1%, 43.7%)"
           },
           "475": {
             "$type": "color",
-            "$value": "#c79c00"
+            "$value": "hsl(47, 100%, 39%)"
           },
           "550": {
             "$type": "color",
-            "$value": "#ab8200"
+            "$value": "hsl(45.6, 100%, 33.5%)"
           },
           "650": {
             "$type": "color",
-            "$value": "#866200"
+            "$value": "hsl(43.9, 100%, 26.3%)"
           },
           "725": {
             "$type": "color",
-            "$value": "#604500"
+            "$value": "hsl(43.1, 100%, 18.8%)"
           },
           "800": {
             "$type": "color",
-            "$value": "#433202"
+            "$value": "hsl(44.3, 94.2%, 13.5%)"
           },
           "875": {
             "$type": "color",
-            "$value": "#272100"
+            "$value": "hsl(50.8, 100%, 7.6%)"
           }
         },
         "green": {
           "25": {
             "$type": "color",
-            "$value": "#f1fcf2"
+            "$value": "hsl(125.5, 64.7%, 96.7%)"
           },
           "50": {
             "$type": "color",
-            "$value": "#d5fed5"
+            "$value": "hsl(120, 95.3%, 91.6%)"
           },
           "100": {
             "$type": "color",
-            "$value": "#b5f2b0"
+            "$value": "hsl(115.5, 71.7%, 82%)"
           },
           "175": {
             "$type": "color",
-            "$value": "#97df8c"
+            "$value": "hsl(112, 56.5%, 71.2%)"
           },
           "250": {
             "$type": "color",
-            "$value": "#7fcb6e"
+            "$value": "hsl(109, 47.2%, 61.4%)"
           },
           "325": {
             "$type": "color",
-            "$value": "#71bd5b"
+            "$value": "hsl(106.5, 42.6%, 54.9%)"
           },
           "400": {
             "$type": "color",
-            "$value": "#55a041"
+            "$value": "hsl(107.4, 42.2%, 44.1%)"
           },
           "475": {
             "$type": "color",
-            "$value": "#458a33"
+            "$value": "hsl(107.6, 46%, 37.1%)"
           },
           "550": {
             "$type": "color",
-            "$value": "#35762a"
+            "$value": "hsl(111.3, 47.5%, 31.4%)"
           },
           "650": {
             "$type": "color",
-            "$value": "#276023"
+            "$value": "hsl(116.1, 46.6%, 25.7%)"
           },
           "725": {
             "$type": "color",
-            "$value": "#1c4d1f"
+            "$value": "hsl(123.7, 46.7%, 20.6%)"
           },
           "800": {
             "$type": "color",
-            "$value": "#12391a"
+            "$value": "hsl(132.3, 52%, 14.7%)"
           },
           "875": {
             "$type": "color",
-            "$value": "#0b2714"
+            "$value": "hsl(139.3, 56%, 9.8%)"
           }
         },
         "teal": {
           "25": {
             "$type": "color",
-            "$value": "#edfdf9"
+            "$value": "hsl(165, 80%, 96.1%)"
           },
           "50": {
             "$type": "color",
-            "$value": "#e0f9f3"
+            "$value": "hsl(165.6, 67.6%, 92.7%)"
           },
           "100": {
             "$type": "color",
-            "$value": "#c8ebe4"
+            "$value": "hsl(168, 46.7%, 85.3%)"
           },
           "175": {
             "$type": "color",
-            "$value": "#abd6ce"
+            "$value": "hsl(168.8, 34.4%, 75.5%)"
           },
           "250": {
             "$type": "color",
-            "$value": "#8ec3ba"
+            "$value": "hsl(169.8, 30.6%, 66.1%)"
           },
           "325": {
             "$type": "color",
-            "$value": "#72afa5"
+            "$value": "hsl(170.2, 27.6%, 56.7%)"
           },
           "400": {
             "$type": "color",
-            "$value": "#599b92"
+            "$value": "hsl(171.8, 27%, 47.8%)"
           },
           "475": {
             "$type": "color",
-            "$value": "#3e877f"
+            "$value": "hsl(173.4, 37.1%, 38.6%)"
           },
           "550": {
             "$type": "color",
-            "$value": "#29746d"
+            "$value": "hsl(174.4, 47.8%, 30.8%)"
           },
           "650": {
             "$type": "color",
-            "$value": "#135f5a"
+            "$value": "hsl(176.1, 66.7%, 22.4%)"
           },
           "725": {
             "$type": "color",
-            "$value": "#08514d"
+            "$value": "hsl(176.7, 82%, 17.5%)"
           },
           "800": {
             "$type": "color",
-            "$value": "#023934"
+            "$value": "hsl(174.5, 93.2%, 11.6%)"
           },
           "875": {
             "$type": "color",
-            "$value": "#062623"
+            "$value": "hsl(174.4, 72.7%, 8.6%)"
           }
         },
         "blue": {
           "25": {
             "$type": "color",
-            "$value": "#f8f9fc"
+            "$value": "hsl(225, 40%, 98%)"
           },
           "50": {
             "$type": "color",
-            "$value": "#edf4ff"
+            "$value": "hsl(216.7, 100%, 96.5%)"
           },
           "100": {
             "$type": "color",
-            "$value": "#d5e6ff"
+            "$value": "hsl(215.7, 100%, 91.8%)"
           },
           "175": {
             "$type": "color",
-            "$value": "#afd1ff"
+            "$value": "hsl(214.5, 100%, 84.3%)"
           },
           "250": {
             "$type": "color",
-            "$value": "#8dbdfa"
+            "$value": "hsl(213.6, 91.6%, 76.7%)"
           },
           "325": {
             "$type": "color",
-            "$value": "#6ca8ed"
+            "$value": "hsl(212.1, 78.2%, 67.6%)"
           },
           "400": {
             "$type": "color",
-            "$value": "#5194dd"
+            "$value": "hsl(211.3, 67.3%, 59.2%)"
           },
           "475": {
             "$type": "color",
-            "$value": "#3680c7"
+            "$value": "hsl(209.4, 57.3%, 49.6%)"
           },
           "550": {
             "$type": "color",
-            "$value": "#276dab"
+            "$value": "hsl(208.2, 62.9%, 41.2%)"
           },
           "650": {
             "$type": "color",
-            "$value": "#22598a"
+            "$value": "hsl(208.3, 60.5%, 33.7%)"
           },
           "725": {
             "$type": "color",
-            "$value": "#234669"
+            "$value": "hsl(210, 50%, 27.5%)"
           },
           "800": {
             "$type": "color",
-            "$value": "#1a344d"
+            "$value": "hsl(209.4, 49.5%, 20.2%)"
           },
           "875": {
             "$type": "color",
-            "$value": "#0e2337"
+            "$value": "hsl(209.3, 59.4%, 13.5%)"
           }
         },
         "transparent": {
