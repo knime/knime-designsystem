@@ -57,7 +57,7 @@
         "neutral-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.neutral.100}"
+            "$value": "{kds.core.color.neutral.175}"
           },
           "hover": {
             "$extensions": {
@@ -636,7 +636,7 @@
         },
         "input": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.650}"
+          "$value": "{kds.core.color.neutral.250}"
         }
       },
       "focus": {

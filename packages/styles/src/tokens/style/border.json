@@ -131,6 +131,13 @@
             "width": "{kds.border-width.base.s}",
             "style": "solid"
           }
+        },
+        "input": {
+          "$type": "border",
+          "$value": {
+            "color": "{kds.color.border.input}",
+            "width": "{kds.border-width.base.s}"
+          }
         }
       },
       "base": {
