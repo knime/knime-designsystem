@@ -475,6 +475,15 @@
         },
         "selected": {
           "initial": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.16",
+                  "space": "lch"
+                }
+              }
+            },
             "$type": "color",
             "$value": "{kds.core.color.teal.650}"
           },
@@ -521,7 +530,7 @@
         },
         "primary": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.650}",
+          "$value": "{kds.core.color.teal.250}",
           "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
         },
         "primary-inverted": {
@@ -535,7 +544,7 @@
         },
         "selected-inverted": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.400}"
+          "$value": "{kds.core.color.teal.550}"
         },
         "warning": {
           "$type": "color",

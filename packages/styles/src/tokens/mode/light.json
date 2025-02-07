@@ -497,30 +497,12 @@
             "$value": "{kds.core.color.teal.25}"
           },
           "hover": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "darken",
-                  "value": "0.16",
-                  "space": "lch"
-                }
-              }
-            },
             "$type": "color",
-            "$value": "{kds.color.background.selected-bold.initial}"
+            "$value": "{kds.core.color.teal.100}"
           },
           "active": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "darken",
-                  "value": "0.36",
-                  "space": "lch"
-                }
-              }
-            },
             "$type": "color",
-            "$value": "{kds.color.background.selected-bold.initial}"
+            "$value": "{kds.core.color.teal.175}"
           }
         }
       },
