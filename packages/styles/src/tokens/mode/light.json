@@ -499,7 +499,7 @@
         },
         "selected": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.400}"
+          "$value": "{kds.core.color.teal.550}"
         },
         "selected-inverted": {
           "$type": "color",
