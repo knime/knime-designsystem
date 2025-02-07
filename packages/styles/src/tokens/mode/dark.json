@@ -138,7 +138,7 @@
             "$description": "Primary color to ber used for main CTAs and promotional content, e.g. badges."
           }
         },
-        "selected": {
+        "selected-bold": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.teal.650}"
@@ -154,7 +154,7 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.selected.initial}"
+            "$value": "{kds.color.background.selected-bold.initial}"
           },
           "active": {
             "$extensions": {
@@ -167,7 +167,7 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.selected.initial}"
+            "$value": "{kds.color.background.selected-bold.initial}"
           }
         },
         "danger": {
@@ -471,6 +471,38 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.neutral.325}"
+          }
+        },
+        "selected": {
+          "initial": {
+            "$type": "color",
+            "$value": "{kds.core.color.teal.650}"
+          },
+          "hover": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.16",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.color.background.selected-bold.initial}"
+          },
+          "active": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.48",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.color.background.selected-bold.initial}"
           }
         }
       },

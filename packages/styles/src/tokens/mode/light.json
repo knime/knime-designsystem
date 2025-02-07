@@ -57,7 +57,7 @@
         "neutral-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.neutral.50}"
+            "$value": "{kds.core.color.neutral.100}"
           },
           "hover": {
             "$extensions": {
@@ -156,7 +156,7 @@
             "$description": "Primary color to ber used for main CTAs and promotional content, e.g. badges."
           }
         },
-        "selected": {
+        "selected-bold": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.teal.400}"
@@ -172,7 +172,7 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.selected.initial}"
+            "$value": "{kds.color.background.selected-bold.initial}"
           },
           "active": {
             "$extensions": {
@@ -185,7 +185,7 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.selected.initial}"
+            "$value": "{kds.color.background.selected-bold.initial}"
           }
         },
         "danger": {
@@ -489,6 +489,38 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.neutral.325}"
+          }
+        },
+        "selected": {
+          "initial": {
+            "$type": "color",
+            "$value": "{kds.core.color.teal.25}"
+          },
+          "hover": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "darken",
+                  "value": "0.16",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.color.background.selected-bold.initial}"
+          },
+          "active": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "darken",
+                  "value": "0.36",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.color.background.selected-bold.initial}"
           }
         }
       },
