@@ -1,29 +1,65 @@
-# README #
+# ![Image](https://www.knime.com/sites/default/files/knime_logo_github_40x40_4layers.png) KNIME® Design System Monorepo
 
-This README would normally document whatever steps are necessary to get your application up and running.
+This monorepo contains the basics of the KNIME Design System, including design tokens, icons, Vue components derived from the design tokens, and a Storybook instance for documentation.
 
-### What is this repository for? ###
+This repository is maintained by [UI Core](mailto:team-ui-core@knime.com).
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+## Prerequisites
 
-### How do I get set up? ###
+To get started, you need to have [Proto](https://moonrepo.dev/proto) installed, which acts as a version manager for Node.js and pnpm.
+Once installed you need to run
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+```
+proto install
+```
 
-### Contribution guidelines ###
+once to pull the initial node and pnpm versions specified in the package.json.
 
-* Writing tests
-* Code review
-* Other guidelines
+## Setup
 
-### Who do I talk to? ###
+Before running any scripts, you need to install the dependencies. Run the following command in the root of the monorepo:
 
-* Repo owner or admin
-* Other community or team contact
+```
+pnpm install
+```
+
+## Packages
+
+The monorepo comprises the following packages:
+
+- **@knime/kds-tokens**: Contains the design tokens used across the KNIME Design System.
+- **@knime/kds-icons**: Contains the icons used in the KNIME Design System.
+- **@knime/kds-components**: Contains Vue components derived from the design tokens.
+- **@knime/kds-documentation**: Contains a Storybook instance that functions as the documentation for the design system and the components.
+
+## Important Scripts
+
+Here are some of the most important scripts defined in the top-level [`package.json`](package.json):
+
+- **Format Code**: Formats the code using Prettier.
+
+  ```
+  pnpm format
+  ```
+
+- **Lint Code**: Lints the code using ESLint and Stylelint.
+
+  ```
+  pnpm lint
+  ```
+
+- **Security Check**: Checks used dependencies for known vulnerabilities.
+
+  ```
+  pnpm run audit
+  ```
+
+- **Build Design Tokens**: Builds the design tokens.
+
+  ```
+  pnpm build:tokens
+  ```
+
+# Join the Community!
+
+- [KNIME Forum](https://forum.knime.com/)

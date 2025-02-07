@@ -1,0 +1,38 @@
+{
+  "name": "@knime/kds-root",
+  "version": "0.1.0",
+  "description": "Root package for managing the monorepo for the KNIME Design System",
+  "license": "GPL 3 and Additional Permissions according to Sec. 7 (SEE the file LICENSE)",
+  "author": "KNIME AG, Zurich, Switzerland",
+  "type": "module",
+  "scripts": {
+    "format": "prettier --cache --write .",
+    "format:check": "prettier --cache --check .",
+    "lint": "run-s 'lint:* --fix'",
+    "lint:js": "eslint . --cache --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts",
+    "lint:css": "stylelint '**/*.{css,vue}' --allow-empty-input",
+    "ci:lint-format": "run-s ci:lint:* format:check -c -l",
+    "ci:lint:js": "pnpm run lint:js && pnpm run lint:js -f json -o test-results/eslint.json",
+    "ci:lint:css": "pnpm run lint:css -f json -o test-results/stylelint.json",
+    "build:tokens": "pnpm run --filter @knime/kds-tokens build:tokens",
+    "audit": "pnpm audit --prod",
+    "prepare": "husky",
+    "postinstall": "license-check -c"
+  },
+  "devDependencies": {
+    "@knime/eslint-config": "8.2.0",
+    "@knime/licenses": "1.0.6",
+    "@rushstack/eslint-patch": "1.10.5",
+    "eslint": "8.57.0",
+    "husky": "^9.0.11",
+    "lint-staged": "15.4.3",
+    "npm-run-all": "^4.1.5",
+    "prettier": "3.4.2",
+    "stylelint": "16.14.1"
+  },
+  "engines": {
+    "node": "22.13.1",
+    "npm": "please-use-pnpm"
+  },
+  "packageManager": "pnpm@10.2.0"
+}

@@ -1,0 +1,6 @@
+# Check for staged changes in the 'packages/styles/src/tokens' folder
+if git diff --cached --name-only | grep -qv '^packages/styles/src/tokens/'; then
+  pnpm knime-eslint-config-prepare-commit-msg "$@"
+else
+  echo "Debug: Only changes in 'packages/styles/src/tokens', skipping prepare commit message hook."
+fi

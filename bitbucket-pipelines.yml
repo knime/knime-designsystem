@@ -1,0 +1,68 @@
+image: node:22.13.1
+
+options:
+  max-time: 5
+
+definitions:
+  services:
+    docker:
+      memory: 6000
+  caches:
+    sonar: ~/.sonar/cache
+    pnpm: $BITBUCKET_CLONE_DIR/.pnpm-store
+  steps:
+    - step: &lint-test-build
+        name: Lint, tests and build
+        caches:
+          - pnpm
+          - sonar
+          - docker # used by sonar pipes
+        size: 2x # needed for additional memory requirements
+        clone:
+          depth: full # SonarCloud scanner needs the full history to assign issues properly
+        script:
+          - npm install -g corepack
+          - corepack enable
+          - pnpm install
+          - pnpm ci:lint-format
+          - pnpm build:tokens
+          - pnpm run audit
+          - pipe: sonarsource/sonarcloud-scan:2.0.0
+            variables:
+              SONAR_SCANNER_OPTS: -Xmx4G
+          # - pipe: sonarsource/sonarcloud-quality-gate:0.1.6
+        artifacts:
+          - documentation/dist/**
+          - packages/styles/dist/**
+    - step: &publish-npm
+        name: Publish packages to npm
+        caches:
+          - pnpm
+        trigger: manual
+        deployment: production
+        script:
+          - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          - corepack enable
+          - pnpm install
+          - pnpm run publish
+          - git push --follow-tags
+    - step: &deploy-documentation
+        name: Deploy documentation to Netlify
+        caches:
+          - pnpm
+        deployment: production
+        script:
+          - corepack enable
+          - pnpm install
+          # TODO deploy to Netlify
+          - echo "Deploy script not yet defined!!"
+
+pipelines:
+  pull-requests:
+    "**":
+      - step: *lint-test-build
+      - step: *publish-npm
+  branches:
+    master:
+      - step: *lint-test-build
+      - step: *deploy-documentation

@@ -35,3 +35,6 @@ Thumbs.db
 *.exe
 *.war
 
+# Optional eslint/stylelint cache
+.eslintcache
+.stylelintcache
