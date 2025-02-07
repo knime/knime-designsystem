@@ -42,20 +42,22 @@ definitions:
         deployment: production
         script:
           - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          - npm install -g corepack
           - corepack enable
           - pnpm install
           - pnpm run publish
           - git push --follow-tags
-    - step: &deploy-documentation
-        name: Deploy documentation to Netlify
-        caches:
-          - pnpm
-        deployment: production
-        script:
-          - corepack enable
-          - pnpm install
-          # TODO deploy to Netlify
-          - echo "Deploy script not yet defined!!"
+    # - step: &deploy-documentation
+    #     name: Deploy documentation to Netlify
+    #     caches:
+    #       - pnpm
+    #     deployment: production
+    #     script:
+    #       - npm install -g corepack
+    #       - corepack enable
+    #       - pnpm install
+    #       # TODO deploy to Netlify
+    #       - echo "Deploy script not yet defined!!"
 
 pipelines:
   pull-requests:
@@ -65,4 +67,4 @@ pipelines:
   branches:
     master:
       - step: *lint-test-build
-      - step: *deploy-documentation
+#      - step: *deploy-documentation
