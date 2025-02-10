@@ -669,20 +669,6 @@
           "$type": "color",
           "$value": "{kds.core.color.neutral.800}"
         }
-      },
-      "node": {
-        "default": {
-          "$type": "color",
-          "$value": "#",
-          "$description": "Not yet scoped"
-        }
-      },
-      "editor": {
-        "default": {
-          "$type": "color",
-          "$value": "#",
-          "$description": "Not yet scoped"
-        }
       }
     }
   }
