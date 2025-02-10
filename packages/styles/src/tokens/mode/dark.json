@@ -573,6 +573,10 @@
         "disabled": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.325}"
+        },
+        "info": {
+          "$type": "color",
+          "$value": "{kds.core.color.blue.400}"
         }
       },
       "border": {
