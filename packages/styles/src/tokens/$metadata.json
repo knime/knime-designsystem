@@ -4,8 +4,8 @@
     "core/color",
     "core/dimension",
     "core/font",
-    "mode/dark",
     "mode/light",
+    "mode/dark",
     "style/border",
     "style/size",
     "style/typography"

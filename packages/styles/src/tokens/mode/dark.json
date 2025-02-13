@@ -128,7 +128,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "0.36",
+                  "value": "0.48",
                   "space": "lch"
                 }
               }
@@ -161,7 +161,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "0.48",
+                  "value": "0.24",
                   "space": "lch"
                 }
               }
@@ -173,7 +173,7 @@
         "danger": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.red.725}"
+            "$value": "{kds.core.color.red.250}"
           },
           "hover": {
             "$extensions": {
@@ -205,7 +205,7 @@
         "danger-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.red.550}"
+            "$value": "{kds.core.color.red.650}"
           },
           "hover": {
             "$extensions": {
@@ -333,7 +333,7 @@
         "success-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.green.475}"
+            "$value": "{kds.core.color.green.550}"
           },
           "hover": {
             "$extensions": {
@@ -365,7 +365,7 @@
         "info": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.blue.100}"
+            "$value": "{kds.core.color.blue.175}"
           },
           "hover": {
             "$extensions": {
@@ -505,7 +505,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "0.48",
+                  "value": "0.32",
                   "space": "lch"
                 }
               }
@@ -530,7 +530,7 @@
         },
         "primary": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.250}",
+          "$value": "{kds.core.color.teal.650}",
           "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
         },
         "primary-inverted": {
@@ -576,7 +576,7 @@
         },
         "info": {
           "$type": "color",
-          "$value": "{kds.core.color.blue.400}"
+          "$value": "{kds.core.color.blue.550}"
         }
       },
       "border": {
