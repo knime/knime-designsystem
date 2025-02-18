@@ -38,3 +38,5 @@ Thumbs.db
 # Optional eslint/stylelint cache
 .eslintcache
 .stylelintcache
+
+*storybook.log

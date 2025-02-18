@@ -1,0 +1,75 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Components/Introduction" />
+
+<div className="components-container sb-unstyled">
+  <h1>Components</h1>
+  <p>Explore the various UI components available in the KNIME Design System. Each component is documented with usage examples, properties, and customization options.</p>
+  
+  <h2>Button</h2>
+  <p>The Button component is used to trigger actions. It can be customized with different styles and sizes.</p>
+  <h3>Usage Example</h3>
+  <pre><code>{`<Button label="Click Me" onClick={handleClick} />`}</code></pre>
+
+{" "}
+
+<h2>Input Field</h2>
+<p>
+  The Input Field component allows users to enter data. It supports various
+  types such as text, password, and number.
+</p>
+<h3>Usage Example</h3>
+<pre>
+  <code>{`<InputField placeholder="Enter text" value={inputValue} onChange={handleChange} />`}</code>
+</pre>
+
+{" "}
+
+<h2>Dropdown</h2>
+<p>
+  The Dropdown component provides a list of options for users to select from. It
+  can be customized to allow single or multiple selections.
+</p>
+<h3>Usage Example</h3>
+<pre>
+  <code>{`<Dropdown options={options} onChange={handleSelect} />`}</code>
+</pre>
+
+  <h2>Card</h2>
+  <p>The Card component is used to display content in a structured format. It can include images, text, and actions.</p>
+  <h3>Usage Example</h3>
+  <pre><code>{`<Card title="Card Title" content="This is a card." />`}</code></pre>
+</div>
+
+<style>
+  {`
+  .components-container {
+    margin: 32px;
+  }
+
+  .components-container h1 {
+    margin-bottom: 24px;
+  }
+
+  .components-container h2 {
+    margin-top: 24px;
+    margin-bottom: 16px;
+  }
+
+  .components-container h3 {
+    margin-top: 16px;
+    margin-bottom: 8px;
+  }
+
+  .components-container p {
+    margin: 0 0 16px 0;
+  }
+
+  .components-container pre {
+    background-color: #f5f5f5;
+    padding: 16px;
+    border-radius: 4px;
+    overflow-x: auto;
+  }
+  `}
+</style>
