@@ -74,6 +74,10 @@
           "$type": "dimension",
           "$value": "{kds.core.dimension.base} * 250"
         },
+        "275": {
+          "$type": "dimension",
+          "$value": "{kds.core.dimension.base} * 275"
+        },
         "300": {
           "$type": "dimension",
           "$value": "{kds.core.dimension.base} * 300"
