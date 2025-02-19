@@ -138,6 +138,47 @@
             "$description": "Primary color to ber used for main CTAs and promotional content, e.g. badges."
           }
         },
+        "selected": {
+          "initial": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.16",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.core.color.teal.650}"
+          },
+          "hover": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.16",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.color.background.selected-bold.initial}"
+          },
+          "active": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.32",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.color.background.selected-bold.initial}"
+          }
+        },
         "selected-bold": {
           "initial": {
             "$type": "color",
@@ -458,6 +499,38 @@
             "$value": "{kds.color.background.brand.initial}"
           }
         },
+        "input": {
+          "initial": {
+            "$type": "color",
+            "$value": "{kds.core.color.neutral.550}"
+          },
+          "hover": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.12",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.color.background.input.initial}"
+          },
+          "active": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.36",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.color.background.input.initial}"
+          }
+        },
         "disabled": {
           "default": {
             "$extensions": {
@@ -471,47 +544,6 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.neutral.325}"
-          }
-        },
-        "selected": {
-          "initial": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "alpha",
-                  "value": "0.16",
-                  "space": "lch"
-                }
-              }
-            },
-            "$type": "color",
-            "$value": "{kds.core.color.teal.650}"
-          },
-          "hover": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "lighten",
-                  "value": "0.16",
-                  "space": "lch"
-                }
-              }
-            },
-            "$type": "color",
-            "$value": "{kds.color.background.selected-bold.initial}"
-          },
-          "active": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "lighten",
-                  "value": "0.32",
-                  "space": "lch"
-                }
-              }
-            },
-            "$type": "color",
-            "$value": "{kds.color.background.selected-bold.initial}"
           }
         }
       },
