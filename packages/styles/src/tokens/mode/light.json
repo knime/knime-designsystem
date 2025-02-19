@@ -38,20 +38,20 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.core.color.neutral.550}"
+            "$value": "{kds.core.color.neutral.325}"
           },
           "active": {
             "$extensions": {
               "studio.tokens": {
                 "modify": {
                   "type": "alpha",
-                  "value": "0.24",
+                  "value": "0.32",
                   "space": "lch"
                 }
               }
             },
             "$type": "color",
-            "$value": "{kds.core.color.neutral.550}"
+            "$value": "{kds.core.color.neutral.325}"
           }
         },
         "neutral-bold": {
