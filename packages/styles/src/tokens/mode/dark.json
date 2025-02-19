@@ -502,7 +502,7 @@
         "input": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.neutral.550}"
+            "$value": "{kds.core.color.neutral.475}"
           },
           "hover": {
             "$extensions": {
@@ -677,7 +677,7 @@
         },
         "input": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.250}"
+          "$value": "{kds.core.color.neutral.325}"
         }
       },
       "focus": {

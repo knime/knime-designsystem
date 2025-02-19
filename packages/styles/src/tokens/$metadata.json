@@ -1,5 +1,7 @@
 {
   "tokenSetOrder": [
+    "components/desktop-header",
+    "components/spinner",
     "core/color",
     "core/dimension",
     "core/font",
@@ -7,8 +9,6 @@
     "mode/light",
     "style/border",
     "style/size",
-    "style/typography",
-    "components/spinner",
-    "components/desktop-header"
+    "style/typography"
   ]
 }
