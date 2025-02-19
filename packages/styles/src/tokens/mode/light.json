@@ -596,7 +596,7 @@
         },
         "selected-bold": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.650}"
+          "$value": "{kds.core.color.teal.550}"
         },
         "selected": {
           "$type": "color",
