@@ -12,13 +12,20 @@
     "components"
   ],
   "type": "module",
+  "scripts": {
+    "type-check": "vue-tsc -p tsconfig.app.json"
+  },
   "peerDependencies": {
     "vue": "~3.5.0"
   },
   "devDependencies": {
-    "@storybook/test": "^8.5.4",
-    "@storybook/vue3": "^8.5.4",
-    "vue": "3.5.13"
+    "@storybook/test": "^8.5.8",
+    "@storybook/vue3": "^8.5.8",
+    "@vue/test-utils": "^2.4.6",
+    "@vue/tsconfig": "^0.7.0",
+    "vitest": "^3.0.6",
+    "vue": "^3.5.13",
+    "vue-tsc": "^2.2.2"
   },
   "engines": {
     "node": "22.14.0",

@@ -1,57 +1,86 @@
-import { fn } from "@storybook/test";
 import type { Meta, StoryObj } from "@storybook/vue3";
 
-import MyButton from "./Button.vue";
+import Button from "./Button.vue";
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories
-const meta: Meta<typeof MyButton> = {
+const meta: Meta<typeof Button> = {
   title: "Components/Button",
-  component: MyButton,
+  component: Button,
   tags: ["autodocs"],
   argTypes: {
+    label: { control: "text" },
     size: {
       control: { type: "select" },
       options: ["small", "medium", "large"],
     },
-    backgroundColor: { control: "color" },
-  },
-  // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
-  args: { onClick: fn() },
-};
-export default meta;
-
-type Story = StoryObj<typeof MyButton>;
-
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const Primary: Story = {
-  parameters: {
-    design: {
-      type: "figma",
-      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/kds-Components?node-id=815-4548&t=AKx3xAV4Et482B3a-1",
+    variant: {
+      control: { type: "select" },
+      options: ["primary", "secondary", "tertiary"],
     },
+    leadingIcon: { control: "text" },
+    trailingIcon: { control: "text" },
+    disabled: { control: "boolean" },
   },
   args: {
-    primary: true,
-    label: "Button",
+    // eslint-disable-next-line no-console
+    onClick: (event) => console.warn("Button clicked", event),
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof Button>;
+
+export const Primary: Story = {
+  args: {
+    label: "Button text",
+    variant: "primary",
   },
 };
 
 export const Secondary: Story = {
   args: {
-    label: "Button",
+    label: "Secondary Button",
+    variant: "secondary",
   },
 };
 
-export const Large: Story = {
+export const Tertiary: Story = {
   args: {
-    size: "large",
-    label: "Button",
+    label: "Tertiary Button",
+    variant: "tertiary",
   },
 };
 
 export const Small: Story = {
   args: {
+    label: "Small Button",
     size: "small",
-    label: "Button",
+  },
+};
+
+export const Large: Story = {
+  args: {
+    label: "Large Button",
+    size: "large",
+  },
+};
+
+export const WithLeadingIcon: Story = {
+  args: {
+    label: "Button with Leading Icon",
+    leadingIcon: "→",
+  },
+};
+
+export const WithTrailingIcon: Story = {
+  args: {
+    label: "Button with Trailing Icon",
+    trailingIcon: "←",
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    label: "Disabled Button",
+    disabled: true,
   },
 };
