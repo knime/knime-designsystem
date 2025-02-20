@@ -500,7 +500,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "darken",
-                  "value": "0.12",
+                  "value": "0.04",
                   "space": "lch"
                 }
               }
@@ -513,7 +513,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "darken",
-                  "value": "0.16",
+                  "value": "0.12",
                   "space": "lch"
                 }
               }
@@ -668,7 +668,7 @@
         },
         "input": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.250}"
+          "$value": "{kds.core.color.neutral.325}"
         }
       },
       "focus": {
