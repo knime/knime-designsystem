@@ -45,7 +45,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "alpha",
-                  "value": "0.24",
+                  "value": "0.56",
                   "space": "lch"
                 }
               }
@@ -678,6 +678,10 @@
         "input": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.325}"
+        },
+        "brand": {
+          "$type": "color",
+          "$value": "{kds.core.color.yellow.250}"
         }
       },
       "focus": {

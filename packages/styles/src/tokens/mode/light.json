@@ -669,6 +669,10 @@
         "input": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.325}"
+        },
+        "brand": {
+          "$type": "color",
+          "$value": "{kds.core.color.yellow.250}"
         }
       },
       "focus": {

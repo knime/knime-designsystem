@@ -164,6 +164,14 @@
             "width": "{kds.border-width.base.s}",
             "style": "solid"
           }
+        },
+        "brand": {
+          "$type": "border",
+          "$value": {
+            "color": "{kds.color.border.brand}",
+            "width": "{kds.core.dimension.6}",
+            "style": "soild"
+          }
         }
       }
     }
