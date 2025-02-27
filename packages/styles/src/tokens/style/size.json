@@ -170,6 +170,10 @@
           "2_25x": {
             "$type": "dimension",
             "$value": "{kds.core.dimension.225}"
+          },
+          "2_5x": {
+            "$type": "dimension",
+            "$value": "{kds.core.dimension.250}"
           }
         },
         "width": {
