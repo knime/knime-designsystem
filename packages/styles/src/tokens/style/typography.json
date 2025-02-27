@@ -85,6 +85,16 @@
             },
             "$description": "singleline text, used for labels on top of inputs, as titles inside components, pages or panels"
           },
+          "medium-strong": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.roboto}",
+              "fontWeight": "{kds.core.font-weight.strong}",
+              "lineHeight": "{kds.core.line-height.singleline}",
+              "fontSize": "{kds.core.font-size.scaled.0_87x}"
+            },
+            "$description": "singleline text, used for labels on top of inputs, as titles inside components, pages or panels"
+          },
           "large": {
             "$type": "typography",
             "$value": {
