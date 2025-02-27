@@ -4,14 +4,15 @@
     "name": "Dark",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "components": "enabled",
       "core/color": "source",
       "core/dimension": "source",
       "core/font": "source",
       "mode/dark": "enabled",
       "style/border": "enabled",
       "style/size": "enabled",
-      "style/typography": "enabled"
+      "style/typography": "enabled",
+      "components/spinner": "enabled",
+      "components/desktop-header": "enabled"
     },
     "$figmaVariableReferences": {}
   },
@@ -20,14 +21,15 @@
     "name": "Light",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "components": "enabled",
       "core/color": "source",
       "core/dimension": "source",
       "core/font": "source",
       "mode/light": "enabled",
       "style/border": "enabled",
       "style/size": "enabled",
-      "style/typography": "enabled"
+      "style/typography": "enabled",
+      "components/spinner": "enabled",
+      "components/desktop-header": "enabled"
     },
     "$figmaVariableReferences": {}
   }

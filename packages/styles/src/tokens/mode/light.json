@@ -38,20 +38,20 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.core.color.neutral.550}"
+            "$value": "{kds.core.color.neutral.325}"
           },
           "active": {
             "$extensions": {
               "studio.tokens": {
                 "modify": {
                   "type": "alpha",
-                  "value": "0.24",
+                  "value": "0.32",
                   "space": "lch"
                 }
               }
             },
             "$type": "color",
-            "$value": "{kds.core.color.neutral.550}"
+            "$value": "{kds.core.color.neutral.325}"
           }
         },
         "neutral-bold": {
@@ -154,6 +154,20 @@
             "$type": "color",
             "$value": "{kds.color.background.primary-bold.initial}",
             "$description": "Primary color to ber used for main CTAs and promotional content, e.g. badges."
+          }
+        },
+        "selected": {
+          "initial": {
+            "$type": "color",
+            "$value": "{kds.core.color.teal.25}"
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{kds.core.color.teal.100}"
+          },
+          "active": {
+            "$type": "color",
+            "$value": "{kds.core.color.teal.175}"
           }
         },
         "selected-bold": {
@@ -476,6 +490,38 @@
             "$value": "{kds.color.background.brand.initial}"
           }
         },
+        "input": {
+          "initial": {
+            "$type": "color",
+            "$value": "{kds.core.color.neutral.25}"
+          },
+          "hover": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "darken",
+                  "value": "0.04",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.color.background.input.initial}"
+          },
+          "active": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "darken",
+                  "value": "0.12",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.color.background.input.initial}"
+          }
+        },
         "disabled": {
           "default": {
             "$extensions": {
@@ -489,20 +535,6 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.neutral.325}"
-          }
-        },
-        "selected": {
-          "initial": {
-            "$type": "color",
-            "$value": "{kds.core.color.teal.25}"
-          },
-          "hover": {
-            "$type": "color",
-            "$value": "{kds.core.color.teal.100}"
-          },
-          "active": {
-            "$type": "color",
-            "$value": "{kds.core.color.teal.175}"
           }
         }
       },
@@ -596,7 +628,7 @@
         },
         "selected-bold": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.650}"
+          "$value": "{kds.core.color.teal.550}"
         },
         "selected": {
           "$type": "color",
@@ -636,7 +668,11 @@
         },
         "input": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.250}"
+          "$value": "{kds.core.color.neutral.325}"
+        },
+        "brand": {
+          "$type": "color",
+          "$value": "{kds.core.color.yellow.250}"
         }
       },
       "focus": {
