@@ -10,6 +10,7 @@
     "mode/light",
     "style/border",
     "style/size",
-    "style/typography"
+    "style/typography",
+    "style/motion"
   ]
 }

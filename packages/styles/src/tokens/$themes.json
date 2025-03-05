@@ -12,7 +12,8 @@
       "style/size": "enabled",
       "style/typography": "enabled",
       "components/spinner": "enabled",
-      "components/desktop-header": "enabled"
+      "components/desktop-header": "enabled",
+      "style/motion": "disabled"
     },
     "$figmaVariableReferences": {}
   },
@@ -29,7 +30,8 @@
       "style/size": "enabled",
       "style/typography": "enabled",
       "components/spinner": "enabled",
-      "components/desktop-header": "enabled"
+      "components/desktop-header": "enabled",
+      "style/motion": "disabled"
     },
     "$figmaVariableReferences": {}
   }

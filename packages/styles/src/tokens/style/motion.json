@@ -1,0 +1,26 @@
+{
+  "kds": {
+    "motion": {
+      "value": {
+        "200ms": {
+          "$type": "number",
+          "$value": "200"
+        },
+        "300ms": {
+          "$type": "number",
+          "$value": "300"
+        }
+      },
+      "transition": {
+        "ease-out": {
+          "$type": "other",
+          "$value": "ease-out"
+        },
+        "ease-in-out": {
+          "$type": "other",
+          "$value": "ease-in-out"
+        }
+      }
+    }
+  }
+}
