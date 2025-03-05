@@ -583,7 +583,7 @@
         },
         "danger-inverted": {
           "$type": "color",
-          "$value": "{kds.core.color.red.50}"
+          "$value": "{kds.core.color.red.100}"
         },
         "success": {
           "$type": "color",

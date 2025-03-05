@@ -144,7 +144,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "alpha",
-                  "value": "0.16",
+                  "value": "0.24",
                   "space": "lch"
                 }
               }
@@ -214,7 +214,7 @@
         "danger": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.red.250}"
+            "$value": "{kds.core.color.red.725}"
           },
           "hover": {
             "$extensions": {
@@ -342,7 +342,7 @@
         "success": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.green.100}"
+            "$value": "{kds.core.color.green.325}"
           },
           "hover": {
             "$extensions": {
@@ -374,7 +374,7 @@
         "success-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.green.550}"
+            "$value": "{kds.core.color.green.650}"
           },
           "hover": {
             "$extensions": {
@@ -406,7 +406,7 @@
         "info": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.blue.175}"
+            "$value": "{kds.core.color.blue.250}"
           },
           "hover": {
             "$extensions": {
@@ -580,7 +580,7 @@
         },
         "warning": {
           "$type": "color",
-          "$value": "{kds.core.color.orange.650}"
+          "$value": "{kds.core.color.orange.800}"
         },
         "warning-inverted": {
           "$type": "color",
@@ -596,7 +596,7 @@
         },
         "success": {
           "$type": "color",
-          "$value": "{kds.core.color.green.650}"
+          "$value": "{kds.core.color.green.725}"
         },
         "success-inverted": {
           "$type": "color",
@@ -608,7 +608,7 @@
         },
         "info": {
           "$type": "color",
-          "$value": "{kds.core.color.blue.550}"
+          "$value": "{kds.core.color.blue.650}"
         }
       },
       "border": {
