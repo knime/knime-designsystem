@@ -1,5 +1,6 @@
 {
   "tokenSetOrder": [
+    "components",
     "components/desktop-header",
     "components/spinner",
     "core/color",
