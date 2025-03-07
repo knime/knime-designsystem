@@ -9,8 +9,8 @@
     "mode/dark",
     "mode/light",
     "style/border",
+    "style/motion",
     "style/size",
-    "style/typography",
-    "style/motion"
+    "style/typography"
   ]
 }

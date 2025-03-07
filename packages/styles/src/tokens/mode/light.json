@@ -696,6 +696,13 @@
           "$type": "color",
           "$value": "{kds.core.color.neutral.800}"
         }
+      },
+      "nodes-and-variables": {
+        "flow-variable": {
+          "$type": "color",
+          "$value": "#FF4B4B",
+          "$description": "Flow Variables"
+        }
       }
     }
   }
