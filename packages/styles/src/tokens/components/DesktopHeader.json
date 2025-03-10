@@ -1,7 +1,7 @@
 {
   "kds": {
     "color": {
-      "desktop-header": {
+      "DesktopHeader": {
         "background": {
           "default": {
             "$type": "color",

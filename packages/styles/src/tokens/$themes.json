@@ -11,8 +11,9 @@
       "style/border": "enabled",
       "style/size": "enabled",
       "style/typography": "enabled",
-      "components/spinner": "enabled",
-      "components/desktop-header": "enabled"
+      "components/DesktopHeader": "enabled",
+      "components/LoadingSpinner": "enabled",
+      "components/Input": "disabled"
     },
     "$figmaVariableReferences": {}
   },
@@ -28,8 +29,9 @@
       "style/border": "enabled",
       "style/size": "enabled",
       "style/typography": "enabled",
-      "components/spinner": "enabled",
-      "components/desktop-header": "enabled"
+      "components/DesktopHeader": "enabled",
+      "components/LoadingSpinner": "enabled",
+      "components/Input": "disabled"
     },
     "$figmaVariableReferences": {}
   }
