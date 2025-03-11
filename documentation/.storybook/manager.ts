@@ -1,6 +1,6 @@
 import { addons } from "@storybook/manager-api";
 import knimeTheme from "./knimeTheme";
-import "@knime/kds-tokens/kds-variables.css";
+import "@knime/kds-styles/kds-variables.css";
 
 // TODO: use roboto provided by the design system? like @knime/kds-styles
 const link = document.createElement("link");
