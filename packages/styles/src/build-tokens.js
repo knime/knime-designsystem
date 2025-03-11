@@ -31,10 +31,12 @@ const indentConsole = {
   info: (message) => originalConsole.info(`    ${message}`),
 };
 
-// Function to remove all contents of the dist folder
+// Remove tokens from dist folder
 const cleanDistFolder = () => {
-  const distPath = path.resolve(__dirname, "../dist");
-  console.log(chalk.yellow.bgBlack.bold("🧹 Clearing the dist folder...\n"));
+  const distPath = path.resolve(__dirname, "../dist/tokens");
+  console.log(
+    chalk.yellow.bgBlack.bold("🧹 Clearing tokens from dist folder...\n"),
+  );
   rimraf.sync(distPath);
 };
 

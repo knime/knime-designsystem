@@ -27,8 +27,7 @@ pnpm install
 
 The monorepo comprises the following packages:
 
-- **@knime/kds-tokens**: Contains the design tokens used across the KNIME Design System.
-- **@knime/kds-icons**: Contains the icons used in the KNIME Design System.
+- **@knime/kds-styles**: Contains the design tokens and icons used across the KNIME Design System.
 - **@knime/kds-components**: Contains Vue components derived from the design tokens.
 - **@knime/kds-documentation**: Contains a Storybook instance that functions as the documentation for the design system and the components.
 
