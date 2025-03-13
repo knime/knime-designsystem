@@ -1,6 +1,7 @@
 # Node artifact files
 node_modules/
 dist/
+test-results/
 
 # Compiled Java class files
 *.class
