@@ -678,7 +678,7 @@
       "focus": {
         "outline": {
           "$type": "color",
-          "$value": "{kds.core.color.blue.250}",
+          "$value": "{kds.core.color.blue.475}",
           "$description": "Used to be applied to the focus state of elements."
         }
       },
