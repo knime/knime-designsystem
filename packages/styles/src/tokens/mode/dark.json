@@ -719,7 +719,7 @@
             "studio.tokens": {
               "modify": {
                 "type": "alpha",
-                "value": "0.80",
+                "value": "0.90",
                 "space": "lch"
               }
             }
@@ -732,7 +732,7 @@
             "studio.tokens": {
               "modify": {
                 "type": "alpha",
-                "value": "0.86",
+                "value": "0.94",
                 "space": "lch"
               }
             }
@@ -745,7 +745,7 @@
             "studio.tokens": {
               "modify": {
                 "type": "alpha",
-                "value": "0.88",
+                "value": "0.96",
                 "space": "lch"
               }
             }
