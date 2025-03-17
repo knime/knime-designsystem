@@ -819,7 +819,7 @@
             {
               "x": "{kds.core.dimension.0}",
               "y": "{kds.core.dimension.0}",
-              "blur": "{kds.core.dimension.56}",
+              "blur": "{kds.core.dimension.75}",
               "spread": "{kds.core.dimension.0}",
               "color": "{kds.color.elevation.bottom}",
               "type": "dropShadow"
@@ -832,15 +832,15 @@
             {
               "x": "{kds.core.dimension.0}",
               "y": "{kds.core.dimension.12}",
-              "blur": "{kds.core.dimension.31}",
+              "blur": "{kds.core.dimension.25}",
               "spread": "{kds.core.dimension.0}",
               "color": "{kds.color.elevation.top}",
               "type": "dropShadow"
             },
             {
               "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.31}",
-              "blur": "{kds.core.dimension.56}",
+              "y": "{kds.core.dimension.25}",
+              "blur": "{kds.core.dimension.50}",
               "spread": "{kds.core.dimension.0}",
               "color": "{kds.color.elevation.middle}",
               "type": "dropShadow"
@@ -860,15 +860,15 @@
           "$value": [
             {
               "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.31}",
-              "blur": "{kds.core.dimension.31}",
+              "y": "{kds.core.dimension.37}",
+              "blur": "{kds.core.dimension.37}",
               "spread": "{kds.core.dimension.0}",
               "color": "{kds.color.elevation.top}",
               "type": "dropShadow"
             },
             {
               "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.31}",
+              "y": "{kds.core.dimension.25}",
               "blur": "{kds.core.dimension.100}",
               "spread": "{kds.core.dimension.0}",
               "color": "{kds.color.elevation.middle}",
@@ -889,7 +889,7 @@
           "$value": [
             {
               "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.44}",
+              "y": "{kds.core.dimension.50}",
               "blur": "{kds.core.dimension.50}",
               "spread": "{kds.core.dimension.0}",
               "color": "{kds.color.elevation.top}",
@@ -905,7 +905,7 @@
             },
             {
               "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.31}",
+              "y": "{kds.core.dimension.37}",
               "blur": "{kds.core.dimension.150}",
               "spread": "{kds.core.dimension.0}",
               "color": "{kds.color.elevation.bottom}",
