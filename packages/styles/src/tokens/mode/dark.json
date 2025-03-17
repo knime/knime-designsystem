@@ -773,7 +773,7 @@
           "$value": [
             {
               "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.12}",
+              "y": "{kds.core.dimension.6}",
               "blur": "{kds.core.dimension.6}",
               "spread": "{kds.core.dimension.0}",
               "color": "{kds.color.elevation.top}",
@@ -781,7 +781,7 @@
             },
             {
               "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.6}",
+              "y": "{kds.core.dimension.0}",
               "blur": "{kds.core.dimension.6}",
               "spread": "{kds.core.dimension.0}",
               "color": "{kds.color.elevation.middle}",
@@ -789,7 +789,7 @@
             },
             {
               "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.6}",
+              "y": "{kds.core.dimension.0}",
               "blur": "{kds.core.dimension.25}",
               "spread": "{kds.core.dimension.0}",
               "color": "{kds.color.elevation.bottom}",
@@ -802,15 +802,15 @@
           "$value": [
             {
               "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.25}",
-              "blur": "{kds.core.dimension.25}",
-              "spread": "{kds.core.dimension.12}",
+              "y": "{kds.core.dimension.6}",
+              "blur": "{kds.core.dimension.12}",
+              "spread": "{kds.core.dimension.0}",
               "color": "{kds.color.elevation.top}",
               "type": "dropShadow"
             },
             {
               "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.25}",
+              "y": "{kds.core.dimension.12}",
               "blur": "{kds.core.dimension.25}",
               "spread": "{kds.core.dimension.0}",
               "color": "{kds.color.elevation.middle}",
@@ -818,8 +818,8 @@
             },
             {
               "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.6}",
-              "blur": "{kds.core.dimension.50}",
+              "y": "{kds.core.dimension.0}",
+              "blur": "{kds.core.dimension.56}",
               "spread": "{kds.core.dimension.0}",
               "color": "{kds.color.elevation.bottom}",
               "type": "dropShadow"
@@ -832,14 +832,14 @@
             {
               "x": "{kds.core.dimension.0}",
               "y": "{kds.core.dimension.12}",
-              "blur": "{kds.core.dimension.75}",
+              "blur": "{kds.core.dimension.31}",
               "spread": "{kds.core.dimension.0}",
               "color": "{kds.color.elevation.top}",
               "type": "dropShadow"
             },
             {
               "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.37}",
+              "y": "{kds.core.dimension.31}",
               "blur": "{kds.core.dimension.56}",
               "spread": "{kds.core.dimension.0}",
               "color": "{kds.color.elevation.middle}",
@@ -847,8 +847,8 @@
             },
             {
               "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.6}",
-              "blur": "{kds.core.dimension.100}",
+              "y": "{kds.core.dimension.0}",
+              "blur": "{kds.core.dimension.125}",
               "spread": "{kds.core.dimension.0}",
               "color": "{kds.color.elevation.bottom}",
               "type": "dropShadow"
@@ -862,23 +862,23 @@
               "x": "{kds.core.dimension.0}",
               "y": "{kds.core.dimension.31}",
               "blur": "{kds.core.dimension.31}",
-              "spread": "-{kds.core.dimension.0}",
+              "spread": "{kds.core.dimension.0}",
               "color": "{kds.color.elevation.top}",
               "type": "dropShadow"
             },
             {
               "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.50}",
-              "blur": "{kds.core.dimension.75}",
+              "y": "{kds.core.dimension.31}",
+              "blur": "{kds.core.dimension.100}",
               "spread": "{kds.core.dimension.0}",
               "color": "{kds.color.elevation.middle}",
               "type": "dropShadow"
             },
             {
               "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.25}",
-              "blur": "{kds.core.dimension.88}",
-              "spread": "{kds.core.dimension.12}",
+              "y": "{kds.core.dimension.6}",
+              "blur": "{kds.core.dimension.150}",
+              "spread": "{kds.core.dimension.0}",
               "color": "{kds.color.elevation.bottom}",
               "type": "dropShadow"
             }
@@ -905,7 +905,7 @@
             },
             {
               "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.25}",
+              "y": "{kds.core.dimension.31}",
               "blur": "{kds.core.dimension.150}",
               "spread": "{kds.core.dimension.0}",
               "color": "{kds.color.elevation.bottom}",
