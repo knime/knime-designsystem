@@ -764,16 +764,16 @@
           "$value": [
             {
               "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.6}",
-              "blur": "{kds.core.dimension.12}",
+              "y": "{kds.core.dimension.12}",
+              "blur": "{kds.core.dimension.6}",
               "spread": "{kds.core.dimension.0}",
               "color": "{kds.color.elevation.top}",
               "type": "dropShadow"
             },
             {
               "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.0}",
-              "blur": "{kds.core.dimension.12}",
+              "y": "{kds.core.dimension.6}",
+              "blur": "{kds.core.dimension.6}",
               "spread": "{kds.core.dimension.0}",
               "color": "{kds.color.elevation.middle}",
               "type": "dropShadow"
@@ -782,6 +782,35 @@
               "x": "{kds.core.dimension.0}",
               "y": "{kds.core.dimension.6}",
               "blur": "{kds.core.dimension.25}",
+              "spread": "{kds.core.dimension.0}",
+              "color": "{kds.color.elevation.bottom}",
+              "type": "dropShadow"
+            }
+          ]
+        },
+        "2": {
+          "$type": "boxShadow",
+          "$value": [
+            {
+              "x": "{kds.core.dimension.0}",
+              "y": "{kds.core.dimension.25}",
+              "blur": "{kds.core.dimension.25}",
+              "spread": "{kds.core.dimension.12}",
+              "color": "{kds.color.elevation.top}",
+              "type": "dropShadow"
+            },
+            {
+              "x": "{kds.core.dimension.0}",
+              "y": "{kds.core.dimension.25}",
+              "blur": "{kds.core.dimension.25}",
+              "spread": "{kds.core.dimension.0}",
+              "color": "{kds.color.elevation.middle}",
+              "type": "dropShadow"
+            },
+            {
+              "x": "{kds.core.dimension.0}",
+              "y": "{kds.core.dimension.6}",
+              "blur": "{kds.core.dimension.50}",
               "spread": "{kds.core.dimension.0}",
               "color": "{kds.color.elevation.bottom}",
               "type": "dropShadow"
@@ -817,6 +846,35 @@
             }
           ]
         },
+        "4": {
+          "$type": "boxShadow",
+          "$value": [
+            {
+              "x": "{kds.core.dimension.0}",
+              "y": "{kds.core.dimension.31}",
+              "blur": "{kds.core.dimension.31}",
+              "spread": "-{kds.core.dimension.25}",
+              "color": "{kds.color.elevation.top}",
+              "type": "dropShadow"
+            },
+            {
+              "x": "{kds.core.dimension.0}",
+              "y": "{kds.core.dimension.50}",
+              "blur": "{kds.core.dimension.75}",
+              "spread": "{kds.core.dimension.6}",
+              "color": "{kds.color.elevation.middle}",
+              "type": "dropShadow"
+            },
+            {
+              "x": "{kds.core.dimension.0}",
+              "y": "{kds.core.dimension.25}",
+              "blur": "{kds.core.dimension.88}",
+              "spread": "{kds.core.dimension.12}",
+              "color": "{kds.color.elevation.bottom}",
+              "type": "dropShadow"
+            }
+          ]
+        },
         "5": {
           "$type": "boxShadow",
           "$value": [
@@ -824,7 +882,7 @@
               "x": "{kds.core.dimension.0}",
               "y": "{kds.core.dimension.44}",
               "blur": "{kds.core.dimension.50}",
-              "spread": "{kds.core.dimension.0}",
+              "spread": "{kds.core.dimension.25}",
               "color": "{kds.color.elevation.top}",
               "type": "dropShadow"
             },
@@ -832,15 +890,15 @@
               "x": "{kds.core.dimension.0}",
               "y": "{kds.core.dimension.75}",
               "blur": "{kds.core.dimension.125}",
-              "spread": "{kds.core.dimension.0}",
+              "spread": "{kds.core.dimension.12}",
               "color": "{kds.color.elevation.middle}",
               "type": "dropShadow"
             },
             {
               "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.25}",
+              "y": "{kds.core.dimension.31}",
               "blur": "{kds.core.dimension.150}",
-              "spread": "{kds.core.dimension.0}",
+              "spread": "{kds.core.dimension.25}",
               "color": "{kds.color.elevation.bottom}",
               "type": "dropShadow"
             }
