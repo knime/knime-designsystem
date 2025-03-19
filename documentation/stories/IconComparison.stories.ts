@@ -67,7 +67,7 @@ export const IconComparison = () => {
             />
           </div>
         </div>
-        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--kds-spacing-container-2x);">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--kds-spacing-container-2x);">
           <figure v-for="iconName in filteredIcons" :key="iconName" style="display: flex; flex-direction: column; align-items: center; border: 1px solid #ccc; border-radius: 8px; padding: var(--kds-spacing-container-1x);">
             <div style="display: flex; gap: var(--kds-spacing-container-1x);">
               <figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
@@ -79,7 +79,7 @@ export const IconComparison = () => {
                 <figcaption style="margin-top: var(--kds-spacing-container-0_5x); font-size: 10px;">dist</figcaption>
               </figure>
             </div>
-            <figcaption style="margin-top: var(--kds-spacing-container-1x);">{{ iconName }}</figcaption>
+            <figcaption style="margin-top: var(--kds-spacing-container-1x); text-align: center;">{{ iconName }}</figcaption>
           </figure>
         </div>
       </div>
