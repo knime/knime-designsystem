@@ -15,6 +15,8 @@
     "ci:lint:js": "pnpm run lint:js && pnpm run lint:js -f json -o test-results/eslint.json",
     "ci:lint:css": "pnpm run lint:css -f json -o test-results/stylelint.json",
     "build": "pnpm run -r build",
+    "test:unit": "vitest",
+    "coverage": "vitest run --coverage",
     "audit": "pnpm audit --prod",
     "prepare": "husky",
     "postinstall": "license-check -c"
@@ -24,12 +26,14 @@
     "@knime/licenses": "1.0.6",
     "@rushstack/eslint-patch": "1.10.5",
     "@tsconfig/node22": "^22.0.0",
+    "@vitest/coverage-v8": "^3.0.6",
     "eslint": "8.57.0",
     "husky": "^9.1.7",
     "lint-staged": "15.4.3",
     "npm-run-all": "^4.1.5",
     "prettier": "3.5.3",
-    "stylelint": "16.15.0"
+    "stylelint": "16.15.0",
+    "vitest": "^3.0.6"
   },
   "engines": {
     "node": "22.14.0",
