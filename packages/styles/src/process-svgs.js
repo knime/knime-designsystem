@@ -63,8 +63,8 @@ const processSvg = (filePath) => {
     );
   }
 
-  // Copy stroke and fill-related attributes from the first element to the svg element
-  const attributes = [
+  // Copy stroke-related attributes from the first element to the svg element
+  const strokeAttributes = [
     "stroke",
     "stroke-width",
     "stroke-linecap",
@@ -73,11 +73,11 @@ const processSvg = (filePath) => {
     "stroke-dasharray",
     "stroke-dashoffset",
     "stroke-opacity",
-    "fill",
-    "fill-rule",
-    "fill-opacity",
   ];
-  attributes.forEach((attr) => {
+
+  const fillAttributes = ["fill", "fill-rule", "fill-opacity"];
+
+  strokeAttributes.forEach((attr) => {
     const attrValue = firstElement.getAttribute(attr);
     if (attrValue) {
       svg.setAttribute(attr, attrValue);
@@ -91,9 +91,14 @@ const processSvg = (filePath) => {
   // Remove stroke and fill-related attributes from child elements and set vector-effect
   const elements = svg.querySelectorAll("*");
   elements.forEach((el) => {
-    attributes.forEach((attr) => {
+    strokeAttributes.forEach((attr) => {
       if (el.hasAttribute(attr)) {
         el.removeAttribute(attr);
+      }
+    });
+    fillAttributes.forEach((attr) => {
+      if (el.hasAttribute(attr)) {
+        el.setAttribute("stroke-width", "0");
       }
     });
     // This ensures that the stroke is not scaled with an item, so that we can apply distinct values
