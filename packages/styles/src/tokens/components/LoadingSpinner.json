@@ -1,7 +1,7 @@
 {
   "kds": {
     "color": {
-      "spinner": {
+      "LoadingSpinner": {
         "progress": {
           "onFilled": {
             "$extensions": {
@@ -47,28 +47,6 @@
             },
             "$type": "color",
             "$value": "{kds.color.text-and-icon.neutral}"
-          }
-        }
-      },
-      "desktop-header": {
-        "background": {
-          "default": {
-            "$type": "color",
-            "$value": "{kds.color.background.page.default}"
-          },
-          "muted": {
-            "$type": "color",
-            "$value": "{kds.color.surface.default}"
-          }
-        },
-        "text-and-icon": {
-          "neutral": {
-            "$type": "color",
-            "$value": "{kds.color.text-and-icon.neutral}"
-          },
-          "muted": {
-            "$type": "color",
-            "$value": "{kds.color.text-and-icon.muted}"
           }
         }
       }

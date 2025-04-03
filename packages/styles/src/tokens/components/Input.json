@@ -1,0 +1,20 @@
+{
+  "kds": {
+    "spacing": {
+      "input": {
+        "Label": {
+          "spacing-bottom": {
+            "$type": "spacing",
+            "$value": "{kds.core.dimension.37}"
+          }
+        },
+        "SubText": {
+          "spacing-top": {
+            "$type": "spacing",
+            "$value": "{kds.core.dimension.25}"
+          }
+        }
+      }
+    }
+  }
+}
