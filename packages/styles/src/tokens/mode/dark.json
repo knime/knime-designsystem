@@ -157,7 +157,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "0.16",
+                  "value": "0.08",
                   "space": "lch"
                 }
               }
@@ -170,7 +170,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "0.32",
+                  "value": "0.16",
                   "space": "lch"
                 }
               }
@@ -182,7 +182,7 @@
         "selected-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.teal.650}"
+            "$value": "{kds.core.color.teal.475}"
           },
           "hover": {
             "$extensions": {
@@ -637,7 +637,7 @@
         },
         "selected-bold": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.400}"
+          "$value": "{kds.core.color.teal.175}"
         },
         "selected": {
           "$type": "color",

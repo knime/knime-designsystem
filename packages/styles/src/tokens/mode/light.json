@@ -173,7 +173,7 @@
         "selected-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.teal.400}"
+            "$value": "{kds.core.color.teal.175}"
           },
           "hover": {
             "$extensions": {
