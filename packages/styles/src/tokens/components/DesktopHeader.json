@@ -29,7 +29,7 @@
         "border": {
           "default": {
             "$type": "color",
-            "$value": "{kds.color.border.muted}"
+            "$value": "{kds.color.border.subtle}"
           }
         }
       }

@@ -152,7 +152,7 @@
         "muted": {
           "$type": "border",
           "$value": {
-            "color": "{kds.color.border.subtle}",
+            "color": "{kds.color.border.muted}",
             "width": "{kds.border-width.base.s}",
             "style": "solid"
           }
@@ -160,7 +160,7 @@
         "subtle": {
           "$type": "border",
           "$value": {
-            "color": "{kds.color.border.muted}",
+            "color": "{kds.color.border.subtle}",
             "width": "{kds.border-width.base.s}",
             "style": "solid"
           }
