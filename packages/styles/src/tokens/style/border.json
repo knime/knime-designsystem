@@ -149,7 +149,7 @@
             "style": "solid"
           }
         },
-        "subtle": {
+        "muted": {
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.subtle}",
@@ -157,7 +157,7 @@
             "style": "solid"
           }
         },
-        "muted": {
+        "subtle": {
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.muted}",
