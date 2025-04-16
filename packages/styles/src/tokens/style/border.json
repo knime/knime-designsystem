@@ -135,7 +135,7 @@
         "input": {
           "$type": "border",
           "$value": {
-            "color": "{kds.color.border.input}",
+            "color": "{kds.color.border.neutral}",
             "width": "{kds.border-width.base.s}"
           }
         }

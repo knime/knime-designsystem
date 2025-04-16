@@ -613,8 +613,17 @@
       },
       "border": {
         "neutral": {
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "alpha",
+                "value": "0.6",
+                "space": "lch"
+              }
+            }
+          },
           "$type": "color",
-          "$value": "{kds.core.color.neutral.325}"
+          "$value": "{kds.core.color.neutral.25}"
         },
         "muted": {
           "$type": "color",
@@ -622,8 +631,17 @@
           "$description": "added defualt, subtle muted border colors"
         },
         "subtle": {
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "alpha",
+                "value": "0.1",
+                "space": "lch"
+              }
+            }
+          },
           "$type": "color",
-          "$value": "{kds.core.color.neutral.475}"
+          "$value": "{kds.core.color.neutral.25}"
         },
         "primary-bold": {
           "$type": "color",
@@ -674,10 +692,6 @@
         "transparent": {
           "$type": "color",
           "$value": "{kds.core.color.transparent}"
-        },
-        "input": {
-          "$type": "color",
-          "$value": "{kds.core.color.neutral.325}"
         },
         "brand": {
           "$type": "color",

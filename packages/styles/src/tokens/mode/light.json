@@ -56,8 +56,17 @@
         },
         "neutral-bold": {
           "initial": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.4",
+                  "space": "lch"
+                }
+              }
+            },
             "$type": "color",
-            "$value": "{kds.core.color.neutral.175}"
+            "$value": "{kds.core.color.neutral.250}"
           },
           "hover": {
             "$extensions": {
@@ -604,18 +613,45 @@
       },
       "border": {
         "neutral": {
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "alpha",
+                "value": "0.4",
+                "space": "lch"
+              }
+            }
+          },
           "$type": "color",
-          "$value": "{kds.core.color.neutral.475}",
+          "$value": "{kds.core.color.neutral.875}",
           "$description": "Primary bordercolor, use Border.Base.Default"
         },
         "muted": {
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "lighten",
+                "value": "0.8",
+                "space": "lch"
+              }
+            }
+          },
           "$type": "color",
-          "$value": "{kds.core.color.neutral.250}",
+          "$value": "{kds.core.color.neutral.875}",
           "$description": "Secondary bordercolor, use Border.Base.Muted"
         },
         "subtle": {
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "lighten",
+                "value": "0.9",
+                "space": "lch"
+              }
+            }
+          },
           "$type": "color",
-          "$value": "{kds.core.color.neutral.175}",
+          "$value": "{kds.core.color.neutral.875}",
           "$description": "Tertiary bordercolor, use Border.Base.Subtle"
         },
         "primary-bold": {
@@ -667,10 +703,6 @@
         "transparent": {
           "$type": "color",
           "$value": "{kds.core.color.transparent}"
-        },
-        "input": {
-          "$type": "color",
-          "$value": "{kds.core.color.neutral.325}"
         },
         "brand": {
           "$type": "color",
