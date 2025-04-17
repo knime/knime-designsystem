@@ -617,7 +617,7 @@
             "studio.tokens": {
               "modify": {
                 "type": "alpha",
-                "value": "0.6",
+                "value": "0.4",
                 "space": "lch"
               }
             }
@@ -626,8 +626,17 @@
           "$value": "{kds.core.color.neutral.25}"
         },
         "muted": {
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "alpha",
+                "value": "0.2",
+                "space": "lch"
+              }
+            }
+          },
           "$type": "color",
-          "$value": "{kds.core.color.neutral.400}",
+          "$value": "{kds.core.color.neutral.25}",
           "$description": "added defualt, subtle muted border colors"
         },
         "subtle": {

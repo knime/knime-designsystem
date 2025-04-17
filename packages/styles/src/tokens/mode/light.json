@@ -630,8 +630,8 @@
           "$extensions": {
             "studio.tokens": {
               "modify": {
-                "type": "lighten",
-                "value": "0.8",
+                "type": "alpha",
+                "value": "0.2",
                 "space": "lch"
               }
             }
@@ -644,8 +644,8 @@
           "$extensions": {
             "studio.tokens": {
               "modify": {
-                "type": "lighten",
-                "value": "0.9",
+                "type": "alpha",
+                "value": "0.1",
                 "space": "lch"
               }
             }
