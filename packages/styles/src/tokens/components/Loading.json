@@ -1,7 +1,7 @@
 {
   "kds": {
     "color": {
-      "LoadingSpinner": {
+      "Loading": {
         "progress": {
           "onFilled": {
             "$extensions": {
@@ -14,11 +14,13 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.text-and-icon.primary-inverted}"
+            "$value": "{kds.color.text-and-icon.primary-inverted}",
+            "$description": "LoadingSpinner"
           },
           "onTransparent": {
             "$type": "color",
-            "$value": "{kds.color.text-and-icon.neutral}"
+            "$value": "{kds.color.text-and-icon.neutral}",
+            "$description": "LoadingSpinner"
           }
         },
         "track": {
@@ -33,7 +35,8 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.text-and-icon.primary-inverted}"
+            "$value": "{kds.color.text-and-icon.primary-inverted}",
+            "$description": "LoadingSpinner"
           },
           "onTransparent": {
             "$extensions": {
@@ -46,7 +49,15 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.text-and-icon.neutral}"
+            "$value": "{kds.color.text-and-icon.neutral}",
+            "$description": "LoadingSpinner"
+          }
+        },
+        "skeleton": {
+          "default": {
+            "$type": "color",
+            "$value": "{kds.color.skeleton.default}",
+            "$description": "skeleton animation"
           }
         }
       }

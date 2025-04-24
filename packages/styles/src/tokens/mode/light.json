@@ -728,7 +728,8 @@
             }
           },
           "$type": "color",
-          "$value": "{kds.core.color.neutral.800}"
+          "$value": "{kds.core.color.neutral.800}",
+          "$description": "Dimmed overlay"
         }
       },
       "nodes-and-variables": {
@@ -736,6 +737,13 @@
           "$type": "color",
           "$value": "#FF4B4B",
           "$description": "Flow Variables"
+        }
+      },
+      "skeleton": {
+        "default": {
+          "$type": "color",
+          "$value": "linear-gradient(90deg, #1A1A1A05 0%, #1A1A1A25 25%, #1A1A1A05 65%, #1A1A1A00 100%)",
+          "$description": "skeleton animation"
         }
       }
     }

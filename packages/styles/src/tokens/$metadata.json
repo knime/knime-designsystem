@@ -2,7 +2,7 @@
   "tokenSetOrder": [
     "components/DesktopHeader",
     "components/Input",
-    "components/LoadingSpinner",
+    "components/Loading",
     "core/color",
     "core/dimension",
     "core/font",
