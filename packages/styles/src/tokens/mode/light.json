@@ -213,6 +213,15 @@
         },
         "danger": {
           "initial": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.4",
+                  "space": "lch"
+                }
+              }
+            },
             "$type": "color",
             "$value": "{kds.core.color.red.100}"
           },
@@ -277,6 +286,15 @@
         },
         "warning": {
           "initial": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.4",
+                  "space": "lch"
+                }
+              }
+            },
             "$type": "color",
             "$value": "{kds.core.color.orange.50}"
           },
@@ -341,6 +359,15 @@
         },
         "success": {
           "initial": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.4",
+                  "space": "lch"
+                }
+              }
+            },
             "$type": "color",
             "$value": "{kds.core.color.green.50}"
           },
@@ -405,6 +432,15 @@
         },
         "info": {
           "initial": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.4",
+                  "space": "lch"
+                }
+              }
+            },
             "$type": "color",
             "$value": "{kds.core.color.blue.100}"
           },
@@ -580,7 +616,7 @@
         },
         "warning": {
           "$type": "color",
-          "$value": "{kds.core.color.orange.550}"
+          "$value": "{kds.core.color.orange.650}"
         },
         "warning-inverted": {
           "$type": "color",
@@ -588,7 +624,7 @@
         },
         "danger": {
           "$type": "color",
-          "$value": "{kds.core.color.red.550}"
+          "$value": "{kds.core.color.red.650}"
         },
         "danger-inverted": {
           "$type": "color",
@@ -674,7 +710,7 @@
         },
         "warning-bold": {
           "$type": "color",
-          "$value": "{kds.core.color.orange.550}"
+          "$value": "{kds.core.color.orange.650}"
         },
         "warning": {
           "$type": "color",
@@ -682,7 +718,7 @@
         },
         "danger-bold": {
           "$type": "color",
-          "$value": "{kds.core.color.red.550}"
+          "$value": "{kds.core.color.red.650}"
         },
         "danger": {
           "$type": "color",
