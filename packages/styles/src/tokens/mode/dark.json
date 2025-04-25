@@ -328,7 +328,7 @@
         "warning-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.orange.475}"
+            "$value": "{kds.core.color.orange.650}"
           },
           "hover": {
             "$extensions": {
@@ -474,7 +474,7 @@
         "info-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.blue.400}"
+            "$value": "{kds.core.color.blue.650}"
           },
           "hover": {
             "$extensions": {
@@ -628,7 +628,7 @@
         },
         "danger-inverted": {
           "$type": "color",
-          "$value": "{kds.core.color.red.100}"
+          "$value": "{kds.core.color.red.50}"
         },
         "success": {
           "$type": "color",
@@ -636,7 +636,7 @@
         },
         "success-inverted": {
           "$type": "color",
-          "$value": "{kds.core.color.green.100}"
+          "$value": "{kds.core.color.green.50}"
         },
         "disabled": {
           "$type": "color",
