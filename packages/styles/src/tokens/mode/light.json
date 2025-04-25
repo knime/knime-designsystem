@@ -230,7 +230,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "darken",
-                  "value": "0.08",
+                  "value": "0.04",
                   "space": "lch"
                 }
               }
@@ -243,7 +243,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "darken",
-                  "value": "0.16",
+                  "value": "0.08",
                   "space": "lch"
                 }
               }
@@ -303,7 +303,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "darken",
-                  "value": "0.08",
+                  "value": "0.04",
                   "space": "lch"
                 }
               }
@@ -316,7 +316,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "darken",
-                  "value": "0.16",
+                  "value": "0.08",
                   "space": "lch"
                 }
               }
@@ -376,7 +376,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "darken",
-                  "value": "0.08",
+                  "value": "0.04",
                   "space": "lch"
                 }
               }
@@ -389,7 +389,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "darken",
-                  "value": "0.16",
+                  "value": "0.08",
                   "space": "lch"
                 }
               }
@@ -449,7 +449,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "darken",
-                  "value": "0.08",
+                  "value": "0.04",
                   "space": "lch"
                 }
               }
@@ -462,7 +462,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "darken",
-                  "value": "0.16",
+                  "value": "0.08",
                   "space": "lch"
                 }
               }
