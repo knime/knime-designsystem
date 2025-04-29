@@ -172,6 +172,42 @@
             "width": "{kds.core.dimension.6}",
             "style": "soild"
           }
+        },
+        "danger": {
+          "$type": "border",
+          "$value": {
+            "color": "{kds.color.border.danger}",
+            "width": "{kds.core.dimension.6}",
+            "style": "soild"
+          },
+          "$description": "Messages"
+        },
+        "warning": {
+          "$type": "border",
+          "$value": {
+            "color": "{kds.color.border.warning}",
+            "width": "{kds.core.dimension.6}",
+            "style": "soild"
+          },
+          "$description": "Messages"
+        },
+        "success": {
+          "$type": "border",
+          "$value": {
+            "color": "{kds.color.border.success}",
+            "width": "{kds.core.dimension.6}",
+            "style": "soild"
+          },
+          "$description": "Messages"
+        },
+        "info": {
+          "$type": "border",
+          "$value": {
+            "color": "{kds.color.border.info}",
+            "width": "{kds.core.dimension.6}",
+            "style": "soild"
+          },
+          "$description": "Messages"
         }
       }
     }

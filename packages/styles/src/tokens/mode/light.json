@@ -733,6 +733,14 @@
           "$type": "color",
           "$value": "{kds.core.color.green.175}"
         },
+        "info-bold": {
+          "$type": "color",
+          "$value": "{kds.core.color.blue.650}"
+        },
+        "info": {
+          "$type": "color",
+          "$value": "{kds.core.color.blue.175}"
+        },
         "disabled": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.250}"

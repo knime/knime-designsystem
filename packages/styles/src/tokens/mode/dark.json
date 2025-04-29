@@ -223,7 +223,7 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.core.color.red.725}",
+            "$value": "{kds.core.color.red.800}",
             "$description": "Error in Checkbox/Radiobutton, Inline Message Background"
           },
           "hover": {
@@ -231,7 +231,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "0.08",
+                  "value": "0.04",
                   "space": "lch"
                 }
               }
@@ -297,14 +297,14 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.core.color.orange.725}"
+            "$value": "{kds.core.color.orange.800}"
           },
           "hover": {
             "$extensions": {
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "0.08",
+                  "value": "0.04",
                   "space": "lch"
                 }
               }
@@ -370,14 +370,14 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.core.color.green.725}"
+            "$value": "{kds.core.color.green.800}"
           },
           "hover": {
             "$extensions": {
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "0.08",
+                  "value": "0.04",
                   "space": "lch"
                 }
               }
@@ -450,7 +450,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "0.08",
+                  "value": "0.04",
                   "space": "lch"
                 }
               }
@@ -711,11 +711,11 @@
         },
         "warning-bold": {
           "$type": "color",
-          "$value": "{kds.core.color.orange.250}"
+          "$value": "{kds.core.color.orange.100}"
         },
         "warning": {
           "$type": "color",
-          "$value": "{kds.core.color.orange.175}"
+          "$value": "{kds.core.color.orange.650}"
         },
         "danger-bold": {
           "$type": "color",
@@ -723,15 +723,23 @@
         },
         "danger": {
           "$type": "color",
-          "$value": "{kds.core.color.red.475}"
+          "$value": "{kds.core.color.red.650}"
         },
         "success-bold": {
           "$type": "color",
-          "$value": "{kds.core.color.green.650}"
+          "$value": "{kds.core.color.green.175}"
         },
         "success": {
           "$type": "color",
-          "$value": "{kds.core.color.green.175}"
+          "$value": "{kds.core.color.green.650}"
+        },
+        "info-bold": {
+          "$type": "color",
+          "$value": "{kds.core.color.blue.175}"
+        },
+        "info": {
+          "$type": "color",
+          "$value": "{kds.core.color.blue.650}"
         },
         "disabled": {
           "$type": "color",
