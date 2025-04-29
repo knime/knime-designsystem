@@ -731,7 +731,7 @@
         },
         "success": {
           "$type": "color",
-          "$value": "{kds.core.color.green.800}"
+          "$value": "{kds.core.color.green.725}"
         },
         "info-bold": {
           "$type": "color",
@@ -739,7 +739,7 @@
         },
         "info": {
           "$type": "color",
-          "$value": "{kds.core.color.blue.650}"
+          "$value": "{kds.core.color.blue.725}"
         },
         "disabled": {
           "$type": "color",
