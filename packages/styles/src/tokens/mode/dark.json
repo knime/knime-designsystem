@@ -715,7 +715,7 @@
         },
         "warning": {
           "$type": "color",
-          "$value": "{kds.core.color.orange.650}"
+          "$value": "{kds.core.color.orange.800}"
         },
         "danger-bold": {
           "$type": "color",
@@ -723,7 +723,7 @@
         },
         "danger": {
           "$type": "color",
-          "$value": "{kds.core.color.red.650}"
+          "$value": "{kds.core.color.red.800}"
         },
         "success-bold": {
           "$type": "color",
@@ -731,7 +731,7 @@
         },
         "success": {
           "$type": "color",
-          "$value": "{kds.core.color.green.650}"
+          "$value": "{kds.core.color.green.800}"
         },
         "info-bold": {
           "$type": "color",
