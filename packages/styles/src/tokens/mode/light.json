@@ -217,7 +217,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "0.4",
+                  "value": "0.6",
                   "space": "lch"
                 }
               }
@@ -291,7 +291,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "0.4",
+                  "value": "0.6",
                   "space": "lch"
                 }
               }
@@ -364,7 +364,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "0.4",
+                  "value": "0.6",
                   "space": "lch"
                 }
               }
@@ -437,7 +437,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "0.4",
+                  "value": "0.6",
                   "space": "lch"
                 }
               }
