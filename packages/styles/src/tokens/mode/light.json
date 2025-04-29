@@ -223,7 +223,8 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.core.color.red.100}"
+            "$value": "{kds.core.color.red.100}",
+            "$description": "Error in Checkbox/Radiobutton, Inline Message Background"
           },
           "hover": {
             "$extensions": {
