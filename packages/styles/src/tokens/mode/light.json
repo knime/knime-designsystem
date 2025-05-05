@@ -845,7 +845,7 @@
             "color": "{kds.color.elevation.top}",
             "type": "dropShadow"
           },
-          "$description": "Not used right now!"
+          "$description": "Animate elevation changes from level 0 to a higher level when an element is highlighted to indicate emphasis and interactivity."
         },
         "1": {
           "$type": "boxShadow",
