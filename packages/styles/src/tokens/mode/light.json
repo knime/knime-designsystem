@@ -220,33 +220,15 @@
         "danger-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.red.550}"
+            "$value": "{kds.core.color.red.650}"
           },
           "hover": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "darken",
-                  "value": "0.16",
-                  "space": "lch"
-                }
-              }
-            },
             "$type": "color",
-            "$value": "{kds.color.background.danger-bold.initial}"
+            "$value": "{kds.core.color.red.725}"
           },
           "active": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "darken",
-                  "value": "0.36",
-                  "space": "lch"
-                }
-              }
-            },
             "$type": "color",
-            "$value": "{kds.color.background.danger-bold.initial}"
+            "$value": "{kds.core.color.red.800}"
           }
         },
         "warning": {
