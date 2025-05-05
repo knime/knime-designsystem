@@ -182,33 +182,15 @@
         "selected-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.teal.550}"
+            "$value": "{kds.core.color.teal.650}"
           },
           "hover": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "lighten",
-                  "value": "0.16",
-                  "space": "lch"
-                }
-              }
-            },
             "$type": "color",
-            "$value": "{kds.color.background.selected-bold.initial}"
+            "$value": "{kds.core.color.teal.550}"
           },
           "active": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "lighten",
-                  "value": "0.24",
-                  "space": "lch"
-                }
-              }
-            },
             "$type": "color",
-            "$value": "{kds.color.background.selected-bold.initial}"
+            "$value": "{kds.core.color.teal.400}"
           }
         },
         "danger": {
@@ -231,7 +213,39 @@
               "studio.tokens": {
                 "modify": {
                   "type": "alpha",
-                  "value": "0.56",
+                  "value": "0.72",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.core.color.red.650}"
+          },
+          "active": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.72",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.core.color.red.550}"
+          }
+        },
+        "danger-bold": {
+          "initial": {
+            "$type": "color",
+            "$value": "{kds.core.color.red.725}"
+          },
+          "hover": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.8",
                   "space": "lch"
                 }
               }
@@ -244,45 +258,13 @@
               "studio.tokens": {
                 "modify": {
                   "type": "alpha",
-                  "value": "0.80",
+                  "value": "0.8",
                   "space": "lch"
                 }
               }
             },
             "$type": "color",
-            "$value": "{kds.core.color.red.550}"
-          }
-        },
-        "danger-bold": {
-          "initial": {
-            "$type": "color",
-            "$value": "{kds.core.color.red.650}"
-          },
-          "hover": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "lighten",
-                  "value": "0.16",
-                  "space": "lch"
-                }
-              }
-            },
-            "$type": "color",
-            "$value": "{kds.color.background.danger-bold.initial}"
-          },
-          "active": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "lighten",
-                  "value": "0.24",
-                  "space": "lch"
-                }
-              }
-            },
-            "$type": "color",
-            "$value": "{kds.color.background.danger-bold.initial}"
+            "$value": "{kds.core.color.red.475}"
           }
         },
         "warning": {
@@ -613,7 +595,7 @@
         },
         "selected-inverted": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.550}"
+          "$value": "{kds.core.color.teal.25}"
         },
         "warning": {
           "$type": "color",
@@ -629,7 +611,7 @@
         },
         "danger-inverted": {
           "$type": "color",
-          "$value": "{kds.core.color.red.175}"
+          "$value": "{kds.core.color.red.100}"
         },
         "success": {
           "$type": "color",
