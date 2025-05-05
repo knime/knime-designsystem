@@ -168,7 +168,7 @@
         "selected": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.teal.25}"
+            "$value": "{kds.core.color.teal.50}"
           },
           "hover": {
             "$type": "color",
@@ -182,33 +182,15 @@
         "selected-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.teal.175}"
+            "$value": "{kds.core.color.teal.50}"
           },
           "hover": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "darken",
-                  "value": "0.16",
-                  "space": "lch"
-                }
-              }
-            },
             "$type": "color",
-            "$value": "{kds.color.background.selected-bold.initial}"
+            "$value": "{kds.core.color.teal.650}"
           },
           "active": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "darken",
-                  "value": "0.36",
-                  "space": "lch"
-                }
-              }
-            },
             "$type": "color",
-            "$value": "{kds.color.background.selected-bold.initial}"
+            "$value": "{kds.core.color.teal.725}"
           }
         },
         "danger": {
@@ -227,30 +209,12 @@
             "$description": "Error in Checkbox/Radiobutton, Inline Message Background"
           },
           "hover": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "darken",
-                  "value": "0.04",
-                  "space": "lch"
-                }
-              }
-            },
             "$type": "color",
-            "$value": "{kds.color.background.danger.initial}"
+            "$value": "{kds.core.color.red.175}"
           },
           "active": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "darken",
-                  "value": "0.08",
-                  "space": "lch"
-                }
-              }
-            },
             "$type": "color",
-            "$value": "{kds.color.background.danger.initial}"
+            "$value": "{kds.core.color.red.250}"
           }
         },
         "danger-bold": {
@@ -609,11 +573,11 @@
         },
         "selected": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.550}"
+          "$value": "{kds.core.color.teal.650}"
         },
         "selected-inverted": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.50}"
+          "$value": "{kds.core.color.teal.25}"
         },
         "warning": {
           "$type": "color",
@@ -707,7 +671,7 @@
         },
         "selected": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.25}"
+          "$value": "{kds.core.color.teal.400}"
         },
         "warning-bold": {
           "$type": "color",
