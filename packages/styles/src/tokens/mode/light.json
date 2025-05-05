@@ -844,7 +844,8 @@
             "spread": "{kds.core.dimension.0}",
             "color": "{kds.color.elevation.top}",
             "type": "dropShadow"
-          }
+          },
+          "$description": "Not used right now!"
         },
         "1": {
           "$type": "boxShadow",
@@ -873,7 +874,8 @@
               "color": "{kds.color.elevation.bottom}",
               "type": "dropShadow"
             }
-          ]
+          ],
+          "$description": "For cards, tiles, and containers that slightly stand out from the background but are not interactive by default. Examples are: Cards, tiles or containers."
         },
         "2": {
           "$type": "boxShadow",
@@ -902,7 +904,8 @@
               "color": "{kds.color.elevation.bottom}",
               "type": "dropShadow"
             }
-          ]
+          ],
+          "$description": "Not used right now!\n"
         },
         "3": {
           "$type": "boxShadow",
@@ -931,7 +934,8 @@
               "color": "{kds.color.elevation.bottom}",
               "type": "dropShadow"
             }
-          ]
+          ],
+          "$description": "Used for elements that float above content but don’t obscure the full context. Examples are: tooltips, menus or toasts."
         },
         "4": {
           "$type": "boxShadow",
@@ -960,7 +964,8 @@
               "color": "{kds.color.elevation.bottom}",
               "type": "dropShadow"
             }
-          ]
+          ],
+          "$description": "Not used right now!"
         },
         "5": {
           "$type": "boxShadow",
@@ -989,7 +994,8 @@
               "color": "{kds.color.elevation.bottom}",
               "type": "dropShadow"
             }
-          ]
+          ],
+          "$description": "Not used right now!"
         }
       }
     }
