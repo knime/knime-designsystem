@@ -144,7 +144,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "alpha",
-                  "value": "0.24",
+                  "value": "0.32",
                   "space": "lch"
                 }
               }
@@ -230,27 +230,27 @@
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "lighten",
-                  "value": "0.04",
+                  "type": "alpha",
+                  "value": "0.56",
                   "space": "lch"
                 }
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.danger.initial}"
+            "$value": "{kds.core.color.red.550}"
           },
           "active": {
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "lighten",
-                  "value": "0.12",
+                  "type": "alpha",
+                  "value": "0.80",
                   "space": "lch"
                 }
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.danger.initial}"
+            "$value": "{kds.core.color.red.550}"
           }
         },
         "danger-bold": {
@@ -629,7 +629,7 @@
         },
         "danger-inverted": {
           "$type": "color",
-          "$value": "{kds.core.color.red.50}"
+          "$value": "{kds.core.color.red.175}"
         },
         "success": {
           "$type": "color",
