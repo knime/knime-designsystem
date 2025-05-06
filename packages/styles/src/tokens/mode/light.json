@@ -797,39 +797,39 @@
             "studio.tokens": {
               "modify": {
                 "type": "alpha",
-                "value": "0.90",
+                "value": "0.30",
                 "space": "lch"
               }
             }
           },
           "$type": "color",
-          "$value": "{kds.core.color.neutral.875}"
+          "$value": "{kds.core.color.neutral.400}"
         },
         "middle": {
           "$extensions": {
             "studio.tokens": {
               "modify": {
                 "type": "alpha",
-                "value": "0.94",
+                "value": "0.14",
                 "space": "lch"
               }
             }
           },
           "$type": "color",
-          "$value": "{kds.core.color.neutral.875}"
+          "$value": "{kds.core.color.neutral.400}"
         },
         "bottom": {
           "$extensions": {
             "studio.tokens": {
               "modify": {
                 "type": "alpha",
-                "value": "0.96",
+                "value": "0.12",
                 "space": "lch"
               }
             }
           },
           "$type": "color",
-          "$value": "{kds.core.color.neutral.875}"
+          "$value": "{kds.core.color.neutral.400}"
         }
       }
     },
