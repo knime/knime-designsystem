@@ -875,7 +875,7 @@
               "type": "dropShadow"
             }
           ],
-          "$description": "For cards, tiles, and containers that slightly stand out from the background but are not interactive by default. Examples are: Cards, tiles or containers."
+          "$description": "For containers that slightly stand out from the background but are not interactive by default. The elements that are placed inside this are extending the current surrounded context and group them inside the container.\n\nExamples are: Cards, tiles, arrays."
         },
         "2": {
           "$type": "boxShadow",
@@ -935,7 +935,7 @@
               "type": "dropShadow"
             }
           ],
-          "$description": "Used for elements that float above content but don’t obscure the full context. Examples are: tooltips, menus or toasts."
+          "$description": "Used for elements that float above content and who are sitting on top of the ui; but don’t obscure the full context.\n\nExamples are: tooltips, menus or toasts."
         },
         "4": {
           "$type": "boxShadow",
