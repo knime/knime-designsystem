@@ -823,7 +823,7 @@
             "studio.tokens": {
               "modify": {
                 "type": "alpha",
-                "value": "0.96",
+                "value": "0.98",
                 "space": "lch"
               }
             }
@@ -875,37 +875,7 @@
               "type": "dropShadow"
             }
           ],
-          "$description": "For containers that slightly stand out from the background but are not interactive by default. The elements that are placed inside this are extending the current surrounded context and group them inside the container.\n\nExamples are: Cards, tiles, arrays."
-        },
-        "2": {
-          "$type": "boxShadow",
-          "$value": [
-            {
-              "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.6}",
-              "blur": "{kds.core.dimension.12}",
-              "spread": "{kds.core.dimension.0}",
-              "color": "{kds.color.elevation.top}",
-              "type": "dropShadow"
-            },
-            {
-              "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.12}",
-              "blur": "{kds.core.dimension.25}",
-              "spread": "{kds.core.dimension.0}",
-              "color": "{kds.color.elevation.middle}",
-              "type": "dropShadow"
-            },
-            {
-              "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.0}",
-              "blur": "{kds.core.dimension.75}",
-              "spread": "{kds.core.dimension.0}",
-              "color": "{kds.color.elevation.bottom}",
-              "type": "dropShadow"
-            }
-          ],
-          "$description": "Not used right now!"
+          "$description": "For containers that slightly stand out from the background but are not interactive by default. The elements that are placed inside this are extending the current surrounded context and group them inside the container.\n\nExamples are: Cards, tiles, arrays.\n\nIf you use the elveation level 1 on a container, you have to change the surface to be one level higher.\n"
         },
         "3": {
           "$type": "boxShadow",
@@ -936,66 +906,6 @@
             }
           ],
           "$description": "Used for elements that float above content and who are sitting on top of the ui; but don’t obscure the full context.\n\nExamples are: tooltips, menus or toasts."
-        },
-        "4": {
-          "$type": "boxShadow",
-          "$value": [
-            {
-              "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.37}",
-              "blur": "{kds.core.dimension.37}",
-              "spread": "{kds.core.dimension.0}",
-              "color": "{kds.color.elevation.top}",
-              "type": "dropShadow"
-            },
-            {
-              "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.25}",
-              "blur": "{kds.core.dimension.100}",
-              "spread": "{kds.core.dimension.0}",
-              "color": "{kds.color.elevation.middle}",
-              "type": "dropShadow"
-            },
-            {
-              "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.6}",
-              "blur": "{kds.core.dimension.150}",
-              "spread": "{kds.core.dimension.0}",
-              "color": "{kds.color.elevation.bottom}",
-              "type": "dropShadow"
-            }
-          ],
-          "$description": "Not used right now!"
-        },
-        "5": {
-          "$type": "boxShadow",
-          "$value": [
-            {
-              "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.50}",
-              "blur": "{kds.core.dimension.50}",
-              "spread": "{kds.core.dimension.0}",
-              "color": "{kds.color.elevation.top}",
-              "type": "dropShadow"
-            },
-            {
-              "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.75}",
-              "blur": "{kds.core.dimension.125}",
-              "spread": "{kds.core.dimension.0}",
-              "color": "{kds.color.elevation.middle}",
-              "type": "dropShadow"
-            },
-            {
-              "x": "{kds.core.dimension.0}",
-              "y": "{kds.core.dimension.37}",
-              "blur": "{kds.core.dimension.150}",
-              "spread": "{kds.core.dimension.0}",
-              "color": "{kds.color.elevation.bottom}",
-              "type": "dropShadow"
-            }
-          ],
-          "$description": "Not used right now!"
         }
       }
     }
