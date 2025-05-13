@@ -857,7 +857,8 @@
             }
           },
           "$type": "color",
-          "$value": "{kds.core.color.neutral.875}"
+          "$value": "{kds.core.color.neutral.875}",
+          "$description": "Light shadow layer color for the top elevation (neutral 875 at 90% opacity).\n"
         },
         "middle": {
           "$extensions": {
@@ -870,7 +871,8 @@
             }
           },
           "$type": "color",
-          "$value": "{kds.core.color.neutral.875}"
+          "$value": "{kds.core.color.neutral.875}",
+          "$description": "Medium shadow layer color for mid-level elevation (neutral 875 at 94% opacity).\n"
         },
         "bottom": {
           "$extensions": {
@@ -883,7 +885,8 @@
             }
           },
           "$type": "color",
-          "$value": "{kds.core.color.neutral.875}"
+          "$value": "{kds.core.color.neutral.875}",
+          "$description": "Dark shadow layer color for bottom elevation (neutral 875 at 98% opacity).\n"
         }
       }
     },
@@ -899,7 +902,7 @@
             "color": "{kds.color.elevation.top}",
             "type": "dropShadow"
           },
-          "$description": "Animate elevation changes from level 0 to a higher level when an element is highlighted to indicate emphasis and interactivity."
+          "$description": "No elevation (flat, no shadow).\nAnimate elevation changes from level 0 to a higher level when an element is highlighted to indicate emphasis and interactivity."
         },
         "1": {
           "$type": "boxShadow",
@@ -929,7 +932,7 @@
               "type": "dropShadow"
             }
           ],
-          "$description": "For containers that slightly stand out from the background but are not interactive by default. The elements that are placed inside this are extending the current surrounded context and group them inside the container.\n\nExamples are: Cards, tiles, arrays.\n\nIf you use the elevation level 1 on a container, you have to change the surface to be one level higher.\n"
+          "$description": "low elevation shadow for slightly raised elements (e.g., cards).\n\nFor containers that slightly stand out from the background but are not interactive by default. The elements that are placed inside this are extending the current surrounded context and group them inside the container.\n\nExamples are: Cards, tiles, arrays.\n\nIf you use the elevation level 1 on a container, you have to change the surface to be one level higher.\n"
         },
         "3": {
           "$type": "boxShadow",
@@ -959,7 +962,7 @@
               "type": "dropShadow"
             }
           ],
-          "$description": "Used for elements that float above content and who are sitting on top of the ui; but don’t obscure the full context.\n\nExamples are: tooltips, menus or toasts.\n\nIf you use the elevation level 3, you have to reset the surface level to page."
+          "$description": "High elevation shadow for elements floating above content (e.g., modals, tooltips).\n\nUsed for elements that float above content and who are sitting on top of the ui; but don’t obscure the full context.\n\nExamples are: tooltips, menus or toasts.\n\nIf you use the elevation level 3, you have to reset the surface level to page."
         }
       }
     }
