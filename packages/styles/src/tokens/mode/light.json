@@ -19,7 +19,8 @@
         "page": {
           "default": {
             "$type": "color",
-            "$value": "{kds.core.color.neutral.25}"
+            "$value": "{kds.core.color.neutral.25}",
+            "$description": "The base background for the entire app, on which all other surfaces sit on. \nThe lightest background color in the light theme.\n"
           }
         },
         "neutral": {
