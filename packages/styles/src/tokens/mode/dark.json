@@ -563,7 +563,8 @@
         "input": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.neutral.475}"
+            "$value": "{kds.core.color.neutral.475}",
+            "$description": "Default input field background in dark mode\n"
           },
           "hover": {
             "$extensions": {
@@ -576,7 +577,8 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.input.initial}"
+            "$value": "{kds.color.background.input.initial}",
+            "$description": "Slightly lighter input background on hover (lightened 12%).\n"
           },
           "active": {
             "$extensions": {
@@ -589,7 +591,8 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.input.initial}"
+            "$value": "{kds.color.background.input.initial}",
+            "$description": "Further lightened input background on focus/active (lightened 24%).\n"
           }
         },
         "disabled": {
@@ -604,72 +607,86 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.core.color.neutral.325}"
+            "$value": "{kds.core.color.neutral.325}",
+            "$description": "Semi-transparent neutral overlay for disabled component backgrounds (neutral 325 at 48% opacity).\n"
           }
         }
       },
       "text-and-icon": {
         "neutral": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.100}"
+          "$value": "{kds.core.color.neutral.100}",
+          "$description": "Default text and icon color for dark surfaces.\n"
         },
         "muted": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.250}"
+          "$value": "{kds.core.color.neutral.250}",
+          "$description": "Muted text color for secondary content\n"
         },
         "neutral-inverted": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.650}"
+          "$value": "{kds.core.color.neutral.650}",
+          "$description": "Dark neutral text color for use on light surfaces\n"
         },
         "primary": {
           "$type": "color",
           "$value": "{kds.core.color.teal.650}",
-          "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
+          "$description": "Teal accent color for text and icons, for use on primary content on light surfaces"
         },
         "primary-inverted": {
           "$type": "color",
           "$value": "{kds.core.color.teal.50}",
-          "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
+          "$description": "Light teal color for text and icons, for use on primary content on dark surfaces"
         },
         "selected": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.175}"
+          "$value": "{kds.core.color.teal.175}",
+          "$description": "Subtle teal color for text or icons indicating selection to be used on darker surfaces"
         },
         "selected-inverted": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.25}"
+          "$value": "{kds.core.color.teal.25}",
+          "$description": "Very light teal color for text or icons indicating selection to be used on dark surfaces"
         },
         "warning": {
           "$type": "color",
-          "$value": "{kds.core.color.orange.250}"
+          "$value": "{kds.core.color.orange.250}",
+          "$description": "Orange color for warning text and icons, to be used on darker surfaces (e.g warning backgrounds)\n"
         },
         "warning-inverted": {
           "$type": "color",
-          "$value": "{kds.core.color.orange.100}"
+          "$value": "{kds.core.color.orange.100}",
+          "$description": "Pale orange color for warning text and icons, to be used on darker surfaces (e.g warning backgrounds)\n"
         },
         "danger": {
           "$type": "color",
-          "$value": "{kds.core.color.red.250}"
+          "$value": "{kds.core.color.red.250}",
+          "$description": "Red color for danger text and icons, to be used on darker surfaces (e.g danger backgrounds)\n"
         },
         "danger-inverted": {
           "$type": "color",
-          "$value": "{kds.core.color.red.100}"
+          "$value": "{kds.core.color.red.100}",
+          "$description": "Pale red color for danger text and icons, to be used on darker surfaces (e.g danger backgrounds)\n"
         },
         "success": {
           "$type": "color",
-          "$value": "{kds.core.color.green.250}"
+          "$value": "{kds.core.color.green.250}",
+          "$description": "Green color for success text and icons, to be used on darker surfaces (e.g success backgrounds)\n"
         },
         "success-inverted": {
           "$type": "color",
-          "$value": "{kds.core.color.green.50}"
+          "$value": "{kds.core.color.green.50}",
+          "$description": "Pale green color for success text and icons, to be used on darker surfaces (e.g success backgrounds)\n"
         },
         "disabled": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.325}"
+          "$value": "{kds.core.color.neutral.325}",
+          "$description": "Dimmed neutral color for disabled text and icons\n"
         },
         "info": {
           "$type": "color",
-          "$value": "{kds.core.color.blue.250}"
+          "$value": "{kds.core.color.blue.250}",
+          "$description": "Blue color for informational text and icons"
         }
       },
       "border": {
