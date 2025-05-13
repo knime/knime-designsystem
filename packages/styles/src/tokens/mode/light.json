@@ -4,15 +4,18 @@
       "surface": {
         "default": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.50}"
+          "$value": "{kds.core.color.neutral.50}",
+          "$description": "The main surface background, providing a neutral base layer. One level above page in the token hierarchy, serving as the primary container surface in the light theme.\n"
         },
         "muted": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.100}"
+          "$value": "{kds.core.color.neutral.100}",
+          "$description": "A muted (slightly darker) background for secondary sections or nested containers, offering subtle separation without heavy contrast.  (one layer above surface.default in the token hierarchy, adding an extra level of depth.)"
         },
         "subtle": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.175}"
+          "$value": "{kds.core.color.neutral.175}",
+          "$description": "The darkest surface layer for overlays and inline highlights, helping those elements stand out softly above other surfaces.\n(the highest surface token in the hierarchy, often a semi-transparent or lighter variant for overlay elements.)"
         }
       },
       "background": {
@@ -20,13 +23,14 @@
           "default": {
             "$type": "color",
             "$value": "{kds.core.color.neutral.25}",
-            "$description": "The base background for the entire app, on which all other surfaces sit on. \nThe lightest background color in the light theme.\n"
+            "$description": "The base background for the entire app, on which all other surfaces sit. The lightest background color in the light theme.\n"
           }
         },
         "neutral": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.transparent}"
+            "$value": "{kds.core.color.transparent}",
+            "$description": "Transparent background for neutral elements by default {neutral.800} with 0% alpha.\n"
           },
           "hover": {
             "$extensions": {
@@ -39,7 +43,8 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.core.color.neutral.325}"
+            "$value": "{kds.core.color.neutral.325}",
+            "$description": "Subtle neutral overlay on hover to highlight an element (e.g. ListItem). {neutral.325} at 16% alpha.\n"
           },
           "active": {
             "$extensions": {
@@ -52,7 +57,8 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.core.color.neutral.325}"
+            "$value": "{kds.core.color.neutral.325}",
+            "$description": "Stronger neutral overlay for active state feedback. {neutral.325} at 32% alpha.\n"
           }
         },
         "neutral-bold": {
@@ -67,7 +73,8 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.core.color.neutral.250}"
+            "$value": "{kds.core.color.neutral.250}",
+            "$description": "Solid neutral background for the default state of neutral components (neutral 250).\n"
           },
           "hover": {
             "$extensions": {
@@ -80,7 +87,8 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.neutral-bold.initial}"
+            "$value": "{kds.color.background.neutral-bold.initial}",
+            "$description": "Darker neutral background on hover to indicate interaction (darkened 12%).\n"
           },
           "active": {
             "$extensions": {
@@ -93,14 +101,15 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.neutral-bold.initial}"
+            "$value": "{kds.color.background.neutral-bold.initial}",
+            "$description": "Darkest neutral background in the pressed state for clear feedback (darkened 16%).\n"
           }
         },
         "primary": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.teal.100}",
-            "$description": "Primary color to ber used for main CTAs and promotional content, e.g. badges."
+            "$description": "Light-teal background for primary actions or highlights.\n"
           },
           "hover": {
             "$extensions": {
@@ -114,7 +123,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.primary.initial}",
-            "$description": "Primary hover color to ber used for main CTAs and promotional content, e.g. badges."
+            "$description": "Slightly darker teal on hover to draw attention (darkened 8%).\n"
           },
           "active": {
             "$extensions": {
@@ -128,14 +137,14 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.primary.initial}",
-            "$description": "Primary color to ber used for main CTAs and promotional content, e.g. badges."
+            "$description": "Much darker teal on press to clearly indicate activation (darkened 16%).\n"
           }
         },
         "primary-bold": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.teal.650}",
-            "$description": "Primary color to ber used for main CTAs and promotional content, e.g. badges."
+            "$description": "Deep teal background for prominent primary elements e.g buttons\n"
           },
           "hover": {
             "$extensions": {
@@ -149,7 +158,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.primary-bold.initial}",
-            "$description": "Primary hover color to ber used for main CTAs and promotional content, e.g. badges."
+            "$description": "Darker teal on hover for primary elements e.g buttons (darkened 16%).\n"
           },
           "active": {
             "$extensions": {
@@ -163,35 +172,41 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.primary-bold.initial}",
-            "$description": "Primary color to ber used for main CTAs and promotional content, e.g. badges."
+            "$description": "Significantly darker teal on press for primary elements e.g buttons (darkened 36%).\n"
           }
         },
         "selected": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.teal.50}"
+            "$value": "{kds.core.color.teal.50}",
+            "$description": "Light-teal highlight for selected items\n"
           },
           "hover": {
             "$type": "color",
-            "$value": "{kds.core.color.teal.100}"
+            "$value": "{kds.core.color.teal.100}",
+            "$description": "Darker teal overlay on hover of a selected item\n"
           },
           "active": {
             "$type": "color",
-            "$value": "{kds.core.color.teal.175}"
+            "$value": "{kds.core.color.teal.175}",
+            "$description": "Darkest teal overlay when a selected item is pressed\n"
           }
         },
         "selected-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.teal.550}"
+            "$value": "{kds.core.color.teal.550}",
+            "$description": "Solid mid-teal background indicating selection\n"
           },
           "hover": {
             "$type": "color",
-            "$value": "{kds.core.color.teal.650}"
+            "$value": "{kds.core.color.teal.650}",
+            "$description": "Darker teal background on hover of a selected element\n"
           },
           "active": {
             "$type": "color",
-            "$value": "{kds.core.color.teal.725}"
+            "$value": "{kds.core.color.teal.725}",
+            "$description": "Darkest teal background on press of a selected element\n"
           }
         },
         "danger": {
@@ -207,29 +222,34 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.red.100}",
-            "$description": "Error in Checkbox/Radiobutton, Inline Message Background"
+            "$description": "Very light red background for error or destructive states (red 100, lightened 60%).\n"
           },
           "hover": {
             "$type": "color",
-            "$value": "{kds.core.color.red.175}"
+            "$value": "{kds.core.color.red.175}",
+            "$description": "Deeper red overlay on hover for destructive elements\n"
           },
           "active": {
             "$type": "color",
-            "$value": "{kds.core.color.red.250}"
+            "$value": "{kds.core.color.red.250}",
+            "$description": "Darkest red overlay on press for destructive elements\n"
           }
         },
         "danger-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.red.650}"
+            "$value": "{kds.core.color.red.650}",
+            "$description": "Bright red background for error call-outs or destructive buttons\n"
           },
           "hover": {
             "$type": "color",
-            "$value": "{kds.core.color.red.725}"
+            "$value": "{kds.core.color.red.725}",
+            "$description": "Deeper red background on hover\n"
           },
           "active": {
             "$type": "color",
-            "$value": "{kds.core.color.red.800}"
+            "$value": "{kds.core.color.red.800}",
+            "$description": "Darkest red background on press\n"
           }
         },
         "warning": {
@@ -244,7 +264,8 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.core.color.orange.50}"
+            "$value": "{kds.core.color.orange.50}",
+            "$description": "Very light orange background for warnings (orange 50, lightened 60%).\n"
           },
           "hover": {
             "$extensions": {
@@ -257,7 +278,8 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.warning.initial}"
+            "$value": "{kds.color.background.warning.initial}",
+            "$description": "Slightly darker orange on hover (darkened 4%).\n"
           },
           "active": {
             "$extensions": {
@@ -270,13 +292,15 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.warning.initial}"
+            "$value": "{kds.color.background.warning.initial}",
+            "$description": "Darker orange on press (darkened 8%).\n"
           }
         },
         "warning-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.orange.550}"
+            "$value": "{kds.core.color.orange.550}",
+            "$description": "Mid-orange background for prominent warnings.\n"
           },
           "hover": {
             "$extensions": {
@@ -289,7 +313,8 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.warning-bold.initial}"
+            "$value": "{kds.color.background.warning-bold.initial}",
+            "$description": "Darker orange on hover (darkened 16%).\n"
           },
           "active": {
             "$extensions": {
@@ -302,7 +327,8 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.warning-bold.initial}"
+            "$value": "{kds.color.background.warning-bold.initial}",
+            "$description": "Darkest orange on press (darkened 36%).\n"
           }
         },
         "success": {
@@ -317,7 +343,8 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.core.color.green.50}"
+            "$value": "{kds.core.color.green.50}",
+            "$description": "Very light green background for success messages (green 50, lightened 60%).\n"
           },
           "hover": {
             "$extensions": {
@@ -330,7 +357,8 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.success.initial}"
+            "$value": "{kds.color.background.success.initial}",
+            "$description": "Slightly darker green on hover (darkened 4%).\n"
           },
           "active": {
             "$extensions": {
@@ -343,13 +371,15 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.success.initial}"
+            "$value": "{kds.color.background.success.initial}",
+            "$description": "Darker green on press (darkened 8%).\n"
           }
         },
         "success-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.green.550}"
+            "$value": "{kds.core.color.green.550}",
+            "$description": "Mid-green background for positive confirmations\n"
           },
           "hover": {
             "$extensions": {
@@ -362,7 +392,8 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.success-bold.initial}"
+            "$value": "{kds.color.background.success-bold.initial}",
+            "$description": "Darker green on hover (darkened 16%).\n"
           },
           "active": {
             "$extensions": {
@@ -375,7 +406,8 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.success-bold.initial}"
+            "$value": "{kds.color.background.success-bold.initial}",
+            "$description": "Darkest green on press (darkened 36%).\n"
           }
         },
         "info": {
@@ -390,7 +422,8 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.core.color.blue.100}"
+            "$value": "{kds.core.color.blue.100}",
+            "$description": "Very light blue background for informational messages (blue 100, lightened 60%).\n"
           },
           "hover": {
             "$extensions": {
@@ -403,7 +436,8 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.info.initial}"
+            "$value": "{kds.color.background.info.initial}",
+            "$description": "Slightly darker blue on hover (darkened 4%).\n"
           },
           "active": {
             "$extensions": {
@@ -416,13 +450,15 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.info.initial}"
+            "$value": "{kds.color.background.info.initial}",
+            "$description": "Darker blue on press (darkened 8%).\n"
           }
         },
         "info-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.blue.550}"
+            "$value": "{kds.core.color.blue.550}",
+            "$description": "Mid-blue background for info highlights\n"
           },
           "hover": {
             "$extensions": {
@@ -435,7 +471,8 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.info-bold.initial}"
+            "$value": "{kds.color.background.info-bold.initial}",
+            "$description": "Darker blue on hover (darkened 16%).\n"
           },
           "active": {
             "$extensions": {
@@ -448,13 +485,15 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.info-bold.initial}"
+            "$value": "{kds.color.background.info-bold.initial}",
+            "$description": "Darkest blue on press (darkened 36%).\n"
           }
         },
         "brand": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.yellow.250}"
+            "$value": "{kds.core.color.yellow.250}",
+            "$description": "Vibrant brand yellow background for branding elements\n"
           },
           "hover": {
             "$extensions": {
@@ -467,7 +506,8 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.brand.initial}"
+            "$value": "{kds.color.background.brand.initial}",
+            "$description": "Darker brand color on hover (darkened 16%).\n"
           },
           "active": {
             "$extensions": {
@@ -480,13 +520,15 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.brand.initial}"
+            "$value": "{kds.color.background.brand.initial}",
+            "$description": "Darkest brand color on press (darkened 36%).\n"
           }
         },
         "input": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.neutral.25}"
+            "$value": "{kds.core.color.neutral.25}",
+            "$description": "Default input field background in light mode\n"
           },
           "hover": {
             "$extensions": {
@@ -499,7 +541,8 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.input.initial}"
+            "$value": "{kds.color.background.input.initial}",
+            "$description": "Slightly darker input background on hover (darkened 4%).\n"
           },
           "active": {
             "$extensions": {
@@ -512,7 +555,8 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.color.background.input.initial}"
+            "$value": "{kds.color.background.input.initial}",
+            "$description": "Darker input background on focus/active (darkened 12%).\n"
           }
         },
         "disabled": {
@@ -527,7 +571,8 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.core.color.neutral.325}"
+            "$value": "{kds.core.color.neutral.325}",
+            "$description": "Semi-transparent neutral overlay for disabled component backgrounds (neutral 325 at 48% opacity).\n"
           }
         }
       },

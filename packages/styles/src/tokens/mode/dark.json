@@ -117,7 +117,7 @@
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.teal.550}",
-            "$description": "Deep teal background for prominent primary buttons\n"
+            "$description": "Deep teal background for prominent primary elements e.g buttons\n"
           },
           "hover": {
             "$extensions": {
