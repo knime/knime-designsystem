@@ -171,7 +171,8 @@
             "color": "{kds.color.border.neutral}",
             "width": "{kds.border-width.base.s}",
             "style": "solid"
-          }
+          },
+          "$description": "1 px neutral divider for most containers and separators.\n"
         },
         "muted": {
           "$type": "border",
@@ -179,7 +180,8 @@
             "color": "{kds.color.border.muted}",
             "width": "{kds.border-width.base.s}",
             "style": "solid"
-          }
+          },
+          "$description": "1px subtler neutral stroke for low-contrast sections and containers.\n"
         },
         "subtle": {
           "$type": "border",
@@ -187,7 +189,8 @@
             "color": "{kds.color.border.subtle}",
             "width": "{kds.border-width.base.s}",
             "style": "solid"
-          }
+          },
+          "$description": "1px hairline neutral stroke (10% opacity). Use for the faintest elements (e.g dividers).\n"
         },
         "brand": {
           "$type": "border",
@@ -195,7 +198,8 @@
             "color": "{kds.color.border.brand}",
             "width": "{kds.core.dimension.6}",
             "style": "soild"
-          }
+          },
+          "$description": "1px brand-yellow bar - decorative accent to be used on branded elements e.g Desktop header.\n"
         },
         "danger": {
           "$type": "border",
@@ -204,7 +208,7 @@
             "width": "{kds.core.dimension.6}",
             "style": "soild"
           },
-          "$description": "Messages"
+          "$description": "1px red outline for critical inline messages and containers.\n"
         },
         "warning": {
           "$type": "border",
@@ -213,7 +217,7 @@
             "width": "{kds.core.dimension.6}",
             "style": "soild"
           },
-          "$description": "Messages"
+          "$description": "1px orange outline for warning inline messages and containers.\n"
         },
         "success": {
           "$type": "border",
@@ -222,7 +226,7 @@
             "width": "{kds.core.dimension.6}",
             "style": "soild"
           },
-          "$description": "Messages"
+          "$description": "1px green outline for success inline messages and containers.\n"
         },
         "info": {
           "$type": "border",
@@ -231,7 +235,7 @@
             "width": "{kds.core.dimension.6}",
             "style": "soild"
           },
-          "$description": "Messages"
+          "$description": "1px blue outline for info inline messages and containers.\n"
         }
       }
     }
