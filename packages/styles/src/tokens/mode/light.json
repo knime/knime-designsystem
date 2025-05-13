@@ -666,7 +666,7 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.875}",
-          "$description": "Primary bordercolor, use Border.Base.Default"
+          "$description": "Default neutral border for components (neutral 875 at 40% opacity).\n\n[Used as reference token only for the Border composite tokens]\n"
         },
         "muted": {
           "$extensions": {
@@ -680,7 +680,7 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.875}",
-          "$description": "Secondary bordercolor, use Border.Base.Muted"
+          "$description": "Muted neutral border for less emphasis (neutral 875 at 20% opacity).\n\n[Used as reference token only for the Border composite tokens]\n"
         },
         "subtle": {
           "$extensions": {
@@ -694,69 +694,82 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.875}",
-          "$description": "Tertiary bordercolor, use Border.Base.Subtle"
+          "$description": "Subtle neutral border for faint dividers (neutral 875 at 10% opacity).\n\n[Used as reference token only for the Border composite tokens]\n"
         },
         "primary-bold": {
           "$type": "color",
           "$value": "{kds.core.color.teal.725}",
-          "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
+          "$description": "Dark-teal border accent for emphasis.\n\n[Used as reference token only for the Border composite tokens]\n"
         },
         "primary": {
           "$type": "color",
           "$value": "{kds.core.color.teal.250}",
-          "$description": "Primary text and icon color to be used on main CTAs and promotional content, e.g. badges."
+          "$description": "Light-teal border accent for emphasis.\n\n[Used as reference token only for the Border composite tokens]\n"
         },
         "selected-bold": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.550}"
+          "$value": "{kds.core.color.teal.550}",
+          "$description": "Strong teal border indicating selection.\n\n[Used as reference token only for the Border composite tokens]\n"
         },
         "selected": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.400}"
+          "$value": "{kds.core.color.teal.400}",
+          "$description": "Faint teal border indicating selection.\n\n[Used as reference token only for the Border composite tokens]\n"
         },
         "warning-bold": {
           "$type": "color",
-          "$value": "{kds.core.color.orange.650}"
+          "$value": "{kds.core.color.orange.650}",
+          "$description": "Orange border for highlighted warnings.\n\n[Used as reference token only for the Border composite tokens]\n"
         },
         "warning": {
           "$type": "color",
-          "$value": "{kds.core.color.orange.175}"
+          "$value": "{kds.core.color.orange.175}",
+          "$description": "Bright orange border for warning elements.\n\n[Used as reference token only for the Border composite tokens]\n"
         },
         "danger-bold": {
           "$type": "color",
-          "$value": "{kds.core.color.red.650}"
+          "$value": "{kds.core.color.red.650}",
+          "$description": "Red border for error elements.\n\n[Used as reference token only for the Border composite tokens]\n"
         },
         "danger": {
           "$type": "color",
-          "$value": "{kds.core.color.red.175}"
+          "$value": "{kds.core.color.red.175}",
+          "$description": "Bright Red border for error elements.\n\n[Used as reference token only for the Border composite tokens]\n"
         },
         "success-bold": {
           "$type": "color",
-          "$value": "{kds.core.color.green.650}"
+          "$value": "{kds.core.color.green.650}",
+          "$description": "Green border for success elements.\n\n[Used as reference token only for the Border composite tokens]\n"
         },
         "success": {
           "$type": "color",
-          "$value": "{kds.core.color.green.175}"
+          "$value": "{kds.core.color.green.175}",
+          "$description": "Bright green border for success elements.\n\n[Used as reference token only for the Border composite tokens]\n"
         },
         "info-bold": {
           "$type": "color",
-          "$value": "{kds.core.color.blue.650}"
+          "$value": "{kds.core.color.blue.650}",
+          "$description": "Blue border for info elements.\n\n[Used as reference token only for the Border composite tokens]\n"
         },
         "info": {
           "$type": "color",
-          "$value": "{kds.core.color.blue.175}"
+          "$value": "{kds.core.color.blue.175}",
+          "$description": "Bright blue border for info elements.\n\n[Used as reference token only for the Border composite tokens]\n"
         },
         "disabled": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.250}"
+          "$value": "{kds.core.color.neutral.250}",
+          "$description": "Neutral gray border for disabled components.\n\n[Used as reference token only for the Border composite tokens]\n"
         },
         "transparent": {
           "$type": "color",
-          "$value": "{kds.core.color.transparent}"
+          "$value": "{kds.core.color.transparent}",
+          "$description": "Fully transparent border for components with invisible borders.\n\n[Used as reference token only for the Border composite tokens]\n"
         },
         "brand": {
           "$type": "color",
-          "$value": "{kds.core.color.yellow.250}"
+          "$value": "{kds.core.color.yellow.250}",
+          "$description": "Yellow border accent for brand-related highlights.\n\n[Used as reference token only for the Border composite tokens]\n"
         }
       },
       "focus": {
