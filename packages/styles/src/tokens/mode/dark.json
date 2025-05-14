@@ -236,7 +236,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.red.650}",
-            "$description": "Semi-transparent ligher red background on hover for error or destructive states. USED IN: Inline Message"
+            "$description": "Semi-transparent ligher background on hover for error or destructive states. USED IN: Inline Message"
           },
           "active": {
             "$extensions": {
@@ -257,7 +257,7 @@
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.red.725}",
-            "$description": "Red background for most prominent error or destructive states. USED IN: Destructive Button"
+            "$description": "Red background for error or destructive states. USED IN: Destructive Button"
           },
           "hover": {
             "$extensions": {
@@ -271,7 +271,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.red.550}",
-            "$description": "Semi-transparent lighter red on hover for background of most prominent error callouts or destructive buttons. USED IN: Destructive Button"
+            "$description": "Semi-transparent lighter red on hover for background of error callouts or destructive buttons. USED IN: Destructive Button"
           },
           "active": {
             "$extensions": {
@@ -285,7 +285,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.red.475}",
-            "$description": "Semi-transparent lightest red on pressed for background of most prominent error callouts or destructive buttons. USED IN: Destructive Button"
+            "$description": "Semi-transparent lighter red on pressed for background of error callouts or destructive buttons. USED IN: Destructive Button"
           }
         },
         "warning": {
@@ -301,7 +301,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.orange.800}",
-            "$description": "Deep orange background for warning states. USED IN: Inline Message"
+            "$description": "Warning background color for warning states. USED IN: Inline Message"
           },
           "hover": {
             "$extensions": {
@@ -315,7 +315,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.warning.initial}",
-            "$description": "Lighter orange on hover for background of warning states. USED IN: Inline Message"
+            "$description": "Slightly lighter orange on hover for warning elements (lightened 4%).\n"
           },
           "active": {
             "$extensions": {
@@ -329,14 +329,14 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.warning.initial}",
-            "$description": "Lighter orange on pressed for background of warning states. USED IN: Inline Message"
+            "$description": "Lightened orange on press for warning elements (lightened 12%).\n"
           }
         },
         "warning-bold": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.orange.650}",
-            "$description": "Bright orange background for warning states. USED IN: Inline Message"
+            "$description": "Bright orange background for prominent warnings.\n"
           },
           "hover": {
             "$extensions": {
@@ -350,7 +350,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.warning-bold.initial}",
-            "$description": "Lighter orange on hover for background of most prominent warning states. USED IN: Inline Message"
+            "$description": "Lighter orange on hover for warning highlights (lightened 16%).\n"
           },
           "active": {
             "$extensions": {
@@ -364,7 +364,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.warning-bold.initial}",
-            "$description": "Lightest orange on pressed for background of most prominent warning states. USED IN: Inline Message"
+            "$description": "Further lightened orange on press for warning highlights (lightened 24%).\n"
           }
         },
         "success": {
