@@ -5,17 +5,17 @@
         "default": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.650}",
-          "$description": "The main surface background, providing a neutral base layer. One layer above page in the token hierarchy, serving as the main container surface color.\n\n"
+          "$description": "Main surface background, one layer above page. Serves as the primary container surface color.\n\nUSED IN: Sidepanels, configuration panel, Node Monitor\n\n"
         },
         "muted": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.550}",
-          "$description": "A muted (less prominent) background for secondary sections or nested containers, offering subtle separation without high contrast. (one layer above surface.default in the token hierarchy, adding an extra level of depth.)\n"
+          "$description": "Muted background, one layer above surface-default. Used for secondary sections or nested containers on main surface. USED IN: Table Column Header, Value Switch bg, Card Array\n"
         },
         "subtle": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.475}",
-          "$description": "The topmost background layer for overlays and inline highlights, helping those elements stand out softly. (the highest surface token in the hierarchy, often a semi-transparent or lighter variant for overlay elements.)\n"
+          "$description": "Topmost background, one layer above surface-muted. USED IN: –"
         }
       },
       "background": {
@@ -23,14 +23,14 @@
           "default": {
             "$type": "color",
             "$value": "{kds.core.color.neutral.725}",
-            "$description": "The base background for the entire app, on which all other surfaces sit on. \nThe darkest background color in the dark theme.\n"
+            "$description": "The base background for the entire app, on which all other surfaces sit on. \nThe darkest background color in the dark theme. USED IN: Workflow Canvas\n"
           }
         },
         "neutral": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.transparent}",
-            "$description": "Transparent background for neutral elements by default. Uses {neutral.800} with 0% alpha."
+            "$description": "Transparent background for clickable or neutral elements. USED IN: Button Transparent, List Item"
           },
           "hover": {
             "$extensions": {
@@ -44,7 +44,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.neutral.175}",
-            "$description": "Subtle neutral overlay on hover to highlight an element.\n(e.g. ListItem). {neutral.175} with 16% alpha applied."
+            "$description": "Hover background for clickable elements. USED IN: Button Transparent, List Item"
           },
           "active": {
             "$extensions": {
@@ -58,31 +58,31 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.neutral.325}",
-            "$description": "Stronger neutral overlay for active state feedback. {neutral.325} with 56% alpha applied."
+            "$description": "Pressed (active) background for clickable elements. USED IN: Button Transparent, List Item"
           }
         },
         "neutral-bold": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.neutral.400}",
-            "$description": "Solid neutral background for the default state of neutral components (neutral 400).\n"
+            "$description": "More prominent background for clickable or neutral elements. USED IN: Badge\n"
           },
           "hover": {
             "$type": "color",
             "$value": "{kds.core.color.neutral.325}",
-            "$description": "Lighter neutral background on hover to indicate interaction.\n"
+            "$description": "Hover background for clickable, more prominent elements.\nUSED IN:"
           },
           "active": {
             "$type": "color",
             "$value": "{kds.core.color.neutral.250}",
-            "$description": "Lightest neutral background in the pressed state for clear feedback\n"
+            "$description": "Hover background for clickable, more prominent elements.\nUSED IN:"
           }
         },
         "primary": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.teal.250}",
-            "$description": "Teal background for primary actions or highlights"
+            "$description": "Teal background for primary actions or highlights. USED IN: Outline Button"
           },
           "hover": {
             "$extensions": {
@@ -96,7 +96,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.primary.initial}",
-            "$description": "Slightly lighter teal background on hover to draw attention (e.g Chip, Link and TabBar-Item). Lightened by 8% in LCH space."
+            "$description": "Hover background for primary actions. USED IN: Outline Button, Link"
           },
           "active": {
             "$extensions": {
