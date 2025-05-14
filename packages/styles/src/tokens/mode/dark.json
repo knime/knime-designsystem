@@ -257,7 +257,7 @@
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.red.725}",
-            "$description": "Red background for most prominent error or destructive states. USED IN: Destructive Button"
+            "$description": "More prominent red background for error or destructive states. USED IN: Destructive Button"
           },
           "hover": {
             "$extensions": {
@@ -329,14 +329,14 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.warning.initial}",
-            "$description": "Lighter orange on pressed for background of warning states. USED IN: Inline Message"
+            "$description": "Lightest orange on pressed for background of warning states. USED IN: Inline Message"
           }
         },
         "warning-bold": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.orange.650}",
-            "$description": "Bright orange background for warning states. USED IN: Inline Message"
+            "$description": "More prominent orange background for warning states. USED IN: "
           },
           "hover": {
             "$extensions": {
@@ -350,7 +350,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.warning-bold.initial}",
-            "$description": "Lighter orange on hover for background of most prominent warning states. USED IN: Inline Message"
+            "$description": "Lighter orange on hover for background of most prominent warning states. USED IN: "
           },
           "active": {
             "$extensions": {
@@ -364,7 +364,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.warning-bold.initial}",
-            "$description": "Lightest orange on pressed for background of most prominent warning states. USED IN: Inline Message"
+            "$description": "Lightest orange on pressed for background of most prominent warning states. USED IN:"
           }
         },
         "success": {
@@ -380,7 +380,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.green.800}",
-            "$description": "Very dark green background for success messages (green 800, darkened 4%).\n"
+            "$description": "Deep green background for success states. USED IN: Inline Message"
           },
           "hover": {
             "$extensions": {
@@ -394,7 +394,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.success.initial}",
-            "$description": "Slightly lighter green on hover for success elements (lightened 4%).\n"
+            "$description": "Lighter green on hover for background of warning states. USED IN: Inline Message"
           },
           "active": {
             "$extensions": {
@@ -408,14 +408,14 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.success.initial}",
-            "$description": "Lightened green on press for success elements (lightened 12%).\n"
+            "$description": "Lightest green on pressed for background of success states. USED IN: Inline Message"
           }
         },
         "success-bold": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.green.650}",
-            "$description": "Bright green background for positive confirmations.\n"
+            "$description": "More prominent green background for success states. USED IN: "
           },
           "hover": {
             "$extensions": {
@@ -429,7 +429,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.success-bold.initial}",
-            "$description": "Lighter green on hover for positive highlights (lightened 16%).\n"
+            "$description": "Lighter green on hover for background of most prominent success states. USED IN: "
           },
           "active": {
             "$extensions": {
@@ -443,7 +443,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.success-bold.initial}",
-            "$description": "Further lightened green on press for positive highlights (lightened 24%).\n"
+            "$description": "Lightest green on pressed for background of most prominent sunccess states. USED IN: "
           }
         },
         "info": {
@@ -459,7 +459,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.blue.725}",
-            "$description": "Dark blue background for informational messages (blue 725, darkened 4%).\n"
+            "$description": "Dark blue background for informational messages. USED IN: Inline Message"
           },
           "hover": {
             "$extensions": {
@@ -473,7 +473,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.info.initial}",
-            "$description": "Slightly lighter blue on hover for info elements (lightened 4%).\n"
+            "$description": "Lighter blue on hover for background of informational messages. USED IN: Inline Message"
           },
           "active": {
             "$extensions": {
@@ -487,14 +487,14 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.info.initial}",
-            "$description": "Lightened blue on press for info elements (lightened 12%).\n"
+            "$description": "Lightest blue on pressed for background of informational states. USED IN: Inline Message"
           }
         },
         "info-bold": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.blue.650}",
-            "$description": "Bright blue background for info highlights (blue 650).\n"
+            "$description": "More prominent blue background for informational messages. USED IN: "
           },
           "hover": {
             "$extensions": {
@@ -508,7 +508,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.info-bold.initial}",
-            "$description": "Lighter blue on hover for info highlights (lightened 16%).\n"
+            "$description": "Lighter blue on hover for background of most prominent informational messages. USED IN: "
           },
           "active": {
             "$extensions": {
@@ -522,14 +522,14 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.info-bold.initial}",
-            "$description": "Further lightened blue on press for info highlights (lightened 24%).\n"
+            "$description": "Lightest blue on pressed for background of most prominent informational messages. USED IN: "
           }
         },
         "brand": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.yellow.250}",
-            "$description": "Vibrant brand-colored background for branding elements.\n"
+            "$description": "Vibrant brand yellow background for branding elements. USED IN: DesktopHeader-Tab"
           },
           "hover": {
             "$extensions": {
@@ -543,7 +543,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.brand.initial}",
-            "$description": "Lighter brand color on hover (lightened 16%).\n"
+            "$description": "Lighter yellow on hover for background of branded elements. USED IN: DesktopHeader-Tab"
           },
           "active": {
             "$extensions": {
@@ -557,14 +557,14 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.brand.initial}",
-            "$description": "Further lightened brand color on press (lightened 24%).\n"
+            "$description": "Lightest yellow on hover for background of branded elements. USED IN: DesktopHeader-Tab"
           }
         },
         "input": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.neutral.475}",
-            "$description": "Default input field background in dark mode\n"
+            "$description": "Neutral background for input elements. USED IN: Checkbox, RadioButton, InputField components"
           },
           "hover": {
             "$extensions": {
@@ -578,7 +578,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.input.initial}",
-            "$description": "Slightly lighter input background on hover (lightened 12%).\n"
+            "$description": "Lighter neutral on hover for background of input elements. USED IN: Checkbox, RadioButton, InputField components"
           },
           "active": {
             "$extensions": {
@@ -592,7 +592,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.input.initial}",
-            "$description": "Further lightened input background on focus/active (lightened 24%).\n"
+            "$description": "Lightest neutral on hover for background of input elements. USED IN: Checkbox, RadioButton, InputField components"
           }
         },
         "disabled": {
@@ -608,7 +608,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.neutral.325}",
-            "$description": "Semi-transparent neutral overlay for disabled component backgrounds (neutral 325 at 48% opacity).\n"
+            "$description": "Semi-transparent neutral overlay for disabled component backgrounds. USED IN: all components with a background in disabled state e.g buttons, checkboxes, input fields etc"
           }
         }
       },
