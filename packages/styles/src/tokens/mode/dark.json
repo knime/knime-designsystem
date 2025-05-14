@@ -96,7 +96,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.primary.initial}",
-            "$description": "Hover background for primary actions. USED IN: Outline Button, Link"
+            "$description": "Hover background for primary actions. USED IN: Outline Button, Link, Toggle Chip hover"
           },
           "active": {
             "$extensions": {
@@ -110,14 +110,14 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.primary.initial}",
-            "$description": "Much lighter teal on press to clearly indicate activation. Lightened by 36% in LCH space."
+            "$description": "Pressed (active) background for primary actions. USED IN: Outline Button, Link, Toggle Chip active"
           }
         },
         "primary-bold": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.teal.550}",
-            "$description": "Deep teal background for prominent primary elements e.g buttons\n"
+            "$description": "Deep Teal background for most prominent, primary actions or highlights. USED IN: Filled Button"
           },
           "hover": {
             "$extensions": {
@@ -131,7 +131,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.primary-bold.initial}",
-            "$description": "Lighter teal on hover for primary buttons (lightened 16%).\n"
+            "$description": "Hover background for most prominent, primary actions or highlights. USED IN: Filled Button\n"
           },
           "active": {
             "$extensions": {
@@ -161,7 +161,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.teal.650}",
-            "$description": "Semi-transparent teal highlight for selected items (32% opacity).\n"
+            "$description": "Semi-transparent teal background for selected elements. USED IN: Tabbar, Value Switch, Checkbox, List Item\n"
           },
           "hover": {
             "$extensions": {
@@ -175,7 +175,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.teal.550}",
-            "$description": "More opaque teal overlay on hover of a selected item (56% opacity).\n"
+            "$description": "Hover background for selected elements. USED IN: Tabbar, Value Switch, Checkbox, List Item\n"
           },
           "active": {
             "$extensions": {
@@ -189,7 +189,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.teal.400}",
-            "$description": "Most opaque teal overlay when a selected item is pressed (72% opacity).\n"
+            "$description": "Pressed (active) background for selected elements. USED IN: Tabbar, Value Switch, Checkbox, List Item"
           }
         },
         "selected-bold": {
