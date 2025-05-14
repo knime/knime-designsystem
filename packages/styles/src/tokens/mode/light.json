@@ -196,17 +196,17 @@
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.teal.550}",
-            "$description": "Solid mid-teal background indicating selection\n"
+            "$description": "Solid mid-teal background for most prominent, selectable elements. USED IN: RadioButton"
           },
           "hover": {
             "$type": "color",
             "$value": "{kds.core.color.teal.650}",
-            "$description": "Darker teal background on hover of a selected element\n"
+            "$description": "Solid Darker teal background for most prominent, selectable elements. USED IN: RadioButton"
           },
           "active": {
             "$type": "color",
             "$value": "{kds.core.color.teal.725}",
-            "$description": "Darkest teal background on press of a selected element\n"
+            "$description": "Solid Darkerst teal background for most prominent, selectable elements. USED IN: RadioButton"
           }
         },
         "danger": {

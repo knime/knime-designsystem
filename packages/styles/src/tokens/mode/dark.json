@@ -175,7 +175,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.teal.550}",
-            "$description": "Semi-transparent teal on hover for backgrounds in selectable elements. USED IN: ValueSwitch-item, Chip, Checkbox, RadioButton, TabBar-Item, VerticalMenu-Item, List Item"
+            "$description": "Semi-transparent lighter teal on hover for backgrounds in selectable elements. USED IN: ValueSwitch-item, Chip, Checkbox, RadioButton, TabBar-Item, VerticalMenu-Item, List Item"
           },
           "active": {
             "$extensions": {
@@ -189,24 +189,24 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.teal.400}",
-            "$description": "Semi-transparent teal on pressed for backgrounds in selectable elements. USED IN: ValueSwitch-item, Chip, Checkbox, RadioButton, TabBar-Item, VerticalMenu-Item, List Item"
+            "$description": "Semi-transparent lightest teal on pressed for backgrounds in selectable elements. USED IN: ValueSwitch-item, Chip, Checkbox, RadioButton, TabBar-Item, VerticalMenu-Item, List Item"
           }
         },
         "selected-bold": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.teal.650}",
-            "$description": "Solid teal background for selectable elements. USED IN: RadioButton\n"
+            "$description": "Solid Teal background for most prominent, selectable elements. USED IN: RadioButton"
           },
           "hover": {
             "$type": "color",
             "$value": "{kds.core.color.teal.550}",
-            "$description": "Solid Hover teal background of a selected element. USED IN:\n"
+            "$description": "Lighter Teal background on hover for most prominent, selectable elements. USED IN: RadioButton"
           },
           "active": {
             "$type": "color",
             "$value": "{kds.core.color.teal.400}",
-            "$description": "Solid Pressed (active) teal background of a selected element. USED IN:"
+            "$description": "Lightest teal background on hover for most prominent, selectable elements. USED IN: RadioButton"
           }
         },
         "danger": {
@@ -222,7 +222,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.red.800}",
-            "$description": "Destructive background color for error or destructive states. USED IN: Inline Message\n\n"
+            "$description": "Deep red background for error or destructive states. USED IN: Inline Message"
           },
           "hover": {
             "$extensions": {
@@ -236,7 +236,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.red.650}",
-            "$description": "Hover background color for clickable error or destructive elements. USED IN:\n"
+            "$description": "Semi-transparent ligher background on hover for error or destructive states. USED IN: Inline Message"
           },
           "active": {
             "$extensions": {
@@ -250,14 +250,14 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.red.550}",
-            "$description": "Pressed (active) background color for clickable error or destructive elements. USED IN:"
+            "$description": "Semi-transparent lightest red background on pressed for error or destructive states. USED IN: Inline Message"
           }
         },
         "danger-bold": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.red.725}",
-            "$description": "Solid background for error callouts or destructive buttons. USED IN: Destructive Button\n"
+            "$description": "Red background for error or destructive states. USED IN: Destructive Button"
           },
           "hover": {
             "$extensions": {
@@ -271,7 +271,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.red.550}",
-            "$description": "Hover background for error callouts or destructive buttons. USED IN: Destructive Button"
+            "$description": "Semi-transparent lighter red on hover for background of error callouts or destructive buttons. USED IN: Destructive Button"
           },
           "active": {
             "$extensions": {
@@ -285,7 +285,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.red.475}",
-            "$description": "Pressed (active) background for error callouts or destructive buttons. USED IN: Destructive Button\n"
+            "$description": "Semi-transparent lighter red on pressed for background of error callouts or destructive buttons. USED IN: Destructive Button"
           }
         },
         "warning": {
