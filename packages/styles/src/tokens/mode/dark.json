@@ -30,7 +30,7 @@
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.transparent}",
-            "$description": "Transparent background for clickable or neutral elements. USED IN: Button Transparent, List Item"
+            "$description": "Transparent background for clickable or neutral elements. USED IN: for the initial states of elements with a transparent background e.g Link (initial), Button (transparent), .ValueSwitch-item (initial), TabBar (initial)"
           },
           "hover": {
             "$extensions": {
@@ -44,7 +44,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.neutral.175}",
-            "$description": "Hover background for clickable elements. USED IN: Button Transparent, List Item"
+            "$description": "Subtle neutral overlay on hover for clickable elements. USED IN: Button Transparent, List Item"
           },
           "active": {
             "$extensions": {
@@ -58,7 +58,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.neutral.325}",
-            "$description": "Pressed (active) background for clickable elements. USED IN: Button Transparent, List Item"
+            "$description": "Stronger neutral overlay for active (pressed) state feedback. USED IN: Button Transparent, List Item\n"
           }
         },
         "neutral-bold": {
@@ -70,19 +70,19 @@
           "hover": {
             "$type": "color",
             "$value": "{kds.core.color.neutral.325}",
-            "$description": "Hover background for clickable, more prominent elements.\nUSED IN:"
+            "$description": "Hover background for clickable, more prominent elements.\nUSED IN: Badge"
           },
           "active": {
             "$type": "color",
             "$value": "{kds.core.color.neutral.250}",
-            "$description": "Hover background for clickable, more prominent elements.\nUSED IN:"
+            "$description": "Active background for clickable, more prominent elements.\nUSED IN: Badge"
           }
         },
         "primary": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.teal.250}",
-            "$description": "Teal background for primary actions or highlights. USED IN: Outline Button"
+            "$description": "Teal background for primary actions or highlights. USED IN: "
           },
           "hover": {
             "$extensions": {
@@ -96,7 +96,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.primary.initial}",
-            "$description": "Hover background for primary actions. USED IN: Outline Button, Link, Toggle Chip hover"
+            "$description": "lighter teal background on hover for primary actions. USED IN: Button (outline and transparent variants), ProgressButton (Outline variant), SplitButton (outline), .TabBar-Item, Toggle, chip"
           },
           "active": {
             "$extensions": {
@@ -110,7 +110,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.primary.initial}",
-            "$description": "Pressed (active) background for primary actions. USED IN: Outline Button, Link, Toggle Chip active"
+            "$description": "lightest teal background on hover for primary actions. USED IN: Button (outline and transparent variants), ProgressButton (Outline variant), SplitButton (outline), .TabBar-Item, Toggle, chip"
           }
         },
         "primary-bold": {
