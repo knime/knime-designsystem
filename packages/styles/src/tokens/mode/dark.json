@@ -110,14 +110,14 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.primary.initial}",
-            "$description": "lightest teal background on hover for primary actions. USED IN: Button (outline and transparent variants), ProgressButton (Outline variant), SplitButton (outline), .TabBar-Item, Toggle, chip"
+            "$description": "lightest teal background on pressed for primary actions. USED IN: Button (outline and transparent variants), ProgressButton (Outline variant), SplitButton (outline), .TabBar-Item, Toggle, chip"
           }
         },
         "primary-bold": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.teal.550}",
-            "$description": "Deep Teal background for most prominent, primary actions or highlights. USED IN: Filled Button"
+            "$description": "Deep Teal background for most prominent, primary actions or highlights. USED IN: Button (filled), ProgressButton (filled), SplitButton"
           },
           "hover": {
             "$extensions": {
@@ -131,7 +131,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.primary-bold.initial}",
-            "$description": "Hover background for most prominent, primary actions or highlights. USED IN: Filled Button\n"
+            "$description": "Lighter Teal background on hover for most prominent, primary actions or highlights. USED IN: Button (filled), ProgressButton (filled), SplitButton"
           },
           "active": {
             "$extensions": {
@@ -145,7 +145,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.primary-bold.initial}",
-            "$description": "Significantly lighter teal on press for primary buttons (lightened 48%).\n"
+            "$description": "Significantly lighter teal background on pressed for most prominent, primary actions or highlights. USED IN: Button (filled), ProgressButton (filled), SplitButton"
           }
         },
         "selected": {
@@ -161,7 +161,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.teal.650}",
-            "$description": "Semi-transparent teal background for selected elements. USED IN: Tabbar, Value Switch, Checkbox, List Item\n"
+            "$description": "Semi-transparent teal for selectable elements. USED IN: ValueSwitch-item, Chip, Checkbox, RadioButton, TabBar-Item, VerticalMenu-Item"
           },
           "hover": {
             "$extensions": {
@@ -175,7 +175,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.teal.550}",
-            "$description": "Hover background for selected elements. USED IN: Tabbar, Value Switch, Checkbox, List Item\n"
+            "$description": "Semi-transparent teal on hover for backgrounds in selectable elements. USED IN: ValueSwitch-item, Chip, Checkbox, RadioButton, TabBar-Item, VerticalMenu-Item, List Item"
           },
           "active": {
             "$extensions": {
@@ -189,14 +189,14 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.teal.400}",
-            "$description": "Pressed (active) background for selected elements. USED IN: Tabbar, Value Switch, Checkbox, List Item"
+            "$description": "Semi-transparent teal on pressed for backgrounds in selectable elements. USED IN: ValueSwitch-item, Chip, Checkbox, RadioButton, TabBar-Item, VerticalMenu-Item, List Item"
           }
         },
         "selected-bold": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.teal.650}",
-            "$description": "Solid teal background to indicate a selected element. USED IN: RadioButton\n"
+            "$description": "Solid teal background for selectable elements. USED IN: RadioButton\n"
           },
           "hover": {
             "$type": "color",
