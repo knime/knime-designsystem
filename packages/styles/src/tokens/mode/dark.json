@@ -196,17 +196,17 @@
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.teal.650}",
-            "$description": "Solid teal background to indicate a selected element.\n"
+            "$description": "Solid teal background to indicate a selected element. USED IN: RadioButton\n"
           },
           "hover": {
             "$type": "color",
             "$value": "{kds.core.color.teal.550}",
-            "$description": "Lighter teal background on hover of a selected element\n"
+            "$description": "Solid Hover teal background of a selected element. USED IN:\n"
           },
           "active": {
             "$type": "color",
             "$value": "{kds.core.color.teal.400}",
-            "$description": "Lightest teal background on press of a selected element\n"
+            "$description": "Solid Pressed (active) teal background of a selected element. USED IN:"
           }
         },
         "danger": {
@@ -222,7 +222,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.red.800}",
-            "$description": "Very dark red background for error or destructive states (red 800, darkened by 4%).\n\n"
+            "$description": "Destructive background color for error or destructive states. USED IN: Inline Message\n\n"
           },
           "hover": {
             "$extensions": {
@@ -236,7 +236,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.red.650}",
-            "$description": "Strong semi-transparent red overlay on hover for destructive elements (72% opacity).\n"
+            "$description": "Hover background color for clickable error or destructive elements. USED IN:\n"
           },
           "active": {
             "$extensions": {
@@ -250,14 +250,14 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.red.550}",
-            "$description": "Strong semi-transparent lighter red overlay when pressed (72% opacity).\n"
+            "$description": "Pressed (active) background color for clickable error or destructive elements. USED IN:"
           }
         },
         "danger-bold": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.red.725}",
-            "$description": "Bright red background for error callouts or destructive buttons.\n"
+            "$description": "Solid background for error callouts or destructive buttons. USED IN: Destructive Button\n"
           },
           "hover": {
             "$extensions": {
@@ -271,7 +271,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.red.550}",
-            "$description": "Semi-transparent red overlay on hover to soften the red (80% opacity).\n"
+            "$description": "Hover background for error callouts or destructive buttons. USED IN: Destructive Button"
           },
           "active": {
             "$extensions": {
@@ -285,7 +285,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.red.475}",
-            "$description": "Semi-transparent lighter red overlay on press for contrast (80% opacity).\n"
+            "$description": "Pressed (active) background for error callouts or destructive buttons. USED IN: Destructive Button\n"
           }
         },
         "warning": {
@@ -301,7 +301,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.orange.800}",
-            "$description": "Very dark orange background for warning messages (orange 800, darkened).\n"
+            "$description": "Warning background color for warning states. USED IN: Inline Message"
           },
           "hover": {
             "$extensions": {
