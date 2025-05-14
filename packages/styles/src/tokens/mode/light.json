@@ -172,7 +172,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.primary-bold.initial}",
-            "$description": "Darkest teal background on pressed for most prominent, primary actions or highlights. USED IN: Button (filled), ProgressButton (filled), SplitButton"
+            "$description": "Significantly darker teal background on pressed for most prominent, primary actions or highlights. USED IN: Button (filled), ProgressButton (filled), SplitButton"
           }
         },
         "selected": {
@@ -189,7 +189,7 @@
           "active": {
             "$type": "color",
             "$value": "{kds.core.color.teal.175}",
-            "$description": "Darkest teal on pressed for backgrounds in selectable elements. USED IN: ValueSwitch-item, Chip, Checkbox, RadioButton, TabBar-Item, VerticalMenu-Item, List Item"
+            "$description": "Darker teal on pressed for backgrounds in selectable elements. USED IN: ValueSwitch-item, Chip, Checkbox, RadioButton, TabBar-Item, VerticalMenu-Item, List Item"
           }
         },
         "selected-bold": {
@@ -222,34 +222,34 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.red.100}",
-            "$description": "Very light red background for error or destructive states. USED IN: Inline Message"
+            "$description": "Very light red background for error or destructive states (red 100, lightened 60%).\n"
           },
           "hover": {
             "$type": "color",
             "$value": "{kds.core.color.red.175}",
-            "$description": "Darker red background on hover for error or destructive states. USED IN: Inline Message"
+            "$description": "Deeper red overlay on hover for destructive elements\n"
           },
           "active": {
             "$type": "color",
             "$value": "{kds.core.color.red.250}",
-            "$description": "Darker red background on pressed for error or destructive states. USED IN: Inline Message"
+            "$description": "Darkest red overlay on press for destructive elements\n"
           }
         },
         "danger-bold": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.red.650}",
-            "$description": "Bright red background for most prominent error or destructive states. USED IN: Destructive Button"
+            "$description": "Bright red background for error call-outs or destructive buttons\n"
           },
           "hover": {
             "$type": "color",
             "$value": "{kds.core.color.red.725}",
-            "$description": "Darker red on hover for background of most prominent error callouts or destructive buttons. USED IN: Destructive Button"
+            "$description": "Deeper red background on hover\n"
           },
           "active": {
             "$type": "color",
             "$value": "{kds.core.color.red.800}",
-            "$description": "Darkest red on hover for background of most prominent error callouts or destructive buttons. USED IN: Destructive Button"
+            "$description": "Darkest red background on press\n"
           }
         },
         "warning": {
