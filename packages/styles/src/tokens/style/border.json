@@ -5,52 +5,52 @@
         "none": {
           "$type": "borderRadius",
           "$value": "{kds.core.dimension.0}",
-          "$description": "0 px radius - perfectly sharp corners. Use when elements demands no rounding. USED IN: ListContainer, TabBar-Item \n"
+          "$description": "Perfectly sharp corners. Use when elements demands no rounding. USED IN: ListContainer, TabBar-Item \n"
         },
         "0_12x": {
           "$type": "borderRadius",
           "$value": "{kds.core.dimension.12}",
-          "$description": "2px radius - softens crisp elements while keeping a sharp feel\n"
+          "$description": "Softens crisp elements while keeping a sharp feel\n"
         },
         "0_25x": {
           "$type": "borderRadius",
           "$value": "{kds.core.dimension.25}",
-          "$description": "4 px - radius on small UI pieces and compact elements USED IN: Xsmall buttons, checkboxes\n"
+          "$description": "Radius on small UI pieces and compact elements USED IN: Xsmall buttons, checkboxes\n"
         },
         "0_31x": {
           "$type": "borderRadius",
           "$value": "{kds.core.dimension.31}",
-          "$description": "5px - A touch rounder than previous radius. use for elements that need a gentler feel USED IN: Focus outlines on Xsmall buttons\n\n"
+          "$description": "A touch rounder than previous radius. use for elements that need a gentler feel USED IN: Focus outlines on Xsmall buttons\n\n"
         },
         "0_37x": {
           "$type": "borderRadius",
           "$value": "{kds.core.dimension.37}",
-          "$description": "6px - balanced rounding for small to medium components USED IN: small and medium buttons and input fields\n"
+          "$description": "Balanced rounding for small to medium components USED IN: small and medium buttons and input fields\n"
         },
         "0_44x": {
           "$type": "borderRadius",
           "$value": "{kds.core.dimension.44}",
-          "$description": "7px - A touch rounder than previous radius. use for elements that need a gentler feel USED IN: Focus outlines on small and medium buttons\n\n"
+          "$description": " A touch rounder than previous radius. use for elements that need a gentler feel USED IN: Focus outlines on small and medium buttons\n\n"
         },
         "0_50x": {
           "$type": "borderRadius",
           "$value": "{kds.core.dimension.50}",
-          "$description": "8px - soft rounding for larger components USED IN: large buttons\n"
+          "$description": "Soft rounding for larger components USED IN: large buttons\n"
         },
         "0_56x": {
           "$type": "borderRadius",
           "$value": "{kds.core.dimension.56}",
-          "$description": "9px - A touch rounder than previous radius. use for elements that need a gentler feel USED IN: Focus outlines on large buttons\n\n"
+          "$description": "A touch rounder than previous radius. use for elements that need a gentler feel USED IN: Focus outlines on large buttons\n\n"
         },
         "1x": {
           "$type": "borderRadius",
           "$value": "{kds.core.dimension.100}",
-          "$description": "16px - used on rounder corner for larger elements "
+          "$description": "Used on rounder corner for larger elements "
         },
         "pill": {
           "$type": "borderRadius",
           "$value": "1000",
-          "$description": "1000 px - Makes circles or capsules USED IN: radiobuttons and Badge\n"
+          "$description": "Makes circles or capsules USED IN: radiobuttons and Badge\n"
         }
       }
     },
