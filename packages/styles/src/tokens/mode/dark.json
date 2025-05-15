@@ -716,7 +716,7 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.25}",
-          "$description": "Muted neutral border for less emphasis.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "❌ Muted neutral border for less emphasis.\n[Used as reference token only for the Border composite tokens]\n"
         },
         "subtle": {
           "$extensions": {
@@ -730,89 +730,89 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.25}",
-          "$description": "Subtle neutral border for faint components.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "❌ Subtle neutral border for faint components.\n[Used as reference token only for the Border composite tokens]\n"
         },
         "primary-bold": {
           "$type": "color",
           "$value": "{kds.core.color.teal.725}",
-          "$description": "Dark teal border accent for most prominent emphasis.\n[Used as reference token only for the Border composite tokens]\n\n"
+          "$description": "❌ Dark teal border accent for most prominent emphasis.\n[Used as reference token only for the Border composite tokens]\n\n"
         },
         "primary": {
           "$type": "color",
           "$value": "{kds.core.color.teal.175}",
-          "$description": "Light teal border accent for emphasis.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "❌ Light teal border accent for emphasis.\n[Used as reference token only for the Border composite tokens]\n"
         },
         "selected-bold": {
           "$type": "color",
           "$value": "{kds.core.color.teal.175}",
-          "$description": "Teal border indicating the selected state (most prominent).\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "❌ Teal border indicating the selected state (most prominent).\n[Used as reference token only for the Border composite tokens]\n"
         },
         "selected": {
           "$type": "color",
           "$value": "{kds.core.color.teal.100}",
-          "$description": "Faint teal border indicating the selected state.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "❌ Faint teal border indicating the selected state.\n[Used as reference token only for the Border composite tokens]\n"
         },
         "warning-bold": {
           "$type": "color",
           "$value": "{kds.core.color.orange.100}",
-          "$description": "Orange border for most prominent warnings.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "❌ Orange border for most prominent warnings.\n[Used as reference token only for the Border composite tokens]\n"
         },
         "warning": {
           "$type": "color",
           "$value": "{kds.core.color.orange.800}",
-          "$description": "Orange border for warnings.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "❌ Orange border for warnings.\n[Used as reference token only for the Border composite tokens]\n"
         },
         "danger-bold": {
           "$type": "color",
           "$value": "{kds.core.color.red.250}",
-          "$description": "Red border for most prominent error elements.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "❌ Red border for most prominent error elements.\n[Used as reference token only for the Border composite tokens]\n"
         },
         "danger": {
           "$type": "color",
           "$value": "{kds.core.color.red.800}",
-          "$description": "Red border for error elements.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "❌ Red border for error elements.\n[Used as reference token only for the Border composite tokens]\n"
         },
         "success-bold": {
           "$type": "color",
           "$value": "{kds.core.color.green.175}",
-          "$description": "Green border for most prominent success elements.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "❌ Green border for most prominent success elements.\n[Used as reference token only for the Border composite tokens]\n"
         },
         "success": {
           "$type": "color",
           "$value": "{kds.core.color.green.725}",
-          "$description": "Green border for success elements.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "❌ Green border for success elements.\n[Used as reference token only for the Border composite tokens]\n"
         },
         "info-bold": {
           "$type": "color",
           "$value": "{kds.core.color.blue.175}",
-          "$description": "Blue border for most prominent info elements.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "❌ Blue border for most prominent info elements.\n[Used as reference token only for the Border composite tokens]\n"
         },
         "info": {
           "$type": "color",
           "$value": "{kds.core.color.blue.725}",
-          "$description": "Blue border for info elements.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "❌ Blue border for info elements.\n[Used as reference token only for the Border composite tokens]\n"
         },
         "disabled": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.325}",
-          "$description": "Neutral border for components in the disabled state.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "❌ Neutral border for components in the disabled state.\n[Used as reference token only for the Border composite tokens]\n"
         },
         "transparent": {
           "$type": "color",
           "$value": "{kds.core.color.transparent}",
-          "$description": "Fully transparent border for components with invisible borders.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "❌ Fully transparent border for components with invisible borders.\n[Used as reference token only for the Border composite tokens]\n"
         },
         "brand": {
           "$type": "color",
           "$value": "{kds.core.color.yellow.250}",
-          "$description": "Yellow border accent for brand highlights.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "❌ Yellow border accent for brand highlights.\n[Used as reference token only for the Border composite tokens]\n"
         }
       },
       "focus": {
         "outline": {
           "$type": "color",
           "$value": "{kds.core.color.blue.250}",
-          "$description": "Blue outline highlight for focused elements.\n[Used as reference token only for the Border composite tokens]\n\n\n"
+          "$description": "❌ Blue outline highlight for focused elements.\n[Used as reference token only for the Border composite tokens]\n\n\n"
         }
       },
       "blanket": {
