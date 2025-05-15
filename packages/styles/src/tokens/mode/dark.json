@@ -564,7 +564,7 @@
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.neutral.475}",
-            "$description": "Neutral background for input elements. USED IN: Checkbox, RadioButton, InputField components"
+            "$description": "Neutral background for input elements. USED IN: Checkbox, RadioButton, Input components"
           },
           "hover": {
             "$extensions": {
@@ -578,7 +578,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.input.initial}",
-            "$description": "Lighter neutral on hover for background of input elements. USED IN: Checkbox, RadioButton, InputField components"
+            "$description": "Lighter neutral on hover for background of input elements. USED IN: Checkbox, RadioButton, Input components"
           },
           "active": {
             "$extensions": {
@@ -592,7 +592,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.input.initial}",
-            "$description": "Lightest neutral on hover for background of input elements. USED IN: Checkbox, RadioButton, InputField components"
+            "$description": "Lightest neutral on hover for background of input elements. USED IN: Checkbox, RadioButton, Input components"
           }
         },
         "disabled": {
