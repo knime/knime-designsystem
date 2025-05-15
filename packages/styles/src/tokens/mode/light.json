@@ -379,7 +379,7 @@
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.green.550}",
-            "$description": "Mid-green background for positive confirmations\n"
+            "$description": "More prominent green background for most prominent, success states."
           },
           "hover": {
             "$extensions": {
@@ -393,7 +393,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.success-bold.initial}",
-            "$description": "Darker green on hover (darkened 16%).\n"
+            "$description": "Darker green background on hover for most prominent, success states.\nUSED IN: –\n"
           },
           "active": {
             "$extensions": {
@@ -407,7 +407,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.success-bold.initial}",
-            "$description": "Darkest green on press (darkened 36%).\n"
+            "$description": "Darkset green background on pressed for most prominent, success states.\nUSED IN: –\n\n"
           }
         },
         "info": {
@@ -423,7 +423,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.blue.100}",
-            "$description": "Very light blue background for informational messages (blue 100, lightened 60%).\n"
+            "$description": "More prominent blue background for most prominent, informational messages.\nUSED IN: –"
           },
           "hover": {
             "$extensions": {
@@ -437,7 +437,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.info.initial}",
-            "$description": "Slightly darker blue on hover (darkened 4%).\n"
+            "$description": "Darker blue background on hover for informational messages.\nUSED IN: Inline Message"
           },
           "active": {
             "$extensions": {
@@ -451,14 +451,14 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.info.initial}",
-            "$description": "Darker blue on press (darkened 8%).\n"
+            "$description": "Darkest blue background on pressed for informational messages.\nUSED IN: Inline Message"
           }
         },
         "info-bold": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.blue.550}",
-            "$description": "Mid-blue background for info highlights\n"
+            "$description": "More prominent blue background for most prominent, informational messages.\nUSED IN: –"
           },
           "hover": {
             "$extensions": {
@@ -472,7 +472,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.info-bold.initial}",
-            "$description": "Darker blue on hover (darkened 16%).\n"
+            "$description": "Darker blue background on hover for most prominent, informational messages.\nUSED IN: –\n"
           },
           "active": {
             "$extensions": {
@@ -486,14 +486,14 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.info-bold.initial}",
-            "$description": "Darkest blue on press (darkened 36%).\n"
+            "$description": "Darkest blue background on pressed for most prominent, informational messages.\nUSED IN: –\n"
           }
         },
         "brand": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.yellow.250}",
-            "$description": "Vibrant brand yellow background for branding elements\n"
+            "$description": "Vibrant brand yellow background for branding elements. USED IN: DesktopHeader-Tab"
           },
           "hover": {
             "$extensions": {
@@ -507,7 +507,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.brand.initial}",
-            "$description": "Darker brand color on hover (darkened 16%).\n"
+            "$description": "Darker brand color on hover for branding elements.\nUSED IN: DesktopHeader-Tab"
           },
           "active": {
             "$extensions": {
@@ -521,14 +521,14 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.brand.initial}",
-            "$description": "Darkest brand color on press (darkened 36%).\n"
+            "$description": "Darkest brand color on pressed for branding elements.\nUSED IN: DesktopHeader-Tab"
           }
         },
         "input": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.neutral.25}",
-            "$description": "Default input field background in light mode\n"
+            "$description": "Neutral background for input elements. USED IN: Checkbox, RadioButton, Input components"
           },
           "hover": {
             "$extensions": {
@@ -542,7 +542,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.input.initial}",
-            "$description": "Slightly darker input background on hover (darkened 4%).\n"
+            "$description": "Darker neutral background on hover for input elements.\nUSED IN: Checkbox, RadioButton, Input components"
           },
           "active": {
             "$extensions": {
@@ -556,7 +556,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.input.initial}",
-            "$description": "Darker input background on focus/active (darkened 12%).\n"
+            "$description": "Darkest neutral background on pressed for input elements.\nUSED IN: Checkbox, RadioButton, Input components"
           }
         },
         "disabled": {
@@ -572,7 +572,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.neutral.325}",
-            "$description": "Semi-transparent neutral overlay for disabled component backgrounds (neutral 325 at 48% opacity).\n"
+            "$description": "Neutral overlay for component backgrounds in the disabled state.\nUSED IN: Buttons, checkboxes, input fields, and other components when disabled."
           }
         }
       },
@@ -580,77 +580,77 @@
         "neutral": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.650}",
-          "$description": "Default text and icon color for light surfaces.\n"
+          "$description": "Text and icon color for primary content on light surfaces"
         },
         "muted": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.325}",
-          "$description": "Muted text color for secondary content.\n"
+          "$description": "Muted text and icon color for secondary content on light surfaces.\n"
         },
         "neutral-inverted": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.50}",
-          "$description": "Light neutral text color for use on dark surfaces.\n"
+          "$description": "Text and icon color for primary content on dark surfaces."
         },
         "primary": {
           "$type": "color",
           "$value": "{kds.core.color.teal.650}",
-          "$description": "Teal accent color for text and icons on light surfaces.\n"
+          "$description": "Teal accent color for text and icons on light surfaces."
         },
         "primary-inverted": {
           "$type": "color",
           "$value": "{kds.core.color.teal.50}",
-          "$description": "Very light-teal text for use on teal backgrounds (or dark surfaces).\n"
+          "$description": "Light teal color for text and icons on light surfaces.\n"
         },
         "selected": {
           "$type": "color",
           "$value": "{kds.core.color.teal.650}",
-          "$description": "Strong teal color for text or icons indicating selection on light surfaces.\n"
+          "$description": "Teal color for selected text and icons on light surfaces.\n"
         },
         "selected-inverted": {
           "$type": "color",
           "$value": "{kds.core.color.teal.25}",
-          "$description": "Pale teal color for selection indicators on dark surfaces.\n"
+          "$description": "Very light teal color for selected text and icons on light surfaces."
         },
         "warning": {
           "$type": "color",
           "$value": "{kds.core.color.orange.650}",
-          "$description": "Orange color for warning text and icons on light surfaces.\n"
+          "$description": "Orange color for warning text and icons on light surfaces (e.g warning backgrounds)\n"
         },
         "warning-inverted": {
           "$type": "color",
           "$value": "{kds.core.color.orange.100}",
-          "$description": "Light orange text for warning elements on dark backgrounds.\n"
+          "$description": "Light orange color for warning text and icons on light surfaces. (e.g warning backgrounds)\n\n"
         },
         "danger": {
           "$type": "color",
           "$value": "{kds.core.color.red.650}",
-          "$description": "Red color for danger text and icons on light surfaces.\n"
+          "$description": "Red color for danger text and icons on light surfaces. (e.g danger backgrounds)\n"
         },
         "danger-inverted": {
           "$type": "color",
           "$value": "{kds.core.color.red.50}",
-          "$description": "Light red text for danger elements on dark backgrounds.\n"
+          "$description": "Light red color for danger text and icons on light surfaces. (e.g danger backgrounds)\n"
         },
         "success": {
           "$type": "color",
           "$value": "{kds.core.color.green.650}",
-          "$description": "Green color for success text and icons on light surfaces.\n"
+          "$description": "Green color for success text and icons on light surfaces. (e.g success backgrounds)\n"
         },
         "success-inverted": {
           "$type": "color",
           "$value": "{kds.core.color.green.50}",
-          "$description": "Light green text for success elements on dark backgrounds.\n"
+          "$description": "Light green color for success text and icons on light surfaces. (e.g success backgrounds)\n"
         },
         "disabled": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.325}",
-          "$description": "Dimmed neutral color for disabled text and icons.\n"
+          "$description": "Dimmed neutral color for text and icons in the disabled state."
         },
         "info": {
           "$type": "color",
           "$value": "{kds.core.color.blue.650}",
-          "$description": "Blue color for informational text and icons.\n"
+          "$description": "Blue color for informational text and icons on light surfaces.\n"
         }
       },
       "border": {

@@ -631,7 +631,7 @@
         "primary": {
           "$type": "color",
           "$value": "{kds.core.color.teal.650}",
-          "$description": "Teal accent color for text and icons on light surfaces."
+          "$description": "Teal accent color for text and icons on dark surfaces."
         },
         "primary-inverted": {
           "$type": "color",
@@ -702,7 +702,7 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.25}",
-          "$description": "Neutral border for components.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "❌ Neutral border for components.\n[Used as reference token only for the Border composite tokens]\n"
         },
         "muted": {
           "$extensions": {
