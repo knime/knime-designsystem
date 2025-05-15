@@ -858,7 +858,7 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.875}",
-          "$description": "Light shadow layer color for the top elevation (neutral 875 at 90% opacity).\n"
+          "$description": "Light shadow layer color for the top elevation USED IN:"
         },
         "middle": {
           "$extensions": {
@@ -872,7 +872,7 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.875}",
-          "$description": "Medium shadow layer color for mid-level elevation (neutral 875 at 94% opacity).\n"
+          "$description": "Medium shadow layer color for mid-level elevation. USED IN:\n"
         },
         "bottom": {
           "$extensions": {
@@ -886,7 +886,7 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.875}",
-          "$description": "Dark shadow layer color for bottom elevation (neutral 875 at 98% opacity).\n"
+          "$description": "Dark shadow layer color for bottom elevation. USED IN:\n"
         }
       }
     },
