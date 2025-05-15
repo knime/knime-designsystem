@@ -828,7 +828,7 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.800}",
-          "$description": "Dimmed dark overlay background e.g for modals and dialogs (neutral 800 at 80% opacity).\n"
+          "$description": "Dimmed overlay background for modals and dialogs.\n"
         }
       },
       "nodes-and-variables": {
@@ -842,7 +842,7 @@
         "default": {
           "$type": "color",
           "$value": "linear-gradient(90deg, #F0F0F005 0%, #F0F0F025 25%, #F0F0F005 65%, #F0F0F000 100%)",
-          "$description": "Shimmering gray placeholder gradient for loading content animation."
+          "$description": "Shimmering gray placeholder gradient for loading content animation.\n"
         }
       },
       "elevation": {
@@ -902,7 +902,7 @@
             "color": "{kds.color.elevation.top}",
             "type": "dropShadow"
           },
-          "$description": "No elevation (flat, no shadow).\nAnimate elevation changes from level 0 to a higher level when an element is highlighted to indicate emphasis and interactivity."
+          "$description": "No elevation (flat, no shadow).\nUsed to animate elevation changes from level 0 to a higher level to indicate emphasis and interactivity."
         },
         "1": {
           "$type": "boxShadow",
