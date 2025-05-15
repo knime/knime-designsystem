@@ -776,7 +776,7 @@
         "outline": {
           "$type": "color",
           "$value": "{kds.core.color.blue.475}",
-          "$description": "Blue outline highlight for focused elements.\n\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "❌ Blue outline highlight for focused elements.\n[Used as reference token only for the Border composite tokens]\n\n\n\n"
         }
       },
       "blanket": {
@@ -792,7 +792,7 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.800}",
-          "$description": "Dimmed overlay background (neutral 800 at 80 % opacity) used under modals and dialogs.\n"
+          "$description": "Dimmed overlay background for modals and dialogs.\n"
         }
       },
       "nodes-and-variables": {
@@ -822,7 +822,7 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.250}",
-          "$description": "Light shadow layer color for the top elevation (neutral 250 at 32 % opacity).\n"
+          "$description": "Light shadow layer color for the top elevation USED IN:"
         },
         "middle": {
           "$extensions": {
@@ -836,7 +836,7 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.400}",
-          "$description": "Medium shadow layer color for mid-level elevation (neutral 400 at 14% opacity).\n"
+          "$description": "Medium shadow layer color for mid-level elevation. USED IN:\n"
         },
         "bottom": {
           "$extensions": {
@@ -850,7 +850,7 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.400}",
-          "$description": "Dark shadow layer color for the lowest elevation (neutral 400 at 12% opacity).\n"
+          "$description": "Dark shadow layer color for bottom elevation. USED IN:\n"
         }
       }
     },

@@ -902,7 +902,7 @@
             "color": "{kds.color.elevation.top}",
             "type": "dropShadow"
           },
-          "$description": "No elevation (flat, no shadow).\nUsed to animate elevation changes from level 0 to a higher level to indicate emphasis and interactivity."
+          "$description": "No elevation (flat, no shadow). Animate between 0 and higher levels to highlight elements.\n\nAnimate elevation changes from level 0 to a higher level when an element is highlighted to indicate emphasis and interactivity."
         },
         "1": {
           "$type": "boxShadow",
