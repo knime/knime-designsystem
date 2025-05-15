@@ -23,14 +23,14 @@
           "default": {
             "$type": "color",
             "$value": "{kds.core.color.neutral.25}",
-            "$description": "The base background for the entire app, on which all other surfaces sit on. \nThe darkest background color in the dark theme. USED IN: Workflow Canvas\n"
+            "$description": "The base background for the entire app, on which all other surfaces sit.\nThe darkest background color in the light theme.\nUSED IN: Workflow Canvas\n"
           }
         },
         "neutral": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.transparent}",
-            "$description": "Transparent background for clickable or neutral elements. USED IN: for the initial states of elements with a transparent background e.g Link (initial), Button (transparent), .ValueSwitch-item (initial), TabBar (initial)"
+            "$description": "Transparent background for clickable or neutral elements. USED IN: For the initial states of elements with a transparent background e.g. Link (initial), Button (transparent), .ValueSwitch-item (initial), TabBar (initial)"
           },
           "hover": {
             "$extensions": {
@@ -58,7 +58,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.neutral.325}",
-            "$description": "Stronger neutral overlay for active (pressed) state feedback. USED IN: Button Transparent, List Item\n"
+            "$description": "Stronger neutral overlay for active (pressed) state feedback. USED IN: Button Transparent, List Item"
           }
         },
         "neutral-bold": {
@@ -74,7 +74,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.neutral.250}",
-            "$description": "More prominent background for clickable or neutral elements. USED IN: Badge\n"
+            "$description": "More prominent background for clickable or neutral elements.USED IN: Badge"
           },
           "hover": {
             "$extensions": {
@@ -88,7 +88,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.neutral-bold.initial}",
-            "$description": "Hover background for clickable, more prominent elements.\nUSED IN: Badge"
+            "$description": "Darker background on hover for more prominent clickable or neutral elements. USED IN: Badge"
           },
           "active": {
             "$extensions": {
@@ -102,7 +102,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.neutral-bold.initial}",
-            "$description": "Active background for clickable, more prominent elements.\nUSED IN: Badge"
+            "$description": "Darkest background on pressed for more prominent clickable or neutral elements. USED IN: Badge"
           }
         },
         "primary": {
@@ -123,7 +123,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.primary.initial}",
-            "$description": "Slightly darker teal background on hover for primary actions. USED IN: Button (outline and transparent variants), ProgressButton (Outline variant), SplitButton (outline), .TabBar-Item, Toggle, chip"
+            "$description": "Darker teal background on hover for primary actions. USED IN: Button (outline and transparent variants), ProgressButton (Outline variant), SplitButton (outline), .TabBar-Item, Toggle, chip"
           },
           "active": {
             "$extensions": {
@@ -137,7 +137,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.primary.initial}",
-            "$description": "Much darker teal background on pressed for primary actions. USED IN: Button (outline and transparent variants), ProgressButton (Outline variant), SplitButton (outline), .TabBar-Item, Toggle, chip"
+            "$description": "Darkest teal background on pressed for primary actions. USED IN: Button (outline and transparent variants), ProgressButton (Outline variant), SplitButton (outline), .TabBar-Item, Toggle, chip"
           }
         },
         "primary-bold": {
@@ -172,7 +172,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.primary-bold.initial}",
-            "$description": "Significantly darker teal background on pressed for most prominent, primary actions or highlights. USED IN: Button (filled), ProgressButton (filled), SplitButton"
+            "$description": "Darkest teal background on pressed for most prominent, primary actions or highlights. USED IN: Button (filled), ProgressButton (filled), SplitButton"
           }
         },
         "selected": {
@@ -189,24 +189,24 @@
           "active": {
             "$type": "color",
             "$value": "{kds.core.color.teal.175}",
-            "$description": "Darker teal on pressed for backgrounds in selectable elements. USED IN: ValueSwitch-item, Chip, Checkbox, RadioButton, TabBar-Item, VerticalMenu-Item, List Item"
+            "$description": "Darkest teal on pressed for backgrounds in selectable elements. USED IN: ValueSwitch-item, Chip, Checkbox, RadioButton, TabBar-Item, VerticalMenu-Item, List Item"
           }
         },
         "selected-bold": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.teal.550}",
-            "$description": "Solid mid-teal background for most prominent, selectable elements. USED IN: RadioButton"
+            "$description": "Mid-teal background for most prominent, selectable elements. USED IN: RadioButton"
           },
           "hover": {
             "$type": "color",
             "$value": "{kds.core.color.teal.650}",
-            "$description": "Solid Darker teal background for most prominent, selectable elements. USED IN: RadioButton"
+            "$description": "Darker mid-teal background on hover for most prominent, selectable elements.\nUSED IN: RadioButton"
           },
           "active": {
             "$type": "color",
             "$value": "{kds.core.color.teal.725}",
-            "$description": "Solid Darkerst teal background for most prominent, selectable elements. USED IN: RadioButton"
+            "$description": "Darkest mid-teal background on pressed for most prominent, selectable elements.\nUSED IN: RadioButton"
           }
         },
         "danger": {
@@ -227,29 +227,29 @@
           "hover": {
             "$type": "color",
             "$value": "{kds.core.color.red.175}",
-            "$description": "Deeper red overlay on hover for destructive elements\n"
+            "$description": "Darker red background on hover for error or destructive states.\nUSED IN: Inline Message\n"
           },
           "active": {
             "$type": "color",
             "$value": "{kds.core.color.red.250}",
-            "$description": "Darkest red overlay on press for destructive elements\n"
+            "$description": "Darkest red background on hover for error or destructive states.\nUSED IN: Inline Message"
           }
         },
         "danger-bold": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.red.650}",
-            "$description": "Bright red background for error call-outs or destructive buttons\n"
+            "$description": "More prominent red background for most prominent, error or destructive states.\nUSED IN: Destructive Button"
           },
           "hover": {
             "$type": "color",
             "$value": "{kds.core.color.red.725}",
-            "$description": "Deeper red background on hover\n"
+            "$description": "Darker red background on hover for most prominent, error callouts or destructive buttons.\nUSED IN: Destructive Button"
           },
           "active": {
             "$type": "color",
             "$value": "{kds.core.color.red.800}",
-            "$description": "Darkest red background on press\n"
+            "$description": "Darker red background on pressed for most prominent, error callouts or destructive buttons.\nUSED IN: Destructive Button"
           }
         },
         "warning": {
@@ -265,7 +265,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.orange.50}",
-            "$description": "Very light orange background for warnings (orange 50, lightened 60%).\n"
+            "$description": "Light orange background for warning states. USED IN: Inline Message"
           },
           "hover": {
             "$extensions": {
@@ -279,7 +279,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.warning.initial}",
-            "$description": "Slightly darker orange on hover (darkened 4%).\n"
+            "$description": "Darker orange background on hover for warning states.\nUSED IN: Inline Message\n"
           },
           "active": {
             "$extensions": {
@@ -293,14 +293,14 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.warning.initial}",
-            "$description": "Darker orange on press (darkened 8%).\n"
+            "$description": "Darkest orange background on pressed for warning states.\nUSED IN: Inline Message\n"
           }
         },
         "warning-bold": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.orange.550}",
-            "$description": "Mid-orange background for prominent warnings.\n"
+            "$description": "More prominent orange background for most prominent, warning states."
           },
           "hover": {
             "$extensions": {
@@ -314,7 +314,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.warning-bold.initial}",
-            "$description": "Darker orange on hover (darkened 16%).\n"
+            "$description": "Darker orange background on hover for most prominent, warning states.\nUSED IN: –"
           },
           "active": {
             "$extensions": {
@@ -328,7 +328,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.warning-bold.initial}",
-            "$description": "Darkest orange on press (darkened 36%).\n"
+            "$description": "Darkest orange background on pressed for most prominent, warning states.\nUSED IN: –"
           }
         },
         "success": {
@@ -344,7 +344,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.green.50}",
-            "$description": "Very light green background for success messages (green 50, lightened 60%).\n"
+            "$description": "Light green background for success states. USED IN: Inline Message"
           },
           "hover": {
             "$extensions": {
@@ -358,7 +358,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.success.initial}",
-            "$description": "Slightly darker green on hover (darkened 4%).\n"
+            "$description": "Darker green background on hover for success states.\nUSED IN: Inline Message\n"
           },
           "active": {
             "$extensions": {
@@ -372,7 +372,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.success.initial}",
-            "$description": "Darker green on press (darkened 8%).\n"
+            "$description": "Darkest green background on pressed for success states.\nUSED IN: Inline Message\n\n"
           }
         },
         "success-bold": {

@@ -932,7 +932,7 @@
               "type": "dropShadow"
             }
           ],
-          "$description": "low elevation shadow for slightly raised elements (e.g., cards).\n\nFor containers that slightly stand out from the background but are not interactive by default. The elements that are placed inside this are extending the current surrounded context and group them inside the container.\n\nExamples are: Cards, tiles, arrays.\n\nIf you use the elevation level 1 on a container, you have to change the surface to be one level higher.\n"
+          "$description": "low elevation shadow for slightly raised elements (e.g., cards).\n\nFor containers that slightly stand out from the background but are not interactive by default. The elements that are placed inside this are extending the current surrounded context and group them inside the container.\n\nUSED IN: Cards, tiles, arrays.\n\nIf you use the elevation level 1 on a container, you have to change the surface to be one level higher.\n"
         },
         "3": {
           "$type": "boxShadow",
