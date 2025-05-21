@@ -835,7 +835,87 @@
         "flow-variable": {
           "$type": "color",
           "$value": "#FF4B4B",
-          "$description": "FlowVariable"
+          "$description": "Flow Variables"
+        },
+        "component": {
+          "$type": "color",
+          "$value": "hsl(200, 5%, 76.5%)",
+          "$description": "Component"
+        },
+        "configuration": {
+          "$type": "color",
+          "$value": "hsl(78, 38.7%, 75.7%)",
+          "$description": "Configuration"
+        },
+        "container": {
+          "$type": "color",
+          "$value": "hsl(60, 23%, 49.4%)",
+          "$description": "Container"
+        },
+        "learner": {
+          "$type": "color",
+          "$value": "hsl(70, 78.3%, 54.9%)",
+          "$description": "Learner"
+        },
+        "loop": {
+          "$type": "color",
+          "$value": "hsl(188, 63%, 71.4%)",
+          "$description": "Loop / Start / End"
+        },
+        "manipulator": {
+          "$type": "color",
+          "$value": "hsl(50.8, 100%, 50%)",
+          "$description": "Manipulator"
+        },
+        "metanode": {
+          "$type": "color",
+          "$value": "hsl(220, 4.3%, 86.5%)",
+          "$description": "Metanode"
+        },
+        "metanode-border": {
+          "$type": "color",
+          "$value": "hsl(0, 0%, 53.3%)",
+          "$description": "Metanode Secondary"
+        },
+        "other": {
+          "$type": "color",
+          "$value": "hsl(24, 46.4%, 67.1%)",
+          "$description": "Other"
+        },
+        "predictor": {
+          "$type": "color",
+          "$value": "hsl(128, 50%, 47.1%)",
+          "$description": "Predictor"
+        },
+        "quickform": {
+          "$type": "color",
+          "$value": "hsl(78, 38.7%, 75.7%)",
+          "$description": "QuickForm"
+        },
+        "scope": {
+          "$type": "color",
+          "$value": "hsl(305, 27.7%, 46.1%)",
+          "$description": "Scope Start / End"
+        },
+        "sink": {
+          "$type": "color",
+          "$value": "hsl(0, 100%, 64.7%)",
+          "$description": "Sink"
+        },
+        "source": {
+          "$type": "color",
+          "$value": "hsl(29, 100%, 59.8%)",
+          "$description": "Source"
+        },
+        "virtual": {
+          "$type": "color",
+          "$value": "hsl(0, 0%, 66.7%)",
+          "$description": "Virtual In / Out"
+        },
+        "visualizer": {
+          "$type": "color",
+          "$value": "hsl(193, 60.9%, 43.1%)",
+          "$description": "Visualizer / Widget"
         }
       },
       "skeleton": {
