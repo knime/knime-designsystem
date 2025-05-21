@@ -32,7 +32,7 @@
             "studio.tokens": {
               "modify": {
                 "type": "alpha",
-                "value": "0.52",
+                "value": "0.47",
                 "space": "lch"
               }
             }
@@ -45,7 +45,7 @@
             "studio.tokens": {
               "modify": {
                 "type": "alpha",
-                "value": "0.82",
+                "value": "0.64",
                 "space": "lch"
               }
             }
@@ -58,7 +58,7 @@
             "studio.tokens": {
               "modify": {
                 "type": "alpha",
-                "value": "0.86",
+                "value": "0.72",
                 "space": "lch"
               }
             }

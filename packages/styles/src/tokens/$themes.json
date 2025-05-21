@@ -13,8 +13,7 @@
       "style/typography": "enabled",
       "components/DesktopHeader": "enabled",
       "components/Input": "enabled",
-      "components/Loading": "enabled",
-      "components/ResizeHandle": "disabled"
+      "components/Loading": "enabled"
     },
     "$figmaVariableReferences": {}
   },
@@ -32,8 +31,7 @@
       "style/typography": "enabled",
       "components/DesktopHeader": "enabled",
       "components/Input": "enabled",
-      "components/Loading": "enabled",
-      "components/ResizeHandle": "disabled"
+      "components/Loading": "enabled"
     },
     "$figmaVariableReferences": {}
   }
