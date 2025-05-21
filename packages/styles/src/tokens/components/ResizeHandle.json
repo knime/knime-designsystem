@@ -1,0 +1,72 @@
+{
+  "kds": {
+    "border": {
+      "ResizeHandle": {
+        "initial": {
+          "$type": "composition",
+          "$value": {
+            "borderWidth": "{kds.border-width.base.m}",
+            "borderColor": "{kds.color.ResizeHandler.default}"
+          }
+        },
+        "hover": {
+          "$type": "composition",
+          "$value": {
+            "borderWidth": "{kds.border-width.base.m}",
+            "borderColor": "{kds.color.ResizeHandler.hover}"
+          }
+        },
+        "active": {
+          "$type": "composition",
+          "$value": {
+            "borderWidth": "{kds.border-width.base.m}",
+            "borderColor": "{kds.color.ResizeHandler.active}"
+          }
+        }
+      }
+    },
+    "color": {
+      "ResizeHandler": {
+        "default": {
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "alpha",
+                "value": "0.52",
+                "space": "lch"
+              }
+            }
+          },
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.875}"
+        },
+        "hover": {
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "alpha",
+                "value": "0.82",
+                "space": "lch"
+              }
+            }
+          },
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.875}"
+        },
+        "active": {
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "alpha",
+                "value": "0.86",
+                "space": "lch"
+              }
+            }
+          },
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.875}"
+        }
+      }
+    }
+  }
+}
