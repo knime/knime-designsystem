@@ -770,6 +770,48 @@
           "$type": "color",
           "$value": "{kds.core.color.yellow.250}",
           "$description": "❌ Yellow border accent for brand highlights.\n[Used as reference token only for the Border composite tokens]\n"
+        },
+        "neutral-bold-initial": {
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "alpha",
+                "value": "0.47",
+                "space": "lch"
+              }
+            }
+          },
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.875}",
+          "$description": "❌ Neutral border for ResizeHandler.\n[Used as reference token only for the ResizeHandler composite tokens]\n\n"
+        },
+        "neutral-bold-hover": {
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "alpha",
+                "value": "0.64",
+                "space": "lch"
+              }
+            }
+          },
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.875}",
+          "$description": "❌ Neutral border for ResizeHandler.\n[Used as reference token only for the ResizeHandler composite tokens]\n\n"
+        },
+        "neutral-bold-active": {
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "alpha",
+                "value": "0.74",
+                "space": "lch"
+              }
+            }
+          },
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.875}",
+          "$description": "❌ Neutral border for ResizeHandler.\n[Used as reference token only for the ResizeHandler composite tokens]\n\n"
         }
       },
       "focus": {
