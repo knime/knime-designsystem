@@ -812,7 +812,7 @@
             "studio.tokens": {
               "modify": {
                 "type": "alpha",
-                "value": "0.38",
+                "value": "0.4",
                 "space": "lch"
               }
             }

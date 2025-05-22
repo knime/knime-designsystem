@@ -2,8 +2,8 @@
   "tokenSetOrder": [
     "components/DesktopHeader",
     "components/Input",
-    "components/ResizeHandle",
     "components/Loading",
+    "components/ResizeHandle",
     "core/color",
     "core/dimension",
     "core/font",
