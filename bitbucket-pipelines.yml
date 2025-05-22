@@ -1,4 +1,4 @@
-image: node:22.14.0
+image: node:22.16.0
 
 options:
   max-time: 5
@@ -25,7 +25,8 @@ definitions:
           - corepack enable
           - pnpm install
           - pnpm ci:lint-format
-          - pnpm build:tokens
+          - pnpm build
+          - pnpm coverage
           - pnpm run audit
           - pipe: sonarsource/sonarcloud-scan:2.0.0
             variables:

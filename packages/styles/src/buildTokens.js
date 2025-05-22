@@ -15,7 +15,7 @@ import {
 } from "style-dictionary/enums";
 import { fileHeader } from "style-dictionary/utils";
 
-import mergeTokens from "./merge-tokens.js"; // eslint-disable-line import/extensions
+import mergeTokens from "./mergeTokens.js"; // eslint-disable-line import/extensions
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -31,10 +31,12 @@ const indentConsole = {
   info: (message) => originalConsole.info(`    ${message}`),
 };
 
-// Function to remove all contents of the dist folder
+// Remove tokens from dist folder
 const cleanDistFolder = () => {
-  const distPath = path.resolve(__dirname, "../dist");
-  console.log(chalk.yellow.bgBlack.bold("🧹 Clearing the dist folder...\n"));
+  const distPath = path.resolve(__dirname, "../dist/tokens");
+  console.log(
+    chalk.yellow.bgBlack.bold("🧹 Clearing tokens from dist folder...\n"),
+  );
   rimraf.sync(distPath);
 };
 

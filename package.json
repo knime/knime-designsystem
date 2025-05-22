@@ -14,7 +14,9 @@
     "ci:lint-format": "run-s ci:lint:* format:check -c -l",
     "ci:lint:js": "pnpm run lint:js && pnpm run lint:js -f json -o test-results/eslint.json",
     "ci:lint:css": "pnpm run lint:css -f json -o test-results/stylelint.json",
-    "build:tokens": "pnpm run --filter @knime/kds-tokens build:tokens",
+    "build": "pnpm run -r build",
+    "test:unit": "vitest",
+    "coverage": "vitest run --coverage",
     "audit": "pnpm audit --prod",
     "prepare": "husky",
     "postinstall": "license-check -c"
@@ -23,22 +25,25 @@
     "@knime/eslint-config": "8.2.0",
     "@knime/licenses": "1.0.6",
     "@rushstack/eslint-patch": "1.10.5",
-    "@tsconfig/node22": "^22.0.0",
-    "eslint": "8.57.0",
-    "husky": "^9.1.7",
-    "lint-staged": "15.4.3",
-    "npm-run-all": "^4.1.5",
-    "prettier": "3.5.1",
-    "stylelint": "16.14.1"
+    "@tsconfig/node22": "catalog:",
+    "@vitest/coverage-v8": "catalog:vitest",
+    "eslint": "catalog:",
+    "husky": "catalog:",
+    "lint-staged": "catalog:",
+    "npm-run-all": "catalog:",
+    "prettier": "catalog:",
+    "stylelint": "catalog:",
+    "vitest": "catalog:vitest"
   },
   "engines": {
-    "node": "22.14.0",
+    "node": "22.16.0",
     "npm": "please-use-pnpm"
   },
-  "packageManager": "pnpm@10.4.1",
+  "packageManager": "pnpm@10.11.0",
   "pnpm": {
     "overrides": {
-      "esbuild@<=0.24.2": ">=0.25.0"
+      "esbuild@<=0.24.2": ">=0.25.0",
+      "@babel/runtime@<7.26.10": ">=7.26.10"
     }
   }
 }

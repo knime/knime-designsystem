@@ -104,10 +104,8 @@ const processKeys = ({
     }
 
     if (isProperty) {
-      const lightInitialValueMatch =
-        lightValue && lightValue.match(initialValueRegex);
-      const darkInitialValueMatch =
-        darkValue && darkValue.match(initialValueRegex);
+      const lightInitialValueMatch = lightValue?.match(initialValueRegex);
+      const darkInitialValueMatch = darkValue?.match(initialValueRegex);
 
       if (
         (lightInitialValueMatch && !isValidValue(lightInitialValueMatch[1])) ||

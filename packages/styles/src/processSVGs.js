@@ -1,0 +1,154 @@
+/* eslint-disable import/extensions */
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+import chalk from "chalk";
+import consola from "consola";
+import { JSDOM } from "jsdom";
+import { rimraf } from "rimraf";
+import { optimize } from "svgo";
+
+import { svgoConfig } from "@knime/styles/config/svgo.config.js";
+
+import { removeMiterlimit } from "./svgoRemoveMiterlimit.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const inputDir = path.join(__dirname, "./icons");
+const outputDir = path.join(__dirname, "../dist/icons");
+
+// Remove icons from dist folder
+consola.log(
+  chalk.yellow.bgBlack.bold("🧹 Clearing icons from dist folder...\n"),
+);
+rimraf.sync(outputDir);
+
+consola.log(chalk.blue.bold("🚀 Starting to process SVG icons..."));
+
+if (!fs.existsSync(outputDir)) {
+  fs.mkdirSync(outputDir, { recursive: true });
+}
+
+const processSvg = (filePath) => {
+  const svgContent = fs.readFileSync(filePath, "utf-8");
+  const dom = new JSDOM(svgContent);
+  const svg = dom.window.document.querySelector("svg");
+
+  if (!svg) {
+    throw new Error(
+      `❌ ${chalk.white.bold.bgRed(`SVG ${filePath} does not contain an SVG element.`)}`,
+    );
+  }
+
+  // Check width, height, and viewBox
+  if (
+    svg.getAttribute("width") !== "12" ||
+    svg.getAttribute("height") !== "12" ||
+    svg.getAttribute("viewBox") !== "0 0 12 12"
+  ) {
+    throw new Error(
+      `❌ ${chalk.white.bold.bgRed(`SVG ${filePath} does not have the correct dimensions or viewBox.`)}`,
+    );
+  }
+
+  // Find the first element to use for stroke and fill attribute checks
+  const firstElement = svg.querySelector(
+    "path, line, circle, rect, ellipse, polygon, polyline",
+  );
+  if (!firstElement) {
+    throw new Error(
+      `❌ ${chalk.white.bold.bgRed(`SVG ${filePath} does not contain a valid element for stroke and fill attributes.`)}`,
+    );
+  }
+
+  // Copy stroke-related attributes from the first element to the svg element
+  const strokeAttributes = [
+    "stroke",
+    "stroke-width",
+    "stroke-linecap",
+    "stroke-linejoin",
+    "stroke-miterlimit",
+    "stroke-dasharray",
+    "stroke-dashoffset",
+    "stroke-opacity",
+  ];
+
+  const fillAttributes = ["fill", "fill-rule", "fill-opacity"];
+
+  strokeAttributes.forEach((attr) => {
+    const attrValue = firstElement.getAttribute(attr);
+    if (attrValue) {
+      svg.setAttribute(attr, attrValue);
+    }
+  });
+
+  // Ensure fill is set to none and stroke is set to currentColor
+  svg.setAttribute("fill", "none");
+  svg.setAttribute("stroke", "currentColor");
+
+  // Remove stroke and fill-related attributes from child elements and set vector-effect
+  const elements = svg.querySelectorAll("*");
+  elements.forEach((el) => {
+    strokeAttributes.forEach((attr) => {
+      if (el.hasAttribute(attr)) {
+        el.removeAttribute(attr);
+      }
+    });
+    fillAttributes.forEach((attr) => {
+      if (el.hasAttribute(attr)) {
+        el.setAttribute("stroke-width", "0");
+      }
+    });
+    // This ensures that the stroke is not scaled with an item, so that we can apply distinct values
+    el.setAttribute("vector-effect", "non-scaling-stroke");
+  });
+
+  // width and height attributes can be removed, as the viewBox defines the aspect ratio and size is set via CSS later
+  svg.removeAttribute("width");
+  svg.removeAttribute("height");
+
+  const serializedSvg = svg.outerHTML;
+
+  // Optimize SVG with SVGO
+  const optimizedSvg = optimize(serializedSvg, {
+    ...svgoConfig,
+    plugins: [...svgoConfig.plugins, removeMiterlimit],
+  });
+
+  const outputFilePath = path.join(outputDir, path.basename(filePath));
+  fs.writeFileSync(outputFilePath, optimizedSvg.data, "utf-8");
+};
+
+let processedCount = 0;
+const iconNames = [];
+
+fs.readdirSync(inputDir).forEach((file) => {
+  if (path.extname(file) === ".svg") {
+    try {
+      processSvg(path.join(inputDir, file));
+      processedCount++;
+      iconNames.push(path.basename(file, ".svg"));
+    } catch (error) {
+      // @ts-ignore
+      consola.error(error.message);
+      throw error; // Rethrow the error to make pipeline fail at this point
+    }
+  }
+});
+
+// Generate def.ts file containing all file names and a union type to use e.g. in the Icon component
+const iconsTsContent = `
+export const iconNames = [
+  ${iconNames.map((name) => `'${name}'`).join(",\n  ")}
+] as const;
+
+export type IconName = typeof iconNames[number];
+`;
+
+fs.writeFileSync(path.join(outputDir, "def.ts"), iconsTsContent, "utf-8");
+
+consola.log(
+  `✅ ${chalk.green.bold(`Successfully processed ${processedCount} SVG icons!`)}`,
+);
