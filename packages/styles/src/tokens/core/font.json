@@ -147,6 +147,10 @@
           "$type": "fontWeights",
           "$value": "400"
         },
+        "regularItalic": {
+          "$type": "fontWeights",
+          "$value": "Italic"
+        },
         "medium": {
           "$type": "fontWeights",
           "$value": "500"
