@@ -847,8 +847,8 @@
       "skeleton": {
         "default": {
           "$type": "color",
-          "$value": "linear-gradient(90deg, #1A1A1A05 0%, #1A1A1A25 25%, #1A1A1A05 65%, #1A1A1A00 100%)",
-          "$description": "Shimmering gray placeholder gradient for loading content animation.\n"
+          "$value": "linear-gradient(90deg, hsla(0, 0%, 10%, 0.02) 0%, hsla(0, 0%, 10%, 0.15) 25%, hsla(0, 0%, 10%, 0.02) 65%, hsla(0, 0%, 10%, 0.00) 100%)",
+          "$description": "Shimmering gray placeholder gradient for loading content animation."
         }
       },
       "elevation": {
