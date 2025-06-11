@@ -169,6 +169,27 @@
             "$description": "Caption is used for disclosing extra information or smaller items in hierarchical relationships of text. \n\nExamples: Input helping Text, Character Count, # Columns in Twinlist, Datatypes...)"
           }
         },
+        "subtext": {
+          "small": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.roboto}",
+              "fontWeight": "{kds.core.font-weight.regular}",
+              "fontSize": "{kds.core.font-size.scaled.0_62x}"
+            },
+            "$description": "Caption is used for disclosing extra information or smaller items in hierarchical relationships of text. \n\nExamples: Input helping Text, Character Count, # Columns in Twinlist, Datatypes...)"
+          },
+          "medium": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.roboto}",
+              "fontWeight": "{kds.core.font-weight.regular}",
+              "lineHeight": "{kds.core.line-height.singleline}",
+              "fontSize": "{kds.core.font-size.scaled.0_75x}"
+            },
+            "$description": "singleline text, used for button labels, breadcrumbs, chips and everything that is clickable."
+          }
+        },
         "interactive": {
           "xsmall-strong": {
             "$type": "typography",
