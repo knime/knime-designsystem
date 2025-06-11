@@ -175,7 +175,8 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.regular}",
-              "fontSize": "{kds.core.font-size.scaled.0_62x}"
+              "fontSize": "{kds.core.font-size.scaled.0_62x}",
+              "lineHeight": "{kds.core.line-height.multiline_narrow}"
             },
             "$description": "Caption is used for disclosing extra information or smaller items in hierarchical relationships of text. \n\nExamples: Input helping Text, Character Count, # Columns in Twinlist, Datatypes...)"
           },
