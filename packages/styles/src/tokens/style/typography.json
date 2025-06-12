@@ -183,7 +183,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.regular}",
-              "lineHeight": "{kds.core.line-height.singleline}",
+              "lineHeight": "{kds.core.line-height.multiline_narrow}",
               "fontSize": "{kds.core.font-size.scaled.0_75x}"
             },
             "$description": "singleline text, used for button labels, breadcrumbs, chips and everything that is clickable."
