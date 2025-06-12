@@ -158,8 +158,8 @@
             "$description": "multiline text, used for paragraphes inside components, pages or panels"
           }
         },
-        "caption": {
-          "default": {
+        "subtext": {
+          "xsmall": {
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
@@ -167,9 +167,7 @@
               "fontSize": "{kds.core.font-size.scaled.0_56x}"
             },
             "$description": "Caption is used for disclosing extra information or smaller items in hierarchical relationships of text. \n\nExamples: Input helping Text, Character Count, # Columns in Twinlist, Datatypes...)"
-          }
-        },
-        "subtext": {
+          },
           "small": {
             "$type": "typography",
             "$value": {
