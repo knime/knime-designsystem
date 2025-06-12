@@ -44,6 +44,11 @@
     "overrides": {
       "esbuild@<=0.24.2": ">=0.25.0",
       "@babel/runtime@<7.26.10": ">=7.26.10"
+    },
+    "auditConfig": {
+      "ignoreGhsas": [
+        "GHSA-v6h2-p8h4-qcjw"
+      ]
     }
   }
 }
