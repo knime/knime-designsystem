@@ -9,9 +9,10 @@
     "core/font",
     "mode/dark",
     "mode/light",
+    "style/elevation",
     "style/border",
-    "style/motion",
     "style/size",
-    "style/typography"
+    "style/typography",
+    "style/motion"
   ]
 }
