@@ -756,15 +756,15 @@
           "$value": "{kds.core.color.blue.175}",
           "$description": "❌ Blue border for info elements.\n[Used as reference token only for the Border composite tokens]\n"
         },
-        "disabled": {
-          "$type": "color",
-          "$value": "{kds.core.color.neutral.250}",
-          "$description": "❌ Neutral border for components in the disabled state.\n[Used as reference token only for the Border composite tokens]\n"
-        },
         "transparent": {
           "$type": "color",
           "$value": "{kds.core.color.transparent}",
           "$description": "❌ Fully transparent border for components with invisible borders.\n[Used as reference token only for the Border composite tokens]\n"
+        },
+        "disabled": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.250}",
+          "$description": "❌ Neutral border for components in the disabled state.\n[Used as reference token only for the Border composite tokens]\n"
         },
         "brand": {
           "$type": "color",
