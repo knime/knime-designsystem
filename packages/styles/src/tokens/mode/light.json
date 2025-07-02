@@ -587,6 +587,11 @@
           "$value": "{kds.core.color.neutral.400}",
           "$description": "Muted text and icon color for secondary content on light surfaces.\n"
         },
+        "subtle": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.375}",
+          "$description": "Muted text and icon color for secondary content on light surfaces.\n"
+        },
         "neutral-inverted": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.50}",
@@ -644,7 +649,7 @@
         },
         "disabled": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.325}",
+          "$value": "{kds.core.color.neutral.275}",
           "$description": "Dimmed neutral color for text and icons in the disabled state."
         },
         "info": {
