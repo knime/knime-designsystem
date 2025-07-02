@@ -23,9 +23,17 @@
             "$type": "color",
             "$value": "hsl(0, 0%, 72.5%)"
           },
+          "275": {
+            "$type": "color",
+            "$value": "hsl(0, 0%, 64%)"
+          },
           "325": {
             "$type": "color",
             "$value": "hsl(0, 0%, 48.2%)"
+          },
+          "375": {
+            "$type": "color",
+            "$value": "hsl(0, 0%, 45%)"
           },
           "400": {
             "$type": "color",
