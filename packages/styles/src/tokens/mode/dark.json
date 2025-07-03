@@ -623,6 +623,11 @@
           "$value": "{kds.core.color.neutral.250}",
           "$description": "Muted text and icon color for secondary content on dark surfaces."
         },
+        "subtle": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.325}",
+          "$description": "Subtle text and icon color for e.g. helper text inside input fields."
+        },
         "neutral-inverted": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.650}",
