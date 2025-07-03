@@ -855,8 +855,155 @@
       "nodes-and-variables": {
         "flow-variable": {
           "$type": "color",
-          "$value": "#FF4B4B",
+          "$value": "{kds.core.color.red.435}",
           "$description": "Flow Variables"
+        },
+        "loop": {
+          "$type": "color",
+          "$value": "{kds.core.color.aquamarine.325}"
+        },
+        "manipulator": {
+          "$type": "color",
+          "$value": "{kds.color.background.brand.initial}"
+        },
+        "predictor": {
+          "$type": "color",
+          "$value": "{kds.core.color.green.325}"
+        },
+        "source": {
+          "$type": "color",
+          "$value": "{kds.core.color.orange.325}"
+        },
+        "visualizer": {
+          "$type": "color",
+          "$value": "{kds.core.color.aquamarine.550}"
+        },
+        "scope": {
+          "$type": "color",
+          "$value": "{kds.core.color.purple.550}"
+        },
+        "learner": {
+          "$type": "color",
+          "$value": "{kds.core.color.grassgreen.550}"
+        },
+        "sink": {
+          "$type": "color",
+          "$value": "{kds.core.color.red.435}"
+        },
+        "container": {
+          "$type": "color",
+          "$value": "{kds.core.color.grassgreen.725}"
+        },
+        "unknown": {
+          "$type": "color",
+          "$value": "{kds.core.color.red.550}"
+        },
+        "other": {
+          "$type": "color",
+          "$value": "{kds.core.color.brown.325}"
+        },
+        "specialNodesBold": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.400}"
+        },
+        "specialNodes": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.250}"
+        },
+        "specialNodes-muted": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.100}"
+        },
+        "specialNodesBorder": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.550}"
+        },
+        "specialNodesBackground": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.25}"
+        },
+        "warningBold": {
+          "$type": "color",
+          "$value": "{kds.core.color.orange.650}"
+        },
+        "warning": {
+          "$type": "color",
+          "$value": "{kds.core.color.orange.100}"
+        },
+        "errorBold": {
+          "$type": "color",
+          "$value": "{kds.core.color.red.650}"
+        },
+        "error": {
+          "$type": "color",
+          "$value": "{kds.core.color.red.100}"
+        },
+        "loadingBold": {
+          "$type": "color",
+          "$value": "{kds.core.color.blue.650}"
+        },
+        "loading": {
+          "$type": "color",
+          "$value": "{kds.core.color.blue.100}"
+        }
+      },
+      "annotations": {
+        "specialNodes": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.250}"
+        },
+        "specialNodesBold": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.400}"
+        },
+        "visualizer": {
+          "$type": "color",
+          "$value": "{kds.core.color.aquamarine.550}"
+        },
+        "loadingBold": {
+          "$type": "color",
+          "$value": "{kds.core.color.blue.650}"
+        },
+        "manipulator": {
+          "$type": "color",
+          "$value": "{kds.color.background.brand.initial}"
+        },
+        "source": {
+          "$type": "color",
+          "$value": "{kds.core.color.orange.325}"
+        },
+        "sink": {
+          "$type": "color",
+          "$value": "{kds.core.color.red.435}"
+        },
+        "learner": {
+          "$type": "color",
+          "$value": "{kds.core.color.grassgreen.550}"
+        },
+        "predictor": {
+          "$type": "color",
+          "$value": "{kds.core.color.green.325}"
+        },
+        "container": {
+          "$type": "color",
+          "$value": "{kds.core.color.grassgreen.175}"
+        },
+        "flow-variable": {
+          "$type": "color",
+          "$value": "{kds.core.color.teal.475}",
+          "$description": "Flow Variables"
+        },
+        "tealDark": {
+          "$type": "color",
+          "$value": "{kds.core.color.teal.725}"
+        },
+        "other": {
+          "$type": "color",
+          "$value": "{kds.core.color.brown.325}"
+        },
+        "loop": {
+          "$type": "color",
+          "$value": "{kds.core.color.brown.650}"
         }
       },
       "skeleton": {
