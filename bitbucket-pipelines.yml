@@ -33,7 +33,7 @@ definitions:
               SONAR_SCANNER_OPTS: -Xmx4G
           # - pipe: sonarsource/sonarcloud-quality-gate:0.1.6
           - cd documentation
-          - pnpm dlx chromatic --exit-once-uploaded
+          - pnpm dlx chromatic --exit-once-uploaded --auto-accept-changes
         artifacts:
           - documentation/dist/**
           - packages/styles/dist/**
