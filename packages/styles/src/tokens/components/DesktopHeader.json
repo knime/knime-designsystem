@@ -32,6 +32,14 @@
             "$value": "{kds.color.border.subtle}"
           }
         }
+      },
+      "TableHeader": {
+        "background": {
+          "default": {
+            "$type": "color",
+            "$value": "{kds.core.color.neutral.25}"
+          }
+        }
       }
     }
   }
