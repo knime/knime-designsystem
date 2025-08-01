@@ -78,66 +78,6 @@
           "$type": "spacing",
           "$value": "AUTO"
         }
-      },
-      "page": {
-        "margin": {
-          "none": {
-            "$type": "spacing",
-            "$value": "{kds.core.dimension.0}",
-            "$description": "This is basically your page margin (in breakpoints-speak)."
-          },
-          "1x": {
-            "$type": "spacing",
-            "$value": "{kds.core.dimension.100}"
-          },
-          "1_5x": {
-            "$type": "spacing",
-            "$value": "{kds.core.dimension.150}"
-          },
-          "2x": {
-            "$type": "spacing",
-            "$value": "{kds.core.dimension.200}"
-          },
-          "3x": {
-            "$type": "spacing",
-            "$value": "{kds.core.dimension.300}"
-          }
-        },
-        "padding": {
-          "none": {
-            "$type": "spacing",
-            "$value": "{kds.core.dimension.0}",
-            "$description": "This is basically your page gutter (in breakpoints-speak)."
-          },
-          "0_25x": {
-            "$type": "spacing",
-            "$value": "{kds.core.dimension.25}"
-          },
-          "0_5x": {
-            "$type": "spacing",
-            "$value": "{kds.core.dimension.50}"
-          },
-          "1x": {
-            "$type": "spacing",
-            "$value": "{kds.core.dimension.100}"
-          },
-          "2x": {
-            "$type": "spacing",
-            "$value": "{kds.core.dimension.200}"
-          },
-          "4x": {
-            "$type": "spacing",
-            "$value": "{kds.core.dimension.400}"
-          },
-          "8x": {
-            "$type": "spacing",
-            "$value": "{kds.core.dimension.800}"
-          },
-          "16x": {
-            "$type": "spacing",
-            "$value": "{kds.core.dimension.1600}"
-          }
-        }
       }
     },
     "dimension": {
