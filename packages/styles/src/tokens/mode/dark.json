@@ -757,6 +757,11 @@
           "$value": "{kds.core.color.teal.100}",
           "$description": "❌ Faint teal border indicating the selected state.\n[Used as reference token only for the Border composite tokens]\n"
         },
+        "selected-accent": {
+          "$type": "color",
+          "$value": "{kds.core.color.blue.250}",
+          "$description": "❌ Accent border indicating the accented selected state.\n[Used as reference token only for the Border composite tokens]\n"
+        },
         "warning-bold": {
           "$type": "color",
           "$value": "{kds.core.color.orange.100}",
@@ -860,6 +865,20 @@
           "$type": "color",
           "$value": "{kds.core.color.blue.250}",
           "$description": "❌ Blue outline highlight for focused elements.\n[Used as reference token only for the Border composite tokens]\n\n\n"
+        },
+        "background": {
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "darken",
+                "value": "0.4",
+                "space": "lch"
+              }
+            }
+          },
+          "$type": "color",
+          "$value": "{kds.core.color.blue.725}",
+          "$description": "Blue background highlight for focused elements.\n[Used with elements that are using 1px Border focus color through Border composite tokens]\n"
         }
       },
       "blanket": {

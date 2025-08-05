@@ -137,6 +137,15 @@
           },
           "$description": "1px teal outline (color.border.selected) - shows current selection (e.g. radio, checkbox, TabBar-Item).\n\n[Themable composite token referencing border tokens from the mode set]\n"
         },
+        "selected-accent": {
+          "$type": "border",
+          "$value": {
+            "color": "{kds.color.border.selected-accent}",
+            "width": "{kds.border-width.base.s}",
+            "style": "solid"
+          },
+          "$description": "1px outline (color.border.selected) - shows current selection (e.g. table cell, node instance).\n\n[Themable composite token referencing border tokens from the mode set]\n"
+        },
         "error": {
           "$type": "border",
           "$value": {
