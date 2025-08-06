@@ -31,8 +31,8 @@
     "vue": "catalog:"
   },
   "engines": {
-    "node": "22.16.0",
+    "node": "24.5.0",
     "npm": "please-use-pnpm"
   },
-  "packageManager": "pnpm@10.11.0"
+  "packageManager": "pnpm@10.14.0"
 }
