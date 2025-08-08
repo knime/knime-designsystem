@@ -1,5 +1,5 @@
-import { action } from "@storybook/addon-actions";
-import type { Meta, StoryFn } from "@storybook/vue3";
+import type { Meta, StoryFn } from "@storybook/vue3-vite";
+import { action } from "storybook/actions";
 
 import MyHeader from "./Header.vue";
 

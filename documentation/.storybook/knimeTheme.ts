@@ -1,4 +1,4 @@
-import { create } from "@storybook/theming/create";
+import { create } from "storybook/theming/create";
 import Color from "color";
 // @ts-ignore
 import KNIMELogo from "@knime/styles/img/KNIME_Logo_white.svg";

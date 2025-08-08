@@ -1,4 +1,4 @@
-import { type Preview } from "@storybook/vue3";
+import { type Preview } from "@storybook/vue3-vite";
 import "@knime/kds-styles/kds-variables.css";
 
 // TODO: use roboto provided by the design system? like @knime/kds-styles

@@ -1,4 +1,4 @@
-image: node:22.16.0
+image: node:24.5.0
 
 options:
   max-time: 5

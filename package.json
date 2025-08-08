@@ -23,9 +23,9 @@
   },
   "devDependencies": {
     "@knime/eslint-config": "8.2.0",
-    "@knime/licenses": "1.0.6",
+    "@knime/licenses": "1.2.0",
     "@rushstack/eslint-patch": "1.10.5",
-    "@tsconfig/node22": "catalog:",
+    "@tsconfig/node24": "catalog:",
     "@vitest/coverage-v8": "catalog:vitest",
     "eslint": "catalog:",
     "husky": "catalog:",
@@ -49,6 +49,9 @@
       "ignoreGhsas": [
         "GHSA-v6h2-p8h4-qcjw"
       ]
-    }
+    },
+    "onlyBuiltDependencies": [
+      "style-dictionary"
+    ]
   }
 }

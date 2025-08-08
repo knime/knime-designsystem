@@ -1,5 +1,5 @@
 import { computed, ref } from "vue";
-import type { Meta } from "@storybook/vue3";
+import type { Meta } from "@storybook/vue3-vite";
 
 // Import all SVG icons from the dist/icons folder
 const icons = import.meta.glob("../../packages/styles/dist/icons/*.svg", {

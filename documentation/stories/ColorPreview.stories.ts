@@ -1,5 +1,5 @@
 import { capitalize } from "vue";
-import type { Meta } from "@storybook/vue3";
+import type { Meta } from "@storybook/vue3-vite";
 
 import colors from "../../packages/styles/src/tokens/core/color.json";
 

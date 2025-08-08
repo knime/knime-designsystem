@@ -17,15 +17,14 @@
   },
   "dependencies": {
     "@knime/kds-styles": "workspace:^",
-    "@knime/styles": "^1.4.0",
-    "@knime/utils": "^1.4.0",
+    "@knime/styles": "^1.10.0",
+    "@knime/utils": "^1.5.3",
     "consola": "catalog:"
   },
   "devDependencies": {
-    "@storybook/test": "catalog:storybook",
-    "@storybook/vue3": "catalog:storybook",
     "@vitejs/plugin-vue": "catalog:",
     "@vue/test-utils": "catalog:",
+    "@vue/tsconfig": "catalog:",
     "vite": "catalog:",
     "vite-svg-loader": "catalog:",
     "vue": "catalog:"
