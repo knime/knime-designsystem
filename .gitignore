@@ -42,5 +42,6 @@ Thumbs.db
 .stylelintcache
 
 *storybook.log
+storybook-static/
 
 .pnpm-store/

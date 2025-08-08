@@ -30,8 +30,8 @@
   "exports": {
     "./kds-variables.css": "./dist/tokens/css/_variables.css",
     "./kds-properties.css": "./dist/tokens/css/_properties.css",
-    "./icons/*": "./dist/icons/*.svg",
-    "./icons/def": "./dist/icons/def.ts"
+    "./img/*": "./dist/img/*.svg",
+    "./img/*/def": "./dist/img/*/def.ts"
   },
   "engines": {
     "node": "24.5.0",

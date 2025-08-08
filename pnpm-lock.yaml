@@ -158,6 +158,9 @@ importers:
       '@knime/styles':
         specifier: ^1.10.0
         version: 1.10.0(@fontsource/roboto-mono@4.5.10)(@fontsource/roboto@4.5.8)
+      modern-normalize:
+        specifier: 3.0.1
+        version: 3.0.1
       storybook:
         specifier: catalog:storybook
         version: 9.1.1(@testing-library/dom@10.4.0)(prettier@3.6.2)(vite@7.1.1(@types/node@24.2.0)(sugarss@4.0.1(postcss@8.5.6))(yaml@2.7.0))
@@ -3428,6 +3431,10 @@ packages:
 
   modern-normalize@2.0.0:
     resolution: {integrity: sha512-CxBoEVKh5U4DH3XuNbc5ONLF6dQBc8dSc7pdZ1957FGbIO5JBqGqqchhET9dTexri8/pk9xBL6+5ceOtCIp1QA==}
+    engines: {node: '>=6'}
+
+  modern-normalize@3.0.1:
+    resolution: {integrity: sha512-VqlMdYi59Uch6fnUPxnpijWUQe+TW6zeWCvyr6Mb7JibheHzSuAAoJi2c71ZwIaWKpECpGpYHoaaBp6rBRr+/g==}
     engines: {node: '>=6'}
 
   mrmime@2.0.1:
@@ -8384,6 +8391,8 @@ snapshots:
       ufo: 1.6.1
 
   modern-normalize@2.0.0: {}
+
+  modern-normalize@3.0.1: {}
 
   mrmime@2.0.1: {}
 

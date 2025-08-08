@@ -26,6 +26,7 @@ import { Icon } from "@knime/kds-components";
 
 - **Button**: Basic button component
 - **Icon**: Icon component with various KNIME icons
+- **DataType**: DataType component rendering a data type icon inside a box
 
 ## Development
 

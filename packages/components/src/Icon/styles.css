@@ -1,0 +1,30 @@
+.kds-icon {
+  --icon-width: var(--kds-dimension-icon-1x);
+  --icon-height: var(--kds-dimension-icon-1x);
+  --icon-stroke-width: var(--kds-border-width-icon-stroke-m);
+
+  display: inline-block;
+  vertical-align: middle;
+  shape-rendering: geometricprecision;
+  width: var(--icon-width);
+  height: var(--icon-height);
+  stroke-width: var(--icon-stroke-width);
+
+  &.x-small {
+    --icon-width: var(--kds-dimension-icon-0-56x);
+    --icon-height: var(--kds-dimension-icon-0-56x);
+    --icon-stroke-width: var(--kds-border-width-icon-stroke-s);
+  }
+
+  &.small {
+    --icon-width: var(--kds-dimension-icon-0-75x);
+    --icon-height: var(--kds-dimension-icon-0-75x);
+    --icon-stroke-width: var(--kds-border-width-icon-stroke-s);
+  }
+
+  &.large {
+    --icon-width: var(--kds-dimension-icon-1-25x);
+    --icon-height: var(--kds-dimension-icon-1-25x);
+    --icon-stroke-width: var(--kds-border-width-icon-stroke-l);
+  }
+}

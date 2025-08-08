@@ -1,5 +1,6 @@
 import { type Preview } from "@storybook/vue3-vite";
 import "@knime/kds-styles/kds-variables.css";
+import "modern-normalize/modern-normalize.css";
 
 // TODO: use roboto provided by the design system? like @knime/kds-styles
 const link = document.createElement("link");
