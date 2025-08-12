@@ -12,6 +12,21 @@
     "components"
   ],
   "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build"
+  },
   "peerDependencies": {
     "vue": "catalog:peer"
   },
@@ -26,6 +41,7 @@
     "@vue/test-utils": "catalog:",
     "@vue/tsconfig": "catalog:",
     "vite": "catalog:",
+    "vite-plugin-dts": "catalog:",
     "vite-svg-loader": "catalog:",
     "vue": "catalog:"
   },
