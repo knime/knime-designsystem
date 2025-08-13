@@ -2,7 +2,7 @@ import { computed, ref } from "vue";
 import type { Meta } from "@storybook/vue3-vite";
 
 // Import all SVG icons from the dist/icons folder
-const icons = import.meta.glob("../../packages/styles/dist/icons/*.svg", {
+const icons = import.meta.glob("../../packages/styles/dist/img/icons/*.svg", {
   eager: true,
 });
 
@@ -58,10 +58,10 @@ export const IconsPreview = () => {
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--kds-spacing-container-2x);">
           <figure v-for="iconName in filteredIcons" :key="iconName" style="display: flex; flex-direction: column; align-items: center; border: 1px solid #ccc; border-radius: 8px; padding: var(--kds-spacing-container-1x);">
             <div style="display: flex; gap: var(--kds-spacing-container-1x);">
-              <component :is="icons[\`../../packages/styles/dist/icons/\${iconName}.svg\`]" width="9" height="9" stroke-width="1" />
-              <component :is="icons[\`../../packages/styles/dist/icons/\${iconName}.svg\`]" width="12" height="12" stroke-width="1" />
-              <component :is="icons[\`../../packages/styles/dist/icons/\${iconName}.svg\`]" width="16" height="16" stroke-width="1.25" />
-              <component :is="icons[\`../../packages/styles/dist/icons/\${iconName}.svg\`]" width="20" height="20" stroke-width="1.5" />
+              <component :is="icons[\`../../packages/styles/dist/img/icons/\${iconName}.svg\`]" width="9" height="9" stroke-width="1" />
+              <component :is="icons[\`../../packages/styles/dist/img/icons/\${iconName}.svg\`]" width="12" height="12" stroke-width="1" />
+              <component :is="icons[\`../../packages/styles/dist/img/icons/\${iconName}.svg\`]" width="16" height="16" stroke-width="1.25" />
+              <component :is="icons[\`../../packages/styles/dist/img/icons/\${iconName}.svg\`]" width="20" height="20" stroke-width="1.5" />
             </div>
             <figcaption style="margin-top: var(--kds-spacing-container-1x); text-align: center;">{{ iconName }}</figcaption>
           </figure>
