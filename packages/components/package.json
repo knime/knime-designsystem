@@ -38,6 +38,7 @@
     "consola": "catalog:"
   },
   "devDependencies": {
+    "@storybook/vue3-vite": "catalog:storybook",
     "@vitejs/plugin-vue": "catalog:",
     "@vue/test-utils": "catalog:",
     "@vue/tsconfig": "catalog:",

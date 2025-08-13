@@ -6,7 +6,7 @@ import type { IconName } from "@knime/kds-styles/img/icons/def";
 import { type IconSize } from "./types";
 import useIcon from "./useIcon";
 
-export type { IconName };
+export type { IconName, IconSize };
 
 const props = withDefaults(defineProps<{ name: IconName; size?: IconSize }>(), {
   name: "placeholder",

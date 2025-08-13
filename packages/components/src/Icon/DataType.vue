@@ -16,7 +16,7 @@ type DataTypeIconSize = Exclude<IconSize, "large">;
 export type { DataTypeSize };
 
 type Props = {
-  iconName?: TypeIconName | TypeId;
+  iconName?: TypeIconName | TypeId | string;
   iconTitle?: string;
   size?: DataTypeSize;
 };

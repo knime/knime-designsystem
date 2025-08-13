@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-import type { IconName } from "@knime/kds-styles/icons/def";
+import type { IconName } from "@knime/kds-styles/img/icons/def";
 
 import Icon from "../Icon/Icon.vue";
 

@@ -32,5 +32,5 @@ export default ({
     { immediate: true },
   );
 
-  return iconComponent;
+  return iconComponent as Readonly<typeof iconComponent>;
 };
