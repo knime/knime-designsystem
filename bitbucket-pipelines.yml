@@ -37,8 +37,9 @@ definitions:
         artifacts:
           - documentation/dist/**
           - packages/styles/dist/**
+          - packages/components/dist/**
     - step: &publish-npm
-        name: Publish packages to npm
+        name: Publish packages to npm and increase patch version
         caches:
           - pnpm
         trigger: manual
@@ -46,20 +47,19 @@ definitions:
         script:
           - npm install -g corepack
           - corepack enable
-          - pnpm install
-          - pnpm run publish
+          - pnpm install --frozen-lockfile
+          # For now we keep it simple and keep all packages (including root) in sync with the same version, so we bump root and set all packages to the resulting version
+          - NEW_VERSION=$(pnpm version patch --no-git-tag-version 2>/dev/null) || { echo "Version bump failed" >&2; exit 1; }
+          - NEW_VERSION=${NEW_VERSION#v}
+          - pnpm -r exec pnpm version "$NEW_VERSION" --no-git-tag-version
+          - git add -A
+          - HUSKY=0 git commit -m "Bump version to v$NEW_VERSION [skip ci]"
+          - git tag "v$NEW_VERSION" -m "v$NEW_VERSION"
           - git push --follow-tags
-    # - step: &deploy-documentation
-    #     name: Deploy documentation to Netlify
-    #     caches:
-    #       - pnpm
-    #     deployment: production
-    #     script:
-    #       - npm install -g corepack
-    #       - corepack enable
-    #       - pnpm install
-    #       # TODO deploy to Netlify
-    #       - echo "Deploy script not yet defined!!"
+          # Publish packages after version bump, can't use atlassian/npm-publish pipe here, because it does not support monorepos
+          - test -n "$NPM_TOKEN" || { echo "NPM_TOKEN is not set" >&2; exit 1; }
+          - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          - pnpm run publish
 
 pipelines:
   pull-requests:
@@ -69,4 +69,3 @@ pipelines:
   branches:
     master:
       - step: *lint-test-build
-#      - step: *deploy-documentation
