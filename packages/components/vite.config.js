@@ -34,7 +34,7 @@ export default defineConfig({
       },
     },
     target: "esnext",
-    minify: true,
+    minify: false,
     sourcemap: true,
   },
   test: {

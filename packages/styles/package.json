@@ -1,6 +1,6 @@
 {
   "name": "@knime/kds-styles",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Package containing the design tokens and icons for the KNIME Design System",
   "license": "GPL 3 and Additional Permissions according to Sec. 7 (SEE the file LICENSE)",
   "author": "KNIME AG, Zurich, Switzerland",

@@ -227,7 +227,9 @@ const mergeTokens = ({ basePath, varPattern, propsPattern }) => {
  * Do not edit directly, this file was auto-generated.
  */\n\n`;
 
-    const outputCSSVars = `${comment}:root {\n${outputVars.join("\n")}\n}`;
+    /* The selector for the variables needs to also include :host if it is supposed to be imported in shadow dom.
+       This can be removed again, once variables are imported on top level only. Also the use of shadow dom can be re-evaluated once the design system is rolled out everywhere */
+    const outputCSSVars = `${comment}:root, :host {\n${outputVars.join("\n")}\n}`;
     const outputCSSProps = `${comment}${outputProps.join("\n\n")}`;
 
     fs.writeFileSync(outputVarsFilePath, outputCSSVars);
