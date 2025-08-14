@@ -19,8 +19,7 @@
     ".": {
       "types": "./dist/src/index.d.ts",
       "import": "./dist/index.js"
-    },
-    "./components.css": "./dist/index.css"
+    }
   },
   "files": [
     "dist"
@@ -44,6 +43,7 @@
     "@vue/tsconfig": "catalog:",
     "vite": "catalog:",
     "vite-plugin-dts": "catalog:",
+    "vite-plugin-lib-inject-css": "catalog:",
     "vite-svg-loader": "catalog:",
     "vue": "catalog:"
   },

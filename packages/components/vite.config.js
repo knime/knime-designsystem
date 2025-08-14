@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import dts from "vite-plugin-dts";
+import { libInjectCss } from "vite-plugin-lib-inject-css";
 import svgLoader from "vite-svg-loader";
 
 import { svgoConfig } from "@knime/styles/config/svgo.config";
@@ -17,6 +18,7 @@ export default defineConfig({
       exclude: ["src/**/*.stories.ts", "src/**/__tests__/**/*"],
       tsconfigPath: "./tsconfig.build.json",
     }),
+    libInjectCss(),
   ],
   build: {
     lib: {
