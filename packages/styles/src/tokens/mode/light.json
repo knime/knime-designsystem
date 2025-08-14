@@ -945,6 +945,10 @@
         "loading": {
           "$type": "color",
           "$value": "{kds.core.color.blue.100}"
+        },
+        "configuration": {
+          "$type": "color",
+          "$value": "{kds.core.color.grassgreen.325}"
         }
       },
       "annotations": {
