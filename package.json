@@ -1,6 +1,6 @@
 {
   "name": "@knime/kds-root",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Root package for managing the monorepo for the KNIME Design System",
   "license": "GPL 3 and Additional Permissions according to Sec. 7 (SEE the file LICENSE)",
   "author": "KNIME AG, Zurich, Switzerland",
