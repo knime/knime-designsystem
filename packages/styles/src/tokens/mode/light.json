@@ -955,6 +955,21 @@
           "$value": "{kds.core.color.grassgreen.325}"
         }
       },
+      "port": {
+        "flow-variable": {
+          "$type": "color",
+          "$value": "{kds.core.color.red.435}",
+          "$description": "Flow Variables"
+        },
+        "data": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.800}"
+        },
+        "neutral-inverted": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.25}"
+        }
+      },
       "annotations": {
         "specialNodes": {
           "$type": "color",
