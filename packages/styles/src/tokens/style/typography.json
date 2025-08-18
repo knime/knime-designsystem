@@ -361,6 +361,14 @@
               "fontFamily": "{kds.core.font-family.roboto-condensed}",
               "fontSize": "{kds.core.font-size.scaled.0_75x}"
             }
+          },
+          "status": {
+            "$type": "typography",
+            "$value": {
+              "fontWeight": "{kds.core.font-weight.regular}",
+              "fontFamily": "{kds.core.font-family.roboto-condensed}",
+              "fontSize": "{kds.core.font-size.scaled.0_5x}"
+            }
           }
         }
       },

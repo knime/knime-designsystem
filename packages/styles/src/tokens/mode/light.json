@@ -1093,6 +1093,14 @@
         "executing": {
           "$type": "color",
           "$value": "{kds.core.color.blue.550}"
+        },
+        "inactive": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.25}"
+        },
+        "inactiveBorder": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.250}"
         }
       }
     }
