@@ -692,6 +692,10 @@
           "$type": "color",
           "$value": "{kds.core.color.blue.250}",
           "$description": "Blue color for informational text and icons on dark surfaces.\n"
+        },
+        "editor": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.800}"
         }
       },
       "border": {
@@ -996,6 +1000,21 @@
           "$value": "{kds.core.color.grassgreen.100}"
         }
       },
+      "port": {
+        "flow-variable": {
+          "$type": "color",
+          "$value": "{kds.core.color.red.435}",
+          "$description": "Flow Variables"
+        },
+        "data": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.800}"
+        },
+        "neutral-inverted": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.25}"
+        }
+      },
       "annotations": {
         "specialNodes": {
           "$type": "color",
@@ -1104,6 +1123,44 @@
           "$type": "color",
           "$value": "{kds.core.color.neutral.875}",
           "$description": "Dark shadow layer color for bottom elevation. USED IN:\n"
+        }
+      },
+      "state": {
+        "error": {
+          "$type": "color",
+          "$value": "{kds.core.color.red.550}"
+        },
+        "errorBorder": {
+          "$type": "color",
+          "$value": "{kds.core.color.red.800}"
+        },
+        "warning": {
+          "$type": "color",
+          "$value": "{kds.core.color.yellow.250}"
+        },
+        "warningBorder": {
+          "$type": "color",
+          "$value": "{kds.core.color.yellow.725}"
+        },
+        "executed": {
+          "$type": "color",
+          "$value": "{kds.core.color.green.325}"
+        },
+        "executedBorder": {
+          "$type": "color",
+          "$value": "{kds.core.color.green.650}"
+        },
+        "executing": {
+          "$type": "color",
+          "$value": "{kds.core.color.blue.550}"
+        },
+        "inactive": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.25}"
+        },
+        "inactiveBorder": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.250}"
         }
       }
     }
