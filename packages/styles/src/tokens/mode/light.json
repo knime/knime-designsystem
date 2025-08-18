@@ -656,6 +656,10 @@
           "$type": "color",
           "$value": "{kds.core.color.blue.650}",
           "$description": "Blue color for informational text and icons on light surfaces.\n"
+        },
+        "editor": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.800}"
         }
       },
       "border": {
@@ -1059,6 +1063,36 @@
           "$type": "color",
           "$value": "{kds.core.color.neutral.400}",
           "$description": "Dark shadow layer color for bottom elevation. USED IN:\n"
+        }
+      },
+      "state": {
+        "error": {
+          "$type": "color",
+          "$value": "{kds.core.color.red.550}"
+        },
+        "errorBorder": {
+          "$type": "color",
+          "$value": "{kds.core.color.red.800}"
+        },
+        "warning": {
+          "$type": "color",
+          "$value": "{kds.core.color.yellow.250}"
+        },
+        "warningBorder": {
+          "$type": "color",
+          "$value": "{kds.core.color.yellow.725}"
+        },
+        "executed": {
+          "$type": "color",
+          "$value": "{kds.core.color.green.325}"
+        },
+        "executedBorder": {
+          "$type": "color",
+          "$value": "{kds.core.color.green.650}"
+        },
+        "executing": {
+          "$type": "color",
+          "$value": "{kds.core.color.blue.550}"
         }
       }
     }
