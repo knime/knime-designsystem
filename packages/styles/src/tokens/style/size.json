@@ -74,6 +74,18 @@
           "$type": "spacing",
           "$value": "{kds.core.dimension.200}"
         },
+        "3x": {
+          "$type": "spacing",
+          "$value": "{kds.core.dimension.300}"
+        },
+        "4x": {
+          "$type": "spacing",
+          "$value": "{kds.core.dimension.400}"
+        },
+        "5x": {
+          "$type": "spacing",
+          "$value": "{kds.core.dimension.500}"
+        },
         "auto": {
           "$type": "spacing",
           "$value": "AUTO"
