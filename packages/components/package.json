@@ -1,6 +1,6 @@
 {
   "name": "@knime/kds-components",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Package containing basic Vue components of the KNIME Design System",
   "license": "GPL 3 and Additional Permissions according to Sec. 7 (SEE the file LICENSE)",
   "author": "KNIME AG, Zurich, Switzerland",
