@@ -1,6 +1,6 @@
 {
   "tokenSetOrder": [
-    "components/DesktopHeader",
+    "components/Header",
     "components/Input",
     "components/Loading",
     "components/ResizeHandle",
