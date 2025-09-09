@@ -95,6 +95,10 @@
     "dimension": {
       "component": {
         "height": {
+          "0_25x": {
+            "$type": "dimension",
+            "$value": "{kds.core.dimension.25}"
+          },
           "0_75x": {
             "$type": "dimension",
             "$value": "{kds.core.dimension.75}"
