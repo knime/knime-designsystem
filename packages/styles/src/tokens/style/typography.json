@@ -270,6 +270,28 @@
             },
             "$description": "singleline text, used for button labels, breadcrumbs, chips and everything that is clickable."
           }
+        },
+        "code": {
+          "small": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.roboto-mono}",
+              "fontWeight": "{kds.core.font-weight.regular}",
+              "lineHeight": "{kds.core.line-height.singleline}",
+              "fontSize": "{kds.core.font-size.scaled.0_62x}"
+            },
+            "$description": "singleline code, used for code snippets"
+          },
+          "regular": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.roboto-mono}",
+              "fontWeight": "{kds.core.font-weight.regular}",
+              "lineHeight": "{kds.core.line-height.multiline_narrow}",
+              "fontSize": "{kds.core.font-size.scaled.0_68x}"
+            },
+            "$description": "Code blocks "
+          }
         }
       },
       "workflows": {

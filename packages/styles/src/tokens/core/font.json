@@ -140,6 +140,10 @@
         "roboto-condensed": {
           "$type": "fontFamilies",
           "$value": "Roboto Condensed"
+        },
+        "roboto-mono": {
+          "$type": "fontFamilies",
+          "$value": "Roboto Mono"
         }
       },
       "font-weight": {
