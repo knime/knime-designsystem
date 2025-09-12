@@ -1128,31 +1128,31 @@
       "state": {
         "error": {
           "$type": "color",
-          "$value": "{kds.core.color.red.550}"
+          "$value": "{kds.core.color.red.800}"
         },
         "errorBorder": {
           "$type": "color",
-          "$value": "{kds.core.color.red.800}"
+          "$value": "{kds.core.color.red.550}"
         },
         "warning": {
           "$type": "color",
-          "$value": "{kds.core.color.yellow.250}"
+          "$value": "{kds.core.color.yellow.725}"
         },
         "warningBorder": {
           "$type": "color",
-          "$value": "{kds.core.color.yellow.725}"
+          "$value": "{kds.core.color.yellow.250}"
         },
         "executed": {
           "$type": "color",
-          "$value": "{kds.core.color.green.325}"
+          "$value": "{kds.core.color.green.650}"
         },
         "executedBorder": {
           "$type": "color",
-          "$value": "{kds.core.color.green.650}"
+          "$value": "{kds.core.color.green.325}"
         },
         "executing": {
           "$type": "color",
-          "$value": "{kds.core.color.blue.550}"
+          "$value": "{kds.core.color.blue.400}"
         },
         "inactive": {
           "$type": "color",
