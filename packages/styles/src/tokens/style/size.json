@@ -130,9 +130,17 @@
           "2_5x": {
             "$type": "dimension",
             "$value": "{kds.core.dimension.250}"
+          },
+          "4x": {
+            "$type": "dimension",
+            "$value": "{kds.core.dimension.400}"
           }
         },
         "width": {
+          "0_25x": {
+            "$type": "dimension",
+            "$value": "{kds.core.dimension.25}"
+          },
           "0_75x": {
             "$type": "dimension",
             "$value": "{kds.core.dimension.75}"
@@ -160,6 +168,10 @@
           "2_25x": {
             "$type": "dimension",
             "$value": "{kds.core.dimension.225}"
+          },
+          "4x": {
+            "$type": "dimension",
+            "$value": "{kds.core.dimension.400}"
           }
         }
       },
