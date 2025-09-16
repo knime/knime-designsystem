@@ -916,7 +916,7 @@
         },
         "specialNodes-muted": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.100}"
+          "$value": "{kds.core.color.neutral.175}"
         },
         "specialNodesBorder": {
           "$type": "color",

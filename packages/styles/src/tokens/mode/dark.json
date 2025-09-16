@@ -965,7 +965,7 @@
         },
         "specialNodesBorder": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.100}"
+          "$value": "{kds.core.color.neutral.175}"
         },
         "specialNodesBackground": {
           "$type": "color",
@@ -977,15 +977,15 @@
         },
         "warning": {
           "$type": "color",
-          "$value": "{kds.core.color.orange.650}"
+          "$value": "{kds.core.color.neutral.475}"
         },
         "errorBold": {
           "$type": "color",
-          "$value": "{kds.core.color.red.650}"
+          "$value": "{kds.core.color.red.400}"
         },
         "error": {
           "$type": "color",
-          "$value": "{kds.core.color.red.800}"
+          "$value": "{kds.core.color.neutral.475}"
         },
         "loading": {
           "$type": "color",
@@ -1132,7 +1132,7 @@
         },
         "errorBorder": {
           "$type": "color",
-          "$value": "{kds.core.color.red.550}"
+          "$value": "{kds.core.color.red.435}"
         },
         "warning": {
           "$type": "color",
