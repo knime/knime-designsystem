@@ -1,23 +1,49 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="UNUSED">
 import { computed } from "vue";
 
-import type { IconName } from "@knime/kds-styles/img/icons/def";
-
 import Icon from "../Icon/Icon.vue";
+import type { Size } from "../types";
 
-interface Props {
-  label: string;
-  leadingIcon?: IconName | null;
-  trailingIcon?: IconName | null;
-  variant?: "filled" | "outlined" | "transparent";
-  size?: "x-small" | "small" | "medium" | "large";
-  destructive?: boolean;
-  disabled?: boolean;
-}
+// import type { IconName } from "@knime/kds-styles/img/icons/def";
+type IconName = string; // the above import does not work atm?
 
-const props = withDefaults(defineProps<Props>(), {
-  leadingIcon: null,
-  trailingIcon: null,
+type Variant = "filled" | "outlined" | "transparent";
+
+type ButtonProps =
+  // button with label
+  | {
+      // common
+      variant?: Variant;
+      size?: Size;
+      destructive?: boolean;
+      disabled?: boolean;
+
+      // specific
+      label: string;
+      leadingIcon?: IconName | null;
+      trailingIcon?: IconName | null;
+
+      // not allowed
+      icon?: never;
+    }
+  // button only with icon
+  | {
+      // common
+      variant?: Variant;
+      size?: Size;
+      destructive?: boolean;
+      disabled?: boolean;
+
+      // specific
+      icon: IconName;
+
+      // not allowed
+      label?: never;
+      leadingIcon?: never;
+      trailingIcon?: never;
+    };
+
+const props = withDefaults(defineProps<ButtonProps>(), {
   size: "medium",
   variant: "filled",
   destructive: false,
