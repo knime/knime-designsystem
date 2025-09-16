@@ -1156,7 +1156,7 @@
         },
         "inactive": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.725}"
+          "$value": "{kds.core.color.neutral.800}"
         },
         "inactiveBorder": {
           "$type": "color",
