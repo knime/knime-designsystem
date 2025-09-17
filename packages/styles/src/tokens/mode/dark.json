@@ -945,7 +945,7 @@
         },
         "unknown": {
           "$type": "color",
-          "$value": "{kds.core.color.red.550}"
+          "$value": "{kds.core.color.red.475}"
         },
         "other": {
           "$type": "color",
