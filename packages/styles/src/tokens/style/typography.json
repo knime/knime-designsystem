@@ -272,7 +272,7 @@
           }
         }
       },
-      "editor": {
+      "workflows": {
         "annotations": {
           "H1": {
             "$type": "typography",
