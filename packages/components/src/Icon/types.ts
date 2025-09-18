@@ -1,1 +1,3 @@
-export type IconSize = "x-small" | "small" | "medium" | "large";
+import type { Size } from "../types";
+
+export type IconSize = Size;
