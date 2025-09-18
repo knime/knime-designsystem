@@ -20,7 +20,7 @@
     "consola": "catalog:",
     "jsdom": "catalog:",
     "rimraf": "catalog:",
-    "style-dictionary": "^5.0.1",
+    "style-dictionary": "^5.0.4",
     "svgo": "^4.0.0",
     "typescript": "catalog:"
   },
