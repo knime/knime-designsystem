@@ -1,19 +1,17 @@
 # ![Image](https://www.knime.com/sites/default/files/knime_logo_github_40x40_4layers.png) KNIME® Design System Monorepo
 
-This monorepo contains the basics of the KNIME Design System, including design tokens, icons, Vue components derived from the design tokens, and a Storybook instance for documentation.
+This monorepo contains the basics of the KNIME Design System, including design tokens, icons, Vue components derived from the design tokens, and its documentation.
 
 This repository is maintained by [UI Core](mailto:team-ui-core@knime.com).
 
 ## Prerequisites
 
 To get started, you need to have [Proto](https://moonrepo.dev/proto) installed, which acts as a version manager for Node.js and pnpm.
-Once installed you need to run
+Only once, after installed you need to run
 
 ```
 proto install
 ```
-
-once to pull the initial node and pnpm versions specified in the package.json.
 
 ## Setup
 
@@ -34,6 +32,12 @@ The monorepo comprises the following packages:
 ## Important Scripts
 
 Here are some of the most important scripts defined in the top-level [`package.json`](package.json):
+
+- **Dev**: Starts the Storybook documentation in dev mode.
+
+  ```
+  pnpm dev
+  ```
 
 - **Format Code**: Formats the code using Prettier.
 
