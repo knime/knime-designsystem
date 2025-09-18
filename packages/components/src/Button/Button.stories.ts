@@ -2,6 +2,9 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
+import { sizes } from "../constants";
+
+import { variants } from "./Button.types";
 import MyButton from "./Button.vue";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
@@ -10,15 +13,17 @@ const meta: Meta<typeof MyButton> = {
   component: MyButton,
   tags: ["autodocs"],
   argTypes: {
-    label: { control: "text" },
     size: {
       control: { type: "select" },
-      options: ["x-small", "small", "medium", "large"],
+      options: sizes,
     },
     variant: {
       control: { type: "select" },
-      options: ["filled", "outlined", "transparent"],
+      options: variants,
     },
+    destructive: { control: "boolean" },
+    disabled: { control: "boolean" },
+    label: { control: "text" },
     leadingIcon: {
       control: { type: "select" },
       options: [undefined, ...iconNames], // eslint-disable-line no-undefined
@@ -27,7 +32,10 @@ const meta: Meta<typeof MyButton> = {
       control: { type: "select" },
       options: [undefined, ...iconNames], // eslint-disable-line no-undefined
     },
-    disabled: { control: "boolean" },
+    icon: {
+      control: { type: "select" },
+      options: [undefined, ...iconNames], // eslint-disable-line no-undefined
+    },
   },
   // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
   // args: { onClick: fn() },
@@ -68,5 +76,37 @@ export const Small: Story = {
   args: {
     size: "small",
     label: "Button",
+  },
+};
+
+export const LeadingIcon: Story = {
+  args: {
+    label: "Button",
+    variant: "outlined",
+    leadingIcon: "ai-general",
+  },
+};
+
+export const TrailingIcon: Story = {
+  args: {
+    label: "Button",
+    variant: "outlined",
+    trailingIcon: "ai-general",
+  },
+};
+
+export const LeadingAndTrailingIcon: Story = {
+  args: {
+    label: "Button",
+    variant: "outlined",
+    leadingIcon: "ai-general",
+    trailingIcon: "ai-general",
+  },
+};
+
+export const IconOnly: Story = {
+  args: {
+    variant: "outlined",
+    icon: "ai-general",
   },
 };
