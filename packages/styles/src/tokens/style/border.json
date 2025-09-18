@@ -246,6 +246,44 @@
           },
           "$description": "1px blue outline for info inline messages and containers.\n"
         }
+      },
+      "node-status": {
+        "empty": {
+          "$type": "border",
+          "$value": {
+            "color": "{kds.color.node-state.inactiveBorder}",
+            "width": "{kds.border-width.base.s}",
+            "style": "solid"
+          },
+          "$description": "border around node status"
+        },
+        "idle": {
+          "$type": "border",
+          "$value": {
+            "color": "{kds.color.node-state.errorBorder}",
+            "width": "{kds.border-width.base.s}",
+            "style": "solid"
+          },
+          "$description": "border around node status"
+        },
+        "warning": {
+          "$type": "border",
+          "$value": {
+            "color": "{kds.color.node-state.warningBorder}",
+            "width": "{kds.border-width.base.s}",
+            "style": "solid"
+          },
+          "$description": "border around node status"
+        },
+        "executed": {
+          "$type": "border",
+          "$value": {
+            "color": "{kds.color.node-state.executedBorder}",
+            "width": "{kds.border-width.base.s}",
+            "style": "solid"
+          },
+          "$description": "border around node status"
+        }
       }
     }
   }
