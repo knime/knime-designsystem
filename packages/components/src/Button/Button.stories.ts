@@ -79,6 +79,13 @@ export const Small: Story = {
   },
 };
 
+export const XSmall: Story = {
+  args: {
+    size: "xsmall",
+    label: "Button",
+  },
+};
+
 export const LeadingIcon: Story = {
   args: {
     label: "Button",

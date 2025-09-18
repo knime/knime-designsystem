@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { mount } from "@vue/test-utils";
 
 import Icon from "../Icon.vue";
-import { type IconSize } from "../types";
+import { iconSizes } from "../types";
 
 describe("Icon.vue", () => {
   it("renders correctly with default props", async () => {
@@ -15,8 +15,7 @@ describe("Icon.vue", () => {
   });
 
   it("applies the correct class based on size prop", async () => {
-    const sizes: IconSize[] = ["x-small", "small", "medium", "large"];
-    for (const size of sizes) {
+    for (const size of iconSizes) {
       const wrapper = mount(Icon, {
         props: { name: "placeholder", size },
       });
