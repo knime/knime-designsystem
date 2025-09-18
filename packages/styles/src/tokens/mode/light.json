@@ -970,16 +970,6 @@
           "$value": "{kds.core.color.neutral.25}"
         }
       },
-      "connector": {
-        "data": {
-          "$type": "color",
-          "$value": "{kds.core.color.neutral.650}"
-        },
-        "flow": {
-          "$type": "color",
-          "$value": "{kds.core.color.red.435}"
-        }
-      },
       "annotations": {
         "specialNodes": {
           "$type": "color",
@@ -1039,6 +1029,54 @@
           "$value": "{kds.core.color.brown.650}"
         }
       },
+      "node-state": {
+        "error": {
+          "$type": "color",
+          "$value": "{kds.core.color.red.550}"
+        },
+        "errorBorder": {
+          "$type": "color",
+          "$value": "{kds.core.color.red.800}"
+        },
+        "warning": {
+          "$type": "color",
+          "$value": "{kds.core.color.yellow.250}"
+        },
+        "warningBorder": {
+          "$type": "color",
+          "$value": "{kds.core.color.yellow.725}"
+        },
+        "executed": {
+          "$type": "color",
+          "$value": "{kds.core.color.green.325}"
+        },
+        "executedBorder": {
+          "$type": "color",
+          "$value": "{kds.core.color.green.650}"
+        },
+        "executing": {
+          "$type": "color",
+          "$value": "{kds.core.color.blue.550}"
+        },
+        "inactive": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.25}"
+        },
+        "inactiveBorder": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.250}"
+        }
+      },
+      "connector": {
+        "data": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.650}"
+        },
+        "flow-variable": {
+          "$type": "color",
+          "$value": "{kds.core.color.red.435}"
+        }
+      },
       "skeleton": {
         "default": {
           "$type": "color",
@@ -1088,44 +1126,6 @@
           "$type": "color",
           "$value": "{kds.core.color.neutral.400}",
           "$description": "Dark shadow layer color for bottom elevation. USED IN:\n"
-        }
-      },
-      "state": {
-        "error": {
-          "$type": "color",
-          "$value": "{kds.core.color.red.550}"
-        },
-        "errorBorder": {
-          "$type": "color",
-          "$value": "{kds.core.color.red.800}"
-        },
-        "warning": {
-          "$type": "color",
-          "$value": "{kds.core.color.yellow.250}"
-        },
-        "warningBorder": {
-          "$type": "color",
-          "$value": "{kds.core.color.yellow.725}"
-        },
-        "executed": {
-          "$type": "color",
-          "$value": "{kds.core.color.green.325}"
-        },
-        "executedBorder": {
-          "$type": "color",
-          "$value": "{kds.core.color.green.650}"
-        },
-        "executing": {
-          "$type": "color",
-          "$value": "{kds.core.color.blue.550}"
-        },
-        "inactive": {
-          "$type": "color",
-          "$value": "{kds.core.color.neutral.25}"
-        },
-        "inactiveBorder": {
-          "$type": "color",
-          "$value": "{kds.core.color.neutral.250}"
         }
       }
     }
