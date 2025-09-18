@@ -1001,14 +1001,14 @@
         }
       },
       "port": {
+        "data": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.100}"
+        },
         "flow-variable": {
           "$type": "color",
           "$value": "{kds.core.color.red.435}",
           "$description": "Flow Variables"
-        },
-        "data": {
-          "$type": "color",
-          "$value": "{kds.core.color.neutral.100}"
         },
         "neutral-inverted": {
           "$type": "color",
@@ -1161,6 +1161,16 @@
         "inactiveBorder": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.400}"
+        }
+      },
+      "connector": {
+        "data": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.100}"
+        },
+        "flow": {
+          "$type": "color",
+          "$value": "{kds.core.color.red.435}"
         }
       }
     }
