@@ -1,13 +1,12 @@
 <script setup lang="ts" generic="UNUSED">
 import { computed } from "vue";
 
+import type { IconName } from "@knime/kds-styles/img/icons/def";
+
 import Icon from "../Icon/Icon.vue";
 import type { Size } from "../types";
 
-// import type { IconName } from "@knime/kds-styles/img/icons/def";
-type IconName = string; // the above import does not work atm?
-
-type Variant = "filled" | "outlined" | "transparent";
+import type { Variant } from "./Button.types";
 
 type ButtonProps =
   // button with label
@@ -63,29 +62,39 @@ const classes = computed(() => [
 </script>
 
 <template>
-  <button :class="classes" :disabled="disabled" @click="emit('click', $event)">
+  <button
+    :class="classes"
+    :disabled="props.disabled"
+    @click="emit('click', $event)"
+  >
+    <template v-if="props.label">
+      <Icon
+        v-if="props.leadingIcon"
+        class="button__icon button__icon--leading"
+        aria-hidden="true"
+        :name="props.leadingIcon"
+        :size="props.size"
+        color="var(--kds-color-text-and-icon-neutral)"
+      />
+      <span class="button-label">{{ props.label }}</span>
+      <Icon
+        v-if="props.trailingIcon"
+        class="button__icon button__icon--trailing"
+        aria-hidden="true"
+        :name="props.trailingIcon"
+        :size="props.size"
+        color="var(--kds-color-text-and-icon-neutral)"
+      />
+    </template>
     <Icon
-      v-if="leadingIcon"
-      class="button__icon button__icon--leading"
+      v-else-if="props.icon"
+      class="button__icon"
       aria-hidden="true"
-      :name="leadingIcon"
+      :name="props.icon"
       :size="props.size"
       color="var(--kds-color-text-and-icon-neutral)"
     />
-
-    <!-- <span
-      v-if="leadingIcon"
-      class="button__icon button__icon--leading"
-      aria-hidden="true"
-      >{{ leadingIcon }}</span
-    > -->
-    <span class="button-label">{{ label }}</span>
-    <!-- <span
-      v-if="trailingIcon"
-      class="button__icon button__icon--trailing"
-      aria-hidden="true"
-      >{{ trailingIcon }}</span
-    > -->
+    <span v-else>{unsupported state}</span>
   </button>
 </template>
 
@@ -214,11 +223,11 @@ const classes = computed(() => [
     font-size: 1.2em;
     line-height: 0;
 
-    &.button--leading {
+    &.button__icon--leading {
       margin-right: var(--spacing-xs);
     }
 
-    &.button--trailing {
+    &.button__icon--trailing {
       margin-left: var(--spacing-xs);
     }
   }
