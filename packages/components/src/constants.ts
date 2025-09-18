@@ -1,1 +1,1 @@
-export const sizes = ["x-small", "small", "medium", "large"] as const;
+export const sizes = ["xsmall", "small", "medium", "large"] as const;

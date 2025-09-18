@@ -74,7 +74,6 @@ const classes = computed(() => [
         aria-hidden="true"
         :name="props.leadingIcon"
         :size="props.size"
-        color="var(--kds-color-text-and-icon-neutral)"
       />
       <span class="button-label">{{ props.label }}</span>
       <Icon
@@ -83,7 +82,6 @@ const classes = computed(() => [
         aria-hidden="true"
         :name="props.trailingIcon"
         :size="props.size"
-        color="var(--kds-color-text-and-icon-neutral)"
       />
     </template>
     <Icon
@@ -92,7 +90,6 @@ const classes = computed(() => [
       aria-hidden="true"
       :name="props.icon"
       :size="props.size"
-      color="var(--kds-color-text-and-icon-neutral)"
     />
     <span v-else>{unsupported state}</span>
   </button>
@@ -103,38 +100,48 @@ const classes = computed(() => [
 
 .button {
   text-rendering: geometricprecision;
-  font: var(--kds-font-interactive-medium-m);
   position: relative;
   display: flex;
-  height: var(--kds-dimension-action-height-1-75x);
-  padding: 0 var(--kds-spacing-container-0-5x);
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
-  gap: var(--kds-spacing-container-0-25x);
-  border-radius: var(--kds-border-radius-container-0-37x);
   cursor: pointer;
   transition: all var(--transition-speed) ease;
 
   & .button-label {
+    padding: 0 var(--kds-spacing-container-0-12x);
+  }
+
+  &.button--xsmall {
+    border-radius: var(--kds-border-radius-container-0-25x);
     padding: 0 var(--kds-spacing-container-0-25x);
-  }
-
-  &.button--medium {
-    /* Default styles are already set */
-  }
-
-  &.button--large {
-    height: var(--kds-dimension-action-height-2-25x);
-    font-size: var(--font-size-large);
-    padding: 0 var(--kds-spacing-container-0-75x);
-    border-radius: var(--kds-border-radius-container-0-50x);
+    font: var(--kds-font-base-interactive-xsmall-strong);
+    height: var(--kds-dimension-component-height-1-25x);
+    gap: var(--kds-spacing-container-0_12x);
   }
 
   &.button--small {
-    height: var(--kds-dimension-action-height-1_5x);
+    border-radius: var(--kds-border-radius-container-0-37x);
+    padding: 0 var(--kds-spacing-container-0-37x);
+    font: var(--kds-font-base-interactive-small-strong);
+    height: var(--kds-dimension-component-height-1-5x);
     gap: var(--kds-spacing-container-0_12x);
-    font-size: var(--font-size-small);
+  }
+
+  &.button--medium {
+    border-radius: var(--kds-border-radius-container-0-37x);
+    font: var(--kds-font-base-interactive-medium-strong);
+    height: var(--kds-dimension-component-height-1-75x);
+    padding: 0 var(--kds-spacing-container-0-37x);
+    gap: var(--kds-spacing-container-0-25x);
+  }
+
+  &.button--large {
+    font: var(--kds-font-base-interactive-large-strong);
+    height: var(--kds-dimension-component-height-2-25x);
+    padding: 0 var(--kds-spacing-container-0-5x);
+    gap: var(--kds-spacing-container-0-25x);
+    border-radius: var(--kds-border-radius-container-0-50x);
   }
 
   &:focus-visible {
@@ -220,7 +227,7 @@ const classes = computed(() => [
   }
 
   &.button__icon {
-    font-size: 1.2em;
+    font-size: 1.2em; /* ? */
     line-height: 0;
 
     &.button__icon--leading {

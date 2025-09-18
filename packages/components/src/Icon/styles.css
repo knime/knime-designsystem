@@ -10,7 +10,7 @@
   height: var(--icon-height);
   stroke-width: var(--icon-stroke-width);
 
-  &.x-small {
+  &.xsmall {
     --icon-width: var(--kds-dimension-icon-0-56x);
     --icon-height: var(--kds-dimension-icon-0-56x);
     --icon-stroke-width: var(--kds-border-width-icon-stroke-s);

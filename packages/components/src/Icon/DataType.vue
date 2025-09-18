@@ -11,7 +11,7 @@ import { type IconSize } from "./types";
 import useIcon from "./useIcon";
 
 export type { TypeIconName };
-type DataTypeSize = Exclude<IconSize, "x-small">;
+type DataTypeSize = Exclude<IconSize, "xsmall">;
 type DataTypeIconSize = Exclude<IconSize, "large">;
 export type { DataTypeSize };
 
@@ -24,7 +24,7 @@ type Props = {
 const DATA_TYPE_SIZE_TO_ICON_SIZE: Record<DataTypeSize, DataTypeIconSize> = {
   large: "medium",
   medium: "small",
-  small: "x-small",
+  small: "xsmall",
 } as const;
 
 const props = withDefaults(defineProps<Props>(), {
@@ -102,7 +102,7 @@ const iconComponent = useIcon({
 
   /* The kds-data-type-icon class is needed to increase the specificity to overwrite the icon-stroke-width */
   & .kds-icon.kds-data-type-icon {
-    &.x-small {
+    &.xsmall {
       --icon-stroke-width: var(--kds-border-width-icon-stroke-s);
     }
 
