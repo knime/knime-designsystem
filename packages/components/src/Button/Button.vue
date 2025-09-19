@@ -57,6 +57,7 @@ const classes = computed(() => [
   "button",
   `button--${props.size}`,
   `button--${props.variant}`,
+  { "button--destructive": props.destructive },
   { "button--disabled": props.disabled },
 ]);
 </script>
@@ -70,15 +71,15 @@ const classes = computed(() => [
     <template v-if="props.label">
       <Icon
         v-if="props.leadingIcon"
-        class="button__icon button__icon--leading"
+        class="button__icon--leading"
         aria-hidden="true"
         :name="props.leadingIcon"
         :size="props.size"
       />
-      <span class="button-label">{{ props.label }}</span>
+      <span class="button__label">{{ props.label }}</span>
       <Icon
         v-if="props.trailingIcon"
-        class="button__icon button__icon--trailing"
+        class="button__icon--trailing"
         aria-hidden="true"
         :name="props.trailingIcon"
         :size="props.size"
@@ -86,12 +87,11 @@ const classes = computed(() => [
     </template>
     <Icon
       v-else-if="props.icon"
-      class="button__icon"
       aria-hidden="true"
       :name="props.icon"
       :size="props.size"
     />
-    <span v-else>{unsupported state}</span>
+    <span v-else>{unsupported props}</span>
   </button>
 </template>
 
@@ -105,13 +105,11 @@ const classes = computed(() => [
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
+  max-width: 100%;
+  overflow: hidden;
   cursor: pointer;
-  transition: all var(--transition-speed) ease;
-  text-rendering: geometricprecision;
-
-  & .button-label {
-    padding: 0 var(--kds-spacing-container-0-12x);
-  }
+  transition: all var(--transition-speed) ease; /* TODO */
+  text-rendering: geometricprecision; /* TODO always wanted? */
 
   &.button--xsmall {
     gap: var(--kds-spacing-container-0_12x);
@@ -146,11 +144,8 @@ const classes = computed(() => [
   }
 
   &:focus-visible {
-    outline: var(
-      --kds-border-action-focused
-    ); /* TODO rename token to outline? */
-
-    outline-offset: 1px; /* TODO token? */
+    outline: var(--kds-border-action-focused);
+    outline-offset: 1px; /* TODO move into CSS var? */
   }
 
   &:disabled {
@@ -170,6 +165,10 @@ const classes = computed(() => [
       &:active {
         background-color: var(--kds-color-background-primary-bold-active);
       }
+    }
+
+    &.button--destructive {
+      background-color: var(--kds-color-background-danger-bold-initial);
     }
 
     /* apply semi transparent overlay for disabled state */
@@ -194,12 +193,12 @@ const classes = computed(() => [
     &:not(:disabled) {
       &:hover {
         color: var(--kds-color-text-and-icon-primary-bold);
-        background-color: var(--kds-color-background-primary-hover);
+        background-color: var(--kds-color-background-neutral-hover);
       }
 
       &:active {
         color: var(--kds-color-text-and-icon-primary);
-        background-color: var(--kds-color-background-primary-active);
+        background-color: var(--kds-color-background-neutral-active);
       }
     }
 
@@ -231,14 +230,20 @@ const classes = computed(() => [
     }
   }
 
-  &.button__icon {
-    &.button__icon--leading {
-      margin-right: var(--spacing-xs);
-    }
+  & .button__icon--leading {
+    margin-right: var(--spacing-xs);
+  }
 
-    &.button__icon--trailing {
-      margin-left: var(--spacing-xs);
-    }
+  & .button__icon--trailing {
+    margin-left: var(--spacing-xs);
+  }
+
+  & .button__label {
+    max-width: 200px;
+    padding: 0 var(--kds-spacing-container-0-12x);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 </style>
