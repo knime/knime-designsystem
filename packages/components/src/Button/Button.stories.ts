@@ -65,6 +65,59 @@ export const Outlined: Story = {
   },
 };
 
+export const Transparent: Story = {
+  args: {
+    variant: "transparent",
+    label: "Button",
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    label: "Button",
+    disabled: true,
+  },
+  render: (args) => ({
+    components: { Button },
+    setup() {
+      return { args, variants };
+    },
+    template: `
+      <Button v-bind="args" :variant="variant" v-for="variant in variants" :key="variant" style="margin-bottom: 10px;"/>`,
+  }),
+};
+
+export const Destructive: Story = {
+  args: {
+    label: "Button",
+    destructive: true,
+  },
+  render: (args) => ({
+    components: { Button },
+    setup() {
+      return { args, variants };
+    },
+    template: `
+      <Button v-bind="args" :variant="variant" v-for="variant in variants" :key="variant" style="margin-bottom: 10px;"/>`,
+  }),
+};
+
+export const DestructiveDisabled: Story = {
+  args: {
+    label: "Button",
+    destructive: true,
+    disabled: true,
+  },
+  render: (args) => ({
+    components: { Button },
+    setup() {
+      return { args, variants };
+    },
+    template: `
+      <Button v-bind="args" :variant="variant" v-for="variant in variants" :key="variant" style="margin-bottom: 10px;"/>`,
+  }),
+};
+
 export const Large: Story = {
   args: {
     size: "large",
@@ -111,6 +164,13 @@ export const LeadingAndTrailingIcon: Story = {
   },
 };
 
+export const IconOnly: Story = {
+  args: {
+    variant: "outlined",
+    icon: "ai-general",
+  },
+};
+
 export const TruncatedLabel: Story = {
   args: {
     label: "Button with veeery loooong label",
@@ -130,11 +190,4 @@ export const TruncatedLabel: Story = {
         <Button v-bind="args" />
       </div>`,
   }),
-};
-
-export const IconOnly: Story = {
-  args: {
-    variant: "outlined",
-    icon: "ai-general",
-  },
 };
