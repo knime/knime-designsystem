@@ -5,12 +5,12 @@ import { iconNames } from "@knime/kds-styles/img/icons/def";
 import { sizes } from "../constants";
 
 import { variants } from "./Button.types";
-import MyButton from "./Button.vue";
+import Button from "./Button.vue";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
-const meta: Meta<typeof MyButton> = {
+const meta: Meta<typeof Button> = {
   title: "Components/Button",
-  component: MyButton,
+  component: Button,
   tags: ["autodocs"],
   argTypes: {
     size: {
@@ -42,7 +42,7 @@ const meta: Meta<typeof MyButton> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof MyButton>;
+type Story = StoryObj<typeof Button>;
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Filled: Story = {
@@ -109,6 +109,27 @@ export const LeadingAndTrailingIcon: Story = {
     leadingIcon: "ai-general",
     trailingIcon: "ai-general",
   },
+};
+
+export const TruncatedLabel: Story = {
+  args: {
+    label: "Button with veeery loooong label",
+    variant: "outlined",
+    leadingIcon: "ai-general",
+    trailingIcon: "ai-general",
+  },
+  render: (args) => ({
+    components: { Button },
+    setup() {
+      return { args };
+    },
+    template: `
+      <Button v-bind="args" /><br>
+      Try by resizing the box!
+      <div style="width: 200px; padding: 10px; background: lightgray; resize: horizontal; overflow: auto;">
+        <Button v-bind="args" />
+      </div>`,
+  }),
 };
 
 export const IconOnly: Story = {
