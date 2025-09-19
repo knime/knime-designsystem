@@ -4,11 +4,11 @@
   --icon-stroke-width: var(--kds-border-width-icon-stroke-m);
 
   display: inline-block;
-  vertical-align: middle;
-  shape-rendering: geometricprecision;
   width: var(--icon-width);
   height: var(--icon-height);
+  vertical-align: middle;
   stroke-width: var(--icon-stroke-width);
+  shape-rendering: geometricprecision;
 
   &.xsmall {
     --icon-width: var(--kds-dimension-icon-0-56x);

@@ -97,25 +97,25 @@ const onCreateAccount = () => {
 
 <style scoped>
 .storybook-page {
-  margin: 0 auto;
+  max-width: 600px;
   padding: var(--kds-spacing-page-padding-3x)
     var(--kds-spacing-page-padding-1-25x);
-  max-width: 600px;
-  color: var(--kds-color-text-and-icon-neutral);
-  font-size: var(--kds-core-font-size-scaled-0-87x);
-  line-height: var(--kds-core-line-height-multiline-wide);
+  margin: 0 auto;
   font-family:
     var(--kds-core-font-family-roboto), "Helvetica Neue", Helvetica, Arial,
     sans-serif;
+  font-size: var(--kds-core-font-size-scaled-0-87x);
+  line-height: var(--kds-core-line-height-multiline-wide);
+  color: var(--kds-color-text-and-icon-neutral);
 }
 
 .storybook-page h2 {
   display: inline-block;
-  vertical-align: top;
   margin: 0 0 var(--kds-spacing-container-0-25x);
-  font-weight: var(--kds-core-font-weight-strong);
   font-size: var(--kds-core-font-size-scaled-2x);
+  font-weight: var(--kds-core-font-weight-strong);
   line-height: var(--kds-core-line-height-singleline);
+  vertical-align: top;
 }
 
 .storybook-page p {
@@ -127,8 +127,8 @@ const onCreateAccount = () => {
 }
 
 .storybook-page ul {
-  margin: var(--kds-core-paragraph-spacing-large) 0;
   padding-left: 30px;
+  margin: var(--kds-core-paragraph-spacing-large) 0;
 }
 
 .storybook-page li {
@@ -137,15 +137,15 @@ const onCreateAccount = () => {
 
 .storybook-page .tip {
   display: inline-block;
-  vertical-align: top;
-  margin-right: var(--kds-spacing-container-0-75x);
-  border-radius: var(--kds-border-radius-container-pill);
-  background: var(--kds-color-background-success-initial);
   padding: var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-75x);
-  color: var(--kds-color-background-success-bold-initial);
-  font-weight: var(--kds-core-font-weight-strong);
+  margin-right: var(--kds-spacing-container-0-75x);
   font-size: var(--kds-core-font-size-scaled-0-68x);
+  font-weight: var(--kds-core-font-weight-strong);
   line-height: var(--kds-core-line-height-singleline);
+  vertical-align: top;
+  color: var(--kds-color-background-success-bold-initial);
+  background: var(--kds-color-background-success-initial);
+  border-radius: var(--kds-border-radius-container-pill);
 }
 
 .storybook-page .tip-wrapper {
@@ -157,11 +157,11 @@ const onCreateAccount = () => {
 
 .storybook-page .tip-wrapper svg {
   display: inline-block;
-  vertical-align: top;
-  margin-top: 3px;
-  margin-right: var(--kds-spacing-container-0-25x);
   width: var(--kds-dimension-icon-0-75x);
   height: var(--kds-dimension-icon-0-75x);
+  margin-top: 3px;
+  margin-right: var(--kds-spacing-container-0-25x);
+  vertical-align: top;
 }
 
 .storybook-page .tip-wrapper svg path {
