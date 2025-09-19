@@ -168,16 +168,30 @@ const classes = computed(() => [
     }
 
     &.button--destructive {
+      color: var(--kds-color-text-and-icon-danger-inverted);
       background-color: var(--kds-color-background-danger-bold-initial);
+
+      &:not(:disabled) {
+        &:hover {
+          background-color: var(--kds-color-background-danger-bold-hover);
+        }
+
+        &:active {
+          background-color: var(--kds-color-background-danger-bold-active);
+        }
+      }
     }
 
     /* apply semi transparent overlay for disabled state */
-    &.button--disabled::before {
+    &.button--disabled::after {
+      --border-width: 1px;
+
+      /* TODO fix */
       position: absolute;
-      top: calc(-1 * var(--border-width));
-      left: calc(-1 * var(--border-width));
-      width: calc(100% + 2 * var(--border-width));
-      height: calc(100% + 2 * var(--border-width));
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 102%;
       pointer-events: none;
       content: "";
       background-color: var(--kds-color-background-disabled-default);
@@ -192,13 +206,26 @@ const classes = computed(() => [
 
     &:not(:disabled) {
       &:hover {
-        color: var(--kds-color-text-and-icon-primary-bold);
         background-color: var(--kds-color-background-neutral-hover);
       }
 
       &:active {
-        color: var(--kds-color-text-and-icon-primary);
         background-color: var(--kds-color-background-neutral-active);
+      }
+    }
+
+    &.button--destructive {
+      color: var(--kds-color-text-and-icon-danger);
+      border: var(--kds-border-action-error);
+
+      &:not(:disabled) {
+        &:hover {
+          background-color: var(--kds-color-background-danger-hover);
+        }
+
+        &:active {
+          background-color: var(--kds-color-background-danger-active);
+        }
       }
     }
 
@@ -215,13 +242,25 @@ const classes = computed(() => [
 
     &:not(:disabled) {
       &:hover {
-        color: var(--kds-color-text-and-icon-primary-bold);
         background-color: var(--kds-color-background-primary-hover);
       }
 
       &:active {
-        color: var(--kds-color-text-and-icon-primary);
         background-color: var(--kds-color-background-primary-active);
+      }
+    }
+
+    &.button--destructive {
+      color: var(--kds-color-text-and-icon-danger);
+
+      &:not(:disabled) {
+        &:hover {
+          background-color: var(--kds-color-background-danger-hover);
+        }
+
+        &:active {
+          background-color: var(--kds-color-background-danger-active);
+        }
       }
     }
 
