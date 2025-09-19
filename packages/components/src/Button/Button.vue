@@ -96,56 +96,61 @@ const classes = computed(() => [
 </template>
 
 <style scoped>
-/* stylelint-disable */
+/* TODO decide if we want to use BEM or not */
+/* stylelint-disable selector-class-pattern,custom-property-pattern */
 
 .button {
-  text-rendering: geometricprecision;
   position: relative;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: all var(--transition-speed) ease;
+  text-rendering: geometricprecision;
 
   & .button-label {
     padding: 0 var(--kds-spacing-container-0-12x);
   }
 
   &.button--xsmall {
-    border-radius: var(--kds-border-radius-container-0-25x);
+    gap: var(--kds-spacing-container-0_12x);
+    height: var(--kds-dimension-component-height-1-25x);
     padding: 0 var(--kds-spacing-container-0-25x);
     font: var(--kds-font-base-interactive-xsmall-strong);
-    height: var(--kds-dimension-component-height-1-25x);
-    gap: var(--kds-spacing-container-0_12x);
+    border-radius: var(--kds-border-radius-container-0-25x);
   }
 
   &.button--small {
-    border-radius: var(--kds-border-radius-container-0-37x);
+    gap: var(--kds-spacing-container-0_12x);
+    height: var(--kds-dimension-component-height-1-5x);
     padding: 0 var(--kds-spacing-container-0-37x);
     font: var(--kds-font-base-interactive-small-strong);
-    height: var(--kds-dimension-component-height-1-5x);
-    gap: var(--kds-spacing-container-0_12x);
+    border-radius: var(--kds-border-radius-container-0-37x);
   }
 
   &.button--medium {
-    border-radius: var(--kds-border-radius-container-0-37x);
-    font: var(--kds-font-base-interactive-medium-strong);
+    gap: var(--kds-spacing-container-0-25x);
     height: var(--kds-dimension-component-height-1-75x);
     padding: 0 var(--kds-spacing-container-0-37x);
-    gap: var(--kds-spacing-container-0-25x);
+    font: var(--kds-font-base-interactive-medium-strong);
+    border-radius: var(--kds-border-radius-container-0-37x);
   }
 
   &.button--large {
-    font: var(--kds-font-base-interactive-large-strong);
+    gap: var(--kds-spacing-container-0-25x);
     height: var(--kds-dimension-component-height-2-25x);
     padding: 0 var(--kds-spacing-container-0-5x);
-    gap: var(--kds-spacing-container-0-25x);
+    font: var(--kds-font-base-interactive-large-strong);
     border-radius: var(--kds-border-radius-container-0-50x);
   }
 
   &:focus-visible {
-    outline: 2px solid var(--kds-color-focus-outline);
+    outline: var(
+      --kds-border-action-focused
+    ); /* TODO rename token to outline? */
+
+    outline-offset: 1px; /* TODO token? */
   }
 
   &:disabled {
@@ -169,32 +174,32 @@ const classes = computed(() => [
 
     /* apply semi transparent overlay for disabled state */
     &.button--disabled::before {
-      content: "";
       position: absolute;
       top: calc(-1 * var(--border-width));
       left: calc(-1 * var(--border-width));
       width: calc(100% + 2 * var(--border-width));
       height: calc(100% + 2 * var(--border-width));
-      background-color: var(--kds-color-background-disabled-default);
       pointer-events: none;
+      content: "";
+      background-color: var(--kds-color-background-disabled-default);
       border-radius: inherit;
     }
   }
 
   &.button--outlined {
-    background-color: var(--kds-color-background-neutral-initial);
     color: var(--kds-color-text-and-icon-neutral);
+    background-color: var(--kds-color-background-neutral-initial);
     border: var(--kds-border-action-default);
 
     &:not(:disabled) {
       &:hover {
-        background-color: var(--kds-color-background-primary-hover);
         color: var(--kds-color-text-and-icon-primary-bold);
+        background-color: var(--kds-color-background-primary-hover);
       }
 
       &:active {
-        background-color: var(--kds-color-background-primary-active);
         color: var(--kds-color-text-and-icon-primary);
+        background-color: var(--kds-color-background-primary-active);
       }
     }
 
@@ -205,19 +210,19 @@ const classes = computed(() => [
   }
 
   &.button--transparent {
+    color: var(--kds-color-text-and-icon-neutral);
     background-color: var(--kds-color-background-neutral-initial);
     border: var(--kds-border-action-transparent);
-    color: var(--kds-color-text-and-icon-neutral);
 
     &:not(:disabled) {
       &:hover {
-        background-color: var(--kds-color-background-primary-hover);
         color: var(--kds-color-text-and-icon-primary-bold);
+        background-color: var(--kds-color-background-primary-hover);
       }
 
       &:active {
-        background-color: var(--kds-color-background-primary-active);
         color: var(--kds-color-text-and-icon-primary);
+        background-color: var(--kds-color-background-primary-active);
       }
     }
 
@@ -227,9 +232,6 @@ const classes = computed(() => [
   }
 
   &.button__icon {
-    font-size: 1.2em; /* ? */
-    line-height: 0;
-
     &.button__icon--leading {
       margin-right: var(--spacing-xs);
     }
