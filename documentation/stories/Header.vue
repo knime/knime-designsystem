@@ -73,11 +73,11 @@ defineEmits<{
 <style scoped>
 .storybook-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  border-bottom: var(--kds-border-base-subtle);
+  justify-content: space-between;
   padding: var(--kds-spacing-container-1-25x) var(--kds-spacing-container-1-5x);
   font-family: var(--kds-core-font-family-roboto);
+  border-bottom: var(--kds-border-base-subtle);
 }
 
 .storybook-header svg {
@@ -87,12 +87,12 @@ defineEmits<{
 
 .storybook-header h1 {
   display: inline-block;
-  vertical-align: top;
   margin: var(--kds-core-dimension-37) 0 var(--kds-core-dimension-37)
     var(--kds-core-dimension-50);
-  font-weight: var(--kds-core-font-weight-strong);
   font-size: var(--kds-core-font-size-scaled-1-25x);
+  font-weight: var(--kds-core-font-weight-strong);
   line-height: var(--kds-core-line-height-singleline);
+  vertical-align: top;
 }
 
 .storybook-header button + button {
@@ -101,7 +101,7 @@ defineEmits<{
 
 .storybook-header .welcome {
   margin-right: var(--kds-core-dimension-50);
-  color: var(--kds-color-text-and-icon-neutral);
   font-size: var(--kds-core-font-size-scaled-0-87x);
+  color: var(--kds-color-text-and-icon-neutral);
 }
 </style>
