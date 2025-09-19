@@ -5,7 +5,10 @@
 
   display: inline-block;
   width: var(--icon-width);
+  /* min sizes, otherwise they might collapse if there is not enough space */
+  min-width: var(--icon-width);
   height: var(--icon-height);
+  min-height: var(--icon-height);
   vertical-align: middle;
   stroke-width: var(--icon-stroke-width);
   shape-rendering: geometricprecision;

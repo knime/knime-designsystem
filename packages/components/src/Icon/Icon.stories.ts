@@ -9,6 +9,14 @@ const meta: Meta<typeof Icon> = {
   title: "Components/Icon",
   component: Icon,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Displays an icon from the KDS icon set. The icon color inherits the text color of the parent element.",
+      },
+    },
+  },
   argTypes: {
     name: {
       control: { type: "select" },

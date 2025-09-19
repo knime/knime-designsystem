@@ -70,7 +70,7 @@ const iconComponent = useIcon({
   </div>
 </template>
 
-<style lang="css" scoped>
+<style scoped>
 @import url("./styles.css");
 
 .kds-data-type-icon-container {
