@@ -2,7 +2,7 @@
   "knob": {
     "initial": {
       "$type": "color",
-      "$value": "{kds.core.color.neutral.50}"
+      "$value": "{kds.core.color.neutral.25}"
     },
     "disabled": {
       "$type": "color",
