@@ -55,10 +55,9 @@ const emit = defineEmits<{
 
 const classes = computed(() => [
   "button",
-  `button--${props.size}`,
-  `button--${props.variant}`,
-  { "button--destructive": props.destructive },
-  { "button--disabled": props.disabled },
+  props.size,
+  props.variant,
+  { destructive: props.destructive },
 ]);
 </script>
 
@@ -71,15 +70,15 @@ const classes = computed(() => [
     <template v-if="props.label">
       <Icon
         v-if="props.leadingIcon"
-        class="button__icon--leading"
+        class="leading-icon"
         aria-hidden="true"
         :name="props.leadingIcon"
         :size="props.size"
       />
-      <span class="button__label">{{ props.label }}</span>
+      <span class="label">{{ props.label }}</span>
       <Icon
         v-if="props.trailingIcon"
-        class="button__icon--trailing"
+        class="trailing-icon"
         aria-hidden="true"
         :name="props.trailingIcon"
         :size="props.size"
@@ -96,38 +95,40 @@ const classes = computed(() => [
 </template>
 
 <style scoped>
-/* TODO decide if we want to use BEM or not */
-/* stylelint-disable selector-class-pattern,custom-property-pattern */
-
 .button {
   position: relative;
   display: flex;
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
+  min-width: 15px;
   max-width: 100%;
   overflow: hidden;
   cursor: pointer;
   transition: all var(--transition-speed) ease; /* TODO */
   text-rendering: geometricprecision; /* TODO always wanted? */
 
-  &.button--xsmall {
-    gap: var(--kds-spacing-container-0_12x);
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &.xsmall {
+    gap: var(--kds-spacing-container-0-12x);
     height: var(--kds-dimension-component-height-1-25x);
     padding: 0 var(--kds-spacing-container-0-25x);
     font: var(--kds-font-base-interactive-xsmall-strong);
     border-radius: var(--kds-border-radius-container-0-25x);
   }
 
-  &.button--small {
-    gap: var(--kds-spacing-container-0_12x);
+  &.small {
+    gap: var(--kds-spacing-container-0-12x);
     height: var(--kds-dimension-component-height-1-5x);
     padding: 0 var(--kds-spacing-container-0-37x);
     font: var(--kds-font-base-interactive-small-strong);
     border-radius: var(--kds-border-radius-container-0-37x);
   }
 
-  &.button--medium {
+  &.medium {
     gap: var(--kds-spacing-container-0-25x);
     height: var(--kds-dimension-component-height-1-75x);
     padding: 0 var(--kds-spacing-container-0-37x);
@@ -135,7 +136,7 @@ const classes = computed(() => [
     border-radius: var(--kds-border-radius-container-0-37x);
   }
 
-  &.button--large {
+  &.large {
     gap: var(--kds-spacing-container-0-25x);
     height: var(--kds-dimension-component-height-2-25x);
     padding: 0 var(--kds-spacing-container-0-5x);
@@ -148,11 +149,7 @@ const classes = computed(() => [
     outline-offset: 1px; /* TODO move into CSS var? */
   }
 
-  &:disabled {
-    cursor: not-allowed;
-  }
-
-  &.button--filled {
+  &.filled {
     color: var(--kds-color-text-and-icon-primary-inverted);
     background-color: var(--kds-color-background-primary-bold-initial);
     border: var(--kds-border-action-transparent);
@@ -167,7 +164,7 @@ const classes = computed(() => [
       }
     }
 
-    &.button--destructive {
+    &.destructive {
       color: var(--kds-color-text-and-icon-danger-inverted);
       background-color: var(--kds-color-background-danger-bold-initial);
 
@@ -183,7 +180,7 @@ const classes = computed(() => [
     }
 
     /* apply semi transparent overlay for disabled state */
-    &.button--disabled::after {
+    &:disabled::after {
       --border-width: 1px;
 
       /* TODO fix */
@@ -199,10 +196,15 @@ const classes = computed(() => [
     }
   }
 
-  &.button--outlined {
+  &.outlined {
     color: var(--kds-color-text-and-icon-neutral);
     background-color: var(--kds-color-background-neutral-initial);
     border: var(--kds-border-action-default);
+
+    &:disabled {
+      color: var(--kds-color-text-and-icon-disabled);
+      border: var(--kds-border-action-disabled);
+    }
 
     &:not(:disabled) {
       &:hover {
@@ -214,7 +216,7 @@ const classes = computed(() => [
       }
     }
 
-    &.button--destructive {
+    &.destructive {
       color: var(--kds-color-text-and-icon-danger);
       border: var(--kds-border-action-error);
 
@@ -228,17 +230,16 @@ const classes = computed(() => [
         }
       }
     }
-
-    &.button--disabled {
-      color: var(--kds-color-text-and-icon-disabled);
-      border: var(--kds-border-action-disabled);
-    }
   }
 
-  &.button--transparent {
+  &.transparent {
     color: var(--kds-color-text-and-icon-neutral);
     background-color: var(--kds-color-background-neutral-initial);
     border: var(--kds-border-action-transparent);
+
+    &:disabled {
+      color: var(--kds-color-text-and-icon-disabled);
+    }
 
     &:not(:disabled) {
       &:hover {
@@ -250,7 +251,7 @@ const classes = computed(() => [
       }
     }
 
-    &.button--destructive {
+    &.destructive {
       color: var(--kds-color-text-and-icon-danger);
 
       &:not(:disabled) {
@@ -263,21 +264,17 @@ const classes = computed(() => [
         }
       }
     }
-
-    &.button--disabled {
-      color: var(--kds-color-text-and-icon-disabled);
-    }
   }
 
-  & .button__icon--leading {
+  & .leading-icon {
     margin-right: var(--spacing-xs);
   }
 
-  & .button__icon--trailing {
+  & .trailing-icon {
     margin-left: var(--spacing-xs);
   }
 
-  & .button__label {
+  & .label {
     max-width: 200px;
     padding: 0 var(--kds-spacing-container-0-12x);
     overflow: hidden;
