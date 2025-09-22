@@ -573,6 +573,21 @@
             "$type": "color",
             "$value": "{kds.core.color.neutral.325}",
             "$description": "Neutral overlay for component backgrounds in the disabled state.\nUSED IN: Buttons, checkboxes, input fields, and other components when disabled."
+          },
+          "primary": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "mix",
+                  "value": "0.6",
+                  "space": "lch",
+                  "color": "{kds.core.color.teal.650}"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.core.color.neutral.275}",
+            "$description": "Disabled background for primary backgrounds\nUSED IN: Filled Button and other very prominent primary components when disabled."
           }
         }
       },
@@ -651,6 +666,11 @@
           "$type": "color",
           "$value": "{kds.core.color.neutral.275}",
           "$description": "Dimmed neutral color for text and icons in the disabled state."
+        },
+        "disabled-inverted": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.250}",
+          "$description": "Color for text and icons in the disabled state on primary-disabled backgrounds."
         },
         "info": {
           "$type": "color",
