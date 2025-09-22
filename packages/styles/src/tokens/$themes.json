@@ -14,7 +14,9 @@
       "components/Input": "enabled",
       "components/Loading": "enabled",
       "style/elevation": "enabled",
-      "components/Header": "enabled"
+      "components/Header": "enabled",
+      "components/ResizeHandle": "enabled",
+      "components/ToggleSwitch": "enabled"
     },
     "$figmaVariableReferences": {}
   },
@@ -33,7 +35,9 @@
       "components/Input": "enabled",
       "components/Loading": "enabled",
       "style/elevation": "enabled",
-      "components/Header": "enabled"
+      "components/Header": "enabled",
+      "components/ResizeHandle": "enabled",
+      "components/ToggleSwitch": "enabled"
     },
     "$figmaVariableReferences": {}
   }

@@ -1,0 +1,37 @@
+{
+  "knob": {
+    "initial": {
+      "$type": "color",
+      "$value": "{kds.core.color.neutral.50}"
+    },
+    "disabled": {
+      "$type": "color",
+      "$value": "{kds.core.color.neutral.175}"
+    }
+  },
+  "Knob": {
+    "$type": "boxShadow",
+    "$value": {
+      "x": "0",
+      "y": "1",
+      "blur": "2",
+      "spread": "0",
+      "color": "{kds.color.elevation.knob}",
+      "type": "dropShadow"
+    }
+  },
+  "icon": {
+    "on": {
+      "$type": "color",
+      "$value": "{kds.color.text-and-icon.primary}"
+    },
+    "off": {
+      "$type": "color",
+      "$value": "{kds.core.color.neutral.375}"
+    },
+    "disabled": {
+      "$type": "color",
+      "$value": "{kds.core.color.neutral.275}"
+    }
+  }
+}

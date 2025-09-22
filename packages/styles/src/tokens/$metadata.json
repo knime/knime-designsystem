@@ -4,6 +4,7 @@
     "components/Input",
     "components/Loading",
     "components/ResizeHandle",
+    "components/ToggleSwitch",
     "core/color",
     "core/dimension",
     "core/font",

@@ -1161,6 +1161,20 @@
           "$type": "color",
           "$value": "{kds.core.color.neutral.400}",
           "$description": "Dark shadow layer color for bottom elevation. USED IN:\n"
+        },
+        "knob": {
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "alpha",
+                "value": "0.5",
+                "space": "lch"
+              }
+            }
+          },
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.400}",
+          "$description": "Dark shadow layer color for knob elevation. USED IN: ToogleSwitch\n"
         }
       }
     }
