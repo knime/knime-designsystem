@@ -588,6 +588,21 @@
             "$type": "color",
             "$value": "{kds.core.color.neutral.275}",
             "$description": "Disabled background for primary backgrounds\nUSED IN: Filled Button and other very prominent primary components when disabled."
+          },
+          "danger": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "mix",
+                  "value": "0.6",
+                  "space": "lch",
+                  "color": "{kds.core.color.red.650}"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.core.color.neutral.400}",
+            "$description": "Disabled background for bold danger backgrounds\nUSED IN: Filled Button and other very prominent bold danger components when disabled."
           }
         }
       },
