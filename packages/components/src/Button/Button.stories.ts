@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
 import { sizes } from "../constants";
+import { generateCombinations } from "../utils/storybook";
 
 import { variants } from "./Button.types";
 import Button from "./Button.vue";
@@ -189,5 +190,36 @@ export const TruncatedLabel: Story = {
       <div style="width: 200px; padding: 10px; background: lightgray; resize: horizontal; overflow: auto;">
         <Button v-bind="args" />
       </div>`,
+  }),
+};
+
+export const AllCombinations: Story = {
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => ({
+    components: { Button },
+    setup() {
+      const propSpaces = {
+        size: sizes,
+        variant: variants,
+        disabled: [false, true],
+        destructive: [false, true],
+        label: ["Button", undefined], // eslint-disable-line no-undefined
+        leadingIcon: [undefined, "ai-general"], // eslint-disable-line no-undefined
+        trailingIcon: [undefined, "ai-general"], // eslint-disable-line no-undefined
+        icon: [undefined, "ai-general"], // eslint-disable-line no-undefined
+      };
+      const combinations = generateCombinations(propSpaces);
+      return { combinations };
+    },
+    template: `
+      <div style="display: grid; grid-template-columns: repeat(4, auto); gap: 1rem;">
+        <div v-for="(props, index) in combinations" :key="index">
+          <span style="font-size: 10px; color: gray;">{{ index }}</span> 
+          <Button v-bind="props" :title="JSON.stringify(props, null, 2)" />
+        </div>
+      </div>
+    `,
   }),
 };
