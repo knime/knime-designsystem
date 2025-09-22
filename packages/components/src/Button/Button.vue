@@ -154,6 +154,11 @@ const classes = computed(() => [
     background-color: var(--kds-color-background-primary-bold-initial);
     border: var(--kds-border-action-transparent);
 
+    &:disabled {
+      color: var(--kds-color-text-and-icon-disabled-inverted);
+      background-color: var(--kds-color-background-disabled-primary);
+    }
+
     &:not(:disabled) {
       &:hover {
         background-color: var(--kds-color-background-primary-bold-hover);
@@ -168,6 +173,11 @@ const classes = computed(() => [
       color: var(--kds-color-text-and-icon-danger-inverted);
       background-color: var(--kds-color-background-danger-bold-initial);
 
+      &:disabled {
+        color: var(--kds-color-text-and-icon-disabled-inverted);
+        background-color: var(--kds-color-background-disabled-danger);
+      }
+
       &:not(:disabled) {
         &:hover {
           background-color: var(--kds-color-background-danger-bold-hover);
@@ -177,22 +187,6 @@ const classes = computed(() => [
           background-color: var(--kds-color-background-danger-bold-active);
         }
       }
-    }
-
-    /* apply semi transparent overlay for disabled state */
-    &:disabled::after {
-      --border-width: 1px;
-
-      /* TODO fix */
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 102%;
-      pointer-events: none;
-      content: "";
-      background-color: var(--kds-color-background-disabled-default);
-      border-radius: inherit;
     }
   }
 
@@ -219,6 +213,11 @@ const classes = computed(() => [
     &.destructive {
       color: var(--kds-color-text-and-icon-danger);
       border: var(--kds-border-action-error);
+
+      &:disabled {
+        color: var(--kds-color-text-and-icon-disabled);
+        border: var(--kds-border-action-disabled);
+      }
 
       &:not(:disabled) {
         &:hover {
@@ -253,6 +252,10 @@ const classes = computed(() => [
 
     &.destructive {
       color: var(--kds-color-text-and-icon-danger);
+
+      &:disabled {
+        color: var(--kds-color-text-and-icon-disabled);
+      }
 
       &:not(:disabled) {
         &:hover {
