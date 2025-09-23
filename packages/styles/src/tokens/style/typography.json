@@ -81,7 +81,7 @@
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.medium}",
               "lineHeight": "{kds.core.line-height.singleline}",
-              "fontSize": "{kds.core.font-size.scaled.0_81x}"
+              "fontSize": "{kds.core.font-size.scaled.0_87x}"
             },
             "$description": "singleline text, used for titles inside components, Tabbar, pages or panels"
           },
@@ -91,9 +91,9 @@
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
               "lineHeight": "{kds.core.line-height.singleline}",
-              "fontSize": "{kds.core.font-size.scaled.0_81x}"
+              "fontSize": "{kds.core.font-size.scaled.0_87x}"
             },
-            "$description": "singleline text, used for labels on top of inputs, as titles inside components, pages or panels"
+            "$description": "singleline text, used for titles inside components, pages or panels"
           },
           "large": {
             "$type": "typography",
