@@ -178,17 +178,17 @@
         "selected": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.neutral.100}",
+            "$value": "{kds.core.color.neutral.175}",
             "$description": "Light-teal highlight for selectable elements. USED IN: ValueSwitch-item, Chip, Checkbox, RadioButton, TabBar-Item, VerticalMenu-Item"
           },
           "hover": {
             "$type": "color",
-            "$value": "{kds.core.color.neutral.175}",
+            "$value": "{kds.core.color.neutral.250}",
             "$description": "Darker teal on hover for backgrounds in selectable elements. USED IN: ValueSwitch-item, Chip, Checkbox, RadioButton, TabBar-Item, VerticalMenu-Item, List Item"
           },
           "active": {
             "$type": "color",
-            "$value": "{kds.core.color.neutral.250}",
+            "$value": "{kds.core.color.neutral.275}",
             "$description": "Darkest teal on pressed for backgrounds in selectable elements. USED IN: ValueSwitch-item, Chip, Checkbox, RadioButton, TabBar-Item, VerticalMenu-Item, List Item"
           }
         },
