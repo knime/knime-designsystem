@@ -1,0 +1,21 @@
+body {
+  font: var(--kds-font-base-body-medium);
+  color: var(--kds-color-text-and-icon-neutral);
+}
+
+a {
+  color: inherit;
+}
+
+svg {
+  shape-rendering: geometricPrecision;
+}
+
+input[type="text"],
+input[type="search"],
+input[type="password"],
+input[type="email"],
+input[type="number"] {
+  appearance: none;
+  border-radius: 0;
+}
