@@ -70,7 +70,6 @@ const classes = computed(() => [
     <template v-if="props.label">
       <Icon
         v-if="props.leadingIcon"
-        class="leading-icon"
         aria-hidden="true"
         :name="props.leadingIcon"
         :size="props.size"
@@ -78,7 +77,6 @@ const classes = computed(() => [
       <span class="label">{{ props.label }}</span>
       <Icon
         v-if="props.trailingIcon"
-        class="trailing-icon"
         aria-hidden="true"
         :name="props.trailingIcon"
         :size="props.size"
@@ -108,38 +106,6 @@ const classes = computed(() => [
 
   &:disabled {
     cursor: not-allowed;
-  }
-
-  &.xsmall {
-    gap: var(--kds-spacing-container-0-12x);
-    height: var(--kds-dimension-component-height-1-25x);
-    padding: 0 var(--kds-spacing-container-0-25x);
-    font: var(--kds-font-base-interactive-xsmall-strong);
-    border-radius: var(--kds-border-radius-container-0-25x);
-  }
-
-  &.small {
-    gap: var(--kds-spacing-container-0-12x);
-    height: var(--kds-dimension-component-height-1-5x);
-    padding: 0 var(--kds-spacing-container-0-37x);
-    font: var(--kds-font-base-interactive-small-strong);
-    border-radius: var(--kds-border-radius-container-0-37x);
-  }
-
-  &.medium {
-    gap: var(--kds-spacing-container-0-25x);
-    height: var(--kds-dimension-component-height-1-75x);
-    padding: 0 var(--kds-spacing-container-0-37x);
-    font: var(--kds-font-base-interactive-medium-strong);
-    border-radius: var(--kds-border-radius-container-0-37x);
-  }
-
-  &.large {
-    gap: var(--kds-spacing-container-0-25x);
-    height: var(--kds-dimension-component-height-2-25x);
-    padding: 0 var(--kds-spacing-container-0-5x);
-    font: var(--kds-font-base-interactive-large-strong);
-    border-radius: var(--kds-border-radius-container-0-50x);
   }
 
   &:focus-visible {
@@ -267,22 +233,49 @@ const classes = computed(() => [
     }
   }
 
-  /* 
-  & .leading-icon {
-    margin-right: var(--spacing-xs); 
-  }
-
-  & .trailing-icon {
-    margin-left: var(--spacing-xs);
-  }
-  */
-
   & .label {
     max-width: 200px;
     padding: 0 var(--kds-spacing-container-0-12x);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    text-rendering: geometricprecision;
+  }
+
+  &.xsmall {
+    gap: var(--kds-spacing-container-0-12x);
+    height: var(--kds-dimension-component-height-1-25x);
+    padding: 0 var(--kds-spacing-container-0-25x);
+    font: var(--kds-font-base-interactive-xsmall-strong);
+    border-radius: var(--kds-border-radius-container-0-25x);
+  }
+
+  &.small {
+    gap: var(--kds-spacing-container-0-12x);
+    height: var(--kds-dimension-component-height-1-5x);
+    padding: 0 var(--kds-spacing-container-0-37x);
+    font: var(--kds-font-base-interactive-small-strong);
+    border-radius: var(--kds-border-radius-container-0-37x);
+  }
+
+  &.medium {
+    gap: var(--kds-spacing-container-0-25x);
+    height: var(--kds-dimension-component-height-1-75x);
+    padding: 0 var(--kds-spacing-container-0-37x);
+    font: var(--kds-font-base-interactive-medium-strong);
+    border-radius: var(--kds-border-radius-container-0-37x);
+  }
+
+  &.large {
+    gap: var(--kds-spacing-container-0-25x);
+    height: var(--kds-dimension-component-height-2-25x);
+    padding: 0 var(--kds-spacing-container-0-5x);
+    font: var(--kds-font-base-interactive-large-strong);
+    border-radius: var(--kds-border-radius-container-0-50x);
+
+    & .label {
+      padding: 0 var(--kds-spacing-container-0-25x);
+    }
   }
 }
 </style>
