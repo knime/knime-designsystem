@@ -1,6 +1,5 @@
 import { type Preview } from "@storybook/vue3-vite";
-import "@knime/kds-styles/kds-variables.css";
-import "modern-normalize/modern-normalize.css";
+import "@knime/kds-styles/index.css";
 
 // TODO: use roboto provided by the design system? like @knime/kds-styles
 const link = document.createElement("link");
@@ -16,11 +15,6 @@ robotoMonoLink.rel = "stylesheet";
 document.head.appendChild(robotoMonoLink);
 
 const globalStyles = `
-  body {
-    font-family: var(--kds-core-font-family-roboto);
-    font-size: var(--kds-font-base-body-medium);
-    color: var(--kds-color-text-and-icon-neutral);
-  }
   h1 {
     font: var(--kds-font-dataapps-h1);
   }

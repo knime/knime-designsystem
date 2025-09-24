@@ -21,8 +21,7 @@
     "@knime/kds-styles": "workspace:*",
     "@knime/styles": "^1.10.0",
     "storybook": "catalog:storybook",
-    "vue": "catalog:",
-    "modern-normalize": "3.0.1"
+    "vue": "catalog:"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.1.1",

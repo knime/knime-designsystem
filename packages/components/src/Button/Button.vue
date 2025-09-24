@@ -105,8 +105,6 @@ const classes = computed(() => [
   max-width: 100%;
   overflow: hidden;
   cursor: pointer;
-  transition: all var(--transition-speed) ease; /* TODO */
-  text-rendering: geometricprecision; /* TODO always wanted? */
 
   &:disabled {
     cursor: not-allowed;
@@ -146,7 +144,7 @@ const classes = computed(() => [
 
   &:focus-visible {
     outline: var(--kds-border-action-focused);
-    outline-offset: 1px; /* TODO move into CSS var? */
+    outline-offset: var(--focus-outline-offset);
   }
 
   &.filled {
@@ -269,13 +267,15 @@ const classes = computed(() => [
     }
   }
 
+  /* 
   & .leading-icon {
-    margin-right: var(--spacing-xs);
+    margin-right: var(--spacing-xs); 
   }
 
   & .trailing-icon {
     margin-left: var(--spacing-xs);
   }
+  */
 
   & .label {
     max-width: 200px;
