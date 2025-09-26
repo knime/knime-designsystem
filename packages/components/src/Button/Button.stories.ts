@@ -7,6 +7,7 @@ import { generateCombinations } from "../utils/storybook";
 
 import { variants } from "./Button.types";
 import Button from "./Button.vue";
+import DesignComparator from "./DesignComparator.vue";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta: Meta<typeof Button> = {
@@ -57,6 +58,102 @@ export const Filled: Story = {
     variant: "filled",
     label: "Button",
   },
+};
+
+const designVariants = {
+  icon: {
+    props: {
+      variant: "outlined",
+      icon: "placeholder",
+    },
+    variants: {
+      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-89762":
+        {
+          size: "large",
+        },
+      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-90047":
+        {
+          size: "medium",
+        },
+      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-90332":
+        {
+          size: "small",
+        },
+      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-90617":
+        {
+          size: "xsmall",
+        },
+    },
+  },
+  trailingIcon: {
+    props: {
+      label: "{Label}",
+      variant: "outlined",
+      trailingIcon: "placeholder",
+    },
+    variants: {
+      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-89904":
+        {
+          size: "large",
+        },
+      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-90189":
+        {
+          size: "medium",
+        },
+      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-90474":
+        {
+          size: "small",
+        },
+      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-90759":
+        {
+          size: "xsmall",
+        },
+    },
+  },
+  leadingAndTrailingIcon: {
+    props: {
+      label: "{Label}",
+      variant: "outlined",
+      leadingIcon: "placeholder",
+      trailingIcon: "placeholder",
+    },
+    variants: {
+      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-89691":
+        {
+          size: "large",
+        },
+      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-89976":
+        {
+          size: "medium",
+        },
+      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-90261":
+        {
+          size: "small",
+        },
+      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-90546":
+        {
+          size: "xsmall",
+        },
+    },
+  },
+};
+
+export const OutlinedComparator: Story = {
+  parameters: {
+    controls: { disable: true },
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-89691",
+    },
+  },
+  render: () => ({
+    components: { Button, DesignComparator },
+    setup() {
+      return { designVariants, Button };
+    },
+    template: `
+      <DesignComparator :design-variants="designVariants" :component="Button"></DesignComparator>`,
+  }),
 };
 
 export const Outlined: Story = {
