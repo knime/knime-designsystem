@@ -28,7 +28,8 @@
     "build": "vite build"
   },
   "peerDependencies": {
-    "vue": "catalog:peer"
+    "vue": "catalog:peer",
+    "@vueuse/core": "catalog:peer"
   },
   "dependencies": {
     "@knime/kds-styles": "workspace:^",
@@ -41,6 +42,7 @@
     "@vitejs/plugin-vue": "catalog:",
     "@vue/test-utils": "catalog:",
     "@vue/tsconfig": "catalog:",
+    "@vueuse/core": "catalog:",
     "vite": "catalog:",
     "vite-plugin-dts": "catalog:",
     "vite-plugin-lib-inject-css": "catalog:",
@@ -51,5 +53,5 @@
     "node": "24.5.0",
     "npm": "please-use-pnpm"
   },
-  "packageManager": "pnpm@10.14.0"
+  "packageManager": "pnpm@10.17.1"
 }

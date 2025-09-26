@@ -3,7 +3,13 @@ export { default as Button } from "./Button/Button.vue";
 export { default as Icon } from "./Icon/Icon.vue";
 export { default as DataType } from "./Icon/DataType.vue";
 
-// Export types
+// Export component types
 export type * from "./Button/Button.vue";
 export type * from "./Icon/Icon.vue";
 export type * from "./Icon/DataType.vue";
+
+// Export utils
+export * from "./util";
+
+// Export util types
+export type * from "./util";
