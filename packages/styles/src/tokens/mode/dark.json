@@ -116,7 +116,7 @@
         "primary-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.neutral.400}",
+            "$value": "{kds.core.color.neutral.325}",
             "$description": "Deep Teal background for most prominent, primary actions or highlights. USED IN: Button (filled), ProgressButton (filled), SplitButton"
           },
           "hover": {
@@ -670,7 +670,7 @@
         },
         "primary-inverted": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.650}",
+          "$value": "{kds.core.color.neutral.50}",
           "$description": "Light teal color for text and icons on dark surfaces.\n"
         },
         "selected": {
