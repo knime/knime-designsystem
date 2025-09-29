@@ -52,6 +52,24 @@
           "$value": "1000",
           "$description": "Makes circles or capsules USED IN: radiobuttons and Badge\n"
         }
+      },
+      "legacyButton": {
+        "xtrasmall": {
+          "$type": "borderRadius",
+          "$value": "{kds.border-radius.container.pill}"
+        },
+        "small": {
+          "$type": "borderRadius",
+          "$value": "{kds.border-radius.container.pill}"
+        },
+        "medium": {
+          "$type": "borderRadius",
+          "$value": "{kds.border-radius.container.pill}"
+        },
+        "large": {
+          "$type": "borderRadius",
+          "$value": "{kds.border-radius.container.pill}"
+        }
       }
     },
     "border-width": {
