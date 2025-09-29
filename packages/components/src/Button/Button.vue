@@ -59,6 +59,14 @@ const classes = computed(() => [
   props.variant,
   { destructive: props.destructive },
 ]);
+
+const iconSize = computed(() => {
+  if (props.size === "xsmall") {
+    return "small";
+  } else {
+    return props.size;
+  }
+});
 </script>
 
 <template>
@@ -72,21 +80,21 @@ const classes = computed(() => [
         v-if="props.leadingIcon"
         aria-hidden="true"
         :name="props.leadingIcon"
-        :size="props.size"
+        :size="iconSize"
       />
       <span class="label">{{ props.label }}</span>
       <Icon
         v-if="props.trailingIcon"
         aria-hidden="true"
         :name="props.trailingIcon"
-        :size="props.size"
+        :size="iconSize"
       />
     </template>
     <Icon
       v-else-if="props.icon"
       aria-hidden="true"
       :name="props.icon"
-      :size="props.size"
+      :size="iconSize"
     />
     <span v-else>{unsupported props}</span>
   </button>
@@ -245,7 +253,8 @@ const classes = computed(() => [
   &.xsmall {
     gap: var(--kds-spacing-container-0-12x);
     height: var(--kds-dimension-component-height-1-25x);
-    padding: 0 var(--kds-spacing-container-0-25x);
+    padding: 0
+      calc(var(--kds-spacing-container-0-25x) - var(--kds-border-width-base-s)); /* needed as border in Figma is not increasing the width */
     font: var(--kds-font-base-interactive-xsmall-strong);
     border-radius: var(--kds-border-radius-container-0-25x);
   }
@@ -253,7 +262,8 @@ const classes = computed(() => [
   &.small {
     gap: var(--kds-spacing-container-0-12x);
     height: var(--kds-dimension-component-height-1-5x);
-    padding: 0 var(--kds-spacing-container-0-37x);
+    padding: 0
+      calc(var(--kds-spacing-container-0-37x) - var(--kds-border-width-base-s)); /* needed as border in Figma is not increasing the width */
     font: var(--kds-font-base-interactive-small-strong);
     border-radius: var(--kds-border-radius-container-0-37x);
   }
@@ -261,7 +271,8 @@ const classes = computed(() => [
   &.medium {
     gap: var(--kds-spacing-container-0-25x);
     height: var(--kds-dimension-component-height-1-75x);
-    padding: 0 var(--kds-spacing-container-0-37x);
+    padding: 0
+      calc(var(--kds-spacing-container-0-37x) - var(--kds-border-width-base-s)); /* needed as border in Figma is not increasing the width */
     font: var(--kds-font-base-interactive-medium-strong);
     border-radius: var(--kds-border-radius-container-0-37x);
   }
@@ -269,7 +280,8 @@ const classes = computed(() => [
   &.large {
     gap: var(--kds-spacing-container-0-25x);
     height: var(--kds-dimension-component-height-2-25x);
-    padding: 0 var(--kds-spacing-container-0-5x);
+    padding: 0
+      calc(var(--kds-spacing-container-0-5x) - var(--kds-border-width-base-s)); /* needed as border in Figma is not increasing the width */
     font: var(--kds-font-base-interactive-large-strong);
     border-radius: var(--kds-border-radius-container-0-50x);
 
