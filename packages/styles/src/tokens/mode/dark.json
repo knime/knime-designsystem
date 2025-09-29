@@ -645,7 +645,7 @@
       "text-and-icon": {
         "neutral": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.100}",
+          "$value": "{kds.core.color.neutral.50}",
           "$description": "Text and icon color for primary content on dark surfaces"
         },
         "muted": {
