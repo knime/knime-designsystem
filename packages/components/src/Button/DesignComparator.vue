@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, type FunctionalComponent } from "vue";
+import { useLocalStorage } from "@vueuse/core";
+import { computed, onMounted, ref, watch, type FunctionalComponent } from "vue";
 
 type Props = {
   designVariants: any;
@@ -16,22 +17,20 @@ const enableOverlay = ref(false);
 const figmaOpacity = computed(() =>
   enableOverlay.value ? "unset" : 1 - opacity.value,
 );
-
 const figmaImageUrlsById = ref<Record<string, string | null>>({});
 const figmaImageScale = 4;
 
-function getFigmaImageByUrl(url: string) {
-  const match = url.match(/node-id=([\d\-]+)/);
-  if (!match) {
-    return null;
+const figmaToken = useLocalStorage("storybook-figma-token", "");
+function askFigmaToken() {
+  const token = prompt("Please provide your Figma Personal Access Token:");
+  if (token) {
+    figmaToken.value = token;
   }
-  const id = match[1];
-  return figmaImageUrlsById.value[id];
 }
 
-onMounted(async () => {
-  if (!import.meta.env.STORYBOOK_FIGMA_TOKEN) {
-    console.error("No Figma token provided in env file");
+async function fetchFigmaImages() {
+  if (!figmaToken.value) {
+    console.error("No Figma token provided.");
     return;
   }
 
@@ -57,7 +56,6 @@ onMounted(async () => {
     })
     .filter((id): id is string => id !== null);
 
-  // TODO this call should happen on the server-side and the resulting images stored locally
   await fetch(
     "https://api.figma.com/v1/images/" +
       key +
@@ -67,7 +65,7 @@ onMounted(async () => {
       figmaImageScale,
     {
       headers: {
-        "X-Figma-Token": import.meta.env.STORYBOOK_FIGMA_TOKEN,
+        "X-Figma-Token": figmaToken.value,
       },
     },
   )
@@ -80,11 +78,39 @@ onMounted(async () => {
         ]),
       );
     });
-});
+}
+
+function getFigmaImageByUrl(url: string) {
+  const match = url.match(/node-id=([\d\-]+)/);
+  if (!match) {
+    return null;
+  }
+  const id = match[1];
+  return figmaImageUrlsById.value[id];
+}
+
+watch(
+  () => figmaToken.value,
+  () => {
+    fetchFigmaImages();
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
   <div class="design-comparator">
+    <div v-if="!figmaToken" class="no-token-warning">
+      To be able to fetch images from Figma, please
+      <a
+        href="https://help.figma.com/hc/en-us/articles/8085703771159-Manage-personal-access-tokens"
+        target="_blank"
+        >get a Personal Access Token</a
+      >
+      and provide it here:
+      <button @click="askFigmaToken">set Figma token</button>
+    </div>
+
     <div class="controls">
       Design&nbsp;
       <input
@@ -134,6 +160,13 @@ onMounted(async () => {
 
 <style>
 .design-comparator {
+  & .no-token-warning {
+    background: #ffdddd;
+    border: 1px solid #ffaaaa;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
   & .controls {
     position: sticky;
     top: 0;
