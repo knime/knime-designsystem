@@ -81,7 +81,7 @@
         "primary": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.teal.250}",
+            "$value": "{kds.core.color.neutral.175}",
             "$description": "Teal background for primary actions or highlights. USED IN: "
           },
           "hover": {
@@ -116,7 +116,7 @@
         "primary-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.teal.550}",
+            "$value": "{kds.core.color.neutral.400}",
             "$description": "Deep Teal background for most prominent, primary actions or highlights. USED IN: Button (filled), ProgressButton (filled), SplitButton"
           },
           "hover": {
@@ -160,7 +160,7 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.core.color.teal.650}",
+            "$value": "{kds.core.color.neutral.175}",
             "$description": "Semi-transparent teal for selectable elements. USED IN: ValueSwitch-item, Chip, Checkbox, RadioButton, TabBar-Item, VerticalMenu-Item"
           },
           "hover": {
@@ -174,7 +174,7 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.core.color.teal.550}",
+            "$value": "{kds.core.color.neutral.250}",
             "$description": "Semi-transparent lighter teal on hover for selectable elements.\nUSED IN: ValueSwitch-item, Chip, Checkbox, RadioButton, TabBar-Item, VerticalMenu-Item, List Item"
           },
           "active": {
@@ -188,24 +188,24 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.core.color.teal.400}",
+            "$value": "{kds.core.color.neutral.325}",
             "$description": "Semi-transparent lightest teal on pressed for selectable elements.\nUSED IN: ValueSwitch-item, Chip, Checkbox, RadioButton, TabBar-Item, VerticalMenu-Item, List Item"
           }
         },
         "selected-bold": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.teal.650}",
+            "$value": "{kds.core.color.neutral.50}",
             "$description": "Solid Teal background for most prominent, selectable elements. USED IN: RadioButton"
           },
           "hover": {
             "$type": "color",
-            "$value": "{kds.core.color.teal.550}",
+            "$value": "{kds.core.color.neutral.175}",
             "$description": "Lighter teal background on hover for most prominent, selectable elements.\nUSED IN: RadioButton"
           },
           "active": {
             "$type": "color",
-            "$value": "{kds.core.color.teal.400}",
+            "$value": "{kds.core.color.neutral.275}",
             "$description": "Lightest teal background on pressed for most prominent, selectable elements.\nUSED IN: RadioButton"
           }
         },
@@ -665,22 +665,22 @@
         },
         "primary": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.650}",
+          "$value": "{kds.core.color.neutral.100}",
           "$description": "Teal accent color for text and icons on dark surfaces."
         },
         "primary-inverted": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.50}",
+          "$value": "{kds.core.color.neutral.650}",
           "$description": "Light teal color for text and icons on dark surfaces.\n"
         },
         "selected": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.175}",
+          "$value": "{kds.core.color.neutral.100}",
           "$description": "Teal color for selected text and icons on dark surfaces.\n"
         },
         "selected-inverted": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.25}",
+          "$value": "{kds.core.color.neutral.175}",
           "$description": "Very light teal color for selected text and icons on dark surfaces."
         },
         "warning": {
@@ -778,22 +778,22 @@
         },
         "primary-bold": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.725}",
+          "$value": "{kds.core.color.neutral.100}",
           "$description": "❌ Dark teal border accent for most prominent emphasis.\n[Used as reference token only for the Border composite tokens]\n\n"
         },
         "primary": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.175}",
+          "$value": "{kds.core.color.neutral.175}",
           "$description": "❌ Light teal border accent for emphasis.\n[Used as reference token only for the Border composite tokens]\n"
         },
         "selected-bold": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.175}",
+          "$value": "{kds.core.color.neutral.100}",
           "$description": "❌ Teal border indicating the selected state (most prominent).\n[Used as reference token only for the Border composite tokens]\n"
         },
         "selected": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.100}",
+          "$value": "{kds.core.color.neutral.175}",
           "$description": "❌ Faint teal border indicating the selected state.\n[Used as reference token only for the Border composite tokens]\n"
         },
         "selected-accent": {
