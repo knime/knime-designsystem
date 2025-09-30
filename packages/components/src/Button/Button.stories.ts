@@ -13,11 +13,16 @@ import {
 import { variants } from "./Button.types";
 import Button from "./Button.vue";
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta: Meta<typeof Button> = {
   title: "Components/Button",
   component: Button as FunctionalComponent,
   tags: ["autodocs"],
+  parameters: {
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=345-19622",
+    },
+  },
   argTypes: {
     size: {
       control: { type: "select" },
@@ -51,14 +56,7 @@ export default meta;
 
 type Story = StoryObj<typeof Button>;
 
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Filled: Story = {
-  parameters: {
-    design: {
-      type: "figma",
-      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=345-19622",
-    },
-  },
   args: {
     variant: "filled",
     label: "Button",
@@ -170,8 +168,6 @@ export const TruncatedLabel: Story = {
 
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: Button as FunctionalComponent,
-  overviewDesignUrl:
-    "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=345-19622",
   designsToCompare: {
     icon: {
       props: {
