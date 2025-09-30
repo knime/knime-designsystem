@@ -24,8 +24,8 @@ definitions:
           - npm install -g corepack
           - corepack enable
           - pnpm install
+          - pnpm build # need to run before linting, because Stylelint needs to know the available variables
           - pnpm ci:lint-format
-          - pnpm build
           - pnpm coverage
           - pnpm run audit
           - pipe: sonarsource/sonarcloud-scan:2.0.0
