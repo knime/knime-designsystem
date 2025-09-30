@@ -40,7 +40,7 @@ export function generateCombinations(
 
 type AllCombinationsStoryParams = {
   component: FunctionalComponent;
-  combinationsProps: Record<string, readonly unknown[]>[];
+  combinationsProps: Record<string, readonly unknown[]>[]; // TODO can we infer the possible props from the component type?
 };
 
 /**
@@ -78,6 +78,7 @@ export function buildAllCombinationsStory(
         return { allCombinations, component: config.component };
       },
       template: `
+      Hover to see the props of each instance:
       <div style="display: grid; grid-template-columns: repeat(4, auto); gap: 1rem;">
         <div v-for="(props, index) in allCombinations" :key="index">
           <span style="font-size: 10px; color: var(--kds-color-text-and-icon-subtle);">{{ index }}</span> 
@@ -91,8 +92,7 @@ export function buildAllCombinationsStory(
 
 type DesignComparatorParams = {
   component: FunctionalComponent;
-  overviewDesignUrl: string;
-  designsToCompare: DesignsToCompare;
+  designsToCompare: DesignsToCompare; // TODO can we infer the possible props from the component type?
 };
 
 /**
@@ -101,8 +101,6 @@ type DesignComparatorParams = {
  * @example
   export const DesignComparator = buildDesignComparator({
     component: Button,
-    overviewDesignUrl:
-      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=345-19622",
     designsToCompare: {
       "With Icon": {
         props: {
@@ -127,10 +125,6 @@ export function buildDesignComparatorStory(
 ): StoryObj {
   return {
     parameters: {
-      design: {
-        type: "figma",
-        url: config.overviewDesignUrl,
-      },
       a11y: { disable: true },
       controls: { disable: true },
       actions: { disable: true },

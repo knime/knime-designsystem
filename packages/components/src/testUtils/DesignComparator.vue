@@ -114,6 +114,7 @@ watch(
   <div class="design-comparator">
     This view overlays the design in Figma with the component implementation.
     It's especially useful for checking sizes and positioning of elements.
+
     <div v-if="!figmaToken" class="no-token-warning">
       To be able to fetch images from Figma, please
       <a
@@ -121,7 +122,7 @@ watch(
         target="_blank"
         >get a Personal Access Token</a
       >
-      and provide it here:
+      with <code>file_content:read</code> permission and provide it here:
       <button @click="askFigmaToken">set Figma token</button>
     </div>
 
