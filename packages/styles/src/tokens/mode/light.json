@@ -684,7 +684,7 @@
         },
         "disabled-inverted": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.250}",
+          "$value": "{kds.core.color.neutral.275}",
           "$description": "Color for text and icons in the disabled state on primary-disabled backgrounds."
         },
         "info": {
