@@ -1,18 +1,22 @@
+import type { FunctionalComponent } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { fn } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
 import { sizes } from "../constants";
-import { generateCombinations } from "../utils/storybook";
+import {
+  buildAllCombinationsStory,
+  buildDesignComparatorStory,
+} from "../testUtils/storybook";
 
 import { variants } from "./Button.types";
 import Button from "./Button.vue";
-import DesignComparator from "./DesignComparator.vue";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta: Meta<typeof Button> = {
   title: "Components/Button",
-  component: Button,
+  component: Button as FunctionalComponent,
   tags: ["autodocs"],
   argTypes: {
     size: {
@@ -39,8 +43,9 @@ const meta: Meta<typeof Button> = {
       options: [undefined, ...iconNames], // eslint-disable-line no-undefined
     },
   },
-  // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
-  // args: { onClick: fn() },
+  args: {
+    onClick: fn(),
+  },
 };
 export default meta;
 
@@ -58,102 +63,6 @@ export const Filled: Story = {
     variant: "filled",
     label: "Button",
   },
-};
-
-const designVariants = {
-  icon: {
-    props: {
-      variant: "outlined",
-      icon: "placeholder",
-    },
-    variants: {
-      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-89762":
-        {
-          size: "large",
-        },
-      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-90047":
-        {
-          size: "medium",
-        },
-      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-90332":
-        {
-          size: "small",
-        },
-      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-90617":
-        {
-          size: "xsmall",
-        },
-    },
-  },
-  trailingIcon: {
-    props: {
-      label: "{Label}",
-      variant: "outlined",
-      trailingIcon: "placeholder",
-    },
-    variants: {
-      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-89904":
-        {
-          size: "large",
-        },
-      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-90189":
-        {
-          size: "medium",
-        },
-      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-90474":
-        {
-          size: "small",
-        },
-      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-90759":
-        {
-          size: "xsmall",
-        },
-    },
-  },
-  leadingAndTrailingIcon: {
-    props: {
-      label: "{Label}",
-      variant: "outlined",
-      leadingIcon: "placeholder",
-      trailingIcon: "placeholder",
-    },
-    variants: {
-      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-89691":
-        {
-          size: "large",
-        },
-      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-89976":
-        {
-          size: "medium",
-        },
-      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-90261":
-        {
-          size: "small",
-        },
-      "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-90546":
-        {
-          size: "xsmall",
-        },
-    },
-  },
-};
-
-export const OutlinedComparator: Story = {
-  parameters: {
-    controls: { disable: true },
-    design: {
-      type: "figma",
-      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-89691",
-    },
-  },
-  render: () => ({
-    components: { Button, DesignComparator },
-    setup() {
-      return { designVariants, Button };
-    },
-    template: `
-      <DesignComparator :design-variants="designVariants" :component="Button"></DesignComparator>`,
-  }),
 };
 
 export const Outlined: Story = {
@@ -200,59 +109,6 @@ export const Destructive: Story = {
   }),
 };
 
-export const DestructiveDisabled: Story = {
-  args: {
-    label: "Button",
-    destructive: true,
-    disabled: true,
-  },
-  render: (args) => ({
-    components: { Button },
-    setup() {
-      return { args, variants };
-    },
-    template: `
-      <Button v-bind="args" :variant="variant" v-for="variant in variants" :key="variant" style="margin-bottom: 10px;"/>`,
-  }),
-};
-
-export const Large: Story = {
-  args: {
-    size: "large",
-    label: "Button",
-  },
-};
-
-export const Small: Story = {
-  args: {
-    size: "small",
-    label: "Button",
-  },
-};
-
-export const XSmall: Story = {
-  args: {
-    size: "xsmall",
-    label: "Button",
-  },
-};
-
-export const LeadingIcon: Story = {
-  args: {
-    label: "Button",
-    variant: "outlined",
-    leadingIcon: "ai-general",
-  },
-};
-
-export const TrailingIcon: Story = {
-  args: {
-    label: "Button",
-    variant: "outlined",
-    trailingIcon: "ai-general",
-  },
-};
-
 export const LeadingAndTrailingIcon: Story = {
   args: {
     label: "Button",
@@ -268,6 +124,28 @@ export const IconOnly: Story = {
     icon: "ai-general",
   },
 };
+
+export const AllCombinations: Story = buildAllCombinationsStory({
+  component: Button as FunctionalComponent,
+  combinationsProps: [
+    {
+      size: sizes,
+      variant: variants,
+      disabled: [false, true],
+      destructive: [false, true],
+      label: ["Button"],
+      leadingIcon: [undefined, "ai-general"], // eslint-disable-line no-undefined
+      trailingIcon: [undefined, "ai-general"], // eslint-disable-line no-undefined
+    },
+    {
+      size: sizes,
+      variant: variants,
+      disabled: [false, true],
+      destructive: [false, true],
+      icon: ["ai-general"],
+    },
+  ],
+});
 
 export const TruncatedLabel: Story = {
   args: {
@@ -290,33 +168,85 @@ export const TruncatedLabel: Story = {
   }),
 };
 
-export const AllCombinations: Story = {
-  parameters: {
-    controls: { disable: true },
-  },
-  render: () => ({
-    components: { Button },
-    setup() {
-      const propSpaces = {
-        size: sizes,
-        variant: variants,
-        disabled: [false, true],
-        destructive: [false, true],
-        label: ["Button", undefined], // eslint-disable-line no-undefined
-        leadingIcon: [undefined, "ai-general"], // eslint-disable-line no-undefined
-        trailingIcon: [undefined, "ai-general"], // eslint-disable-line no-undefined
-        icon: [undefined, "ai-general"], // eslint-disable-line no-undefined
-      };
-      const combinations = generateCombinations(propSpaces);
-      return { combinations };
+export const DesignComparator: Story = buildDesignComparatorStory({
+  component: Button as FunctionalComponent,
+  overviewDesignUrl:
+    "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=345-19622",
+  designsToCompare: {
+    icon: {
+      props: {
+        variant: "outlined",
+        icon: "placeholder",
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-89762":
+          {
+            size: "large",
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-90047":
+          {
+            size: "medium",
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-90332":
+          {
+            size: "small",
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-90617":
+          {
+            size: "xsmall",
+          },
+      },
     },
-    template: `
-      <div style="display: grid; grid-template-columns: repeat(4, auto); gap: 1rem;">
-        <div v-for="(props, index) in combinations" :key="index">
-          <span style="font-size: 10px; color: gray;">{{ index }}</span> 
-          <Button v-bind="props" :title="JSON.stringify(props, null, 2)" />
-        </div>
-      </div>
-    `,
-  }),
-};
+    trailingIcon: {
+      props: {
+        label: "{Label}",
+        variant: "outlined",
+        trailingIcon: "placeholder",
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-89904":
+          {
+            size: "large",
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-90189":
+          {
+            size: "medium",
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-90474":
+          {
+            size: "small",
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-90759":
+          {
+            size: "xsmall",
+          },
+      },
+    },
+    leadingAndTrailingIcon: {
+      props: {
+        label: "{Label}",
+        variant: "outlined",
+        leadingIcon: "placeholder",
+        trailingIcon: "placeholder",
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-89691":
+          {
+            size: "large",
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-89976":
+          {
+            size: "medium",
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-90261":
+          {
+            size: "small",
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-90546":
+          {
+            size: "xsmall",
+          },
+      },
+    },
+  },
+});

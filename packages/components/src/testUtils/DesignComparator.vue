@@ -1,24 +1,34 @@
 <script setup lang="ts">
+import { type FunctionalComponent, computed, ref, watch } from "vue";
 import { useLocalStorage } from "@vueuse/core";
-import { computed, onMounted, ref, watch, type FunctionalComponent } from "vue";
+
+const figmaImageScale = 4;
+
+export type DesignsToCompare = Record<
+  string,
+  {
+    props: Record<string, any>;
+    variants: Record<string, Record<string, any>>;
+  }
+>;
 
 type Props = {
-  designVariants: any;
+  designsToCompare: DesignsToCompare | null;
   component: FunctionalComponent | null;
 };
 
 const props = withDefaults(defineProps<Props>(), {
-  designVariants: {},
+  designsToCompare: null,
   component: null,
 });
 
-const opacity = ref(0.5);
+const defaultOpacity = 0.5;
+const opacity = ref(defaultOpacity);
 const enableOverlay = ref(false);
 const figmaOpacity = computed(() =>
   enableOverlay.value ? "unset" : 1 - opacity.value,
 );
 const figmaImageUrlsById = ref<Record<string, string | null>>({});
-const figmaImageScale = 4;
 
 const figmaToken = useLocalStorage("storybook-figma-token", "");
 function askFigmaToken() {
@@ -28,41 +38,42 @@ function askFigmaToken() {
   }
 }
 
+function getIdFromFigmaUrl(url: string): string | null {
+  const match = url.match(/node-id=([\d-]+)/);
+  return match ? match[1] : null;
+}
+
 async function fetchFigmaImages() {
   if (!figmaToken.value) {
-    console.error("No Figma token provided.");
+    console.error("No Figma token provided."); // eslint-disable-line no-console
     return;
   }
 
-  const figmaUrls = Object.values(props.designVariants).flatMap((variant) =>
-    Object.keys(variant.variants),
+  if (!props.designsToCompare) {
+    console.error("No designs to compare provided."); // eslint-disable-line no-console
+    return;
+  }
+
+  const figmaUrls = Object.values(props.designsToCompare).flatMap((design) =>
+    Object.keys(design.variants),
   );
 
-  // Extract the key from first Figma URL
-  const match = figmaUrls[0].match(
-    /figma\.com\/design\/([^\/]+)\/[^?]+\?node-id=([\d\-]+)/,
-  );
-
+  // Extract the key from first Figma URL, assuming all designs are from the same Figma file
+  const match = figmaUrls[0].match(/figma\.com\/design\/([^/]+)\//);
   if (!match) {
-    console.error("Invalid Figma design URL:", figmaUrls[0]);
+    console.error("Invalid Figma design URL:", figmaUrls[0]); // eslint-disable-line no-console
     return;
   }
-
   const key = match[1];
+
   const ids = figmaUrls
-    .map((url) => {
-      const match = url.match(/node-id=([\d\-]+)/);
-      return match ? match[1] : null;
-    })
+    .map((url) => getIdFromFigmaUrl(url))
     .filter((id): id is string => id !== null);
 
   await fetch(
-    "https://api.figma.com/v1/images/" +
-      key +
-      "?ids=" +
-      ids.join(",") +
-      "&format=png&scale=" +
-      figmaImageScale,
+    `https://api.figma.com/v1/images/${key}?ids=${ids.join(
+      ",",
+    )}&format=png&scale=${figmaImageScale}`,
     {
       headers: {
         "X-Figma-Token": figmaToken.value,
@@ -74,20 +85,21 @@ async function fetchFigmaImages() {
       figmaImageUrlsById.value = Object.fromEntries(
         Object.entries(data.images).map(([key, value]) => [
           key.replace(":", "-"),
-          value,
+          value as string,
         ]),
       );
     });
 }
 
-function getFigmaImageByUrl(url: string) {
-  const match = url.match(/node-id=([\d\-]+)/);
-  if (!match) {
-    return null;
-  }
-  const id = match[1];
-  return figmaImageUrlsById.value[id];
-}
+const figmaImageByUrl = computed(() => {
+  return (url: string) => {
+    const id = getIdFromFigmaUrl(url);
+    if (!id) {
+      return undefined; // eslint-disable-line no-undefined
+    }
+    return figmaImageUrlsById.value[id] || undefined; // eslint-disable-line no-undefined
+  };
+});
 
 watch(
   () => figmaToken.value,
@@ -100,6 +112,8 @@ watch(
 
 <template>
   <div class="design-comparator">
+    This view overlays the design in Figma with the component implementation.
+    It's especially useful for checking sizes and positioning of elements.
     <div v-if="!figmaToken" class="no-token-warning">
       To be able to fetch images from Figma, please
       <a
@@ -114,41 +128,38 @@ watch(
     <div class="controls">
       Design&nbsp;
       <input
+        v-model="opacity"
         type="range"
         min="0"
         max="1"
         step="0.01"
-        v-model="opacity"
         class="opacity-slider"
       />&nbsp;Implementation &nbsp;&nbsp;<label
-        ><input type="checkbox" v-model="enableOverlay" /> Overlay</label
+        ><input v-model="enableOverlay" type="checkbox" /> Overlay</label
       >
     </div>
 
     <div class="groups">
       <div
-        class="group"
-        v-for="(set, groupName) in props.designVariants"
+        v-for="(set, groupName) in props.designsToCompare"
         :key="groupName"
+        class="group"
       >
-        <h3>{{ groupName }}</h3>
+        <h5>{{ groupName }}</h5>
         <div
           v-for="(variantProps, figmaUrl) in set.variants"
           :key="figmaUrl"
           class="variant"
         >
           <img
-            v-if="
-              Object.keys(figmaImageUrlsById).length &&
-              getFigmaImageByUrl(figmaUrl)
-            "
+            v-if="figmaImageByUrl(figmaUrl)"
             class="design"
-            :src="getFigmaImageByUrl(figmaUrl)"
+            :src="figmaImageByUrl(figmaUrl)"
           />
           <div class="implementation" :style="{ opacity: opacity }">
             <component
-              v-if="props.component"
               :is="props.component"
+              v-if="props.component"
               v-bind="{ ...set.props, ...variantProps }"
             />
           </div>
@@ -161,18 +172,21 @@ watch(
 <style>
 .design-comparator {
   & .no-token-warning {
-    background: #ffdddd;
-    border: 1px solid #ffaaaa;
     padding: 10px;
     margin-bottom: 10px;
+    color: var(--kds-color-text-and-icon-info);
+    background: var(--kds-color-background-info-initial);
   }
 
   & .controls {
     position: sticky;
     top: 0;
+    z-index: 1;
     display: flex;
     align-items: center;
+    padding-top: 5px;
     font-size: 12px;
+    background-color: white;
 
     & .opacity-slider {
       width: 50px;
