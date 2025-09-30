@@ -617,7 +617,7 @@
                   "type": "mix",
                   "value": "0.6",
                   "space": "lch",
-                  "color": "{kds.core.color.teal.650}"
+                  "color": "{kds.core.color.neutral.650}"
                 }
               }
             },
@@ -720,7 +720,7 @@
         },
         "disabled-inverted": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.250}",
+          "$value": "{kds.core.color.neutral.325}",
           "$description": "Color for text and icons in the disabled state on primary-disabled backgrounds."
         },
         "info": {
