@@ -118,7 +118,7 @@ const iconSize = computed(() => {
 
   &:focus-visible {
     outline: var(--kds-border-action-focused);
-    outline-offset: var(--focus-outline-offset);
+    outline-offset: var(--kds-focus-outline-offset);
   }
 
   &.filled {
@@ -255,6 +255,7 @@ const iconSize = computed(() => {
     height: var(--kds-dimension-component-height-1-25x);
     padding: 0
       calc(var(--kds-spacing-container-0-25x) - var(--kds-border-width-base-s)); /* needed as border in Figma is not increasing the width */
+
     font: var(--kds-font-base-interactive-xsmall-strong);
     border-radius: var(--kds-border-radius-container-0-25x);
   }
@@ -264,6 +265,7 @@ const iconSize = computed(() => {
     height: var(--kds-dimension-component-height-1-5x);
     padding: 0
       calc(var(--kds-spacing-container-0-37x) - var(--kds-border-width-base-s)); /* needed as border in Figma is not increasing the width */
+
     font: var(--kds-font-base-interactive-small-strong);
     border-radius: var(--kds-border-radius-container-0-37x);
   }
@@ -273,6 +275,7 @@ const iconSize = computed(() => {
     height: var(--kds-dimension-component-height-1-75x);
     padding: 0
       calc(var(--kds-spacing-container-0-37x) - var(--kds-border-width-base-s)); /* needed as border in Figma is not increasing the width */
+
     font: var(--kds-font-base-interactive-medium-strong);
     border-radius: var(--kds-border-radius-container-0-37x);
   }
@@ -282,6 +285,7 @@ const iconSize = computed(() => {
     height: var(--kds-dimension-component-height-2-25x);
     padding: 0
       calc(var(--kds-spacing-container-0-5x) - var(--kds-border-width-base-s)); /* needed as border in Figma is not increasing the width */
+
     font: var(--kds-font-base-interactive-large-strong);
     border-radius: var(--kds-border-radius-container-0-50x);
 
