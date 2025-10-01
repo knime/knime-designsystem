@@ -1,9 +1,5 @@
 module.exports = {
-  extends: [
-    "@knime/eslint-config/stylelint/vue",
-    "stylelint-config-recess-order", // TODO move to @knime/eslint-config/stylelint
-  ],
-  plugins: ["stylelint-value-no-unknown-custom-properties"], // TODO move to @knime/eslint-config/stylelint
+  extends: ["@knime/eslint-config/stylelint/vue"],
   rules: {
     "csstools/value-no-unknown-custom-properties": [
       true,

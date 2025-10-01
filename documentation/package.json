@@ -41,7 +41,6 @@
     "@vue/tsconfig": "catalog:",
     "chromatic": "^13.1.3",
     "color": "^5.0.0",
-    "eslint-plugin-storybook": "catalog:storybook",
     "storybook-dark-mode": "catalog:storybook",
     "typescript": "catalog:",
     "vite": "catalog:",
