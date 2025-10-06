@@ -141,7 +141,7 @@
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
-              "fontWeight": "{kds.core.font-weight.medium}",
+              "fontWeight": "{kds.core.font-weight.strong}",
               "lineHeight": "{kds.core.line-height.multiline_wide}",
               "fontSize": "{kds.core.font-size.scaled.0_75x}"
             },
