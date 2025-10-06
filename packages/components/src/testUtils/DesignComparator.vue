@@ -29,6 +29,7 @@ const figmaOpacity = computed(() =>
   enableOverlay.value ? "unset" : 1 - opacity.value,
 );
 const figmaImageUrlsById = ref<Record<string, string | null>>({});
+const loading = ref(false);
 
 const figmaToken = useLocalStorage("storybook-figma-token", "");
 function askFigmaToken() {
@@ -70,6 +71,7 @@ async function fetchFigmaImages() {
     .map((url) => getIdFromFigmaUrl(url))
     .filter((id): id is string => id !== null);
 
+  loading.value = true;
   await fetch(
     `https://api.figma.com/v1/images/${key}?ids=${ids.join(
       ",",
@@ -88,6 +90,7 @@ async function fetchFigmaImages() {
           value as string,
         ]),
       );
+      loading.value = false;
     });
 }
 
@@ -138,6 +141,7 @@ watch(
       />&nbsp;Implementation &nbsp;&nbsp;<label
         ><input v-model="enableOverlay" type="checkbox" /> Overlay</label
       >
+      <span v-if="loading" class="loading">Loading images from Figma…</span>
     </div>
 
     <div class="groups">
@@ -171,6 +175,17 @@ watch(
 </template>
 
 <style>
+@keyframes fade {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
 .design-comparator {
   & .no-token-warning {
     padding: 10px;
@@ -191,6 +206,12 @@ watch(
 
     & .opacity-slider {
       width: 50px;
+    }
+
+    & .loading {
+      margin-left: 20px;
+      font-style: italic;
+      animation: fade 1s ease-in-out infinite;
     }
   }
 
