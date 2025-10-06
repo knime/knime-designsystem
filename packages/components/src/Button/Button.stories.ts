@@ -47,6 +47,11 @@ const meta: Meta<typeof Button> = {
       control: { type: "select" },
       options: [undefined, ...iconNames], // eslint-disable-line no-undefined
     },
+    to: {
+      control: "text",
+      description:
+        "renders the Button as <code>&lt;a&gt;</code> element if set; passed to RouterLink/NuxtLink component if globally available",
+    },
   },
   args: {
     onClick: fn(),
@@ -88,7 +93,7 @@ export const Disabled: Story = {
       return { args, variants };
     },
     template: `
-      <Button v-bind="args" :variant="variant" v-for="variant in variants" :key="variant" style="margin-bottom: 10px;"/>`,
+      <Button v-bind="args" :variant="variant" v-for="variant in variants" :key="variant" style="margin-bottom: 10px;" external />`,
   }),
 };
 

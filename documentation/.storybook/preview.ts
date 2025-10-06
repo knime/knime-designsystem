@@ -40,6 +40,20 @@ style.innerHTML = globalStyles;
 document.head.appendChild(style);
 
 const preview: Preview = {
+  globalTypes: {
+    legacy: {
+      description: "Legacy mode to view components with legacy styles",
+      defaultValue: "false",
+      toolbar: {
+        title: "Legacy Mode",
+        items: [
+          { value: "false", title: "Legacy off" },
+          { value: "true", title: "Legacy on" },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
   parameters: {
     controls: {
       matchers: {
@@ -75,6 +89,9 @@ const preview: Preview = {
       const isDark = context.globals.backgrounds?.value === "dark";
       document.documentElement.classList.toggle("dark", isDark);
       document.documentElement.style.colorScheme = isDark ? "dark" : "light";
+
+      const isLegacy = context.globals.legacy === "true";
+      document.documentElement.classList.toggle("kds-legacy", isLegacy);
       return story();
     },
   ],

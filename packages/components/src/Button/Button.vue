@@ -5,6 +5,7 @@ import type { IconName } from "@knime/kds-styles/img/icons/def";
 
 import Icon from "../Icon/Icon.vue";
 import type { Size } from "../types";
+import { resolveNuxtLinkComponent } from "../util/nuxtComponentResolver";
 
 import type { Variant } from "./Button.types";
 
@@ -16,6 +17,8 @@ type ButtonProps =
       size?: Size;
       destructive?: boolean;
       disabled?: boolean;
+      /** any URL; passed to RouterLink/NuxtLink component if globally available */
+      to?: string;
 
       // specific
       label: string;
@@ -32,6 +35,8 @@ type ButtonProps =
       size?: Size;
       destructive?: boolean;
       disabled?: boolean;
+      /** any URL; passed to RouterLink/NuxtLink component if globally available */
+      to?: string;
 
       // specific
       icon: IconName;
@@ -49,6 +54,14 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   disabled: false,
 });
 
+const component = computed(() => {
+  if (props.to) {
+    return resolveNuxtLinkComponent();
+  }
+
+  return "button";
+});
+
 const emit = defineEmits<{
   (e: "click", event: MouseEvent): void;
 }>();
@@ -58,6 +71,7 @@ const classes = computed(() => [
   props.size,
   props.variant,
   { destructive: props.destructive },
+  { disabled: props.disabled },
 ]);
 
 const iconSize = computed(() => {
@@ -67,13 +81,22 @@ const iconSize = computed(() => {
     return props.size;
   }
 });
+
+function onClick(e: MouseEvent) {
+  if (!props.disabled) {
+    emit("click", e);
+    e.preventDefault();
+  }
+}
 </script>
 
 <template>
-  <button
+  <Component
+    :is="component"
     :class="classes"
     :disabled="props.disabled"
-    @click="emit('click', $event)"
+    :to="props.to"
+    @click="onClick($event)"
   >
     <template v-if="props.label">
       <Icon
@@ -97,8 +120,14 @@ const iconSize = computed(() => {
       :size="iconSize"
     />
     <span v-else>{unsupported props}</span>
-  </button>
+  </Component>
 </template>
+
+<style>
+html.kds-legacy {
+  --kds-legacy-button-border-radius: var(--kds-border-radius-container-pill);
+}
+</style>
 
 <style scoped>
 .button {
@@ -112,8 +141,17 @@ const iconSize = computed(() => {
   overflow: hidden;
   cursor: pointer;
 
-  &:disabled {
+  &:is(a) {
+    width: fit-content;
+    text-decoration: none;
+  }
+
+  &.disabled {
     cursor: not-allowed;
+
+    &:is(a) {
+      pointer-events: none;
+    }
   }
 
   &:focus-visible {
@@ -126,12 +164,12 @@ const iconSize = computed(() => {
     background-color: var(--kds-color-background-primary-bold-initial);
     border: var(--kds-border-action-transparent);
 
-    &:disabled {
+    &.disabled {
       color: var(--kds-color-text-and-icon-disabled-inverted);
       background-color: var(--kds-color-background-disabled-primary);
     }
 
-    &:not(:disabled) {
+    &:not(.disabled) {
       &:hover {
         background-color: var(--kds-color-background-primary-bold-hover);
       }
@@ -145,12 +183,12 @@ const iconSize = computed(() => {
       color: var(--kds-color-text-and-icon-danger-inverted);
       background-color: var(--kds-color-background-danger-bold-initial);
 
-      &:disabled {
+      &.disabled {
         color: var(--kds-color-text-and-icon-disabled-inverted);
         background-color: var(--kds-color-background-disabled-danger);
       }
 
-      &:not(:disabled) {
+      &:not(.disabled) {
         &:hover {
           background-color: var(--kds-color-background-danger-bold-hover);
         }
@@ -167,12 +205,12 @@ const iconSize = computed(() => {
     background-color: var(--kds-color-background-neutral-initial);
     border: var(--kds-border-action-default);
 
-    &:disabled {
+    &.disabled {
       color: var(--kds-color-text-and-icon-disabled);
       border: var(--kds-border-action-disabled);
     }
 
-    &:not(:disabled) {
+    &:not(.disabled) {
       &:hover {
         background-color: var(--kds-color-background-neutral-hover);
       }
@@ -186,12 +224,12 @@ const iconSize = computed(() => {
       color: var(--kds-color-text-and-icon-danger);
       border: var(--kds-border-action-error);
 
-      &:disabled {
+      &.disabled {
         color: var(--kds-color-text-and-icon-disabled);
         border: var(--kds-border-action-disabled);
       }
 
-      &:not(:disabled) {
+      &:not(.disabled) {
         &:hover {
           background-color: var(--kds-color-background-danger-hover);
         }
@@ -208,11 +246,11 @@ const iconSize = computed(() => {
     background-color: var(--kds-color-background-neutral-initial);
     border: var(--kds-border-action-transparent);
 
-    &:disabled {
+    &.disabled {
       color: var(--kds-color-text-and-icon-disabled);
     }
 
-    &:not(:disabled) {
+    &:not(.disabled) {
       &:hover {
         background-color: var(--kds-color-background-primary-hover);
       }
@@ -225,11 +263,11 @@ const iconSize = computed(() => {
     &.destructive {
       color: var(--kds-color-text-and-icon-danger);
 
-      &:disabled {
+      &.disabled {
         color: var(--kds-color-text-and-icon-disabled);
       }
 
-      &:not(:disabled) {
+      &:not(.disabled) {
         &:hover {
           background-color: var(--kds-color-background-danger-hover);
         }
@@ -257,7 +295,10 @@ const iconSize = computed(() => {
       calc(var(--kds-spacing-container-0-25x) - var(--kds-border-width-base-s)); /* needed as border in Figma is not increasing the width */
 
     font: var(--kds-font-base-interactive-xsmall-strong);
-    border-radius: var(--kds-border-radius-container-0-25x);
+    border-radius: var(
+      --kds-legacy-button-border-radius,
+      var(--kds-border-radius-container-0-25x)
+    );
   }
 
   &.small {
@@ -267,7 +308,10 @@ const iconSize = computed(() => {
       calc(var(--kds-spacing-container-0-37x) - var(--kds-border-width-base-s)); /* needed as border in Figma is not increasing the width */
 
     font: var(--kds-font-base-interactive-small-strong);
-    border-radius: var(--kds-border-radius-container-0-37x);
+    border-radius: var(
+      --kds-legacy-button-border-radius,
+      var(--kds-border-radius-container-0-37x)
+    );
   }
 
   &.medium {
@@ -277,7 +321,10 @@ const iconSize = computed(() => {
       calc(var(--kds-spacing-container-0-37x) - var(--kds-border-width-base-s)); /* needed as border in Figma is not increasing the width */
 
     font: var(--kds-font-base-interactive-medium-strong);
-    border-radius: var(--kds-border-radius-container-0-37x);
+    border-radius: var(
+      --kds-legacy-button-border-radius,
+      var(--kds-border-radius-container-0-37x)
+    );
   }
 
   &.large {
@@ -287,7 +334,10 @@ const iconSize = computed(() => {
       calc(var(--kds-spacing-container-0-5x) - var(--kds-border-width-base-s)); /* needed as border in Figma is not increasing the width */
 
     font: var(--kds-font-base-interactive-large-strong);
-    border-radius: var(--kds-border-radius-container-0-50x);
+    border-radius: var(
+      --kds-legacy-button-border-radius,
+      var(--kds-border-radius-container-0-50x)
+    );
 
     & .label {
       padding: 0 var(--kds-spacing-container-0-25x);
