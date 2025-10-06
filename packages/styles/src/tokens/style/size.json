@@ -36,11 +36,11 @@
         },
         "0_10x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} *0.1"
+          "$value": "{kds.core.size.scale} *0.0625"
         },
         "0_12x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} *0.12"
+          "$value": "{kds.core.size.scale} *0.125"
         },
         "0_25x": {
           "$type": "spacing",

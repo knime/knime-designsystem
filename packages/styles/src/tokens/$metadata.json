@@ -1,5 +1,10 @@
 {
   "tokenSetOrder": [
+    "components/Header",
+    "components/Input",
+    "components/Loading",
+    "components/ResizeHandle",
+    "components/ToggleSwitch",
     "core/color",
     "core/dimension",
     "core/font",
@@ -9,11 +14,6 @@
     "style/elevation",
     "style/motion",
     "style/size",
-    "style/typography",
-    "components/Header",
-    "components/Input",
-    "components/Loading",
-    "components/ResizeHandle",
-    "components/ToggleSwitch"
+    "style/typography"
   ]
 }
