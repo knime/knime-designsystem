@@ -4,10 +4,10 @@
       "0": {
         "$type": "boxShadow",
         "$value": {
-          "x": "{kds.core.dimension.0}",
-          "y": "{kds.core.dimension.0}",
-          "blur": "{kds.core.dimension.0}",
-          "spread": "{kds.core.dimension.0}",
+          "x": "0",
+          "y": "0",
+          "blur": "0",
+          "spread": "0",
           "color": "{kds.color.elevation.top}",
           "type": "dropShadow"
         },
