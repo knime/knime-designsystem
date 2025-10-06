@@ -5,7 +5,7 @@
         "scale": {
           "$type": "sizing",
           "$value": "16",
-          "$description": "base-scale of all size-related tokens (size, space, dimension). The default is 1rem = 16(px). If you change it, it will change all size-related tokens. :)"
+          "$description": "Source for calculating all size-related tokens (size, space, dimension). The default is 16px (=1 REM). If you change it, it will change all size-related tokens."
         }
       }
     }
