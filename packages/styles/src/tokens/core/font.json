@@ -2,112 +2,101 @@
   "kds": {
     "core": {
       "font-size": {
-        "REM": {
+        "0_5x": {
           "$type": "fontSizes",
-          "$value": "16",
-          "$description": "👀 If you change this core font size, it will change all font-related tokens."
+          "$value": "{kds.core.size.scale} *0.5"
         },
-        "scaled": {
-          "0_5x": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 50"
-          },
-          "0_56x": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 56.25"
-          },
-          "0_62x": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 62.5"
-          },
-          "0_68x": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 68.75"
-          },
-          "0_75x": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 75"
-          },
-          "0_81x": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 81.25"
-          },
-          "0_87x": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 87.5"
-          },
-          "1x": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 100"
-          },
-          "1_25x": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 125"
-          },
-          "1_5x": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 150"
-          },
-          "1_75x": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 175"
-          },
-          "2x": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 200"
-          },
-          "2_25x": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 225"
-          },
-          "2_5x": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 250"
-          },
-          "2_75x": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 275"
-          },
-          "3x": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 300"
-          },
-          "3_25x": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 325"
-          },
-          "3_5x": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 350"
-          },
-          "3_75x": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 375"
-          },
-          "4x": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 400"
-          },
-          "4_5x": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 450"
-          },
-          "5x": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 500"
-          },
-          "5_5x": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 550"
-          },
-          "6x": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.scaled.base} * 600"
-          },
-          "base": {
-            "$type": "fontSizes",
-            "$value": "{kds.core.font-size.REM} / 100"
-          }
+        "0_56x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *0.5625"
+        },
+        "0_62x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *0.625"
+        },
+        "0_68x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *0.6875"
+        },
+        "0_75x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *0.75"
+        },
+        "0_81x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *0.8125"
+        },
+        "0_87x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *0.875"
+        },
+        "1x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *1"
+        },
+        "1_25x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *1.25"
+        },
+        "1_5x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *1.5"
+        },
+        "1_75x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *1.75"
+        },
+        "2x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *2"
+        },
+        "2_25x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *2.25"
+        },
+        "2_5x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *2.5"
+        },
+        "2_75x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *2.75"
+        },
+        "3x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *3"
+        },
+        "3_25x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *3.25"
+        },
+        "3_5x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *3.5"
+        },
+        "3_75x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *3.75"
+        },
+        "4x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *4."
+        },
+        "4_5x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *4.5"
+        },
+        "5x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *5"
+        },
+        "5_5x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *5.5"
+        },
+        "6x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *6"
         }
       },
       "paragraph-spacing": {
