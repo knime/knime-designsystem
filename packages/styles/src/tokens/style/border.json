@@ -4,53 +4,53 @@
       "container": {
         "none": {
           "$type": "borderRadius",
-          "$value": "{kds.core.dimension.0}",
+          "$value": "0",
           "$description": "Perfectly sharp corners. Use when elements demands no rounding. USED IN: ListContainer, TabBar-Item \n"
         },
         "0_12x": {
           "$type": "borderRadius",
-          "$value": "{kds.core.dimension.12}",
+          "$value": "{kds.core.size.scale} *0.125",
           "$description": "Softens crisp elements while keeping a sharp feel\n"
         },
         "0_25x": {
           "$type": "borderRadius",
-          "$value": "{kds.core.dimension.25}",
-          "$description": "Radius on small UI pieces and compact elements USED IN: Xsmall buttons, checkboxes\n"
+          "$value": "{kds.core.size.scale} *0.25",
+          "$description": "Radius on small UI pieces and compact elements USED IN: Xsmall buttons, checkboxes.\n"
         },
         "0_31x": {
           "$type": "borderRadius",
-          "$value": "{kds.core.dimension.31}",
-          "$description": "A touch rounder than previous radius. use for elements that need a gentler feel USED IN: Focus outlines on Xsmall buttons\n\n"
+          "$value": "{kds.core.size.scale} *0.3125",
+          "$description": "A touch rounder than previous radius. use for elements that need a gentler feel USED IN: Focus outlines on Xsmall buttons.\n\n"
         },
         "0_37x": {
           "$type": "borderRadius",
-          "$value": "{kds.core.dimension.37}",
-          "$description": "Balanced rounding for small to medium components USED IN: small and medium buttons and input fields\n"
+          "$value": "{kds.core.size.scale} *0.375",
+          "$description": "Balanced rounding for small to medium components. USED IN: small and medium buttons and input fields.\n"
         },
         "0_44x": {
           "$type": "borderRadius",
-          "$value": "{kds.core.dimension.44}",
-          "$description": " A touch rounder than previous radius. use for elements that need a gentler feel USED IN: Focus outlines on small and medium buttons\n\n"
+          "$value": "{kds.core.size.scale} *0.4375",
+          "$description": " A touch rounder than previous radius. use for elements that need a gentler feel USED IN: Focus outlines on small and medium buttons.\n\n"
         },
         "0_50x": {
           "$type": "borderRadius",
-          "$value": "{kds.core.dimension.50}",
-          "$description": "Soft rounding for larger components USED IN: large buttons\n"
+          "$value": "{kds.core.size.scale} *0.5",
+          "$description": "Soft rounding for larger components. USED IN: large buttons.\n"
         },
         "0_56x": {
           "$type": "borderRadius",
-          "$value": "{kds.core.dimension.56}",
-          "$description": "A touch rounder than previous radius. use for elements that need a gentler feel USED IN: Focus outlines on large buttons\n\n"
+          "$value": "{kds.core.size.scale} *0.5625",
+          "$description": "A touch rounder than previous radius. use for elements that need a gentler feel USED IN: Focus outlines on large buttons.\n\n"
         },
         "1x": {
           "$type": "borderRadius",
-          "$value": "{kds.core.dimension.100}",
-          "$description": "Used on rounder corner for larger elements "
+          "$value": "{kds.core.size.scale} *1",
+          "$description": "Used on rounder corner for larger elements."
         },
         "pill": {
           "$type": "borderRadius",
           "$value": "1000",
-          "$description": "Makes circles or capsules USED IN: radiobuttons and Badge\n"
+          "$description": "Makes circles or capsules. USED IN: radiobuttons and Badge.\n"
         }
       }
     },
@@ -58,17 +58,17 @@
       "base": {
         "none": {
           "$type": "borderWidth",
-          "$value": "{kds.core.dimension.0}",
+          "$value": "0",
           "$description": "0 px - remove the stroke. Handy for \"ghost\" components.\n"
         },
         "s": {
           "$type": "borderWidth",
-          "$value": "{kds.core.dimension.6}",
+          "$value": "{kds.core.size.scale} * 0.0625",
           "$description": "Hairline stroke (1 px). Standard outline for most components (e.g inputs, Outline Buttons)\n"
         },
         "m": {
           "$type": "borderWidth",
-          "$value": "{kds.core.dimension.12}",
+          "$value": "{kds.core.size.scale} * 0.125",
           "$description": "Bold stroke (2 px). Used for focus rings or elements that must stand out strongly.\n"
         }
       },
@@ -205,7 +205,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.brand}",
-            "width": "{kds.core.dimension.6}",
+            "width": "{kds.border-width.base.s}",
             "style": "soild"
           },
           "$description": "1px brand-yellow bar - decorative accent to be used on branded elements e.g Desktop header.\n"
@@ -214,7 +214,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.danger}",
-            "width": "{kds.core.dimension.6}",
+            "width": "{kds.border-width.base.s}",
             "style": "soild"
           },
           "$description": "1px red outline for critical inline messages and containers.\n"
@@ -223,7 +223,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.warning}",
-            "width": "{kds.core.dimension.6}",
+            "width": "{kds.border-width.base.s}",
             "style": "soild"
           },
           "$description": "1px orange outline for warning inline messages and containers.\n"
@@ -232,7 +232,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.success}",
-            "width": "{kds.core.dimension.6}",
+            "width": "{kds.border-width.base.s}",
             "style": "soild"
           },
           "$description": "1px green outline for success inline messages and containers.\n"
@@ -241,7 +241,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.info}",
-            "width": "{kds.core.dimension.6}",
+            "width": "{kds.border-width.base.s}",
             "style": "soild"
           },
           "$description": "1px blue outline for info inline messages and containers.\n"
