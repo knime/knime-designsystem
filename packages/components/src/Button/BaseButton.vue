@@ -6,7 +6,7 @@ import type { IconName } from "@knime/kds-styles/img/icons/def";
 import Icon from "../Icon/Icon.vue";
 import type { Size } from "../types";
 
-import type { Variant } from "./Button.types";
+import type { Variant } from "./BaseButton.types";
 
 export type ButtonProps =
   // button with label

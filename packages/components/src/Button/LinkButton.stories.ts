@@ -6,7 +6,7 @@ import { iconNames } from "@knime/kds-styles/img/icons/def";
 
 import { sizes } from "../constants";
 
-import { variants } from "./Button.types";
+import { variants } from "./BaseButton.types";
 import LinkButton from "./LinkButton.vue";
 
 const meta: Meta<typeof LinkButton> = {

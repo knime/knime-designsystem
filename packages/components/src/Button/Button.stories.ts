@@ -10,7 +10,7 @@ import {
   buildDesignComparatorStory,
 } from "../testUtils/storybook";
 
-import { variants } from "./Button.types";
+import { variants } from "./BaseButton.types";
 import Button from "./Button.vue";
 
 const meta: Meta<typeof Button> = {
