@@ -127,6 +127,26 @@
             },
             "$description": "multiline text, used for paragraphes inside components, pages or panels"
           },
+          "small-italic": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.roboto}",
+              "fontWeight": "{kds.core.font-weight.regularItalic}",
+              "lineHeight": "{kds.core.line-height.multiline_wide}",
+              "fontSize": "{kds.core.font-size.scaled.0_75x}"
+            },
+            "$description": "multiline text, used for paragraphes inside components, pages or panels"
+          },
+          "small-strong": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.roboto}",
+              "fontWeight": "{kds.core.font-weight.medium}",
+              "lineHeight": "{kds.core.line-height.multiline_wide}",
+              "fontSize": "{kds.core.font-size.scaled.0_75x}"
+            },
+            "$description": "multiline text, used for paragraphes inside components, pages or panels"
+          },
           "medium": {
             "$type": "typography",
             "$value": {
@@ -269,6 +289,28 @@
               "fontSize": "{kds.core.font-size.scaled.1x}"
             },
             "$description": "singleline text, used for button labels, breadcrumbs, chips and everything that is clickable."
+          }
+        },
+        "code": {
+          "xsmall": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.roboto-mono}",
+              "fontWeight": "{kds.core.font-weight.regular}",
+              "lineHeight": "{kds.core.line-height.singleline}",
+              "fontSize": "{kds.core.font-size.scaled.0_62x}"
+            },
+            "$description": "singleline code, used for code snippets"
+          },
+          "small": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.roboto-mono}",
+              "fontWeight": "{kds.core.font-weight.regular}",
+              "lineHeight": "{kds.core.line-height.multiline_narrow}",
+              "fontSize": "{kds.core.font-size.scaled.0_68x}"
+            },
+            "$description": "Code blocks"
           }
         }
       },
