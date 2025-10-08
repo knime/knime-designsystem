@@ -8,7 +8,7 @@ import BaseButton from "./BaseButton.vue";
 
 /**
  * just some props, not the exact type as we don't want to add the dependency on vue-router
- * @see https://github.com/vuejs/router/blob/main/packages/router/src/RouterLink.ts
+ * @see https://github.com/vuejs/router/blob/v4.5.1/packages/router/src/RouterLink.ts
  */
 type RouterLinkProps = {
   /**
@@ -23,7 +23,7 @@ type RouterLinkProps = {
 
 /**
  * just some props, not the exact type as we don't want to add the dependency on nuxt
- * @see https://github.com/nuxt/nuxt/blob/main/packages/nuxt/src/app/components/nuxt-link.ts
+ * @see https://github.com/nuxt/nuxt/blob/v4.1.3/packages/nuxt/src/app/components/nuxt-link.ts
  */
 type NuxtLinkProps = {
   /**
