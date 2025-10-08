@@ -1,0 +1,5 @@
+# default owner unless a later match takes precedence
+
+@knime/ui-core
+
+/packages/styles/src/tokens @knime/ux

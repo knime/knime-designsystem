@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+jobs:
+  lint-test-build:
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history for SonarCloud
+      - uses: pnpm/action-setup@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: "package.json"
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Lint and format
+        run: pnpm run ci:lint-format
+
+      - name: Build packages
+        run: pnpm run build
+
+      - name: Chromatic
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          workingDir: documentation
+          exitOnceUploaded: true
+          autoAcceptChanges: true
+
+      #      - name: Type check
+      #        run: pnpm run type-check
+
+      - name: Run coverage
+        run: pnpm run coverage
+
+      - name: Audit
+        run: pnpm run audit
+
+      - name: Sonar scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
