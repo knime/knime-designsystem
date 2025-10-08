@@ -5,21 +5,21 @@
         "initial": {
           "$type": "composition",
           "$value": {
-            "borderWidth": "{kds.border-width.base.m}",
+            "borderWidth": "{kds.core.border-width.l}",
             "borderColor": "{kds.color.border.neutral-bold-initial}"
           }
         },
         "hover": {
           "$type": "composition",
           "$value": {
-            "borderWidth": "{kds.border-width.base.m}",
+            "borderWidth": "{kds.core.border-width.l}",
             "borderColor": "{kds.color.border.neutral-bold-hover}"
           }
         },
         "active": {
           "$type": "composition",
           "$value": {
-            "borderWidth": "{kds.border-width.base.m}",
+            "borderWidth": "{kds.core.border-width.l}",
             "borderColor": "{kds.color.border.neutral-bold-active}"
           }
         }
