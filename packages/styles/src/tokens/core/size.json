@@ -7,6 +7,33 @@
           "$value": "16",
           "$description": "Source for calculating all size-related tokens (size, space, dimension). The default is 16px (=1 REM). If you change it, it will change all size-related tokens."
         }
+      },
+      "border-width": {
+        "none": {
+          "$type": "borderWidth",
+          "$value": "0",
+          "$description": "0px – removes the stroke. Handy for \"ghost\" components."
+        },
+        "xs": {
+          "$type": "borderWidth",
+          "$value": "{kds.core.size.scale} * 0.0625",
+          "$description": "Hairline stroke (1 px). Standard outline for most components (e.g inputs, Outline Buttons)\n"
+        },
+        "s": {
+          "$type": "borderWidth",
+          "$value": "{kds.core.size.scale} * 0.0781",
+          "$description": "1.25 px stroke for specific icon use cases."
+        },
+        "m": {
+          "$type": "borderWidth",
+          "$value": "{kds.core.size.scale} * 0.09375",
+          "$description": "1.5 px stroke for specific icon use cases."
+        },
+        "l": {
+          "$type": "borderWidth",
+          "$value": "{kds.core.size.scale} * 0.125",
+          "$description": "Bold stroke (2 px). Used for focus rings or elements that must stand out strongly.\n"
+        }
       }
     }
   }
