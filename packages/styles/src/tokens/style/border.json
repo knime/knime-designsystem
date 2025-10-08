@@ -55,37 +55,20 @@
       }
     },
     "border-width": {
-      "base": {
-        "none": {
-          "$type": "borderWidth",
-          "$value": "0",
-          "$description": "0 px - remove the stroke. Handy for \"ghost\" components.\n"
-        },
-        "s": {
-          "$type": "borderWidth",
-          "$value": "{kds.core.size.scale} * 0.0625",
-          "$description": "Hairline stroke (1 px). Standard outline for most components (e.g inputs, Outline Buttons)\n"
-        },
-        "m": {
-          "$type": "borderWidth",
-          "$value": "{kds.core.size.scale} * 0.125",
-          "$description": "Bold stroke (2 px). Used for focus rings or elements that must stand out strongly.\n"
-        }
-      },
       "icon-stroke": {
         "s": {
           "$type": "borderWidth",
-          "$value": "1",
+          "$value": "{kds.core.border-width.xs}",
           "$description": "1 px vector stroke - default for XSmall and Small icons.\n"
         },
         "m": {
           "$type": "borderWidth",
-          "$value": "1.25",
+          "$value": "{kds.core.border-width.s}",
           "$description": "1.25 px - use when scaling icons to Medium size"
         },
         "l": {
           "$type": "borderWidth",
-          "$value": "1.5",
+          "$value": "{kds.core.border-width.m}",
           "$description": "1.5 px - thick stroke, use when scaling icons to Large size"
         }
       }
@@ -96,7 +79,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.transparent}",
-            "width": "{kds.border-width.base.s}",
+            "width": "{kds.core.border-width.none}",
             "style": "solid"
           },
           "$description": "Invisible outline that still occupies stroke space. Use to avoid layout-shift when a border appears on other states/variants of the same component.\n\n[Themable composite token referencing border tokens from the mode set]\n"
@@ -105,7 +88,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.neutral}",
-            "width": "{kds.border-width.base.s}",
+            "width": "{kds.border-width.icon-stroke.s}",
             "style": "solid"
           },
           "$description": "Default 1 px neutral outline for interactive controls (e.g outline buttons).\n\n[Themable composite token referencing border tokens from the mode set]\n"
@@ -114,7 +97,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.disabled}",
-            "width": "{kds.border-width.base.s}",
+            "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
           "$description": "Dimmed 1 px outline (color.border.disabled). Indicates the component cant be interacted with.\n\n[Themable composite token referencing border tokens from the mode set]\n"
@@ -123,7 +106,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.focus.outline}",
-            "width": "{kds.border-width.base.m}",
+            "width": "{kds.core.border-width.l}",
             "style": "solid"
           },
           "$description": "2px focus ring (color.focus.outline) - appears on keyboard or programmatic focus. Meets accessibility contrast.\n\n[Themable composite token referencing border tokens from the mode set]\n"
@@ -132,7 +115,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.selected}",
-            "width": "{kds.border-width.base.s}",
+            "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
           "$description": "1px teal outline (color.border.selected) - shows current selection (e.g. radio, checkbox, TabBar-Item).\n\n[Themable composite token referencing border tokens from the mode set]\n"
@@ -141,7 +124,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.selected-accent}",
-            "width": "{kds.border-width.base.s}",
+            "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
           "$description": "1px outline (color.border.selected) - shows current selection (e.g. table cell, node instance).\n\n[Themable composite token referencing border tokens from the mode set]\n"
@@ -150,7 +133,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.danger-bold}",
-            "width": "{kds.border-width.base.s}",
+            "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
           "$description": "1px strong red outline for invalid inputs or destructive elements.\n\n[Themable composite token referencing border tokens from the mode set]\n"
@@ -159,7 +142,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.primary-bold}",
-            "width": "{kds.border-width.base.s}",
+            "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
           "$description": "1 px bold-teal outline for elements using primary color\n\n[Themable composite token referencing border tokens from the mode set]\n"
@@ -168,7 +151,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.neutral}",
-            "width": "{kds.border-width.base.s}"
+            "width": "{kds.core.border-width.xs}"
           },
           "$description": "Neutral 1 px outline specifically tuned for input elements (e.g text-field and textarea, radio and checkbox components.)\n\n[Themable composite token referencing border tokens from the mode set]\n"
         }
@@ -178,7 +161,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.neutral}",
-            "width": "{kds.border-width.base.s}",
+            "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
           "$description": "1 px neutral divider for most containers and separators.\n"
@@ -187,7 +170,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.muted}",
-            "width": "{kds.border-width.base.s}",
+            "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
           "$description": "1px subtler neutral stroke for low-contrast sections and containers.\n"
@@ -196,7 +179,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.subtle}",
-            "width": "{kds.border-width.base.s}",
+            "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
           "$description": "1px hairline neutral stroke (10% opacity). Use for the faintest elements (e.g dividers).\n"
@@ -205,7 +188,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.brand}",
-            "width": "{kds.border-width.base.s}",
+            "width": "{kds.core.border-width.xs}",
             "style": "soild"
           },
           "$description": "1px brand-yellow bar - decorative accent to be used on branded elements e.g Desktop header.\n"
@@ -214,7 +197,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.danger}",
-            "width": "{kds.border-width.base.s}",
+            "width": "{kds.core.border-width.xs}",
             "style": "soild"
           },
           "$description": "1px red outline for critical inline messages and containers.\n"
@@ -223,7 +206,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.warning}",
-            "width": "{kds.border-width.base.s}",
+            "width": "{kds.core.border-width.xs}",
             "style": "soild"
           },
           "$description": "1px orange outline for warning inline messages and containers.\n"
@@ -232,7 +215,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.success}",
-            "width": "{kds.border-width.base.s}",
+            "width": "{kds.core.border-width.xs}",
             "style": "soild"
           },
           "$description": "1px green outline for success inline messages and containers.\n"
@@ -241,7 +224,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.info}",
-            "width": "{kds.border-width.base.s}",
+            "width": "{kds.core.border-width.xs}",
             "style": "soild"
           },
           "$description": "1px blue outline for info inline messages and containers.\n"
@@ -252,7 +235,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.node-state.inactiveBorder}",
-            "width": "{kds.border-width.base.s}",
+            "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
           "$description": "border around node status"
@@ -261,7 +244,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.node-state.errorBorder}",
-            "width": "{kds.border-width.base.s}",
+            "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
           "$description": "border around node status"
@@ -270,7 +253,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.node-state.warningBorder}",
-            "width": "{kds.border-width.base.s}",
+            "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
           "$description": "border around node status"
@@ -279,7 +262,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.node-state.executedBorder}",
-            "width": "{kds.border-width.base.s}",
+            "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
           "$description": "border around node status"
