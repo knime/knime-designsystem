@@ -3,21 +3,21 @@
     "border": {
       "ResizeHandle": {
         "initial": {
-          "$type": "composition",
+          "$type": "border",
           "$value": {
             "borderWidth": "{kds.border-width.base.m}",
             "borderColor": "{kds.color.border.neutral-bold-initial}"
           }
         },
         "hover": {
-          "$type": "composition",
+          "$type": "border",
           "$value": {
             "borderWidth": "{kds.border-width.base.m}",
             "borderColor": "{kds.color.border.neutral-bold-hover}"
           }
         },
         "active": {
-          "$type": "composition",
+          "$type": "border",
           "$value": {
             "borderWidth": "{kds.border-width.base.m}",
             "borderColor": "{kds.color.border.neutral-bold-active}"

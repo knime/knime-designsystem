@@ -55,10 +55,12 @@
         }
       },
       "SkeletonBar": {
-        "default": {
-          "$type": "color",
-          "$value": "{kds.color.skeleton.default}",
-          "$description": "skeleton animation"
+        "background": {
+          "default": {
+            "$type": "color",
+            "$value": "{kds.color.skeleton.default}",
+            "$description": "Skeleton animation background color."
+          }
         }
       }
     }
