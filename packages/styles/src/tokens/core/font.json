@@ -38,6 +38,14 @@
           "$type": "fontSizes",
           "$value": "{kds.core.size.scale} *1.25"
         },
+        "1_375x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *1.375"
+        },
+        "1_625x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *1.625"
+        },
         "1_5x": {
           "$type": "fontSizes",
           "$value": "{kds.core.size.scale} *1.5"
@@ -45,6 +53,10 @@
         "1_75x": {
           "$type": "fontSizes",
           "$value": "{kds.core.size.scale} *1.75"
+        },
+        "1_875x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} *1.875"
         },
         "2x": {
           "$type": "fontSizes",
