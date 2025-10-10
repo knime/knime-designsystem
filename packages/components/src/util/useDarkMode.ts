@@ -47,7 +47,6 @@ export const useDarkMode = () => {
     { immediate: true },
   );
 
-  /** Exposes a writable computed ref to get the current dark mode but also use it in e.g. a v-model to set it */
   const currentMode = computed<DarkModeType>({
     get() {
       return userPreference.value;
@@ -57,23 +56,24 @@ export const useDarkMode = () => {
     },
   });
 
-  /** Whether or not the current user preference is dark. Note, if the preference is set to 'system' it will return false. */
   const isDarkMode = computed(() => {
     return userPreference.value === "dark";
   });
 
-  /** Whether or not the current user preference is light. Note, if the preference is set to 'system' it will return false. */
   const isLightMode = computed(() => {
     return userPreference.value === "light";
   });
 
-  /** Whether or not the current user preference is set to 'system'. */
   const isSystemMode = computed(() => userPreference.value === "system");
 
   return {
+    /** Exposes a writable computed ref to get the current dark mode but also use it in e.g. a v-model to set it */
     currentMode,
+    /** Whether or not the current user preference is dark. Note, if the preference is set to 'system' it will return false. */
     isDarkMode,
+    /** Whether or not the current user preference is light. Note, if the preference is set to 'system' it will return false. */
     isLightMode,
+    /** Whether or not the current user preference is set to 'system'. */
     isSystemMode,
   };
 };

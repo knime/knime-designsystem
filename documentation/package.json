@@ -13,11 +13,12 @@
   ],
   "type": "module",
   "scripts": {
-    "_preBuild": "pnpm run --filter @knime/kds-styles build",
+    "_preBuild": "pnpm run --filter @knime/kds-styles build && pnpm run --filter @knime/kds-components build",
     "build-storybook": "pnpm _preBuild && storybook build",
     "storybook": "pnpm _preBuild && storybook dev -p 6006"
   },
   "dependencies": {
+    "@knime/kds-components": "workspace:*",
     "@knime/kds-styles": "workspace:*",
     "@knime/styles": "^1.10.0",
     "storybook": "catalog:storybook",
