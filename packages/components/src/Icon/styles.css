@@ -4,13 +4,16 @@
   --icon-stroke-width: var(--kds-border-width-icon-stroke-m);
 
   display: inline-block;
-  vertical-align: middle;
-  shape-rendering: geometricprecision;
   width: var(--icon-width);
+  /* min sizes, otherwise they might collapse if there is not enough space */
+  min-width: var(--icon-width);
   height: var(--icon-height);
+  min-height: var(--icon-height);
+  vertical-align: middle;
   stroke-width: var(--icon-stroke-width);
+  shape-rendering: geometricprecision;
 
-  &.x-small {
+  &.xsmall {
     --icon-width: var(--kds-dimension-icon-0-56x);
     --icon-height: var(--kds-dimension-icon-0-56x);
     --icon-stroke-width: var(--kds-border-width-icon-stroke-s);

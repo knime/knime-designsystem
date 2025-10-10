@@ -1,0 +1,244 @@
+<script setup lang="ts">
+import { type FunctionalComponent, computed, ref, watch } from "vue";
+import { useLocalStorage } from "@vueuse/core";
+
+const figmaImageScale = 4;
+
+export type DesignsToCompare = Record<
+  string,
+  {
+    props: Record<string, any>;
+    variants: Record<string, Record<string, any>>;
+  }
+>;
+
+type Props = {
+  designsToCompare: DesignsToCompare | null;
+  component: FunctionalComponent | null;
+};
+
+const props = withDefaults(defineProps<Props>(), {
+  designsToCompare: null,
+  component: null,
+});
+
+const defaultOpacity = 0.5;
+const opacity = ref(defaultOpacity);
+const enableOverlay = ref(false);
+const figmaOpacity = computed(() =>
+  enableOverlay.value ? "unset" : 1 - opacity.value,
+);
+const figmaImageUrlsById = ref<Record<string, string | null>>({});
+const loading = ref(false);
+
+const figmaToken = useLocalStorage("storybook-figma-token", "");
+function askFigmaToken() {
+  const token = prompt("Please provide your Figma Personal Access Token:");
+  if (token) {
+    figmaToken.value = token;
+  }
+}
+
+function getIdFromFigmaUrl(url: string): string | null {
+  const match = url.match(/node-id=([\d-]+)/);
+  return match ? match[1] : null;
+}
+
+async function fetchFigmaImages() {
+  if (!figmaToken.value) {
+    console.error("No Figma token provided."); // eslint-disable-line no-console
+    return;
+  }
+
+  if (!props.designsToCompare) {
+    console.error("No designs to compare provided."); // eslint-disable-line no-console
+    return;
+  }
+
+  const figmaUrls = Object.values(props.designsToCompare).flatMap((design) =>
+    Object.keys(design.variants),
+  );
+
+  // Extract the key from first Figma URL, assuming all designs are from the same Figma file
+  const match = figmaUrls[0].match(/figma\.com\/design\/([^/]+)\//);
+  if (!match) {
+    console.error("Invalid Figma design URL:", figmaUrls[0]); // eslint-disable-line no-console
+    return;
+  }
+  const key = match[1];
+
+  const ids = figmaUrls
+    .map((url) => getIdFromFigmaUrl(url))
+    .filter((id): id is string => id !== null);
+
+  loading.value = true;
+  await fetch(
+    `https://api.figma.com/v1/images/${key}?ids=${ids.join(
+      ",",
+    )}&format=png&scale=${figmaImageScale}`,
+    {
+      headers: {
+        "X-Figma-Token": figmaToken.value,
+      },
+    },
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      figmaImageUrlsById.value = Object.fromEntries(
+        Object.entries(data.images).map(([key, value]) => [
+          key.replace(":", "-"),
+          value as string,
+        ]),
+      );
+      loading.value = false;
+    });
+}
+
+const figmaImageByUrl = computed(() => {
+  return (url: string) => {
+    const id = getIdFromFigmaUrl(url);
+    if (!id) {
+      return undefined; // eslint-disable-line no-undefined
+    }
+    return figmaImageUrlsById.value[id] || undefined; // eslint-disable-line no-undefined
+  };
+});
+
+watch(
+  () => figmaToken.value,
+  () => {
+    fetchFigmaImages();
+  },
+  { immediate: true },
+);
+</script>
+
+<template>
+  <div class="design-comparator">
+    This view overlays the design in Figma with the component implementation.
+    It's especially useful for checking sizes and positioning of elements.
+
+    <div v-if="!figmaToken" class="no-token-warning">
+      To be able to fetch images from Figma, please
+      <a
+        href="https://help.figma.com/hc/en-us/articles/8085703771159-Manage-personal-access-tokens"
+        target="_blank"
+        >get a Personal Access Token</a
+      >
+      with <code>file_content:read</code> permission and provide it here:
+      <button @click="askFigmaToken">set Figma token</button>
+    </div>
+
+    <div class="controls">
+      Design&nbsp;
+      <input
+        v-model="opacity"
+        type="range"
+        min="0"
+        max="1"
+        step="0.01"
+        class="opacity-slider"
+      />&nbsp;Implementation &nbsp;&nbsp;<label
+        ><input v-model="enableOverlay" type="checkbox" /> Overlay</label
+      >
+      <span v-if="loading" class="loading">Loading images from Figma…</span>
+    </div>
+
+    <div class="groups">
+      <div
+        v-for="(set, groupName) in props.designsToCompare"
+        :key="groupName"
+        class="group"
+      >
+        <h5>{{ groupName }}</h5>
+        <div
+          v-for="(variantProps, figmaUrl) in set.variants"
+          :key="figmaUrl"
+          class="variant"
+        >
+          <img
+            v-if="figmaImageByUrl(figmaUrl)"
+            class="design"
+            :src="figmaImageByUrl(figmaUrl)"
+          />
+          <div class="implementation" :style="{ opacity: opacity }">
+            <component
+              :is="props.component"
+              v-if="props.component"
+              v-bind="{ ...set.props, ...variantProps }"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style>
+@keyframes fade {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.design-comparator {
+  & .no-token-warning {
+    padding: 10px;
+    margin-bottom: 10px;
+    color: var(--kds-color-text-and-icon-info);
+    background: var(--kds-color-background-info-initial);
+  }
+
+  & .controls {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    padding-top: 5px;
+    font-size: 12px;
+    background-color: white;
+
+    & .opacity-slider {
+      width: 50px;
+    }
+
+    & .loading {
+      margin-left: 20px;
+      font-style: italic;
+      animation: fade 1s ease-in-out infinite;
+    }
+  }
+
+  & .groups {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+
+  & .variant {
+    position: relative;
+    margin-bottom: 10px;
+
+    & .design {
+      --scale: calc(1 / v-bind(figmaImageScale));
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: v-bind(figmaOpacity);
+      transform: scale(var(--scale));
+      transform-origin: top left;
+    }
+
+    & .implementation {
+      opacity: v-bind(opacity);
+    }
+  }
+}
+</style>

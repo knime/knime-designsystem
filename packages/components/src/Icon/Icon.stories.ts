@@ -2,14 +2,21 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
-import Icon, { type IconSize } from "./Icon.vue";
-
-const iconSizes: IconSize[] = ["x-small", "small", "medium", "large"];
+import Icon from "./Icon.vue";
+import { iconSizes } from "./types";
 
 const meta: Meta<typeof Icon> = {
   title: "Components/Icon",
   component: Icon,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Displays an icon from the KDS icon set. The icon color inherits the text color of the parent element.",
+      },
+    },
+  },
   argTypes: {
     name: {
       control: { type: "select" },

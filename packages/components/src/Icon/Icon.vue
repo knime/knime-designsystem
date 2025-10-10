@@ -1,4 +1,7 @@
 <script setup lang="ts">
+/**
+ * Displays an icon from the KDS icon set. The icon color inherits the text color of the parent element.
+ */
 import { toRef } from "vue";
 
 import type { IconName } from "@knime/kds-styles/img/icons/def";
@@ -26,6 +29,6 @@ const iconComponent = useIcon({ name: toRef(props, "name"), folder: "icons" });
   />
 </template>
 
-<style lang="css" scoped>
+<style scoped>
 @import url("./styles.css");
 </style>

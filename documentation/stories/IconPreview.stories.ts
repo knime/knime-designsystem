@@ -29,7 +29,7 @@ export const IconsPreview = () => {
   const introText = `
     Here you can find all the available SVG icons in the KNIME Design System. 
     Each icon is available only in 4 distinct sizes, which are each rendered here. The base icon is a 12x12 pixel icon,
-    which represents the 'small' size. All other sizes scale the icon accordingly. We use 'x-small' - 9x9, 'small' - 
+    which represents the 'small' size. All other sizes scale the icon accordingly. We use 'xsmall' - 9x9, 'small' - 
     12x12, 'medium' - 16x16, and 'large' - 20x20 pixels. 
     Use the search bar to quickly find the icon you need.
   `;
