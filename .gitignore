@@ -45,5 +45,3 @@ Thumbs.db
 storybook-static/
 
 .pnpm-store/
-
-.env
