@@ -1,6 +1,6 @@
 import { type Preview } from "@storybook/vue3-vite";
 import "@knime/kds-styles/index.css";
-import { useLegacyMode } from "@knime/kds-components";
+import { useLegacyMode, useDarkMode } from "@knime/kds-components";
 
 // TODO: use roboto provided by the design system? like @knime/kds-styles
 const link = document.createElement("link");
@@ -88,8 +88,7 @@ const preview: Preview = {
   decorators: [
     (story, context) => {
       const isDark = context.globals.backgrounds?.value === "dark";
-      document.documentElement.classList.toggle("dark", isDark);
-      document.documentElement.style.colorScheme = isDark ? "dark" : "light";
+      useDarkMode().currentMode.value = isDark ? "dark" : "light";
 
       const isLegacy = context.globals.legacy === "true";
       useLegacyMode(isLegacy);
