@@ -18,6 +18,7 @@ defineEmits<{
   <header>
     <div class="storybook-header">
       <div>
+        Test
         <svg
           width="32"
           height="32"
