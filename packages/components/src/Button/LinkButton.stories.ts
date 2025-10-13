@@ -9,13 +9,49 @@ import { sizes } from "../constants";
 import { variants } from "./BaseButton.types";
 import LinkButton from "./LinkButton.vue";
 
+const vueExampleCode = `
+// RouterLinkButton.vue
+<script setup lang="ts">
+import type { RouterLinkProps } from "vue-router";
+
+import { LinkButton, type LinkButtonProps } from "@knime/kds-components";
+
+const props = defineProps<LinkButtonProps & RouterLinkProps>();
+</script>
+
+<template>
+  <LinkButton v-bind="props" />
+</template>
+`.trim();
+
+const nuxtExampleCode = `
+// NuxtLinkButton.vue
+<script setup lang="ts">
+import type { NuxtLinkProps } from "#app";
+
+import { LinkButton, type LinkButtonProps } from "@knime/kds-components";
+
+const props = defineProps<LinkButtonProps & NuxtLinkProps>();
+</script>
+
+<template>
+  <LinkButton v-bind="props" />
+</template>
+`.trim();
+
 const meta: Meta<typeof LinkButton> = {
   title: "Components/Buttons/LinkButton",
   component: LinkButton as FunctionalComponent,
   decorators: [
     () => ({
       template:
-        "<p>Same styles as <code>Button</code>, but rendered as an <code>&lt;a&gt;</code> element.</p><story/>",
+        "<story/>" +
+        "<p>Same styles as <code>Button</code>, but rendered as an <code>&lt;a&gt;</code> element. Does use <code>RouterLink</code>/<code>NuxtLink</code> if globally available.</p>" +
+        "<p>For accurate typing, please wrap it in the consuming app like this:</p>" +
+        "<h5>Vue</h5>" +
+        `<pre><code>${vueExampleCode.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></pre>` +
+        "<h5>Nuxt</h5>" +
+        `<pre><code>${nuxtExampleCode.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></pre>`,
     }),
   ],
   tags: ["autodocs"],
