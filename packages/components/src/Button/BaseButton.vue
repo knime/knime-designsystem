@@ -88,7 +88,7 @@ function onClick(e: MouseEvent) {
   <Component
     :is="component"
     :class="classes"
-    :disabled="props.disabled || null"
+    :disabled="props.disabled"
     @click="onClick($event)"
   >
     <template v-if="props.label">
