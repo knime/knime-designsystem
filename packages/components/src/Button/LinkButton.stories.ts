@@ -16,7 +16,9 @@ import type { RouterLinkProps } from "vue-router";
 
 import { LinkButton, type LinkButtonProps } from "@knime/kds-components";
 
-const props = defineProps<LinkButtonProps & RouterLinkProps>();
+export type RouterLinkButtonProps = Omit<LinkButtonProps, "to"> & RouterLinkProps;
+
+const props = defineProps<RouterLinkButtonProps>();
 </script>
 
 <template>
@@ -31,7 +33,9 @@ import type { NuxtLinkProps } from "#app";
 
 import { LinkButton, type LinkButtonProps } from "@knime/kds-components";
 
-const props = defineProps<LinkButtonProps & NuxtLinkProps>();
+export type NuxtLinkButtonProps = Omit<LinkButtonProps, "to"> & NuxtLinkProps;
+
+const props = defineProps<NuxtLinkButtonProps>();
 </script>
 
 <template>
@@ -42,20 +46,19 @@ const props = defineProps<LinkButtonProps & NuxtLinkProps>();
 const meta: Meta<typeof LinkButton> = {
   title: "Components/Buttons/LinkButton",
   component: LinkButton as FunctionalComponent,
-  decorators: [
-    () => ({
-      template:
-        "<story/>" +
-        "<p>Same styles as <code>Button</code>, but rendered as an <code>&lt;a&gt;</code> element. Does use <code>RouterLink</code>/<code>NuxtLink</code> if globally available.</p>" +
-        "<p>For accurate typing, please wrap it in the consuming app like this:</p>" +
-        "<h5>Vue</h5>" +
-        `<pre><code>${vueExampleCode.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></pre>` +
-        "<h5>Nuxt</h5>" +
-        `<pre><code>${nuxtExampleCode.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></pre>`,
-    }),
-  ],
   tags: ["autodocs"],
   parameters: {
+    docs: {
+      description: {
+        component:
+          "Same styles as `Button`, but rendered as an `<a>` element. Does use `RouterLink`/`NuxtLink` if globally available.\n\n" +
+          "For accurate typing, please wrap it in the consuming app like this:\n" +
+          "#### Vue\n" +
+          `\`\`\`${vueExampleCode}\`\`\`\n` +
+          "#### Nuxt\n" +
+          `\`\`\`${nuxtExampleCode}\`\`\``,
+      },
+    },
     design: {
       type: "figma",
       url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=345-19622",
@@ -100,6 +103,9 @@ export default meta;
 type Story = StoryObj<typeof LinkButton>;
 
 export const Filled: Story = {
+  parameters: {
+    docs: false,
+  },
   args: {
     variant: "filled",
     label: "Button",
@@ -108,6 +114,9 @@ export const Filled: Story = {
 };
 
 export const Disabled: Story = {
+  parameters: {
+    docs: false,
+  },
   args: {
     variant: "filled",
     label: "Button",

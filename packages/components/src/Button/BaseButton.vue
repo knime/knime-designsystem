@@ -8,7 +8,7 @@ import type { Size } from "../types";
 
 import type { Variant } from "./BaseButton.types";
 
-export type ButtonProps =
+export type BaseButtonProps =
   // button with label
   | {
       // common
@@ -42,11 +42,11 @@ export type ButtonProps =
       trailingIcon?: never;
     };
 
-type BaseButtonProps = ButtonProps & {
+type BaseButtonPropsWithComponent = BaseButtonProps & {
   component?: string | Component;
 };
 
-const props = withDefaults(defineProps<BaseButtonProps>(), {
+const props = withDefaults(defineProps<BaseButtonPropsWithComponent>(), {
   component: "button",
   size: "medium",
   variant: "filled",

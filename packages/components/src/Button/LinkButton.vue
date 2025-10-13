@@ -3,10 +3,9 @@ import { computed } from "vue";
 
 import { resolveNuxtLinkComponent } from "../util/nuxtComponentResolver";
 
-import type { ButtonProps } from "./BaseButton.vue";
-import BaseButton from "./BaseButton.vue";
+import BaseButton, { type BaseButtonProps } from "./BaseButton.vue";
 
-export type LinkButtonProps = ButtonProps & {
+export type LinkButtonProps = BaseButtonProps & {
   // RouterLink props
 
   /**
