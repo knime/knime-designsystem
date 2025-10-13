@@ -35,9 +35,6 @@
     "npm-run-all": "catalog:",
     "prettier": "catalog:",
     "stylelint": "catalog:",
-    "stylelint-config-recess-order": "7.3.0",
-    "stylelint-order": "7.0.0",
-    "stylelint-value-no-unknown-custom-properties": "6.0.1",
     "vitest": "catalog:vitest"
   },
   "engines": {
