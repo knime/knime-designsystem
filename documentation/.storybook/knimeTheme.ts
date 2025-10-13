@@ -1,7 +1,7 @@
 import { create } from "storybook/theming/create";
 
 // @ts-expect-error - ignore missing types
-import KNIMELogo from "@knime/styles/img/KNIME_Logo_white.svg";
+import KNIMELogo from "@knime/styles/img/KNIME_Logo_gray.svg";
 
 function getCssVariable(variable: string): string {
   return getComputedStyle(document.documentElement)

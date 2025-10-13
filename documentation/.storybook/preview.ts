@@ -76,6 +76,7 @@ const preview: Preview = {
     options: {
       storySort: {
         order: [
+          "KNIME Design System",
           "Introduction",
           "Core Concepts",
           "Components",

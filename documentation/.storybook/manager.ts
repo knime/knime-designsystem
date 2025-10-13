@@ -16,10 +16,8 @@ robotoMonoLink.href =
 robotoMonoLink.rel = "stylesheet";
 document.head.appendChild(robotoMonoLink);
 
-// TODO: add global theme switch
-// const lightTheme = knimeTheme("light");
-const darkTheme = knimeTheme("dark");
+const lightTheme = knimeTheme("light");
 
 addons.setConfig({
-  theme: darkTheme,
+  theme: lightTheme,
 });
