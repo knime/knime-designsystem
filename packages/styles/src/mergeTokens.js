@@ -1,8 +1,7 @@
 /* eslint-disable no-console */
 import fs from "node:fs";
 import path from "node:path";
-
-import chalk from "chalk";
+import { styleText } from "node:util";
 
 const parseCSSVariables = (cssContent) => {
   const regex = /--([\w-]+):\s*([^;]+);/g;
@@ -24,8 +23,8 @@ const parseCSSProperties = (cssContent) => {
   return properties;
 };
 
-const lightModeLog = chalk.hex("#FFD700").bgYellow;
-const darkModeLog = chalk.hex("#ADD8E6").bgHex("#00008B");
+const lightModeLog = (text) => styleText(["bgYellow"], text);
+const darkModeLog = (text) => styleText(["bgBlue"], text);
 
 const hslRegex = /hsl\([^)]+\)/g;
 const initialValueRegex = /initial-value:\s*([^;]+);/;
@@ -91,12 +90,18 @@ const processKeys = ({
     const darkValue = darkValues[key];
 
     if (!isValidValue(lightValue) && !isValidValue(darkValue)) {
-      const warn = chalk.yellow.bold("WARNING");
-      const wrongToken = chalk.yellow.bgGray.dim.italic(
+      const warn = styleText(["yellow", "bold"], "WARNING");
+
+      const wrongToken = styleText(
+        ["yellow", "bgGray", "dim", "italic"],
         `${key}: ${lightValue || darkValue}`,
       );
-      const message = chalk.yellow(` - Invalid value for ${wrongToken} - `);
-      const action = chalk.yellow.bold(
+      const message = styleText(
+        ["yellow"],
+        ` - Invalid value for ${wrongToken} - `,
+      );
+      const action = styleText(
+        ["yellow", "bold"],
         "The token will be omitted from the output file!",
       );
       console.warn(`🧐 ${warn}${message}${action}`);
@@ -133,7 +138,10 @@ const processKeys = ({
 const mergeTokens = ({ basePath, varPattern, propsPattern }) => {
   try {
     console.log(
-      chalk.blue.bold("\n🔄 Merging light and dark mode tokens...\n"),
+      styleText(
+        ["blue", "bold"],
+        "\n🔄 Merging light and dark mode tokens...\n",
+      ),
     );
     const lightVarsFilePath = path.resolve(basePath, `${varPattern}-light.css`);
     const darkVarsFilePath = path.resolve(basePath, `${varPattern}-dark.css`);
@@ -242,12 +250,15 @@ const mergeTokens = ({ basePath, varPattern, propsPattern }) => {
     fs.unlinkSync(darkPropsFilePath);
 
     console.log(
-      chalk.green.bold(
+      styleText(
+        ["green", "bold"],
         `\n✅ Successfully merged tokens and created ${varPattern}.css and ${propsPattern}.css files.\n`,
       ),
     );
   } catch (error) {
-    console.error(`\n❌ ${chalk.white.bold.bgRed("Error merging tokens:")}\n`); // error will be logged by process
+    console.error(
+      `\n❌ ${styleText(["white", "bold", "bgRed"], "Error merging tokens:")}\n`,
+    ); // error will be logged by process
     throw error; // Rethrow the error to make pipeline fail at this point
   }
 };

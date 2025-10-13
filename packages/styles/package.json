@@ -20,10 +20,8 @@
     "@tokens-studio/sd-transforms": "^2.0.1",
     "@types/jsdom": "catalog:",
     "@types/node": "catalog:",
-    "chalk": "^5.5.0",
     "consola": "catalog:",
     "jsdom": "catalog:",
-    "rimraf": "catalog:",
     "style-dictionary": "^5.0.4",
     "svgo": "^4.0.0",
     "typescript": "catalog:"

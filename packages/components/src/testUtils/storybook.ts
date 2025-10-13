@@ -40,7 +40,7 @@ export function generateCombinations(
 
 type AllCombinationsStoryParams = {
   component: FunctionalComponent;
-  combinationsProps: Record<string, readonly unknown[]>[]; // TODO can we infer the possible props from the component type?
+  combinationsProps: Record<string, readonly unknown[]>[]; // or can we infer the possible props from the component type?
 };
 
 /**
@@ -92,7 +92,7 @@ export function buildAllCombinationsStory(
 
 type DesignComparatorParams = {
   component: FunctionalComponent;
-  designsToCompare: DesignsToCompare; // TODO can we infer the possible props from the component type?
+  designsToCompare: DesignsToCompare; // or can we infer the possible props from the component type?
 };
 
 /**

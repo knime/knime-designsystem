@@ -8,7 +8,7 @@
   "scripts": {
     "format": "prettier --cache --write .",
     "format:check": "prettier --cache --check .",
-    "lint": "run-p 'lint:* --fix'",
+    "lint": "run-s 'lint:* --fix'",
     "lint:js": "eslint . --cache",
     "lint:css": "stylelint '**/*.{css,vue}' --allow-empty-input",
     "ci:lint-format": "run-p ci:lint:* format:check -c -l",

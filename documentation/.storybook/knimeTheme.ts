@@ -1,6 +1,6 @@
 import { create } from "storybook/theming/create";
-import Color from "color";
-// @ts-ignore
+
+// @ts-expect-error - ignore missing types
 import KNIMELogo from "@knime/styles/img/KNIME_Logo_white.svg";
 
 function getCssVariable(variable: string): string {
@@ -15,7 +15,7 @@ function getColorForTheme(color: string, theme: "light" | "dark"): string {
 
   if (match) {
     const lightColor = match[1].trim();
-    const darkColor = match[2].trim() + ")";
+    const darkColor = `${match[2].trim()})`;
     return theme === "light" ? lightColor : darkColor;
   }
   return color;
@@ -25,9 +25,8 @@ export default function knimeTheme(theme: "light" | "dark") {
   return create({
     base: theme,
     // Typography
-    fontBase: getCssVariable("--kds-core-font-family-roboto") + ", sans-serif",
-    fontCode:
-      getCssVariable("--kds-core-font-family-roboto-condensed") + ", monospace",
+    fontBase: `${getCssVariable("--kds-core-font-family-roboto")}, sans-serif`,
+    fontCode: `${getCssVariable("--kds-core-font-family-roboto-condensed")}, monospace`,
 
     brandTitle: "KNIME Design System",
     brandUrl: "https://knime.com",
@@ -63,6 +62,7 @@ export default function knimeTheme(theme: "light" | "dark") {
     ),
     appBorderRadius: parseInt(
       getCssVariable("--kds-border-radius-container-0-25x"),
+      10,
     ),
 
     // Text colors
@@ -108,6 +108,7 @@ export default function knimeTheme(theme: "light" | "dark") {
     ),
     inputBorderRadius: parseInt(
       getCssVariable("--kds-border-radius-container-0-12x"),
+      10,
     ),
 
     // Additional options
@@ -131,6 +132,6 @@ export default function knimeTheme(theme: "light" | "dark") {
       getCssVariable("--kds-color-border-primary"),
       theme,
     ),
-    gridCellSize: parseInt(getCssVariable("--kds-spacing-container-0-25x")),
+    gridCellSize: parseInt(getCssVariable("--kds-spacing-container-0-25x"), 10),
   });
 }

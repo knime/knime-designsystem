@@ -7,20 +7,17 @@ const figmaImageScale = 4;
 export type DesignsToCompare = Record<
   string,
   {
-    props: Record<string, any>;
-    variants: Record<string, Record<string, any>>;
+    props: Record<string, unknown>;
+    variants: Record<string, Record<string, unknown>>;
   }
 >;
 
 type Props = {
-  designsToCompare: DesignsToCompare | null;
-  component: FunctionalComponent | null;
+  designsToCompare: DesignsToCompare;
+  component: FunctionalComponent;
 };
 
-const props = withDefaults(defineProps<Props>(), {
-  designsToCompare: null,
-  component: null,
-});
+const props = defineProps<Props>();
 
 const defaultOpacity = 0.5;
 const opacity = ref(defaultOpacity);
@@ -98,9 +95,9 @@ const figmaImageByUrl = computed(() => {
   return (url: string) => {
     const id = getIdFromFigmaUrl(url);
     if (!id) {
-      return undefined; // eslint-disable-line no-undefined
+      return undefined;
     }
-    return figmaImageUrlsById.value[id] || undefined; // eslint-disable-line no-undefined
+    return figmaImageUrlsById.value[id] || undefined;
   };
 });
 
