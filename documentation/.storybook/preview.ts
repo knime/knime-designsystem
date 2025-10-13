@@ -1,6 +1,6 @@
 import { type Preview } from "@storybook/vue3-vite";
 import "@knime/kds-styles/index.css";
-import { useLegacyMode, useDarkMode } from "@knime/kds-components";
+import { useLegacyMode, useDarkMode } from "../../packages/components/src/util";
 
 // TODO: use roboto provided by the design system? like @knime/kds-styles
 const link = document.createElement("link");

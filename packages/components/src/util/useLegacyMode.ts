@@ -16,5 +16,3 @@ export const useLegacyMode = (initialValue: boolean = false) => {
     legacyMode,
   };
 };
-
-useLegacyMode().legacyMode;

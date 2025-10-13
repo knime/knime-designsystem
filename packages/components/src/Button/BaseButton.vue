@@ -1,3 +1,8 @@
+<script lang="ts">
+export const variants = ["filled", "outlined", "transparent"] as const;
+export type Variant = (typeof variants)[number];
+</script>
+
 <script setup lang="ts" generic="UNUSED">
 import { type Component, computed } from "vue";
 
@@ -5,8 +10,6 @@ import type { IconName } from "@knime/kds-styles/img/icons/def";
 
 import Icon from "../Icon/Icon.vue";
 import type { Size } from "../types";
-
-import type { Variant } from "./BaseButton.types";
 
 export type BaseButtonProps =
   // button with label
@@ -109,7 +112,6 @@ function onClick(e: MouseEvent) {
       :name="props.icon"
       :size="iconSize"
     />
-    <span v-else>{unsupported props}</span>
   </Component>
 </template>
 
@@ -126,6 +128,7 @@ html.kds-legacy {
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
+  width: fit-content;
   min-width: 15px;
   max-width: 100%;
   overflow: hidden;
@@ -133,16 +136,11 @@ html.kds-legacy {
 
   /* for LinkButton */
   &:is(a) {
-    width: fit-content;
     text-decoration: none;
   }
 
   &.disabled {
     cursor: not-allowed;
-
-    &:is(a) {
-      pointer-events: none;
-    }
   }
 
   &:focus-visible {

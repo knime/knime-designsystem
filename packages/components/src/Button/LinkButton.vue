@@ -36,9 +36,14 @@ export type LinkButtonProps = BaseButtonProps & {
     | null;
 };
 
-const props = defineProps<LinkButtonProps>();
+const props = withDefaults(defineProps<LinkButtonProps>(), {
+  download: undefined, // eslint-disable-line no-undefined
+});
 
 const component = computed(() => {
+  if (props.disabled) {
+    return "button";
+  }
   return resolveNuxtLinkComponent();
 });
 

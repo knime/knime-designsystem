@@ -6,7 +6,7 @@ import { iconNames } from "@knime/kds-styles/img/icons/def";
 
 import { sizes } from "../constants";
 
-import { variants } from "./BaseButton.types";
+import { variants } from "./BaseButton.vue";
 import LinkButton from "./LinkButton.vue";
 
 const vueExampleCode = `
