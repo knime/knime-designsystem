@@ -1,11 +1,10 @@
 /* eslint-disable no-console */
-import fs from "node:fs";
+import fs, { rmSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { styleText } from "node:util";
 
 import { register } from "@tokens-studio/sd-transforms";
-import chalk from "chalk";
-import { rimraf } from "rimraf";
 import StyleDictionary from "style-dictionary";
 import {
   commentStyles,
@@ -15,7 +14,7 @@ import {
 } from "style-dictionary/enums";
 import { fileHeader } from "style-dictionary/utils";
 
-import mergeTokens from "./mergeTokens.js"; // eslint-disable-line import/extensions
+import mergeTokens from "./mergeTokens.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -35,9 +34,12 @@ const indentConsole = {
 const cleanDistFolder = () => {
   const distPath = path.resolve(__dirname, "../dist/tokens");
   console.log(
-    chalk.yellow.bgBlack.bold("🧹 Clearing tokens from dist folder...\n"),
+    styleText(
+      ["yellow", "bgBlack", "bold"],
+      "🧹 Clearing tokens from dist folder...\n",
+    ),
   );
-  rimraf.sync(distPath);
+  rmSync(distPath, { recursive: true, force: true });
 };
 
 // Register tokens studio transforms
@@ -118,7 +120,9 @@ const varPattern = "_variables";
 const propsPattern = "_properties";
 
 const run = async () => {
-  console.log(chalk.blue.bold("🚀 Starting the generation of tokens..."));
+  console.log(
+    styleText(["blue", "bold"], "🚀 Starting the generation of tokens..."),
+  );
   const configs = $themes.map((theme) => {
     const themeName = theme.name.toLowerCase();
     return {
@@ -166,7 +170,9 @@ const run = async () => {
   try {
     await Promise.all(configs.map(cleanAndBuild));
     console = originalConsole; // Restore original console object
-    console.log(chalk.green.bold("✅ Token generation successful!"));
+    console.log(
+      styleText(["green", "bold"], "✅ Token generation successful!"),
+    );
     mergeTokens({
       basePath: path.resolve(__dirname, "../dist/tokens/css"),
       varPattern,
@@ -176,7 +182,7 @@ const run = async () => {
     console = originalConsole; // Restore original console object
     /* eslint-enable no-global-assign */
     console.error(
-      `\n❌ ${chalk.white.bold.bgRed("Token generation failed:")}\n`,
+      `\n❌ ${styleText(["white", "bold", "bgRed"], "Token generation failed:")}\n`,
     ); // error will be logged by process
     throw error; // Rethrow the error to make pipeline fail at this point
   }

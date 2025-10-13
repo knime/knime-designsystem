@@ -37,15 +37,15 @@ const meta: Meta<typeof Button> = {
     label: { control: "text" },
     leadingIcon: {
       control: { type: "select" },
-      options: [undefined, ...iconNames], // eslint-disable-line no-undefined
+      options: [undefined, ...iconNames],
     },
     trailingIcon: {
       control: { type: "select" },
-      options: [undefined, ...iconNames], // eslint-disable-line no-undefined
+      options: [undefined, ...iconNames],
     },
     icon: {
       control: { type: "select" },
-      options: [undefined, ...iconNames], // eslint-disable-line no-undefined
+      options: [undefined, ...iconNames],
     },
   },
   args: {
@@ -132,8 +132,8 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       disabled: [false, true],
       destructive: [false, true],
       label: ["Button"],
-      leadingIcon: [undefined, "ai-general"], // eslint-disable-line no-undefined
-      trailingIcon: [undefined, "ai-general"], // eslint-disable-line no-undefined
+      leadingIcon: [undefined, "ai-general"],
+      trailingIcon: [undefined, "ai-general"],
     },
     {
       size: sizes,

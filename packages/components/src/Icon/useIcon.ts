@@ -25,7 +25,7 @@ export default ({
         );
         iconCache.set(newName, module.default);
         iconComponent.value = module.default;
-      } catch (error) {
+      } catch (_error) {
         iconComponent.value = null;
       }
     },

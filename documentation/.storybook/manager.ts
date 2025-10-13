@@ -1,4 +1,5 @@
 import { addons } from "storybook/manager-api";
+
 import knimeTheme from "./knimeTheme";
 import "@knime/kds-styles/kds-variables.css";
 
@@ -16,10 +17,7 @@ robotoMonoLink.rel = "stylesheet";
 document.head.appendChild(robotoMonoLink);
 
 const lightTheme = knimeTheme("light");
-const darkTheme = knimeTheme("dark");
 
 addons.setConfig({
-  theme: darkTheme,
+  theme: lightTheme,
 });
-
-//TODO: add global theme switch

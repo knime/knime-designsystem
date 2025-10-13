@@ -37,7 +37,7 @@ export type LinkButtonProps = BaseButtonProps & {
 };
 
 const props = withDefaults(defineProps<LinkButtonProps>(), {
-  download: undefined, // eslint-disable-line no-undefined
+  download: undefined,
 });
 
 const component = computed(() => {

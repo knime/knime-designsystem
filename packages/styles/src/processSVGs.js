@@ -1,12 +1,10 @@
-/* eslint-disable import/extensions */
-import fs from "node:fs";
+import fs, { rmSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { styleText } from "node:util";
 
-import chalk from "chalk";
 import consola from "consola";
 import { JSDOM } from "jsdom";
-import { rimraf } from "rimraf";
 import { optimize } from "svgo";
 
 import { svgoConfig } from "@knime/styles/config/svgo.config.js";
@@ -32,11 +30,16 @@ processedDirs.forEach(({ input, output, typeName }) => {
 
   // Remove icons from dist folder
   consola.log(
-    chalk.yellow.bgBlack.bold("🧹 Clearing icons from dist folder...\n"),
+    styleText(
+      ["yellow", "bgBlack", "bold"],
+      "🧹 Clearing icons from dist folder...\n",
+    ),
   );
-  rimraf.sync(outputDir);
+  rmSync(outputDir, { recursive: true, force: true });
 
-  consola.log(chalk.blue.bold("🚀 Starting to process SVG icons..."));
+  consola.log(
+    styleText(["blue", "bold"], "🚀 Starting to process SVG icons..."),
+  );
 
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
@@ -49,7 +52,7 @@ processedDirs.forEach(({ input, output, typeName }) => {
 
     if (!svg) {
       throw new Error(
-        `❌ ${chalk.white.bold.bgRed(`SVG ${filePath} does not contain an SVG element.`)}`,
+        `❌ ${styleText(["white", "bold", "bgRed"], `SVG ${filePath} does not contain an SVG element.`)}`,
       );
     }
 
@@ -60,7 +63,7 @@ processedDirs.forEach(({ input, output, typeName }) => {
       svg.getAttribute("viewBox") !== "0 0 12 12"
     ) {
       throw new Error(
-        `❌ ${chalk.white.bold.bgRed(`SVG ${filePath} does not have the correct dimensions or viewBox.`)}`,
+        `❌ ${styleText(["white", "bold", "bgRed"], `SVG ${filePath} does not have the correct dimensions or viewBox.`)}`,
       );
     }
 
@@ -70,7 +73,7 @@ processedDirs.forEach(({ input, output, typeName }) => {
     );
     if (!firstElement) {
       throw new Error(
-        `❌ ${chalk.white.bold.bgRed(`SVG ${filePath} does not contain a valid element for stroke and fill attributes.`)}`,
+        `❌ ${styleText(["white", "bold", "bgRed"], `SVG ${filePath} does not contain a valid element for stroke and fill attributes.`)}`,
       );
     }
 
@@ -141,7 +144,7 @@ processedDirs.forEach(({ input, output, typeName }) => {
         processedCount++;
         iconNames.push(path.basename(file, ".svg"));
       } catch (error) {
-        // @ts-ignore
+        // @ts-expect-error - ignore missing message property
         consola.error(error.message);
         throw error; // Rethrow the error to make pipeline fail at this point
       }
@@ -162,5 +165,5 @@ export type ${typeName} = typeof ${iconListName}[number];
 });
 
 consola.log(
-  `✅ ${chalk.green.bold(`Successfully processed ${processedCount} SVG icons!`)}`,
+  `✅ ${styleText(["green", "bold"], `Successfully processed ${processedCount} SVG icons!`)}`,
 );

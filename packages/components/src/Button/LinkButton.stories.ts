@@ -78,15 +78,15 @@ const meta: Meta<typeof LinkButton> = {
     label: { control: "text" },
     leadingIcon: {
       control: { type: "select" },
-      options: [undefined, ...iconNames], // eslint-disable-line no-undefined
+      options: [undefined, ...iconNames],
     },
     trailingIcon: {
       control: { type: "select" },
-      options: [undefined, ...iconNames], // eslint-disable-line no-undefined
+      options: [undefined, ...iconNames],
     },
     icon: {
       control: { type: "select" },
-      options: [undefined, ...iconNames], // eslint-disable-line no-undefined
+      options: [undefined, ...iconNames],
     },
     to: {
       control: "text",
