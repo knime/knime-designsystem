@@ -1,0 +1,5 @@
+@import "@knime/kds-styles/kds-variables.css";
+
+:root {
+  --kds-focus-outline-offset: 1px;
+}

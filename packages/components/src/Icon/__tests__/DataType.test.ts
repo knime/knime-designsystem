@@ -25,7 +25,7 @@ describe("DataType.vue", () => {
   });
 
   it("applies the correct class based on size prop", () => {
-    const iconSizes: IconSize[] = ["x-small", "small", "medium"];
+    const iconSizes: IconSize[] = ["xsmall", "small", "medium"];
     const dataTypeSizes: DataTypeSize[] = ["small", "medium", "large"];
     dataTypeSizes.forEach(async (size, index) => {
       const wrapper = mount(DataType, {

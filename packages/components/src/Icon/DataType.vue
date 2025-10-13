@@ -11,7 +11,7 @@ import { type IconSize } from "./types";
 import useIcon from "./useIcon";
 
 export type { TypeIconName };
-type DataTypeSize = Exclude<IconSize, "x-small">;
+type DataTypeSize = Exclude<IconSize, "xsmall">;
 type DataTypeIconSize = Exclude<IconSize, "large">;
 export type { DataTypeSize };
 
@@ -24,7 +24,7 @@ type Props = {
 const DATA_TYPE_SIZE_TO_ICON_SIZE: Record<DataTypeSize, DataTypeIconSize> = {
   large: "medium",
   medium: "small",
-  small: "x-small",
+  small: "xsmall",
 } as const;
 
 const props = withDefaults(defineProps<Props>(), {
@@ -70,7 +70,7 @@ const iconComponent = useIcon({
   </div>
 </template>
 
-<style lang="css" scoped>
+<style scoped>
 @import url("./styles.css");
 
 .kds-data-type-icon-container {
@@ -78,16 +78,16 @@ const iconComponent = useIcon({
   --data-type-width: var(--kds-dimension-component-width-1x);
   --data-type-padding: var(--kds-spacing-container-0-12x);
 
-  height: var(--data-type-height);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: var(--data-type-width);
+  height: var(--data-type-height);
   padding: var(--data-type-padding);
   color: var(--kds-color-desktop-header-text-and-icon-muted);
   background-color: var(--kds-color-background-page-default);
   border: var(--kds-border-base-muted);
   border-radius: var(--kds-border-radius-container-0-12x);
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
 
   &.small {
     --data-type-height: var(--kds-dimension-icon-0-75x);
@@ -102,7 +102,7 @@ const iconComponent = useIcon({
 
   /* The kds-data-type-icon class is needed to increase the specificity to overwrite the icon-stroke-width */
   & .kds-icon.kds-data-type-icon {
-    &.x-small {
+    &.xsmall {
       --icon-stroke-width: var(--kds-border-width-icon-stroke-s);
     }
 
