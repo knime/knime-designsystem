@@ -130,7 +130,7 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.colordelete.background.primary-bold.initial}",
+            "$value": "{kds.color.background.primary-bold.initial}",
             "$description": "Lighter teal background on hover for most prominent, primary actions or highlights.\nUSED IN: Button (filled), ProgressButton (filled), SplitButton"
           },
           "active": {
@@ -144,7 +144,7 @@
               }
             },
             "$type": "color",
-            "$value": "{kds.colordelete.background.primary-bold.initial}",
+            "$value": "{kds.color.background.primary-bold.initial}",
             "$description": "Lightest teal background on pressed for most prominent, primary actions or highlights.\nUSED IN: Button (filled), ProgressButton (filled), SplitButton"
           }
         },
