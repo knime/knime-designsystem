@@ -14,6 +14,7 @@
     "style/elevation",
     "style/motion",
     "style/size",
-    "style/typography"
+    "style/typography",
+    "brands/KNIME-legacy"
   ]
 }

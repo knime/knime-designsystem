@@ -40,5 +40,28 @@
       "components/ToggleSwitch": "enabled"
     },
     "$figmaVariableReferences": {}
+  },
+  {
+    "id": "a14f59655d969e53a30c66e1f4c87599f7d47fde",
+    "name": "KNIME legacy",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "components/Header": "source",
+      "components/Input": "source",
+      "components/Loading": "source",
+      "components/ResizeHandle": "source",
+      "components/ToggleSwitch": "source",
+      "core/color": "source",
+      "core/font": "source",
+      "mode/dark": "source",
+      "mode/light": "source",
+      "style/border": "source",
+      "style/elevation": "source",
+      "style/motion": "source",
+      "style/size": "source",
+      "style/typography": "source",
+      "brands/KNIME-legacy": "enabled"
+    },
+    "group": "brands"
   }
 ]
