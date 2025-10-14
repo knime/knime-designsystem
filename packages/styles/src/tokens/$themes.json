@@ -53,8 +53,6 @@
       "components/ToggleSwitch": "source",
       "core/color": "source",
       "core/font": "source",
-      "mode/dark": "source",
-      "mode/light": "source",
       "style/border": "source",
       "style/elevation": "source",
       "style/motion": "source",
