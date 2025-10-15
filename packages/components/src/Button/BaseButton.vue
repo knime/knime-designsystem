@@ -94,21 +94,18 @@ function onClick(e: MouseEvent) {
     <template v-if="props.label">
       <Icon
         v-if="props.leadingIcon"
-        aria-hidden="true"
         :name="props.leadingIcon"
         :size="iconSize"
       />
       <span class="label">{{ props.label }}</span>
       <Icon
         v-if="props.trailingIcon"
-        aria-hidden="true"
         :name="props.trailingIcon"
         :size="iconSize"
       />
     </template>
     <Icon
       v-else-if="props.icon"
-      aria-hidden="true"
       :name="props.icon"
       :size="iconSize"
     />
