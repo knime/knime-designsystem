@@ -36,15 +36,15 @@
         },
         "0_10x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} *0.0625"
+          "$value": "{kds.core.size.scale} * 0.0625"
         },
         "0_12x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} *0.125"
+          "$value": "{kds.core.size.scale} * 0.125"
         },
         "0_25x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} *0.25"
+          "$value": "{kds.core.size.scale} * 0.25"
         },
         "0_37x": {
           "$type": "spacing",
@@ -52,11 +52,11 @@
         },
         "0_5x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} *0.5"
+          "$value": "{kds.core.size.scale} * 0.5"
         },
         "0_75x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} *0.75"
+          "$value": "{kds.core.size.scale} * 0.75"
         },
         "1x": {
           "$type": "spacing",
@@ -64,27 +64,27 @@
         },
         "1_25x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} *1.25"
+          "$value": "{kds.core.size.scale} * 1.25"
         },
         "1_5x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} *1.5"
+          "$value": "{kds.core.size.scale} * 1.5"
         },
         "2x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} *2"
+          "$value": "{kds.core.size.scale} * 2"
         },
         "3x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} *3"
+          "$value": "{kds.core.size.scale} * 3"
         },
         "4x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} *4"
+          "$value": "{kds.core.size.scale} * 4"
         },
         "5x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} *5"
+          "$value": "{kds.core.size.scale} * 5"
         },
         "auto": {
           "$type": "spacing",
@@ -97,100 +97,100 @@
         "height": {
           "0_25x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} *0.25"
+            "$value": "{kds.core.size.scale} * 0.25"
           },
           "0_75x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} *0.75"
+            "$value": "{kds.core.size.scale} * 0.75"
           },
           "0_88x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} *0.875"
+            "$value": "{kds.core.size.scale} * 0.875"
           },
           "1x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} *1"
+            "$value": "{kds.core.size.scale} * 1"
           },
           "1_25x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} *1.25"
+            "$value": "{kds.core.size.scale} * 1.25"
           },
           "1_5x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} *1.5"
+            "$value": "{kds.core.size.scale} * 1.5"
           },
           "1_75x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} *1.75"
+            "$value": "{kds.core.size.scale} * 1.75"
           },
           "2_25x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} *2.25"
+            "$value": "{kds.core.size.scale} * 2.25"
           },
           "2_5x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} *2.5"
+            "$value": "{kds.core.size.scale} * 2.5"
           },
           "4x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} *4"
+            "$value": "{kds.core.size.scale} * 4"
           }
         },
         "width": {
           "0_25x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} *0.25"
+            "$value": "{kds.core.size.scale} * 0.25"
           },
           "0_75x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} *0.75"
+            "$value": "{kds.core.size.scale} * 0.75"
           },
           "0_88x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} *0.875"
+            "$value": "{kds.core.size.scale} * 0.875"
           },
           "1x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} *1"
+            "$value": "{kds.core.size.scale} * 1"
           },
           "1_25x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} *1.25"
+            "$value": "{kds.core.size.scale} * 1.25"
           },
           "1_5x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} *1.5"
+            "$value": "{kds.core.size.scale} * 1.5"
           },
           "1_75x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} *1.75"
+            "$value": "{kds.core.size.scale} * 1.75"
           },
           "2_25x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} *2.25"
+            "$value": "{kds.core.size.scale} * 2.25"
           },
           "4x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} *4"
+            "$value": "{kds.core.size.scale} * 4"
           }
         }
       },
       "icon": {
         "0_56x": {
           "$type": "dimension",
-          "$value": "{kds.core.size.scale} *0.5625"
+          "$value": "{kds.core.size.scale} * 0.5625"
         },
         "0_75x": {
           "$type": "dimension",
-          "$value": "{kds.core.size.scale} *0.75"
+          "$value": "{kds.core.size.scale} * 0.75"
         },
         "1x": {
           "$type": "dimension",
-          "$value": "{kds.core.size.scale} *1"
+          "$value": "{kds.core.size.scale} * 1"
         },
         "1_25x": {
           "$type": "dimension",
-          "$value": "{kds.core.size.scale} *1.25"
+          "$value": "{kds.core.size.scale} * 1.25"
         }
       }
     }

@@ -3,24 +3,27 @@
     "border": {
       "ResizeHandle": {
         "initial": {
-          "$type": "composition",
+          "$type": "border",
           "$value": {
-            "borderWidth": "{kds.core.border-width.l}",
-            "borderColor": "{kds.color.border.neutral-bold-initial}"
+            "color": "{kds.color.border.neutral-bold-initial}",
+            "width": "{kds.core.border-width.l}",
+            "style": "solid"
           }
         },
         "hover": {
-          "$type": "composition",
+          "$type": "border",
           "$value": {
-            "borderWidth": "{kds.core.border-width.l}",
-            "borderColor": "{kds.color.border.neutral-bold-hover}"
+            "color": "{kds.color.border.neutral-bold-hover}",
+            "width": "{kds.core.border-width.l}",
+            "style": "solid"
           }
         },
         "active": {
-          "$type": "composition",
+          "$type": "border",
           "$value": {
-            "borderWidth": "{kds.core.border-width.l}",
-            "borderColor": "{kds.color.border.neutral-bold-active}"
+            "color": "{kds.color.border.neutral-bold-active}",
+            "width": "{kds.core.border-width.l}",
+            "style": "solid"
           }
         }
       }
