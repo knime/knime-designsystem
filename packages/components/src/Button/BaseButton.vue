@@ -104,11 +104,7 @@ function onClick(e: MouseEvent) {
         :size="iconSize"
       />
     </template>
-    <Icon
-      v-else-if="props.icon"
-      :name="props.icon"
-      :size="iconSize"
-    />
+    <Icon v-else-if="props.icon" :name="props.icon" :size="iconSize" />
   </Component>
 </template>
 
