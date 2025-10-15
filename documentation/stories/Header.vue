@@ -87,21 +87,21 @@ defineEmits<{
 
 .storybook-header h1 {
   display: inline-block;
-  margin: var(--kds-core-dimension-37) 0 var(--kds-core-dimension-37)
-    var(--kds-core-dimension-50);
-  font-size: var(--kds-core-font-size-scaled-1-25x);
+  margin: var(--kds-spacing-container-0-37x) 0
+    var(--kds-spacing-container-0-37x) var(--kds-spacing-container-0-5x);
+  font-size: var(--kds-core-font-size-1-25x);
   font-weight: var(--kds-core-font-weight-strong);
   line-height: var(--kds-core-line-height-singleline);
   vertical-align: top;
 }
 
 .storybook-header button + button {
-  margin-left: var(--kds-core-dimension-50);
+  margin-left: var(--kds-spacing-container-0-5x);
 }
 
 .storybook-header .welcome {
-  margin-right: var(--kds-core-dimension-50);
-  font-size: var(--kds-core-font-size-scaled-0-87x);
+  margin-right: var(--kds-spacing-container-0-5x);
+  font-size: var(--kds-core-font-size-0-87x);
   color: var(--kds-color-text-and-icon-neutral);
 }
 </style>

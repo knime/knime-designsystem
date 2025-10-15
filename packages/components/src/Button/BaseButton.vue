@@ -241,11 +241,11 @@ html.kds-legacy {
 
     &:not(.disabled) {
       &:hover {
-        background-color: var(--kds-color-background-neutral-hover);
+        background-color: var(--kds-color-background-primary-hover);
       }
 
       &:active {
-        background-color: var(--kds-color-background-neutral-active);
+        background-color: var(--kds-color-background-primary-active);
       }
     }
 
@@ -281,7 +281,7 @@ html.kds-legacy {
     gap: var(--kds-spacing-container-0-12x);
     height: var(--kds-dimension-component-height-1-25x);
     padding: 0
-      calc(var(--kds-spacing-container-0-25x) - var(--kds-border-width-base-s)); /* needed as border in Figma is not increasing the width */
+      calc(var(--kds-spacing-container-0-25x) - var(--kds-core-border-width-xs)); /* needed as border in Figma is not increasing the width */
 
     font: var(--kds-font-base-interactive-xsmall-strong);
     border-radius: var(
@@ -294,7 +294,7 @@ html.kds-legacy {
     gap: var(--kds-spacing-container-0-12x);
     height: var(--kds-dimension-component-height-1-5x);
     padding: 0
-      calc(var(--kds-spacing-container-0-37x) - var(--kds-border-width-base-s)); /* needed as border in Figma is not increasing the width */
+      calc(var(--kds-spacing-container-0-37x) - var(--kds-core-border-width-xs)); /* needed as border in Figma is not increasing the width */
 
     font: var(--kds-font-base-interactive-small-strong);
     border-radius: var(
@@ -307,7 +307,7 @@ html.kds-legacy {
     gap: var(--kds-spacing-container-0-25x);
     height: var(--kds-dimension-component-height-1-75x);
     padding: 0
-      calc(var(--kds-spacing-container-0-37x) - var(--kds-border-width-base-s)); /* needed as border in Figma is not increasing the width */
+      calc(var(--kds-spacing-container-0-37x) - var(--kds-core-border-width-xs)); /* needed as border in Figma is not increasing the width */
 
     font: var(--kds-font-base-interactive-medium-strong);
     border-radius: var(
@@ -320,7 +320,7 @@ html.kds-legacy {
     gap: var(--kds-spacing-container-0-25x);
     height: var(--kds-dimension-component-height-2-25x);
     padding: 0
-      calc(var(--kds-spacing-container-0-5x) - var(--kds-border-width-base-s)); /* needed as border in Figma is not increasing the width */
+      calc(var(--kds-spacing-container-0-5x) - var(--kds-core-border-width-xs)); /* needed as border in Figma is not increasing the width */
 
     font: var(--kds-font-base-interactive-large-strong);
     border-radius: var(
