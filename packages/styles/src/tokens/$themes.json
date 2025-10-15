@@ -16,7 +16,8 @@
       "components/Header": "enabled",
       "components/ResizeHandle": "enabled",
       "components/ToggleSwitch": "enabled",
-      "core/size": "source"
+      "core/size": "source",
+      "style/motion": "enabled"
     },
     "$figmaVariableReferences": {}
   },
@@ -37,8 +38,31 @@
       "components/Header": "enabled",
       "components/ResizeHandle": "enabled",
       "components/ToggleSwitch": "enabled",
-      "core/size": "source"
+      "core/size": "source",
+      "style/motion": "enabled"
     },
     "$figmaVariableReferences": {}
+  },
+  {
+    "id": "bee5814a034b8d5316c802aa078f6bdc02472017",
+    "name": "knime-legacy",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "components/Header": "enabled",
+      "components/Input": "enabled",
+      "components/Loading": "enabled",
+      "components/ResizeHandle": "enabled",
+      "components/ToggleSwitch": "enabled",
+      "core/color": "enabled",
+      "core/font": "enabled",
+      "core/size": "enabled",
+      "style/border": "enabled",
+      "style/elevation": "enabled",
+      "style/motion": "enabled",
+      "style/size": "enabled",
+      "style/typography": "enabled",
+      "brands/knime-legacy": "enabled"
+    },
+    "group": "brands"
   }
 ]
