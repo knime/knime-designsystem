@@ -241,11 +241,11 @@ html.kds-legacy {
 
     &:not(.disabled) {
       &:hover {
-        background-color: var(--kds-color-background-primary-hover);
+        background-color: var(--kds-color-background-neutral-hover);
       }
 
       &:active {
-        background-color: var(--kds-color-background-primary-active);
+        background-color: var(--kds-color-background-neutral-active);
       }
     }
 
