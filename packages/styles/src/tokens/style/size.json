@@ -32,59 +32,59 @@
       "container": {
         "none": {
           "$type": "spacing",
-          "$value": "{kds.core.dimension.0}"
+          "$value": "0"
         },
         "0_10x": {
           "$type": "spacing",
-          "$value": "{kds.core.dimension.6}"
+          "$value": "{kds.core.size.scale} * 0.0625"
         },
         "0_12x": {
           "$type": "spacing",
-          "$value": "{kds.core.dimension.12}"
+          "$value": "{kds.core.size.scale} * 0.125"
         },
         "0_25x": {
           "$type": "spacing",
-          "$value": "{kds.core.dimension.25}"
+          "$value": "{kds.core.size.scale} * 0.25"
         },
         "0_37x": {
           "$type": "spacing",
-          "$value": "{kds.core.dimension.37}"
+          "$value": "{kds.core.size.scale} * 0.375"
         },
         "0_5x": {
           "$type": "spacing",
-          "$value": "{kds.core.dimension.50}"
+          "$value": "{kds.core.size.scale} * 0.5"
         },
         "0_75x": {
           "$type": "spacing",
-          "$value": "{kds.core.dimension.75}"
+          "$value": "{kds.core.size.scale} * 0.75"
         },
         "1x": {
           "$type": "spacing",
-          "$value": "{kds.core.dimension.100}"
+          "$value": "{kds.core.size.scale} * 1"
         },
         "1_25x": {
           "$type": "spacing",
-          "$value": "{kds.core.dimension.125}"
+          "$value": "{kds.core.size.scale} * 1.25"
         },
         "1_5x": {
           "$type": "spacing",
-          "$value": "{kds.core.dimension.150}"
+          "$value": "{kds.core.size.scale} * 1.5"
         },
         "2x": {
           "$type": "spacing",
-          "$value": "{kds.core.dimension.200}"
+          "$value": "{kds.core.size.scale} * 2"
         },
         "3x": {
           "$type": "spacing",
-          "$value": "{kds.core.dimension.300}"
+          "$value": "{kds.core.size.scale} * 3"
         },
         "4x": {
           "$type": "spacing",
-          "$value": "{kds.core.dimension.400}"
+          "$value": "{kds.core.size.scale} * 4"
         },
         "5x": {
           "$type": "spacing",
-          "$value": "{kds.core.dimension.500}"
+          "$value": "{kds.core.size.scale} * 5"
         },
         "auto": {
           "$type": "spacing",
@@ -97,100 +97,100 @@
         "height": {
           "0_25x": {
             "$type": "dimension",
-            "$value": "{kds.core.dimension.25}"
+            "$value": "{kds.core.size.scale} * 0.25"
           },
           "0_75x": {
             "$type": "dimension",
-            "$value": "{kds.core.dimension.75}"
+            "$value": "{kds.core.size.scale} * 0.75"
           },
           "0_88x": {
             "$type": "dimension",
-            "$value": "{kds.core.dimension.88}"
+            "$value": "{kds.core.size.scale} * 0.875"
           },
           "1x": {
             "$type": "dimension",
-            "$value": "{kds.core.dimension.100}"
+            "$value": "{kds.core.size.scale} * 1"
           },
           "1_25x": {
             "$type": "dimension",
-            "$value": "{kds.core.dimension.125}"
+            "$value": "{kds.core.size.scale} * 1.25"
           },
           "1_5x": {
             "$type": "dimension",
-            "$value": "{kds.core.dimension.150}"
+            "$value": "{kds.core.size.scale} * 1.5"
           },
           "1_75x": {
             "$type": "dimension",
-            "$value": "{kds.core.dimension.175}"
+            "$value": "{kds.core.size.scale} * 1.75"
           },
           "2_25x": {
             "$type": "dimension",
-            "$value": "{kds.core.dimension.225}"
+            "$value": "{kds.core.size.scale} * 2.25"
           },
           "2_5x": {
             "$type": "dimension",
-            "$value": "{kds.core.dimension.250}"
+            "$value": "{kds.core.size.scale} * 2.5"
           },
           "4x": {
             "$type": "dimension",
-            "$value": "{kds.core.dimension.400}"
+            "$value": "{kds.core.size.scale} * 4"
           }
         },
         "width": {
           "0_25x": {
             "$type": "dimension",
-            "$value": "{kds.core.dimension.25}"
+            "$value": "{kds.core.size.scale} * 0.25"
           },
           "0_75x": {
             "$type": "dimension",
-            "$value": "{kds.core.dimension.75}"
+            "$value": "{kds.core.size.scale} * 0.75"
           },
           "0_88x": {
             "$type": "dimension",
-            "$value": "{kds.core.dimension.88}"
+            "$value": "{kds.core.size.scale} * 0.875"
           },
           "1x": {
             "$type": "dimension",
-            "$value": "{kds.core.dimension.100}"
+            "$value": "{kds.core.size.scale} * 1"
           },
           "1_25x": {
             "$type": "dimension",
-            "$value": "{kds.core.dimension.125}"
+            "$value": "{kds.core.size.scale} * 1.25"
           },
           "1_5x": {
             "$type": "dimension",
-            "$value": "{kds.core.dimension.150}"
+            "$value": "{kds.core.size.scale} * 1.5"
           },
           "1_75x": {
             "$type": "dimension",
-            "$value": "{kds.core.dimension.175}"
+            "$value": "{kds.core.size.scale} * 1.75"
           },
           "2_25x": {
             "$type": "dimension",
-            "$value": "{kds.core.dimension.225}"
+            "$value": "{kds.core.size.scale} * 2.25"
           },
           "4x": {
             "$type": "dimension",
-            "$value": "{kds.core.dimension.400}"
+            "$value": "{kds.core.size.scale} * 4"
           }
         }
       },
       "icon": {
         "0_56x": {
           "$type": "dimension",
-          "$value": "{kds.core.dimension.56}"
+          "$value": "{kds.core.size.scale} * 0.5625"
         },
         "0_75x": {
           "$type": "dimension",
-          "$value": "{kds.core.dimension.75}"
+          "$value": "{kds.core.size.scale} * 0.75"
         },
         "1x": {
           "$type": "dimension",
-          "$value": "{kds.core.dimension.100}"
+          "$value": "{kds.core.size.scale} * 1"
         },
         "1_25x": {
           "$type": "dimension",
-          "$value": "{kds.core.dimension.125}"
+          "$value": "{kds.core.size.scale} * 1.25"
         }
       }
     }
