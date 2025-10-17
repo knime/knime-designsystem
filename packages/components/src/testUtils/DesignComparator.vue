@@ -4,11 +4,14 @@ import { useLocalStorage } from "@vueuse/core";
 
 const figmaImageScale = 4;
 
+type FigmaDesignURL =
+  `https://www.figma.com/design/${string}/${string}?node-id=${string}`;
+
 export type DesignsToCompare = Record<
   string,
   {
     props: Record<string, unknown>;
-    variants: Record<string, Record<string, unknown>>;
+    variants: Record<FigmaDesignURL, Record<string, unknown>>;
   }
 >;
 
@@ -28,13 +31,9 @@ const figmaOpacity = computed(() =>
 const figmaImageUrlsById = ref<Record<string, string | null>>({});
 const loading = ref(false);
 
-const figmaToken = useLocalStorage("storybook-figma-token", "");
-function askFigmaToken() {
-  const token = prompt("Please provide your Figma Personal Access Token:");
-  if (token) {
-    figmaToken.value = token;
-  }
-}
+const figmaToken = import.meta.env.STORYBOOK_FIGMA_TOKEN
+  ? ref(import.meta.env.STORYBOOK_FIGMA_TOKEN)
+  : useLocalStorage("storybook-figma-token", "");
 
 function getIdFromFigmaUrl(url: string): string | null {
   const match = url.match(/node-id=([\d-]+)/);
@@ -67,7 +66,6 @@ async function fetchFigmaImages() {
   const ids = figmaUrls
     .map((url) => getIdFromFigmaUrl(url))
     .filter((id): id is string => id !== null);
-
   loading.value = true;
   await fetch(
     `https://api.figma.com/v1/images/${key}?ids=${ids.join(
@@ -108,13 +106,17 @@ watch(
   },
   { immediate: true },
 );
+
+function onPaste(event: ClipboardEvent) {
+  const token = event.clipboardData?.getData("text");
+  figmaToken.value = token;
+}
 </script>
 
 <template>
   <div class="design-comparator">
     This view overlays the design in Figma with the component implementation.
     It's especially useful for checking sizes and positioning of elements.
-
     <div v-if="!figmaToken" class="no-token-warning">
       To be able to fetch images from Figma, please
       <a
@@ -122,8 +124,8 @@ watch(
         target="_blank"
         >get a Personal Access Token</a
       >
-      with <code>file_content:read</code> permission and provide it here:
-      <button @click="askFigmaToken">set Figma token</button>
+      with <code>file_content:read</code> permission and paste it here:
+      <input type="text" placeholder="Figma Token" @paste="onPaste" />
     </div>
 
     <div class="controls">
