@@ -12,7 +12,6 @@ import useIcon from "./useIcon";
 export type { IconName, IconSize };
 
 const props = withDefaults(defineProps<{ name: IconName; size?: IconSize }>(), {
-  name: "placeholder",
   size: "medium",
 });
 
