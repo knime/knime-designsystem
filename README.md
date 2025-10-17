@@ -63,6 +63,12 @@ Here are some of the most important scripts defined in the top-level [`package.j
   pnpm build:tokens
   ```
 
+## AI assistance
+
+- copy [./documentation/.env.example](./documentation/.env.example) to `./documentation/.env` and set your Figma Personal Access Token. This is needed to display Figma screenshots in Storybook in the in VS Code integrated "SimpleBrowser".
+- add the Figma MCP server
+- then in Agent mode you can e.g. ask: `implement component: {{FigmaUrl}}`
+
 # Join the Community!
 
 - [KNIME Forum](https://forum.knime.com/)
