@@ -102,10 +102,6 @@ const iconComponent = useIcon({
 
   /* The kds-data-type-icon class is needed to increase the specificity to overwrite the icon-stroke-width */
   & .kds-icon.kds-data-type-icon {
-    &.xsmall {
-      --icon-stroke-width: var(--kds-border-width-icon-stroke-s);
-    }
-
     &.small {
       --icon-stroke-width: var(--kds-border-width-icon-stroke-m);
     }
