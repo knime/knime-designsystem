@@ -40,5 +40,5 @@ This project is a design system, providing reusable components and styles to ens
 
 ## Example implementations
 
-- Component: see `packages/components/src/ExampleButton/ExampleButton.vue`
-- Storybook story: see `packages/components/src/ExampleButton/ExampleButton.stories.ts`
+- Component: see `packages/components/src/Button/Button.vue`
+- Storybook story: see `packages/components/src/Button/Button.stories.ts`

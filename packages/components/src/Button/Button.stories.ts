@@ -124,7 +124,7 @@ export const IconOnly: Story = {
 };
 
 export const AllCombinations: Story = buildAllCombinationsStory({
-  component: Button as FunctionalComponent,
+  component: Button,
   combinationsProps: [
     {
       size: sizes,
@@ -167,7 +167,7 @@ export const TruncatedLabel: Story = {
 };
 
 export const DesignComparator: Story = buildDesignComparatorStory({
-  component: Button as FunctionalComponent,
+  component: Button,
   designsToCompare: {
     label: {
       props: {

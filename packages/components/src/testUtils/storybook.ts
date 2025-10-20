@@ -1,5 +1,4 @@
-// eslint-disable func-style
-import type { FunctionalComponent } from "vue";
+import type { Component } from "vue";
 import type { StoryObj } from "@storybook/vue3-vite";
 
 import DesignComparator, {
@@ -39,7 +38,7 @@ export function generateCombinations(
 }
 
 type AllCombinationsStoryParams = {
-  component: FunctionalComponent;
+  component: Component;
   combinationsProps: Record<string, readonly unknown[]>[]; // or can we infer the possible props from the component type?
 };
 
@@ -91,7 +90,7 @@ export function buildAllCombinationsStory(
 }
 
 type DesignComparatorParams = {
-  component: FunctionalComponent;
+  component: Component;
   designsToCompare: DesignsToCompare; // or can we infer the possible props from the component type?
 };
 
