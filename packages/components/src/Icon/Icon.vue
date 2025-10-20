@@ -27,6 +27,12 @@ const iconComponent = useIcon({ name: toRef(props, "name"), folder: "icons" });
     aria-hidden="true"
     focusable="false"
   />
+  <span
+    v-else
+    :class="['kds-icon', props.size]"
+    aria-hidden="true"
+    focusable="false"
+  />
 </template>
 
 <style scoped>
