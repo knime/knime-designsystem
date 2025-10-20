@@ -200,6 +200,7 @@ function onPaste(event: ClipboardEvent) {
     display: flex;
     align-items: center;
     padding-top: 5px;
+    margin-bottom: 10px;
     font-size: 12px;
     background-color: white;
 
@@ -217,19 +218,26 @@ function onPaste(event: ClipboardEvent) {
   & .groups {
     display: flex;
     flex-wrap: wrap;
-    gap: 30px;
+    gap: 15px 30px;
+  }
+
+  & h5 {
+    margin: 0;
   }
 
   & .variant {
+    --padding: 10px;
+
     position: relative;
-    margin-bottom: 10px;
+    padding: var(--padding);
 
     & .design {
       --scale: calc(1 / v-bind(figmaImageScale));
 
       position: absolute;
-      top: 0;
-      left: 0;
+      top: var(--padding);
+      left: var(--padding);
+      pointer-events: none;
       opacity: v-bind(figmaOpacity);
       transform: scale(var(--scale));
       transform-origin: top left;

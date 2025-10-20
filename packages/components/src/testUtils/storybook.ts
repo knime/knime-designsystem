@@ -79,9 +79,9 @@ export function buildAllCombinationsStory(
       template: `
       Hover to see the props of each instance:
       <div style="display: grid; grid-template-columns: repeat(4, auto); gap: 1rem;">
-        <div v-for="(props, index) in allCombinations" :key="index">
+        <div v-for="(props, index) in allCombinations" :key="index" :title="JSON.stringify(props, null, 2)">
           <span style="font-size: 10px; color: var(--kds-color-text-and-icon-subtle);">{{ index }}</span> 
-          <Component :is="component" v-bind="props" :title="JSON.stringify(props, null, 2)" />
+          <Component :is="component" v-bind="props" />
         </div>
       </div>
     `,

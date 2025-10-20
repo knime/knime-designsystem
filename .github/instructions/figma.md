@@ -17,8 +17,13 @@ These rules define how to translate Figma inputs into code and must be followed 
 7. Translate the output (usually React + Tailwind) into this project's conventions, styles and framework. Reuse the project's color tokens, components, and typography wherever possible. Remove unnecessary wrappers and divs.
 8. Match the component props to the Figma component properties as closely as possible.
 9. Match the icon names precisely, all icons used in Figma are available in this codebase! Double-check in case you can't find the icon.
-10. In the Storybook story, add a DesignComparator story as shown in the [example implementation](../copilot-instructions.md#example-implementations) (using `buildDesignComparatorStory`). All variants shown in Figma need to be added with their Figma link including the according node id.
-11. Run Storybook, then #openSimpleBrowser `http://localhost:6006/`. IMPORTANT! Ask the user to select the component element. Then visually validate the user-provided screenshot against the screenshot you got via get_screenshot for 1:1 look and behavior before marking complete.
+10. If an element has a border and padding, set the padding as follows as otherwise it doesn't match the Figma design: `padding: calc(
+  var({{design-token}}) - var(--kds-core-border-width-xs)
+);`
+11. Add a "AllCombinations" Storybook story as shown in the [example implementation](../copilot-instructions.md#example-implementations) (using `buildAllCombinationsStory`).
+12. Add a "DesignComparator" Storybook story as shown in the [example implementation](../copilot-instructions.md#example-implementations) (using `buildDesignComparatorStory`). All variants shown in Figma need to be added with their Figma link including the according node id.
+13. Add a Storybook story which adds long texts to the props to see how content might overflow.
+14. Run Storybook, then #openSimpleBrowser `http://localhost:6006/`. IMPORTANT! Ask the user to select the component element. Then visually validate the user-provided screenshot against the screenshot you got via get_screenshot for 1:1 look and behavior before marking complete.
 
 ### Implementation rules
 
