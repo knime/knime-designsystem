@@ -23,7 +23,7 @@ These rules define how to translate Figma inputs into code and must be followed 
 11. Add a "AllCombinations" Storybook story as shown in the [example implementation](../copilot-instructions.md#example-implementations) (using `buildAllCombinationsStory`).
 12. Add a "DesignComparator" Storybook story as shown in the [example implementation](../copilot-instructions.md#example-implementations) (using `buildDesignComparatorStory`). All variants shown in Figma need to be added with their Figma link including the according node id.
 13. Add a Storybook story which adds long texts to the props to see how content might overflow.
-14. Run Storybook, then #openSimpleBrowser `http://localhost:6006/`. IMPORTANT! Ask the user to select the component element. Then visually validate the user-provided screenshot against the screenshot you got via get_screenshot for 1:1 look and behavior before marking complete.
+14. Run Storybook, then #openSimpleBrowser `http://localhost:6006/`. IMPORTANT! Ask the user to open the "Design Comparator" story so he can visually verify the implementation. Tell the user, that if he's not yet happy, he can select the component element to send you a screenshot via the chat. If he does, visually validate the user-provided screenshot against the Figma screenshot you got via get_screenshot for 1:1 look. When doing changes, always stick to using the user-provided design tokens!
 
 ### Implementation rules
 

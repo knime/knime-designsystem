@@ -32,6 +32,7 @@ This project is a design system, providing reusable components and styles to ens
 - Always use Composition API and `<script setup lang="ts">`.
 - Type all props and emits with `defineProps` / `withDefaults` if applicable and `defineEmits`.
 - Style only with CSS custom properties from `packages/styles/dist/tokens/css/_variables.css`; IMPORTANT: never hardcode colors, spacing, or typography!
+- Use CSS nesting to not repeat selectors.
 - Reuse existing components instead of duplicating functionality.
 - For icons, use the `Icon` component. Available icon names are in `packages/styles/dist/img/icons/def.ts`.
 - For links, use the `LinkButton` component.
