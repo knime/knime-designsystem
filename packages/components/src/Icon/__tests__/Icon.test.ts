@@ -31,4 +31,14 @@ describe("Icon.vue", () => {
     await vi.dynamicImportSettled();
     expect(wrapper).not.toBeNull();
   });
+
+  it("renders placeholder while the image is loading", () => {
+    const wrapper = mount(Icon, {
+      props: { name: "plus" },
+    });
+    // not waiting for the dynamic import to settle
+    expect(wrapper.element.tagName).toBe("SPAN");
+    expect(wrapper.classes()).toContain("kds-icon");
+    expect(wrapper.classes()).toContain("medium");
+  });
 });
