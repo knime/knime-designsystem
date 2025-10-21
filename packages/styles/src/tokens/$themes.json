@@ -61,7 +61,7 @@
       "style/motion": "enabled",
       "style/size": "enabled",
       "style/typography": "enabled",
-      "brands/knime-legacy": "enabled"
+      "brands/knime-legacy-light": "enabled"
     },
     "group": "brands"
   }
