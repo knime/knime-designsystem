@@ -1,28 +1,30 @@
 {
   "kds": {
     "color": {
-      "knob": {
-        "initial": {
-          "$type": "color",
-          "$value": "{kds.core.color.neutral.25}"
+      "ToggleSwitch": {
+        "knob": {
+          "initial": {
+            "$type": "color",
+            "$value": "{kds.core.color.neutral.25}"
+          },
+          "disabled": {
+            "$type": "color",
+            "$value": "{kds.core.color.neutral.175}"
+          }
         },
-        "disabled": {
-          "$type": "color",
-          "$value": "{kds.core.color.neutral.175}"
-        }
-      },
-      "icon": {
-        "on": {
-          "$type": "color",
-          "$value": "{kds.color.text-and-icon.primary}"
-        },
-        "off": {
-          "$type": "color",
-          "$value": "{kds.core.color.neutral.375}"
-        },
-        "disabled": {
-          "$type": "color",
-          "$value": "{kds.core.color.neutral.275}"
+        "icon": {
+          "on": {
+            "$type": "color",
+            "$value": "{kds.color.text-and-icon.primary}"
+          },
+          "off": {
+            "$type": "color",
+            "$value": "{kds.core.color.neutral.375}"
+          },
+          "disabled": {
+            "$type": "color",
+            "$value": "{kds.core.color.neutral.275}"
+          }
         }
       }
     }
