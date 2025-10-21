@@ -10,10 +10,6 @@
     "style/motion",
     "style/size",
     "style/typography",
-    "components/header",
-    "components/input",
-    "components/loading",
-    "components/ResizeHandle",
-    "components/ToggleSwitch"
+    "components/global"
   ]
 }

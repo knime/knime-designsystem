@@ -11,12 +11,8 @@
       "style/size": "enabled",
       "style/typography": "enabled",
       "style/elevation": "enabled",
-      "components/ResizeHandle": "enabled",
-      "components/ToggleSwitch": "enabled",
       "core/size": "source",
-      "components/input": "enabled",
-      "components/loading": "enabled",
-      "components/header": "enabled"
+      "components/global": "enabled"
     },
     "$figmaVariableReferences": {}
   },
@@ -32,12 +28,8 @@
       "style/size": "enabled",
       "style/typography": "enabled",
       "style/elevation": "enabled",
-      "components/ResizeHandle": "enabled",
-      "components/ToggleSwitch": "enabled",
       "core/size": "source",
-      "components/input": "enabled",
-      "components/loading": "enabled",
-      "components/header": "enabled"
+      "components/global": "enabled"
     },
     "$figmaVariableReferences": {}
   }
