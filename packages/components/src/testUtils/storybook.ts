@@ -144,3 +144,52 @@ export function buildDesignComparatorStory(
     }),
   };
 }
+
+type TextOverflowStoryParams = {
+  component: Component;
+  /** width of the resizing box; defaults to 200 */
+  width?: number;
+  /** height of the resizing box; defaults to "auto" */
+  height?: number;
+};
+
+/**
+ * Builds a Storybook story which allows resizing the given component. Useful when providing long texts to test text overflow handling.
+ * 
+ * @example
+ * export const TextOverflow: Story = {
+    ...buildTextOverflowStory({
+      component: Button,
+      width: 300,
+    }),
+    args: {
+      label: "Button with veeery loooong label",
+      variant: "outlined",
+      leadingIcon: "ai-general",
+      trailingIcon: "ai-general",
+    },
+  };
+ */
+export function buildTextOverflowStory(
+  config: TextOverflowStoryParams,
+): StoryObj {
+  return {
+    render: (args) => ({
+      setup() {
+        return {
+          component: config.component,
+          width: config.width || 200,
+          height: config.height || "auto",
+          args,
+        };
+      },
+      template: `
+      Component without size restrictions to check if it has a max size itself<br>
+      <Component :is="component" v-bind="args" /><br>
+      Component with size restrictions. Try by resizing the box!
+      <div :style="{ width: width + 'px', height: height + 'px', padding: '10px', background: 'lightgray', resize: 'both', overflow: 'auto' }">
+        <Component :is="component" v-bind="args" />
+      </div>`,
+    }),
+  };
+}

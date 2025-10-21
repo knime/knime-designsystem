@@ -8,6 +8,7 @@ import { sizes } from "../constants";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
+  buildTextOverflowStory,
 } from "../testUtils/storybook";
 
 import { variants } from "./BaseButton.vue";
@@ -145,25 +146,16 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   ],
 });
 
-export const TruncatedLabel: Story = {
+export const TextOverflow: Story = {
+  ...buildTextOverflowStory({
+    component: Button,
+  }),
   args: {
     label: "Button with veeery loooong label",
     variant: "outlined",
     leadingIcon: "ai-general",
     trailingIcon: "ai-general",
   },
-  render: (args) => ({
-    components: { Button },
-    setup() {
-      return { args };
-    },
-    template: `
-      <Button v-bind="args" /><br>
-      Try by resizing the box!
-      <div style="width: 200px; padding: 10px; background: lightgray; resize: horizontal; overflow: auto;">
-        <Button v-bind="args" />
-      </div>`,
-  }),
 };
 
 export const DesignComparator: Story = buildDesignComparatorStory({
