@@ -1,0 +1,68 @@
+{
+  "kds": {
+    "color": {
+      "LoadingSpinner": {
+        "progress": {
+          "onFilled": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.color.text-and-icon.primary-inverted}",
+            "$description": "LoadingSpinner"
+          },
+          "onTransparent": {
+            "$type": "color",
+            "$value": "{kds.color.text-and-icon.neutral}",
+            "$description": "LoadingSpinner"
+          }
+        },
+        "track": {
+          "onFilled": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.24",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.color.text-and-icon.primary-inverted}",
+            "$description": "LoadingSpinner"
+          },
+          "onTransparent": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.24",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.color.text-and-icon.neutral}",
+            "$description": "LoadingSpinner"
+          }
+        }
+      },
+      "SkeletonBar": {
+        "background": {
+          "default": {
+            "$type": "color",
+            "$value": "{kds.color.skeleton.default}",
+            "$description": "skeleton animation"
+          }
+        }
+      }
+    }
+  }
+}
