@@ -1,0 +1,20 @@
+:root.kds-legacy {
+  --primary-initial: var(--kds-core-color-neutral-650);
+  --primary-bold: var(--kds-core-color-neutral-650);
+  --selected-initial: var(--kds-core-color-neutral-175);
+  --selected-hover: var(--kds-core-color-neutral-250);
+  --selected-active: var(--kds-core-color-neutral-275);
+  --selected-bold-initial: var(--kds-core-color-neutral-550);
+  --selected-bold-hover: var(--kds-core-color-neutral-650);
+  --selected-bold-active: var(--kds-core-color-neutral-725);
+  --disabled-primary-input: var(--kds-core-color-neutral-650);
+  --text-an-icon-primary: var(--kds-core-color-neutral-650);
+  --text-an-icon-primary-inverted: var(--kds-core-color-neutral-100);
+  --text-an-icon-selected: var(--kds-core-color-neutral-650);
+  --text-an-icon-selected-inverted: var(--kds-core-color-neutral-100);
+  --text-an-icon-disabled-inverted: var(--kds-core-color-neutral-275);
+  --border-primary-bold: var(--kds-core-color-neutral-725);
+  --border-primary: var(--kds-core-color-neutral-250);
+  --border-selected-bold: var(--kds-core-color-neutral-550);
+  --border-selected: var(--kds-core-color-neutral-400);
+}

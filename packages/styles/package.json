@@ -1,6 +1,6 @@
 {
   "name": "@knime/kds-styles",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Package containing the design tokens and icons for the KNIME Design System",
   "license": "GPL 3 and Additional Permissions according to Sec. 7 (SEE the file LICENSE)",
   "author": "KNIME AG, Zurich, Switzerland",
@@ -33,6 +33,7 @@
     "./index.css": "./dist/css/index.css",
     "./kds-variables.css": "./dist/tokens/css/_variables.css",
     "./kds-properties.css": "./dist/tokens/css/_properties.css",
+    "./kds-legacy-theme.css": "./dist/css/legacy/legacy-theme.css",
     "./img/*": "./dist/img/*.svg",
     "./img/*/def": "./dist/img/*/def.ts"
   },
