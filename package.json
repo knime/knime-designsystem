@@ -15,13 +15,15 @@
     "ci:lint:js": "pnpm run lint:js && pnpm run lint:js -f json -o test-results/eslint.json",
     "ci:lint:css": "pnpm run lint:css -f json -o test-results/stylelint.json",
     "build": "pnpm run -r build",
+    "build:styles": "pnpm run --filter @knime/kds-styles build",
     "dev": "pnpm run --filter @knime/kds-documentation storybook",
     "test:unit": "vitest",
     "coverage": "vitest run --coverage",
     "audit": "pnpm audit --prod",
     "publish": "pnpm -r --filter '@knime/kds-styles' --filter '@knime/kds-components' publish --no-git-checks",
     "prepare": "husky",
-    "postinstall": "license-check -c"
+    "license-check": "license-check -c",
+    "postinstall": "run-p license-check build:styles"
   },
   "devDependencies": {
     "@knime/eslint-config": "9.3.0",

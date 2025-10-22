@@ -23,12 +23,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      # build before lint as Stylelint needs @knime/kds-styles
-      - name: Build packages
-        run: pnpm run build
-
       - name: Lint and format
         run: pnpm run ci:lint-format
+
+      - name: Build packages
+        run: pnpm run build
 
       - name: Chromatic
         uses: chromaui/action@latest
