@@ -13,7 +13,6 @@ The KNIME Design System is a Vue3 TypeScript monorepo providing design tokens, i
 **Common Build Issues & Solutions:**
 
 - Stylelint can't find CSS custom properties → Run `pnpm i` to build @knime/kds-styles first
-- Storybook compatibility warnings about @storybook/types@8.6.14 vs 9.1.7 are expected
 
 ## Project Architecture & Key Locations
 
@@ -52,7 +51,7 @@ packages/
 - Type all props with `defineProps<T>()` or `withDefaults(defineProps<T>(), {})`
 - Type all emits with `defineEmits<T>()`
 - Use `<style scoped>`
-- IMPORTANT: Use CSS nesting to NOT duplicate selectors! Don't use BEM.
+- IMPORTANT: Don't use BEM! Use CSS nesting to NOT duplicate selectors.
 - Style ONLY with CSS custom properties from design tokens - never hardcode colors/spacing/typography!
 - Export components and types in `packages/components/src/index.ts`
 - Follow WCAG accessibility requirements

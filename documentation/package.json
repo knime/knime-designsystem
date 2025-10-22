@@ -30,7 +30,6 @@
     "@storybook/addon-docs": "catalog:storybook",
     "@storybook/addon-links": "catalog:storybook",
     "@storybook/addon-themes": "catalog:storybook",
-    "@storybook/types": "catalog:storybook",
     "@storybook/vue3-vite": "catalog:storybook",
     "@tsconfig/node24": "catalog:",
     "@types/jsdom": "catalog:",

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type FunctionalComponent, computed, ref, watch } from "vue";
+import { type Component, computed, ref, watch } from "vue";
 import { useLocalStorage } from "@vueuse/core";
 
 const figmaImageScale = 4;
@@ -17,7 +17,7 @@ export type DesignsToCompare = Record<
 
 type Props = {
   designsToCompare: DesignsToCompare;
-  component: FunctionalComponent;
+  component: Component;
 };
 
 const props = defineProps<Props>();

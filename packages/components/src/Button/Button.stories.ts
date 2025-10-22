@@ -16,7 +16,7 @@ import Button from "./Button.vue";
 
 const meta: Meta<typeof Button> = {
   title: "Components/Buttons/Button",
-  component: Button as FunctionalComponent,
+  component: Button as FunctionalComponent, // only because of the generic typing of Button
   tags: ["autodocs"],
   parameters: {
     design: {

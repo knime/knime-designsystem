@@ -21,9 +21,12 @@ These rules define how to translate Figma inputs into code and must be followed 
   var({{design-token}}) - var(--kds-core-border-width-xs)
 );`
 11. Add Storybook stories matching the guidelines of this project. All variants shown in Figma need to be added with their Figma link including the according node id.
-12. Finally and ONLY after lint passing, run Storybook and open it with #openSimpleBrowser.
-13. Ask the user to open the "Design Comparator" story so he can visually verify the implementation.
-14. IMPORTANT! Tell the user, that if he's not yet happy, he can select the component element to send you a screenshot via the chat. If he does, visually validate the user-provided screenshot against the Figma screenshot you got via get_screenshot for 1:1 look. When doing changes, always stick to using the user-provided design tokens!
+12. Don't add a unit test yet.
+13. Run lint and fix potential issues.
+14. ONLY AFTER lint passing, run Storybook and open it with #openSimpleBrowser. Don't quit Storybook as the user wants to preview the component.
+15. Ask the user to open the "Design Comparator" story so he can visually verify the implementation.
+16. IMPORTANT! Tell the user, that if he's not yet happy, he can select the component element to send you a screenshot via the chat. If he does, visually validate the user-provided screenshot against the Figma screenshot you got via get_screenshot for 1:1 look. When doing changes, always stick to using the user-provided design tokens!
+17. Ask the user if everything is fine so you can proceed writing unit tests.
 
 ### Implementation rules
 
