@@ -1,77 +1,79 @@
 {
-  "elevation": {
-    "level": {
-      "0": {
-        "$type": "boxShadow",
-        "$value": {
-          "x": "0",
-          "y": "0",
-          "blur": "0",
-          "spread": "0",
-          "color": "{kds.color.elevation.top}",
-          "type": "dropShadow"
+  "kds": {
+    "elevation": {
+      "level": {
+        "0": {
+          "$type": "boxShadow",
+          "$value": {
+            "x": "0",
+            "y": "0",
+            "blur": "0",
+            "spread": "0",
+            "color": "{kds.color.elevation.top}",
+            "type": "dropShadow"
+          },
+          "$description": "No elevation (flat, no shadow). Animate between 0 and higher levels to highlight elements.\n\nAnimate elevation changes from level 0 to a higher level when an element is highlighted to indicate emphasis and interactivity."
         },
-        "$description": "No elevation (flat, no shadow). Animate between 0 and higher levels to highlight elements.\n\nAnimate elevation changes from level 0 to a higher level when an element is highlighted to indicate emphasis and interactivity."
-      },
-      "1": {
-        "$type": "boxShadow",
-        "$value": [
-          {
-            "x": "0",
-            "y": "{kds.core.size.scale} * 0.0625",
-            "blur": "{kds.core.size.scale} * 0.0625",
-            "spread": "0",
-            "color": "{kds.color.elevation.top}",
-            "type": "dropShadow"
-          },
-          {
-            "x": "0",
-            "y": "0",
-            "blur": "{kds.core.size.scale} * 0.0625",
-            "spread": "0",
-            "color": "{kds.color.elevation.middle}",
-            "type": "dropShadow"
-          },
-          {
-            "x": "0",
-            "y": "0",
-            "blur": "{kds.core.size.scale} * 0.5",
-            "spread": "0",
-            "color": "{kds.color.elevation.bottom}",
-            "type": "dropShadow"
-          }
-        ],
-        "$description": "Low elevation shadow for slightly raised elements (e.g. cards, tiles).\n\nFor containers that slightly stand out from the background but are not interactive by default. The elements that are placed inside this are extending the current surrounded context and group them inside the container.\n\nExamples are: Cards, tiles, arrays.\n\nIf you use the elevation level 1 on a container, you have to change the surface to be one level higher.\n"
-      },
-      "3": {
-        "$type": "boxShadow",
-        "$value": [
-          {
-            "x": "0",
-            "y": "{kds.core.size.scale} * 0.125",
-            "blur": "{kds.core.size.scale} * 0.25",
-            "spread": "0",
-            "color": "{kds.color.elevation.top}",
-            "type": "dropShadow"
-          },
-          {
-            "x": "0",
-            "y": "{kds.core.size.scale} * 0.25",
-            "blur": "{kds.core.size.scale} * 0.5",
-            "spread": "0",
-            "color": "{kds.color.elevation.middle}",
-            "type": "dropShadow"
-          },
-          {
-            "x": "0",
-            "y": "0",
-            "blur": "{kds.core.size.scale} * 1.25",
-            "spread": "0",
-            "color": "{kds.color.elevation.bottom}",
-            "type": "dropShadow"
-          }
-        ],
-        "$description": "High elevation shadow for elements floating above content (e.g. tooltips, toasts).\n\nUsed for elements that float above content and who are sitting on top of the ui; but don’t obscure the full context.\n\nExamples are: tooltips, menus or toasts.\n\nIf you use the elevation level 3, you have to reset the surface level to page."
+        "1": {
+          "$type": "boxShadow",
+          "$value": [
+            {
+              "x": "0",
+              "y": "{kds.core.size.scale} * 0.0625",
+              "blur": "{kds.core.size.scale} * 0.0625",
+              "spread": "0",
+              "color": "{kds.color.elevation.top}",
+              "type": "dropShadow"
+            },
+            {
+              "x": "0",
+              "y": "0",
+              "blur": "{kds.core.size.scale} * 0.0625",
+              "spread": "0",
+              "color": "{kds.color.elevation.middle}",
+              "type": "dropShadow"
+            },
+            {
+              "x": "0",
+              "y": "0",
+              "blur": "{kds.core.size.scale} * 0.5",
+              "spread": "0",
+              "color": "{kds.color.elevation.bottom}",
+              "type": "dropShadow"
+            }
+          ],
+          "$description": "Low elevation shadow for slightly raised elements (e.g. cards, tiles).\n\nFor containers that slightly stand out from the background but are not interactive by default. The elements that are placed inside this are extending the current surrounded context and group them inside the container.\n\nExamples are: Cards, tiles, arrays.\n\nIf you use the elevation level 1 on a container, you have to change the surface to be one level higher.\n"
+        },
+        "3": {
+          "$type": "boxShadow",
+          "$value": [
+            {
+              "x": "0",
+              "y": "{kds.core.size.scale} * 0.125",
+              "blur": "{kds.core.size.scale} * 0.25",
+              "spread": "0",
+              "color": "{kds.color.elevation.top}",
+              "type": "dropShadow"
+            },
+            {
+              "x": "0",
+              "y": "{kds.core.size.scale} * 0.25",
+              "blur": "{kds.core.size.scale} * 0.5",
+              "spread": "0",
+              "color": "{kds.color.elevation.middle}",
+              "type": "dropShadow"
+            },
+            {
+              "x": "0",
+              "y": "0",
+              "blur": "{kds.core.size.scale} * 1.25",
+              "spread": "0",
+              "color": "{kds.color.elevation.bottom}",
+              "type": "dropShadow"
+            }
+          ],
+          "$description": "High elevation shadow for elements floating above content (e.g. tooltips, toasts).\n\nUsed for elements that float above content and who are sitting on top of the ui; but don’t obscure the full context.\n\nExamples are: tooltips, menus or toasts.\n\nIf you use the elevation level 3, you have to reset the surface level to page."
+        }
       }
     }
   }
