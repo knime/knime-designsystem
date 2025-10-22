@@ -52,7 +52,7 @@ packages/
 - Type all props with `defineProps<T>()` or `withDefaults(defineProps<T>(), {})`
 - Type all emits with `defineEmits<T>()`
 - Use `<style scoped>`
-- IMPORTANT: Use CSS nesting to NOT duplicate selectors!
+- IMPORTANT: Use CSS nesting to NOT duplicate selectors! Don't use BEM.
 - Style ONLY with CSS custom properties from design tokens - never hardcode colors/spacing/typography!
 - Export components and types in `packages/components/src/index.ts`
 - Follow WCAG accessibility requirements

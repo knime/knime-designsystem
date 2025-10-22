@@ -13,7 +13,7 @@ These rules define how to translate Figma inputs into code and must be followed 
 3. If the response is too large or truncated, run get_metadata to get the high‑level node map and then re‑fetch only the required node(s) with get_code.
 4. Run get_screenshot for a visual reference of the node variant being implemented.
 5. Get the exact name of the component from Figma (starting with `kds-`) and name it accordingly. Don't guess the name.
-6. Only after you have all three, get_code, get_screenshot and the user-provided tokens, download any assets needed and start implementation.
+6. Only after you have all three (get_code, get_screenshot and the user-provided tokens), download any assets needed and start implementation.
 7. Translate the output (usually React + Tailwind) into this project's conventions, styles and framework. Reuse the project's color tokens, components, and typography wherever possible. Remove unnecessary wrappers and divs.
 8. Match the component props to the Figma component properties as closely as possible.
 9. Match the icon names precisely, all icons used in Figma are available in this codebase! Double-check in case you can't find the icon.
