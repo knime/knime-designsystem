@@ -69,6 +69,21 @@ Here are some of the most important scripts defined in the top-level [`package.j
 - in VS Code, add the [Figma MCP server](https://github.com/mcp/figma/mcp-server-guide) - use the cloud-based server to not require the Figma desktop app
 - then select a component or a design in Figma, copy the URL including the node id and prompt into Agent mode, e.g.: `implement component: {{FigmaUrl}}`
 
+## Maintaining changelogs & publishing to npm
+
+Every PR with changes that should be published must include changeset file(s) out of which the CHANGELOG file of each package will get generated. Use the following command to create such files:
+
+```sh
+pnpm run changeset
+```
+
+Do merge those files with the PR to master.
+
+### Publishing to npm
+
+The [`release` GitHub Action](./.github/workflows/release.yml) will automatically create & update a "Version Packages" PR if it detects
+changeset file(s) on master. Once a release should be published to npm, simply do merge this PR.
+
 # Join the Community!
 
 - [KNIME Forum](https://forum.knime.com/)
