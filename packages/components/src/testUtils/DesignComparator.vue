@@ -109,7 +109,9 @@ watch(
 
 function onPaste(event: ClipboardEvent) {
   const token = event.clipboardData?.getData("text");
-  figmaToken.value = token;
+  if (token) {
+    figmaToken.value = token;
+  }
 }
 </script>
 
