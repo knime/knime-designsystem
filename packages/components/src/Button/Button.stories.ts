@@ -9,7 +9,7 @@ import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
   buildTextOverflowStory,
-} from "../testUtils/storybook";
+} from "../test-utils/storybook";
 
 import { variants } from "./BaseButton.vue";
 import Button from "./Button.vue";
