@@ -44,9 +44,14 @@ jobs:
       - name: Run coverage
         run: pnpm run coverage
 
+      # audit is skipped if only tokens or icons are changed
       - name: Audit
-        run: pnpm run audit
-
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/${{ github.event.repository.default_branch }}" ] || git diff --name-only origin/${{ github.base_ref }}...HEAD | grep -qvE '^packages/styles/src/(tokens|img)/'; then
+            pnpm run audit
+          else
+            echo "Skipping audit: changes only in tokens or img directories"
+          fi
       - name: Sonar scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
