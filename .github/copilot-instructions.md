@@ -59,7 +59,7 @@ packages/
 **Icons & Components:**
 
 - Use `Icon` component for all icons (never inline SVGs)
-- Available icons listed in `packages/styles/dist/img/icons/def.ts` (do always read the whole file, it's not big)
+- Available icons listed in `packages/styles/dist/img/icons/def.ts` (always read the whole file, it's not big)
 - For links, use `LinkButton` component
 - Reuse existing components instead of duplicating functionality
 
