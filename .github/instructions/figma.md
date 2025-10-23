@@ -8,7 +8,7 @@ These rules define how to translate Figma inputs into code and must be followed 
 
 ## Required flow (do not skip)
 
-1. IMPORTANT! Ask the user to provide a tree of used design tokens (the user has to copy & paste via [Token Studio Tree Inspector](https://www.figma.com/community/plugin/1507929423982882409/tokens-studio-tree-inspector) plugin). Those tokens directly map to availabe CSS variables (e.g. `kds.spacing.container.0_25x` = `--kds-spacing-container-0-25x`).
+1. IMPORTANT! Ask the user to provide a tree of used design tokens (the user has to copy & paste via [Token Studio Tree Inspector](https://www.figma.com/community/plugin/1507929423982882409/tokens-studio-tree-inspector) plugin). Those tokens directly map to available CSS variables (e.g. `kds.spacing.container.0_25x` = `--kds-spacing-container-0-25x`).
 2. Run get_code first to fetch the structured representation for the exact node(s).
 3. If the response is too large or truncated, run get_metadata to get the high‑level node map and then re‑fetch only the required node(s) with get_code.
 4. Run get_screenshot for a visual reference of the node variant being implemented.
