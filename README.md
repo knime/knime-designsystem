@@ -77,7 +77,7 @@ Every PR with changes that should be published must include changeset file(s) ou
 pnpm run changeset
 ```
 
-Do merge those files with the PR to master.
+Merge those files with the PR to master.
 
 ### Publishing to npm
 
