@@ -6,50 +6,17 @@ export type Variant = (typeof variants)[number];
 <script setup lang="ts" generic="UNUSED">
 import { type Component, computed } from "vue";
 
-import type { IconName } from "@knime/kds-styles/img/icons/def";
-
 import Icon from "../Icon/Icon.vue";
-import type { Size } from "../types";
 
-export type BaseButtonProps =
-  // button with label
-  | {
-      // common
-      variant?: Variant;
-      size?: Size;
-      destructive?: boolean;
-      disabled?: boolean;
-
-      // specific
-      label: string;
-      leadingIcon?: IconName | null;
-      trailingIcon?: IconName | null;
-
-      // not allowed
-      icon?: never;
-    }
-  // button only with icon
-  | {
-      // common
-      variant?: Variant;
-      size?: Size;
-      destructive?: boolean;
-      disabled?: boolean;
-
-      // specific
-      icon: IconName;
-
-      // not allowed
-      label?: never;
-      leadingIcon?: never;
-      trailingIcon?: never;
-    };
+import type { BaseButtonProps } from "./types";
 
 type BaseButtonPropsWithComponent = BaseButtonProps & {
   component?: string | Component;
 };
 
 const props = withDefaults(defineProps<BaseButtonPropsWithComponent>(), {
+  label: undefined,
+  icon: undefined,
   component: "button",
   size: "medium",
   variant: "filled",
@@ -58,7 +25,7 @@ const props = withDefaults(defineProps<BaseButtonPropsWithComponent>(), {
 });
 
 const emit = defineEmits<{
-  (e: "click", event: MouseEvent): void;
+  click: [event: MouseEvent];
 }>();
 
 const classes = computed(() => [
@@ -91,20 +58,13 @@ function onClick(e: MouseEvent) {
     :disabled="props.disabled"
     @click="onClick($event)"
   >
-    <template v-if="props.label">
-      <Icon
-        v-if="props.leadingIcon"
-        :name="props.leadingIcon"
-        :size="iconSize"
-      />
-      <span class="label">{{ props.label }}</span>
-      <Icon
-        v-if="props.trailingIcon"
-        :name="props.trailingIcon"
-        :size="iconSize"
-      />
-    </template>
-    <Icon v-else-if="props.icon" :name="props.icon" :size="iconSize" />
+    <Icon v-if="props.icon" :name="props.icon" :size="iconSize" />
+    <span v-if="props.label" class="label">{{ props.label }}</span>
+    <Icon
+      v-if="props.trailingIcon && props.label"
+      :name="props.trailingIcon"
+      :size="iconSize"
+    />
   </Component>
 </template>
 

@@ -1,11 +1,12 @@
 <script setup lang="ts" generic="UNUSED">
-import BaseButton, { type BaseButtonProps } from "./BaseButton.vue";
+import BaseButton from "./BaseButton.vue";
+import type { BaseButtonProps } from "./types";
 
 export type ButtonProps = BaseButtonProps & {}; // intersection needed for Storybook to work
 const props = defineProps<ButtonProps>();
 
 const emit = defineEmits<{
-  (e: "click", event: MouseEvent): void;
+  click: [event: MouseEvent];
 }>();
 </script>
 

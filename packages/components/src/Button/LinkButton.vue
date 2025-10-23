@@ -3,7 +3,8 @@ import { computed } from "vue";
 
 import { resolveNuxtLinkComponent } from "../util/nuxtComponentResolver";
 
-import BaseButton, { type BaseButtonProps } from "./BaseButton.vue";
+import BaseButton from "./BaseButton.vue";
+import type { BaseButtonProps } from "./types";
 
 export type LinkButtonProps = BaseButtonProps & {
   // RouterLink props
@@ -38,6 +39,8 @@ export type LinkButtonProps = BaseButtonProps & {
 
 const props = withDefaults(defineProps<LinkButtonProps>(), {
   download: undefined,
+  rel: null,
+  target: null,
 });
 
 const component = computed(() => {

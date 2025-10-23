@@ -36,15 +36,11 @@ const meta: Meta<typeof Button> = {
     destructive: { control: "boolean" },
     disabled: { control: "boolean" },
     label: { control: "text" },
-    leadingIcon: {
+    icon: {
       control: { type: "select" },
       options: [undefined, ...iconNames],
     },
     trailingIcon: {
-      control: { type: "select" },
-      options: [undefined, ...iconNames],
-    },
-    icon: {
       control: { type: "select" },
       options: [undefined, ...iconNames],
     },
@@ -112,7 +108,7 @@ export const LeadingAndTrailingIcon: Story = {
   args: {
     label: "Button",
     variant: "outlined",
-    leadingIcon: "ai-general",
+    icon: "ai-general",
     trailingIcon: "ai-general",
   },
 };
@@ -133,7 +129,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       disabled: [false, true],
       destructive: [false, true],
       label: ["Button"],
-      leadingIcon: [undefined, "ai-general"],
+      icon: [undefined, "ai-general"],
       trailingIcon: [undefined, "ai-general"],
     },
     {
@@ -153,7 +149,7 @@ export const TextOverflow: Story = {
   args: {
     label: "Button with veeery loooong label",
     variant: "outlined",
-    leadingIcon: "ai-general",
+    icon: "ai-general",
     trailingIcon: "ai-general",
   },
 };
@@ -209,11 +205,11 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           },
       },
     },
-    leadingIcon: {
+    icon: {
       props: {
         label: "{Label}",
         variant: "outlined",
-        leadingIcon: "placeholder",
+        icon: "placeholder",
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-89833":
@@ -263,7 +259,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       props: {
         label: "{Label}",
         variant: "outlined",
-        leadingIcon: "placeholder",
+        icon: "placeholder",
         trailingIcon: "placeholder",
       },
       variants: {
@@ -289,7 +285,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       props: {
         label: "{Label}",
         variant: "filled",
-        leadingIcon: "placeholder",
+        icon: "placeholder",
         trailingIcon: "placeholder",
       },
       variants: {
@@ -315,7 +311,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       props: {
         label: "{Label}",
         variant: "transparent",
-        leadingIcon: "placeholder",
+        icon: "placeholder",
         trailingIcon: "placeholder",
       },
       variants: {
