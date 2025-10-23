@@ -12,6 +12,7 @@
     "components"
   ],
   "type": "module",
+  "private": true,
   "scripts": {
     "_preBuild": "pnpm run --filter @knime/kds-styles build",
     "build-storybook": "pnpm _preBuild && storybook build",
