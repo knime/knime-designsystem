@@ -66,7 +66,7 @@ packages/
 **Storybook Stories (required for all components):**
 
 1. **AllCombinations**: Use `buildAllCombinationsStory()` from `testUtils/storybook`
-2. **DesignComparator**: Use `buildDesignComparatorStory()` from `testUtils/storybook` with Figma URLs + node IDs. Make sure to include all variants shown in Figma. Do use the node id of the exact component usage (without potential wrapping explainations).
+2. **DesignComparator**: Use `buildDesignComparatorStory()` from `testUtils/storybook` with Figma URLs + node IDs. Make sure to include all variants shown in Figma. Do use the node id of the exact component usage (without potential wrapping explanations).
 3. **TextOverflow**: Use `buildTextOverflowStory()` from `testUtils/storybook` and provide long text to test text overflow behavior
 4. Include Figma design URL in story parameters
 
