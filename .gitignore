@@ -46,4 +46,4 @@ storybook-static/
 
 .pnpm-store/
 
-.env
+*.local

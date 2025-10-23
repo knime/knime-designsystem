@@ -65,7 +65,7 @@ Here are some of the most important scripts defined in the top-level [`package.j
 
 ## AI assistance
 
-- copy [./documentation/.env.example](./documentation/.env.example) to `./documentation/.env` and set your [Figma Personal Access Token](https://help.figma.com/hc/en-us/articles/8085703771159-Manage-personal-access-tokens) (needs `file_content:read` permission). This is needed to display Figma screenshots in Storybook in the in VS Code integrated "SimpleBrowser".
+- copy [./documentation/.env.development](./documentation/.env.development) to `./documentation/.env.development.local` and set your [Figma Personal Access Token](https://help.figma.com/hc/en-us/articles/8085703771159-Manage-personal-access-tokens) (needs `file_content:read` permission). This is needed to display Figma screenshots in Storybook in the in VS Code integrated "SimpleBrowser".
 - in VS Code, add the [Figma MCP server](https://github.com/mcp/figma/mcp-server-guide) - use the cloud-based server to not require the Figma desktop app
 - then select a component or a design in Figma, copy the URL including the node id and prompt into Agent mode, e.g.: `implement component: {{FigmaUrl}}`
 
