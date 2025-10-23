@@ -1,7 +1,11 @@
 import { ref, watch } from "vue";
 
+const legacyMode = ref(false);
+
 export const useLegacyMode = (initialValue: boolean = false) => {
-  const legacyMode = ref(initialValue);
+  if (legacyMode.value !== initialValue) {
+    legacyMode.value = initialValue;
+  }
 
   watch(
     () => legacyMode.value,
