@@ -27,7 +27,7 @@ jobs:
         run: pnpm run ci:lint-format
 
       - name: Build packages
-        run: pnpm run build
+        run: pnpm run ci:build
 
       - name: Chromatic
         uses: chromaui/action@latest
