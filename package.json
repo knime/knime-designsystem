@@ -1,6 +1,4 @@
 {
-  "name": "@knime/kds-root",
-  "version": "0.0.8",
   "description": "Root package for managing the monorepo for the KNIME Design System",
   "license": "GPL 3 and Additional Permissions according to Sec. 7 (SEE the file LICENSE)",
   "author": "KNIME AG, Zurich, Switzerland",
@@ -21,13 +19,17 @@
     "dev": "pnpm run --filter @knime/kds-documentation storybook",
     "test:unit": "vitest",
     "coverage": "vitest run --coverage",
+    "changeset": "pnpm exec changeset",
+    "changeset:version": "pnpm exec changeset version",
+    "changeset:publish": "pnpm exec changeset publish",
+    "publish": "pnpm build && pnpm changeset:publish",
     "audit": "pnpm audit --prod",
-    "publish": "pnpm -r --filter '@knime/kds-styles' --filter '@knime/kds-components' publish --no-git-checks",
     "prepare": "husky",
     "license-check": "license-check -c",
     "postinstall": "run-p license-check build:styles"
   },
   "devDependencies": {
+    "@changesets/cli": "2.29.7",
     "@knime/eslint-config": "9.3.0",
     "@knime/licenses": "1.3.2",
     "@tsconfig/node24": "catalog:",
