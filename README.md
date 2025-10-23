@@ -1,6 +1,6 @@
 # ![Image](https://www.knime.com/sites/default/files/knime_logo_github_40x40_4layers.png) KNIME® Design System Monorepo
 
-This monorepo contains the basics of the KNIME Design System, including design tokens, icons, Vue components derived from the design tokens, and its documentation.
+This monorepo contains the KNIME Design System, including design tokens, icons, Vue components derived from the design tokens, and its documentation.
 
 This repository is maintained by [UI Core](mailto:team-ui-core@knime.com).
 
@@ -62,6 +62,12 @@ Here are some of the most important scripts defined in the top-level [`package.j
   ```
   pnpm build:tokens
   ```
+
+## AI assistance
+
+- copy [./documentation/.env.development](./documentation/.env.development) to `./documentation/.env.development.local` and set your [Figma Personal Access Token](https://help.figma.com/hc/en-us/articles/8085703771159-Manage-personal-access-tokens) (needs `file_content:read` permission). This is needed to display Figma screenshots in Storybook in the "SimpleBrowser" integrated in VS Code.
+- in VS Code, add the [Figma MCP server](https://github.com/mcp/figma/mcp-server-guide) - use the cloud-based server to not require the Figma desktop app
+- then select a component or a design in Figma, copy the URL including the node id and prompt into Agent mode, e.g.: `implement component: {{FigmaUrl}}`
 
 # Join the Community!
 

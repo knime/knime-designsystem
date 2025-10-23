@@ -1,5 +1,4 @@
-// eslint-disable func-style
-import type { FunctionalComponent } from "vue";
+import type { Component } from "vue";
 import type { StoryObj } from "@storybook/vue3-vite";
 
 import DesignComparator, {
@@ -39,7 +38,7 @@ export function generateCombinations(
 }
 
 type AllCombinationsStoryParams = {
-  component: FunctionalComponent;
+  component: Component;
   combinationsProps: Record<string, readonly unknown[]>[]; // or can we infer the possible props from the component type?
 };
 
@@ -80,9 +79,9 @@ export function buildAllCombinationsStory(
       template: `
       Hover to see the props of each instance:
       <div style="display: grid; grid-template-columns: repeat(4, auto); gap: 1rem;">
-        <div v-for="(props, index) in allCombinations" :key="index">
+        <div v-for="(props, index) in allCombinations" :key="index" :title="JSON.stringify(props, null, 2)">
           <span style="font-size: 10px; color: var(--kds-color-text-and-icon-subtle);">{{ index }}</span> 
-          <Component :is="component" v-bind="props" :title="JSON.stringify(props, null, 2)" />
+          <Component :is="component" v-bind="props" />
         </div>
       </div>
     `,
@@ -91,7 +90,7 @@ export function buildAllCombinationsStory(
 }
 
 type DesignComparatorParams = {
-  component: FunctionalComponent;
+  component: Component;
   designsToCompare: DesignsToCompare; // or can we infer the possible props from the component type?
 };
 
@@ -142,6 +141,55 @@ export function buildDesignComparatorStory(
       },
       template: `
         <DesignComparator :designs-to-compare="designsToCompare" :component="component"></DesignComparator>`,
+    }),
+  };
+}
+
+type TextOverflowStoryParams = {
+  component: Component;
+  /** width of the resizing box; defaults to 200 */
+  width?: number;
+  /** height of the resizing box; defaults to "auto" */
+  height?: number;
+};
+
+/**
+ * Builds a Storybook story which allows resizing the given component. Useful when providing long texts to test text overflow handling.
+ * 
+ * @example
+ * export const TextOverflow: Story = {
+    ...buildTextOverflowStory({
+      component: Button,
+      width: 300,
+    }),
+    args: {
+      label: "Button with veeery loooong label",
+      variant: "outlined",
+      leadingIcon: "ai-general",
+      trailingIcon: "ai-general",
+    },
+  };
+ */
+export function buildTextOverflowStory(
+  config: TextOverflowStoryParams,
+): StoryObj {
+  return {
+    render: (args) => ({
+      setup() {
+        return {
+          component: config.component,
+          width: config.width || 200,
+          height: config.height || "auto",
+          args,
+        };
+      },
+      template: `
+      Component without size restrictions to check if it has a max size itself<br>
+      <Component :is="component" v-bind="args" /><br>
+      Component with size restrictions. Try by resizing the box!
+      <div :style="{ width: width + 'px', height: height + 'px', padding: '10px', background: 'lightgray', resize: 'both', overflow: 'auto' }">
+        <Component :is="component" v-bind="args" />
+      </div>`,
     }),
   };
 }

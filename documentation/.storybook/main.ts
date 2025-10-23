@@ -13,7 +13,7 @@ const config: StorybookConfig = {
     "@storybook/addon-links",
     "@storybook/addon-themes",
     "@storybook/addon-docs",
-    "storybook-dark-mode",
+    "@storybook-community/storybook-dark-mode",
   ],
   framework: {
     name: "@storybook/vue3-vite",

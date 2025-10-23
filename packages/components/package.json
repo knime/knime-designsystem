@@ -48,6 +48,7 @@
     "@vue/test-utils": "catalog:",
     "@vue/tsconfig": "catalog:",
     "@vueuse/core": "catalog:",
+    "storybook": "catalog:storybook",
     "vite": "catalog:",
     "vite-plugin-dts": "catalog:",
     "vite-plugin-lib-inject-css": "catalog:",

@@ -15,7 +15,11 @@ export default defineConfig({
     svgLoader({ svgoConfig }),
     dts({
       include: ["src/**/*"],
-      exclude: ["src/**/*.stories.ts", "src/**/__tests__/**/*"],
+      exclude: [
+        "src/**/*.stories.ts",
+        "src/**/__tests__/**/*",
+        "src/test-utils/**/*",
+      ],
       tsconfigPath: "./tsconfig.build.json",
     }),
     libInjectCss(),

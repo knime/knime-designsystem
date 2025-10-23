@@ -8,14 +8,15 @@ import { sizes } from "../constants";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
-} from "../testUtils/storybook";
+  buildTextOverflowStory,
+} from "../test-utils/storybook";
 
 import { variants } from "./BaseButton.vue";
 import Button from "./Button.vue";
 
 const meta: Meta<typeof Button> = {
   title: "Components/Buttons/Button",
-  component: Button as FunctionalComponent,
+  component: Button as FunctionalComponent, // only because of the generic typing of Button
   tags: ["autodocs"],
   parameters: {
     design: {
@@ -124,7 +125,7 @@ export const IconOnly: Story = {
 };
 
 export const AllCombinations: Story = buildAllCombinationsStory({
-  component: Button as FunctionalComponent,
+  component: Button,
   combinationsProps: [
     {
       size: sizes,
@@ -145,29 +146,20 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   ],
 });
 
-export const TruncatedLabel: Story = {
+export const TextOverflow: Story = {
+  ...buildTextOverflowStory({
+    component: Button,
+  }),
   args: {
     label: "Button with veeery loooong label",
     variant: "outlined",
     leadingIcon: "ai-general",
     trailingIcon: "ai-general",
   },
-  render: (args) => ({
-    components: { Button },
-    setup() {
-      return { args };
-    },
-    template: `
-      <Button v-bind="args" /><br>
-      Try by resizing the box!
-      <div style="width: 200px; padding: 10px; background: lightgray; resize: horizontal; overflow: auto;">
-        <Button v-bind="args" />
-      </div>`,
-  }),
 };
 
 export const DesignComparator: Story = buildDesignComparatorStory({
-  component: Button as FunctionalComponent,
+  component: Button,
   designsToCompare: {
     label: {
       props: {
