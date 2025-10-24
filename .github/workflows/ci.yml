@@ -30,6 +30,7 @@ jobs:
         run: pnpm run ci:build
 
       - name: Chromatic
+        if: github.actor != 'dependabot[bot]'
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
@@ -58,7 +59,7 @@ jobs:
         run: pnpm run audit
 
       - name: Sonar scan
-        if: steps.check-changes.outputs.run-full-checks == 'true'
+        if: steps.check-changes.outputs.run-full-checks == 'true' && github.actor != 'dependabot[bot]'
         uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
