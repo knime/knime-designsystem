@@ -21,7 +21,7 @@
     "modern-normalize": "3.0.1"
   },
   "devDependencies": {
-    "@knime/styles": "^1.10.0",
+    "@knime/styles": "^1.14.3",
     "@tokens-studio/sd-transforms": "^2.0.1",
     "@types/jsdom": "catalog:",
     "@types/node": "catalog:",
