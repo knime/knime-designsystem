@@ -151,7 +151,8 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.neutral}",
-            "width": "{kds.core.border-width.xs}"
+            "width": "{kds.core.border-width.xs}",
+            "style": "solid"
           },
           "$description": "Neutral 1 px outline specifically tuned for input elements (e.g text-field and textarea, radio and checkbox components.)\n\n[Themable composite token referencing border tokens from the mode set]\n"
         }
