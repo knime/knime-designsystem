@@ -30,7 +30,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "vite build"
+    "build": "pnpm run type-check && vite build",
+    "type-check": "vue-tsc --build"
   },
   "peerDependencies": {
     "vue": "catalog:peer",
