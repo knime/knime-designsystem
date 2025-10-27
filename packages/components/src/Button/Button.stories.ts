@@ -36,7 +36,7 @@ const meta: Meta<typeof Button> = {
     destructive: { control: "boolean" },
     disabled: { control: "boolean" },
     label: { control: "text" },
-    icon: {
+    leadingIcon: {
       control: { type: "select" },
       options: [undefined, ...iconNames],
     },
@@ -108,7 +108,7 @@ export const LeadingAndTrailingIcon: Story = {
   args: {
     label: "Button",
     variant: "outlined",
-    icon: "ai-general",
+    leadingIcon: "ai-general",
     trailingIcon: "ai-general",
   },
 };
@@ -116,7 +116,7 @@ export const LeadingAndTrailingIcon: Story = {
 export const IconOnly: Story = {
   args: {
     variant: "outlined",
-    icon: "ai-general",
+    leadingIcon: "ai-general",
   },
 };
 
@@ -129,7 +129,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       disabled: [false, true],
       destructive: [false, true],
       label: ["Button"],
-      icon: [undefined, "ai-general"],
+      leadingIcon: [undefined, "ai-general"],
       trailingIcon: [undefined, "ai-general"],
     },
     {
@@ -137,7 +137,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       variant: variants,
       disabled: [false, true],
       destructive: [false, true],
-      icon: ["ai-general"],
+      leadingIcon: ["ai-general"],
     },
   ],
 });
@@ -149,7 +149,7 @@ export const TextOverflow: Story = {
   args: {
     label: "Button with veeery loooong label",
     variant: "outlined",
-    icon: "ai-general",
+    leadingIcon: "ai-general",
     trailingIcon: "ai-general",
   },
 };
@@ -181,10 +181,10 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           },
       },
     },
-    icon: {
+    leadingIcon: {
       props: {
         variant: "outlined",
-        icon: "placeholder",
+        leadingIcon: "placeholder",
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-89762":
@@ -205,11 +205,11 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           },
       },
     },
-    icon: {
+    leadingIconWithLabel: {
       props: {
         label: "{Label}",
         variant: "outlined",
-        icon: "placeholder",
+        leadingIcon: "placeholder",
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-89833":
@@ -230,7 +230,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           },
       },
     },
-    trailingIcon: {
+    trailingIconWithLabel: {
       props: {
         label: "{Label}",
         variant: "outlined",
@@ -259,7 +259,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       props: {
         label: "{Label}",
         variant: "outlined",
-        icon: "placeholder",
+        leadingIcon: "placeholder",
         trailingIcon: "placeholder",
       },
       variants: {
@@ -285,7 +285,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       props: {
         label: "{Label}",
         variant: "filled",
-        icon: "placeholder",
+        leadingIcon: "placeholder",
         trailingIcon: "placeholder",
       },
       variants: {
@@ -311,7 +311,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       props: {
         label: "{Label}",
         variant: "transparent",
-        icon: "placeholder",
+        leadingIcon: "placeholder",
         trailingIcon: "placeholder",
       },
       variants: {

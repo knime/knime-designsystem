@@ -16,7 +16,7 @@ type BaseButtonPropsWithComponent = BaseButtonProps & {
 
 const props = withDefaults(defineProps<BaseButtonPropsWithComponent>(), {
   label: undefined,
-  icon: undefined,
+  leadingIcon: undefined,
   component: "button",
   size: "medium",
   variant: "filled",
@@ -58,7 +58,7 @@ function onClick(e: MouseEvent) {
     :disabled="props.disabled"
     @click="onClick($event)"
   >
-    <Icon v-if="props.icon" :name="props.icon" :size="iconSize" />
+    <Icon v-if="props.leadingIcon" :name="props.leadingIcon" :size="iconSize" />
     <span v-if="props.label" class="label">{{ props.label }}</span>
     <Icon
       v-if="props.trailingIcon && props.label"

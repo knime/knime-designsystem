@@ -76,7 +76,7 @@ const meta: Meta<typeof LinkButton> = {
     destructive: { control: "boolean" },
     disabled: { control: "boolean" },
     label: { control: "text" },
-    icon: {
+    leadingIcon: {
       control: { type: "select" },
       options: [undefined, ...iconNames],
     },
