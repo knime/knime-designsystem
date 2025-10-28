@@ -27,21 +27,22 @@ export type BaseButtonProps =
   | WithLabelOrLeadingIcon
   | EnsureLabelAndTrailingIcon;
 
-declare function buttonPropTester(p: BaseButtonProps): void;
-
 // supports just label
-buttonPropTester({ label: "foo" });
+propTypeTester<BaseButtonProps>({ label: "foo" });
 // supports just leading icon
-buttonPropTester({ leadingIcon: "ai-general" });
+propTypeTester<BaseButtonProps>({ leadingIcon: "ai-general" });
 // supports both leading icon and label
-buttonPropTester({ leadingIcon: "ai-general", label: "foo" });
+propTypeTester<BaseButtonProps>({ leadingIcon: "ai-general", label: "foo" });
 // supports label and trailing icon
-buttonPropTester({ label: "foo", trailingIcon: "ai-general" });
+propTypeTester<BaseButtonProps>({ label: "foo", trailingIcon: "ai-general" });
 // supports both leading supports all 3
-buttonPropTester({
+propTypeTester<BaseButtonProps>({
   leadingIcon: "ai-general",
   label: "foo",
   trailingIcon: "ai-general",
 });
 // @ts-expect-error - should not allow leading and trailing icons without label
-buttonPropTester({ leadingIcon: "ai-general", trailingIcon: "ai-general" });
+propTypeTester<BaseButtonProps>({
+  leadingIcon: "ai-general",
+  trailingIcon: "ai-general",
+});
