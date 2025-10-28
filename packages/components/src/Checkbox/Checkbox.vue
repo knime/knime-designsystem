@@ -1,49 +1,24 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="UNUSED">
 import { computed, useId } from "vue";
 
 import Icon from "../Icon/Icon.vue";
 
-// TODO make sure helperText can only be set if label is set
+import type { CheckboxProps } from "./types";
 
-type CheckboxProps = {
-  /**
-   * The checked state of the checkbox
-   */
-  modelValue?: boolean | "indeterminate";
-  /**
-   * The label text for the checkbox
-   */
-  label?: string;
-  /**
-   * Helper text displayed below the label
-   */
-  helperText?: string;
-  /**
-   * Whether the checkbox is disabled
-   */
-  disabled?: boolean;
-  /**
-   * Whether the checkbox is in an error state
-   */
-  error?: boolean;
-};
-
-type CheckboxEmits = {
-  /**
-   * Emitted when the checkbox value changes
-   */
-  "update:modelValue": [value: boolean | "indeterminate"];
-};
+type CheckboxModelValue = CheckboxProps["modelValue"];
 
 const props = withDefaults(defineProps<CheckboxProps>(), {
   modelValue: false,
-  label: "",
-  helperText: "",
   disabled: false,
   error: false,
 });
 
-const emit = defineEmits<CheckboxEmits>();
+const emit = defineEmits<{
+  /**
+   * Emitted when the checkbox value changes
+   */
+  "update:modelValue": [value: CheckboxModelValue];
+}>();
 
 const id = useId();
 
@@ -62,7 +37,7 @@ const handleClick = () => {
     return;
   }
 
-  let newValue: boolean | "indeterminate";
+  let newValue: CheckboxModelValue;
 
   if (isIndeterminate.value) {
     newValue = false;
@@ -82,13 +57,13 @@ const handleClick = () => {
       checkbox: true,
       checked: isChecked,
       indeterminate: isIndeterminate,
-      disabled: disabled,
-      error: error,
+      disabled: props.disabled,
+      error: props.error,
     }"
     :disabled="disabled"
     :aria-checked="ariaChecked"
-    :aria-describedby="helperText ? `${id}-helper` : undefined"
-    :aria-invalid="error"
+    :aria-describedby="props.helperText ? `${id}-helper` : undefined"
+    :aria-invalid="props.error"
     type="button"
     role="checkbox"
     @click="handleClick"
@@ -102,10 +77,10 @@ const handleClick = () => {
         size="xsmall"
       />
     </div>
-    <div v-if="label || helperText" class="content">
-      <div class="label">{{ label }}</div>
-      <div v-if="helperText" :id="`${id}-helper`" class="helper-text">
-        {{ helperText }}
+    <div v-if="props.label || props.helperText" class="content">
+      <div class="label">{{ props.label }}</div>
+      <div v-if="props.helperText" :id="`${id}-helper`" class="helper-text">
+        {{ props.helperText }}
       </div>
     </div>
   </button>
@@ -113,12 +88,19 @@ const handleClick = () => {
 
 <style scoped>
 .checkbox {
+  --bg-initial: var(--kds-color-background-input-initial);
+  --bg-hover: var(--kds-color-background-input-hover);
+  --bg-active: var(--kds-color-background-input-active);
+  --border: var(--kds-border-action-input);
+  --icon-color: var(--kds-color-text-and-icon-selected);
+  --text-color: var(--kds-color-text-and-icon-neutral);
+  --helper-text-color: var(--kds-color-text-and-icon-muted);
+
   display: flex;
   gap: var(--kds-spacing-container-0-5x);
   align-items: flex-start;
   padding: 0;
   margin: 0;
-  color: var(--kds-color-text-and-icon-selected);
   text-align: left;
   cursor: pointer;
   background: none;
@@ -132,17 +114,10 @@ const handleClick = () => {
     justify-content: center;
     width: 14px;
     height: 14px;
-    background: var(--kds-color-background-input-initial);
-    border: var(--kds-border-action-input);
+    color: var(--icon-color);
+    background: var(--bg-initial);
+    border: var(--border);
     border-radius: var(--kds-border-radius-container-0-25x);
-  }
-
-  &:hover:not(.disabled) .control {
-    background: var(--kds-color-background-input-hover);
-  }
-
-  &:active:not(.disabled) .control {
-    background: var(--kds-color-background-input-active);
   }
 
   &:focus-visible {
@@ -154,34 +129,24 @@ const handleClick = () => {
     }
   }
 
+  &:hover:not(.disabled) .control {
+    background: var(--bg-hover);
+  }
+
+  &:active:not(.disabled) .control {
+    background: var(--bg-active);
+  }
+
   &.indeterminate {
-    & .control {
-      background: var(--kds-color-background-neutral-initial);
-      border: var(--kds-border-action-selected);
-    }
-
-    &:hover:not(.disabled) .control {
-      background: var(--kds-color-background-input-hover);
-    }
-
-    &:active:not(.disabled) .control {
-      background: var(--kds-color-background-input-active);
-    }
+    --bg-initial: var(--kds-color-background-neutral-initial);
+    --border: var(--kds-border-action-selected);
   }
 
   &.checked {
-    & .control {
-      background: var(--kds-color-background-selected-initial);
-      border: var(--kds-border-action-selected);
-    }
-
-    &:hover:not(.disabled) .control {
-      background: var(--kds-color-background-selected-hover);
-    }
-
-    &:active:not(.disabled) .control {
-      background: var(--kds-color-background-selected-active);
-    }
+    --bg-initial: var(--kds-color-background-selected-initial);
+    --bg-hover: var(--kds-color-background-selected-hover);
+    --bg-active: var(--kds-color-background-selected-active);
+    --border: var(--kds-border-action-selected);
   }
 
   & .content {
@@ -193,52 +158,33 @@ const handleClick = () => {
     & .label {
       padding-top: var(--kds-spacing-container-0-12x);
       font: var(--kds-font-base-interactive-small);
-      color: var(--kds-color-text-and-icon-neutral);
+      color: var(--text-color);
     }
 
     & .helper-text {
       font: var(--kds-font-base-subtext-small);
-      color: var(--kds-color-text-and-icon-muted);
+      color: var(--helper-text-color);
     }
   }
 
   &.disabled {
-    color: var(--kds-color-text-and-icon-disabled);
+    --border: var(--kds-border-action-disabled);
+    --icon-color: var(--kds-color-text-and-icon-disabled);
+    --text-color: var(--kds-color-text-and-icon-disabled);
+    --helper-text-color: var(--kds-color-text-and-icon-disabled);
+
     cursor: not-allowed;
-
-    & .control {
-      border: var(--kds-border-action-disabled);
-    }
-
-    &.checked .control {
-      border: var(--kds-border-action-disabled);
-    }
 
     & .content {
       text-rendering: auto;
-
-      & .label,
-      & .helper-text {
-        color: inherit;
-      }
     }
   }
 
   &.error {
-    color: var(--kds-color-text-and-icon-danger);
-
-    & .control {
-      border: var(--kds-border-action-error);
-    }
-
-    &.checked .control {
-      border: var(--kds-border-action-error);
-    }
-
-    & .content .label,
-    & .content .helper-text {
-      color: inherit;
-    }
+    --border: var(--kds-border-action-error);
+    --icon-color: var(--kds-color-text-and-icon-danger);
+    --text-color: var(--kds-color-text-and-icon-danger);
+    --helper-text-color: var(--kds-color-text-and-icon-danger);
   }
 }
 </style>

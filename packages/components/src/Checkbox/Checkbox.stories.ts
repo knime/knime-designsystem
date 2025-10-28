@@ -1,4 +1,6 @@
+import type { FunctionalComponent } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { fn } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
@@ -12,7 +14,8 @@ type Story = StoryObj<typeof Checkbox>;
 
 const meta: Meta<typeof Checkbox> = {
   title: "Components/Checkbox",
-  component: Checkbox,
+  component: Checkbox as FunctionalComponent, // only because of the generic typing of Checkbox
+  tags: ["autodocs"],
   argTypes: {
     modelValue: {
       control: { type: "select" },
@@ -30,6 +33,9 @@ const meta: Meta<typeof Checkbox> = {
     helperText: {
       control: { type: "text" },
     },
+  },
+  args: {
+    "onUpdate:modelValue": fn(),
   },
   parameters: {
     docs: {
