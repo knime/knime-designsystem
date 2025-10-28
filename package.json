@@ -26,7 +26,8 @@
     "audit": "pnpm audit --prod",
     "prepare": "husky",
     "license-check": "license-check -c",
-    "postinstall": "run-p license-check build:styles"
+    "postinstall": "run-p license-check build:styles",
+    "type-check": "vue-tsc --build"
   },
   "devDependencies": {
     "@changesets/cli": "2.29.7",
@@ -42,7 +43,12 @@
     "npm-run-all": "catalog:",
     "prettier": "catalog:",
     "stylelint": "catalog:",
-    "vitest": "catalog:vitest"
+    "vitest": "catalog:vitest",
+    "vue-tsc": "catalog:",
+    "@types/node": "catalog:",
+    "@vue/tsconfig": "catalog:",
+    "jsdom": "catalog:",
+    "@types/jsdom": "catalog:"
   },
   "engines": {
     "node": "24.10.0",

@@ -38,8 +38,8 @@ jobs:
           exitOnceUploaded: true
           autoAcceptChanges: true
 
-      #      - name: Type check
-      #        run: pnpm run type-check
+      - name: Type check
+        run: pnpm run type-check
 
       - name: Run coverage
         run: pnpm run coverage

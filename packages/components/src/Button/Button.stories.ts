@@ -44,10 +44,6 @@ const meta: Meta<typeof Button> = {
       control: { type: "select" },
       options: [undefined, ...iconNames],
     },
-    icon: {
-      control: { type: "select" },
-      options: [undefined, ...iconNames],
-    },
   },
   args: {
     onClick: fn(),
@@ -120,7 +116,7 @@ export const LeadingAndTrailingIcon: Story = {
 export const IconOnly: Story = {
   args: {
     variant: "outlined",
-    icon: "ai-general",
+    leadingIcon: "ai-general",
   },
 };
 
@@ -141,7 +137,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       variant: variants,
       disabled: [false, true],
       destructive: [false, true],
-      icon: ["ai-general"],
+      leadingIcon: ["ai-general"],
     },
   ],
 });
@@ -185,10 +181,10 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           },
       },
     },
-    icon: {
+    leadingIcon: {
       props: {
         variant: "outlined",
-        icon: "placeholder",
+        leadingIcon: "placeholder",
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-89762":
@@ -209,7 +205,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           },
       },
     },
-    leadingIcon: {
+    leadingIconWithLabel: {
       props: {
         label: "{Label}",
         variant: "outlined",
@@ -234,7 +230,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           },
       },
     },
-    trailingIcon: {
+    trailingIconWithLabel: {
       props: {
         label: "{Label}",
         variant: "outlined",

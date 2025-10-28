@@ -84,10 +84,6 @@ const meta: Meta<typeof LinkButton> = {
       control: { type: "select" },
       options: [undefined, ...iconNames],
     },
-    icon: {
-      control: { type: "select" },
-      options: [undefined, ...iconNames],
-    },
     to: {
       control: "text",
       description:

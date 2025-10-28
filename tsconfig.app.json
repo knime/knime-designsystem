@@ -1,0 +1,11 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": ["vite-env.d.ts", "packages/**/*.ts", "packages/**/*.vue"],
+  "exclude": ["**/__tests__/*", "documentation/**/*"],
+  "compilerOptions": {
+    "lib": ["ES2023", "DOM"],
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "baseUrl": ".",
+    "noEmit": true
+  }
+}
