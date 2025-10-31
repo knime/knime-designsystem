@@ -1,5 +1,11 @@
 # @knime/kds-styles
 
+## 0.0.11
+
+### Patch Changes
+
+- 9575244: KDS-577: Adding legacy theme to build
+
 ## 0.0.10
 
 ### Patch Changes
