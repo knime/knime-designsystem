@@ -1,5 +1,11 @@
 # @knime/kds-styles
 
+## 0.0.12
+
+### Patch Changes
+
+- 3c052ec: KDS-619: Change transparent token to also have a width
+
 ## 0.0.11
 
 ### Patch Changes
