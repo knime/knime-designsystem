@@ -79,7 +79,7 @@
           "$type": "border",
           "$value": {
             "color": "{kds.color.border.transparent}",
-            "width": "{kds.core.border-width.none}",
+            "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
           "$description": "Invisible outline that still occupies stroke space. Use to avoid layout-shift when a border appears on other states/variants of the same component.\n\n[Themable composite token referencing border tokens from the mode set]\n"
