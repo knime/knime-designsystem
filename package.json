@@ -54,7 +54,7 @@
     "node": "24.10.0",
     "npm": "please-use-pnpm"
   },
-  "packageManager": "pnpm@10.18.3",
+  "packageManager": "pnpm@10.20.0",
   "pnpm": {
     "overrides": {
       "esbuild@<=0.24.2": ">=0.25.0",

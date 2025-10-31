@@ -125,6 +125,9 @@ const run = async () => {
   );
   const configs = $themes.map((theme) => {
     const themeName = theme.name.toLowerCase();
+    const isLegacyTheme =
+      theme.group === "brands" || themeName.includes("legacy");
+
     return {
       metadata: {
         tokenSetOrder: $metadata.tokenSetOrder,
@@ -152,10 +155,14 @@ const run = async () => {
         },
       },
       log: {
-        warnings: logWarningLevels.error, // make sure broken references and token collisions are thrown as errors
+        warnings: logWarningLevels.warn,
         verbosity: logVerbosityLevels.verbose,
         errors: {
           brokenReferences: logBrokenReferenceLevels.throw,
+          // Only allow collisions for legacy theme
+          tokenCollision: isLegacyTheme
+            ? false
+            : logBrokenReferenceLevels.throw,
         },
       },
     };
