@@ -34,7 +34,7 @@ catalogs:
     "@storybook/addon-a11y": ^9.1.13
     "@storybook/addon-designs": ^10.0.2
     "@storybook/addon-docs": ^9.1.13
-    "@storybook/addon-links": ^9.1.13
+    "@storybook/addon-links": ^10.0.0
     "@storybook/addon-themes": ^9.1.13
     "@storybook/themes": ^9.1.6
     "@storybook/vue3-vite": ^9.1.13
