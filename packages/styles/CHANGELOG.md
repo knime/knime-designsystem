@@ -1,5 +1,11 @@
 # @knime/kds-styles
 
+## 0.0.13
+
+### Patch Changes
+
+- a277ce1: KDS-590: Add and update icons
+
 ## 0.0.12
 
 ### Patch Changes
