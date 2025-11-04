@@ -1,5 +1,6 @@
 import type { FunctionalComponent } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { useArgs } from "storybook/preview-api";
 import { fn } from "storybook/test";
 
 import {
@@ -37,6 +38,22 @@ const meta: Meta<typeof Checkbox> = {
   args: {
     "onUpdate:modelValue": fn(),
   },
+  decorators: [
+    (story) => {
+      const [currentArgs, updateArgs] = useArgs();
+      return {
+        components: { story },
+        setup() {
+          return {
+            args: currentArgs,
+            updateArgs,
+          };
+        },
+        template:
+          '<story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" />',
+      };
+    },
+  ],
   parameters: {
     docs: {
       description: {
