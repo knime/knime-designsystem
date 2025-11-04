@@ -1,5 +1,12 @@
 # @knime/kds-documentation
 
+## 0.0.13
+
+### Patch Changes
+
+- Updated dependencies [a277ce1]
+  - @knime/kds-styles@0.0.13
+
 ## 0.0.12
 
 ### Patch Changes
