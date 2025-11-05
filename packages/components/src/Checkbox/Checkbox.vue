@@ -69,7 +69,7 @@ const handleClick = () => {
       disabled: props.disabled,
       error: props.error,
     }"
-    :disabled="disabled"
+    :disabled="props.disabled"
     :aria-checked="ariaChecked"
     :aria-describedby="props.helperText ? `${id}-helper` : undefined"
     :aria-invalid="props.error"
