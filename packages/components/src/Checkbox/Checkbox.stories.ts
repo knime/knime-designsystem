@@ -145,104 +145,82 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     Default: {
       props: {
         label: "Label",
+        modelValue: false,
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51009":
-          {
-            modelValue: false,
-          },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51216":
-          {
-            modelValue: "indeterminate",
-          },
+          {},
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51255":
           {
-            modelValue: false,
+            disabled: true,
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51573":
+          {
+            helperText: "Helper text",
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51588":
+          {
+            helperText: "Helper text",
             disabled: true,
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51627":
           {
-            modelValue: false,
             error: true,
             helperText: "Error message",
           },
       },
     },
-    Selected: {
+    Checked: {
       props: {
         label: "Label",
+        modelValue: true,
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51100":
-          {
-            modelValue: true,
-          },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51233":
-          {
-            modelValue: "indeterminate",
-          },
+          {},
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51273":
           {
-            modelValue: true,
+            disabled: true,
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9186-197571":
+          {
+            helperText: "Helper text",
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9186-199107":
+          {
+            helperText: "Helper text",
             disabled: true,
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51641":
           {
-            modelValue: true,
             error: true,
             helperText: "Error message",
           },
       },
     },
-    "Default + Helper Text": {
+    Indeterminate: {
       props: {
         label: "Label",
-        helperText: "Helper text",
+        modelValue: "indeterminate",
       },
       variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51573":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9175-170318":
+          {},
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9175-170321":
           {
-            modelValue: false,
-          },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51585":
-          {
-            modelValue: "indeterminate",
-          },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51588":
-          {
-            modelValue: false,
             disabled: true,
           },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51659":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9186-200078":
           {
-            modelValue: false,
-            error: true,
-            helperText: "Error message",
+            helperText: "Helper text",
           },
-      },
-    },
-    "Selected + Helper Text": {
-      props: {
-        label: "Label",
-        helperText: "Helper text",
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51341":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9186-200090":
           {
-            modelValue: true,
-          },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51350":
-          {
-            modelValue: "indeterminate",
-          },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51353":
-          {
-            modelValue: true,
+            helperText: "Helper text",
             disabled: true,
           },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51668":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9175-181407":
           {
-            modelValue: true,
             error: true,
             helperText: "Error message",
           },

@@ -174,10 +174,6 @@ const handleClick = () => {
     --helper-text-color: var(--kds-color-text-and-icon-disabled);
 
     cursor: not-allowed;
-
-    & .content {
-      text-rendering: auto;
-    }
   }
 
   &.error {
