@@ -116,8 +116,8 @@ const handleClick = () => {
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    width: 14px;
-    height: 14px;
+    width: var(--kds-dimension-component-height-0-88x);
+    height: var(--kds-dimension-component-height-0-88x);
     color: var(--icon-color);
     background: var(--bg-initial);
     border: var(--border);
