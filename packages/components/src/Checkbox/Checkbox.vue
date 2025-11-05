@@ -156,7 +156,7 @@ const handleClick = () => {
     text-rendering: geometricprecision;
 
     & .label {
-      padding-top: var(--kds-spacing-container-0-12x);
+      padding-top: var(--kds-spacing-container-0-10x);
       font: var(--kds-font-base-interactive-small);
       color: var(--text-color);
     }
@@ -185,6 +185,12 @@ const handleClick = () => {
     --icon-color: var(--kds-color-text-and-icon-danger);
     --text-color: var(--kds-color-text-and-icon-danger);
     --helper-text-color: var(--kds-color-text-and-icon-danger);
+    --bg-hover: var(--kds-color-background-danger-hover);
+    --bg-active: var(--kds-color-background-danger-active);
+
+    &.checked {
+      --bg-initial: var(--kds-color-background-danger-initial);
+    }
   }
 }
 </style>
