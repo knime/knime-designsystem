@@ -34,6 +34,9 @@ const meta: Meta<typeof Checkbox> = {
     helperText: {
       control: { type: "text" },
     },
+    title: {
+      control: { type: "text" },
+    },
   },
   args: {
     "onUpdate:modelValue": fn(),

@@ -11,6 +11,10 @@ type BaseProps = {
    * Whether the checkbox is in an error state
    */
   error?: boolean;
+  /**
+   * Title text shown on hover
+   */
+  title?: string;
 };
 
 type WithoutLabelAndHelperText = BaseProps & {

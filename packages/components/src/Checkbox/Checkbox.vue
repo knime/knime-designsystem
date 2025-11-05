@@ -24,6 +24,15 @@ const id = useId();
 
 const isChecked = computed(() => props.modelValue === true);
 const isIndeterminate = computed(() => props.modelValue === "indeterminate");
+const icon = computed(() => {
+  if (isChecked.value) {
+    return "checkmark";
+  }
+  if (isIndeterminate.value) {
+    return "minus";
+  }
+  return null;
+});
 
 const ariaChecked = computed(() => {
   if (isIndeterminate.value) {
@@ -64,18 +73,13 @@ const handleClick = () => {
     :aria-checked="ariaChecked"
     :aria-describedby="props.helperText ? `${id}-helper` : undefined"
     :aria-invalid="props.error"
+    :title="props.title"
     type="button"
     role="checkbox"
     @click="handleClick"
   >
     <div class="control">
-      <Icon v-if="isChecked" name="checkmark" class="icon" size="xsmall" />
-      <Icon
-        v-else-if="isIndeterminate"
-        name="minus"
-        class="icon"
-        size="xsmall"
-      />
+      <Icon v-if="icon" :name="icon" class="icon" size="xsmall" />
     </div>
     <div v-if="props.label || props.helperText" class="content">
       <div class="label">{{ props.label }}</div>
@@ -137,12 +141,8 @@ const handleClick = () => {
     background: var(--bg-active);
   }
 
+  &.checked,
   &.indeterminate {
-    --bg-initial: var(--kds-color-background-neutral-initial);
-    --border: var(--kds-border-action-selected);
-  }
-
-  &.checked {
     --bg-initial: var(--kds-color-background-selected-initial);
     --bg-hover: var(--kds-color-background-selected-hover);
     --bg-active: var(--kds-color-background-selected-active);
@@ -188,7 +188,8 @@ const handleClick = () => {
     --bg-hover: var(--kds-color-background-danger-hover);
     --bg-active: var(--kds-color-background-danger-active);
 
-    &.checked {
+    &.checked,
+    &.indeterminate {
       --bg-initial: var(--kds-color-background-danger-initial);
     }
   }
