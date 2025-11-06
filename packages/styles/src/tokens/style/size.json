@@ -90,6 +90,13 @@
           "$type": "spacing",
           "$value": "AUTO"
         }
+      },
+      "offset": {
+        "focus": {
+          "$type": "spacing",
+          "$value": "{kds.core.size.scale} * 0.0625",
+          "$description": "Only used by devs to set offset for focus border. Figma does not support offset."
+        }
       }
     },
     "dimension": {
