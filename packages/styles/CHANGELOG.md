@@ -1,5 +1,11 @@
 # @knime/kds-styles
 
+## 0.0.14
+
+### Patch Changes
+
+- 8469844: added disabled.primary, disabled.danger to legacy theme
+
 ## 0.0.13
 
 ### Patch Changes
