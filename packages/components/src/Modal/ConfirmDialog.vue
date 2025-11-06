@@ -2,6 +2,7 @@
 import { nextTick, ref, unref, useTemplateRef, watch } from "vue";
 
 import Button from "../Button/Button.vue";
+import Checkbox from "../Checkbox/Checkbox.vue";
 
 import BaseModal from "./BaseModal.vue";
 import {
@@ -53,7 +54,7 @@ watch(isActive, async (active) => {
     :implicit-dismiss="config?.implicitDismiss"
     class="confirm-dialog"
     :icon="config?.titleIcon"
-    @cancel="onCancel"
+    @close="onCancel"
   >
     <template #default>
       <component
@@ -61,13 +62,13 @@ watch(isActive, async (active) => {
         v-if="config && isComponentBasedConfig(config)"
       />
       <div v-else class="confirmation">
-        <!-- eslint-disable-next-line vue/no-v-html -->
-        <div class="message" v-html="config?.message" />
+        <div class="message">{{ config?.message }}</div>
         <div v-if="config?.doNotAskAgainText" class="ask-again">
-          <!-- TODO  <Checkbox v-model="askAgain"> -->
-          <!-- eslint-disable-next-line vue/no-v-html -->
-          <!--<span v-html="config.doNotAskAgainText" /> -->
-          <!-- </Checkbox>-->
+          <Checkbox
+            v-model="askAgain"
+            :label="config.doNotAskAgainText"
+            :helper-text="config.doNotAskAgainHelperText"
+          />
         </div>
       </div>
     </template>
@@ -78,10 +79,22 @@ watch(isActive, async (active) => {
         ref="buttons"
         :key="index"
         size="large"
-        :data-test-id="`${button.type}-button`"
+        :class="`button-${button.type}`"
+        :data-test-id="`${button.type}-button-${index}`"
         :label="button.label"
         :variant="button.variant"
         @click="handleButtonClick(button)"
     /></template>
   </BaseModal>
 </template>
+
+<style scoped>
+.button-confirm,
+.button-cancel {
+  margin-left: initial;
+}
+
+:nth-child(1 of .button-confirm) {
+  margin-left: auto;
+}
+</style>

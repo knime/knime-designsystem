@@ -1,4 +1,4 @@
-<script setup lang="ts" generic="UNUSED">
+<script setup lang="ts">
 import { type Component, computed } from "vue";
 
 import KdsIcon from "../Icon/KdsIcon.vue";

@@ -3,7 +3,10 @@ import { fn } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
+import Button from "../Button/Button.vue";
+
 import BaseModal from "./BaseModal.vue";
+import { closedByOptions } from "./types";
 
 const meta: Meta<typeof BaseModal> = {
   title: "Components/Modal/BaseModal",
@@ -20,10 +23,13 @@ const meta: Meta<typeof BaseModal> = {
       control: { type: "select" },
       options: [undefined, ...iconNames],
     },
+    closedby: {
+      control: { type: "select" },
+      options: closedByOptions,
+    },
   },
   args: {
-    onCancel: fn(),
-    onConfirm: fn(),
+    onClose: fn(),
   },
 };
 export default meta;
@@ -31,9 +37,82 @@ export default meta;
 type Story = StoryObj<typeof BaseModal>;
 
 export const BaseModalStory: Story = {
+  render: (args) => ({
+    components: { BaseModal, Button },
+    setup() {
+      return {
+        args,
+      };
+    },
+    template: `
+    <Button
+      label="Show modal"
+      size="large"
+      variant="filled"
+      @click="args.active = true"
+    />
+    <BaseModal v-bind="args" @close="args.active = false">
+      <template #footer>
+      <Button
+          label="Cancel"
+          size="large"
+          variant="outlined"
+          @click="args.active = false"
+        />
+        <Button
+          label="Confirm"
+          size="large"
+          variant="filled"
+          @click="args.active = false"
+        />
+      </template>
+    </BaseModal>
+  `,
+  }),
+  args: {
+    icon: "trash",
+    title: "Delete all",
+    message: "Do you really want to delete everything?",
+  },
+};
+
+export const VeryLongTextModalLightDismissible: Story = {
+  render: (args) => ({
+    components: { BaseModal, Button },
+    setup() {
+      return {
+        args,
+      };
+    },
+    template: `
+    <Button
+      label="Show Info"
+      size="large"
+      variant="filled"
+      @click="args.active = true"
+    />
+    <BaseModal v-bind="args" @close="args.active = false">
+      <template #footer>
+      <Button
+          label="Ok"
+          size="large"
+          style="margin-left: auto"
+          variant="filled"
+          @click="args.active = false"
+        />
+      </template>
+    </BaseModal>
+  `,
+    parameters: {
+      layout: "full", // 'fullscreen' also works
+      previewHeight: 600, // height in pixels (custom parameter for addon or canvas style)
+    },
+  }),
   args: {
     icon: "info",
-    title: "Are you sure?",
-    content: "Do you really want to delete everything?",
+    title: "Please read carefully",
+    closedby: "any",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   },
 };
