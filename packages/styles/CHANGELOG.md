@@ -1,5 +1,11 @@
 # @knime/kds-styles
 
+## 0.0.15
+
+### Patch Changes
+
+- 6273d5e: added kds.spacing.offset.focus token
+
 ## 0.0.14
 
 ### Patch Changes
