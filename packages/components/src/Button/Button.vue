@@ -2,7 +2,7 @@
 import BaseButton from "./BaseButton.vue";
 import type { BaseButtonProps } from "./types";
 
-export type ButtonProps = BaseButtonProps & {}; // intersection needed for Storybook to work
+export type ButtonProps = BaseButtonProps;
 const props = defineProps<ButtonProps>();
 
 const emit = defineEmits<{
