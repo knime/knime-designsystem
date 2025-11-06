@@ -368,6 +368,13 @@
             "$value": "{kds.core.color.neutral.400}",
             "$description": "Disabled background for bold danger backgrounds\nUSED IN: Filled Button and other very prominent bold danger components when disabled."
           }
+        },
+        "success-bold": {
+          "initial": {
+            "$type": "color",
+            "$value": "{kds.core.color.green.725}",
+            "$description": "More prominent red background for most prominent, error or destructive states.\nUSED IN: Destructive Button"
+          }
         }
       },
       "purpose": {
