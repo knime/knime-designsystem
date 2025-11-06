@@ -93,7 +93,7 @@ html.kds-legacy {
 
   &:focus-visible {
     outline: var(--kds-border-action-focused);
-    outline-offset: var(--kds-focus-outline-offset);
+    outline-offset: var(--kds-spacing-offset-focus);
   }
 
   &.filled {

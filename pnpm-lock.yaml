@@ -307,6 +307,9 @@ importers:
       vue:
         specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
+      vue-tsc:
+        specifier: 'catalog:'
+        version: 3.0.5(typescript@5.9.3)
 
   packages/styles:
     dependencies:
@@ -7012,9 +7015,9 @@ snapshots:
   '@vue/language-core@2.2.2(typescript@5.9.3)':
     dependencies:
       '@volar/language-core': 2.4.22
-      '@vue/compiler-dom': 3.5.18
+      '@vue/compiler-dom': 3.5.22
       '@vue/compiler-vue2': 2.7.16
-      '@vue/shared': 3.5.18
+      '@vue/shared': 3.5.22
       alien-signals: 1.0.3
       minimatch: 9.0.5
       muggle-string: 0.4.1
@@ -7025,9 +7028,9 @@ snapshots:
   '@vue/language-core@3.0.5(typescript@5.9.3)':
     dependencies:
       '@volar/language-core': 2.4.22
-      '@vue/compiler-dom': 3.5.18
+      '@vue/compiler-dom': 3.5.22
       '@vue/compiler-vue2': 2.7.16
-      '@vue/shared': 3.5.18
+      '@vue/shared': 3.5.22
       alien-signals: 2.0.6
       muggle-string: 0.4.1
       path-browserify: 1.0.1
