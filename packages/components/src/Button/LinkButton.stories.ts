@@ -6,8 +6,8 @@ import { iconNames } from "@knime/kds-styles/img/icons/def";
 
 import { sizes } from "../constants";
 
-import { variants } from "./BaseButton.vue";
 import LinkButton from "./LinkButton.vue";
+import { buttonVariants } from "./constants";
 
 const vueExampleCode = `
 // RouterLinkButton.vue
@@ -71,7 +71,7 @@ const meta: Meta<typeof LinkButton> = {
     },
     variant: {
       control: { type: "select" },
-      options: variants,
+      options: buttonVariants,
     },
     destructive: { control: "boolean" },
     disabled: { control: "boolean" },

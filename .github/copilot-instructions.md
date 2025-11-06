@@ -8,7 +8,9 @@ The KNIME Design System is a Vue3 TypeScript monorepo providing design tokens, i
 2. **Build**: `pnpm build` (takes ~3s)
 3. **Development**: `pnpm dev --no-open` (starts Storybook at http://localhost:6006, takes ~200ms)
 4. **Testing**: `pnpm test:unit` (press 'q' to quit watch mode)
-5. **Linting**: `pnpm lint` (runs ESLint + Stylelint with --fix, may show warnings about TODO comments and prop defaults)
+5. **Linting**: `pnpm lint` (runs ESLint + Stylelint with --fix, may show warnings about TODO comments)
+6. **Linting JS**: `pnpm lint:js --fix` (runs only ESLint with --fix)
+7. **Linting CSS**: `pnpm lint:css --fix` (runs only Stylelint with --fix)
 
 **Common Build Issues & Solutions:**
 
@@ -50,6 +52,7 @@ packages/
 - Use Composition API with `<script setup lang="ts">`
 - Type all props with `defineProps<T>()` or `withDefaults(defineProps<T>(), {})`
 - Type all emits with `defineEmits<T>()`
+- Use `type` instead of `interface`
 - Use `<style scoped>`
 - IMPORTANT: Don't use BEM! Use CSS nesting to NOT duplicate selectors.
 - Style ONLY with CSS custom properties from design tokens - never hardcode colors/spacing/typography!

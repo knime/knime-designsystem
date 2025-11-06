@@ -1,8 +1,3 @@
-<script lang="ts">
-export const variants = ["filled", "outlined", "transparent"] as const;
-export type Variant = (typeof variants)[number];
-</script>
-
 <script setup lang="ts" generic="UNUSED">
 import { type Component, computed } from "vue";
 
