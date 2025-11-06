@@ -1,6 +1,7 @@
 import type { IconName } from "../Icon/types";
 
 export const closedByOptions = ["any", "closerequest", "none"] as const;
+export type ClosedByOptionsType = (typeof closedByOptions)[number];
 
 export type BaseModalProps = {
   icon?: IconName;
@@ -9,5 +10,5 @@ export type BaseModalProps = {
   /** Wether the dialog is visible or not */
   active?: boolean;
   /** https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog#closedby */
-  closedby?: (typeof closedByOptions)[number];
+  closedby?: ClosedByOptionsType;
 };

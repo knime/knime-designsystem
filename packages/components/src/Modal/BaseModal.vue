@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useTemplateRef, watch } from "vue";
+import { nextTick, useTemplateRef, watch } from "vue";
 
 import Button from "../Button/Button.vue";
 import Icon from "../Icon/Icon.vue";
@@ -26,8 +26,9 @@ const onClose = (e: Event) => {
 
 watch(
   () => props.active,
-  (active) => {
+  async (active) => {
     if (active) {
+      await nextTick();
       dialogElement.value?.showModal();
     } else {
       dialogElement.value?.close();
@@ -62,7 +63,8 @@ watch(
     </div>
 
     <footer class="modal-footer">
-      <slot name="footer" />
+      <div class="footer-start"><slot name="footerStart" /></div>
+      <div class="footer-end"><slot name="footerEnd" /></div>
     </footer>
   </dialog>
 </template>
@@ -95,7 +97,7 @@ body:has(dialog.modal[open]) {
 }
 
 .modal::backdrop {
-  background-color: var(--kds-color-blanket-default);
+  background: var(--kds-color-blanket-default);
 }
 
 .modal-header {
@@ -123,18 +125,18 @@ body:has(dialog.modal[open]) {
 }
 
 .modal-footer {
-  display: flex;
+  display: grid;
   flex-shrink: 0; /* prevent shrinking - required for scrolling the body */
+  grid-auto-flow: column;
   gap: var(--kds-spacing-container-0-25x);
   justify-content: space-between;
   padding: 0 var(--kds-spacing-container-1-5x) var(--kds-spacing-container-1-5x)
     var(--kds-spacing-container-1-5x);
 
-  /* show one button on the left all the others on the right */
-
-  /* use margin as its easy to customize if needed */
-  & :nth-child(2) {
-    margin-left: auto;
+  & .footer-end,
+  & .footer-start {
+    display: flex;
+    gap: var(--kds-spacing-container-0-25x);
   }
 }
 </style>

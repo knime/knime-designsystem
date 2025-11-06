@@ -3,21 +3,19 @@ import type { IconName } from "packages/styles/dist/img/icons/def";
 
 import { promise as PromiseUtils } from "@knime/utils";
 
-import type { ButtonVariant } from "../Button/types";
+import type { ButtonProps } from "../Button/types";
 
-type ConfirmationButton = {
+import type { ClosedByOptionsType } from "./types";
+
+export type ConfirmationButton = ButtonProps & {
   type: "confirm";
-  label: string;
-  variant?: ButtonVariant;
-  destructive?: boolean;
+  autofocus?: boolean;
   customHandler?: (actions: { confirm: () => void }) => void;
 };
 
-type CancellationButton = {
+export type CancellationButton = ButtonProps & {
   type: "cancel";
-  label: string;
-  variant?: ButtonVariant;
-  destructive?: boolean;
+  autofocus?: boolean;
   customHandler?: (actions: { cancel: () => void }) => void;
 };
 
@@ -28,25 +26,30 @@ type CommonConfig = {
    * Dialog title
    */
   title: string;
+
   /**
    * Icon shown in the title bar of the dialog. Defaults to no icon used
    */
-  titleIcon?: IconName;
-  /**
-   * Whether pressing the "Esc" key dismisses the dialog. Defaults to (false)
-   */
-  implicitDismiss?: boolean;
-  /**
-   * A list of buttons to control the dialog. Buttons belong to 2 categories:
-   * - confirmation -> positive result out from the dialog
-   * - cancellation -> negative result out from the dialog
-   */
-  buttons?: Array<ConfirmDialogButton>;
+  icon?: IconName;
 
   /**
-   * Index of the button that should have focus after the dialog is shown.
+   * If the dialog gets closed by user actions:
+   *   closerequest: pressing the "Esc" key (or equivalent on mobile) dismisses the dialog.
+   *   any: the above and also clicking outside of the dialog
+   *
+   * Defaults to 'closerequest'
    */
-  focusButton?: number;
+  closedby?: ClosedByOptionsType;
+
+  /**
+   * Confirmation buttons if omitted a default one is set
+   */
+  confirmButtons?: Array<ConfirmationButton>;
+
+  /**
+   * Cancel buttons if omitted a default one is set
+   */
+  cancelButtons?: Array<CancellationButton>;
 };
 
 export type PropertyBasedConfig = CommonConfig & {
@@ -55,17 +58,21 @@ export type PropertyBasedConfig = CommonConfig & {
    */
   message: string;
   /**
-   * The text to be rendered for the "do not ask again" checkbox option. The checkbox
-   * will only be present when a text is supplied. The value will be returned on the dialog result.
-   * Defaults to empty string
+   * The label and helperText to be rendered for the "do not ask again" checkbox option.
+   * The title will be shown as tooltip on hover. The checkbox will only be present when
+   * an object is supplied. The value will be returned on the dialog result.
+   * Defaults to empty undefined.
    */
-  doNotAskAgainText?: string;
-  doNotAskAgainHelperText?: string;
+  doNotAskAgain?: {
+    label: string;
+    title?: string;
+    helperText?: string;
+  };
 };
 
 export type ComponentBasedConfig = CommonConfig & {
   /**
-   * A component (supplied as Vue vnode instance) to be used as the template
+   * A component (supplied as Vue VNode instance) to be used as the template
    * for the dialog body
    */
   component: VNode;
@@ -73,13 +80,19 @@ export type ComponentBasedConfig = CommonConfig & {
 
 type ModalConfig = PropertyBasedConfig | ComponentBasedConfig;
 
-export const defaultButtons = (
-  confirmLabel: string = "Yes",
-  cancelLabel: string = "No",
-): [ConfirmDialogButton, ConfirmDialogButton] => [
-  { type: "cancel", label: cancelLabel, variant: "outlined" },
-  { type: "confirm", label: confirmLabel, variant: "filled" },
-];
+export const cancelButton = (label: string = "Cancel"): CancellationButton => ({
+  type: "cancel",
+  label,
+  variant: "outlined",
+});
+
+export const confirmButton = (
+  label: string = "Confirm",
+): ConfirmationButton => ({
+  type: "confirm",
+  label,
+  variant: "filled",
+});
 
 type ConfirmResult = { confirmed: boolean; doNotAskAgain?: boolean };
 
@@ -104,8 +117,8 @@ export const useConfirmDialog = () => {
 
   function show(config: ModalConfig): Promise<ConfirmResult> {
     activeModalConfig.value = {
-      buttons: defaultButtons(),
-      focusButton: 0, // focus cancel by default
+      confirmButtons: [confirmButton()],
+      cancelButtons: [cancelButton()],
       ...config,
     };
     isActive.value = true;
