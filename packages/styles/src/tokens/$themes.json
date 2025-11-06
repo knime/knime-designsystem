@@ -49,6 +49,7 @@
       "core/size": "source",
       "components/global": "enabled"
     },
-    "group": "brands"
+    "group": "brands",
+    "$figmaVariableReferences": {}
   }
 ]
