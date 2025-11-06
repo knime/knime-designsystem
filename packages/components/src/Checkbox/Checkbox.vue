@@ -46,15 +46,9 @@ const handleClick = () => {
     return;
   }
 
-  let newValue: CheckboxModelValue;
-
-  if (isIndeterminate.value) {
-    newValue = false;
-  } else if (isChecked.value) {
-    newValue = false;
-  } else {
-    newValue = true;
-  }
+  const newValue: CheckboxModelValue = isIndeterminate.value
+    ? true
+    : !isChecked.value;
 
   emit("update:modelValue", newValue);
 };
