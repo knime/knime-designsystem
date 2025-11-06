@@ -243,148 +243,6 @@
             "$description": "Darker red background on pressed for most prominent, error callouts or destructive buttons.\nUSED IN: Destructive Button"
           }
         },
-        "warning": {
-          "initial": {
-            "$type": "color",
-            "$value": "{kds.core.color.orange.50}",
-            "$description": "Light orange background for warning states. USED IN: Inline Message"
-          },
-          "hover": {
-            "$type": "color",
-            "$value": "{kds.core.color.orange.50}",
-            "$description": "Darker orange background on hover for warning states.\nUSED IN: Inline Message\n"
-          }
-        },
-        "warning-bold": {
-          "initial": {
-            "$type": "color",
-            "$value": "{kds.core.color.orange.550}",
-            "$description": "More prominent orange background for most prominent, warning states."
-          },
-          "hover": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "darken",
-                  "value": "0.16",
-                  "space": "lch"
-                }
-              }
-            },
-            "$type": "color",
-            "$value": "{kds.color.background.warning-bold.initial}",
-            "$description": "Darker orange background on hover for most prominent, warning states.\nUSED IN: –"
-          }
-        },
-        "success": {
-          "initial": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "lighten",
-                  "value": "0.6",
-                  "space": "lch"
-                }
-              }
-            },
-            "$type": "color",
-            "$value": "{kds.core.color.green.50}",
-            "$description": "Light green background for success states. USED IN: Inline Message"
-          },
-          "hover": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "darken",
-                  "value": "0.04",
-                  "space": "lch"
-                }
-              }
-            },
-            "$type": "color",
-            "$value": "{kds.color.background.success.initial}",
-            "$description": "Darker green background on hover for success states.\nUSED IN: Inline Message\n"
-          }
-        },
-        "success-bold": {
-          "initial": {
-            "$type": "color",
-            "$value": "{kds.core.color.green.550}",
-            "$description": "More prominent green background for most prominent, success states."
-          },
-          "hover": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "darken",
-                  "value": "0.16",
-                  "space": "lch"
-                }
-              }
-            },
-            "$type": "color",
-            "$value": "{kds.color.background.success-bold.initial}",
-            "$description": "Darker green background on hover for most prominent, success states.\nUSED IN: –\n"
-          }
-        },
-        "info": {
-          "initial": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "lighten",
-                  "value": "0.6",
-                  "space": "lch"
-                }
-              }
-            },
-            "$type": "color",
-            "$value": "{kds.core.color.blue.100}",
-            "$description": "More prominent blue background for most prominent, informational messages.\nUSED IN: –"
-          },
-          "hover": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "darken",
-                  "value": "0.04",
-                  "space": "lch"
-                }
-              }
-            },
-            "$type": "color",
-            "$value": "{kds.color.background.info.initial}",
-            "$description": "Darker blue background on hover for informational messages.\nUSED IN: Inline Message"
-          }
-        },
-        "info-bold": {
-          "initial": {
-            "$type": "color",
-            "$value": "{kds.core.color.blue.550}",
-            "$description": "More prominent blue background for most prominent, informational messages.\nUSED IN: –"
-          },
-          "hover": {
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "darken",
-                  "value": "0.16",
-                  "space": "lch"
-                }
-              }
-            },
-            "$type": "color",
-            "$value": "{kds.color.background.info-bold.initial}",
-            "$description": "Darker blue background on hover for most prominent, informational messages.\nUSED IN: –\n"
-          }
-        },
-        "brand": {
-          "initial": {
-            "$type": "color",
-            "$value": "{kds.core.color.yellow.250}",
-            "$description": "Vibrant brand yellow background for branding elements. USED IN: DesktopHeader-Tab"
-          }
-        },
         "input": {
           "initial": {
             "$type": "color",
@@ -464,6 +322,99 @@
             "$type": "color",
             "$value": "{kds.core.color.neutral.400}",
             "$description": "Disabled background for bold danger backgrounds\nUSED IN: Filled Button and other very prominent bold danger components when disabled."
+          }
+        }
+      },
+      "purpose": {
+        "warning": {
+          "default": {
+            "$type": "color",
+            "$value": "{kds.core.color.orange.50}",
+            "$description": "Light orange background for warning states. \nUSED IN: Inline Message"
+          },
+          "muted": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.48",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.core.color.orange.50}",
+            "$description": "Darker orange background on opaque for most prominent, warning states.\nUSED IN: –"
+          }
+        },
+        "success": {
+          "default": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.24",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.core.color.green.50}",
+            "$description": "Light green background for success states. \nUSED IN: Inline Message"
+          },
+          "muted": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.24",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.core.color.green.25}",
+            "$description": "Darker green background on opaque for most prominent, success states.\nUSED IN: –"
+          }
+        },
+        "info": {
+          "default": {
+            "$type": "color",
+            "$value": "{kds.core.color.blue.50}",
+            "$description": "More prominent blue background for most prominent, informational messages.\nUSED IN: –"
+          },
+          "muted": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.24",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.core.color.blue.50}",
+            "$description": "Darker blue background on opaque for most prominent, informational messages.\nUSED IN: –\n"
+          }
+        },
+        "danger": {
+          "default": {
+            "$type": "color",
+            "$value": "{kds.core.color.red.100}",
+            "$description": "Very light red background for error or destructive states (red 100, lightened 60%).\n"
+          },
+          "bold": {
+            "$type": "color",
+            "$value": "{kds.core.color.red.50}",
+            "$description": "Darker red background on hover for error or destructive states.\nUSED IN: Inline Message\n"
+          }
+        },
+        "brand": {
+          "default": {
+            "$type": "color",
+            "$value": "{kds.core.color.yellow.250}",
+            "$description": "Vibrant brand yellow background for branding elements. USED IN: DesktopHeader-Tab"
           }
         }
       },
@@ -764,7 +715,7 @@
         },
         "manipulator": {
           "$type": "color",
-          "$value": "{kds.color.background.brand.initial}"
+          "$value": "{kds.color.purpose.brand.default}"
         },
         "predictor": {
           "$type": "color",
@@ -885,7 +836,7 @@
         },
         "manipulator": {
           "$type": "color",
-          "$value": "{kds.color.background.brand.initial}"
+          "$value": "{kds.color.purpose.brand.default}"
         },
         "source": {
           "$type": "color",
