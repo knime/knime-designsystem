@@ -1,42 +1,27 @@
-<script setup lang="ts" generic="UNUSED">
+<script setup lang="ts">
 import { useTemplateRef, watch } from "vue";
-
-import type { IconName } from "@knime/kds-styles/img/icons/def";
 
 import Button from "../Button/Button.vue";
 import Icon from "../Icon/Icon.vue";
 
-type BaseModalProps = {
-  icon?: IconName;
-  title?: string;
-  content?: string;
-  active?: boolean;
-  implicitDismiss?: boolean; // TODO: naming
-};
+import type { BaseModalProps } from "./types";
 
 const props = withDefaults(defineProps<BaseModalProps>(), {
   icon: undefined,
   title: "",
-  content: "",
+  message: "",
   active: false,
-  implicitDismiss: true,
+  closedby: "closerequest",
 });
 
 const emit = defineEmits<{
-  confirm: [event: Event];
-  cancel: [event: Event];
+  close: [event: Event];
 }>();
 
 const dialogElement = useTemplateRef("dialogElement");
 
 const onClose = (e: Event) => {
-  if (dialogElement.value?.open) {
-    dialogElement.value?.close();
-  }
-  emit("cancel", e);
-};
-const onConfirm = (e: MouseEvent) => {
-  emit("confirm", e);
+  emit("close", e);
 };
 
 watch(
@@ -55,8 +40,9 @@ watch(
   <dialog
     ref="dialogElement"
     class="modal"
+    :closedby="closedby"
     @close="onClose"
-    @cancel="!implicitDismiss && $event.preventDefault()"
+    @cancel.prevent="onClose"
   >
     <header class="modal-header">
       <Icon v-if="props.icon" :name="props.icon" size="medium" />
@@ -72,27 +58,20 @@ watch(
     </header>
 
     <div class="modal-body">
-      <slot>{{ content }}</slot>
+      <slot>{{ message }}</slot>
     </div>
 
     <footer class="modal-footer">
-      <slot name="footer">
-        <Button
-          label="Cancel"
-          size="large"
-          variant="outlined"
-          @click="onClose"
-        />
-        <Button
-          label="Confirm"
-          size="large"
-          variant="filled"
-          @click="onConfirm"
-        />
-      </slot>
+      <slot name="footer" />
     </footer>
   </dialog>
 </template>
+
+<style>
+body:has(dialog.modal[open]) {
+  overflow: hidden;
+}
+</style>
 
 <style scoped>
 .modal {
@@ -102,16 +81,20 @@ watch(
   height: var(--base-modal-height, fit-content);
   max-height: 95%;
   padding: 0;
+  overflow: hidden;
   font: var(--kds-font-base-body-medium);
   color: var(--kds-color-text-and-icon-neutral);
   background-color: var(--kds-color-surface-default);
   border: none;
   border-radius: var(--kds-border-radius-container-0-25x);
   box-shadow: var(--kds-elevation-level-3);
+
+  &:not([open]) {
+    display: none;
+  }
 }
 
 .modal::backdrop {
-  pointer-events: none;
   background-color: var(--kds-color-blanket-default);
 }
 
@@ -134,6 +117,7 @@ watch(
   padding: var(--kds-spacing-container-1x) var(--kds-spacing-container-1-5x)
     var(--kds-spacing-container-1-5x) var(--kds-spacing-container-1-5x);
   overflow-y: auto; /* scroll if needed */
+  overscroll-behavior: contain;
   font-size: var(--kds-core-font-size-1x);
   line-height: var(--kds-core-line-height-multiline-wide);
 }

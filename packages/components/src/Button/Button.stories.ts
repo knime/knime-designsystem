@@ -1,4 +1,3 @@
-import type { FunctionalComponent } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { fn } from "storybook/test";
 
@@ -16,7 +15,7 @@ import { buttonVariants } from "./constants";
 
 const meta: Meta<typeof Button> = {
   title: "Components/Buttons/Button",
-  component: Button as FunctionalComponent, // only because of the generic typing of Button
+  component: Button, // only because of the generic typing of Button
   tags: ["autodocs"],
   parameters: {
     design: {

@@ -45,7 +45,7 @@ const props = defineProps<NuxtLinkButtonProps>();
 
 const meta: Meta<typeof LinkButton> = {
   title: "Components/Buttons/LinkButton",
-  component: LinkButton as FunctionalComponent, // only because of the generic typing of LinkButton
+  component: LinkButton as unknown as FunctionalComponent, // only because of the generic typing of LinkButton
   tags: ["autodocs"],
   parameters: {
     docs: {

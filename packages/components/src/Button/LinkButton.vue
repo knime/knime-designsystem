@@ -1,4 +1,4 @@
-<script setup lang="ts" generic="UNUSED">
+<script setup lang="ts">
 import { computed } from "vue";
 
 import { resolveNuxtLinkComponent } from "../util/nuxtComponentResolver";
