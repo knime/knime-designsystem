@@ -1,5 +1,13 @@
 # @knime/kds-components
 
+## 0.0.14
+
+### Patch Changes
+
+- 515b814: Add Checkbox component
+- Updated dependencies [8469844]
+  - @knime/kds-styles@0.0.14
+
 ## 0.0.13
 
 ### Patch Changes
