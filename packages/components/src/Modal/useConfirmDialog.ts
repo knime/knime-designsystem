@@ -3,12 +3,12 @@ import type { IconName } from "packages/styles/dist/img/icons/def";
 
 import { promise as PromiseUtils } from "@knime/utils";
 
-import type { Variant } from "../Button/BaseButton.vue";
+import type { ButtonVariant } from "../Button/types";
 
 type ConfirmationButton = {
   type: "confirm";
   label: string;
-  variant?: Variant;
+  variant?: ButtonVariant;
   destructive?: boolean;
   customHandler?: (actions: { confirm: () => void }) => void;
 };
@@ -16,7 +16,7 @@ type ConfirmationButton = {
 type CancellationButton = {
   type: "cancel";
   label: string;
-  variant?: Variant;
+  variant?: ButtonVariant;
   destructive?: boolean;
   customHandler?: (actions: { cancel: () => void }) => void;
 };
@@ -60,6 +60,7 @@ export type PropertyBasedConfig = CommonConfig & {
    * Defaults to empty string
    */
   doNotAskAgainText?: string;
+  doNotAskAgainHelperText?: string;
 };
 
 export type ComponentBasedConfig = CommonConfig & {

@@ -1,4 +1,4 @@
-<script setup lang="ts" generic="UNUSED">
+<script setup lang="ts">
 import BaseButton from "./BaseButton.vue";
 import type { KdsButtonProps } from "./types";
 
