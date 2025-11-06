@@ -53,6 +53,7 @@ packages/
 - Type all props with `defineProps<T>()` or `withDefaults(defineProps<T>(), {})`
 - Type all emits with `defineEmits<T>()`
 - Use `type` instead of `interface`
+- Create a `types.ts` file for shared types. Don't export types from .vue files.
 - Use `<style scoped>`
 - IMPORTANT: Don't use BEM! Use CSS nesting to NOT duplicate selectors.
 - Style ONLY with CSS custom properties from design tokens - never hardcode colors/spacing/typography!
