@@ -6,11 +6,9 @@ export { default as Icon } from "./Icon/Icon.vue";
 export { default as DataType } from "./Icon/DataType.vue";
 
 // Export component types
-export type * from "./Button/Button.vue";
-export type * from "./Button/LinkButton.vue";
-export type * from "./Checkbox/Checkbox.vue";
-export type * from "./Icon/Icon.vue";
-export type * from "./Icon/DataType.vue";
+export type * from "./Button/types";
+export type * from "./Checkbox/types";
+export type * from "./Icon/types";
 
 // Export utils
 export * from "./util";

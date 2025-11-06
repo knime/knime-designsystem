@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
-import { typeIconNames } from "@knime/kds-styles/img/type-icons/def";
-
 import DataType from "./DataType.vue";
+import { typeIconNames } from "./constants";
 
 const meta: Meta<typeof DataType> = {
   title: "Components/DataType",

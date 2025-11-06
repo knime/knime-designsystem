@@ -1,9 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
-import { iconNames } from "@knime/kds-styles/img/icons/def";
-
 import Icon from "./Icon.vue";
-import { iconSizes } from "./types";
+import { iconNames, iconSizes } from "./constants";
 
 const meta: Meta<typeof Icon> = {
   title: "Components/Icon",

@@ -1,4 +1,4 @@
-import type { TypeIconName } from "./DataType.vue";
+import type { TypeIconName } from "./types";
 
 export const ID_TO_ICON_MAP = {
   // Flow Variables
