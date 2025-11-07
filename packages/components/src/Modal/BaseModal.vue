@@ -105,7 +105,7 @@ body:has(dialog.modal[open]) {
   gap: var(--kds-spacing-container-0-25x);
   align-items: center;
   padding: var(--kds-spacing-container-0-5x) var(--kds-spacing-container-0-5x)
-    var(--kds-spacing-container-0-5x) var(--kds-spacing-container-1x);
+    var(--kds-spacing-container-0-5x) var(--kds-spacing-container-1-5x);
   font: var(--kds-font-base-title-large);
   border-bottom: var(--kds-border-base-subtle);
 
@@ -116,8 +116,7 @@ body:has(dialog.modal[open]) {
 
 .modal-body {
   flex: 1 1 auto; /* take remaining space */
-  padding: var(--kds-spacing-container-1x) var(--kds-spacing-container-1-5x)
-    var(--kds-spacing-container-1-5x) var(--kds-spacing-container-1-5x);
+  padding: var(--kds-spacing-container-1x) var(--kds-spacing-container-1-5x);
   overflow-y: auto; /* scroll if needed */
   overscroll-behavior: contain;
   font-size: var(--kds-core-font-size-1x);
@@ -130,8 +129,7 @@ body:has(dialog.modal[open]) {
   grid-auto-flow: column;
   gap: var(--kds-spacing-container-0-25x);
   justify-content: space-between;
-  padding: 0 var(--kds-spacing-container-1-5x) var(--kds-spacing-container-1-5x)
-    var(--kds-spacing-container-1-5x);
+  padding: var(--kds-spacing-container-1x) var(--kds-spacing-container-1-5x);
 
   & .footer-end,
   & .footer-start {
