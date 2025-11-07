@@ -179,6 +179,18 @@
           "4x": {
             "$type": "dimension",
             "$value": "{kds.core.size.scale} * 4"
+          },
+          "25x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 25"
+          },
+          "32x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 32"
+          },
+          "45x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 45"
           }
         }
       },
