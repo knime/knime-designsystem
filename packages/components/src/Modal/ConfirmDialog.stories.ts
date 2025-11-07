@@ -10,14 +10,45 @@ import {
   useConfirmDialog,
 } from "./useConfirmDialog";
 
+const scriptExample = `html
+<script setup lang="ts">
+import { useConfirmDialog } from "@knime/kds-components";
+
+const { show } = useConfirmDialog();
+const result = await show({ title: "Confirm", message: "Can you confirm this?" });
+
+if (result.confirmed) {
+  // do your thing
+}
+</script>
+`.trim();
+
+const templateExample = `html
+<template>
+  <ConfirmDialog />
+</template>
+`.trim();
+
 const meta: Meta<typeof ConfirmDialog> = {
-  title: "Components/Modal/ConfirmDialog",
+  title: "Components/Modal/useConfirmDialog",
   component: ConfirmDialog,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "ConfirmDialog component should only be used via the `useConfirmDialog()` composable. It is required " +
+          "to put the `<ConfirmDialog />` tag somewhere global in your application, ideally as a child of `<body>`. " +
+          "If you use Nuxt it makes sense to put it between `<ClientOnly></ClientOnly>` to avoid SSR problems. " +
+          "\n#### Example usage\n" +
+          `\`\`\`${scriptExample}\`\`\`` +
+          "Somewhere in your app, state is shared via  useConfirmDialog\n" +
+          `\`\`\`${templateExample}\`\`\``,
+      },
+    },
+  },
   tags: ["autodocs"],
-  parameters: {},
-  argTypes: {},
-  args: {},
 };
+
 export default meta;
 
 type Story = StoryObj<typeof ConfirmDialog>;
