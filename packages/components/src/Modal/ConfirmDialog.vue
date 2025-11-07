@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, unref } from "vue";
+import { ref } from "vue";
 
 import Button from "../Button/Button.vue";
 import Checkbox from "../Checkbox/Checkbox.vue";
@@ -20,7 +20,7 @@ const reset = () => {
 };
 
 const onConfirm = () => {
-  confirm(unref(askAgain.value));
+  confirm(askAgain.value);
   reset();
 };
 
