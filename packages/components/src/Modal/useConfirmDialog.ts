@@ -1,9 +1,9 @@
 import { type VNode, computed, ref } from "vue";
-import type { IconName } from "packages/styles/dist/img/icons/def";
 
 import { promise as PromiseUtils } from "@knime/utils";
 
 import type { ButtonProps } from "../Button/types";
+import type { IconName } from "../Icon/types";
 
 import type { ClosedByOptionsType } from "./types";
 
