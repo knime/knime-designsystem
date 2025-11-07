@@ -1,5 +1,11 @@
 # @knime/kds-styles
 
+## 0.0.16
+
+### Patch Changes
+
+- f43d7c8: added size.container.width.25x, 32x, 45x
+
 ## 0.0.15
 
 ### Patch Changes

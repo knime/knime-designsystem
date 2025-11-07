@@ -1,6 +1,6 @@
 {
   "name": "@knime/kds-components",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Package containing basic Vue components of the KNIME Design System",
   "repository": {
     "type": "git",
