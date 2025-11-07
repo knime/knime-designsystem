@@ -766,7 +766,7 @@
         },
         "manipulator": {
           "$type": "color",
-          "$value": "{kds.color.background.purpose.brand.initial}"
+          "$value": "{kds.color.background-static.brand}"
         },
         "predictor": {
           "$type": "color",
@@ -887,7 +887,7 @@
         },
         "manipulator": {
           "$type": "color",
-          "$value": "{kds.color.background.purpose.brand.initial}"
+          "$value": "{kds.color.background-static.brand}"
         },
         "source": {
           "$type": "color",
