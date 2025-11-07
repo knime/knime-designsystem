@@ -9,7 +9,7 @@ import { kdsSizes } from "../constants";
 import KdsLinkButton from "./KdsLinkButton.vue";
 import { kdsButtonVariants } from "./constants";
 
-const vueExampleCode = `
+const vueExampleCode = `html
 // RouterLinkButton.vue
 <script setup lang="ts">
 import type { RouterLinkProps } from "vue-router";
@@ -26,7 +26,7 @@ const props = defineProps<RouterLinkButtonProps>();
 </template>
 `.trim();
 
-const nuxtExampleCode = `
+const nuxtExampleCode = `html
 // NuxtLinkButton.vue
 <script setup lang="ts">
 import type { NuxtLinkProps } from "#app";
