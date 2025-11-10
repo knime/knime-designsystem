@@ -18,12 +18,12 @@ catalog:
   npm-run-all: ^4.1.5
   prettier: 3.6.2
   stylelint: 16.25.0
-  typescript: ^5.9.2
+  typescript: ^5.9.3
   vite: ^7.1.11
   vite-plugin-dts: ^4.5.4
   vite-plugin-lib-inject-css: ^2.2.2
   vite-svg-loader: ^5.1.0
-  vue: 3.5.18
+  vue: 3.5.22
   vue-tsc: ^3.0.5
 
 catalogs:

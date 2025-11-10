@@ -1,19 +1,12 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-import {
-  type TypeIconName,
-  typeIconNames,
-} from "@knime/kds-styles/img/type-icons/def";
-
 import { ID_TO_ICON_MAP, type TypeId } from "./IdToIconNameMapping";
-import { type IconSize } from "./types";
+import { typeIconNames } from "./constants";
+import type { DataTypeSize, IconSize, TypeIconName } from "./types";
 import useIcon from "./useIcon";
 
-export type { TypeIconName };
-type DataTypeSize = Exclude<IconSize, "xsmall">;
 type DataTypeIconSize = Exclude<IconSize, "large">;
-export type { DataTypeSize };
 
 type Props = {
   iconName?: TypeIconName | TypeId | string;

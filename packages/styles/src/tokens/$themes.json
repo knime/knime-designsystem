@@ -32,5 +32,24 @@
       "components/global": "enabled"
     },
     "$figmaVariableReferences": {}
+  },
+  {
+    "id": "bee5814a034b8d5316c802aa078f6bdc02472017",
+    "name": "knime-legacy",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "core/color": "source",
+      "core/font": "source",
+      "mode/light": "enabled",
+      "brands/knime-legacy-light": "enabled",
+      "style/border": "enabled",
+      "style/size": "enabled",
+      "style/typography": "enabled",
+      "style/elevation": "enabled",
+      "core/size": "source",
+      "components/global": "enabled"
+    },
+    "group": "brands",
+    "$figmaVariableReferences": {}
   }
 ]

@@ -1,6 +1,6 @@
 {
   "name": "@knime/kds-components",
-  "version": "0.0.10",
+  "version": "0.0.16",
   "description": "Package containing basic Vue components of the KNIME Design System",
   "repository": {
     "type": "git",
@@ -54,11 +54,12 @@
     "vite-plugin-dts": "catalog:",
     "vite-plugin-lib-inject-css": "catalog:",
     "vite-svg-loader": "catalog:",
-    "vue": "catalog:"
+    "vue": "catalog:",
+    "vue-tsc": "catalog:"
   },
   "engines": {
     "node": "24.10.0",
     "npm": "please-use-pnpm"
   },
-  "packageManager": "pnpm@10.18.3"
+  "packageManager": "pnpm@10.20.0"
 }

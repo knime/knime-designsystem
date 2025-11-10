@@ -90,6 +90,13 @@
           "$type": "spacing",
           "$value": "AUTO"
         }
+      },
+      "offset": {
+        "focus": {
+          "$type": "spacing",
+          "$value": "{kds.core.size.scale} * 0.0625",
+          "$description": "Only used by devs to set offset for focus border. Figma does not support offset."
+        }
       }
     },
     "dimension": {
@@ -172,6 +179,18 @@
           "4x": {
             "$type": "dimension",
             "$value": "{kds.core.size.scale} * 4"
+          },
+          "25x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 25"
+          },
+          "32x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 32"
+          },
+          "45x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 45"
           }
         }
       },

@@ -1,6 +1,6 @@
 {
   "name": "@knime/kds-styles",
-  "version": "0.0.10",
+  "version": "0.0.16",
   "description": "Package containing the design tokens and icons for the KNIME Design System",
   "repository": {
     "type": "git",
@@ -27,7 +27,7 @@
     "@types/node": "catalog:",
     "consola": "catalog:",
     "jsdom": "catalog:",
-    "style-dictionary": "^5.0.4",
+    "style-dictionary": "^5.1.1",
     "svgo": "^4.0.0",
     "typescript": "catalog:"
   },
@@ -38,7 +38,7 @@
     "./index.css": "./dist/css/index.css",
     "./kds-variables.css": "./dist/tokens/css/_variables.css",
     "./kds-properties.css": "./dist/tokens/css/_properties.css",
-    "./kds-legacy-theme.css": "./dist/css/legacy/legacy-theme.css",
+    "./kds-legacy-theme.css": "./dist/tokens/css/_variables-legacy.css",
     "./img/*": "./dist/img/*.svg",
     "./img/*/def": "./dist/img/*/def.ts"
   },
@@ -46,5 +46,5 @@
     "node": "24.10.0",
     "npm": "please-use-pnpm"
   },
-  "packageManager": "pnpm@10.18.3"
+  "packageManager": "pnpm@10.20.0"
 }

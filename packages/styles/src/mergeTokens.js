@@ -23,6 +23,19 @@ const parseCSSProperties = (cssContent) => {
   return properties;
 };
 
+const filterLegacyVariables = (variables) => {
+  const filtered = {};
+
+  Object.entries(variables).forEach(([key, value]) => {
+    // Only keep color related overrides for legacy theme
+    if (!key.startsWith("--kds-core") && value.includes("hsl(")) {
+      filtered[key] = value;
+    }
+  });
+
+  return filtered;
+};
+
 const lightModeLog = (text) => styleText(["bgYellow"], text);
 const darkModeLog = (text) => styleText(["bgBlue"], text);
 
@@ -145,7 +158,15 @@ const mergeTokens = ({ basePath, varPattern, propsPattern }) => {
     );
     const lightVarsFilePath = path.resolve(basePath, `${varPattern}-light.css`);
     const darkVarsFilePath = path.resolve(basePath, `${varPattern}-dark.css`);
+    const legacyVarsFilePath = path.resolve(
+      basePath,
+      `${varPattern}-knime-legacy.css`,
+    );
     const outputVarsFilePath = path.resolve(basePath, `${varPattern}.css`);
+    const outputLegacyVarsFilePath = path.resolve(
+      basePath,
+      `${varPattern}-legacy.css`,
+    );
 
     const lightPropsFilePath = path.resolve(
       basePath,
@@ -155,7 +176,15 @@ const mergeTokens = ({ basePath, varPattern, propsPattern }) => {
       basePath,
       `${propsPattern}-dark.css`,
     );
+    const legacyPropsFilePath = path.resolve(
+      basePath,
+      `${propsPattern}-knime-legacy.css`,
+    );
     const outputPropsFilePath = path.resolve(basePath, `${propsPattern}.css`);
+    const outputLegacyPropsFilePath = path.resolve(
+      basePath,
+      `${propsPattern}-legacy.css`,
+    );
 
     console.log(`🌞 ${lightModeLog("Processing light mode tokens...")}`);
     const lightVars = parseCSSVariables(
@@ -171,6 +200,23 @@ const mergeTokens = ({ basePath, varPattern, propsPattern }) => {
     );
     const darkProps = parseCSSProperties(
       fs.readFileSync(darkPropsFilePath, "utf-8"),
+    );
+
+    // Process legacy tokens
+    console.log(`🏛️ ${styleText(["yellow"], "Processing legacy tokens...")}`);
+    const legacyVarsRaw = parseCSSVariables(
+      fs.readFileSync(legacyVarsFilePath, "utf-8"),
+    );
+    const legacyPropsRaw = parseCSSProperties(
+      fs.readFileSync(legacyPropsFilePath, "utf-8"),
+    );
+
+    // Filter legacy variables (only color tokens, exclude --kds-core)
+    const legacyVars = filterLegacyVariables(legacyVarsRaw);
+    const legacyProps = filterLegacyVariables(legacyPropsRaw);
+
+    console.log(
+      `🏛️ ${styleText(["yellow"], `Filtered ${Object.keys(legacyVars).length} legacy color variables from ${Object.keys(legacyVarsRaw).length} total variables`)}`,
     );
 
     const uniqueToLightVars = Object.keys(lightVars).filter(
@@ -240,19 +286,35 @@ const mergeTokens = ({ basePath, varPattern, propsPattern }) => {
     const outputCSSVars = `${comment}:root, :host {\n${outputVars.join("\n")}\n}`;
     const outputCSSProps = `${comment}${outputProps.join("\n\n")}`;
 
+    const legacyVarsOutput = Object.entries(legacyVars)
+      .map(([key, value]) => `  ${key}: ${value};`)
+      .join("\n");
+    const legacyPropsOutput = Object.entries(legacyProps)
+      .map(([key, value]) => `@property ${key} {\n${value}\n}`)
+      .join("\n\n");
+
+    const outputLegacyCSSVars = `${comment}:root.kds-legacy, :host.kds-legacy {\n${legacyVarsOutput}\n}`;
+    const outputLegacyCSSProps = `${comment}${legacyPropsOutput}`;
+
     fs.writeFileSync(outputVarsFilePath, outputCSSVars);
     fs.writeFileSync(outputPropsFilePath, outputCSSProps);
+    fs.writeFileSync(outputLegacyVarsFilePath, outputLegacyCSSVars);
+    fs.writeFileSync(outputLegacyPropsFilePath, outputLegacyCSSProps);
 
     // Remove the original light and dark files
     fs.unlinkSync(lightVarsFilePath);
     fs.unlinkSync(darkVarsFilePath);
+    fs.unlinkSync(legacyVarsFilePath);
     fs.unlinkSync(lightPropsFilePath);
     fs.unlinkSync(darkPropsFilePath);
+    fs.unlinkSync(legacyPropsFilePath);
 
     console.log(
       styleText(
         ["green", "bold"],
-        `\n✅ Successfully merged tokens and created ${varPattern}.css and ${propsPattern}.css files.\n`,
+        "\n✅ Successfully merged light/dark tokens and created separate legacy files:\n" +
+          `   - ${varPattern}.css and ${propsPattern}.css (light/dark merged)\n` +
+          `   - ${varPattern}-legacy.css and ${propsPattern}-legacy.css (filtered legacy)\n`,
       ),
     );
   } catch (error) {

@@ -10,6 +10,7 @@
     "style/motion",
     "style/size",
     "style/typography",
-    "components/global"
+    "components/global",
+    "brands/knime-legacy-light"
   ]
 }
