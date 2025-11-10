@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 import Button from "../Button/Button.vue";
 import Checkbox from "../Checkbox/Checkbox.vue";
@@ -43,6 +43,14 @@ const handleCancelButtonClick = (button: CancellationButton) => {
   }
   onCancel();
 };
+
+const hasMultipleConfirmButtons = computed(() => {
+  if (!config.value || !config.value.confirmButtons) {
+    return false;
+  }
+
+  return config.value.confirmButtons.length > 1;
+});
 </script>
 
 <template>
@@ -72,10 +80,9 @@ const handleCancelButtonClick = (button: CancellationButton) => {
       </div>
     </template>
 
-    <template v-if="config" #footerStart>
+    <template v-if="config && hasMultipleConfirmButtons" #footerStart>
       <Button
         v-for="(button, index) in config.cancelButtons"
-        ref="buttonsCancel"
         :key="index"
         size="large"
         :label="button.label"
@@ -86,9 +93,19 @@ const handleCancelButtonClick = (button: CancellationButton) => {
     </template>
 
     <template v-if="config" #footerEnd>
+      <template v-if="!hasMultipleConfirmButtons">
+        <Button
+          v-for="(button, index) in config.cancelButtons"
+          :key="index"
+          size="large"
+          :label="button.label"
+          variant="transparent"
+          :data-test-id="`cancel-button-${index}`"
+          @click="handleCancelButtonClick(button)"
+        />
+      </template>
       <Button
         v-for="(button, index) in config.confirmButtons"
-        ref="buttonsConfirm"
         :key="index"
         size="large"
         :leading-icon="button.leadingIcon"

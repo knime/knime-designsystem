@@ -6,6 +6,7 @@ export type ClosedByOptionsType = (typeof closedByOptions)[number];
 export type BaseModalProps = {
   icon?: IconName;
   title?: string;
+  size?: "small" | "medium" | "large";
   /** Whether the dialog is visible or not */
   active?: boolean;
   /** https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog#closedby */
