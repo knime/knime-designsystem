@@ -926,13 +926,13 @@
             "studio.tokens": {
               "modify": {
                 "type": "alpha",
-                "value": "0.6",
+                "value": "0.8",
                 "space": "lch"
               }
             }
           },
           "$type": "color",
-          "$value": "{kds.core.color.neutral.725}",
+          "$value": "{kds.core.color.neutral.800}",
           "$description": "Dimmed overlay background for modals and dialogs.\n"
         }
       },
