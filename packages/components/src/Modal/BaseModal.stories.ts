@@ -27,6 +27,10 @@ const meta: Meta<typeof BaseModal> = {
       control: { type: "select" },
       options: closedByOptions,
     },
+    size: {
+      control: { type: "select" },
+      options: ["small", "medium", "large"],
+    },
   },
   args: {
     onClose: fn(),
@@ -54,15 +58,13 @@ export const BaseModalStory: Story = {
       <template #default>
         Do you really want to delete everything?
       </template>
-      <template #footerStart>
-      <Button
+      <template #footerEnd>
+        <Button
           label="Cancel"
           size="large"
           variant="transparent"
           @click="args.active = false"
         />
-      </template>
-      <template #footerEnd>
         <Button
           label="Confirm"
           size="large"
