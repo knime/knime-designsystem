@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { nextTick, useTemplateRef, watch } from "vue";
+import { computed, nextTick, useTemplateRef, watch } from "vue";
 
 import Button from "../Button/Button.vue";
 import Icon from "../Icon/Icon.vue";
@@ -10,6 +10,7 @@ const props = withDefaults(defineProps<BaseModalProps>(), {
   icon: undefined,
   title: "",
   active: false,
+  size: "medium",
   closedby: "closerequest",
 });
 
@@ -34,6 +35,16 @@ watch(
     }
   },
 );
+
+const cssModalSize = computed(() => {
+  const sizes = {
+    small: 25,
+    medium: 32,
+    large: 48,
+  };
+
+  return `var(--kds-dimension-component-width-${sizes[props.size] ?? sizes.medium}x)`;
+});
 </script>
 
 <template>
@@ -79,8 +90,8 @@ body:has(dialog.modal[open]) {
 .modal {
   display: flex;
   flex-direction: column;
-  width: min(95%, var(--base-modal-width, 510px));
-  height: var(--base-modal-height, fit-content);
+  width: min(95%, v-bind("cssModalSize"));
+  height: fit-content;
   max-height: 95%;
   padding: 0;
   overflow: hidden;
@@ -88,7 +99,7 @@ body:has(dialog.modal[open]) {
   color: var(--kds-color-text-and-icon-neutral);
   background-color: var(--kds-color-surface-default);
   border: none;
-  border-radius: var(--kds-border-radius-container-0-25x);
+  border-radius: var(--kds-border-radius-container-0-37x);
   box-shadow: var(--kds-elevation-level-3);
 
   &:not([open]) {
@@ -102,12 +113,11 @@ body:has(dialog.modal[open]) {
 
 .modal-header {
   display: flex;
-  gap: var(--kds-spacing-container-0-25x);
+  gap: var(--kds-spacing-container-0-5x);
   align-items: center;
   padding: var(--kds-spacing-container-0-5x) var(--kds-spacing-container-0-5x)
     var(--kds-spacing-container-0-5x) var(--kds-spacing-container-1-5x);
   font: var(--kds-font-base-title-large);
-  border-bottom: var(--kds-border-base-subtle);
 
   & .modal-header-title {
     flex: 1 1 auto;
@@ -127,14 +137,14 @@ body:has(dialog.modal[open]) {
   display: grid;
   flex-shrink: 0; /* prevent shrinking - required for scrolling the body */
   grid-auto-flow: column;
-  gap: var(--kds-spacing-container-0-25x);
+  gap: var(--kds-spacing-container-0-5x);
   justify-content: space-between;
   padding: var(--kds-spacing-container-1x) var(--kds-spacing-container-1-5x);
 
   & .footer-end,
   & .footer-start {
     display: flex;
-    gap: var(--kds-spacing-container-0-25x);
+    gap: var(--kds-spacing-container-0-5x);
   }
 }
 </style>
