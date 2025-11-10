@@ -61,13 +61,11 @@ export const BaseModalStory: Story = {
       <template #footerEnd>
         <Button
           label="Cancel"
-          size="large"
           variant="transparent"
           @click="args.active = false"
         />
         <Button
           label="Confirm"
-          size="large"
           variant="filled"
           @click="args.active = false"
         />
@@ -92,7 +90,6 @@ export const VeryLongTextModalLightDismissible: Story = {
     template: `
     <Button
       label="Show Info"
-      size="large"
       variant="filled"
       @click="args.active = true"
     />
@@ -141,7 +138,6 @@ export const VeryLongTextModalLightDismissible: Story = {
       <template #footerEnd>
       <Button
           label="Ok"
-          size="large"
           variant="filled"
           @click="args.active = false"
         />

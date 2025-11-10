@@ -68,8 +68,7 @@ export const ConfirmDialogStory: Story = {
           confirmButtons: [
             {
               label: "Maybe",
-              leadingIcon: "circle-question",
-              variant: "transparent",
+              variant: "outlined",
               autofocus: true,
               customHandler: () => {
                 alert("Think again…");
