@@ -2,24 +2,25 @@ import { type VNode, computed, ref } from "vue";
 
 import { promise as PromiseUtils } from "@knime/utils";
 
-import type { ButtonProps } from "../Button/types";
+import type { ButtonVariant } from "../Button/types";
 import type { IconName } from "../Icon/types";
 
 import type { ClosedByOptionsType } from "./types";
 
-export type ConfirmationButton = ButtonProps & {
-  type: "confirm";
+export type ConfirmationButton = {
+  label: string;
+  variant: ButtonVariant;
+  leadingIcon?: IconName;
+  destructive?: boolean;
   autofocus?: boolean;
   customHandler?: (actions: { confirm: () => void }) => void;
 };
 
-export type CancellationButton = ButtonProps & {
-  type: "cancel";
+export type CancellationButton = {
+  label: string;
   autofocus?: boolean;
   customHandler?: (actions: { cancel: () => void }) => void;
 };
-
-export type ConfirmDialogButton = ConfirmationButton | CancellationButton;
 
 type CommonConfig = {
   /**
@@ -80,19 +81,14 @@ export type ComponentBasedConfig = CommonConfig & {
 
 type ModalConfig = PropertyBasedConfig | ComponentBasedConfig;
 
-export const cancelButton = (label: string = "Cancel"): CancellationButton => ({
-  type: "cancel",
-  label,
-  variant: "outlined",
-});
+const defaultCancelButton: CancellationButton = {
+  label: "Cancel",
+};
 
-export const confirmButton = (
-  label: string = "Confirm",
-): ConfirmationButton => ({
-  type: "confirm",
-  label,
+const defaultConfirmButton: ConfirmationButton = {
+  label: "Confirm",
   variant: "filled",
-});
+};
 
 type ConfirmResult = { confirmed: boolean; doNotAskAgain?: boolean };
 
@@ -117,10 +113,11 @@ export const useConfirmDialog = () => {
 
   function show(config: ModalConfig): Promise<ConfirmResult> {
     activeModalConfig.value = {
-      confirmButtons: [confirmButton()],
-      cancelButtons: [cancelButton()],
+      confirmButtons: [defaultConfirmButton],
+      cancelButtons: [defaultCancelButton],
       ...config,
     };
+
     isActive.value = true;
     return unwrappedPromise.value.promise;
   }
