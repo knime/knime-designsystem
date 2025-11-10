@@ -2,15 +2,13 @@ import { type VNode, computed, ref } from "vue";
 
 import { promise as PromiseUtils } from "@knime/utils";
 
-import type { ButtonVariant } from "../Button/types";
 import type { IconName } from "../Icon/types";
 
 import type { ClosedByOptionsType } from "./types";
 
 export type ConfirmationButton = {
   label: string;
-  variant: ButtonVariant;
-  leadingIcon?: IconName;
+  variant: "filled" | "outlined";
   destructive?: boolean;
   autofocus?: boolean;
   customHandler?: (actions: { confirm: () => void }) => void;

@@ -40,7 +40,7 @@ const cssModalSize = computed(() => {
   const sizes = {
     small: 25,
     medium: 32,
-    large: 48,
+    large: 45,
   };
 
   return `var(--kds-dimension-component-width-${sizes[props.size] ?? sizes.medium}x)`;
@@ -58,7 +58,7 @@ const cssModalSize = computed(() => {
     <header class="modal-header">
       <Icon v-if="props.icon" :name="props.icon" size="medium" />
       <div class="modal-header-title">
-        <slot name="header">{{ title }}</slot>
+        {{ title }}
       </div>
       <Button
         leading-icon="x-close"
@@ -117,7 +117,8 @@ body:has(dialog.modal[open]) {
   align-items: center;
   padding: var(--kds-spacing-container-0-5x) var(--kds-spacing-container-0-5x)
     var(--kds-spacing-container-0-5x) var(--kds-spacing-container-1-5x);
-  font: var(--kds-font-base-title-large);
+  font: var(--kds-font-base-title-medium-strong);
+  color: var(--kds-color-text-and-icon-neutral);
 
   & .modal-header-title {
     flex: 1 1 auto;
@@ -126,11 +127,12 @@ body:has(dialog.modal[open]) {
 
 .modal-body {
   flex: 1 1 auto; /* take remaining space */
-  padding: var(--kds-spacing-container-1x) var(--kds-spacing-container-1-5x);
+  padding: var(--kds-spacing-container-0-5x) var(--kds-spacing-container-1-5x)
+    var(--kds-spacing-container-1x) var(--kds-spacing-container-1-5x);
   overflow-y: auto; /* scroll if needed */
   overscroll-behavior: contain;
-  font-size: var(--kds-core-font-size-1x);
-  line-height: var(--kds-core-line-height-multiline-wide);
+  font: var(--kds-font-base-body-medium);
+  color: var(--kds-color-text-and-icon-neutral);
 }
 
 .modal-footer {

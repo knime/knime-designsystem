@@ -84,7 +84,7 @@ const hasMultipleConfirmButtons = computed(() => {
       <Button
         v-for="(button, index) in config.cancelButtons"
         :key="index"
-        size="large"
+        size="medium"
         :label="button.label"
         variant="transparent"
         :data-test-id="`cancel-button-${index}`"
@@ -97,7 +97,7 @@ const hasMultipleConfirmButtons = computed(() => {
         <Button
           v-for="(button, index) in config.cancelButtons"
           :key="index"
-          size="large"
+          size="medium"
           :label="button.label"
           variant="transparent"
           :data-test-id="`cancel-button-${index}`"
@@ -107,8 +107,7 @@ const hasMultipleConfirmButtons = computed(() => {
       <Button
         v-for="(button, index) in config.confirmButtons"
         :key="index"
-        size="large"
-        :leading-icon="button.leadingIcon"
+        size="medium"
         :destructive="button.destructive"
         :label="button.label"
         :variant="button.variant"
