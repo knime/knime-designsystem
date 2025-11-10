@@ -4,11 +4,7 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import Button from "../Button/Button.vue";
 
 import ConfirmDialog from "./ConfirmDialog.vue";
-import {
-  cancelButton,
-  confirmButton,
-  useConfirmDialog,
-} from "./useConfirmDialog";
+import { useConfirmDialog } from "./useConfirmDialog";
 
 const scriptExample = `html
 <script setup lang="ts">
@@ -68,10 +64,9 @@ export const ConfirmDialogStory: Story = {
             title: "Some more info…",
             helperText: "Can be changed in the settings.",
           },
-          cancelButtons: [cancelButton("Nay")],
+          cancelButtons: [{ label: "Nay" }],
           confirmButtons: [
             {
-              type: "confirm",
               label: "Maybe",
               leadingIcon: "circle-question",
               variant: "outlined",
@@ -80,7 +75,7 @@ export const ConfirmDialogStory: Story = {
                 alert("Think again…");
               },
             },
-            confirmButton("Sure thing"),
+            { label: "Sure thing", variant: "filled" },
           ],
         });
       };

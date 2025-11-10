@@ -9,7 +9,6 @@ import type { BaseModalProps } from "./types";
 const props = withDefaults(defineProps<BaseModalProps>(), {
   icon: undefined,
   title: "",
-  message: "",
   active: false,
   closedby: "closerequest",
 });
@@ -59,7 +58,7 @@ watch(
     </header>
 
     <div class="modal-body">
-      <slot>{{ message }}</slot>
+      <slot />
     </div>
 
     <footer class="modal-footer">
@@ -70,6 +69,7 @@ watch(
 </template>
 
 <style>
+/** see: https://github.com/whatwg/html/issues/7732  */
 body:has(dialog.modal[open]) {
   overflow: hidden;
 }

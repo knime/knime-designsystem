@@ -78,7 +78,8 @@ const handleCancelButtonClick = (button: CancellationButton) => {
         ref="buttonsCancel"
         :key="index"
         size="large"
-        v-bind="button"
+        :label="button.label"
+        variant="transparent"
         :data-test-id="`cancel-button-${index}`"
         @click="handleCancelButtonClick(button)"
       />
@@ -90,7 +91,10 @@ const handleCancelButtonClick = (button: CancellationButton) => {
         ref="buttonsConfirm"
         :key="index"
         size="large"
-        v-bind="button"
+        :leading-icon="button.leadingIcon"
+        :destructive="button.destructive"
+        :label="button.label"
+        :variant="button.variant"
         :data-test-id="`confirm-button-${index}`"
         @click="handleConfirmButtonClick(button)"
       />
