@@ -238,8 +238,8 @@ importers:
         specifier: 'catalog:'
         version: 0.7.0(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3))
       chromatic:
-        specifier: ^13.3.1
-        version: 13.3.1
+        specifier: ^13.3.3
+        version: 13.3.3
       color:
         specifier: ^5.0.0
         version: 5.0.0
@@ -2236,8 +2236,8 @@ packages:
       '@chromatic-com/playwright':
         optional: true
 
-  chromatic@13.3.1:
-    resolution: {integrity: sha512-qJ/el70Wo7jFgiXPpuukqxCEc7IKiH/e8MjTzIF9uKw+3XZ6GghOTTLC7lGfeZtosiQBMkRlYet77tC4KKHUng==}
+  chromatic@13.3.3:
+    resolution: {integrity: sha512-89w0hiFzIRqLbwGSkqSQzhbpuqaWpXYZuevSIF+570Wb+T/apeAkp3px8nMJcFw+zEdqw/i6soofkJtfirET1Q==}
     hasBin: true
     peerDependencies:
       '@chromatic-com/cypress': ^0.*.* || ^1.0.0
@@ -7469,7 +7469,7 @@ snapshots:
 
   chromatic@12.2.0: {}
 
-  chromatic@13.3.1: {}
+  chromatic@13.3.3: {}
 
   ci-info@3.9.0: {}
 
