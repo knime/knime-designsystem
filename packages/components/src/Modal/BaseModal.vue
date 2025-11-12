@@ -10,7 +10,10 @@ const props = withDefaults(defineProps<BaseModalProps>(), {
   icon: undefined,
   title: "",
   active: false,
-  size: "medium",
+  height: "auto",
+  width: "medium",
+  bodyPadding: true,
+  bodyScroll: true,
   closedby: "closerequest",
 });
 
@@ -36,14 +39,24 @@ watch(
   },
 );
 
-const cssModalSize = computed(() => {
-  const sizes = {
-    small: 25,
-    medium: 32,
-    large: 45,
-  };
+const widthMapping = {
+  small: 25,
+  medium: 32,
+  large: 45,
+};
 
-  return `var(--kds-dimension-component-width-${sizes[props.size] ?? sizes.medium}x)`;
+const cssModalWidth = computed(() => {
+  if (props.width === "full") {
+    return "var(--modal-full-size)";
+  }
+  return `var(--kds-dimension-component-width-${widthMapping[props.width]}x)`;
+});
+
+const cssModalHeight = computed(() => {
+  if (props.height === "full") {
+    return "var(--modal-full-size)";
+  }
+  return "fit-content";
 });
 </script>
 
@@ -57,9 +70,7 @@ const cssModalSize = computed(() => {
   >
     <header class="modal-header">
       <Icon v-if="props.icon" :name="props.icon" size="medium" />
-      <div class="modal-header-title">
-        {{ title }}
-      </div>
+      <div class="modal-header-title">{{ title }}</div>
       <Button
         leading-icon="x-close"
         variant="transparent"
@@ -68,7 +79,12 @@ const cssModalSize = computed(() => {
       />
     </header>
 
-    <div class="modal-body">
+    <div
+      :class="[
+        'modal-body',
+        { 'modal-body-padding': bodyPadding, 'modal-body-scroll': bodyScroll },
+      ]"
+    >
       <slot />
     </div>
 
@@ -88,11 +104,13 @@ body:has(dialog.modal[open]) {
 
 <style scoped>
 .modal {
-  display: flex;
-  flex-direction: column;
-  width: min(95%, v-bind("cssModalSize"));
-  height: fit-content;
-  max-height: 95%;
+  --modal-full-size: 95%;
+
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  width: min(var(--modal-full-size, 95%), v-bind("cssModalWidth"));
+  height: v-bind("cssModalHeight");
+  max-height: var(--modal-full-size, 95%);
   padding: 0;
   overflow: hidden;
   font: var(--kds-font-base-body-medium);
@@ -112,32 +130,41 @@ body:has(dialog.modal[open]) {
 }
 
 .modal-header {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   gap: var(--kds-spacing-container-0-5x);
   align-items: center;
   padding: var(--kds-spacing-container-0-5x) var(--kds-spacing-container-0-5x)
     var(--kds-spacing-container-0-5x) var(--kds-spacing-container-1-5x);
   font: var(--kds-font-base-title-medium-strong);
   color: var(--kds-color-text-and-icon-neutral);
-
-  & .modal-header-title {
-    flex: 1 1 auto;
-  }
 }
 
 .modal-body {
-  flex: 1 1 auto; /* take remaining space */
-  padding: var(--kds-spacing-container-0-5x) var(--kds-spacing-container-1-5x)
-    var(--kds-spacing-container-1x) var(--kds-spacing-container-1-5x);
-  overflow-y: auto; /* scroll if needed */
-  overscroll-behavior: contain;
+  /** ensure the content is 100% height */
+  display: flex;
+  flex-direction: column;
+  gap: var(--kds-spacing-container-1x);
+  padding-top: var(--kds-spacing-container-0-5x);
+  padding-bottom: var(--kds-spacing-container-1x);
+  overflow-y: hidden;
   font: var(--kds-font-base-body-medium);
   color: var(--kds-color-text-and-icon-neutral);
+
+  &.modal-body-scroll {
+    overflow-y: auto; /* scroll if needed */
+    overscroll-behavior: contain;
+  }
+
+  &.modal-body-padding,
+  & .modal-body-padding {
+    padding-right: var(--kds-spacing-container-1-5x);
+    padding-left: var(--kds-spacing-container-1-5x);
+  }
 }
 
 .modal-footer {
   display: grid;
-  flex-shrink: 0; /* prevent shrinking - required for scrolling the body */
   grid-auto-flow: column;
   gap: var(--kds-spacing-container-0-5x);
   justify-content: space-between;
