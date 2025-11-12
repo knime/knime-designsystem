@@ -63,7 +63,7 @@ const cssModalHeight = computed(() => {
 <template>
   <dialog
     ref="dialogElement"
-    class="modal"
+    class="base-modal"
     :closedby="closedby"
     @close="onClose"
     @cancel.prevent="onClose"
@@ -103,8 +103,9 @@ body:has(dialog.modal[open]) {
 </style>
 
 <style scoped>
-.modal {
+.base-modal {
   --modal-full-size: 95%;
+  --modal-side-padding: var(--kds-spacing-container-1-5x);
 
   display: grid;
   grid-template-rows: auto 1fr auto;
@@ -123,57 +124,55 @@ body:has(dialog.modal[open]) {
   &:not([open]) {
     display: none;
   }
-}
 
-.modal::backdrop {
-  background: var(--kds-color-blanket-default);
-}
-
-.modal-header {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: var(--kds-spacing-container-0-5x);
-  align-items: center;
-  padding: var(--kds-spacing-container-0-5x) var(--kds-spacing-container-0-5x)
-    var(--kds-spacing-container-0-5x) var(--kds-spacing-container-1-5x);
-  font: var(--kds-font-base-title-medium-strong);
-  color: var(--kds-color-text-and-icon-neutral);
-}
-
-.modal-body {
-  /** ensure the content is 100% height */
-  display: flex;
-  flex-direction: column;
-  gap: var(--kds-spacing-container-1x);
-  padding-top: var(--kds-spacing-container-0-5x);
-  padding-bottom: var(--kds-spacing-container-1x);
-  overflow-y: hidden;
-  font: var(--kds-font-base-body-medium);
-  color: var(--kds-color-text-and-icon-neutral);
-
-  &.modal-body-scroll {
-    overflow-y: auto; /* scroll if needed */
-    overscroll-behavior: contain;
+  &::backdrop {
+    background: var(--kds-color-blanket-default);
   }
 
-  &.modal-body-padding,
-  & .modal-body-padding {
-    padding-right: var(--kds-spacing-container-1-5x);
-    padding-left: var(--kds-spacing-container-1-5x);
-  }
-}
-
-.modal-footer {
-  display: grid;
-  grid-auto-flow: column;
-  gap: var(--kds-spacing-container-0-5x);
-  justify-content: space-between;
-  padding: var(--kds-spacing-container-1x) var(--kds-spacing-container-1-5x);
-
-  & .footer-end,
-  & .footer-start {
-    display: flex;
+  & .modal-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     gap: var(--kds-spacing-container-0-5x);
+    align-items: center;
+    padding: var(--kds-spacing-container-0-5x) var(--kds-spacing-container-0-5x)
+      var(--kds-spacing-container-0-5x) var(--kds-spacing-container-1-5x);
+    font: var(--kds-font-base-title-medium-strong);
+    color: var(--kds-color-text-and-icon-neutral);
+  }
+
+  & .modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--kds-spacing-container-1x);
+    padding-top: var(--kds-spacing-container-0-5x);
+    padding-bottom: var(--kds-spacing-container-1x);
+    overflow-y: hidden;
+    font: var(--kds-font-base-body-medium);
+    color: var(--kds-color-text-and-icon-neutral);
+
+    &.modal-body-scroll {
+      overflow-y: auto; /* scroll if needed */
+      overscroll-behavior: contain;
+    }
+
+    &.modal-body-padding {
+      padding-right: var(--modal-side-padding, --kds-spacing-container-1-5x);
+      padding-left: var(--modal-side-padding, --kds-spacing-container-1-5x);
+    }
+  }
+
+  & .modal-footer {
+    display: grid;
+    grid-auto-flow: column;
+    gap: var(--kds-spacing-container-0-5x);
+    justify-content: space-between;
+    padding: var(--kds-spacing-container-1x) var(--kds-spacing-container-1-5x);
+
+    & .footer-end,
+    & .footer-start {
+      display: flex;
+      gap: var(--kds-spacing-container-0-5x);
+    }
   }
 }
 </style>
