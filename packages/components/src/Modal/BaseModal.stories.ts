@@ -4,6 +4,7 @@ import { fn } from "storybook/test";
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
 import Button from "../Button/Button.vue";
+import { veryLongText } from "../test-utils/veryLongText";
 
 import BaseModal from "./BaseModal.vue";
 import { closedByOptions } from "./types";
@@ -27,9 +28,15 @@ const meta: Meta<typeof BaseModal> = {
       control: { type: "select" },
       options: closedByOptions,
     },
-    size: {
+    width: {
       control: { type: "select" },
-      options: ["small", "medium", "large"],
+      options: ["small", "medium", "large", "full"],
+      defaultValue: "medium",
+    },
+    height: {
+      control: { type: "select" },
+      options: ["full", "auto"],
+      defaultValue: "auto",
     },
   },
   args: {
@@ -79,6 +86,51 @@ export const BaseModalStory: Story = {
   },
 };
 
+export const BaseModalFullSizeInnerScrollableStory: Story = {
+  render: (args) => ({
+    components: { BaseModal, Button },
+    setup() {
+      return {
+        args,
+      };
+    },
+    template: `
+    <Button
+      label="Show modal"
+      variant="filled"
+      @click="args.active = true"
+    />
+    <BaseModal v-bind="args" @close="args.active = false">
+      <template #default>
+        <div style="padding: 0 var(--kds-spacing-container-1-5x);">This is some message that will not scroll.</div>
+        <div style="padding: 0 var(--kds-spacing-container-1-5x); overflow: auto;">${veryLongText} ${veryLongText}</div>
+        <div style="padding: 0 var(--kds-spacing-container-1-5x);">Also here no scrolling.</div>
+      </template>
+      <template #footerEnd>
+        <Button
+          label="Cancel"
+          variant="transparent"
+          @click="args.active = false"
+        />
+        <Button
+          label="Confirm"
+          variant="filled"
+          @click="args.active = false"
+        />
+      </template>
+    </BaseModal>
+  `,
+  }),
+  args: {
+    icon: "info",
+    title: "Scrollable inner content",
+    width: "full",
+    height: "full",
+    bodyPadding: false,
+    bodyScroll: false,
+  },
+};
+
 export const VeryLongTextModalLightDismissible: Story = {
   render: (args) => ({
     components: { BaseModal, Button },
@@ -95,45 +147,7 @@ export const VeryLongTextModalLightDismissible: Story = {
     />
     <BaseModal v-bind="args" @close="args.active = false">
       <template #default>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor
-        sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna
-        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex
-        ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu
-        fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia
-        deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-        exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit
-        in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat
-        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit
-        amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi
-        consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est
-        laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore
-        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid
-        ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id
-        est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore
-        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid
-        ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim
-        id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-        aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu
-        fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor
-        incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse
-        cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa
-        qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing
-        elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-        exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in
-        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        ${veryLongText}
       </template>
       <template #footerEnd>
       <Button
