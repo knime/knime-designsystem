@@ -126,8 +126,8 @@ export const BaseModalFullSizeInnerScrollableStory: Story = {
     title: "Scrollable inner content",
     width: "full",
     height: "full",
-    bodyPadding: false,
-    bodyScroll: false,
+    withPadding: false,
+    scrollContent: false,
   },
 };
 

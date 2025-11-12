@@ -7,9 +7,9 @@ export type BaseModalProps = {
   icon?: IconName;
   title?: string;
   /** whether the body has padding or not, useful for inner scrolling elements */
-  bodyPadding?: boolean;
+  withPadding?: boolean;
   /** whether the body is scrollable */
-  bodyScroll?: boolean;
+  scrollContent?: boolean;
   width?: "small" | "medium" | "large" | "full";
   /**
    * full: take all space,
