@@ -12,8 +12,8 @@ const props = withDefaults(defineProps<BaseModalProps>(), {
   active: false,
   height: "auto",
   width: "medium",
-  bodyPadding: true,
-  bodyScroll: true,
+  withPadding: true,
+  scrollContent: true,
   closedby: "closerequest",
 });
 
@@ -82,7 +82,10 @@ const cssModalHeight = computed(() => {
     <div
       :class="[
         'modal-body',
-        { 'modal-body-padding': bodyPadding, 'modal-body-scroll': bodyScroll },
+        {
+          'modal-body-padding': withPadding,
+          'modal-body-scroll': scrollContent,
+        },
       ]"
     >
       <slot />
