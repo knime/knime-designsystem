@@ -160,7 +160,6 @@ export const VeryLongTextModalLightDismissible: Story = {
   `,
   }),
   args: {
-    icon: "info",
     title: "Please read carefully",
     closedby: "any",
   },
