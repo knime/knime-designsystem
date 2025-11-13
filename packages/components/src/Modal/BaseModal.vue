@@ -92,8 +92,7 @@ const cssModalHeight = computed(() => {
     </div>
 
     <footer class="modal-footer">
-      <div class="footer-start"><slot name="footerStart" /></div>
-      <div class="footer-end"><slot name="footerEnd" /></div>
+      <slot name="footer" />
     </footer>
   </dialog>
 </template>
@@ -168,17 +167,10 @@ body:has(dialog.modal[open]) {
   }
 
   & .modal-footer {
-    display: grid;
-    grid-auto-flow: column;
+    display: flex;
     gap: var(--kds-spacing-container-0-5x);
-    justify-content: space-between;
+    justify-content: right;
     padding: var(--kds-spacing-container-1x) var(--kds-spacing-container-1-5x);
-
-    & .footer-end,
-    & .footer-start {
-      display: flex;
-      gap: var(--kds-spacing-container-0-5x);
-    }
   }
 }
 </style>
