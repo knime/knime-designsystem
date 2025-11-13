@@ -1,6 +1,6 @@
 {
   "name": "@knime/kds-documentation",
-  "version": "0.0.10",
+  "version": "0.0.16",
   "description": "Package containing the documentation for the KNIME Design System utilizing storybook",
   "license": "GPL 3 and Additional Permissions according to Sec. 7 (SEE the file LICENSE)",
   "author": "KNIME AG, Zurich, Switzerland",
@@ -25,7 +25,7 @@
     "vue": "catalog:"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^4.1.1",
+    "@chromatic-com/storybook": "^4.1.2",
     "@storybook/addon-a11y": "catalog:storybook",
     "@storybook/addon-designs": "catalog:storybook",
     "@storybook/addon-docs": "catalog:storybook",
@@ -52,5 +52,5 @@
     "node": "24.10.0",
     "npm": "please-use-pnpm"
   },
-  "packageManager": "pnpm@10.18.3"
+  "packageManager": "pnpm@10.20.0"
 }

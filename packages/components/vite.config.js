@@ -14,7 +14,7 @@ export default defineConfig({
     vue(),
     svgLoader({ svgoConfig }),
     dts({
-      include: ["src/**/*"],
+      include: ["src/**/*", "globals.d.ts"],
       exclude: [
         "src/**/*.stories.ts",
         "src/**/__tests__/**/*",

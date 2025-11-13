@@ -1,8 +1,8 @@
 import { describe, expect, it, vi } from "vitest";
 import { mount } from "@vue/test-utils";
 
-import DataType, { type DataTypeSize } from "../DataType.vue";
-import type { IconSize } from "../types";
+import DataType from "../DataType.vue";
+import type { DataTypeSize, IconSize } from "../types";
 
 describe("DataType.vue", () => {
   it("renders correctly with default props", async () => {

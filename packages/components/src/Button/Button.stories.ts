@@ -11,8 +11,8 @@ import {
   buildTextOverflowStory,
 } from "../test-utils/storybook";
 
-import { variants } from "./BaseButton.vue";
 import Button from "./Button.vue";
+import { buttonVariants } from "./constants";
 
 const meta: Meta<typeof Button> = {
   title: "Components/Buttons/Button",
@@ -31,7 +31,7 @@ const meta: Meta<typeof Button> = {
     },
     variant: {
       control: { type: "select" },
-      options: variants,
+      options: buttonVariants,
     },
     destructive: { control: "boolean" },
     disabled: { control: "boolean" },
@@ -82,10 +82,10 @@ export const Disabled: Story = {
   render: (args) => ({
     components: { Button },
     setup() {
-      return { args, variants };
+      return { args, buttonVariants };
     },
     template: `
-      <Button v-bind="args" :variant="variant" v-for="variant in variants" :key="variant" style="margin-bottom: 10px;" />`,
+      <Button v-bind="args" :variant="variant" v-for="variant in buttonVariants" :key="variant" style="margin-bottom: 10px;" />`,
   }),
 };
 
@@ -97,10 +97,10 @@ export const Destructive: Story = {
   render: (args) => ({
     components: { Button },
     setup() {
-      return { args, variants };
+      return { args, buttonVariants };
     },
     template: `
-      <Button v-bind="args" :variant="variant" v-for="variant in variants" :key="variant" style="margin-bottom: 10px;"/>`,
+      <Button v-bind="args" :variant="variant" v-for="variant in buttonVariants" :key="variant" style="margin-bottom: 10px;"/>`,
   }),
 };
 
@@ -125,7 +125,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   combinationsProps: [
     {
       size: sizes,
-      variant: variants,
+      variant: buttonVariants,
       disabled: [false, true],
       destructive: [false, true],
       label: ["Button"],
@@ -134,7 +134,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
     },
     {
       size: sizes,
-      variant: variants,
+      variant: buttonVariants,
       disabled: [false, true],
       destructive: [false, true],
       leadingIcon: ["ai-general"],

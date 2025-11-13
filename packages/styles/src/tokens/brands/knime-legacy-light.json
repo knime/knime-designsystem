@@ -1,0 +1,191 @@
+{
+  "kds": {
+    "color": {
+      "background": {
+        "primary": {
+          "initial": {
+            "$type": "color",
+            "$value": "{kds.core.color.neutral.175}"
+          },
+          "hover": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "darken",
+                  "value": "0.08",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.color.background.primary.initial}",
+            "$description": "Darker teal background on hover for primary actions. USED IN: Button (outline and transparent variants), ProgressButton (Outline variant), SplitButton (outline), .TabBar-Item, Toggle, chip"
+          },
+          "active": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "darken",
+                  "value": "0.16",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.color.background.primary.initial}",
+            "$description": "Darkest teal background on pressed for primary actions. USED IN: Button (outline and transparent variants), ProgressButton (Outline variant), SplitButton (outline), .TabBar-Item, Toggle, chip"
+          }
+        },
+        "primary-bold": {
+          "initial": {
+            "$type": "color",
+            "$value": "{kds.core.color.neutral.650}",
+            "$description": "USED IN: Button (filled), ProgressButton (filled), SplitButton"
+          },
+          "hover": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "darken",
+                  "value": "0.16",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.color.background.primary-bold.initial}",
+            "$description": "Darker teal background on hover for most prominent, primary actions or highlights. USED IN: Button (filled), ProgressButton (filled), SplitButton"
+          },
+          "active": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "darken",
+                  "value": "0.36",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.color.background.primary-bold.initial}",
+            "$description": "Darkest teal background on pressed for most prominent, primary actions or highlights. USED IN: Button (filled), ProgressButton (filled), SplitButton"
+          }
+        },
+        "selected": {
+          "initial": {
+            "$type": "color",
+            "$value": "{kds.core.color.neutral.100}",
+            "$description": "USED IN: ValueSwitch-item, Chip, Checkbox, RadioButton, TabBar-Item, VerticalMenu-Item"
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{kds.core.color.neutral.175}",
+            "$description": "USED IN: ValueSwitch-item, Chip, Checkbox, RadioButton, TabBar-Item, VerticalMenu-Item, List Item"
+          },
+          "active": {
+            "$type": "color",
+            "$value": "{kds.core.color.neutral.250}",
+            "$description": "USED IN: ValueSwitch-item, Chip, Checkbox, RadioButton, TabBar-Item, VerticalMenu-Item, List Item"
+          }
+        },
+        "selected-bold": {
+          "initial": {
+            "$type": "color",
+            "$value": "{kds.core.color.neutral.550}",
+            "$description": "USED IN: RadioButton"
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{kds.core.color.neutral.650}",
+            "$description": "USED IN: RadioButton"
+          },
+          "active": {
+            "$type": "color",
+            "$value": "{kds.core.color.neutral.725}",
+            "$description": "USED IN: RadioButton"
+          }
+        },
+        "disabled": {
+          "default": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.48",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.core.color.neutral.325}",
+            "$description": "Neutral overlay for component backgrounds in the disabled state.\nUSED IN: Buttons, checkboxes, input fields, and other components when disabled."
+          },
+          "primary": {
+            "$type": "color",
+            "$value": "{kds.core.color.neutral.325}",
+            "$description": "Disabled background for primary backgrounds\nUSED IN: Filled Button and other very prominent primary components when disabled."
+          },
+          "danger": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "mix",
+                  "value": "0.6",
+                  "space": "lch",
+                  "color": "{kds.core.color.red.650}"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.core.color.neutral.400}",
+            "$description": "Disabled background for bold danger backgrounds\nUSED IN: Filled Button and other very prominent bold danger components when disabled."
+          }
+        }
+      },
+      "text-and-icon": {
+        "primary": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.650}",
+          "$description": "Teal accent color for text and icons on light surfaces."
+        },
+        "primary-inverted": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.50}",
+          "$description": "Light color for text and icons on light surfaces.\n"
+        },
+        "selected": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.650}",
+          "$description": "Teal color for selected text and icons on light surfaces.\n"
+        },
+        "selected-inverted": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.50}",
+          "$description": "Very light teal color for selected text and icons on light surfaces."
+        }
+      },
+      "border": {
+        "primary-bold": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.725}",
+          "$description": "❌ Dark teal border accent for most prominent emphasis.\n[Used as reference token only for the Border composite tokens]\n\n"
+        },
+        "primary": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.250}",
+          "$description": "❌ Light teal border accent for emphasis.\n[Used as reference token only for the Border composite tokens]\n"
+        },
+        "selected-bold": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.550}",
+          "$description": "❌ Teal border indicating the selected state (most prominent).\n[Used as reference token only for the Border composite tokens]\n\n"
+        },
+        "selected": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.400}",
+          "$description": "❌ Faint teal border indicating the selected state.\n[Used as reference token only for the Border composite tokens]\n"
+        }
+      }
+    }
+  }
+}

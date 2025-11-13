@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { mount } from "@vue/test-utils";
 
 import Icon from "../Icon.vue";
-import { iconSizes } from "../types";
+import { iconSizes } from "../constants";
 
 describe("Icon.vue", () => {
   it("renders correctly with default props", async () => {

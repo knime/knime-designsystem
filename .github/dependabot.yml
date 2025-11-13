@@ -12,3 +12,19 @@ updates:
       default-days: 5
       exclude:
         - "@knime/*"
+    groups:
+      storybook:
+        patterns:
+          - "*storybook*"
+      vitest:
+        patterns:
+          - "*vitest*"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+      time: "18:00"
+    cooldown:
+      default-days: 5
