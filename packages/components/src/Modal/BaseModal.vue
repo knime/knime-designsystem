@@ -133,14 +133,17 @@ body:has(dialog.modal[open]) {
   }
 
   & .modal-header {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
+    display: flex;
     gap: var(--kds-spacing-container-0-5x);
     align-items: center;
     padding: var(--kds-spacing-container-0-5x) var(--kds-spacing-container-0-5x)
       var(--kds-spacing-container-0-5x) var(--kds-spacing-container-1-5x);
     font: var(--kds-font-base-title-medium-strong);
     color: var(--kds-color-text-and-icon-neutral);
+
+    & .modal-header-title {
+      flex: 1 1 auto;
+    }
   }
 
   & .modal-body {
