@@ -6,10 +6,11 @@ export type ClosedByOptionsType = (typeof closedByOptions)[number];
 export type BaseModalProps = {
   icon?: IconName;
   title?: string;
-  /** whether the body has padding or not, useful for inner scrolling elements */
-  withPadding?: boolean;
-  /** whether the body is scrollable */
-  scrollContent?: boolean;
+  /**
+   * default: does scroll and has padding
+   * plain: no scrolling or padding of the content
+   */
+  variant?: "default" | "plain";
   width?: "small" | "medium" | "large" | "full";
   /**
    * full: take all space,
