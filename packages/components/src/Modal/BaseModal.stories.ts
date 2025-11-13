@@ -65,7 +65,7 @@ export const BaseModalStory: Story = {
       <template #default>
         Do you really want to delete everything?
       </template>
-      <template #footerEnd>
+      <template #footer>
         <Button
           label="Cancel"
           variant="transparent"
@@ -106,7 +106,7 @@ export const BaseModalFullSizeInnerScrollableStory: Story = {
         <div style="padding: 0 var(--modal-side-padding); overflow: auto;">${veryLongText} ${veryLongText}</div>
         <div style="padding: 0 var(--modal-side-padding);">Also here no scrolling.</div>
       </template>
-      <template #footerEnd>
+      <template #footer>
         <Button
           label="Cancel"
           variant="transparent"
@@ -149,7 +149,7 @@ export const VeryLongTextModalLightDismissible: Story = {
       <template #default>
         ${veryLongText}
       </template>
-      <template #footerEnd>
+      <template #footer>
       <Button
           label="Ok"
           variant="filled"

@@ -64,9 +64,15 @@ export const ConfirmDialogStory: Story = {
             title: "Some more info…",
             helperText: "Can be changed in the settings.",
           },
-          cancelButtons: [{ label: "Nay" }],
-          confirmButtons: [
+          buttons: [
             {
+              type: "cancel",
+              label: "Nay",
+              variant: "transparent",
+              flushLeft: true,
+            },
+            {
+              type: "confirm",
               label: "Maybe",
               variant: "outlined",
               autofocus: true,
@@ -74,7 +80,7 @@ export const ConfirmDialogStory: Story = {
                 alert("Think again…");
               },
             },
-            { label: "Sure thing", variant: "filled" },
+            { type: "confirm", label: "Sure thing", variant: "filled" },
           ],
         });
       };
