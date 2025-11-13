@@ -2,23 +2,30 @@ import { type VNode, computed, ref } from "vue";
 
 import { promise as PromiseUtils } from "@knime/utils";
 
+import type { ButtonProps } from "../Button/types";
 import type { IconName } from "../Icon/types";
 
 import type { ClosedByOptionsType } from "./types";
 
-export type ConfirmationButton = {
+type CommonButtonProps = {
   label: string;
-  variant: "filled" | "outlined";
-  destructive?: boolean;
   autofocus?: boolean;
+  destructive?: boolean;
+  variant?: ButtonProps["variant"];
+  flushLeft?: boolean;
+};
+
+export type ConfirmationButton = CommonButtonProps & {
+  type: "confirm";
   customHandler?: (actions: { confirm: () => void }) => void;
 };
 
-export type CancellationButton = {
-  label: string;
-  autofocus?: boolean;
+export type CancellationButton = CommonButtonProps & {
+  type: "cancel";
   customHandler?: (actions: { cancel: () => void }) => void;
 };
+
+export type UseConfirmDialogButton = ConfirmationButton | CancellationButton;
 
 type CommonConfig = {
   /**
@@ -41,14 +48,9 @@ type CommonConfig = {
   closedby?: ClosedByOptionsType;
 
   /**
-   * Confirmation buttons if omitted a default one is set
+   * Confirmation or cancellation buttons if omitted default ones are set
    */
-  confirmButtons?: Array<ConfirmationButton>;
-
-  /**
-   * Cancel buttons if omitted a default one is set
-   */
-  cancelButtons?: Array<CancellationButton>;
+  buttons?: Array<UseConfirmDialogButton>;
 };
 
 export type PropertyBasedConfig = CommonConfig & {
@@ -80,12 +82,13 @@ export type ComponentBasedConfig = CommonConfig & {
 type ModalConfig = PropertyBasedConfig | ComponentBasedConfig;
 
 const defaultCancelButton: CancellationButton = {
+  type: "cancel",
   label: "Cancel",
 };
 
 const defaultConfirmButton: ConfirmationButton = {
+  type: "confirm",
   label: "Confirm",
-  variant: "filled",
 };
 
 type ConfirmResult = { confirmed: boolean; doNotAskAgain?: boolean };
@@ -111,8 +114,7 @@ export const useConfirmDialog = () => {
 
   function show(config: ModalConfig): Promise<ConfirmResult> {
     activeModalConfig.value = {
-      confirmButtons: [defaultConfirmButton],
-      cancelButtons: [defaultCancelButton],
+      buttons: [defaultCancelButton, defaultConfirmButton],
       ...config,
     };
 

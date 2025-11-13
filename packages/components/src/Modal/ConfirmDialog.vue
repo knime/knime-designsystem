@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { ref } from "vue";
 
 import Button from "../Button/Button.vue";
+import type { ButtonProps } from "../Button/types";
 import Checkbox from "../Checkbox/Checkbox.vue";
 
 import BaseModal from "./BaseModal.vue";
 import {
   type CancellationButton,
   type ConfirmationButton,
+  type UseConfirmDialogButton,
   isComponentBasedConfig,
   useConfirmDialog,
 } from "./useConfirmDialog";
@@ -36,6 +38,7 @@ const handleConfirmButtonClick = (button: ConfirmationButton) => {
   }
   onConfirm();
 };
+
 const handleCancelButtonClick = (button: CancellationButton) => {
   if (button.customHandler) {
     button.customHandler({ cancel: onCancel });
@@ -44,13 +47,17 @@ const handleCancelButtonClick = (button: CancellationButton) => {
   onCancel();
 };
 
-const hasMultipleConfirmButtons = computed(() => {
-  if (!config.value || !config.value.confirmButtons) {
-    return false;
+const handleButtonClick = (button: UseConfirmDialogButton) => {
+  if (button.type === "cancel") {
+    handleCancelButtonClick(button);
+  } else {
+    handleConfirmButtonClick(button);
   }
+};
 
-  return config.value.confirmButtons.length > 1;
-});
+const defaultVariant = (
+  type: UseConfirmDialogButton["type"],
+): ButtonProps["variant"] => (type === "cancel" ? "transparent" : "filled");
 </script>
 
 <template>
@@ -80,39 +87,16 @@ const hasMultipleConfirmButtons = computed(() => {
       </div>
     </template>
 
-    <template v-if="config && hasMultipleConfirmButtons" #footerStart>
+    <template v-if="config" #footer>
       <Button
-        v-for="(button, index) in config.cancelButtons"
+        v-for="(button, index) in config.buttons"
         :key="index"
-        size="medium"
-        :label="button.label"
-        variant="transparent"
-        :data-test-id="`cancel-button-${index}`"
-        @click="handleCancelButtonClick(button)"
-      />
-    </template>
-
-    <template v-if="config" #footerEnd>
-      <template v-if="!hasMultipleConfirmButtons">
-        <Button
-          v-for="(button, index) in config.cancelButtons"
-          :key="index"
-          size="medium"
-          :label="button.label"
-          variant="transparent"
-          :data-test-id="`cancel-button-${index}`"
-          @click="handleCancelButtonClick(button)"
-        />
-      </template>
-      <Button
-        v-for="(button, index) in config.confirmButtons"
-        :key="index"
-        size="medium"
         :destructive="button.destructive"
         :label="button.label"
-        :variant="button.variant"
-        :data-test-id="`confirm-button-${index}`"
-        @click="handleConfirmButtonClick(button)"
+        :variant="button.variant ?? defaultVariant(button.type)"
+        :class="{ 'flush-left': button.flushLeft }"
+        :data-test-id="`${button.type}-button-${index}`"
+        @click="handleButtonClick(button)"
       />
     </template>
   </BaseModal>
@@ -121,5 +105,9 @@ const hasMultipleConfirmButtons = computed(() => {
 <style scoped>
 .ask-again {
   padding: var(--kds-spacing-container-0-5x) 0 0 0;
+}
+
+.flush-left {
+  margin-right: auto;
 }
 </style>
