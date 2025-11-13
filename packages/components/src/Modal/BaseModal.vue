@@ -118,6 +118,11 @@ body:has(dialog.modal[open]) {
     display: none;
   }
 
+  &:focus-visible,
+  &:focus {
+    outline: none;
+  }
+
   &::backdrop {
     background: var(--kds-color-blanket-default);
   }
