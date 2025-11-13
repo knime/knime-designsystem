@@ -12,8 +12,7 @@ const props = withDefaults(defineProps<BaseModalProps>(), {
   active: false,
   height: "auto",
   width: "medium",
-  withPadding: true,
-  scrollContent: true,
+  variant: "default",
   closedby: "closerequest",
 });
 
@@ -79,15 +78,7 @@ const cssModalHeight = computed(() => {
       />
     </header>
 
-    <div
-      :class="[
-        'modal-body',
-        {
-          'modal-body-padding': withPadding,
-          'modal-body-scroll': scrollContent,
-        },
-      ]"
-    >
+    <div :class="['modal-body', `modal-body-variant-${variant}`]">
       <slot />
     </div>
 
@@ -155,14 +146,11 @@ body:has(dialog.modal[open]) {
     font: var(--kds-font-base-body-medium);
     color: var(--kds-color-text-and-icon-neutral);
 
-    &.modal-body-scroll {
-      overflow-y: auto; /* scroll if needed */
-      overscroll-behavior: contain;
-    }
-
-    &.modal-body-padding {
+    &.modal-body-variant-default {
       padding-right: var(--modal-side-padding, --kds-spacing-container-1-5x);
       padding-left: var(--modal-side-padding, --kds-spacing-container-1-5x);
+      overflow-y: auto; /* scroll if needed */
+      overscroll-behavior: contain;
     }
   }
 
