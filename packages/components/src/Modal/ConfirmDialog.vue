@@ -92,6 +92,7 @@ const defaultVariant = (
         v-for="(button, index) in config.buttons"
         :key="index"
         :destructive="button.destructive"
+        :autofocus="button.autofocus"
         :label="button.label"
         :variant="button.variant ?? defaultVariant(button.type)"
         :class="{ 'flush-left': button.flushLeft }"
