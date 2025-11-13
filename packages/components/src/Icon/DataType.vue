@@ -78,7 +78,7 @@ const iconComponent = useIcon({
   height: var(--data-type-height);
   padding: var(--data-type-padding);
   color: var(--kds-color-desktop-header-text-and-icon-muted);
-  background-color: var(--kds-color-background-page-default);
+  background-color: var(--kds-color-page-default);
   border: var(--kds-border-base-muted);
   border-radius: var(--kds-border-radius-container-0-12x);
 

@@ -192,7 +192,7 @@ function onPaste(event: ClipboardEvent) {
     padding: 10px;
     margin-bottom: 10px;
     color: var(--kds-color-text-and-icon-info);
-    background: var(--kds-color-background-info-initial);
+    background: var(--kds-color-background-static-info);
   }
 
   & .controls {
