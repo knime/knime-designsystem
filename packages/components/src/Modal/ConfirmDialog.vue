@@ -96,7 +96,7 @@ const defaultVariant = (
         :label="button.label"
         :variant="button.variant ?? defaultVariant(button.type)"
         :class="{ 'flush-left': button.flushLeft }"
-        :data-test-id="`${button.type}-button-${index}`"
+        :data-test-id="`${button.type}-button`"
         @click="handleButtonClick(button)"
       />
     </template>
