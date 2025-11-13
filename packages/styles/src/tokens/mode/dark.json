@@ -373,7 +373,7 @@
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.green.725}",
-            "$description": "More prominent red background for most prominent, error or destructive states.\nUSED IN: Destructive Button"
+            "$description": "More prominent green background for most prominent, success states.\nUSED IN: Success Button"
           }
         }
       },
