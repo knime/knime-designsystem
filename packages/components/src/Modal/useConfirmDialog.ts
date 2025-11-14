@@ -3,9 +3,8 @@ import { type VNode, computed, ref } from "vue";
 import { promise as PromiseUtils } from "@knime/utils";
 
 import type { ButtonProps } from "../Button/types";
-import type { IconName } from "../Icon/types";
 
-import type { ClosedByOptionsType } from "./types";
+import type { BaseModalProps } from "./types";
 
 type CommonButtonProps = {
   label: string;
@@ -36,7 +35,7 @@ type CommonConfig = {
   /**
    * Icon shown in the title bar of the dialog. Defaults to no icon used
    */
-  icon?: IconName;
+  icon?: BaseModalProps["icon"];
 
   /**
    * If the dialog gets closed by user actions:
@@ -45,7 +44,7 @@ type CommonConfig = {
    *
    * Defaults to 'closerequest'
    */
-  closedby?: ClosedByOptionsType;
+  closedby?: BaseModalProps["closedby"];
 
   /**
    * Confirmation or cancellation buttons if omitted default ones are set

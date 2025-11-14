@@ -42,6 +42,7 @@ const widthMapping = {
   small: 25,
   medium: 32,
   large: 45,
+  xlarge: 61,
 };
 
 const cssModalWidth = computed(() => {

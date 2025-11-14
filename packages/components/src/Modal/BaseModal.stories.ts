@@ -7,7 +7,12 @@ import Button from "../Button/Button.vue";
 import { veryLongText } from "../test-utils/veryLongText";
 
 import BaseModal from "./BaseModal.vue";
-import { closedByOptions } from "./types";
+import {
+  closedByOptions,
+  heightSizes,
+  modalVariants,
+  widthSizes,
+} from "./constants";
 
 const meta: Meta<typeof BaseModal> = {
   title: "Components/Modal/BaseModal",
@@ -21,22 +26,19 @@ const meta: Meta<typeof BaseModal> = {
   },
   argTypes: {
     icon: {
-      control: { type: "select" },
       options: [undefined, ...iconNames],
     },
     closedby: {
-      control: { type: "select" },
       options: closedByOptions,
     },
+    variant: {
+      options: modalVariants,
+    },
     width: {
-      control: { type: "select" },
-      options: ["small", "medium", "large", "full"],
-      defaultValue: "medium",
+      options: widthSizes,
     },
     height: {
-      control: { type: "select" },
-      options: ["full", "auto"],
-      defaultValue: "auto",
+      options: heightSizes,
     },
   },
   args: {
