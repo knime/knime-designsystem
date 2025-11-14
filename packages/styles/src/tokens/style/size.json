@@ -191,6 +191,10 @@
           "45x": {
             "$type": "dimension",
             "$value": "{kds.core.size.scale} * 45"
+          },
+          "61x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 61"
           }
         }
       },
