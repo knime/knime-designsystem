@@ -6,23 +6,23 @@ import { iconNames } from "@knime/kds-styles/img/icons/def";
 
 import { kdsSizes } from "../constants";
 
-import LinkButton from "./LinkButton.vue";
-import { buttonVariants } from "./constants";
+import KdsLinkButton from "./KdsLinkButton.vue";
+import { kdsButtonVariants } from "./constants";
 
 const vueExampleCode = `
 // RouterLinkButton.vue
 <script setup lang="ts">
 import type { RouterLinkProps } from "vue-router";
 
-import { LinkButton, type LinkButtonProps } from "@knime/kds-components";
+import { KdsLinkButton, type KdsLinkButtonProps } from "@knime/kds-components";
 
-export type RouterLinkButtonProps = Omit<LinkButtonProps, "to"> & RouterLinkProps;
+export type RouterLinkButtonProps = Omit<KdsLinkButtonProps, "to"> & RouterLinkProps;
 
 const props = defineProps<RouterLinkButtonProps>();
 </script>
 
 <template>
-  <LinkButton v-bind="props" />
+  <KdsLinkButton v-bind="props" />
 </template>
 `.trim();
 
@@ -31,27 +31,27 @@ const nuxtExampleCode = `
 <script setup lang="ts">
 import type { NuxtLinkProps } from "#app";
 
-import { LinkButton, type LinkButtonProps } from "@knime/kds-components";
+import { KdsLinkButton, type KdsLinkButtonProps } from "@knime/kds-components";
 
-export type NuxtLinkButtonProps = Omit<LinkButtonProps, "to"> & NuxtLinkProps;
+export type NuxtLinkButtonProps = Omit<KdsLinkButtonProps, "to"> & NuxtLinkProps;
 
 const props = defineProps<NuxtLinkButtonProps>();
 </script>
 
 <template>
-  <LinkButton v-bind="props" />
+  <KdsLinkButton v-bind="props" />
 </template>
 `.trim();
 
-const meta: Meta<typeof LinkButton> = {
-  title: "Components/Buttons/LinkButton",
-  component: LinkButton as FunctionalComponent, // only because of the generic typing of LinkButton
+const meta: Meta<typeof KdsLinkButton> = {
+  title: "Components/Buttons/KdsLinkButton",
+  component: KdsLinkButton as FunctionalComponent, // only because of the generic typing of LinkButton
   tags: ["autodocs"],
   parameters: {
     docs: {
       description: {
         component:
-          "Same styles as `Button`, but rendered as an `<a>` element. Does use `RouterLink`/`NuxtLink` if globally available.\n\n" +
+          "Same styles as `KdsButton`, but rendered as an `<a>` element. Does use `RouterLink`/`NuxtLink` if globally available.\n\n" +
           "For accurate typing, please wrap it in the consuming app like this:\n" +
           "#### Vue\n" +
           `\`\`\`${vueExampleCode}\`\`\`\n` +
@@ -71,7 +71,7 @@ const meta: Meta<typeof LinkButton> = {
     },
     variant: {
       control: { type: "select" },
-      options: buttonVariants,
+      options: kdsButtonVariants,
     },
     destructive: { control: "boolean" },
     disabled: { control: "boolean" },
@@ -96,7 +96,7 @@ const meta: Meta<typeof LinkButton> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof LinkButton>;
+type Story = StoryObj<typeof KdsLinkButton>;
 
 export const Filled: Story = {
   parameters: {

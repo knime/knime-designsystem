@@ -2,12 +2,12 @@ import type { IconName } from "@knime/kds-styles/img/icons/def";
 
 import type { KdsSize } from "../types";
 
-import type { buttonVariants } from "./constants";
+import type { kdsButtonVariants } from "./constants";
 
-export type ButtonVariant = (typeof buttonVariants)[number];
+export type KdsButtonVariant = (typeof kdsButtonVariants)[number];
 
 type BaseProps = {
-  variant?: ButtonVariant;
+  variant?: KdsButtonVariant;
   size?: KdsSize;
   destructive?: boolean;
   disabled?: boolean;
@@ -49,9 +49,9 @@ propTypeTester<BaseButtonProps>({
   trailingIcon: "ai-general",
 });
 
-export type ButtonProps = BaseButtonProps;
+export type KdsButtonProps = BaseButtonProps;
 
-export type LinkButtonProps = BaseButtonProps & {
+export type KdsLinkButtonProps = BaseButtonProps & {
   // RouterLink props
 
   /**
