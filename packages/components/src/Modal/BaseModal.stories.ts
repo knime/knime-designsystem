@@ -102,9 +102,9 @@ export const BaseModalFullSizeInnerScrollableStory: Story = {
     />
     <BaseModal v-bind="args" @close="args.active = false">
       <template #default>
-        <div style="padding: 0 var(--modal-side-padding);">This is some message that will not scroll.</div>
-        <div style="padding: 0 var(--modal-side-padding); overflow: auto;">${veryLongText} ${veryLongText}</div>
-        <div style="padding: 0 var(--modal-side-padding);">Also here no scrolling.</div>
+        <div style="padding: var(--modal-padding-top) var(--modal-padding-right) var(--modal-gap) var(--modal-padding-left);">This is some message that will not scroll.</div>
+        <div style="padding: 0 var(--modal-padding-right) 0 var(--modal-padding-left); overflow: auto;">${veryLongText} ${veryLongText}</div>
+        <div style="padding: var(--modal-gap) var(--modal-padding-right) var(--modal-padding-bottom) var(--modal-padding-left);">Also here no scrolling.</div>
       </template>
       <template #footer>
         <Button
