@@ -1,13 +1,13 @@
 import { describe, expect, it, vi } from "vitest";
 import { mount } from "@vue/test-utils";
 
-import DataType from "../DataType.vue";
-import type { DataTypeSize, IconSize } from "../types";
+import KdsDataType from "../KdsDataType.vue";
+import type { KdsDataTypeSize, KdsIconSize } from "../types";
 
 describe("DataType.vue", () => {
   it("renders correctly with default props", async () => {
     const iconTitle = "String Data Type";
-    const wrapper = mount(DataType, {
+    const wrapper = mount(KdsDataType, {
       props: { iconName: "string-datatype", iconTitle },
     });
 
@@ -25,10 +25,10 @@ describe("DataType.vue", () => {
   });
 
   it("applies the correct class based on size prop", () => {
-    const iconSizes: IconSize[] = ["xsmall", "small", "medium"];
-    const dataTypeSizes: DataTypeSize[] = ["small", "medium", "large"];
+    const iconSizes: KdsIconSize[] = ["xsmall", "small", "medium"];
+    const dataTypeSizes: KdsDataTypeSize[] = ["small", "medium", "large"];
     dataTypeSizes.forEach(async (size, index) => {
-      const wrapper = mount(DataType, {
+      const wrapper = mount(KdsDataType, {
         props: { iconName: "string-datatype", size },
       });
       await vi.dynamicImportSettled();
@@ -38,7 +38,7 @@ describe("DataType.vue", () => {
   });
 
   it("loads the correct datatype component based on name prop", async () => {
-    const wrapper = mount(DataType, {
+    const wrapper = mount(KdsDataType, {
       props: { iconName: "string-datatype" },
     });
     await vi.dynamicImportSettled();

@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="UNUSED">
 import { computed, useId } from "vue";
 
-import Icon from "../Icon/Icon.vue";
+import Icon from "../Icon/KdsIcon.vue";
 
 import type { CheckboxProps } from "./types";
 

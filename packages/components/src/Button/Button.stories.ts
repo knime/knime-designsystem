@@ -4,7 +4,7 @@ import { fn } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
-import { sizes } from "../constants";
+import { kdsSizes } from "../constants";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
@@ -27,7 +27,7 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     size: {
       control: { type: "select" },
-      options: sizes,
+      options: kdsSizes,
     },
     variant: {
       control: { type: "select" },
@@ -124,7 +124,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   component: Button,
   combinationsProps: [
     {
-      size: sizes,
+      size: kdsSizes,
       variant: buttonVariants,
       disabled: [false, true],
       destructive: [false, true],
@@ -133,7 +133,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       trailingIcon: [undefined, "ai-general"],
     },
     {
-      size: sizes,
+      size: kdsSizes,
       variant: buttonVariants,
       disabled: [false, true],
       destructive: [false, true],

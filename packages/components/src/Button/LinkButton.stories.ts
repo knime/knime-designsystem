@@ -4,7 +4,7 @@ import { fn } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
-import { sizes } from "../constants";
+import { kdsSizes } from "../constants";
 
 import LinkButton from "./LinkButton.vue";
 import { buttonVariants } from "./constants";
@@ -67,7 +67,7 @@ const meta: Meta<typeof LinkButton> = {
   argTypes: {
     size: {
       control: { type: "select" },
-      options: sizes,
+      options: kdsSizes,
     },
     variant: {
       control: { type: "select" },

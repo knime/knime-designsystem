@@ -1,6 +1,6 @@
 import type { IconName } from "@knime/kds-styles/img/icons/def";
 
-import type { Size } from "../types";
+import type { KdsSize } from "../types";
 
 import type { buttonVariants } from "./constants";
 
@@ -8,7 +8,7 @@ export type ButtonVariant = (typeof buttonVariants)[number];
 
 type BaseProps = {
   variant?: ButtonVariant;
-  size?: Size;
+  size?: KdsSize;
   destructive?: boolean;
   disabled?: boolean;
 };
