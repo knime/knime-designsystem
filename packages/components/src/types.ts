@@ -1,3 +1,3 @@
-import type { sizes } from "./constants";
+import type { kdsSizes } from "./constants";
 
-export type Size = (typeof sizes)[number];
+export type KdsSize = (typeof kdsSizes)[number];

@@ -1,6 +1,6 @@
 <!-- Sample component -->
 <script setup lang="ts">
-import MyButton from "../../packages/components/src/Button/Button.vue";
+import MyButton from "../../packages/components/src/Button/KdsButton.vue";
 
 interface User {
   name: string;

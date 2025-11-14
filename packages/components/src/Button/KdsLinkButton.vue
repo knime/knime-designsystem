@@ -4,9 +4,9 @@ import { computed } from "vue";
 import { resolveNuxtLinkComponent } from "../util/nuxtComponentResolver";
 
 import BaseButton from "./BaseButton.vue";
-import type { LinkButtonProps } from "./types";
+import type { KdsLinkButtonProps } from "./types";
 
-const props = withDefaults(defineProps<LinkButtonProps>(), {
+const props = withDefaults(defineProps<KdsLinkButtonProps>(), {
   download: undefined,
   rel: null,
   target: null,

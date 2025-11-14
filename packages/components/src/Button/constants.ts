@@ -1,1 +1,1 @@
-export const buttonVariants = ["filled", "outlined", "transparent"] as const;
+export const kdsButtonVariants = ["filled", "outlined", "transparent"] as const;

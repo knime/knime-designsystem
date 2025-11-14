@@ -1,9 +1,9 @@
-import { iconNames } from "@knime/kds-styles/img/icons/def";
-import { typeIconNames } from "@knime/kds-styles/img/type-icons/def";
+import { iconNames as kdsIconNames } from "@knime/kds-styles/img/icons/def";
+import { typeIconNames as kdsTypeIconNames } from "@knime/kds-styles/img/type-icons/def";
 
-import { sizes } from "../constants";
+import { kdsSizes } from "../constants";
 
-const iconSizes = sizes;
-const dataTypeSizes = sizes.filter((size) => size !== "xsmall");
+const kdsIconSizes = kdsSizes;
+const kdsDataTypeSizes = kdsSizes.filter((size) => size !== "xsmall");
 
-export { iconSizes, dataTypeSizes, iconNames, typeIconNames };
+export { kdsIconSizes, kdsDataTypeSizes, kdsIconNames, kdsTypeIconNames };

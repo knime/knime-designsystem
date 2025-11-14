@@ -42,13 +42,16 @@ packages/
 
 ## Example implementations
 
-- Component: see `packages/components/src/Button/Button.vue`
-- Storybook story: see `packages/components/src/Button/Button.stories.ts`
+- Component: see `packages/components/src/Button/KdsButton.vue`
+- Storybook story: see `packages/components/src/Button/KdsButton.stories.ts`
 
 ## Development Rules & Conventions
 
 **Component Development:**
 
+- All publicly exported components must be prefixed with `Kds` (e.g., `KdsButton`, `KdsIcon`)
+- All publicly exported types must be prefixed with `Kds` (e.g., `KdsButtonProps`)
+- All publicly exported composables must be prefixed with `useKds` (e.g., `useKdsTheme`)
 - Use Composition API with `<script setup lang="ts">`
 - Type all props with `defineProps<T>()` or `withDefaults(defineProps<T>(), {})`
 - Type all emits with `defineEmits<T>()`
@@ -62,9 +65,9 @@ packages/
 
 **Icons & Components:**
 
-- Use `Icon` component for all icons (never inline SVGs)
+- Use `KdsIcon` component for all icons (never inline SVGs)
 - Available icons listed in `packages/styles/dist/img/icons/def.ts` (always read the whole file, it's not big)
-- For links, use `LinkButton` component
+- For links, use `KdsLinkButton` component
 - Reuse existing components instead of duplicating functionality
 
 **Storybook Stories (required for all components):**

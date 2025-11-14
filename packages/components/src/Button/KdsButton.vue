@@ -1,8 +1,8 @@
 <script setup lang="ts" generic="UNUSED">
 import BaseButton from "./BaseButton.vue";
-import type { ButtonProps } from "./types";
+import type { KdsButtonProps } from "./types";
 
-const props = defineProps<ButtonProps>();
+const props = defineProps<KdsButtonProps>();
 
 const emit = defineEmits<{
   click: [event: MouseEvent];

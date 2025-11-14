@@ -1,1 +1,1 @@
-export const sizes = ["xsmall", "small", "medium", "large"] as const;
+export const kdsSizes = ["xsmall", "small", "medium", "large"] as const;

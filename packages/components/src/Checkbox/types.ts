@@ -33,13 +33,15 @@ type WithLabelAndHelperText = BaseProps & {
   helperText?: string;
 };
 
-export type CheckboxProps = WithoutLabelAndHelperText | WithLabelAndHelperText;
+export type KdsCheckboxProps =
+  | WithoutLabelAndHelperText
+  | WithLabelAndHelperText;
 
 // supports without label
-propTypeTester<CheckboxProps>({});
+propTypeTester<KdsCheckboxProps>({});
 // supports just label
-propTypeTester<CheckboxProps>({ label: "foo" });
+propTypeTester<KdsCheckboxProps>({ label: "foo" });
 // supports both label and helper text
-propTypeTester<CheckboxProps>({ label: "foo", helperText: "bar" });
+propTypeTester<KdsCheckboxProps>({ label: "foo", helperText: "bar" });
 // @ts-expect-error - should not allow helper text without label
-propTypeTester<CheckboxProps>({ helperText: "foo" });
+propTypeTester<KdsCheckboxProps>({ helperText: "foo" });

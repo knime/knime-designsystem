@@ -4,12 +4,15 @@
  */
 import { toRef } from "vue";
 
-import type { IconName, IconSize } from "./types";
+import type { KdsIconName, KdsIconSize } from "./types";
 import useIcon from "./useIcon";
 
-const props = withDefaults(defineProps<{ name: IconName; size?: IconSize }>(), {
-  size: "medium",
-});
+const props = withDefaults(
+  defineProps<{ name: KdsIconName; size?: KdsIconSize }>(),
+  {
+    size: "medium",
+  },
+);
 
 const iconComponent = useIcon({ name: toRef(props, "name"), folder: "icons" });
 </script>

@@ -1,13 +1,13 @@
 <script setup lang="ts" generic="UNUSED">
 import { computed, useId } from "vue";
 
-import Icon from "../Icon/Icon.vue";
+import Icon from "../Icon/KdsIcon.vue";
 
-import type { CheckboxProps } from "./types";
+import type { KdsCheckboxProps } from "./types";
 
-type CheckboxModelValue = CheckboxProps["modelValue"];
+type CheckboxModelValue = KdsCheckboxProps["modelValue"];
 
-const props = withDefaults(defineProps<CheckboxProps>(), {
+const props = withDefaults(defineProps<KdsCheckboxProps>(), {
   modelValue: false,
   disabled: false,
   error: false,

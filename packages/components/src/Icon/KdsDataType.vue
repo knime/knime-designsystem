@@ -2,19 +2,19 @@
 import { computed } from "vue";
 
 import { ID_TO_ICON_MAP, type TypeId } from "./IdToIconNameMapping";
-import { typeIconNames } from "./constants";
-import type { DataTypeSize, IconSize, TypeIconName } from "./types";
+import { kdsTypeIconNames } from "./constants";
+import type { KdsDataTypeSize, KdsIconSize, KdsTypeIconName } from "./types";
 import useIcon from "./useIcon";
 
-type DataTypeIconSize = Exclude<IconSize, "large">;
+type DataTypeIconSize = Exclude<KdsIconSize, "large">;
 
 type Props = {
-  iconName?: TypeIconName | TypeId | string;
+  iconName?: KdsTypeIconName | TypeId | string;
   iconTitle?: string;
-  size?: DataTypeSize;
+  size?: KdsDataTypeSize;
 };
 
-const DATA_TYPE_SIZE_TO_ICON_SIZE: Record<DataTypeSize, DataTypeIconSize> = {
+const DATA_TYPE_SIZE_TO_ICON_SIZE: Record<KdsDataTypeSize, DataTypeIconSize> = {
   large: "medium",
   medium: "small",
   small: "xsmall",
@@ -28,13 +28,13 @@ const props = withDefaults(defineProps<Props>(), {
 
 const iconSize = computed(() => DATA_TYPE_SIZE_TO_ICON_SIZE[props.size]);
 
-const isIconName = (value: string): value is TypeIconName =>
-  typeIconNames.includes(value as TypeIconName);
+const isIconName = (value: string): value is KdsTypeIconName =>
+  kdsTypeIconNames.includes(value as KdsTypeIconName);
 
 const isTypeId = (value: string): value is TypeId =>
   Object.keys(ID_TO_ICON_MAP).includes(value);
 
-const iconName = computed<TypeIconName>(() => {
+const iconName = computed<KdsTypeIconName>(() => {
   if (isIconName(props.iconName)) {
     return props.iconName;
   }
