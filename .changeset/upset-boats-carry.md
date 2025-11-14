@@ -9,7 +9,7 @@ In particular the following mapping needs to be made to update to this version:
 ### Components:
 
 - Button -> KdsButton
-- LinkButton -> KdsButton
+- LinkButton -> KdsLinkButton
 - Checkbox -> KdsCheckbox
 - Icon -> KdsIcon
 - DataType -> KdsDataType
