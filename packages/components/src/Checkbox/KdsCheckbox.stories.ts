@@ -9,13 +9,13 @@ import {
   buildTextOverflowStory,
 } from "../test-utils/storybook";
 
-import Checkbox from "./Checkbox.vue";
+import KdsCheckbox from "./KdsCheckbox.vue";
 
-type Story = StoryObj<typeof Checkbox>;
+type Story = StoryObj<typeof KdsCheckbox>;
 
-const meta: Meta<typeof Checkbox> = {
-  title: "Components/Checkbox",
-  component: Checkbox as FunctionalComponent, // only because of the generic typing of Checkbox
+const meta: Meta<typeof KdsCheckbox> = {
+  title: "Components/KdsCheckbox",
+  component: KdsCheckbox as FunctionalComponent, // only because of the generic typing of KdsCheckbox
   tags: ["autodocs"],
   argTypes: {
     modelValue: {
@@ -121,7 +121,7 @@ export const Error: Story = {
 };
 
 export const AllCombinations: Story = buildAllCombinationsStory({
-  component: Checkbox,
+  component: KdsCheckbox,
   combinationsProps: [
     {
       modelValue: [false, true, "indeterminate"],
@@ -140,7 +140,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
 });
 
 export const DesignComparator: Story = buildDesignComparatorStory({
-  component: Checkbox,
+  component: KdsCheckbox,
   designsToCompare: {
     Default: {
       props: {
@@ -231,7 +231,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
 
 export const TextOverflow: Story = {
   ...buildTextOverflowStory({
-    component: Checkbox,
+    component: KdsCheckbox,
     width: 200,
   }),
   args: {
