@@ -1,6 +1,6 @@
-export { useDarkMode } from "./useDarkMode";
-export { useLegacyMode } from "./useLegacyMode";
+export { useKdsDarkMode } from "./useKdsDarkMode";
+export { useKdsLegacyMode } from "./useKdsLegacyMode";
 
 // Export types
-export type * from "./useDarkMode";
-export type * from "./useLegacyMode";
+export type * from "./useKdsDarkMode";
+export type * from "./useKdsLegacyMode";

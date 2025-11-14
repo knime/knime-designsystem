@@ -1,22 +1,22 @@
 import { computed, watch } from "vue";
 import { useDark, useLocalStorage, usePreferredDark } from "@vueuse/core";
 
-export const DARK_MODE_STORAGE_KEY = "KNIME_DARK_MODE";
+export const KDS_DARK_MODE_STORAGE_KEY = "KNIME_DARK_MODE";
 
-export type DarkModeType = "light" | "dark" | "system";
+export type KdsDarkModeType = "light" | "dark" | "system";
 
 // could also be system, but the previous behaviour forced it to light, so we use that
-const defaultMode: DarkModeType = "light";
+const defaultMode: KdsDarkModeType = "light";
 
-export const useDarkMode = () => {
+export const useKdsDarkMode = () => {
   // to also save a 'system' option we need to store the preference separately from the effective dark mode
-  const userPreference = useLocalStorage<DarkModeType>(
-    DARK_MODE_STORAGE_KEY,
+  const userPreference = useLocalStorage<KdsDarkModeType>(
+    KDS_DARK_MODE_STORAGE_KEY,
     defaultMode,
   );
 
   const isDark = useDark({
-    storageKey: `${DARK_MODE_STORAGE_KEY}_EFFECTIVE`,
+    storageKey: `${KDS_DARK_MODE_STORAGE_KEY}_EFFECTIVE`,
     initialValue: defaultMode,
     onChanged: (isDarkValue) => {
       let cssMode: string, themeValue: string;
@@ -47,11 +47,11 @@ export const useDarkMode = () => {
     { immediate: true },
   );
 
-  const currentMode = computed<DarkModeType>({
+  const currentMode = computed<KdsDarkModeType>({
     get() {
       return userPreference.value;
     },
-    set(value: DarkModeType) {
+    set(value: KdsDarkModeType) {
       userPreference.value = value;
     },
   });
