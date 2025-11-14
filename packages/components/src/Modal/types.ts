@@ -1,7 +1,16 @@
 import type { IconName } from "../Icon/types";
 
-export const closedByOptions = ["any", "closerequest", "none"] as const;
-export type ClosedByOptionsType = (typeof closedByOptions)[number];
+import type {
+  closedByOptions,
+  heightSizes,
+  modalVariants,
+  widthSizes,
+} from "./constants";
+
+type WidthSizes = (typeof widthSizes)[number];
+type HeightSizes = (typeof heightSizes)[number];
+type ModalVariants = (typeof modalVariants)[number];
+type ClosedByOptionsType = (typeof closedByOptions)[number];
 
 export type BaseModalProps = {
   icon?: IconName;
@@ -10,13 +19,13 @@ export type BaseModalProps = {
    * default: does scroll and has padding
    * plain: no scrolling or padding of the content
    */
-  variant?: "default" | "plain";
-  width?: "small" | "medium" | "large" | "full";
+  variant?: ModalVariants;
+  width?: WidthSizes;
   /**
    * full: take all space,
    * auto: dialog is growing with the content.
    */
-  height?: "full" | "auto";
+  height?: HeightSizes;
   /** Whether the dialog is visible or not */
   active?: boolean;
   /** https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog#closedby */
