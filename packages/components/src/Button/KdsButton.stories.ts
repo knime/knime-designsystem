@@ -16,7 +16,7 @@ import { kdsButtonVariants } from "./constants";
 
 const meta: Meta<typeof KdsButton> = {
   title: "Components/Buttons/KdsButton",
-  component: KdsButton as FunctionalComponent, // only because of the generic typing of Button
+  component: KdsButton as FunctionalComponent, // only because of the generic typing of KdsButton
   tags: ["autodocs"],
   parameters: {
     design: {
