@@ -1,0 +1,11 @@
+/**
+* Import only the font weights and styles that are required:
+* Sync with dist/tokens/css/_variables.css
+* search for --kds-font- to find all font related CSS variables
+* Roboto Condensed is not imported here as it's only rarely used in apps.
+*/
+@import "@fontsource/roboto/400";
+@import "@fontsource/roboto/400-italic.css";
+@import "@fontsource/roboto/500";
+@import "@fontsource/roboto/700";
+@import "@fontsource/roboto-mono/300";

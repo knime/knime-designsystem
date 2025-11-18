@@ -7,19 +7,6 @@ import {
   useKdsLegacyMode,
 } from "../../packages/components/src/util";
 
-// TODO: use roboto provided by the design system? like @knime/kds-styles
-const link = document.createElement("link");
-link.href =
-  "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap";
-link.rel = "stylesheet";
-document.head.appendChild(link);
-
-const robotoMonoLink = document.createElement("link");
-robotoMonoLink.href =
-  "https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap";
-robotoMonoLink.rel = "stylesheet";
-document.head.appendChild(robotoMonoLink);
-
 const globalStyles = `
   h1 {
     font: var(--kds-font-dataapps-h1);

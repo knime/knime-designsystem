@@ -184,7 +184,7 @@ importers:
         version: link:../packages/styles
       '@knime/styles':
         specifier: ^1.14.3
-        version: 1.14.3(@fontsource/roboto-mono@4.5.10)(@fontsource/roboto@4.5.8)
+        version: 1.14.3(@fontsource/roboto-mono@5.2.8)(@fontsource/roboto@5.2.8)
       storybook:
         specifier: catalog:storybook
         version: 10.0.6(@testing-library/dom@10.4.0)(prettier@3.6.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vite@7.1.11(@types/node@24.2.0)(yaml@2.8.1))
@@ -266,10 +266,10 @@ importers:
         version: link:../styles
       '@knime/styles':
         specifier: ^1.14.3
-        version: 1.14.3(@fontsource/roboto-mono@4.5.10)(@fontsource/roboto@4.5.8)
+        version: 1.14.3(@fontsource/roboto-mono@5.2.8)(@fontsource/roboto@5.2.8)
       '@knime/utils':
         specifier: ^1.7.1
-        version: 1.7.1(@fontsource/roboto-mono@4.5.10)(@fontsource/roboto@4.5.8)(consola@3.4.2)
+        version: 1.7.1(@fontsource/roboto-mono@5.2.8)(@fontsource/roboto@5.2.8)(consola@3.4.2)
       consola:
         specifier: 'catalog:'
         version: 3.4.2
@@ -313,13 +313,22 @@ importers:
 
   packages/styles:
     dependencies:
+      '@fontsource/roboto':
+        specifier: 5.2.8
+        version: 5.2.8
+      '@fontsource/roboto-condensed':
+        specifier: 5.2.8
+        version: 5.2.8
+      '@fontsource/roboto-mono':
+        specifier: 5.2.8
+        version: 5.2.8
       modern-normalize:
         specifier: 3.0.1
         version: 3.0.1
     devDependencies:
       '@knime/styles':
         specifier: ^1.14.3
-        version: 1.14.3(@fontsource/roboto-mono@4.5.10)(@fontsource/roboto@4.5.8)
+        version: 1.14.3(@fontsource/roboto-mono@5.2.8)(@fontsource/roboto@5.2.8)
       '@tokens-studio/sd-transforms':
         specifier: ^2.0.1
         version: 2.0.1(style-dictionary@5.1.1)
@@ -1029,11 +1038,14 @@ packages:
     peerDependencies:
       react: ^16.14.0 || ^17.0.0 || ^18.0.0
 
-  '@fontsource/roboto-mono@4.5.10':
-    resolution: {integrity: sha512-KrJdmkqz6DszT2wV/bbhXef4r0hV3B0vw2mAqei8A2kRnvq+gcJLmmIeQ94vu9VEXrUQzos5M9lH1TAAXpRphw==}
+  '@fontsource/roboto-condensed@5.2.8':
+    resolution: {integrity: sha512-M2OxXXGJQeif+LhxHjWiCEX3BHIYeZf64CcUTeh9AQFGp7DXo2UAXZiZUUOalVdOiuUtQSIi2CDHLDWFiyoECQ==}
 
-  '@fontsource/roboto@4.5.8':
-    resolution: {integrity: sha512-CnD7zLItIzt86q4Sj3kZUiLcBk1dSk81qcqgMGaZe7SQ1P8hFNxhMl5AZthK1zrDM5m74VVhaOpuMGIL4gagaA==}
+  '@fontsource/roboto-mono@5.2.8':
+    resolution: {integrity: sha512-M0XPRcvkOKiTPooXwX7yJSNpuad3CPcQwsADBfnopz3apBs+VKI47pc42mlvAxJjNTRauu5rndSxHc8F52bR7Q==}
+
+  '@fontsource/roboto@5.2.8':
+    resolution: {integrity: sha512-oh9g4Cg3loVMz9MWeKWfDI+ooxxG1aRVetkiKIb2ESS2rrryGecQ/y4pAj4z5A5ebyw450dYRi/c4k/I3UBhHA==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -5216,8 +5228,8 @@ packages:
   vue-component-type-helpers@2.2.8:
     resolution: {integrity: sha512-4bjIsC284coDO9om4HPA62M7wfsTvcmZyzdfR0aUlFXqq4tXxM1APyXpNVxPC8QazKw9OhmZNHBVDA6ODaZsrA==}
 
-  vue-component-type-helpers@3.1.3:
-    resolution: {integrity: sha512-V1dOD8XYfstOKCnXbWyEJIrhTBMwSyNjv271L1Jlx9ExpNlCSuqOs3OdWrGJ0V544zXufKbcYabi/o+gK8lyfQ==}
+  vue-component-type-helpers@3.1.4:
+    resolution: {integrity: sha512-Uws7Ew1OzTTqHW8ZVl/qLl/HB+jf08M0NdFONbVWAx0N4gMLK8yfZDgeB77hDnBmaigWWEn5qP8T9BG59jIeyQ==}
 
   vue-docgen-api@4.79.2:
     resolution: {integrity: sha512-n9ENAcs+40awPZMsas7STqjkZiVlIjxIKgiJr5rSohDP0/JCrD9VtlzNojafsA1MChm/hz2h3PDtUedx3lbgfA==}
@@ -6094,9 +6106,11 @@ snapshots:
       '@lit-labs/react': 1.2.1
       react: 19.0.0
 
-  '@fontsource/roboto-mono@4.5.10': {}
+  '@fontsource/roboto-condensed@5.2.8': {}
 
-  '@fontsource/roboto@4.5.8': {}
+  '@fontsource/roboto-mono@5.2.8': {}
+
+  '@fontsource/roboto@5.2.8': {}
 
   '@humanfs/core@0.19.1': {}
 
@@ -6229,10 +6243,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@knime/styles@1.14.3(@fontsource/roboto-mono@4.5.10)(@fontsource/roboto@4.5.8)':
+  '@knime/styles@1.14.3(@fontsource/roboto-mono@5.2.8)(@fontsource/roboto@5.2.8)':
     dependencies:
-      '@fontsource/roboto': 4.5.8
-      '@fontsource/roboto-mono': 4.5.10
+      '@fontsource/roboto': 5.2.8
+      '@fontsource/roboto-mono': 5.2.8
       modern-normalize: 2.0.0
       postcss: 8.5.6
       postcss-import: 16.1.0(postcss@8.5.6)
@@ -6240,9 +6254,9 @@ snapshots:
       postcss-preset-env: 10.0.5(postcss@8.5.6)
       postcss-url: 10.1.3(postcss@8.5.6)
 
-  '@knime/utils@1.7.1(@fontsource/roboto-mono@4.5.10)(@fontsource/roboto@4.5.8)(consola@3.4.2)':
+  '@knime/utils@1.7.1(@fontsource/roboto-mono@5.2.8)(@fontsource/roboto@5.2.8)(consola@3.4.2)':
     dependencies:
-      '@knime/styles': 1.14.3(@fontsource/roboto-mono@4.5.10)(@fontsource/roboto@4.5.8)
+      '@knime/styles': 1.14.3(@fontsource/roboto-mono@5.2.8)(@fontsource/roboto@5.2.8)
       consola: 3.4.2
       date-fns: 2.30.0
       date-fns-tz: 2.0.0(date-fns@2.30.0)
@@ -6609,7 +6623,7 @@ snapshots:
       storybook: 10.0.6(@testing-library/dom@10.4.0)(prettier@3.6.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vite@7.1.11(@types/node@24.2.0)(yaml@2.8.1))
       type-fest: 2.19.0
       vue: 3.5.22(typescript@5.9.3)
-      vue-component-type-helpers: 3.1.3
+      vue-component-type-helpers: 3.1.4
 
   '@stylistic/eslint-plugin@5.4.0(eslint@9.36.0)':
     dependencies:
@@ -10804,7 +10818,7 @@ snapshots:
 
   vue-component-type-helpers@2.2.8: {}
 
-  vue-component-type-helpers@3.1.3: {}
+  vue-component-type-helpers@3.1.4: {}
 
   vue-docgen-api@4.79.2(vue@3.5.22(typescript@5.9.3)):
     dependencies:

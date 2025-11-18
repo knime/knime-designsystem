@@ -1,3 +1,4 @@
+@import "./fonts";
 @import "modern-normalize/modern-normalize.css";
 @import "@knime/kds-styles/kds-variables.css";
 @import "./basics";
