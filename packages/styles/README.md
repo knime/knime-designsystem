@@ -37,7 +37,7 @@ To use the design tokens and basic CSS you can simply import the following into 
 - `@import "@knime/kds-styles/fonts.css"`: Import CSS font definitions for Roboto and Roboto Mono
 - `@import "@knime/kds-styles/fonts-workflows.css"`: Import CSS font definitions for Roboto Condensed which is only used in the context of workflow editing
 
-- `@import "@knime/kds-styles/index.css"`: Bundles all previous imports and adds basic core style rules, e.g. uses modern-normalize for browser reset - USE ONLY FOR NEW PROJECTS OR CONVERSION IS ALREADY AT A POINT WHERE CORE STYLES CAN BE REPLACED
+- `@import "@knime/kds-styles/index.css"`: Bundles all previous imports and adds basic core style rules, e.g. uses modern-normalize for browser reset. **Important:** Use only for new projects, or if conversion is already at a point where core styles can be replaced.
 
 ## Important Scripts
 
