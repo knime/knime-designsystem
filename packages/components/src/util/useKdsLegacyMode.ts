@@ -2,7 +2,7 @@ import { ref, watch } from "vue";
 
 const legacyMode = ref(false);
 
-export const useLegacyMode = (initialValue: boolean = false) => {
+export const useKdsLegacyMode = (initialValue: boolean = false) => {
   if (legacyMode.value !== initialValue) {
     legacyMode.value = initialValue;
   }

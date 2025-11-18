@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="UNUSED">
 import { type Component, computed } from "vue";
 
-import Icon from "../Icon/Icon.vue";
+import KdsIcon from "../Icon/KdsIcon.vue";
 
 import type { BaseButtonProps } from "./types";
 
@@ -53,9 +53,13 @@ function onClick(e: MouseEvent) {
     :disabled="props.disabled"
     @click="onClick($event)"
   >
-    <Icon v-if="props.leadingIcon" :name="props.leadingIcon" :size="iconSize" />
+    <KdsIcon
+      v-if="props.leadingIcon"
+      :name="props.leadingIcon"
+      :size="iconSize"
+    />
     <span v-if="props.label" class="label">{{ props.label }}</span>
-    <Icon
+    <KdsIcon
       v-if="props.trailingIcon && props.label"
       :name="props.trailingIcon"
       :size="iconSize"

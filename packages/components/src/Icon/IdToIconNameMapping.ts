@@ -1,4 +1,4 @@
-import type { TypeIconName } from "./types";
+import type { KdsTypeIconName } from "./types";
 
 export const ID_TO_ICON_MAP = {
   // Flow Variables
@@ -97,6 +97,6 @@ export const ID_TO_ICON_MAP = {
   "org.knime.chem.types.cdx.CDXMLValue": "microscope",
   "org.rdkit.knime.types.RDKitMolValue": "microscope",
   "jp.co.infocom.cheminfo.marvin.type.MrvValue": "microscope",
-} as const satisfies Record<string, TypeIconName>;
+} as const satisfies Record<string, KdsTypeIconName>;
 
 export type TypeId = keyof typeof ID_TO_ICON_MAP;

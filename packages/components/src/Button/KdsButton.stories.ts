@@ -4,19 +4,19 @@ import { fn } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
-import { sizes } from "../constants";
+import { kdsSizes } from "../constants";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
   buildTextOverflowStory,
 } from "../test-utils/storybook";
 
-import Button from "./Button.vue";
-import { buttonVariants } from "./constants";
+import KdsButton from "./KdsButton.vue";
+import { kdsButtonVariants } from "./constants";
 
-const meta: Meta<typeof Button> = {
-  title: "Components/Buttons/Button",
-  component: Button as FunctionalComponent, // only because of the generic typing of Button
+const meta: Meta<typeof KdsButton> = {
+  title: "Components/Buttons/KdsButton",
+  component: KdsButton as FunctionalComponent, // only because of the generic typing of KdsButton
   tags: ["autodocs"],
   parameters: {
     design: {
@@ -27,11 +27,11 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     size: {
       control: { type: "select" },
-      options: sizes,
+      options: kdsSizes,
     },
     variant: {
       control: { type: "select" },
-      options: buttonVariants,
+      options: kdsButtonVariants,
     },
     destructive: { control: "boolean" },
     disabled: { control: "boolean" },
@@ -51,7 +51,7 @@ const meta: Meta<typeof Button> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof KdsButton>;
 
 export const Filled: Story = {
   args: {
@@ -80,12 +80,12 @@ export const Disabled: Story = {
     disabled: true,
   },
   render: (args) => ({
-    components: { Button },
+    components: { KdsButton },
     setup() {
-      return { args, buttonVariants };
+      return { args, kdsButtonVariants };
     },
     template: `
-      <Button v-bind="args" :variant="variant" v-for="variant in buttonVariants" :key="variant" style="margin-bottom: 10px;" />`,
+      <KdsButton v-bind="args" :variant="variant" v-for="variant in kdsButtonVariants" :key="variant" style="margin-bottom: 10px;" />`,
   }),
 };
 
@@ -95,12 +95,12 @@ export const Destructive: Story = {
     destructive: true,
   },
   render: (args) => ({
-    components: { Button },
+    components: { KdsButton },
     setup() {
-      return { args, buttonVariants };
+      return { args, kdsButtonVariants };
     },
     template: `
-      <Button v-bind="args" :variant="variant" v-for="variant in buttonVariants" :key="variant" style="margin-bottom: 10px;"/>`,
+      <KdsButton v-bind="args" :variant="variant" v-for="variant in kdsButtonVariants" :key="variant" style="margin-bottom: 10px;"/>`,
   }),
 };
 
@@ -121,11 +121,11 @@ export const IconOnly: Story = {
 };
 
 export const AllCombinations: Story = buildAllCombinationsStory({
-  component: Button,
+  component: KdsButton,
   combinationsProps: [
     {
-      size: sizes,
-      variant: buttonVariants,
+      size: kdsSizes,
+      variant: kdsButtonVariants,
       disabled: [false, true],
       destructive: [false, true],
       label: ["Button"],
@@ -133,8 +133,8 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       trailingIcon: [undefined, "ai-general"],
     },
     {
-      size: sizes,
-      variant: buttonVariants,
+      size: kdsSizes,
+      variant: kdsButtonVariants,
       disabled: [false, true],
       destructive: [false, true],
       leadingIcon: ["ai-general"],
@@ -144,7 +144,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
 
 export const TextOverflow: Story = {
   ...buildTextOverflowStory({
-    component: Button,
+    component: KdsButton,
   }),
   args: {
     label: "Button with veeery loooong label",
@@ -155,7 +155,7 @@ export const TextOverflow: Story = {
 };
 
 export const DesignComparator: Story = buildDesignComparatorStory({
-  component: Button,
+  component: KdsButton,
   designsToCompare: {
     label: {
       props: {

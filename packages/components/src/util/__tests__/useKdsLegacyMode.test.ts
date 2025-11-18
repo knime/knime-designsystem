@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { nextTick } from "vue";
 
-import { useLegacyMode } from "../useLegacyMode";
+import { useKdsLegacyMode } from "../useKdsLegacyMode";
 
 describe("useLegacyMode", () => {
   beforeEach(() => {
@@ -13,7 +13,7 @@ describe("useLegacyMode", () => {
   });
 
   it("initializes with default value", () => {
-    const { legacyMode } = useLegacyMode();
+    const { legacyMode } = useKdsLegacyMode();
 
     expect(legacyMode.value).toBe(false);
     expect(document.documentElement.classList.contains("kds-legacy")).toBe(
@@ -22,7 +22,7 @@ describe("useLegacyMode", () => {
   });
 
   it("uses initial value if set", () => {
-    const { legacyMode } = useLegacyMode(true);
+    const { legacyMode } = useKdsLegacyMode(true);
 
     expect(legacyMode.value).toBe(true);
     expect(document.documentElement.classList.contains("kds-legacy")).toBe(
@@ -31,7 +31,7 @@ describe("useLegacyMode", () => {
   });
 
   it("updates class when value changes", async () => {
-    const { legacyMode } = useLegacyMode();
+    const { legacyMode } = useKdsLegacyMode();
     expect(document.documentElement.classList.contains("kds-legacy")).toBe(
       false,
     );

@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
-import DataType from "./DataType.vue";
-import { typeIconNames } from "./constants";
+import KdsDataType from "./KdsDataType.vue";
+import { kdsTypeIconNames } from "./constants";
 
-const meta: Meta<typeof DataType> = {
-  title: "Components/DataType",
-  component: DataType,
+const meta: Meta<typeof KdsDataType> = {
+  title: "Components/KdsDataType",
+  component: KdsDataType,
   tags: ["autodocs"],
   argTypes: {
     iconName: {
       control: { type: "select" },
-      options: typeIconNames,
+      options: kdsTypeIconNames,
     },
     iconTitle: {
       control: { type: "text" },
@@ -23,7 +23,7 @@ const meta: Meta<typeof DataType> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof DataType>;
+type Story = StoryObj<typeof KdsDataType>;
 
 export const DataTypeStory: Story = {
   args: {
