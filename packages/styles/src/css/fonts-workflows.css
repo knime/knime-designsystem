@@ -1,0 +1,10 @@
+/**
+* Fonts for workflows.
+*
+* Import only the weights and styles that are required:
+* Sync with dist/tokens/css/_variables.css
+* Search for --kds-font- to find all font related CSS variables.
+*/
+@import "./fonts.css";
+@import "@fontsource/roboto-condensed/400";
+@import "@fontsource/roboto-condensed/700";
