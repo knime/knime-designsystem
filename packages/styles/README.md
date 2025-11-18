@@ -24,9 +24,20 @@ All token values are fully calculated, ensuring that no variable references rema
 
 Two sets of files are generated for light and dark mode. Subsequently, the CSS files are merged to contain all variables only once. For variables that use different color values in light and dark mode, the `light-dark()` function is employed.
 
+## Fonts
+
+The design system uses the Roboto, Roboto Condensed and Roboto Mono fonts for typography. When using `@knime/kds-styles` as a dependency the fonts will automatically be installed, no separate dependency is needed.
+
 ## Usage
 
-_This section will be filled in later once the output and possible changes are clear._
+To use the design tokens and basic CSS you can simply import the following into a central CSS of your project:
+
+- `@import "@knime/kds-styles/kds-variables.css";`: Imports all built design tokens as CSS variables, including the colors in light and dark mode
+- `@import "@knime/kds-styles/kds-legacy-theme.css";`: Imports a legacy theme, which should be used to roll out design system components and tokens into an existing project, styles are adopted so old webapps-common components and new components can be used side by side
+- `@import "@knime/kds-styles/fonts.css"`: Import CSS font definitions for Roboto and Roboto Mono
+- `@import "@knime/kds-styles/fonts-workflows.css"`: Import CSS font definitions for Roboto Condensed which is only used in the context of workflow editing
+
+- `@import "@knime/kds-styles/index.css"`: Bundles all previous imports and adds basic core style rules, e.g. uses modern-normalize for browser reset. **Important:** Use only for new projects, or if conversion is already at a point where core styles can be replaced.
 
 ## Important Scripts
 

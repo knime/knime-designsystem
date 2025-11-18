@@ -1,3 +1,7 @@
+:root {
+  font-family: var(--kds-core-font-family-roboto), sans-serif;
+}
+
 body {
   font: var(--kds-font-base-body-medium);
   color: var(--kds-color-text-and-icon-neutral);
@@ -5,6 +9,13 @@ body {
 
 a {
   color: inherit;
+}
+
+pre,
+code,
+tt,
+samp {
+  font-family: var(--kds-core-font-family-roboto-mono), monospace;
 }
 
 svg {

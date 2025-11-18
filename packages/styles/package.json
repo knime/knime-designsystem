@@ -18,6 +18,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@fontsource/roboto": "5.2.8",
+    "@fontsource/roboto-condensed": "5.2.8",
+    "@fontsource/roboto-mono": "5.2.8",
     "modern-normalize": "3.0.1"
   },
   "devDependencies": {
@@ -36,6 +39,8 @@
   ],
   "exports": {
     "./index.css": "./dist/css/index.css",
+    "./fonts.css": "./dist/css/fonts.css",
+    "./fonts-workflows.css": "./dist/css/fonts-workflows.css",
     "./kds-variables.css": "./dist/tokens/css/_variables.css",
     "./kds-properties.css": "./dist/tokens/css/_properties.css",
     "./kds-legacy-theme.css": "./dist/tokens/css/_variables-legacy.css",
