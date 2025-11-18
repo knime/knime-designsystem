@@ -30,7 +30,7 @@ The design system uses the Roboto, Roboto Condensed and Roboto Mono fonts for ty
 
 ## Usage
 
-To use the design tokens and basic CSS you can simply import the following into a central css of your project:
+To use the design tokens and basic CSS you can simply import the following into a central CSS of your project:
 
 - `@import "@knime/kds-styles/kds-variables.css";`: Imports all built design tokens as CSS variables, including the colors in light and dark mode
 - `@import "@knime/kds-styles/kds-legacy-theme.css";`: Imports a legacy theme, which should be used to roll out design system components and tokens into an existing project, styles are adopted so old webapps-common components and new components can be used side by side
