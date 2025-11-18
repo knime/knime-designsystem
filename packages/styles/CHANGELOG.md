@@ -1,5 +1,11 @@
 # @knime/kds-styles
 
+## 0.1.1
+
+### Patch Changes
+
+- e381c07: Add fonts to @knime/kds-styles/index.css. Also available standalone as @knime/kds-styles/fonts.css
+
 ## 0.1.0
 
 ## 0.0.16
