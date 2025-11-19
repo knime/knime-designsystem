@@ -6,7 +6,7 @@ import { iconNames } from "@knime/kds-styles/img/icons/def";
 import KdsButton from "../Button/KdsButton.vue";
 import { veryLongText } from "../test-utils/veryLongText";
 
-import BaseModal from "./BaseModal.vue";
+import KdsModal from "./KdsModal.vue";
 import {
   closedByOptions,
   heightSizes,
@@ -14,9 +14,9 @@ import {
   widthSizes,
 } from "./constants";
 
-const meta: Meta<typeof BaseModal> = {
-  title: "Components/Modal/BaseModal",
-  component: BaseModal,
+const meta: Meta<typeof KdsModal> = {
+  title: "Components/Modal/KdsModal",
+  component: KdsModal,
   tags: ["autodocs"],
   parameters: {
     design: {
@@ -47,11 +47,11 @@ const meta: Meta<typeof BaseModal> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof BaseModal>;
+type Story = StoryObj<typeof KdsModal>;
 
-export const BaseModalStory: Story = {
+export const KdsModalStory: Story = {
   render: (args) => ({
-    components: { BaseModal, KdsButton },
+    components: { KdsModal, KdsButton },
     setup() {
       return {
         args,
@@ -63,7 +63,7 @@ export const BaseModalStory: Story = {
       variant="filled"
       @click="args.active = true"
     />
-    <BaseModal v-bind="args" @close="args.active = false">
+    <KdsModal v-bind="args" @close="args.active = false">
       <template #default>
         Do you really want to delete everything?
       </template>
@@ -79,7 +79,7 @@ export const BaseModalStory: Story = {
           @click="args.active = false"
         />
       </template>
-    </BaseModal>
+    </KdsModal>
   `,
   }),
   args: {
@@ -88,9 +88,9 @@ export const BaseModalStory: Story = {
   },
 };
 
-export const BaseModalFullSizeInnerScrollableStory: Story = {
+export const KdsModalFullSizeInnerScrollableStory: Story = {
   render: (args) => ({
-    components: { BaseModal, KdsButton },
+    components: { KdsModal, KdsButton },
     setup() {
       return {
         args,
@@ -102,7 +102,7 @@ export const BaseModalFullSizeInnerScrollableStory: Story = {
       variant="filled"
       @click="args.active = true"
     />
-    <BaseModal v-bind="args" @close="args.active = false">
+    <KdsModal v-bind="args" @close="args.active = false">
       <template #default>
         <div style="padding: var(--modal-padding-top) var(--modal-padding-right) var(--modal-gap) var(--modal-padding-left);">This is some message that will not scroll.</div>
         <div style="padding: 0 var(--modal-padding-right) 0 var(--modal-padding-left); overflow: auto;">${veryLongText} ${veryLongText}</div>
@@ -120,7 +120,7 @@ export const BaseModalFullSizeInnerScrollableStory: Story = {
           @click="args.active = false"
         />
       </template>
-    </BaseModal>
+    </KdsModal>
   `,
   }),
   args: {
@@ -134,7 +134,7 @@ export const BaseModalFullSizeInnerScrollableStory: Story = {
 
 export const VeryLongTextModalLightDismissible: Story = {
   render: (args) => ({
-    components: { BaseModal, KdsButton },
+    components: { KdsModal, KdsButton },
     setup() {
       return {
         args,
@@ -146,7 +146,7 @@ export const VeryLongTextModalLightDismissible: Story = {
       variant="filled"
       @click="args.active = true"
     />
-    <BaseModal v-bind="args" @close="args.active = false">
+    <KdsModal v-bind="args" @close="args.active = false">
       <template #default>
         ${veryLongText}
       </template>
@@ -157,7 +157,7 @@ export const VeryLongTextModalLightDismissible: Story = {
           @click="args.active = false"
         />
       </template>
-    </BaseModal>
+    </KdsModal>
   `,
   }),
   args: {

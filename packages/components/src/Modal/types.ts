@@ -1,4 +1,4 @@
-import type { IconName } from "../Icon/types";
+import type { KdsIconName } from "../Icon/types";
 
 import type {
   closedByOptions,
@@ -12,8 +12,8 @@ type HeightSizes = (typeof heightSizes)[number];
 type ModalVariants = (typeof modalVariants)[number];
 type ClosedByOptionsType = (typeof closedByOptions)[number];
 
-export type BaseModalProps = {
-  icon?: IconName;
+export type KdsModalProps = {
+  icon?: KdsIconName;
   title?: string;
   /**
    * default: does scroll and has padding

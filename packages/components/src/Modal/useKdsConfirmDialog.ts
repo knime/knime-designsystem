@@ -4,7 +4,7 @@ import { promise as PromiseUtils } from "@knime/utils";
 
 import type { KdsButtonProps } from "../Button/types";
 
-import type { BaseModalProps } from "./types";
+import type { KdsModalProps } from "./types";
 
 type CommonButtonProps = {
   label: string;
@@ -14,17 +14,19 @@ type CommonButtonProps = {
   flushLeft?: boolean;
 };
 
-export type ConfirmationButton = CommonButtonProps & {
+export type UseKdsConfirmDialogConfirmationButton = CommonButtonProps & {
   type: "confirm";
   customHandler?: (actions: { confirm: () => void }) => void;
 };
 
-export type CancellationButton = CommonButtonProps & {
+export type UseKdsConfirmDialogCancellationButton = CommonButtonProps & {
   type: "cancel";
   customHandler?: (actions: { cancel: () => void }) => void;
 };
 
-export type UseConfirmDialogButton = ConfirmationButton | CancellationButton;
+export type UseKdsConfirmDialogButton =
+  | UseKdsConfirmDialogConfirmationButton
+  | UseKdsConfirmDialogCancellationButton;
 
 type CommonConfig = {
   /**
@@ -35,7 +37,7 @@ type CommonConfig = {
   /**
    * Icon shown in the title bar of the dialog. Defaults to no icon used
    */
-  icon?: BaseModalProps["icon"];
+  icon?: KdsModalProps["icon"];
 
   /**
    * If the dialog gets closed by user actions:
@@ -44,15 +46,15 @@ type CommonConfig = {
    *
    * Defaults to 'closerequest'
    */
-  closedby?: BaseModalProps["closedby"];
+  closedby?: KdsModalProps["closedby"];
 
   /**
    * Confirmation or cancellation buttons if omitted default ones are set
    */
-  buttons?: Array<UseConfirmDialogButton>;
+  buttons?: Array<UseKdsConfirmDialogButton>;
 };
 
-export type PropertyBasedConfig = CommonConfig & {
+export type UseKdsConfirmDialogPropertyBasedConfig = CommonConfig & {
   /**
    * The message displayed in the dialog body
    */
@@ -70,7 +72,7 @@ export type PropertyBasedConfig = CommonConfig & {
   };
 };
 
-export type ComponentBasedConfig = CommonConfig & {
+export type UseKdsConfirmDialogComponentBasedConfig = CommonConfig & {
   /**
    * A component (supplied as Vue VNode instance) to be used as the template
    * for the dialog body
@@ -78,14 +80,16 @@ export type ComponentBasedConfig = CommonConfig & {
   component: VNode;
 };
 
-type ModalConfig = PropertyBasedConfig | ComponentBasedConfig;
+type ModalConfig =
+  | UseKdsConfirmDialogPropertyBasedConfig
+  | UseKdsConfirmDialogComponentBasedConfig;
 
-const defaultCancelButton: CancellationButton = {
+const defaultCancelButton: UseKdsConfirmDialogCancellationButton = {
   type: "cancel",
   label: "Cancel",
 };
 
-const defaultConfirmButton: ConfirmationButton = {
+const defaultConfirmButton: UseKdsConfirmDialogConfirmationButton = {
   type: "confirm",
   label: "Confirm",
 };
@@ -98,18 +102,22 @@ const unwrappedPromise = ref(
   PromiseUtils.createUnwrappedPromise<ConfirmResult>(),
 );
 
-export const isComponentBasedConfig = (
+const isComponentBasedConfig = (
   config: ModalConfig,
-): config is ComponentBasedConfig => {
+): config is UseKdsConfirmDialogComponentBasedConfig => {
   return "component" in config;
 };
 
-export const useConfirmDialog = () => {
+export const useKdsConfirmDialog = () => {
   // function overload to support 2 distinct configurations
-  function show(config: PropertyBasedConfig): Promise<ConfirmResult>;
+  function show(
+    config: UseKdsConfirmDialogPropertyBasedConfig,
+  ): Promise<ConfirmResult>;
 
   // function overload to support 2 distinct configurations
-  function show(config: ComponentBasedConfig): Promise<ConfirmResult>;
+  function show(
+    config: UseKdsConfirmDialogComponentBasedConfig,
+  ): Promise<ConfirmResult>;
 
   function show(config: ModalConfig): Promise<ConfirmResult> {
     activeModalConfig.value = {
@@ -147,5 +155,6 @@ export const useConfirmDialog = () => {
     config: computed(() => activeModalConfig.value),
     isActive: computed(() => isActive.value),
     dialogResult: computed(() => unwrappedPromise.value.promise),
+    isComponentBasedConfig,
   };
 };
