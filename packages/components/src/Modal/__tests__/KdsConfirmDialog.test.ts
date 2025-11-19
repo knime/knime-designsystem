@@ -2,14 +2,15 @@ import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import { h, nextTick } from "vue";
 import { flushPromises, mount } from "@vue/test-utils";
 
-import ConfirmDialog from "../ConfirmDialog.vue";
+import KdsConfirmDialog from "../KdsConfirmDialog.vue";
 import {
-  type PropertyBasedConfig,
-  useConfirmDialog,
-} from "../useConfirmDialog";
+  type UseKdsConfirmDialogPropertyBasedConfig,
+  useKdsConfirmDialog,
+} from "../useKdsConfirmDialog";
 
-describe("ConfirmDialog.vue", () => {
-  const { show, cancel, confirm, dialogResult, isActive } = useConfirmDialog();
+describe("KdsConfirmDialog.vue", () => {
+  const { show, cancel, confirm, dialogResult, isActive } =
+    useKdsConfirmDialog();
 
   afterEach(() => {
     cancel();
@@ -31,7 +32,7 @@ describe("ConfirmDialog.vue", () => {
   });
 
   const doMount = () => {
-    const wrapper = mount(ConfirmDialog);
+    const wrapper = mount(KdsConfirmDialog);
 
     return { wrapper };
   };
@@ -73,7 +74,7 @@ describe("ConfirmDialog.vue", () => {
     expect(wrapper.find("#custom-template").text()).toMatch("Hello world");
   });
 
-  // we can use the ConfirmDialog component to also indirectly test the composable
+  // we can use the KdsConfirmDialog component to also indirectly test the composable
   describe("composable", () => {
     it("should have the right state", async () => {
       doMount();
@@ -182,7 +183,7 @@ describe("ConfirmDialog.vue", () => {
 
     const spy = vi.fn();
 
-    const config: PropertyBasedConfig = {
+    const config: UseKdsConfirmDialogPropertyBasedConfig = {
       title: "This is the title",
       message: "This is the message",
       buttons: [

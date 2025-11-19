@@ -5,17 +5,17 @@ import KdsButton from "../Button/KdsButton.vue";
 import type { KdsButtonProps } from "../Button/types";
 import KdsCheckbox from "../Checkbox/KdsCheckbox.vue";
 
-import BaseModal from "./BaseModal.vue";
+import KdsModal from "./KdsModal.vue";
 import {
-  type CancellationButton,
-  type ConfirmationButton,
-  type UseConfirmDialogButton,
-  isComponentBasedConfig,
-  useConfirmDialog,
-} from "./useConfirmDialog";
+  type UseKdsConfirmDialogButton,
+  type UseKdsConfirmDialogCancellationButton,
+  type UseKdsConfirmDialogConfirmationButton,
+  useKdsConfirmDialog,
+} from "./useKdsConfirmDialog";
 
 const askAgain = ref(false);
-const { config, isActive, confirm, cancel } = useConfirmDialog();
+const { config, isActive, confirm, cancel, isComponentBasedConfig } =
+  useKdsConfirmDialog();
 
 const reset = () => {
   askAgain.value = false;
@@ -31,7 +31,9 @@ const onCancel = () => {
   reset();
 };
 
-const handleConfirmButtonClick = (button: ConfirmationButton) => {
+const handleConfirmButtonClick = (
+  button: UseKdsConfirmDialogConfirmationButton,
+) => {
   if (button.customHandler) {
     button.customHandler({ confirm: onConfirm });
     return;
@@ -39,7 +41,9 @@ const handleConfirmButtonClick = (button: ConfirmationButton) => {
   onConfirm();
 };
 
-const handleCancelButtonClick = (button: CancellationButton) => {
+const handleCancelButtonClick = (
+  button: UseKdsConfirmDialogCancellationButton,
+) => {
   if (button.customHandler) {
     button.customHandler({ cancel: onCancel });
     return;
@@ -47,7 +51,7 @@ const handleCancelButtonClick = (button: CancellationButton) => {
   onCancel();
 };
 
-const handleButtonClick = (button: UseConfirmDialogButton) => {
+const handleButtonClick = (button: UseKdsConfirmDialogButton) => {
   if (button.type === "cancel") {
     handleCancelButtonClick(button);
   } else {
@@ -56,12 +60,12 @@ const handleButtonClick = (button: UseConfirmDialogButton) => {
 };
 
 const defaultVariant = (
-  type: UseConfirmDialogButton["type"],
+  type: UseKdsConfirmDialogButton["type"],
 ): KdsButtonProps["variant"] => (type === "cancel" ? "transparent" : "filled");
 </script>
 
 <template>
-  <BaseModal
+  <KdsModal
     class="confirm-dialog"
     :active="isActive"
     :title="config?.title"
@@ -100,7 +104,7 @@ const defaultVariant = (
         @click="handleButtonClick(button)"
       />
     </template>
-  </BaseModal>
+  </KdsModal>
 </template>
 
 <style scoped>

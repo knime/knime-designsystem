@@ -4,9 +4,9 @@ import { computed, nextTick, useTemplateRef, watch } from "vue";
 import KdsButton from "../Button/KdsButton.vue";
 import KdsIcon from "../Icon/KdsIcon.vue";
 
-import type { BaseModalProps } from "./types";
+import type { KdsModalProps } from "./types";
 
-const props = withDefaults(defineProps<BaseModalProps>(), {
+const props = withDefaults(defineProps<KdsModalProps>(), {
   icon: undefined,
   title: "",
   active: false,

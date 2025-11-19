@@ -3,14 +3,14 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
 import KdsButton from "../Button/KdsButton.vue";
 
-import ConfirmDialog from "./ConfirmDialog.vue";
-import { useConfirmDialog } from "./useConfirmDialog";
+import KdsConfirmDialog from "./KdsConfirmDialog.vue";
+import { useKdsConfirmDialog } from "./useKdsConfirmDialog";
 
 const scriptExample = `html
 <script setup lang="ts">
-import { useConfirmDialog } from "@knime/kds-components";
+import { useKdsConfirmDialog } from "@knime/kds-components";
 
-const { show } = useConfirmDialog();
+const { show } = useKdsConfirmDialog();
 const result = await show({ title: "Confirm", message: "Can you confirm this?" });
 
 if (result.confirmed) {
@@ -21,23 +21,23 @@ if (result.confirmed) {
 
 const templateExample = `html
 <template>
-  <ConfirmDialog />
+  <KdsConfirmDialog />
 </template>
 `.trim();
 
-const meta: Meta<typeof ConfirmDialog> = {
-  title: "Components/Modal/useConfirmDialog",
-  component: ConfirmDialog,
+const meta: Meta<typeof KdsConfirmDialog> = {
+  title: "Components/Modal/useKdsConfirmDialog",
+  component: KdsConfirmDialog,
   parameters: {
     docs: {
       description: {
         component:
-          "ConfirmDialog component should only be used via the `useConfirmDialog()` composable. It is required " +
-          "to put the `<ConfirmDialog />` tag somewhere global in your application, ideally as a child of `<body>`. " +
+          "KdsConfirmDialog component should only be used via the `useKdsConfirmDialog()` composable. It is required " +
+          "to put the `<KdsConfirmDialog />` tag somewhere global in your application, ideally as a child of `<body>`. " +
           "If you use Nuxt it makes sense to put it between `<ClientOnly></ClientOnly>` to avoid SSR problems. " +
           "\n#### Example usage\n" +
           `\`\`\`${scriptExample}\`\`\`` +
-          "Somewhere in your app, state is shared via  useConfirmDialog\n" +
+          "Somewhere in your app, state is shared via  useKdsConfirmDialog\n" +
           `\`\`\`${templateExample}\`\`\``,
       },
     },
@@ -47,13 +47,13 @@ const meta: Meta<typeof ConfirmDialog> = {
 
 export default meta;
 
-type Story = StoryObj<typeof ConfirmDialog>;
+type Story = StoryObj<typeof KdsConfirmDialog>;
 
 export const ConfirmDialogStory: Story = {
   render: (args) => ({
-    components: { ConfirmDialog, KdsButton },
+    components: { KdsConfirmDialog, KdsButton },
     setup() {
-      const { show } = useConfirmDialog();
+      const { show } = useKdsConfirmDialog();
 
       const showDialog = () => {
         show({
@@ -95,7 +95,7 @@ export const ConfirmDialogStory: Story = {
       variant="filled"
       @click="showDialog"
     />
-    <ConfirmDialog />
+    <KdsConfirmDialog />
   `,
   }),
   args: {},
@@ -103,9 +103,9 @@ export const ConfirmDialogStory: Story = {
 
 export const ConfirmDialogWithCustomComponent: Story = {
   render: (args) => ({
-    components: { ConfirmDialog, KdsButton },
+    components: { KdsConfirmDialog, KdsButton },
     setup() {
-      const { show } = useConfirmDialog();
+      const { show } = useKdsConfirmDialog();
 
       const showDialog = () => {
         show({
@@ -133,7 +133,7 @@ export const ConfirmDialogWithCustomComponent: Story = {
       variant="filled"
       @click="showDialog"
     />
-    <ConfirmDialog />
+    <KdsConfirmDialog />
   `,
   }),
   args: {},

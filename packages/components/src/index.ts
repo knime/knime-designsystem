@@ -4,10 +4,9 @@ export { default as KdsLinkButton } from "./Button/KdsLinkButton.vue";
 export { default as KdsCheckbox } from "./Checkbox/KdsCheckbox.vue";
 export { default as KdsIcon } from "./Icon/KdsIcon.vue";
 export { default as KdsDataType } from "./Icon/KdsDataType.vue";
-
-export { default as BaseModal } from "./Modal/BaseModal.vue";
-export { default as ConfirmDialog } from "./Modal/ConfirmDialog.vue";
-export * from "./Modal/useConfirmDialog";
+export { default as KdsModal } from "./Modal/KdsModal.vue";
+export { default as KdsConfirmDialog } from "./Modal/KdsConfirmDialog.vue";
+export * from "./Modal/useKdsConfirmDialog";
 
 // Export component types
 export type * from "./Button/types";
