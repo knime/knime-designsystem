@@ -2,7 +2,7 @@ import { type VNode, computed, ref } from "vue";
 
 import { promise as PromiseUtils } from "@knime/utils";
 
-import type { ButtonProps } from "../Button/types";
+import type { KdsButtonProps } from "../Button/types";
 
 import type { BaseModalProps } from "./types";
 
@@ -10,7 +10,7 @@ type CommonButtonProps = {
   label: string;
   autofocus?: boolean;
   destructive?: boolean;
-  variant?: ButtonProps["variant"];
+  variant?: KdsButtonProps["variant"];
   flushLeft?: boolean;
 };
 

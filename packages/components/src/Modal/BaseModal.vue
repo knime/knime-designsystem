@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, nextTick, useTemplateRef, watch } from "vue";
 
-import Button from "../Button/Button.vue";
-import Icon from "../Icon/Icon.vue";
+import KdsButton from "../Button/KdsButton.vue";
+import KdsIcon from "../Icon/KdsIcon.vue";
 
 import type { BaseModalProps } from "./types";
 
@@ -70,9 +70,9 @@ const cssModalHeight = computed(() => {
   >
     <template v-if="active">
       <header class="modal-header">
-        <Icon v-if="props.icon" :name="props.icon" size="medium" />
+        <KdsIcon v-if="props.icon" :name="props.icon" size="medium" />
         <div class="modal-header-title">{{ title }}</div>
-        <Button
+        <KdsButton
           leading-icon="x-close"
           variant="transparent"
           size="medium"

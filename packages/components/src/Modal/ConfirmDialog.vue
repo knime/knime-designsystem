@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-import Button from "../Button/Button.vue";
-import type { ButtonProps } from "../Button/types";
-import Checkbox from "../Checkbox/Checkbox.vue";
+import KdsButton from "../Button/KdsButton.vue";
+import type { KdsButtonProps } from "../Button/types";
+import KdsCheckbox from "../Checkbox/KdsCheckbox.vue";
 
 import BaseModal from "./BaseModal.vue";
 import {
@@ -57,7 +57,7 @@ const handleButtonClick = (button: UseConfirmDialogButton) => {
 
 const defaultVariant = (
   type: UseConfirmDialogButton["type"],
-): ButtonProps["variant"] => (type === "cancel" ? "transparent" : "filled");
+): KdsButtonProps["variant"] => (type === "cancel" ? "transparent" : "filled");
 </script>
 
 <template>
@@ -77,7 +77,7 @@ const defaultVariant = (
       <div v-else class="confirmation">
         <div class="message">{{ config?.message }}</div>
         <div v-if="config?.doNotAskAgain" class="ask-again">
-          <Checkbox
+          <KdsCheckbox
             v-model="askAgain"
             :label="config.doNotAskAgain.label"
             :title="config.doNotAskAgain.title"
@@ -88,7 +88,7 @@ const defaultVariant = (
     </template>
 
     <template v-if="config" #footer>
-      <Button
+      <KdsButton
         v-for="(button, index) in config.buttons"
         :key="index"
         :destructive="button.destructive"

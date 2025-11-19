@@ -3,7 +3,7 @@ import { fn } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
-import Button from "../Button/Button.vue";
+import KdsButton from "../Button/KdsButton.vue";
 import { veryLongText } from "../test-utils/veryLongText";
 
 import BaseModal from "./BaseModal.vue";
@@ -51,14 +51,14 @@ type Story = StoryObj<typeof BaseModal>;
 
 export const BaseModalStory: Story = {
   render: (args) => ({
-    components: { BaseModal, Button },
+    components: { BaseModal, KdsButton },
     setup() {
       return {
         args,
       };
     },
     template: `
-    <Button
+    <KdsButton
       label="Show modal"
       variant="filled"
       @click="args.active = true"
@@ -68,12 +68,12 @@ export const BaseModalStory: Story = {
         Do you really want to delete everything?
       </template>
       <template #footer>
-        <Button
+        <KdsButton
           label="Cancel"
           variant="transparent"
           @click="args.active = false"
         />
-        <Button
+        <KdsButton
           label="Confirm"
           variant="filled"
           @click="args.active = false"
@@ -90,14 +90,14 @@ export const BaseModalStory: Story = {
 
 export const BaseModalFullSizeInnerScrollableStory: Story = {
   render: (args) => ({
-    components: { BaseModal, Button },
+    components: { BaseModal, KdsButton },
     setup() {
       return {
         args,
       };
     },
     template: `
-    <Button
+    <KdsButton
       label="Show modal"
       variant="filled"
       @click="args.active = true"
@@ -109,12 +109,12 @@ export const BaseModalFullSizeInnerScrollableStory: Story = {
         <div style="padding: var(--modal-gap) var(--modal-padding-right) var(--modal-padding-bottom) var(--modal-padding-left);">Also here no scrolling.</div>
       </template>
       <template #footer>
-        <Button
+        <KdsButton
           label="Cancel"
           variant="transparent"
           @click="args.active = false"
         />
-        <Button
+        <KdsButton
           label="Confirm"
           variant="filled"
           @click="args.active = false"
@@ -134,14 +134,14 @@ export const BaseModalFullSizeInnerScrollableStory: Story = {
 
 export const VeryLongTextModalLightDismissible: Story = {
   render: (args) => ({
-    components: { BaseModal, Button },
+    components: { BaseModal, KdsButton },
     setup() {
       return {
         args,
       };
     },
     template: `
-    <Button
+    <KdsButton
       label="Show Info"
       variant="filled"
       @click="args.active = true"
@@ -151,7 +151,7 @@ export const VeryLongTextModalLightDismissible: Story = {
         ${veryLongText}
       </template>
       <template #footer>
-      <Button
+      <KdsButton
           label="Ok"
           variant="filled"
           @click="args.active = false"
