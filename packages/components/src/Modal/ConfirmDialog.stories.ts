@@ -1,7 +1,7 @@
 import { h } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
-import Button from "../Button/Button.vue";
+import KdsButton from "../Button/KdsButton.vue";
 
 import ConfirmDialog from "./ConfirmDialog.vue";
 import { useConfirmDialog } from "./useConfirmDialog";
@@ -51,7 +51,7 @@ type Story = StoryObj<typeof ConfirmDialog>;
 
 export const ConfirmDialogStory: Story = {
   render: (args) => ({
-    components: { ConfirmDialog, Button },
+    components: { ConfirmDialog, KdsButton },
     setup() {
       const { show } = useConfirmDialog();
 
@@ -90,7 +90,7 @@ export const ConfirmDialogStory: Story = {
       };
     },
     template: `
-    <Button
+    <KdsButton
       label="Show confirm"
       variant="filled"
       @click="showDialog"
@@ -103,7 +103,7 @@ export const ConfirmDialogStory: Story = {
 
 export const ConfirmDialogWithCustomComponent: Story = {
   render: (args) => ({
-    components: { ConfirmDialog, Button },
+    components: { ConfirmDialog, KdsButton },
     setup() {
       const { show } = useConfirmDialog();
 
@@ -128,7 +128,7 @@ export const ConfirmDialogWithCustomComponent: Story = {
       };
     },
     template: `
-    <Button
+    <KdsButton
       label="Component based content"
       variant="filled"
       @click="showDialog"
