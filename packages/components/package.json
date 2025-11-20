@@ -34,13 +34,13 @@
     "type-check": "vue-tsc --build"
   },
   "peerDependencies": {
-    "vue": "catalog:peer",
-    "@vueuse/core": "catalog:peer"
+    "@vueuse/core": "catalog:peer",
+    "vue": "catalog:peer"
   },
   "dependencies": {
     "@knime/kds-styles": "workspace:^",
     "@knime/styles": "^1.14.3",
-    "@knime/utils": "^1.7.1",
+    "@knime/utils": "^1.8.0",
     "consola": "catalog:"
   },
   "devDependencies": {
