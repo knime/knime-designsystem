@@ -49,7 +49,7 @@ export default meta;
 
 type Story = StoryObj<typeof KdsModal>;
 
-export const KdsModalStory: Story = {
+export const Default: Story = {
   render: (args) => ({
     components: { KdsModal, KdsButton },
     setup() {
@@ -88,7 +88,7 @@ export const KdsModalStory: Story = {
   },
 };
 
-export const KdsModalFullSizeInnerScrollableStory: Story = {
+export const FullSizeInnerScrollable: Story = {
   render: (args) => ({
     components: { KdsModal, KdsButton },
     setup() {
@@ -132,7 +132,7 @@ export const KdsModalFullSizeInnerScrollableStory: Story = {
   },
 };
 
-export const VeryLongTextModalLightDismissible: Story = {
+export const LightDismissible: Story = {
   render: (args) => ({
     components: { KdsModal, KdsButton },
     setup() {
