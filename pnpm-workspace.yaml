@@ -36,7 +36,6 @@ catalogs:
     "@storybook/addon-docs": ^10.0.2
     "@storybook/addon-links": ^10.0.2
     "@storybook/addon-themes": ^10.0.2
-    "@storybook/themes": ^9.1.6
     "@storybook/vue3-vite": ^10.0.2
     "@storybook-community/storybook-dark-mode": ^6.0.8
     eslint-plugin-storybook: ^10.0.2
