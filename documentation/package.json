@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@knime/kds-styles": "workspace:*",
-    "@knime/styles": "^1.14.3",
+    "@knime/styles": "^1.15.0",
     "storybook": "catalog:storybook",
     "vue": "catalog:"
   },
