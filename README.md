@@ -4,6 +4,10 @@ This monorepo contains the KNIME Design System, including design tokens, icons, 
 
 This repository is maintained by [UI Core](mailto:team-ui-core@knime.com).
 
+## Demo
+
+All available components, icons etc. can be seen here: https://master--68e8c00876b55a4f55c29090.chromatic.com/
+
 ## Prerequisites
 
 To get started, you need to have [Proto](https://moonrepo.dev/proto) installed, which acts as a version manager for Node.js and pnpm.
