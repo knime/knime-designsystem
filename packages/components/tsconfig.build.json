@@ -7,6 +7,11 @@
     "emitDeclarationOnly": true,
     "outDir": "dist"
   },
-  "include": ["src/**/*", "globals.d.ts"],
-  "exclude": ["src/**/*.stories.ts", "src/**/__tests__/**/*", "node_modules"]
+  "include": ["./vite-env.d.ts", "src/**/*"],
+  "exclude": [
+    "src/**/*.stories.ts",
+    "src/**/__tests__/**/*",
+    "src/test-utils/**/*",
+    "node_modules"
+  ]
 }
