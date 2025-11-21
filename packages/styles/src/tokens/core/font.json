@@ -167,6 +167,10 @@
         "strong": {
           "$type": "fontWeights",
           "$value": "700"
+        },
+        "strongItalic": {
+          "$type": "fontWeights",
+          "$value": "Bold Italic"
         }
       },
       "line-height": {
