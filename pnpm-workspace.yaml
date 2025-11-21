@@ -10,7 +10,7 @@ catalog:
   "@vue/test-utils": ^2.4.6
   "@vue/tsconfig": ^0.7.0
   "@vueuse/core": ^13.8.0
-  consola: ^3.4.2
+  consola: 3.4.2
   eslint: 9.36.0
   husky: ^9.1.7
   jsdom: ^27.0.0
@@ -31,13 +31,13 @@ catalogs:
     "@vueuse/core": ~13.8.0
     vue: ~3.5.0
   storybook:
+    "@storybook-community/storybook-dark-mode": ^6.0.8
     "@storybook/addon-a11y": ^10.0.2
     "@storybook/addon-designs": ^11.0.1
     "@storybook/addon-docs": ^10.0.2
     "@storybook/addon-links": ^10.0.2
     "@storybook/addon-themes": ^10.0.2
     "@storybook/vue3-vite": ^10.0.2
-    "@storybook-community/storybook-dark-mode": ^6.0.8
     eslint-plugin-storybook: ^10.0.2
     storybook: ^10.0.2
   vitest:
