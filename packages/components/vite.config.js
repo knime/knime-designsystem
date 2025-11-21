@@ -13,15 +13,7 @@ export default defineConfig({
   plugins: [
     vue(),
     svgLoader({ svgoConfig }),
-    dts({
-      include: ["src/**/*", "globals.d.ts"],
-      exclude: [
-        "src/**/*.stories.ts",
-        "src/**/__tests__/**/*",
-        "src/test-utils/**/*",
-      ],
-      tsconfigPath: "./tsconfig.build.json",
-    }),
+    dts({ tsconfigPath: "./tsconfig.build.json" }),
     libInjectCss(),
   ],
   build: {
