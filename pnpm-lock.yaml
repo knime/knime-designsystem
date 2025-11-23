@@ -238,8 +238,8 @@ importers:
         specifier: 'catalog:'
         version: 0.7.0(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3))
       chromatic:
-        specifier: ^13.3.1
-        version: 13.3.1
+        specifier: ^13.3.4
+        version: 13.3.4
       color:
         specifier: ^5.0.0
         version: 5.0.0
@@ -2248,8 +2248,8 @@ packages:
       '@chromatic-com/playwright':
         optional: true
 
-  chromatic@13.3.1:
-    resolution: {integrity: sha512-qJ/el70Wo7jFgiXPpuukqxCEc7IKiH/e8MjTzIF9uKw+3XZ6GghOTTLC7lGfeZtosiQBMkRlYet77tC4KKHUng==}
+  chromatic@13.3.4:
+    resolution: {integrity: sha512-TR5rvyH0ESXobBB3bV8jc87AEAFQC7/n+Eb4XWhJz6hW3YNxIQPVjcbgLv+a4oKHEl1dUBueWSoIQsOVGTd+RQ==}
     hasBin: true
     peerDependencies:
       '@chromatic-com/cypress': ^0.*.* || ^1.0.0
@@ -2450,6 +2450,9 @@ packages:
 
   csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
+
+  csstype@3.2.3:
+    resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
 
   cuint@0.2.2:
     resolution: {integrity: sha512-d4ZVpCW31eWwCMe1YT3ur7mUDnTXbgwyzaL320DrcRT45rfjYxkt5QWLrmOJ+/UEAI2+fQgKe/fCjR8l4TpRgw==}
@@ -5228,8 +5231,8 @@ packages:
   vue-component-type-helpers@2.2.8:
     resolution: {integrity: sha512-4bjIsC284coDO9om4HPA62M7wfsTvcmZyzdfR0aUlFXqq4tXxM1APyXpNVxPC8QazKw9OhmZNHBVDA6ODaZsrA==}
 
-  vue-component-type-helpers@3.1.4:
-    resolution: {integrity: sha512-Uws7Ew1OzTTqHW8ZVl/qLl/HB+jf08M0NdFONbVWAx0N4gMLK8yfZDgeB77hDnBmaigWWEn5qP8T9BG59jIeyQ==}
+  vue-component-type-helpers@3.1.5:
+    resolution: {integrity: sha512-7V3yJuNWW7/1jxCcI1CswnpDsvs02Qcx/N43LkV+ZqhLj2PKj50slUflHAroNkN4UWiYfzMUUUXiNuv9khmSpQ==}
 
   vue-docgen-api@4.79.2:
     resolution: {integrity: sha512-n9ENAcs+40awPZMsas7STqjkZiVlIjxIKgiJr5rSohDP0/JCrD9VtlzNojafsA1MChm/hz2h3PDtUedx3lbgfA==}
@@ -6623,7 +6626,7 @@ snapshots:
       storybook: 10.0.6(@testing-library/dom@10.4.0)(prettier@3.6.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vite@7.1.11(@types/node@24.2.0)(yaml@2.8.1))
       type-fest: 2.19.0
       vue: 3.5.22(typescript@5.9.3)
-      vue-component-type-helpers: 3.1.4
+      vue-component-type-helpers: 3.1.5
 
   '@stylistic/eslint-plugin@5.4.0(eslint@9.36.0)':
     dependencies:
@@ -6713,7 +6716,7 @@ snapshots:
 
   '@types/react@19.0.10':
     dependencies:
-      csstype: 3.1.3
+      csstype: 3.2.3
 
   '@types/tough-cookie@4.0.5': {}
 
@@ -7483,7 +7486,7 @@ snapshots:
 
   chromatic@12.2.0: {}
 
-  chromatic@13.3.1: {}
+  chromatic@13.3.4: {}
 
   ci-info@3.9.0: {}
 
@@ -7658,6 +7661,8 @@ snapshots:
       - postcss
 
   csstype@3.1.3: {}
+
+  csstype@3.2.3: {}
 
   cuint@0.2.2: {}
 
@@ -10818,7 +10823,7 @@ snapshots:
 
   vue-component-type-helpers@2.2.8: {}
 
-  vue-component-type-helpers@3.1.4: {}
+  vue-component-type-helpers@3.1.5: {}
 
   vue-docgen-api@4.79.2(vue@3.5.22(typescript@5.9.3)):
     dependencies:
