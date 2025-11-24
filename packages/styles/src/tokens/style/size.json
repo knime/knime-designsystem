@@ -31,9 +31,11 @@
     "spacing": {
       "container": {
         "negative": {
-          "$type": "spacing",
-          "$value": "-4",
-          "$description": "Negative spacing, used for the negative item gap in the KdsAvatarGroup component. "
+          "0_25x": {
+            "$type": "spacing",
+            "$value": "-4",
+            "$description": "Negative spacing, used for the negative item gap in the KdsAvatarGroup component. "
+          }
         },
         "none": {
           "$type": "spacing",
