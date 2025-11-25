@@ -157,6 +157,16 @@
             },
             "$description": "multiline text, used for paragraphes inside components, pages or panels"
           },
+          "small-strong-italic": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.roboto}",
+              "fontWeight": "{kds.core.font-weight.strongItalic}",
+              "lineHeight": "{kds.core.line-height.multiline_wide}",
+              "fontSize": "{kds.core.font-size.0_75x}"
+            },
+            "$description": "multiline text, used for paragraphes inside components, pages or panels"
+          },
           "medium": {
             "$type": "typography",
             "$value": {
