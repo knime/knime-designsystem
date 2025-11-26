@@ -1,5 +1,5 @@
 ---
-"@knime/kds-components": patch
+"@knime/kds-components": minor
 ---
 
-Add a modal to the components.
+Add KdsModal components.
