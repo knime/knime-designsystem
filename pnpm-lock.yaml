@@ -28,7 +28,7 @@ catalogs:
       specifier: ^13.8.0
       version: 13.9.0
     consola:
-      specifier: 3.4.2
+      specifier: ^3.4.2
       version: 3.4.2
     eslint:
       specifier: 9.36.0

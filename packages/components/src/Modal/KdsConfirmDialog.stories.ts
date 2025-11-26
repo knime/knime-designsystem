@@ -12,7 +12,7 @@ const scriptExample = `
 import { useKdsConfirmDialog } from "@knime/kds-components";
 
 const { show } = useKdsConfirmDialog();
-const result = await show({ title: "Confirm", message: "Can you confirm this?" });
+const result = await show({ title: "Confirm", message: "A question for you." });
 
 if (result.confirmed) {
   // do your thing
@@ -69,7 +69,7 @@ export const Example: Story = {
           title: "Sure?",
           message: "Are you sure?",
           doNotAskAgain: {
-            label: "Do not ask again?",
+            label: "Do not ask again",
             title: "Some more info…",
             helperText: "Can be changed in the settings.",
           },
