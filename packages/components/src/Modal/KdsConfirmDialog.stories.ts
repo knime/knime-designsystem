@@ -49,7 +49,7 @@ export default meta;
 
 type Story = StoryObj<typeof KdsConfirmDialog>;
 
-export const ConfirmDialogStory: Story = {
+export const Example: Story = {
   render: (args) => ({
     components: { KdsConfirmDialog, KdsButton },
     setup() {
@@ -101,7 +101,7 @@ export const ConfirmDialogStory: Story = {
   args: {},
 };
 
-export const ConfirmDialogWithCustomComponent: Story = {
+export const WithCustomComponent: Story = {
   render: (args) => ({
     components: { KdsConfirmDialog, KdsButton },
     setup() {
