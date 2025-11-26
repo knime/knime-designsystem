@@ -138,6 +138,23 @@ export const Default: Story = {
   },
 };
 
+export const ShowOnLoad: Story = {
+  parameters: {
+    modalOptions: {
+      buttonLabel: "Show modal",
+      content: "Do you see me?",
+      confirmButton: { label: "Yes" },
+      cancelButton: { label: "No" },
+    },
+    docs: { disable: true },
+  },
+  args: {
+    active: true,
+    icon: "trash",
+    title: "Delete all",
+  },
+};
+
 export const FullSizeInnerScrollable: Story = {
   parameters: {
     modalOptions: {
