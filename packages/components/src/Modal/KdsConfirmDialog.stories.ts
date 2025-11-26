@@ -2,11 +2,12 @@ import { h } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
 import KdsButton from "../Button/KdsButton.vue";
+import { convertStoryCodeToSfc } from "../test-utils/convertStoryCodeToSfc";
 
 import KdsConfirmDialog from "./KdsConfirmDialog.vue";
 import { useKdsConfirmDialog } from "./useKdsConfirmDialog";
 
-const scriptExample = `html
+const scriptExample = `
 <script setup lang="ts">
 import { useKdsConfirmDialog } from "@knime/kds-components";
 
@@ -19,7 +20,7 @@ if (result.confirmed) {
 </script>
 `.trim();
 
-const templateExample = `html
+const templateExample = `
 <template>
   <KdsConfirmDialog />
 </template>
@@ -30,19 +31,27 @@ const meta: Meta<typeof KdsConfirmDialog> = {
   component: KdsConfirmDialog,
   parameters: {
     docs: {
+      source: {
+        type: "code",
+        language: "typescript",
+        transform: async (source: string) => {
+          const result = await convertStoryCodeToSfc(source);
+          return result;
+        },
+      },
+      // source: { code: scriptExample },
       description: {
         component:
           "KdsConfirmDialog component should only be used via the `useKdsConfirmDialog()` composable. It is required " +
           "to put the `<KdsConfirmDialog />` tag somewhere global in your application, ideally as a child of `<body>`. " +
           "If you use Nuxt it makes sense to put it between `<ClientOnly></ClientOnly>` to avoid SSR problems. " +
           "\n#### Example usage\n" +
-          `\`\`\`${scriptExample}\`\`\`` +
+          `\`\`\`html\n${scriptExample}\`\`\`` +
           "Somewhere in your app, state is shared via  useKdsConfirmDialog\n" +
-          `\`\`\`${templateExample}\`\`\``,
+          `\`\`\`html\n${templateExample}\`\`\``,
       },
     },
   },
-  tags: ["autodocs"],
 };
 
 export default meta;
