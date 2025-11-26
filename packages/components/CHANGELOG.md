@@ -1,5 +1,15 @@
 # @knime/kds-components
 
+## 0.2.0
+
+### Minor Changes
+
+- f5d429e: Add KdsModal components.
+
+### Patch Changes
+
+- @knime/kds-styles@0.2.0
+
 ## 0.1.1
 
 ### Patch Changes
