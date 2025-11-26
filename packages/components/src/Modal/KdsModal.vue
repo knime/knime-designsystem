@@ -36,6 +36,7 @@ watch(
       dialog.value?.close();
     }
   },
+  { immediate: true },
 );
 
 const widthMapping = {
@@ -76,6 +77,7 @@ const cssModalHeight = computed(() => {
           leading-icon="x-close"
           variant="transparent"
           size="medium"
+          title="Close"
           @click="onClose"
         />
       </header>

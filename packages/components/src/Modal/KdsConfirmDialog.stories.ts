@@ -39,7 +39,6 @@ const meta: Meta<typeof KdsConfirmDialog> = {
           return result;
         },
       },
-      // source: { code: scriptExample },
       description: {
         component:
           "KdsConfirmDialog component should only be used via the `useKdsConfirmDialog()` composable. It is required " +
