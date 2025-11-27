@@ -1,5 +1,12 @@
 # @knime/kds-components
 
+## 0.2.1
+
+### Patch Changes
+
+- a9d7db4: KdsModal: fix double close event
+  - @knime/kds-styles@0.2.1
+
 ## 0.2.0
 
 ### Minor Changes
