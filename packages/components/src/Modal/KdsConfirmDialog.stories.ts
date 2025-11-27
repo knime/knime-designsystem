@@ -1,5 +1,5 @@
 import { h } from "vue";
-import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import type { Meta, StoryContext, StoryObj } from "@storybook/vue3-vite";
 
 import KdsButton from "../Button/KdsButton.vue";
 import { convertStoryCodeToSfc } from "../test-utils/convertStoryCodeToSfc";
@@ -34,8 +34,10 @@ const meta: Meta<typeof KdsConfirmDialog> = {
       source: {
         type: "code",
         language: "typescript",
-        transform: async (source: string) => {
-          const result = await convertStoryCodeToSfc(source);
+        transform: async (_source: string, storyContext: StoryContext) => {
+          const result = await convertStoryCodeToSfc(
+            storyContext.originalStoryFn.toString(),
+          );
           return result;
         },
       },
@@ -59,7 +61,12 @@ type Story = StoryObj<typeof KdsConfirmDialog>;
 
 export const Example: Story = {
   render: (args) => ({
-    components: { KdsConfirmDialog, KdsButton },
+    /* useKdsConfirmDialog is added for source code generation */
+    components: {
+      KdsConfirmDialog,
+      KdsButton,
+      useKdsConfirmDialog,
+    },
     setup() {
       const { show } = useKdsConfirmDialog();
 
