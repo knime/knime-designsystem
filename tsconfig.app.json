@@ -1,11 +1,6 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": [
-    "vite-env.d.ts",
-    "globals.d.ts",
-    "packages/**/*.ts",
-    "packages/**/*.vue"
-  ],
+  "include": ["vite-env.d.ts", "packages/**/*.ts", "packages/**/*.vue"],
   "exclude": ["**/__tests__/*", "documentation/**/*"],
   "compilerOptions": {
     "lib": ["ES2023", "DOM"],
