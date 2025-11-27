@@ -73,7 +73,7 @@ const meta: Meta<typeof KdsModal> = {
       template: `
     <KdsModal>
       <template #default>
-        ${params.content ?? "A question?"}
+        ${params.content ?? "Modal content text."}
       </template>
       <template #footer>
         <KdsButton
@@ -109,6 +109,7 @@ const meta: Meta<typeof KdsModal> = {
         },
         template: `
         <KdsButton
+          v-if="${!params.hideButton}"
           label="${params.buttonLabel ?? "Show modal"}"
           variant="filled"
           @click="updateArgs({ active: true })"
@@ -127,38 +128,39 @@ export const Default: Story = {
   parameters: {
     modalOptions: {
       buttonLabel: "Show modal",
-      content: "Do you really want to delete everything?",
-      confirmButton: { label: "Yes" },
-      cancelButton: { label: "No" },
+      content:
+        "Modal content text. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+      confirmButton: { label: "Confirm" },
+      cancelButton: { label: "Cancel" },
     },
   },
   args: {
-    icon: "trash",
-    title: "Delete all",
+    icon: "placeholder",
+    title: "Title",
   },
 };
 
 export const ShowOnLoad: Story = {
   parameters: {
     modalOptions: {
-      buttonLabel: "Show modal",
-      content: "Do you see me?",
-      confirmButton: { label: "Yes" },
-      cancelButton: { label: "No" },
+      hideButton: true,
+      content: "This should be visible on load.",
+      confirmButton: { label: "Confirm" },
+      cancelButton: { label: "Cancel" },
     },
     docs: { disable: true },
   },
   args: {
     active: true,
-    icon: "trash",
-    title: "Delete all",
+    icon: "placeholder",
+    title: "Show on load…",
   },
 };
 
 export const FullSizeInnerScrollable: Story = {
   parameters: {
     modalOptions: {
-      buttonLabel: "Show full size",
+      buttonLabel: "Full size modal",
       content: `
       <div style="padding: var(--modal-padding-top) var(--modal-padding-right) var(--modal-gap) var(--modal-padding-left);">This is some message that will not scroll.</div>
       <div style="padding: 0 var(--modal-padding-right) 0 var(--modal-padding-left); overflow: auto;">${veryLongText} ${veryLongText}</div>
@@ -185,7 +187,7 @@ export const LightDismissible: Story = {
     },
   },
   args: {
-    title: "Please read carefully",
+    title: "Please read carefully. A click outside should close the dialog.",
     closedby: "any",
   },
 };

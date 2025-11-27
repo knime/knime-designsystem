@@ -16,14 +16,16 @@ export type KdsModalProps = {
   icon?: KdsIconName;
   title?: string;
   /**
-   * default: does scroll and has padding
-   * plain: no scrolling or padding of the content
+   * `default` does scroll and has padding
+   *
+   * `plain` no scrolling or padding of the content
    */
   variant?: ModalVariants;
   width?: WidthSizes;
   /**
-   * full: take all space,
-   * auto: dialog is growing with the content.
+   * `full` take all space
+   *
+   * `auto` dialog is growing with the content
    */
   height?: HeightSizes;
   /** Whether the dialog is visible or not */

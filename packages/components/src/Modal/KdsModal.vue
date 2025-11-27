@@ -66,7 +66,6 @@ const cssModalHeight = computed(() => {
     ref="dialogElement"
     class="base-modal"
     :closedby="closedby"
-    @close="onClose"
     @cancel.prevent="onClose"
   >
     <template v-if="active">
