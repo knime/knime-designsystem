@@ -33,3 +33,8 @@ export type KdsModalProps = {
   /** https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog#closedby */
   closedby?: ClosedByOptionsType;
 };
+
+export type KdsModalLayoutProps = Pick<
+  KdsModalProps,
+  "title" | "variant" | "icon"
+> & { onClose: (event: Event) => void };

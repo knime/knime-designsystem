@@ -72,9 +72,10 @@ const meta: Meta<typeof KdsModal> = {
       },
       template: `
     <KdsModal>
-      <template #default>
+      <template #body>
         ${params.content ?? "Modal content text."}
       </template>
+
       <template #footer>
         <KdsButton
           v-if="cancelButton.show"
