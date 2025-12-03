@@ -7,13 +7,13 @@ import KdsCheckbox from "../Checkbox/KdsCheckbox.vue";
 
 import KdsModal from "./KdsModal.vue";
 import {
-  type ConfirmDialogButton,
+  type ConfirmModalButton,
   internal,
-  useKdsDialog,
-} from "./useKdsDialog";
+  useKdsDynamicModal,
+} from "./useKdsDynamicModal";
 
 const askAgain = ref(false);
-const { config, isActive } = useKdsDialog();
+const { config, isActive } = useKdsDynamicModal();
 
 const reset = () => {
   askAgain.value = false;
@@ -33,7 +33,7 @@ const onClose = () => {
   }
 };
 
-const handleConfirmDialogButton = (button: ConfirmDialogButton) => {
+const handleConfirmButton = (button: ConfirmModalButton) => {
   if (!button.customHandler) {
     const handler = button.type === "cancel" ? onClose : onConfirm;
     handler();
@@ -50,13 +50,13 @@ const handleConfirmDialogButton = (button: ConfirmDialogButton) => {
 };
 
 const defaultVariant = (
-  type: ConfirmDialogButton["type"],
+  type: ConfirmModalButton["type"],
 ): KdsButtonProps["variant"] => (type === "cancel" ? "transparent" : "filled");
 </script>
 
 <template>
   <KdsModal
-    class="confirm-dialog"
+    class="confirm-modal"
     :active="isActive"
     :title="config?.value.title"
     :closedby="config?.value.closedby"
@@ -66,7 +66,7 @@ const defaultVariant = (
     <template v-if="config?.type === 'confirm'" #body>
       <Component
         :is="config.value.component"
-        v-if="internal.isTemplateBasedConfirmDialog(config.value)"
+        v-if="internal.isTemplateBasedConfirm(config.value)"
       />
 
       <div v-else class="confirmation">
@@ -92,7 +92,7 @@ const defaultVariant = (
         :variant="button.variant ?? defaultVariant(button.type)"
         :class="{ 'flush-left': button.flushLeft }"
         :data-test-id="`${button.type}-button`"
-        @click="handleConfirmDialogButton(button)"
+        @click="handleConfirmButton(button)"
       />
     </template>
 

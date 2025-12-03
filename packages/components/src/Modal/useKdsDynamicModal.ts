@@ -24,38 +24,38 @@ type CancellationButton = CommonButtonProps & {
   customHandler?: (actions: { cancel: () => void }) => void;
 };
 
-export type ConfirmDialogButton = ConfirmationButton | CancellationButton;
+export type ConfirmModalButton = ConfirmationButton | CancellationButton;
 
 type CommonConfig = {
   /**
-   * Dialog title
+   * Modal title
    */
   title: string;
 
   /**
-   * Icon shown in the title bar of the dialog. Defaults to no icon used
+   * Icon shown in the title bar of the modal. Defaults to no icon used
    */
   icon?: KdsModalProps["icon"];
 
   /**
-   * If the dialog gets closed by user actions:
-   *   closerequest: pressing the "Esc" key (or equivalent on mobile) dismisses the dialog.
-   *   any: the above and also clicking outside of the dialog
+   * If the modal gets closed by user actions:
+   *   closerequest: pressing the "Esc" key (or equivalent on mobile) dismisses the modal.
+   *   any: the above and also clicking outside of the modal
    *
    * Defaults to 'closerequest'
    */
   closedby?: KdsModalProps["closedby"];
 };
 
-type PropertyBasedConfirmDialogConfig = CommonConfig & {
+type PropertyBasedConfirmModalConfig = CommonConfig & {
   /**
-   * The message displayed in the dialog body
+   * The message displayed in the modal body
    */
   message: string;
   /**
    * The label and helperText to be rendered for the "do not ask again" checkbox option.
    * The title will be shown as tooltip on hover. The checkbox will only be present when
-   * an object is supplied. The value will be returned on the dialog result.
+   * an object is supplied. The value will be returned on the modal result.
    * Defaults to empty undefined.
    */
   doNotAskAgain?: {
@@ -67,38 +67,38 @@ type PropertyBasedConfirmDialogConfig = CommonConfig & {
   /**
    * Confirmation or cancellation buttons if omitted default ones are set
    */
-  buttons?: Array<ConfirmDialogButton>;
+  buttons?: Array<ConfirmModalButton>;
 };
 
-type TemplateBasedConfirmDialogConfig = CommonConfig & {
+type TemplateBasedConfirmModalConfig = CommonConfig & {
   /**
-   * the dynamic component to be used as the confirmation dialog body
+   * the dynamic component to be used as the confirmation modal body
    */
   component: Component;
 
   /**
    * Confirmation or cancellation buttons if omitted default ones are set
    */
-  buttons?: Array<ConfirmDialogButton>;
+  buttons?: Array<ConfirmModalButton>;
 };
 
-export type ConfirmDialogConfig =
-  | PropertyBasedConfirmDialogConfig
-  | TemplateBasedConfirmDialogConfig;
+export type ConfirmModalConfig =
+  | PropertyBasedConfirmModalConfig
+  | TemplateBasedConfirmModalConfig;
 
 /**
  * Define a props api which dynamic template components can optionally
- * define to get access to the configuration the dynamic dialog was called with
+ * define to get access to the configuration the dynamic modal was called with
  */
-export type KdsDynamicDialogPropsAPI = KdsModalLayoutProps;
-type DynamicDialogComponent = abstract new (...args: unknown[]) => {
-  $props: KdsDynamicDialogPropsAPI;
+export type KdsDynamicModalPropsAPI = KdsModalLayoutProps;
+type DynamicModalComponent = abstract new (...args: unknown[]) => {
+  $props: KdsDynamicModalPropsAPI;
 };
 
-export type DynamicDialogConfig = CommonConfig & {
+export type DynamicModalConfig = CommonConfig & {
   component:
-    | DynamicDialogComponent
-    | FunctionalComponent<KdsDynamicDialogPropsAPI>;
+    | DynamicModalComponent
+    | FunctionalComponent<KdsDynamicModalPropsAPI>;
 };
 
 const defaultCancelButton: CancellationButton = {
@@ -115,8 +115,8 @@ type ConfirmResult = { confirmed: boolean; doNotAskAgain?: boolean };
 
 const isActive = ref(false);
 const activeModalConfig = ref<
-  | { type: "confirm"; value: ConfirmDialogConfig }
-  | { type: "dynamic"; value: DynamicDialogConfig }
+  | { type: "confirm"; value: ConfirmModalConfig }
+  | { type: "dynamic"; value: DynamicModalConfig }
   | null
 >(null);
 
@@ -129,7 +129,7 @@ const resetInternalState = () => {
 };
 
 /**
- * Used to confirm the dialog result. Should only used when called via
+ * Used to confirm the modal result. Should only used when called via
  * `askConfirmation`
  * @param doNotAskAgain
  */
@@ -142,7 +142,7 @@ const confirm = (doNotAskAgain = false) => {
 };
 
 /**
- * Used to cancel the dialog result. Should only used when called via
+ * Used to cancel the modal result. Should only used when called via
  * `askConfirmation`
  */
 const cancel = () => {
@@ -151,7 +151,7 @@ const cancel = () => {
 };
 
 /**
- * Used to close the dialog. Should dnly used when called via
+ * Used to close the modal. Should only used when called via
  * `showByTemplate`
  */
 const close = () => {
@@ -159,9 +159,9 @@ const close = () => {
   resetInternalState();
 };
 
-const isTemplateBasedConfirmDialog = (
-  config: ConfirmDialogConfig,
-): config is TemplateBasedConfirmDialogConfig => {
+const isTemplateBasedConfirm = (
+  config: ConfirmModalConfig,
+): config is TemplateBasedConfirmModalConfig => {
   return "component" in config;
 };
 
@@ -169,23 +169,21 @@ export const internal = {
   confirm,
   cancel,
   close,
-  isTemplateBasedConfirmDialog,
+  isTemplateBasedConfirm,
 };
 
-export const useKdsDialog = () => {
+export const useKdsDynamicModal = () => {
   // function overload to support 2 distinct configurations
   function askConfirmation(
-    config: PropertyBasedConfirmDialogConfig,
+    config: PropertyBasedConfirmModalConfig,
   ): Promise<ConfirmResult>;
 
   // function overload to support 2 distinct configurations
   function askConfirmation(
-    config: TemplateBasedConfirmDialogConfig,
+    config: TemplateBasedConfirmModalConfig,
   ): Promise<ConfirmResult>;
 
-  function askConfirmation(
-    config: ConfirmDialogConfig,
-  ): Promise<ConfirmResult> {
+  function askConfirmation(config: ConfirmModalConfig): Promise<ConfirmResult> {
     activeModalConfig.value = {
       type: "confirm",
       value: {
@@ -198,7 +196,7 @@ export const useKdsDialog = () => {
     return unwrappedPromise.value.promise as Promise<ConfirmResult>;
   }
 
-  const showByTemplate = (config: DynamicDialogConfig): Promise<void> => {
+  const showByTemplate = (config: DynamicModalConfig): Promise<void> => {
     activeModalConfig.value = {
       type: "dynamic",
       value: config,

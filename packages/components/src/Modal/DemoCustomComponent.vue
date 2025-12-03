@@ -5,9 +5,9 @@ import KdsButton from "../Button/KdsButton.vue";
 import KdsCheckbox from "../Checkbox/KdsCheckbox.vue";
 
 import KdsModalLayout from "./KdsModalLayout.vue";
-import type { KdsDynamicDialogPropsAPI } from "./useKdsDialog";
+import type { KdsDynamicModalPropsAPI } from "./useKdsDynamicModal";
 
-const props = defineProps<KdsDynamicDialogPropsAPI>();
+const props = defineProps<KdsDynamicModalPropsAPI>();
 const checked = ref<boolean | "indeterminate">(false);
 </script>
 

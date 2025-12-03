@@ -187,7 +187,7 @@ export const LightDismissible: Story = {
     },
   },
   args: {
-    title: "Please read carefully. A click outside should close the dialog.",
+    title: "Please read carefully. A click outside should close the modal.",
     closedby: "any",
   },
 };

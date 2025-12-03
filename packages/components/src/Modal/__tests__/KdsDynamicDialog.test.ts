@@ -3,15 +3,15 @@ import { h, markRaw, nextTick } from "vue";
 import { flushPromises, mount } from "@vue/test-utils";
 
 import DemoCustomComponent from "../DemoCustomComponent.vue";
-import KdsDynamicDialog from "../KdsDynamicDialog.vue";
+import KdsDynamicModalProvider from "../KdsDynamicModalProvider.vue";
 import {
-  type ConfirmDialogConfig,
+  type ConfirmModalConfig,
   internal,
-  useKdsDialog,
-} from "../useKdsDialog";
+  useKdsDynamicModal,
+} from "../useKdsDynamicModal";
 
-describe("KdsDynamicDialog.vue", () => {
-  const { askConfirmation, showByTemplate, isActive } = useKdsDialog();
+describe("KdsDynamicModalProvider.vue", () => {
+  const { askConfirmation, showByTemplate, isActive } = useKdsDynamicModal();
 
   afterEach(() => {
     internal.cancel();
@@ -33,7 +33,7 @@ describe("KdsDynamicDialog.vue", () => {
   });
 
   const doMount = () => {
-    const wrapper = mount(KdsDynamicDialog);
+    const wrapper = mount(KdsDynamicModalProvider);
 
     return { wrapper };
   };
@@ -75,7 +75,7 @@ describe("KdsDynamicDialog.vue", () => {
       expect(wrapper.find("#custom-template").text()).toMatch("Hello world");
     });
 
-    // we can use the KdsDynamicDialog component to also indirectly test the composable
+    // we can use the KdsDynamicModalProvider component to also indirectly test the composable
     describe("composable", () => {
       it("should have the right state", async () => {
         doMount();
@@ -187,7 +187,7 @@ describe("KdsDynamicDialog.vue", () => {
 
       const spy = vi.fn();
 
-      const config: ConfirmDialogConfig = {
+      const config: ConfirmModalConfig = {
         title: "This is the title",
         message: "This is the message",
         buttons: [

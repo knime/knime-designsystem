@@ -7,14 +7,14 @@ import { convertStoryCodeToSfc } from "../test-utils/convertStoryCodeToSfc";
 
 import DemoCustomComponent from "./DemoCustomComponent.vue";
 import DemoCustomComponentSource from "./DemoCustomComponent.vue?raw";
-import KdsDynamicDialog from "./KdsDynamicDialog.vue";
-import { useKdsDialog } from "./useKdsDialog";
+import KdsDynamicModalProvider from "./KdsDynamicModalProvider.vue";
+import { useKdsDynamicModal } from "./useKdsDynamicModal";
 
 const scriptExample = `
 <script setup lang="ts">
-import { useKdsDialog } from "@knime/kds-components";
+import { useKdsDynamicModal } from "@knime/kds-components";
 
-const { askConfirmation } = useKdsDialog();
+const { askConfirmation } = useKdsDynamicModal();
 const result = await askConfirmation({ title: "Confirm", message: "A question for you." });
 
 if (result.confirmed) {
@@ -25,13 +25,13 @@ if (result.confirmed) {
 
 const templateExample = `
 <template>
-  <KdsDynamicDialog />
+  <KdsDynamicModalProvider />
 </template>
 `.trim();
 
-const meta: Meta<typeof KdsDynamicDialog> = {
-  title: "Components/Modal/useKdsDialog",
-  component: KdsDynamicDialog,
+const meta: Meta<typeof KdsDynamicModalProvider> = {
+  title: "Components/Modal/useKdsDynamicModal",
+  component: KdsDynamicModalProvider,
   parameters: {
     docs: {
       source: {
@@ -46,12 +46,12 @@ const meta: Meta<typeof KdsDynamicDialog> = {
       },
       description: {
         component:
-          "KdsDynamicDialog component should only be used via the `useKdsDialog()` composable. It is required " +
-          "to put the `<KdsDynamicDialog />` tag somewhere global in your application, ideally as a child of `<body>`. " +
+          "KdsDynamicModalProvider component should only be used via the `useKdsDynamicModal()` composable. It is required " +
+          "to put the `<KdsDynamicModalProvider />` tag somewhere global in your application, ideally as a child of `<body>`. " +
           "If you use Nuxt it makes sense to put it between `<ClientOnly></ClientOnly>` to avoid SSR problems. " +
           "\n#### Example usage\n" +
           `\`\`\`html\n${scriptExample}\`\`\`` +
-          "Somewhere in your app, state is shared via  useKdsDialog\n" +
+          "Somewhere in your app, state is shared via  useKdsDynamicModal\n" +
           `\`\`\`html\n${templateExample}\`\`\``,
       },
     },
@@ -60,20 +60,20 @@ const meta: Meta<typeof KdsDynamicDialog> = {
 
 export default meta;
 
-type Story = StoryObj<typeof KdsDynamicDialog>;
+type Story = StoryObj<typeof KdsDynamicModalProvider>;
 
 export const Confirmation: Story = {
   render: (args) => ({
-    /* useKdsDialog is added for source code generation */
+    /* useKdsDynamicModal is added for source code generation */
     components: {
-      KdsDynamicDialog,
+      KdsDynamicModalProvider,
       KdsButton,
-      useKdsDialog,
+      useKdsDynamicModal,
     },
     setup() {
-      const { askConfirmation } = useKdsDialog();
+      const { askConfirmation } = useKdsDynamicModal();
 
-      const showDialog = () => {
+      const showModal = () => {
         askConfirmation({
           title: "Sure?",
           message: "Are you sure?",
@@ -104,17 +104,17 @@ export const Confirmation: Story = {
       };
       return {
         args,
-        showDialog,
+        showModal,
       };
     },
     template: `
     <KdsButton
       label="Show confirm"
       variant="filled"
-      @click="showDialog"
+      @click="showModal"
     />
     <!-- put this somewhere global like app.vue -->
-    <KdsDynamicDialog />
+    <KdsDynamicModalProvider />
   `,
   }),
   args: {},
@@ -122,11 +122,11 @@ export const Confirmation: Story = {
 
 export const ConfirmationWithTemplate: Story = {
   render: (args) => ({
-    components: { KdsDynamicDialog, KdsButton },
+    components: { KdsDynamicModalProvider, KdsButton },
     setup() {
-      const { askConfirmation } = useKdsDialog();
+      const { askConfirmation } = useKdsDynamicModal();
 
-      const showDialog = () => {
+      const showModal = () => {
         askConfirmation({
           title: "Can you see this?",
           icon: "list-bulletpoint",
@@ -143,17 +143,17 @@ export const ConfirmationWithTemplate: Story = {
       };
       return {
         args,
-        showDialog,
+        showModal,
       };
     },
     template: `
     <KdsButton
       label="Component based content"
       variant="filled"
-      @click="showDialog"
+      @click="showModal"
     />
     <!-- put this somewhere global like app.vue -->
-    <KdsDynamicDialog />
+    <KdsDynamicModalProvider />
   `,
   }),
   args: {},
@@ -175,11 +175,11 @@ export const WithCustomComponentAndLayout: Story = {
     },
   },
   render: (args) => ({
-    components: { KdsDynamicDialog, KdsButton },
+    components: { KdsDynamicModalProvider, KdsButton },
     setup() {
-      const { showByTemplate } = useKdsDialog();
+      const { showByTemplate } = useKdsDynamicModal();
 
-      const showDialog = () => {
+      const showModal = () => {
         showByTemplate({
           title: "Can you see this?",
           icon: "list-bulletpoint",
@@ -190,17 +190,17 @@ export const WithCustomComponentAndLayout: Story = {
 
       return {
         args,
-        showDialog,
+        showModal,
       };
     },
     template: `
     <KdsButton
       label="Component based content"
       variant="filled"
-      @click="showDialog"
+      @click="showModal"
     />
     <!-- put this somewhere global like app.vue -->
-    <KdsDynamicDialog />
+    <KdsDynamicModalProvider />
   `,
   }),
   args: {},
@@ -208,11 +208,11 @@ export const WithCustomComponentAndLayout: Story = {
 
 export const WithCustomComponentWithoutLayout: Story = {
   render: (args) => ({
-    components: { KdsDynamicDialog, KdsButton },
+    components: { KdsDynamicModalProvider, KdsButton },
     setup() {
-      const { showByTemplate } = useKdsDialog();
+      const { showByTemplate } = useKdsDynamicModal();
 
-      const showDialog = () => {
+      const showModal = () => {
         showByTemplate({
           title: "Can you see this?",
           icon: "list-bulletpoint",
@@ -230,17 +230,17 @@ export const WithCustomComponentWithoutLayout: Story = {
       };
       return {
         args,
-        showDialog,
+        showModal,
       };
     },
     template: `
     <KdsButton
       label="Component based content"
       variant="filled"
-      @click="showDialog"
+      @click="showModal"
     />
     <!-- put this somewhere global like app.vue -->
-    <KdsDynamicDialog />
+    <KdsDynamicModalProvider />
   `,
   }),
   args: {},
