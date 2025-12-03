@@ -148,7 +148,7 @@ export const ConfirmationWithTemplate: Story = {
     },
     template: `
     <KdsButton
-      label="Component based content"
+      label="Confirmation template based"
       variant="filled"
       @click="showModal"
     />
@@ -195,7 +195,7 @@ export const WithCustomComponentAndLayout: Story = {
     },
     template: `
     <KdsButton
-      label="Component based content"
+      label="Comp. with KdsModalLayout"
       variant="filled"
       @click="showModal"
     />
