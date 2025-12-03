@@ -2,9 +2,11 @@ import { h, markRaw } from "vue";
 import type { Meta, StoryContext, StoryObj } from "@storybook/vue3-vite";
 
 import KdsButton from "../Button/KdsButton.vue";
+import { convertImportsInSfc } from "../test-utils/convertImportsInSfc";
 import { convertStoryCodeToSfc } from "../test-utils/convertStoryCodeToSfc";
 
 import DemoCustomComponent from "./DemoCustomComponent.vue";
+import DemoCustomComponentSource from "./DemoCustomComponent.vue?raw";
 import KdsDynamicDialog from "./KdsDynamicDialog.vue";
 import { useKdsDialog } from "./useKdsDialog";
 
@@ -33,8 +35,8 @@ const meta: Meta<typeof KdsDynamicDialog> = {
   parameters: {
     docs: {
       source: {
-        type: "code",
-        language: "typescript",
+        type: "auto",
+        language: "html",
         transform: async (_source: string, storyContext: StoryContext) => {
           const result = await convertStoryCodeToSfc(
             storyContext.originalStoryFn.toString(),
@@ -111,6 +113,7 @@ export const Confirmation: Story = {
       variant="filled"
       @click="showDialog"
     />
+    <!-- put this somewhere global like app.vue -->
     <KdsDynamicDialog />
   `,
   }),
@@ -149,6 +152,7 @@ export const ConfirmationWithTemplate: Story = {
       variant="filled"
       @click="showDialog"
     />
+    <!-- put this somewhere global like app.vue -->
     <KdsDynamicDialog />
   `,
   }),
@@ -156,6 +160,20 @@ export const ConfirmationWithTemplate: Story = {
 };
 
 export const WithCustomComponentAndLayout: Story = {
+  parameters: {
+    docs: {
+      source: {
+        type: "auto",
+        language: "html",
+        transform: async (_source: string, storyContext: StoryContext) => {
+          const result = await convertStoryCodeToSfc(
+            storyContext.originalStoryFn.toString(),
+          );
+          return `${result}\n<!--  DemoCustomComponent.vue -->\n${convertImportsInSfc(DemoCustomComponentSource)}`;
+        },
+      },
+    },
+  },
   render: (args) => ({
     components: { KdsDynamicDialog, KdsButton },
     setup() {
@@ -181,6 +199,7 @@ export const WithCustomComponentAndLayout: Story = {
       variant="filled"
       @click="showDialog"
     />
+    <!-- put this somewhere global like app.vue -->
     <KdsDynamicDialog />
   `,
   }),
@@ -220,6 +239,7 @@ export const WithCustomComponentWithoutLayout: Story = {
       variant="filled"
       @click="showDialog"
     />
+    <!-- put this somewhere global like app.vue -->
     <KdsDynamicDialog />
   `,
   }),

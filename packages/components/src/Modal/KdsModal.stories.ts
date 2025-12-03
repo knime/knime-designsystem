@@ -23,7 +23,8 @@ const meta: Meta<typeof KdsModal> = {
     docs: {
       description: {
         component:
-          "A modal dialog component that uses the HTML native &lt;dialog&gt; tag.",
+          "A modal dialog component that uses the HTML native &lt;dialog&gt; tag. " +
+          "Uses `KdsModalLayout` in the `default` slot and provides a `body` and `footer` slot.",
       },
     },
     design: {
@@ -136,7 +137,6 @@ export const Default: Story = {
     },
   },
   args: {
-    icon: "placeholder",
     title: "Title",
   },
 };
@@ -153,7 +153,6 @@ export const ShowOnLoad: Story = {
   },
   args: {
     active: true,
-    icon: "placeholder",
     title: "Show on load…",
   },
 };

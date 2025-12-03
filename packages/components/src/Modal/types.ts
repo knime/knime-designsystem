@@ -13,6 +13,10 @@ type ModalVariants = (typeof modalVariants)[number];
 type ClosedByOptionsType = (typeof closedByOptions)[number];
 
 export type KdsModalProps = {
+  /** Icon for the header of the modal.
+   *
+   * **Only used for special dialogs most regular ones do not need one.**
+   */
   icon?: KdsIconName;
   title?: string;
   /**

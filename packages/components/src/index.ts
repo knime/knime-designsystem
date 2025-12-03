@@ -5,6 +5,7 @@ export { default as KdsCheckbox } from "./Checkbox/KdsCheckbox.vue";
 export { default as KdsIcon } from "./Icon/KdsIcon.vue";
 export { default as KdsDataType } from "./Icon/KdsDataType.vue";
 export { default as KdsModal } from "./Modal/KdsModal.vue";
+export { default as KdsModalLayout } from "./Modal/KdsModalLayout.vue";
 export { default as KdsDynamicDialog } from "./Modal/KdsDynamicDialog.vue";
 export {
   type KdsDynamicDialogPropsAPI,

@@ -12,6 +12,8 @@ import {
   SyntaxKind,
 } from "ts-morph";
 
+import { IMPORT_PACKAGE } from "./constants";
+
 /**
  * Convert a Storybook-style render arrow function (as a string)
  * into a Vue SFC string. Robustly handles:
@@ -180,7 +182,7 @@ export async function convertStoryCodeToSfc(
   const scriptParts: string[] = [];
 
   if (componentsText) {
-    scriptParts.push(`import ${componentsText} from "@knime/kds-components";`);
+    scriptParts.push(`import ${componentsText} from "${IMPORT_PACKAGE}";`);
   }
 
   if (setupBody) {
