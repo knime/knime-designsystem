@@ -34,6 +34,10 @@
           "$type": "fontSizes",
           "$value": "{kds.core.size.scale} * 1"
         },
+        "1_13x": {
+          "$type": "fontSizes",
+          "$value": "{kds.core.size.scale} * 1.125"
+        },
         "1_25x": {
           "$type": "fontSizes",
           "$value": "{kds.core.size.scale} * 1.25"

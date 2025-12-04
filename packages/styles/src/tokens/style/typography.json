@@ -3,6 +3,16 @@
     "font": {
       "base": {
         "display": {
+          "xsmall": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{kds.core.font-family.roboto}",
+              "fontWeight": "{kds.core.font-weight.strong}",
+              "lineHeight": "{kds.core.line-height.multiline_narrow}",
+              "fontSize": "{kds.core.font-size.1_13x}"
+            },
+            "$description": "Can be used for large headlines in components that require a multi-line setup."
+          },
           "small": {
             "$type": "typography",
             "$value": {
@@ -53,7 +63,7 @@
               "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.0_62x}"
             },
-            "$description": "singleline text, used for labels on top of inputs, as titles inside components, pages or panels"
+            "$description": "Single-line text, used inside component headers."
           },
           "small": {
             "$type": "typography",
@@ -63,7 +73,7 @@
               "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.0_75x}"
             },
-            "$description": "singleline text, used for labels on top of inputs, as titles inside components, pages or panels"
+            "$description": "Single-line text, used inside component headers."
           },
           "small-strong": {
             "$type": "typography",
@@ -73,7 +83,7 @@
               "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.0_75x}"
             },
-            "$description": "singleline text, used for labels on top of inputs, as titles inside components, pages or panels"
+            "$description": "Single-line text, used inside component headers."
           },
           "medium": {
             "$type": "typography",
@@ -83,7 +93,7 @@
               "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.0_87x}"
             },
-            "$description": "singleline text, used for titles inside components, Tabbar, pages or panels"
+            "$description": "Single-line text, used inside component headers."
           },
           "medium-strong": {
             "$type": "typography",
@@ -93,7 +103,7 @@
               "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.0_87x}"
             },
-            "$description": "singleline text, used for titles inside components, pages or panels"
+            "$description": "Single-line text, used inside component headers."
           },
           "large": {
             "$type": "typography",
@@ -103,7 +113,7 @@
               "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.1x}"
             },
-            "$description": "singleline text, used for labels on top of inputs, as titles inside components, pages or panels"
+            "$description": "Single-line text, used inside component headers."
           },
           "large-strong": {
             "$type": "typography",
@@ -113,7 +123,7 @@
               "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.1x}"
             },
-            "$description": "singleline text, used for labels on top of inputs, as titles inside components, pages or panels"
+            "$description": "Single-line text, used inside component headers."
           }
         },
         "body": {
