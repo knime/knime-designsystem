@@ -1,13 +1,5 @@
 /**
-* Import only the weights and styles that are required:
-* Sync with dist/tokens/css/_variables.css
-* Search for --kds-font- to find all font related CSS variables.
-*
-* Roboto Condensed is not imported here as it's only rarely used,
-* it's imported in fonts-workflows.css instead.
-*/
-@import "@fontsource/roboto";
-@import "@fontsource/roboto/400-italic";
-@import "@fontsource/roboto/500";
-@import "@fontsource/roboto/700";
-@import "@fontsource/roboto-mono/300";
+ * This file is auto-generated during build based on design tokens.
+ * The actual font imports are written to ../dist/css/fonts.css
+ * DO NOT ADD IMPORTS HERE - They will be overwritten during build
+ */

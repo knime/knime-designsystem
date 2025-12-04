@@ -58,6 +58,27 @@ StyleDictionary.hooks.transformGroups["tokens-studio"] =
     transform === "color/css" ? "color/hsl-4" : transform,
   );
 
+// Custom transform to add fallback font families
+StyleDictionary.registerTransform({
+  name: "font-family/fallback",
+  type: "value",
+  transitive: true,
+  filter: (token) => token.$type === "fontFamily",
+  transform: (token) => {
+    const value = token.$value;
+
+    if (value === "'Roboto Mono'") {
+      return "'Roboto Mono', monospace";
+    } else if (value === "'Roboto Condensed'") {
+      return "'Roboto Condensed', sans-serif";
+    } else if (value === "Roboto") {
+      return "Roboto, sans-serif";
+    }
+
+    return value;
+  },
+});
+
 // Helpers for @property blocks type and inherits mapping
 const defaultLength = { syntax: "<length>", inherits: false };
 const typeToCSSPropertyMap = new Map([
@@ -74,6 +95,8 @@ const typeToCSSPropertyMap = new Map([
   ["sizing", defaultLength],
   ["spacing", defaultLength],
   ["typography", { syntax: "<string>", inherits: true }], // shorthand font declarations (<font-weight> <font-size>/<line-height> <font-family>)
+  ["fontStyle", { syntax: "<string>", inherits: true }], // shorthand font declarations (italic <font-weight> <font-size>/<line-height> <font-family>) */
+  ["shadow", { syntax: "<string>", inherits: false }],
 ]);
 
 // Custom CSS format for @property blocks
@@ -141,7 +164,7 @@ const run = async () => {
         css: {
           buildPath: "dist/tokens/css/",
           transformGroup: "tokens-studio",
-          transforms: ["name/kebab"],
+          transforms: ["name/kebab", "font-family/fallback"], // Add the custom transform
           files: [
             {
               format: "css/variables", // Standard CSS variables

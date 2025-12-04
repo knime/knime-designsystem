@@ -11,9 +11,11 @@
   "author": "KNIME AG, Zurich, Switzerland",
   "type": "module",
   "scripts": {
-    "build": "pnpm run --parallel --aggregate-output /^build:.*/",
+    "build": "pnpm run build:parallel && pnpm run build:fonts",
+    "build:parallel": "pnpm run --parallel --aggregate-output \"/^build:(css|icons|tokens)$/\"",
     "build:icons": "node src/processSVGs.js",
     "build:tokens": "node src/buildTokens.js",
+    "build:fonts": "node src/processFonts.js",
     "build:css": "node src/copyCss.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
