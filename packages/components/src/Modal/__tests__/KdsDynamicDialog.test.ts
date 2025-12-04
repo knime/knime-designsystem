@@ -14,7 +14,7 @@ describe("KdsDynamicModalProvider.vue", () => {
   const { askConfirmation, showByTemplate, isActive } = useKdsDynamicModal();
 
   afterEach(() => {
-    internal.cancel();
+    internal.close();
   });
 
   // see: https://github.com/jsdom/jsdom/issues/3294
