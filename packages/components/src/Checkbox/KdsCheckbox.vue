@@ -1,4 +1,4 @@
-<script setup lang="ts" generic="UNUSED">
+<script setup lang="ts">
 import { computed, useId } from "vue";
 
 import Icon from "../Icon/KdsIcon.vue";
