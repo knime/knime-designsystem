@@ -1,4 +1,3 @@
-import type { FunctionalComponent } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { fn } from "storybook/test";
@@ -15,7 +14,7 @@ type Story = StoryObj<typeof KdsCheckbox>;
 
 const meta: Meta<typeof KdsCheckbox> = {
   title: "Components/KdsCheckbox",
-  component: KdsCheckbox as FunctionalComponent, // only because of the generic typing of KdsCheckbox
+  component: KdsCheckbox as Meta<typeof KdsCheckbox>["component"],
   tags: ["autodocs"],
   argTypes: {
     modelValue: {
