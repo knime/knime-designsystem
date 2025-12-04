@@ -1,5 +1,12 @@
 # @knime/kds-components
 
+## 0.3.1
+
+### Patch Changes
+
+- 9d430e5: KdsCheckbox: improve types by removing `generic="UNUSED"` as it caused issues with e.g. vue-test-utils
+  - @knime/kds-styles@0.3.1
+
 ## 0.3.0
 
 ### Minor Changes
