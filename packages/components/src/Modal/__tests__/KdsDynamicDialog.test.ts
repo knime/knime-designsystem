@@ -5,7 +5,7 @@ import { flushPromises, mount } from "@vue/test-utils";
 import DemoCustomComponent from "../DemoCustomComponent.vue";
 import KdsDynamicModalProvider from "../KdsDynamicModalProvider.vue";
 import {
-  type ConfirmModalConfig,
+  type KdsDynamicDialogConfirmConfig,
   internal,
   useKdsDynamicModal,
 } from "../useKdsDynamicModal";
@@ -187,7 +187,7 @@ describe("KdsDynamicModalProvider.vue", () => {
 
       const spy = vi.fn();
 
-      const config: ConfirmModalConfig = {
+      const config: KdsDynamicDialogConfirmConfig = {
         title: "This is the title",
         message: "This is the message",
         buttons: [

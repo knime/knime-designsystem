@@ -82,7 +82,7 @@ type TemplateBasedConfirmModalConfig = CommonConfig & {
   buttons?: Array<ConfirmModalButton>;
 };
 
-export type ConfirmModalConfig =
+export type KdsDynamicDialogConfirmConfig =
   | PropertyBasedConfirmModalConfig
   | TemplateBasedConfirmModalConfig;
 
@@ -95,7 +95,7 @@ type DynamicModalComponent = abstract new (...args: unknown[]) => {
   $props: KdsDynamicModalPropsAPI;
 };
 
-export type DynamicModalConfig = CommonConfig & {
+export type KdsDynamicModalTemplateConfig = CommonConfig & {
   component:
     | DynamicModalComponent
     | FunctionalComponent<KdsDynamicModalPropsAPI>;
@@ -115,8 +115,8 @@ type ConfirmResult = { confirmed: boolean; doNotAskAgain?: boolean };
 
 const isActive = ref(false);
 const activeModalConfig = ref<
-  | { type: "confirm"; value: ConfirmModalConfig }
-  | { type: "dynamic"; value: DynamicModalConfig }
+  | { type: "confirm"; value: KdsDynamicDialogConfirmConfig }
+  | { type: "dynamic"; value: KdsDynamicModalTemplateConfig }
   | null
 >(null);
 
@@ -160,7 +160,7 @@ const close = () => {
 };
 
 const isTemplateBasedConfirm = (
-  config: ConfirmModalConfig,
+  config: KdsDynamicDialogConfirmConfig,
 ): config is TemplateBasedConfirmModalConfig => {
   return "component" in config;
 };
@@ -183,7 +183,9 @@ export const useKdsDynamicModal = () => {
     config: TemplateBasedConfirmModalConfig,
   ): Promise<ConfirmResult>;
 
-  function askConfirmation(config: ConfirmModalConfig): Promise<ConfirmResult> {
+  function askConfirmation(
+    config: KdsDynamicDialogConfirmConfig,
+  ): Promise<ConfirmResult> {
     activeModalConfig.value = {
       type: "confirm",
       value: {
@@ -196,7 +198,9 @@ export const useKdsDynamicModal = () => {
     return unwrappedPromise.value.promise as Promise<ConfirmResult>;
   }
 
-  const showByTemplate = (config: DynamicModalConfig): Promise<void> => {
+  const showByTemplate = (
+    config: KdsDynamicModalTemplateConfig,
+  ): Promise<void> => {
     activeModalConfig.value = {
       type: "dynamic",
       value: config,

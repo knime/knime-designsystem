@@ -8,6 +8,8 @@ export { default as KdsModal } from "./Modal/KdsModal.vue";
 export { default as KdsModalLayout } from "./Modal/KdsModalLayout.vue";
 export { default as KdsDynamicModalProvider } from "./Modal/KdsDynamicModalProvider.vue";
 export {
+  type KdsDynamicDialogConfirmConfig,
+  type KdsDynamicModalTemplateConfig,
   type KdsDynamicModalPropsAPI,
   useKdsDynamicModal,
 } from "./Modal/useKdsDynamicModal";
