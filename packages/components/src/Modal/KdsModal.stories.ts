@@ -23,7 +23,8 @@ const meta: Meta<typeof KdsModal> = {
     docs: {
       description: {
         component:
-          "A modal dialog component that uses the HTML native &lt;dialog&gt; tag.",
+          "A modal dialog component that uses the HTML native &lt;dialog&gt; tag. " +
+          "Uses `KdsModalLayout` in the `default` slot and provides a `body` and `footer` slot.",
       },
     },
     design: {
@@ -72,9 +73,10 @@ const meta: Meta<typeof KdsModal> = {
       },
       template: `
     <KdsModal>
-      <template #default>
+      <template #body>
         ${params.content ?? "Modal content text."}
       </template>
+
       <template #footer>
         <KdsButton
           v-if="cancelButton.show"
@@ -135,7 +137,6 @@ export const Default: Story = {
     },
   },
   args: {
-    icon: "placeholder",
     title: "Title",
   },
 };
@@ -152,7 +153,6 @@ export const ShowOnLoad: Story = {
   },
   args: {
     active: true,
-    icon: "placeholder",
     title: "Show on load…",
   },
 };
@@ -187,7 +187,7 @@ export const LightDismissible: Story = {
     },
   },
   args: {
-    title: "Please read carefully. A click outside should close the dialog.",
+    title: "Please read carefully. A click outside should close the modal.",
     closedby: "any",
   },
 };

@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, useTemplateRef, watch } from "vue";
 
-import KdsButton from "../Button/KdsButton.vue";
-import KdsIcon from "../Icon/KdsIcon.vue";
-
+import KdsModalLayout from "./KdsModalLayout.vue";
 import type { KdsModalProps } from "./types";
 
 const props = withDefaults(defineProps<KdsModalProps>(), {
@@ -22,8 +20,8 @@ const emit = defineEmits<{
 
 const dialog = useTemplateRef("dialogElement");
 
-const onClose = (e: Event) => {
-  emit("close", e);
+const onClose = (event: Event) => {
+  emit("close", event);
 };
 
 watch(
@@ -68,27 +66,28 @@ const cssModalHeight = computed(() => {
     :closedby="closedby"
     @cancel.prevent="onClose"
   >
-    <template v-if="active">
-      <header class="modal-header">
-        <KdsIcon v-if="props.icon" :name="props.icon" size="medium" />
-        <div class="modal-header-title">{{ title }}</div>
-        <KdsButton
-          leading-icon="x-close"
-          variant="transparent"
-          size="medium"
-          title="Close"
-          @click="onClose"
-        />
-      </header>
+    <slot
+      v-if="active"
+      :title="title"
+      :icon="icon"
+      :variant="variant"
+      :on-close="onClose"
+    >
+      <KdsModalLayout
+        :title="title"
+        :icon="icon"
+        :variant="variant"
+        @close="onClose"
+      >
+        <template #body>
+          <slot name="body" />
+        </template>
 
-      <div :class="['modal-body', `modal-body-variant-${variant}`]">
-        <slot />
-      </div>
-
-      <footer class="modal-footer">
-        <slot name="footer" />
-      </footer>
-    </template>
+        <template #footer>
+          <slot name="footer" />
+        </template>
+      </KdsModalLayout>
+    </slot>
   </dialog>
 </template>
 
@@ -104,11 +103,6 @@ body:has(dialog.modal[open]) {
   /* rule is broken it complains about local variables for no reason */
   /* stylelint-disable csstools/value-no-unknown-custom-properties */
   --modal-full-size: 95%;
-  --modal-padding-left: var(--kds-spacing-container-1-5x);
-  --modal-padding-right: var(--kds-spacing-container-1-5x);
-  --modal-padding-top: var(--kds-spacing-container-0-5x);
-  --modal-padding-bottom: var(--kds-spacing-container-1x);
-  --modal-gap: var(--kds-spacing-container-1x);
 
   display: grid;
   grid-template-rows: auto 1fr auto;
@@ -135,43 +129,6 @@ body:has(dialog.modal[open]) {
 
   &::backdrop {
     background: var(--kds-color-blanket-default);
-  }
-
-  & .modal-header {
-    display: flex;
-    gap: var(--kds-spacing-container-0-5x);
-    align-items: center;
-    padding: var(--kds-spacing-container-0-5x) var(--kds-spacing-container-0-5x)
-      var(--kds-spacing-container-0-5x) var(--kds-spacing-container-1-5x);
-    font: var(--kds-font-base-title-medium-strong);
-    color: var(--kds-color-text-and-icon-neutral);
-
-    & .modal-header-title {
-      flex: 1 1 auto;
-    }
-  }
-
-  & .modal-body {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    font: var(--kds-font-base-body-medium);
-    color: var(--kds-color-text-and-icon-neutral);
-
-    &.modal-body-variant-default {
-      gap: var(--modal-gap);
-      padding: var(--modal-padding-top) var(--modal-padding-right)
-        var(--modal-padding-bottom) var(--modal-padding-left);
-      overflow-y: auto; /* scroll if needed */
-      overscroll-behavior: contain;
-    }
-  }
-
-  & .modal-footer {
-    display: flex;
-    gap: var(--kds-spacing-container-0-5x);
-    justify-content: right;
-    padding: var(--kds-spacing-container-1x) var(--kds-spacing-container-1-5x);
   }
 }
 </style>
