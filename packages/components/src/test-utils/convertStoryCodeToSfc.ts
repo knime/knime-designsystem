@@ -15,39 +15,66 @@ import {
 import { IMPORT_PACKAGE } from "./constants";
 
 /**
- * Convert a Storybook-style render arrow function (as a string)
- * into a Vue SFC string. Robustly handles:
- *  - (args) => ({ ... })
- *  - (args) => { return { ... } }
- *  - setup defined as a MethodDeclaration or as a property with a FunctionExpression
+ * Convert a Storybook-style docs source with custom render function
+ *  into a Vue SFC string.
  */
 export async function convertStoryCodeToSfc(
   inputCode: string,
 ): Promise<string> {
   const project = new Project({ useInMemoryFileSystem: true });
 
-  // Wrap so ts-morph can parse a raw arrow function or object literal reliably
-  const wrapped = `const render = ${inputCode};`;
+  const wrapped = `const story = ${inputCode};`;
   const sourceFile = project.createSourceFile("temp.ts", wrapped, {
     overwrite: true,
   });
 
-  // Get the "render" variable and its initializer
-  const varDecl = sourceFile.getVariableDeclaration("render");
+  const varDecl = sourceFile.getVariableDeclaration("story");
   if (!varDecl) {
-    // fallback: try to find first arrow function but prefer to return the input unchanged
     return inputCode;
   }
 
   const init = varDecl.getInitializer();
-  if (!init || init.getKind() !== SyntaxKind.ArrowFunction) {
+  if (!init || init.getKind() !== SyntaxKind.ObjectLiteralExpression) {
     return inputCode;
   }
 
-  const arrowFn = init; // ArrowFunction
-  // Determine the returned object expression (supports parenthesized, direct object, or block+return)
+  const obj = init.asKindOrThrow(SyntaxKind.ObjectLiteralExpression);
+  const renderProp = obj.getProperty("render");
+  if (!renderProp) {
+    return inputCode;
+  }
+
+  let renderInit: any = null;
+
+  // render: args => ({ ... })
+  if (renderProp.getKind() === SyntaxKind.PropertyAssignment) {
+    renderInit = (renderProp as PropertyAssignment).getInitializer();
+  }
+
+  // render() { ... }
+  if (renderProp.getKind() === SyntaxKind.MethodDeclaration) {
+    renderInit = renderProp;
+  }
+
+  if (!renderInit) {
+    return inputCode;
+  }
+
+  // Ensure the initializer is an arrow fn: args => ({...})
+  if (
+    renderInit.getKind() !== SyntaxKind.ArrowFunction &&
+    renderInit.getKind() !== SyntaxKind.MethodDeclaration
+  ) {
+    return inputCode;
+  }
+
   let returnedObj: any = null;
-  const body = arrowFn.asKindOrThrow(SyntaxKind.ArrowFunction).getBody();
+
+  // Normalize method -> arrow body for reuse
+  const body =
+    renderInit.getKind() === SyntaxKind.MethodDeclaration
+      ? renderInit.getBodyOrThrow()
+      : renderInit.asKindOrThrow(SyntaxKind.ArrowFunction).getBody();
 
   if (body.getKind() === SyntaxKind.ParenthesizedExpression) {
     returnedObj = body
@@ -56,10 +83,9 @@ export async function convertStoryCodeToSfc(
   } else if (body.getKind() === SyntaxKind.ObjectLiteralExpression) {
     returnedObj = body;
   } else if (body.getKind() === SyntaxKind.Block) {
-    // look for `return { ... }`
-    const returnStmt = body
-      .asKindOrThrow(SyntaxKind.Block)
-      .getFirstDescendantByKind(SyntaxKind.ReturnStatement);
+    const returnStmt = body.getFirstDescendantByKind(
+      SyntaxKind.ReturnStatement,
+    );
     if (returnStmt) {
       returnedObj = returnStmt.getExpression();
     }
@@ -69,11 +95,9 @@ export async function convertStoryCodeToSfc(
     !returnedObj ||
     returnedObj.getKind() !== SyntaxKind.ObjectLiteralExpression
   ) {
-    // nothing we can do — return inputCode
     return inputCode;
   }
 
-  // Now returnedObj is an ObjectLiteralExpression representing the object inside render(...)
   const objLiteral = returnedObj;
 
   // --- Extract template ---
@@ -86,39 +110,33 @@ export async function convertStoryCodeToSfc(
     const templateAssign = templatePropNode as PropertyAssignment;
     const templateInit = templateAssign.getInitializer();
     if (templateInit) {
-      // Handle NoSubstitutionTemplateLiteral, TemplateExpression, or normal string literal
       const k = templateInit.getKind();
       if (
         k === SyntaxKind.NoSubstitutionTemplateLiteral ||
         k === SyntaxKind.TemplateExpression
       ) {
-        // getText() includes backticks, remove them
         const raw = templateInit.getText();
         templateContent = raw.replace(/^`/, "").replace(/`$/, "");
       } else {
-        // possibly a regular string literal, remove quotes
         const raw = templateInit.getText();
         templateContent = raw.replace(/^["']/, "").replace(/["']$/, "");
       }
     }
   }
 
-  // --- Extract setup() body ---
+  // --- Extract setup() ---
   let setupBody = "";
-
   const setupPropNode = objLiteral.getProperty("setup");
   if (setupPropNode) {
     const kind = setupPropNode.getKind();
 
-    // Case 1: setup() { ... }  -> MethodDeclaration
     if (kind === SyntaxKind.MethodDeclaration) {
       const method = setupPropNode as MethodDeclaration;
-      const bodyText = method.getBodyText(); // returns inner text (without outer braces)
+      const bodyText = method.getBodyText();
       if (bodyText) {
         setupBody = bodyText.trim();
       }
     } else if (kind === SyntaxKind.PropertyAssignment) {
-      // Case 2: setup: function() { ... }  OR setup: () => { ... } OR setup: function setup() { ... }
       const propAssign = setupPropNode as PropertyAssignment;
       const initializer = propAssign.getInitializer();
       if (initializer) {
@@ -127,12 +145,9 @@ export async function convertStoryCodeToSfc(
           initKind === SyntaxKind.FunctionExpression ||
           initKind === SyntaxKind.ArrowFunction
         ) {
-          // get the body of the function
           const fnBodyNode = initializer.asKindOrThrow(initKind).getBody();
           if (fnBodyNode.getKind() === SyntaxKind.Block) {
-            // getText() returns body with braces; getBodyText() is not available on every node, so strip braces
             let bodyText = fnBodyNode.getText();
-            // remove surrounding braces
             if (bodyText.startsWith("{") && bodyText.endsWith("}")) {
               bodyText = bodyText.slice(1, -1);
             }
@@ -141,22 +156,18 @@ export async function convertStoryCodeToSfc(
             fnBodyNode.getKind() === SyntaxKind.ParenthesizedExpression ||
             fnBodyNode.getKind() === SyntaxKind.ObjectLiteralExpression
           ) {
-            // arrow function directly returning an object (unlikely for setup, but handle)
             setupBody = fnBodyNode.getText().trim();
           }
         }
       }
-    } else {
-      // other kinds (shorthand etc.) — ignore
     }
   }
 
-  // If still empty, try to search within returnedObj for any MethodDeclaration named "setup" (fallback)
   if (!setupBody) {
     const method = objLiteral.getFirstDescendantByKind(
       SyntaxKind.MethodDeclaration,
     );
-    if (method && method.getName && method.getName() === "setup") {
+    if (method && method.getName() === "setup") {
       const bodyText = method.getBodyText();
       if (bodyText) {
         setupBody = bodyText.trim();
@@ -164,7 +175,7 @@ export async function convertStoryCodeToSfc(
     }
   }
 
-  // --- Extract components (optional) ---
+  // components
   let componentsText = "";
   const componentsPropNode = objLiteral.getProperty("components");
   if (
@@ -178,7 +189,6 @@ export async function convertStoryCodeToSfc(
     }
   }
 
-  // Build SFC
   const scriptParts: string[] = [];
 
   if (componentsText) {
@@ -186,16 +196,9 @@ export async function convertStoryCodeToSfc(
   }
 
   if (setupBody) {
-    // The extracted setupBody may contain `return { ... }` — strip a trailing "return { ... };" if present,
-    // because in <script setup> you want local variables, not a returned object. We'll extract returned names.
     const returnMatch = setupBody.match(/return\s*{([\s\S]*?)}\s*;?$/);
     if (returnMatch) {
-      // remove the return statement from setupBody
       setupBody = setupBody.replace(/return\s*{[\s\S]*?}\s*;?$/, "").trim();
-
-      // ensure the returned identifiers remain as variables in the <script setup> scope
-      // (they already are declared above in setupBody, so nothing more to do)
-      // but if some projects want to export props from args, that's a separate enhancement
     }
     scriptParts.push(setupBody);
   }

@@ -1,5 +1,5 @@
 import { h, markRaw } from "vue";
-import type { Meta, StoryContext, StoryObj } from "@storybook/vue3-vite";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
 import KdsButton from "../Button/KdsButton.vue";
 import { convertImportsInSfc } from "../test-utils/convertImportsInSfc";
@@ -35,12 +35,10 @@ const meta: Meta<typeof KdsDynamicModalProvider> = {
   parameters: {
     docs: {
       source: {
-        type: "auto",
+        type: "code",
         language: "html",
-        transform: async (_source: string, storyContext: StoryContext) => {
-          const result = await convertStoryCodeToSfc(
-            storyContext.originalStoryFn.toString(),
-          );
+        transform: async (source: string) => {
+          const result = await convertStoryCodeToSfc(source);
           return result;
         },
       },
@@ -163,12 +161,10 @@ export const WithCustomComponentAndLayout: Story = {
   parameters: {
     docs: {
       source: {
-        type: "auto",
+        type: "code",
         language: "html",
-        transform: async (_source: string, storyContext: StoryContext) => {
-          const result = await convertStoryCodeToSfc(
-            storyContext.originalStoryFn.toString(),
-          );
+        transform: async (source: string) => {
+          const result = await convertStoryCodeToSfc(source);
           return `${result}\n<!--  DemoCustomComponent.vue -->\n${convertImportsInSfc(DemoCustomComponentSource)}`;
         },
       },
