@@ -142,20 +142,11 @@ const confirm = (doNotAskAgain = false) => {
 };
 
 /**
- * Used to cancel the modal result. Should only used when called via
- * `askConfirmation`
- */
-const cancel = () => {
-  unwrappedPromise.value.resolve({ confirmed: false });
-  resetInternalState();
-};
-
-/**
- * Used to close the modal. Should only used when called via
- * `showByTemplate`
+ * Close or cancel the dialog
  */
 const close = () => {
-  unwrappedPromise.value.resolve(undefined);
+  const isConfirm = activeModalConfig.value?.type === "confirm";
+  unwrappedPromise.value.resolve(isConfirm ? { confirmed: false } : undefined);
   resetInternalState();
 };
 
@@ -167,7 +158,6 @@ const isTemplateBasedConfirm = (
 
 export const internal = {
   confirm,
-  cancel,
   close,
   isTemplateBasedConfirm,
 };
@@ -215,5 +205,6 @@ export const useKdsDynamicModal = () => {
     showByTemplate,
     config: computed(() => activeModalConfig.value),
     isActive: computed(() => isActive.value),
+    close: () => internal.close(),
   };
 };

@@ -25,12 +25,8 @@ const onConfirm = () => {
 };
 
 const onClose = () => {
-  if (config.value?.type === "confirm") {
-    internal.cancel();
-    reset();
-  } else {
-    internal.close();
-  }
+  internal.close();
+  reset();
 };
 
 const handleConfirmButton = (button: ConfirmModalButton) => {
