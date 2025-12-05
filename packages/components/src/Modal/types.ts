@@ -7,6 +7,13 @@ import type {
   widthSizes,
 } from "./constants";
 
+/**
+ * - small:  25 × 16 = 400px
+ * - medium: 32 × 16 = 512px
+ * - large:  45 × 16 = 720px
+ * - xlarge: 61 × 16 = 976px
+ * - full:   all available space (with some spacing)
+ */
 type WidthSizes = (typeof widthSizes)[number];
 type HeightSizes = (typeof heightSizes)[number];
 type ModalVariants = (typeof modalVariants)[number];
@@ -25,6 +32,13 @@ export type KdsModalProps = {
    * `plain` no scrolling or padding of the content
    */
   variant?: ModalVariants;
+  /**
+   * - small:  25 × 16 = 400px
+   * - medium: 32 × 16 = 512px
+   * - large:  45 × 16 = 720px
+   * - xlarge: 61 × 16 = 976px
+   * - full:   all available space (with some spacing)
+   */
   width?: WidthSizes;
   /**
    * `full` take all space
