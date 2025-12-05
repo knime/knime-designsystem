@@ -2,6 +2,7 @@
 import { nextTick, ref, useTemplateRef, watch } from "vue";
 
 import KdsModalLayout from "./KdsModalLayout.vue";
+import { maxAnimationDurationMs } from "./constants";
 import type { KdsModalProps } from "./types";
 
 const props = withDefaults(defineProps<KdsModalProps>(), {
@@ -43,8 +44,7 @@ watch(
   (value, lastValue) => {
     // on close wait until the animation has run
     if (value === false && lastValue === true) {
-      // eslint-disable-next-line no-magic-numbers
-      setTimeout(() => (renderDialog.value = false), 400);
+      setTimeout(() => (renderDialog.value = false), maxAnimationDurationMs);
     } else {
       renderDialog.value = value;
     }

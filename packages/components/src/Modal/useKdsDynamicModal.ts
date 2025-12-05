@@ -6,10 +6,11 @@ import {
   ref,
 } from "vue";
 
-import { promise as PromiseUtils } from "@knime/utils";
+import { promise as PromiseUtils, sleep } from "@knime/utils";
 
 import type { KdsButtonProps } from "../Button/types";
 
+import { maxAnimationDurationMs } from "./constants";
 import type { KdsModalLayoutProps, KdsModalProps } from "./types";
 
 type CommonButtonProps = {
@@ -128,10 +129,12 @@ const activeModalConfig = ref<
 
 const unwrappedPromise = ref(PromiseUtils.createUnwrappedPromise());
 
-const resetInternalState = () => {
+const resetInternalState = async () => {
   isActive.value = false;
-  activeModalConfig.value = null;
   unwrappedPromise.value = PromiseUtils.createUnwrappedPromise();
+  // wait until animations ended
+  await sleep(maxAnimationDurationMs);
+  activeModalConfig.value = null;
 };
 
 /**
