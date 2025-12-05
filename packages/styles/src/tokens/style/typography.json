@@ -141,7 +141,7 @@
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
-              "fontWeight": "{kds.core.font-weight.regularItalic}",
+              "fontWeight": "{kds.core.font-weight.regular-italic}",
               "lineHeight": "{kds.core.line-height.multiline_wide}",
               "fontSize": "{kds.core.font-size.0_75x}"
             },
@@ -161,7 +161,7 @@
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
-              "fontWeight": "{kds.core.font-weight.strongItalic}",
+              "fontWeight": "{kds.core.font-weight.strong-italic}",
               "lineHeight": "{kds.core.line-height.multiline_wide}",
               "fontSize": "{kds.core.font-size.0_75x}"
             },
@@ -254,7 +254,7 @@
             "$type": "typography",
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
-              "fontWeight": "{kds.core.font-weight.regularItalic}",
+              "fontWeight": "{kds.core.font-weight.regular-italic}",
               "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.0_75x}"
             },
@@ -334,107 +334,171 @@
           }
         }
       },
-      "workflows": {
-        "annotations": {
-          "H1": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.roboto-condensed}",
-              "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.core.line-height.multiline_wide}",
-              "fontSize": "{kds.core.font-size.2_25x}"
+      "workflow": {
+        "annotation": {
+          "headline": {
+            "H1": {
+              "$type": "typography",
+              "$value": {
+                "fontFamily": "{kds.core.font-family.roboto-condensed}",
+                "fontWeight": "{kds.core.font-weight.strong}",
+                "lineHeight": "{kds.core.line-height.multiline_wide}",
+                "fontSize": "{kds.core.font-size.2_25x}"
+              },
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
             },
-            "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
-          },
-          "H2": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.roboto-condensed}",
-              "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.core.line-height.multiline_wide}",
-              "fontSize": "30"
+            "H2": {
+              "$type": "typography",
+              "$value": {
+                "fontFamily": "{kds.core.font-family.roboto-condensed}",
+                "fontWeight": "{kds.core.font-weight.strong}",
+                "lineHeight": "{kds.core.line-height.multiline_wide}",
+                "fontSize": "30"
+              },
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
             },
-            "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
-          },
-          "H3": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.roboto-condensed}",
-              "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.core.line-height.multiline_wide}",
-              "fontSize": "26"
+            "H3": {
+              "$type": "typography",
+              "$value": {
+                "fontFamily": "{kds.core.font-family.roboto-condensed}",
+                "fontWeight": "{kds.core.font-weight.strong}",
+                "lineHeight": "{kds.core.line-height.multiline_wide}",
+                "fontSize": "26"
+              },
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
             },
-            "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
-          },
-          "H4": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.roboto-condensed}",
-              "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.core.line-height.multiline_wide}",
-              "fontSize": "22"
+            "H4": {
+              "$type": "typography",
+              "$value": {
+                "fontFamily": "{kds.core.font-family.roboto-condensed}",
+                "fontWeight": "{kds.core.font-weight.strong}",
+                "lineHeight": "{kds.core.line-height.multiline_wide}",
+                "fontSize": "22"
+              },
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
             },
-            "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
-          },
-          "H5": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.roboto-condensed}",
-              "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.core.line-height.multiline_wide}",
-              "fontSize": "{kds.core.font-size.1x}"
+            "H5": {
+              "$type": "typography",
+              "$value": {
+                "fontFamily": "{kds.core.font-family.roboto-condensed}",
+                "fontWeight": "{kds.core.font-weight.strong}",
+                "lineHeight": "{kds.core.line-height.multiline_wide}",
+                "fontSize": "{kds.core.font-size.1x}"
+              },
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
             },
-            "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
-          },
-          "H6": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.roboto-condensed}",
-              "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.core.line-height.multiline_wide}",
-              "fontSize": "{kds.core.font-size.0_81x}"
+            "H1-italic": {
+              "$type": "typography",
+              "$value": {
+                "fontFamily": "{kds.core.font-family.roboto-condensed}",
+                "fontWeight": "{kds.core.font-weight.strong}",
+                "lineHeight": "{kds.core.line-height.multiline_wide}",
+                "fontSize": "{kds.core.font-size.2_25x}"
+              },
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
             },
-            "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+            "H2-italic": {
+              "$type": "typography",
+              "$value": {
+                "fontFamily": "{kds.core.font-family.roboto-condensed}",
+                "fontWeight": "{kds.core.font-weight.strong}",
+                "lineHeight": "{kds.core.line-height.multiline_wide}",
+                "fontSize": "30"
+              },
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+            },
+            "H3-italic": {
+              "$type": "typography",
+              "$value": {
+                "fontFamily": "{kds.core.font-family.roboto-condensed}",
+                "fontWeight": "{kds.core.font-weight.strong}",
+                "lineHeight": "{kds.core.line-height.multiline_wide}",
+                "fontSize": "26"
+              },
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+            },
+            "H4-italic": {
+              "$type": "typography",
+              "$value": {
+                "fontFamily": "{kds.core.font-family.roboto-condensed}",
+                "fontWeight": "{kds.core.font-weight.strong}",
+                "lineHeight": "{kds.core.line-height.multiline_wide}",
+                "fontSize": "22"
+              },
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+            },
+            "H5-italic": {
+              "$type": "typography",
+              "$value": {
+                "fontFamily": "{kds.core.font-family.roboto-condensed}",
+                "fontWeight": "{kds.core.font-weight.strong}",
+                "lineHeight": "{kds.core.line-height.multiline_wide}",
+                "fontSize": "{kds.core.font-size.1x}"
+              },
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+            },
+            "H6": {
+              "$type": "typography",
+              "$value": {
+                "fontFamily": "{kds.core.font-family.roboto-condensed}",
+                "fontWeight": "{kds.core.font-weight.strong}",
+                "lineHeight": "{kds.core.line-height.multiline_wide}",
+                "fontSize": "{kds.core.font-size.0_81x}"
+              },
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+            },
+            "H6-italic": {
+              "$type": "typography",
+              "$value": {
+                "fontFamily": "{kds.core.font-family.roboto-condensed}",
+                "fontWeight": "{kds.core.font-weight.strong}",
+                "lineHeight": "{kds.core.line-height.multiline_wide}",
+                "fontSize": "{kds.core.font-size.0_81x}"
+              },
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+            }
           },
           "body": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.roboto-condensed}",
-              "fontWeight": "{kds.core.font-weight.regular}",
-              "lineHeight": "{kds.core.line-height.multiline_wide}",
-              "fontSize": "{kds.core.font-size.0_81x}"
+            "small": {
+              "$type": "typography",
+              "$value": {
+                "fontFamily": "{kds.core.font-family.roboto-condensed}",
+                "fontWeight": "{kds.core.font-weight.regular}",
+                "lineHeight": "{kds.core.line-height.multiline_wide}",
+                "fontSize": "{kds.core.font-size.0_81x}"
+              },
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
             },
-            "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
-          },
-          "italic": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.roboto-condensed}",
-              "fontWeight": "{kds.core.font-weight.regularItalic}",
-              "lineHeight": "{kds.core.line-height.multiline_wide}",
-              "fontSize": "{kds.core.font-size.0_81x}"
+            "small-italic": {
+              "$type": "typography",
+              "$value": {
+                "fontFamily": "{kds.core.font-family.roboto-condensed}",
+                "fontWeight": "{kds.core.font-weight.regular-italic}",
+                "lineHeight": "{kds.core.line-height.multiline_wide}",
+                "fontSize": "{kds.core.font-size.0_81x}"
+              },
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
             },
-            "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
-          },
-          "bold": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.roboto-condensed}",
-              "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.core.line-height.multiline_wide}",
-              "fontSize": "{kds.core.font-size.0_81x}"
+            "small-strong": {
+              "$type": "typography",
+              "$value": {
+                "fontFamily": "{kds.core.font-family.roboto-condensed}",
+                "fontWeight": "{kds.core.font-weight.strong}",
+                "lineHeight": "{kds.core.line-height.multiline_wide}",
+                "fontSize": "{kds.core.font-size.0_81x}"
+              },
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
             },
-            "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
-          },
-          "bold-Italic": {
-            "$type": "typography",
-            "$value": {
-              "fontFamily": "{kds.core.font-family.roboto-condensed}",
-              "fontWeight": "{kds.core.font-weight.strongItalic}",
-              "lineHeight": "{kds.core.line-height.multiline_wide}",
-              "fontSize": "{kds.core.font-size.0_81x}"
-            },
-            "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+            "small-strong-Italic": {
+              "$type": "typography",
+              "$value": {
+                "fontFamily": "{kds.core.font-family.roboto-condensed}",
+                "fontWeight": "{kds.core.font-weight.strong-italic}",
+                "lineHeight": "{kds.core.line-height.multiline_wide}",
+                "fontSize": "{kds.core.font-size.0_81x}"
+              },
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+            }
           }
         },
         "node": {
@@ -464,7 +528,7 @@
           }
         }
       },
-      "dataapps": {
+      "dataapp": {
         "H1": {
           "$type": "typography",
           "$value": {
