@@ -152,7 +152,7 @@
           "$type": "fontWeights",
           "$value": "400"
         },
-        "regularItalic": {
+        "regular-italic": {
           "$type": "fontWeights",
           "$value": "Italic"
         },
@@ -164,7 +164,7 @@
           "$type": "fontWeights",
           "$value": "700"
         },
-        "strongItalic": {
+        "strong-italic": {
           "$type": "fontWeights",
           "$value": "Bold Italic"
         }
