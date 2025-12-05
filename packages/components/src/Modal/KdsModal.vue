@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { nextTick, useTemplateRef, watch } from "vue";
+import { nextTick, ref, useTemplateRef, watch } from "vue";
 
 import KdsModalLayout from "./KdsModalLayout.vue";
 import type { KdsModalProps } from "./types";
@@ -36,22 +36,31 @@ watch(
   },
   { immediate: true },
 );
+
+const renderDialog = ref(props.active);
+watch(
+  () => props.active,
+  (value, lastValue) => {
+    // on close wait until the animation has run
+    if (value === false && lastValue === true) {
+      // eslint-disable-next-line no-magic-numbers
+      setTimeout(() => (renderDialog.value = false), 400);
+    } else {
+      renderDialog.value = value;
+    }
+  },
+);
 </script>
 
 <template>
   <dialog
+    v-if="renderDialog"
     ref="dialogElement"
     :class="['kds-modal', `width-${width}`, `height-${height}`]"
     :closedby="closedby"
     @cancel.prevent="onClose"
   >
-    <slot
-      v-if="active"
-      :title="title"
-      :icon="icon"
-      :variant="variant"
-      :on-close="onClose"
-    >
+    <slot :title="title" :icon="icon" :variant="variant" :on-close="onClose">
       <KdsModalLayout
         :title="title"
         :icon="icon"
@@ -136,12 +145,14 @@ body:has(dialog.modal[open]) {
   border-radius: var(--kds-border-radius-container-0-37x);
   box-shadow: var(--kds-elevation-level-3);
 
-  /** hide animation */
+  /* hide if its not open */
+  &:not([open]) {
+    display: none;
+  }
+
+  /* hide animation <dialog> */
   opacity: 0;
   transform: scale(var(--modal-scale-base));
-
-  /** animate dialog */
-
   transition:
     opacity var(--modal-animation-time) cubic-bezier(0, 0, 0.2, 1),
     transform var(--modal-animation-time) cubic-bezier(0, 0, 0.2, 1),
@@ -155,16 +166,10 @@ body:has(dialog.modal[open]) {
     outline: none;
   }
 
-  /** hide if its not open */
-  &:not([open]) {
-    display: none;
-  }
-
-  /** animate backdrop */
   &::backdrop {
     background: var(--kds-color-blanket-default);
 
-    /** hide animation */
+    /* hide animation ::backdrop */
     opacity: 0;
     transition:
       display var(--modal-backdrop-animation-time)
@@ -179,7 +184,7 @@ body:has(dialog.modal[open]) {
     }
   }
 
-  /** show animation */
+  /** show animation ::backdrop */
   &[open]::backdrop {
     opacity: 1;
 
@@ -193,7 +198,7 @@ body:has(dialog.modal[open]) {
     transform: scale(1);
   }
 
-  /** show animation */
+  /** show animation <dialog> */
   &[open] {
     opacity: 1;
     transform: scale(1);
