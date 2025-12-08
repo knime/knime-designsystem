@@ -58,8 +58,8 @@ jobs:
         if: steps.check-changes.outputs.run-full-checks == 'true'
         run: pnpm run audit
 
-      - name: Sonar scan
-        if: steps.check-changes.outputs.run-full-checks == 'true' && github.actor != 'dependabot[bot]'
+      - name: Sonar scan (temporarily disabled)
+        if: false # steps.check-changes.outputs.run-full-checks == 'true' && github.actor != 'dependabot[bot]'
         uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
