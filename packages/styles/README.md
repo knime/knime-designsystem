@@ -53,5 +53,5 @@ Here are some of the most important scripts defined in the [`package.json`](pack
 - [KNIME Forum](https://forum.knime.com/)
 
 [w3c-format]: https://tr.designtokens.org/format/
-[style-dictionary]: https://amzn.github.io/style-dictionary/#/
+[style-dictionary]: https://styledictionary.com/
 [tokens-studio-plugin]: https://www.npmjs.com/package/@tokens-studio/sd-transforms
