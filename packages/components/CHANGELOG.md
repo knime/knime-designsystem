@@ -1,5 +1,12 @@
 # @knime/kds-components
 
+## 0.3.2
+
+### Patch Changes
+
+- 437a201: fix build output missing types for useKdsDynamicModal
+  - @knime/kds-styles@0.3.2
+
 ## 0.3.1
 
 ### Patch Changes
