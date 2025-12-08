@@ -2,7 +2,6 @@
 import { nextTick, ref, useTemplateRef, watch } from "vue";
 
 import KdsModalLayout from "./KdsModalLayout.vue";
-import { maxAnimationDurationMs } from "./constants";
 import type { KdsModalProps } from "./types";
 
 const props = withDefaults(defineProps<KdsModalProps>(), {
@@ -17,6 +16,7 @@ const props = withDefaults(defineProps<KdsModalProps>(), {
 
 const emit = defineEmits<{
   close: [event: Event];
+  closeAnimationEnded: [];
 }>();
 
 const dialog = useTemplateRef("dialogElement");
@@ -39,12 +39,27 @@ watch(
 );
 
 const renderDialog = ref(props.active);
+
+const removeDialog = () => {
+  renderDialog.value = false;
+  emit("closeAnimationEnded");
+};
+
 watch(
   () => props.active,
   (value, lastValue) => {
     // on close wait until the animation has run
     if (value === false && lastValue === true) {
-      setTimeout(() => (renderDialog.value = false), maxAnimationDurationMs);
+      if (dialog.value) {
+        Promise.all(
+          dialog.value
+            .getAnimations({ subtree: true })
+            .map((animation) => animation.finished),
+        ).then(removeDialog);
+      } else {
+        // fallback if dialog element ref is not accessible
+        removeDialog();
+      }
     } else {
       renderDialog.value = value;
     }

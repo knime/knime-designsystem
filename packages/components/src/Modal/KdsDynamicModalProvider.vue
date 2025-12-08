@@ -58,6 +58,7 @@ const defaultVariant = (
     :closedby="config?.value.closedby"
     :icon="config?.value.icon"
     @close="onClose"
+    @close-animation-ended="internal.onCloseAnimationEnd"
   >
     <template v-if="config?.type === 'confirm'" #body>
       <Component

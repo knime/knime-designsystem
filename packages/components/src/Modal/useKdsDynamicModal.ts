@@ -6,11 +6,10 @@ import {
   ref,
 } from "vue";
 
-import { promise as PromiseUtils, sleep } from "@knime/utils";
+import { promise as PromiseUtils } from "@knime/utils";
 
 import type { KdsButtonProps } from "../Button/types";
 
-import { maxAnimationDurationMs } from "./constants";
 import type { KdsModalLayoutProps, KdsModalProps } from "./types";
 
 type CommonButtonProps = {
@@ -129,11 +128,14 @@ const activeModalConfig = ref<
 
 const unwrappedPromise = ref(PromiseUtils.createUnwrappedPromise());
 
-const resetInternalState = async () => {
+const resetInternalState = () => {
   isActive.value = false;
   unwrappedPromise.value = PromiseUtils.createUnwrappedPromise();
-  // wait until animations ended
-  await sleep(maxAnimationDurationMs);
+  // config is cleared after the close animations is finished
+};
+
+/* called when KdsModal has finished close animations  */
+const onCloseAnimationEnd = () => {
   activeModalConfig.value = null;
 };
 
@@ -169,6 +171,7 @@ export const internal = {
   confirm,
   close,
   isTemplateBasedConfirm,
+  onCloseAnimationEnd,
 };
 
 export const useKdsDynamicModal = () => {

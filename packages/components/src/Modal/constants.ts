@@ -8,5 +8,3 @@ export const widthSizes = [
 ] as const;
 export const heightSizes = ["auto", "full"] as const;
 export const modalVariants = ["default", "plain"] as const;
-
-export const maxAnimationDurationMs = 400;
