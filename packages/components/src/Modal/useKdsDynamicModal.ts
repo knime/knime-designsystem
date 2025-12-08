@@ -1,4 +1,10 @@
-import { type Component, type FunctionalComponent, computed, ref } from "vue";
+import {
+  type ComponentPublicInstance,
+  type FunctionalComponent,
+  type VNode,
+  computed,
+  ref,
+} from "vue";
 
 import { promise as PromiseUtils } from "@knime/utils";
 
@@ -74,7 +80,7 @@ type TemplateBasedConfirmModalConfig = CommonConfig & {
   /**
    * the dynamic component to be used as the confirmation modal body
    */
-  component: Component;
+  component: FunctionalComponent | ComponentPublicInstance | VNode;
 
   /**
    * Confirmation or cancellation buttons if omitted default ones are set
