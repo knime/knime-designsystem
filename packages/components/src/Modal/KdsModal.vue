@@ -168,13 +168,9 @@ body:has(dialog.modal[open]) {
   /* hide animation <dialog> */
   opacity: 0;
   transform: scale(var(--modal-scale-base));
-  transition:
-    opacity var(--modal-animation-time) cubic-bezier(0, 0, 0.2, 1),
-    transform var(--modal-animation-time) cubic-bezier(0, 0, 0.2, 1),
-    overlay var(--modal-animation-time) cubic-bezier(0, 0, 0.2, 1)
-      allow-discrete,
-    display var(--modal-animation-time) cubic-bezier(0, 0, 0.2, 1)
-      allow-discrete;
+  transition: var(--modal-animation-time) allow-discrete;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  transition-property: display, opacity, overlay, transform;
 
   &:focus-visible,
   &:focus {
@@ -186,13 +182,9 @@ body:has(dialog.modal[open]) {
 
     /* hide animation ::backdrop */
     opacity: 0;
-    transition:
-      display var(--modal-backdrop-animation-time)
-        cubic-bezier(0.39, 0.58, 0.57, 1) allow-discrete,
-      overlay var(--modal-backdrop-animation-time)
-        cubic-bezier(0.39, 0.58, 0.57, 1) allow-discrete,
-      opacity var(--modal-backdrop-animation-time)
-        cubic-bezier(0.39, 0.58, 0.57, 1);
+    transition: var(--modal-animation-time) allow-discrete;
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    transition-property: display, opacity, overlay;
 
     @starting-style {
       opacity: 1;
