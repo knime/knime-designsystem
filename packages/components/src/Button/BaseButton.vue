@@ -17,10 +17,12 @@ const props = withDefaults(defineProps<BaseButtonPropsWithComponent>(), {
   variant: "filled",
   destructive: false,
   disabled: false,
+  selected: false,
 });
 
 const emit = defineEmits<{
   click: [event: MouseEvent];
+  keydown: [event: KeyboardEvent];
 }>();
 
 const classes = computed(() => [
@@ -29,6 +31,7 @@ const classes = computed(() => [
   props.variant,
   { destructive: props.destructive },
   { disabled: props.disabled },
+  { selected: props.selected },
 ]);
 
 const iconSize = computed(() => {
@@ -44,6 +47,12 @@ function onClick(e: MouseEvent) {
     emit("click", e);
   }
 }
+
+function onKeyDown(e: KeyboardEvent) {
+  if (!props.disabled) {
+    emit("keydown", e);
+  }
+}
 </script>
 
 <template>
@@ -52,6 +61,7 @@ function onClick(e: MouseEvent) {
     :class="classes"
     :disabled="props.disabled"
     @click="onClick($event)"
+    @keydown="onKeyDown($event)"
   >
     <KdsIcon
       v-if="props.leadingIcon"
@@ -216,6 +226,26 @@ html.kds-legacy {
         &:active {
           background-color: var(--kds-color-background-danger-active);
         }
+      }
+    }
+  }
+
+  &.selected {
+    color: var(--kds-color-text-and-icon-selected);
+    background-color: var(--kds-color-background-selected-initial);
+    border: var(--kds-border-action-selected);
+
+    &.disabled {
+      color: var(--kds-color-text-and-icon-disabled);
+    }
+
+    &:not(.disabled) {
+      &:hover {
+        background-color: var(--kds-color-background-selected-hover);
+      }
+
+      &:active {
+        background-color: var(--kds-color-background-selected-active);
       }
     }
   }

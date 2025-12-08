@@ -2,15 +2,17 @@ import type { IconName } from "@knime/kds-styles/img/icons/def";
 
 import type { KdsSize } from "../types";
 
-import type { kdsButtonVariants } from "./constants";
+import type { kdsButtonVariants, kdsToggleButtonVariants } from "./constants";
 
 export type KdsButtonVariant = (typeof kdsButtonVariants)[number];
+export type KdsToggleButtonVariant = (typeof kdsToggleButtonVariants)[number];
 
 type BaseProps = {
   variant?: KdsButtonVariant;
   size?: KdsSize;
   destructive?: boolean;
   disabled?: boolean;
+  selected?: boolean;
 };
 
 type WithLabelOrLeadingIcon = BaseProps & {
@@ -49,9 +51,9 @@ propTypeTester<BaseButtonProps>({
   trailingIcon: "ai-general",
 });
 
-export type KdsButtonProps = BaseButtonProps;
+export type KdsButtonProps = Omit<BaseButtonProps, "selected">;
 
-export type KdsLinkButtonProps = BaseButtonProps & {
+export type KdsLinkButtonProps = Omit<BaseButtonProps, "selected"> & {
   // RouterLink props
 
   /**
@@ -80,4 +82,9 @@ export type KdsLinkButtonProps = BaseButtonProps & {
     | "ugc"
     | string
     | null;
+};
+
+export type KdsToggleButtonProps = Omit<BaseButtonProps, "destructive"> & {
+  variant?: KdsToggleButtonVariant;
+  selected: boolean;
 };
