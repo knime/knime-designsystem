@@ -421,7 +421,7 @@
           "$value": "{kds.core.color.red.725}",
           "$description": "Very light red background for error or destructive states (red 100, lightened 60%).\n"
         },
-        "danger-bold": {
+        "danger-muted": {
           "$extensions": {
             "studio.tokens": {
               "modify": {
