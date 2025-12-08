@@ -1,5 +1,11 @@
 # @knime/kds-styles
 
+## 0.4.0
+
+### Minor Changes
+
+- 5bed877: Generate CSS font imports dynamically from used tokens
+
 ## 0.3.2
 
 ## 0.3.1
