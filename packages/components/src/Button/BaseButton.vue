@@ -14,7 +14,6 @@ const props = withDefaults(defineProps<BaseButtonPropsWithComponent>(), {
   leadingIcon: undefined,
   component: "button",
   size: "medium",
-  variant: "filled",
   destructive: false,
   disabled: false,
   selected: false,

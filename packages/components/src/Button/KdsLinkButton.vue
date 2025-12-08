@@ -7,6 +7,7 @@ import BaseButton from "./BaseButton.vue";
 import type { KdsLinkButtonProps } from "./types";
 
 const props = withDefaults(defineProps<KdsLinkButtonProps>(), {
+  variant: "filled",
   download: undefined,
   rel: null,
   target: null,
