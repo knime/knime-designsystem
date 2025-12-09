@@ -21,7 +21,6 @@ const props = withDefaults(defineProps<BaseButtonPropsWithComponent>(), {
 
 const emit = defineEmits<{
   click: [event: MouseEvent];
-  keydown: [event: KeyboardEvent];
 }>();
 
 const classes = computed(() => [
@@ -46,12 +45,6 @@ function onClick(e: MouseEvent) {
     emit("click", e);
   }
 }
-
-function onKeyDown(e: KeyboardEvent) {
-  if (!props.disabled) {
-    emit("keydown", e);
-  }
-}
 </script>
 
 <template>
@@ -60,7 +53,6 @@ function onKeyDown(e: KeyboardEvent) {
     :class="classes"
     :disabled="props.disabled"
     @click="onClick($event)"
-    @keydown="onKeyDown($event)"
   >
     <KdsIcon
       v-if="props.leadingIcon"

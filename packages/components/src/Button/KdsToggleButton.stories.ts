@@ -1,5 +1,7 @@
 import type { FunctionalComponent } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { useArgs } from "storybook/internal/preview-api";
+import { fn } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
@@ -47,6 +49,25 @@ const meta: Meta<typeof KdsToggleButton> = {
     },
     selected: { control: { type: "boolean" } },
   },
+  args: {
+    "onUpdate:selected": fn(),
+  },
+  decorators: [
+    (story) => {
+      const [currentArgs, updateArgs] = useArgs();
+      return {
+        components: { story },
+        setup() {
+          return {
+            args: currentArgs,
+            updateArgs,
+          };
+        },
+        template:
+          '<story v-bind="args" @update:selected="(value) => updateArgs({ selected: value })" />',
+      };
+    },
+  ],
 };
 export default meta;
 
