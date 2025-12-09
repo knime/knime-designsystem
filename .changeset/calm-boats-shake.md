@@ -2,4 +2,4 @@
 "@knime/kds-components": patch
 ---
 
-add animation to modal
+Add show and hide animations to KdsModal
