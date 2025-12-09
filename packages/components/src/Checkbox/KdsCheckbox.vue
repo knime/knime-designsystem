@@ -50,7 +50,7 @@ const handleClick = () => {
   let newValue: CheckboxModelValue;
 
   if (props.allowIndeterminate) {
-    // With indeterminate support: indeterminate -> true -> false -> true
+    // With indeterminate support: indeterminate -> true, then cycles between true <-> false
     newValue = isIndeterminate.value ? true : !isChecked.value;
   } else {
     // Without indeterminate support: true <-> false
