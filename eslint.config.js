@@ -14,7 +14,10 @@ const tsconfigPath = path.resolve(__dirname, "tsconfig.eslint.json");
 
 export default [
   {
-    ignores: ["packages/styles/src/tokens/*"],
+    ignores: [
+      "packages/styles/src/tokens/*",
+      "documentation/storybook-static/**",
+    ],
   },
   ...createKnimeVueTSConfig(/* tsconfigPath */),
   ...knimeVitest,

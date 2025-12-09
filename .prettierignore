@@ -6,3 +6,4 @@ test-results
 **/opensourcecredits/used-packages.json
 .pnpm-store
 packages/styles/src/tokens
+documentation/storybook-static
