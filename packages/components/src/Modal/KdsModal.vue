@@ -167,54 +167,53 @@ body:has(dialog.modal[open]) {
     display: none;
   }
 
-  /* hide animation <dialog> */
+  &:focus-visible,
+  &:focus {
+    outline: none;
+  }
+
+  /** Animation */
   opacity: 0;
   transform: scale(var(--modal-scale-base));
   transition: var(--modal-animation-time) allow-discrete;
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
   transition-property: display, opacity, overlay, transform;
 
-  &:focus-visible,
-  &:focus {
-    outline: none;
-  }
-
   &::backdrop {
     background: var(--kds-color-blanket-default);
-
-    /* hide animation ::backdrop */
     opacity: 0;
     transition: var(--modal-animation-time) allow-discrete;
     transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
     transition-property: display, opacity, overlay;
-
-    @starting-style {
-      opacity: 1;
-    }
   }
 
-  /** show animation ::backdrop */
   &[open]::backdrop {
     opacity: 1;
-
-    @starting-style {
-      opacity: 0;
-    }
   }
 
-  @starting-style {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  /** show animation <dialog> */
   &[open] {
     opacity: 1;
     transform: scale(1);
+  }
+}
 
-    @starting-style {
+/** Animation starting styles */
+@starting-style {
+  .kds-modal {
+    opacity: 1;
+    transform: scale(1);
+
+    &[open] {
       opacity: 0;
       transform: scale(var(--modal-scale-base));
+    }
+
+    &::backdrop {
+      opacity: 1;
+    }
+
+    &[open]::backdrop {
+      opacity: 0;
     }
   }
 }
