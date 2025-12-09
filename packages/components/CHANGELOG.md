@@ -1,5 +1,12 @@
 # @knime/kds-components
 
+## 0.4.2
+
+### Patch Changes
+
+- 80eb6aa: NXT-4191: KdsModal: use font-base-body-small instead of medium
+  - @knime/kds-styles@0.4.2
+
 ## 0.4.1
 
 ### Patch Changes
