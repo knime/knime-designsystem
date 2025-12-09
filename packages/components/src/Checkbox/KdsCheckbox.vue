@@ -11,7 +11,7 @@ const props = withDefaults(defineProps<KdsCheckboxProps>(), {
   modelValue: false,
   disabled: false,
   error: false,
-  allowIndeterminate: true,
+  allowIndeterminate: false,
 });
 
 const emit = defineEmits<{

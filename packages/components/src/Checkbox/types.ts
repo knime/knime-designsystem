@@ -1,12 +1,11 @@
-type BaseProps = {
+type BasePropsWithIndeterminate = {
   /**
-   * Whether to allow the indeterminate state. When false, the checkbox only supports boolean values.
-   * @default true
+   * Whether to allow the indeterminate state. When true, the checkbox supports tri-state values.
+   * @default false
    */
-  allowIndeterminate?: boolean;
+  allowIndeterminate: true;
   /**
-   * The checked or indeterminate state of the checkbox.
-   * When allowIndeterminate is false, this should only be boolean.
+   * The checked or indeterminate state of the checkbox
    */
   modelValue?: boolean | "indeterminate";
   /**
@@ -22,6 +21,32 @@ type BaseProps = {
    */
   title?: string;
 };
+
+type BasePropsWithoutIndeterminate = {
+  /**
+   * Whether to allow the indeterminate state. When true, the checkbox supports tri-state values.
+   * @default false
+   */
+  allowIndeterminate?: false;
+  /**
+   * The checked state of the checkbox
+   */
+  modelValue?: boolean;
+  /**
+   * Whether the checkbox is disabled
+   */
+  disabled?: boolean;
+  /**
+   * Whether the checkbox is in an error state
+   */
+  error?: boolean;
+  /**
+   * Title text shown on hover
+   */
+  title?: string;
+};
+
+type BaseProps = BasePropsWithIndeterminate | BasePropsWithoutIndeterminate;
 
 type WithoutLabelAndHelperText = BaseProps & {
   label?: never;
@@ -43,12 +68,6 @@ export type KdsCheckboxProps =
   | WithoutLabelAndHelperText
   | WithLabelAndHelperText;
 
-// Type helper for boolean-only checkboxes
-export type KdsBooleanCheckboxProps = KdsCheckboxProps & {
-  allowIndeterminate: false;
-  modelValue?: boolean;
-};
-
 // supports without label
 propTypeTester<KdsCheckboxProps>({});
 // supports just label
@@ -57,8 +76,8 @@ propTypeTester<KdsCheckboxProps>({ label: "foo" });
 propTypeTester<KdsCheckboxProps>({ label: "foo", helperText: "bar" });
 // @ts-expect-error - should not allow helper text without label
 propTypeTester<KdsCheckboxProps>({ helperText: "foo" });
-// supports indeterminate by default
-propTypeTester<KdsCheckboxProps>({ modelValue: "indeterminate" });
+// supports boolean by default
+propTypeTester<KdsCheckboxProps>({ modelValue: true });
 // supports indeterminate when explicitly enabled
 propTypeTester<KdsCheckboxProps>({
   allowIndeterminate: true,
@@ -66,11 +85,6 @@ propTypeTester<KdsCheckboxProps>({
 });
 // supports boolean when allowIndeterminate is false
 propTypeTester<KdsCheckboxProps>({
-  allowIndeterminate: false,
-  modelValue: true,
-});
-// supports boolean-only checkbox with explicit type
-propTypeTester<KdsBooleanCheckboxProps>({
   allowIndeterminate: false,
   modelValue: true,
 });
