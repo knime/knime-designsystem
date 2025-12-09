@@ -1,6 +1,6 @@
 {
   "name": "@knime/kds-documentation",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Package containing the documentation for the KNIME Design System utilizing storybook",
   "license": "GPL 3 and Additional Permissions according to Sec. 7 (SEE the file LICENSE)",
   "author": "KNIME AG, Zurich, Switzerland",
