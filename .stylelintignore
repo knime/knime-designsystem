@@ -2,3 +2,4 @@ dist/
 test-results/
 coverage/
 packages/styles/src/tokens/
+documentation/storybook-static/
