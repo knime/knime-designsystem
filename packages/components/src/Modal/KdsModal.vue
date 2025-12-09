@@ -155,7 +155,7 @@ body:has(dialog.modal[open]) {
   max-height: var(--modal-full-size);
   padding: 0;
   overflow: hidden;
-  font: var(--kds-font-base-body-medium);
+  font: var(--kds-font-base-body-small);
   color: var(--kds-color-text-and-icon-neutral);
   background-color: var(--kds-color-surface-default);
   border: none;
