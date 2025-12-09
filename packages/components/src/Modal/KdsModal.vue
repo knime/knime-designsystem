@@ -15,8 +15,10 @@ const props = withDefaults(defineProps<KdsModalProps>(), {
 });
 
 const emit = defineEmits<{
+  /** request to close of the dialog */
   close: [event: Event];
-  closeAnimationEnded: [];
+  /** the dialog is closed (different to the active state due to possible animations) */
+  closed: [];
 }>();
 
 const dialog = useTemplateRef("dialogElement");
@@ -42,7 +44,7 @@ const renderDialog = ref(props.active);
 
 const removeDialog = () => {
   renderDialog.value = false;
-  emit("closeAnimationEnded");
+  emit("closed");
 };
 
 watch(

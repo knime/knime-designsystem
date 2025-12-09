@@ -135,7 +135,7 @@ const resetInternalState = () => {
 };
 
 /* called when KdsModal has finished close animations  */
-const onCloseAnimationEnd = () => {
+const onClosed = () => {
   activeModalConfig.value = null;
 };
 
@@ -171,7 +171,7 @@ export const internal = {
   confirm,
   close,
   isTemplateBasedConfirm,
-  onCloseAnimationEnd,
+  onClosed,
 };
 
 export const useKdsDynamicModal = () => {
