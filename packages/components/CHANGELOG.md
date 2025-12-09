@@ -1,5 +1,12 @@
 # @knime/kds-components
 
+## 0.4.1
+
+### Patch Changes
+
+- 8a22ca1: Add show and hide animations to KdsModal
+  - @knime/kds-styles@0.4.1
+
 ## 0.4.0
 
 ### Patch Changes
