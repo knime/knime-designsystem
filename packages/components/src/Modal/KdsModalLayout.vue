@@ -55,7 +55,7 @@ defineOptions({ inheritAttrs: false });
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  font: var(--kds-font-base-body-medium);
+  font: var(--kds-font-base-body-small);
   color: var(--kds-color-text-and-icon-neutral);
 
   &.modal-body-variant-default {
