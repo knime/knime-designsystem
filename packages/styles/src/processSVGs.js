@@ -7,8 +7,7 @@ import consola from "consola";
 import { JSDOM } from "jsdom";
 import { optimize } from "svgo";
 
-import { svgoConfig } from "@knime/styles/config/svgo.config.js";
-
+import { svgoConfig } from "./config/svgo.config.js";
 import { removeMiterlimit } from "./svgoRemoveMiterlimit.js";
 
 const __filename = fileURLToPath(import.meta.url);

@@ -7,12 +7,10 @@ import dts from "vite-plugin-dts";
 import { libInjectCss } from "vite-plugin-lib-inject-css";
 import svgLoader from "vite-svg-loader";
 
-import { svgoConfig } from "@knime/styles/config/svgo.config";
-
 export default defineConfig({
   plugins: [
     vue(),
-    svgLoader({ svgoConfig }),
+    svgLoader({ svgo: false }),
     dts({
       tsconfigPath: "./tsconfig.build.json",
       afterDiagnostic: (diagnostics) => {

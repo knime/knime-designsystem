@@ -39,7 +39,6 @@
   },
   "dependencies": {
     "@knime/kds-styles": "workspace:^",
-    "@knime/styles": "^1.14.3",
     "@knime/utils": "^1.8.0",
     "consola": "catalog:"
   },
