@@ -30,6 +30,13 @@ describe("KdsDynamicModalProvider.vue", () => {
         this.returnValue = returnValue ?? "";
       };
     }
+    if (!HTMLElement.prototype.getAnimations) {
+      HTMLElement.prototype.getAnimations = function (
+        _options?: GetAnimationsOptions,
+      ): Animation[] {
+        return [];
+      };
+    }
   });
 
   const doMount = () => {

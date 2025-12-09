@@ -130,8 +130,13 @@ const unwrappedPromise = ref(PromiseUtils.createUnwrappedPromise());
 
 const resetInternalState = () => {
   isActive.value = false;
-  activeModalConfig.value = null;
   unwrappedPromise.value = PromiseUtils.createUnwrappedPromise();
+  // config is cleared after the close animations is finished
+};
+
+/* called when KdsModal has finished close animations  */
+const onClosed = () => {
+  activeModalConfig.value = null;
 };
 
 /**
@@ -166,6 +171,7 @@ export const internal = {
   confirm,
   close,
   isTemplateBasedConfirm,
+  onClosed,
 };
 
 export const useKdsDynamicModal = () => {
