@@ -13,7 +13,16 @@ export default defineConfig({
   plugins: [
     vue(),
     svgLoader({ svgoConfig }),
-    dts({ tsconfigPath: "./tsconfig.build.json" }),
+    dts({
+      tsconfigPath: "./tsconfig.build.json",
+      afterDiagnostic: (diagnostics) => {
+        if (diagnostics.length > 0) {
+          throw new Error(
+            "TypeScript errors found during declaration generation",
+          );
+        }
+      },
+    }),
     libInjectCss(),
   ],
   build: {

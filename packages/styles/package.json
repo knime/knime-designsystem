@@ -42,7 +42,6 @@
   "exports": {
     "./index.css": "./dist/css/index.css",
     "./fonts.css": "./dist/css/fonts.css",
-    "./fonts-workflows.css": "./dist/css/fonts-workflows.css",
     "./kds-variables.css": "./dist/tokens/css/_variables.css",
     "./kds-properties.css": "./dist/tokens/css/_properties.css",
     "./kds-legacy-theme.css": "./dist/tokens/css/_variables-legacy.css",
