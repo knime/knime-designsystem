@@ -3,9 +3,10 @@ import { computed, useId } from "vue";
 
 import Icon from "../Icon/KdsIcon.vue";
 
-import type { KdsCheckboxProps } from "./types";
+import type { KdsCheckboxEmits, KdsCheckboxProps } from "./types";
 
-type CheckboxModelValue = KdsCheckboxProps["modelValue"];
+// Use the widest type for internal implementation
+type CheckboxModelValue = boolean | "indeterminate";
 
 const props = withDefaults(defineProps<KdsCheckboxProps>(), {
   modelValue: false,
@@ -14,12 +15,8 @@ const props = withDefaults(defineProps<KdsCheckboxProps>(), {
   allowIndeterminate: false,
 });
 
-const emit = defineEmits<{
-  /**
-   * Emitted when the checkbox value changes
-   */
-  "update:modelValue": [value: CheckboxModelValue];
-}>();
+// Emit type will be conditionally typed for consumers
+const emit = defineEmits<KdsCheckboxEmits>();
 
 const id = useId();
 

@@ -1,13 +1,14 @@
-type BasePropsWithIndeterminate = {
+// Generic base type with conditional modelValue based on allowIndeterminate
+type KdsCheckboxBaseProps<T extends boolean = boolean> = {
   /**
    * Whether to allow the indeterminate state. When true, the checkbox supports tri-state values.
    * @default false
    */
-  allowIndeterminate: true;
+  allowIndeterminate?: T;
   /**
    * The checked or indeterminate state of the checkbox
    */
-  modelValue?: boolean | "indeterminate";
+  modelValue?: T extends true ? boolean | "indeterminate" : boolean;
   /**
    * Whether the checkbox is disabled
    */
@@ -22,51 +23,35 @@ type BasePropsWithIndeterminate = {
   title?: string;
 };
 
-type BasePropsWithoutIndeterminate = {
-  /**
-   * Whether to allow the indeterminate state. When true, the checkbox supports tri-state values.
-   * @default false
-   */
-  allowIndeterminate?: false;
-  /**
-   * The checked state of the checkbox
-   */
-  modelValue?: boolean;
-  /**
-   * Whether the checkbox is disabled
-   */
-  disabled?: boolean;
-  /**
-   * Whether the checkbox is in an error state
-   */
-  error?: boolean;
-  /**
-   * Title text shown on hover
-   */
-  title?: string;
+type WithoutLabelAndHelperText<T extends boolean = boolean> =
+  KdsCheckboxBaseProps<T> & {
+    label?: never;
+    helperText?: never;
+  };
+
+type WithLabelAndHelperText<T extends boolean = boolean> =
+  KdsCheckboxBaseProps<T> & {
+    /**
+     * The label text for the checkbox
+     */
+    label: string;
+    /**
+     * Helper text displayed below the label
+     */
+    helperText?: string;
+  };
+
+// Main props type - use wide boolean type internally
+export type KdsCheckboxProps<T extends boolean = boolean> =
+  | WithoutLabelAndHelperText<T>
+  | WithLabelAndHelperText<T>;
+
+// Emit types with conditional modelValue
+export type KdsCheckboxEmits<T extends boolean = boolean> = {
+  "update:modelValue": [
+    value: T extends true ? boolean | "indeterminate" : boolean,
+  ];
 };
-
-type BaseProps = BasePropsWithIndeterminate | BasePropsWithoutIndeterminate;
-
-type WithoutLabelAndHelperText = BaseProps & {
-  label?: never;
-  helperText?: never;
-};
-
-type WithLabelAndHelperText = BaseProps & {
-  /**
-   * The label text for the checkbox
-   */
-  label: string;
-  /**
-   * Helper text displayed below the label
-   */
-  helperText?: string;
-};
-
-export type KdsCheckboxProps =
-  | WithoutLabelAndHelperText
-  | WithLabelAndHelperText;
 
 // supports without label
 propTypeTester<KdsCheckboxProps>({});
@@ -79,12 +64,12 @@ propTypeTester<KdsCheckboxProps>({ helperText: "foo" });
 // supports boolean by default
 propTypeTester<KdsCheckboxProps>({ modelValue: true });
 // supports indeterminate when explicitly enabled
-propTypeTester<KdsCheckboxProps>({
+propTypeTester<KdsCheckboxProps<true>>({
   allowIndeterminate: true,
   modelValue: "indeterminate",
 });
 // supports boolean when allowIndeterminate is false
-propTypeTester<KdsCheckboxProps>({
+propTypeTester<KdsCheckboxProps<false>>({
   allowIndeterminate: false,
   modelValue: true,
 });
