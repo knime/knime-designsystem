@@ -1,6 +1,12 @@
 type BaseProps = {
   /**
-   * The checked or indeterminate state of the checkbox
+   * Whether to allow the indeterminate state. When false, the checkbox only supports boolean values.
+   * @default true
+   */
+  allowIndeterminate?: boolean;
+  /**
+   * The checked or indeterminate state of the checkbox.
+   * When allowIndeterminate is false, this should only be boolean.
    */
   modelValue?: boolean | "indeterminate";
   /**
@@ -37,6 +43,12 @@ export type KdsCheckboxProps =
   | WithoutLabelAndHelperText
   | WithLabelAndHelperText;
 
+// Type helper for boolean-only checkboxes
+export type KdsBooleanCheckboxProps = KdsCheckboxProps & {
+  allowIndeterminate: false;
+  modelValue?: boolean;
+};
+
 // supports without label
 propTypeTester<KdsCheckboxProps>({});
 // supports just label
@@ -45,3 +57,20 @@ propTypeTester<KdsCheckboxProps>({ label: "foo" });
 propTypeTester<KdsCheckboxProps>({ label: "foo", helperText: "bar" });
 // @ts-expect-error - should not allow helper text without label
 propTypeTester<KdsCheckboxProps>({ helperText: "foo" });
+// supports indeterminate by default
+propTypeTester<KdsCheckboxProps>({ modelValue: "indeterminate" });
+// supports indeterminate when explicitly enabled
+propTypeTester<KdsCheckboxProps>({
+  allowIndeterminate: true,
+  modelValue: "indeterminate",
+});
+// supports boolean when allowIndeterminate is false
+propTypeTester<KdsCheckboxProps>({
+  allowIndeterminate: false,
+  modelValue: true,
+});
+// supports boolean-only checkbox with explicit type
+propTypeTester<KdsBooleanCheckboxProps>({
+  allowIndeterminate: false,
+  modelValue: true,
+});

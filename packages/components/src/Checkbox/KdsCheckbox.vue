@@ -11,6 +11,7 @@ const props = withDefaults(defineProps<KdsCheckboxProps>(), {
   modelValue: false,
   disabled: false,
   error: false,
+  allowIndeterminate: true,
 });
 
 const emit = defineEmits<{
@@ -46,9 +47,15 @@ const handleClick = () => {
     return;
   }
 
-  const newValue: CheckboxModelValue = isIndeterminate.value
-    ? true
-    : !isChecked.value;
+  let newValue: CheckboxModelValue;
+
+  if (props.allowIndeterminate) {
+    // With indeterminate support: indeterminate -> true -> false -> true
+    newValue = isIndeterminate.value ? true : !isChecked.value;
+  } else {
+    // Without indeterminate support: true <-> false
+    newValue = !isChecked.value;
+  }
 
   emit("update:modelValue", newValue);
 };

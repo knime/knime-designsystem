@@ -21,6 +21,9 @@ const meta: Meta<typeof KdsCheckbox> = {
       control: { type: "select" },
       options: [false, true, "indeterminate"],
     },
+    allowIndeterminate: {
+      control: { type: "boolean" },
+    },
     disabled: {
       control: { type: "boolean" },
     },
@@ -60,7 +63,7 @@ const meta: Meta<typeof KdsCheckbox> = {
     docs: {
       description: {
         component:
-          "A checkbox component that follows the WAI-ARIA tri-state checkbox design pattern. Supports checked, unchecked, and indeterminate states.",
+          "A checkbox component that follows the WAI-ARIA tri-state checkbox design pattern. Supports checked, unchecked, and indeterminate states. Set `allowIndeterminate` to `false` to use only boolean values.",
       },
     },
     design: {
@@ -119,6 +122,15 @@ export const Error: Story = {
   },
 };
 
+export const BooleanOnly: Story = {
+  args: {
+    label: "Boolean-only checkbox",
+    helperText: "This checkbox only supports true/false values",
+    modelValue: false,
+    allowIndeterminate: false,
+  },
+};
+
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsCheckbox,
   combinationsProps: [
@@ -127,6 +139,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       disabled: [false, true],
       error: [false, true],
       label: [null, "Label"],
+      allowIndeterminate: [true, false],
     },
     {
       modelValue: [false, true, "indeterminate"],
@@ -134,6 +147,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       error: [false, true],
       label: ["Label"],
       helperText: ["Helper text"],
+      allowIndeterminate: [true, false],
     },
   ],
 });
