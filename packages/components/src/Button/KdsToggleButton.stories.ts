@@ -6,6 +6,7 @@ import { fn } from "storybook/test";
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
 import { kdsSizes } from "../constants";
+import { buildAllCombinationsStory } from "../test-utils/storybook";
 
 import KdsToggleButton from "./KdsToggleButton.vue";
 import { kdsToggleButtonVariants } from "./constants";
@@ -83,14 +84,13 @@ export const Outlined: Story = {
   },
 };
 
-export const Selected: Story = {
+export const Transparent: Story = {
   parameters: {
     docs: false,
   },
   args: {
-    variant: "outlined",
+    variant: "transparent",
     label: "Button",
-    selected: true,
   },
 };
 
@@ -104,3 +104,23 @@ export const Disabled: Story = {
     disabled: true,
   },
 };
+
+export const AllCombinations: Story = buildAllCombinationsStory({
+  component: KdsToggleButton,
+  combinationsProps: [
+    {
+      size: kdsSizes,
+      variant: kdsToggleButtonVariants,
+      disabled: [false, true],
+      label: ["Button"],
+      leadingIcon: [undefined, "ai-general"],
+      trailingIcon: [undefined, "ai-general"],
+    },
+    {
+      size: kdsSizes,
+      variant: kdsToggleButtonVariants,
+      disabled: [false, true],
+      leadingIcon: ["ai-general"],
+    },
+  ],
+});
