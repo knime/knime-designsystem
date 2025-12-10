@@ -11,6 +11,18 @@ import { buildAllCombinationsStory } from "../test-utils/storybook";
 import KdsToggleButton from "./KdsToggleButton.vue";
 import { kdsToggleButtonVariants } from "./constants";
 
+const vModelExampleCode = `html
+<script setup lang="ts">
+import { ref } from "vue";
+
+const isExpanded = ref(false);
+</script>
+
+<template>
+  <KdsToggleButton v-model:selected="isExpanded" />
+</template>
+`.trim();
+
 const meta: Meta<typeof KdsToggleButton> = {
   title: "Components/Buttons/KdsToggleButton",
   component: KdsToggleButton as unknown as FunctionalComponent,
@@ -21,7 +33,9 @@ const meta: Meta<typeof KdsToggleButton> = {
         component:
           "Same styles as `KdsButton`, but with an on/off state. " +
           "Compared to `Chips`, this component is used to trigger an action like open popover or change a view. " +
-          "Used in Rich Text Editor or as Base for Vertical Menu.",
+          "Used in Rich Text Editor or as Base for Vertical Menu.\n\n" +
+          "Can be used with `v-model:selected`:\n" +
+          `\`\`\`${vModelExampleCode}\`\`\`\n`,
       },
     },
     design: {
