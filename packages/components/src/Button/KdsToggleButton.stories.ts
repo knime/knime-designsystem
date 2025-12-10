@@ -129,12 +129,14 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       label: ["Button"],
       leadingIcon: [undefined, "ai-general"],
       trailingIcon: [undefined, "ai-general"],
+      selected: [false, true],
     },
     {
       size: kdsSizes,
       variant: kdsToggleButtonVariants,
       disabled: [false, true],
       leadingIcon: ["ai-general"],
+      selected: [false, true],
     },
   ],
 });
