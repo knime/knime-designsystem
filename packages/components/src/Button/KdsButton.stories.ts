@@ -1,3 +1,4 @@
+import type { FunctionalComponent } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { fn } from "storybook/test";
 
@@ -15,7 +16,7 @@ import { kdsButtonVariants } from "./constants";
 
 const meta: Meta<typeof KdsButton> = {
   title: "Components/Buttons/KdsButton",
-  component: KdsButton,
+  component: KdsButton as unknown as FunctionalComponent,
   tags: ["autodocs"],
   parameters: {
     design: {

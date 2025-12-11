@@ -2,65 +2,58 @@ import type { IconName } from "@knime/kds-styles/img/icons/def";
 
 import type { KdsSize } from "../types";
 
-import type { kdsButtonVariants } from "./constants";
+import type { kdsButtonVariants, kdsToggleButtonVariants } from "./constants";
 
 export type KdsButtonVariant = (typeof kdsButtonVariants)[number];
+export type KdsToggleButtonVariant = (typeof kdsToggleButtonVariants)[number];
 
-type BaseProps = {
-  variant?: KdsButtonVariant;
+/**
+ * Properties common to all button components
+ */
+type CommonProps = {
   size?: KdsSize;
-  destructive?: boolean;
   disabled?: boolean;
 };
 
-type WithLabelOrLeadingIcon = BaseProps & {
+/**
+ * Helper types
+ */
+type LabelAndIcons = {
   label: string;
   leadingIcon?: IconName;
   trailingIcon?: IconName;
 };
 
-type EnsureLabelAndTrailingIcon = BaseProps & {
+type LeadingIconOnly = {
   label?: never;
   leadingIcon: IconName;
   trailingIcon?: never;
 };
 
-export type BaseButtonProps =
-  | WithLabelOrLeadingIcon
-  | EnsureLabelAndTrailingIcon;
+/**
+ * Composable button types
+ */
+type WithVariant<TVariant> = {
+  variant: TVariant;
+};
 
-// supports just label
-propTypeTester<BaseButtonProps>({ label: "foo" });
-// supports just leading icon
-propTypeTester<BaseButtonProps>({ leadingIcon: "ai-general" });
-// supports both leading icon and label
-propTypeTester<BaseButtonProps>({ leadingIcon: "ai-general", label: "foo" });
-// supports label and trailing icon
-propTypeTester<BaseButtonProps>({ label: "foo", trailingIcon: "ai-general" });
-// supports both leading supports all 3
-propTypeTester<BaseButtonProps>({
-  leadingIcon: "ai-general",
-  label: "foo",
-  trailingIcon: "ai-general",
-});
-// @ts-expect-error - should not allow leading and trailing icons without label
-propTypeTester<BaseButtonProps>({
-  leadingIcon: "ai-general",
-  trailingIcon: "ai-general",
-});
+type WithLabelAndIcons = LabelAndIcons | LeadingIconOnly;
 
-export type KdsButtonProps = BaseButtonProps;
+type WithDestructive = {
+  /**
+   * If set to true, the button will prominently warn the user of a destructive action.
+   */
+  destructive?: boolean;
+};
 
-export type KdsLinkButtonProps = BaseButtonProps & {
-  // RouterLink props
-
+type WithRouterNavigation = {
   /**
    * Route Location the link should navigate to when clicked on; passed to RouterLink/NuxtLink component if globally available
    */
   to: string | Record<string, unknown>; // not the exact type, but don't want to add the dependency on vue-router
-} & {
-  // Anchor element attributes
+};
 
+type WithAnchorElementAttributes = {
   /**
    * If set to true, the link will be downloaded instead of navigating to it.
    */
@@ -81,3 +74,94 @@ export type KdsLinkButtonProps = BaseButtonProps & {
     | string
     | null;
 };
+
+type WithToggled = {
+  /**
+   * Represents the button's toggled state
+   */
+  toggled?: boolean;
+};
+
+/**
+ * Type for BaseButton component which supports all behaviors
+ */
+export type BaseButtonProps = CommonProps &
+  WithVariant<KdsButtonVariant> &
+  WithLabelAndIcons &
+  WithDestructive &
+  WithToggled;
+
+/**
+ * Component types
+ */
+export type KdsButtonProps = CommonProps &
+  Partial<WithVariant<KdsButtonVariant>> &
+  WithLabelAndIcons &
+  WithDestructive;
+
+export type KdsLinkButtonProps = CommonProps &
+  Partial<WithVariant<KdsButtonVariant>> &
+  WithLabelAndIcons &
+  WithDestructive &
+  WithRouterNavigation &
+  WithAnchorElementAttributes;
+
+export type KdsToggleButtonProps = CommonProps &
+  Partial<WithVariant<KdsToggleButtonVariant>> &
+  WithLabelAndIcons;
+
+/**
+ * Testers
+ */
+
+// supports just label
+propTypeTester<BaseButtonProps>({ variant: "filled", label: "foo" });
+// supports just leading icon
+propTypeTester<BaseButtonProps>({
+  variant: "filled",
+  leadingIcon: "ai-general",
+});
+// supports both leading icon and label
+propTypeTester<BaseButtonProps>({
+  variant: "filled",
+  leadingIcon: "ai-general",
+  label: "foo",
+});
+// supports label and trailing icon
+propTypeTester<BaseButtonProps>({
+  variant: "filled",
+  label: "foo",
+  trailingIcon: "ai-general",
+});
+// supports both leading supports all 3
+propTypeTester<BaseButtonProps>({
+  variant: "filled",
+  leadingIcon: "ai-general",
+  label: "foo",
+  trailingIcon: "ai-general",
+});
+// @ts-expect-error - should not allow leading and trailing icons without label
+propTypeTester<BaseButtonProps>({
+  variant: "filled",
+  leadingIcon: "ai-general",
+  trailingIcon: "ai-general",
+});
+
+// KdsButton supports "destructive" prop
+propTypeTester<KdsButtonProps>({ label: "Label", destructive: true });
+
+// @ts-expect-error - KdsLinkButton should require "to" prop
+propTypeTester<KdsLinkButtonProps>({ label: "Label" });
+
+// KdsToggleButton should not support "destructive" prop
+propTypeTester<KdsToggleButtonProps>({
+  leadingIcon: "ai-general",
+  // @ts-expect-error see above
+  destructive: true,
+});
+// KdsToggleButton should not support "filled" variant
+propTypeTester<KdsToggleButtonProps>({
+  // @ts-expect-error see above
+  variant: "filled",
+  leadingIcon: "ai-general",
+});
