@@ -19,7 +19,7 @@ const isExpanded = ref(false);
 </script>
 
 <template>
-  <KdsToggleButton v-model:selected="isExpanded" />
+  <KdsToggleButton v-model="isExpanded" />
 </template>
 `.trim();
 
@@ -34,7 +34,7 @@ const meta: Meta<typeof KdsToggleButton> = {
           "Same styles as `KdsButton`, but with an on/off state. " +
           "Compared to `Chips`, this component is used to trigger an action like open popover or change a view. " +
           "Used in Rich Text Editor or as Base for Vertical Menu.\n\n" +
-          "Can be used with `v-model:selected`:\n" +
+          "Can be used with `v-model`:\n" +
           `\`\`\`${vModelExampleCode}\`\`\`\n`,
       },
     },
@@ -62,10 +62,10 @@ const meta: Meta<typeof KdsToggleButton> = {
       control: { type: "select" },
       options: [undefined, ...iconNames],
     },
-    selected: { control: { type: "boolean" } },
+    modelValue: { control: { type: "boolean" } },
   },
   args: {
-    "onUpdate:selected": fn(),
+    "onUpdate:modelValue": fn(),
   },
   decorators: [
     (story) => {
@@ -79,7 +79,7 @@ const meta: Meta<typeof KdsToggleButton> = {
           };
         },
         template:
-          '<story v-bind="args" @update:selected="(value) => updateArgs({ selected: value })" />',
+          '<story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" />',
       };
     },
   ],
@@ -129,14 +129,14 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       label: ["Button"],
       leadingIcon: [undefined, "ai-general"],
       trailingIcon: [undefined, "ai-general"],
-      selected: [false, true],
+      modelValue: [false, true],
     },
     {
       size: kdsSizes,
       variant: kdsToggleButtonVariants,
       disabled: [false, true],
       leadingIcon: ["ai-general"],
-      selected: [false, true],
+      modelValue: [false, true],
     },
   ],
 });

@@ -75,11 +75,11 @@ type WithAnchorElementAttributes = {
     | null;
 };
 
-type WithSelected = {
+type WithToggled = {
   /**
-   * Represents the button's toggled/selected state
+   * Represents the button's toggled state
    */
-  selected?: boolean;
+  toggled?: boolean;
 };
 
 /**
@@ -89,7 +89,7 @@ export type BaseButtonProps = CommonProps &
   WithVariant<KdsButtonVariant> &
   WithLabelAndIcons &
   WithDestructive &
-  WithSelected;
+  WithToggled;
 
 /**
  * Component types
@@ -108,8 +108,7 @@ export type KdsLinkButtonProps = CommonProps &
 
 export type KdsToggleButtonProps = CommonProps &
   Partial<WithVariant<KdsToggleButtonVariant>> &
-  WithLabelAndIcons &
-  Required<WithSelected>;
+  WithLabelAndIcons;
 
 /**
  * Testers
@@ -154,12 +153,9 @@ propTypeTester<KdsButtonProps>({ label: "Label", destructive: true });
 // @ts-expect-error - KdsLinkButton should require "to" prop
 propTypeTester<KdsLinkButtonProps>({ label: "Label" });
 
-// @ts-expect-error - KdsToggleButton should require "selected" prop
-propTypeTester<KdsToggleButtonProps>({ leadingIcon: "ai-general" });
 // KdsToggleButton should not support "destructive" prop
 propTypeTester<KdsToggleButtonProps>({
   leadingIcon: "ai-general",
-  selected: true,
   // @ts-expect-error see above
   destructive: true,
 });
@@ -168,5 +164,4 @@ propTypeTester<KdsToggleButtonProps>({
   // @ts-expect-error see above
   variant: "filled",
   leadingIcon: "ai-general",
-  selected: true,
 });

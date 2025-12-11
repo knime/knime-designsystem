@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<BaseButtonPropsWithComponent>(), {
   size: "medium",
   destructive: false,
   disabled: false,
-  selected: false,
+  toggled: false,
 });
 
 const emit = defineEmits<{
@@ -29,7 +29,7 @@ const classes = computed(() => [
   props.variant,
   { destructive: props.destructive },
   { disabled: props.disabled },
-  { selected: props.selected },
+  { toggled: props.toggled },
 ]);
 
 const iconSize = computed(() => {
@@ -221,7 +221,7 @@ html.kds-legacy {
     }
   }
 
-  &.selected {
+  &.toggled {
     color: var(--kds-color-text-and-icon-selected);
     background-color: var(--kds-color-background-selected-initial);
     border: var(--kds-border-action-selected);

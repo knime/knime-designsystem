@@ -6,13 +6,14 @@ const props = withDefaults(defineProps<KdsToggleButtonProps>(), {
   variant: "outlined",
 });
 
-const selected = defineModel<boolean>("selected", { default: false });
+const modelValue = defineModel<boolean>({ default: false });
 </script>
 
 <template>
   <BaseButton
     v-bind="props"
-    :selected="selected"
-    @click="selected = !selected"
+    :toggled="modelValue"
+    :aria-pressed="modelValue"
+    @click="modelValue = !modelValue"
   />
 </template>
