@@ -1,5 +1,15 @@
 # @knime/kds-components
 
+## 0.5.0
+
+### Minor Changes
+
+- 2224c3e: KDS-545: Add KdsToggleButton
+
+### Patch Changes
+
+- @knime/kds-styles@0.5.0
+
 ## 0.4.2
 
 ### Patch Changes
