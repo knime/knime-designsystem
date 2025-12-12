@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 import KdsButton from "../Button/KdsButton.vue";
 import type { KdsButtonProps } from "../Button/types";
@@ -48,18 +48,32 @@ const handleConfirmButton = (button: ConfirmModalButton) => {
 const defaultVariant = (
   type: ConfirmModalButton["type"],
 ): KdsButtonProps["variant"] => (type === "cancel" ? "transparent" : "filled");
+
+const kdsModalProps = computed(() => {
+  if (!config.value) {
+    return {};
+  }
+
+  const { icon, title, height, width, variant, overflow, closedby } =
+    config.value.value;
+
+  return {
+    icon,
+    title,
+    height,
+    width,
+    variant,
+    overflow,
+    closedby,
+    onClose,
+    onClosed: internal.onClosed,
+    active: isActive.value,
+  };
+});
 </script>
 
 <template>
-  <KdsModal
-    class="confirm-modal"
-    :active="isActive"
-    :title="config?.value.title"
-    :closedby="config?.value.closedby"
-    :icon="config?.value.icon"
-    @close="onClose"
-    @closed="internal.onClosed"
-  >
+  <KdsModal class="confirm-modal" v-bind="kdsModalProps">
     <template v-if="config?.type === 'confirm'" #body>
       <Component
         :is="config.value.component"
@@ -94,7 +108,14 @@ const defaultVariant = (
     </template>
 
     <template v-if="config?.type === 'dynamic'" #default="slotProps">
-      <Component :is="config.value.component" v-bind="slotProps" />
+      <Component
+        :is="config.value.component"
+        v-bind="{
+          ...slotProps,
+          context: config.value.context,
+          updateConfig: internal.updateConfig,
+        }"
+      />
     </template>
   </KdsModal>
 </template>

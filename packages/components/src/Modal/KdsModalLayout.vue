@@ -2,9 +2,13 @@
 import KdsButton from "../Button/KdsButton.vue";
 import KdsIcon from "../Icon/KdsIcon.vue";
 
+import { modalLayoutPropsDefault } from "./constants";
 import type { KdsModalLayoutProps } from "./types";
 
-const props = defineProps<KdsModalLayoutProps>();
+const props = withDefaults(
+  defineProps<KdsModalLayoutProps>(),
+  modalLayoutPropsDefault,
+);
 defineOptions({ inheritAttrs: false });
 </script>
 
@@ -54,7 +58,7 @@ defineOptions({ inheritAttrs: false });
 
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: v-bind(overflow);
   font: var(--kds-font-base-body-small);
   color: var(--kds-color-text-and-icon-neutral);
 
@@ -62,8 +66,6 @@ defineOptions({ inheritAttrs: false });
     gap: var(--modal-gap);
     padding: var(--modal-padding-top) var(--modal-padding-right)
       var(--modal-padding-bottom) var(--modal-padding-left);
-    overflow-y: auto; /* scroll if needed */
-    overscroll-behavior: contain;
   }
 }
 

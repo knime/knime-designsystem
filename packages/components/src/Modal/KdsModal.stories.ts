@@ -157,6 +157,19 @@ export const ShowOnLoad: Story = {
   },
 };
 
+export const VariantPlain: Story = {
+  parameters: {
+    modalOptions: {
+      buttonLabel: "Variant plain",
+      content: `<div>${veryLongText} ${veryLongText}</div>`,
+    },
+  },
+  args: {
+    title: "Variant Plain",
+    variant: "plain",
+  },
+};
+
 export const FullSizeInnerScrollable: Story = {
   parameters: {
     modalOptions: {
