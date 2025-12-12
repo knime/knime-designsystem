@@ -62,6 +62,8 @@ const meta: Meta<typeof KdsToggleButton> = {
       control: { type: "select" },
       options: [undefined, ...iconNames],
     },
+    ariaLabel: { control: "text" },
+    title: { control: "text" },
     modelValue: { control: { type: "boolean" } },
   },
   args: {
@@ -136,6 +138,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       variant: kdsToggleButtonVariants,
       disabled: [false, true],
       leadingIcon: ["ai-general"],
+      ariaLabel: ["Icon only button"],
       modelValue: [false, true],
     },
   ],

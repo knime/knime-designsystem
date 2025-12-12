@@ -89,6 +89,8 @@ const meta: Meta<typeof KdsLinkButton> = {
       description:
         "any URL; passed to RouterLink/NuxtLink component if globally available",
     },
+    ariaLabel: { control: "text" },
+    title: { control: "text" },
   },
   args: {
     onClick: fn(),

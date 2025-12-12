@@ -10,8 +10,6 @@ type BaseButtonPropsWithComponent = BaseButtonProps & {
 };
 
 const props = withDefaults(defineProps<BaseButtonPropsWithComponent>(), {
-  label: undefined,
-  leadingIcon: undefined,
   component: "button",
   size: "medium",
   destructive: false,
@@ -52,6 +50,8 @@ function onClick(e: MouseEvent) {
     :is="component"
     :class="classes"
     :disabled="props.disabled"
+    :title="props.title"
+    :aria-label="props.ariaLabel"
     @click="onClick($event)"
   >
     <KdsIcon

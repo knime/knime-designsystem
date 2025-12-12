@@ -44,6 +44,8 @@ const meta: Meta<typeof KdsButton> = {
       control: { type: "select" },
       options: [undefined, ...iconNames],
     },
+    ariaLabel: { control: "text" },
+    title: { control: "text" },
   },
   args: {
     onClick: fn(),
@@ -117,6 +119,8 @@ export const IconOnly: Story = {
   args: {
     variant: "outlined",
     leadingIcon: "ai-general",
+    ariaLabel: "Icon only button",
+    title: "Icon only button",
   },
 };
 
@@ -138,6 +142,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       disabled: [false, true],
       destructive: [false, true],
       leadingIcon: ["ai-general"],
+      ariaLabel: ["Icon only button"],
     },
   ],
 });
@@ -185,6 +190,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       props: {
         variant: "outlined",
         leadingIcon: "placeholder",
+        ariaLabel: "Icon only button",
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-89762":
