@@ -1,5 +1,12 @@
 # @knime/kds-components
 
+## 0.5.2
+
+### Patch Changes
+
+- 345ee08: Require aria-labels for icon only buttons, add title as optional prop
+  - @knime/kds-styles@0.5.2
+
 ## 0.5.1
 
 ### Patch Changes
