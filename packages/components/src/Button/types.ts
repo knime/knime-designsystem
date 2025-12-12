@@ -13,6 +13,7 @@ export type KdsToggleButtonVariant = (typeof kdsToggleButtonVariants)[number];
 type CommonProps = {
   size?: KdsSize;
   disabled?: boolean;
+  title?: string;
 };
 
 /**
@@ -22,12 +23,14 @@ type LabelAndIcons = {
   label: string;
   leadingIcon?: IconName;
   trailingIcon?: IconName;
+  ariaLabel?: never;
 };
 
 type LeadingIconOnly = {
   label?: never;
   leadingIcon: IconName;
   trailingIcon?: never;
+  ariaLabel: string;
 };
 
 /**
@@ -120,7 +123,14 @@ propTypeTester<BaseButtonProps>({ variant: "filled", label: "foo" });
 propTypeTester<BaseButtonProps>({
   variant: "filled",
   leadingIcon: "ai-general",
+  ariaLabel: "bond",
 });
+// @ts-expect-error - aria-label is required for icon-only buttons
+propTypeTester<BaseButtonProps>({
+  variant: "filled",
+  leadingIcon: "ai-general",
+});
+
 // supports both leading icon and label
 propTypeTester<BaseButtonProps>({
   variant: "filled",
