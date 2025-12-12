@@ -25,7 +25,7 @@ defineOptions({ inheritAttrs: false });
     />
   </header>
 
-  <div :class="['modal-body', `modal-body-variant-${variant}`]">
+  <div class="modal-body" :data-variant="variant">
     <slot name="body" />
   </div>
 
@@ -62,7 +62,7 @@ defineOptions({ inheritAttrs: false });
   font: var(--kds-font-base-body-small);
   color: var(--kds-color-text-and-icon-neutral);
 
-  &.modal-body-variant-default {
+  &[data-variant="padded"] {
     gap: var(--modal-gap);
     padding: var(--modal-padding-top) var(--modal-padding-right)
       var(--modal-padding-bottom) var(--modal-padding-left);
