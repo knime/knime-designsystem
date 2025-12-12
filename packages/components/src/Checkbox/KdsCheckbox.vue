@@ -3,22 +3,20 @@ import { computed, useId } from "vue";
 
 import Icon from "../Icon/KdsIcon.vue";
 
-import type { KdsCheckboxProps } from "./types";
+import type { KdsCheckboxEmits, KdsCheckboxProps } from "./types";
 
-type CheckboxModelValue = KdsCheckboxProps["modelValue"];
+// Use the widest type for internal implementation
+type CheckboxModelValue = boolean | "indeterminate";
 
 const props = withDefaults(defineProps<KdsCheckboxProps>(), {
   modelValue: false,
   disabled: false,
   error: false,
+  allowIndeterminate: false,
 });
 
-const emit = defineEmits<{
-  /**
-   * Emitted when the checkbox value changes
-   */
-  "update:modelValue": [value: CheckboxModelValue];
-}>();
+// Emit type will be conditionally typed for consumers
+const emit = defineEmits<KdsCheckboxEmits>();
 
 const id = useId();
 
@@ -46,9 +44,15 @@ const handleClick = () => {
     return;
   }
 
-  const newValue: CheckboxModelValue = isIndeterminate.value
-    ? true
-    : !isChecked.value;
+  let newValue: CheckboxModelValue;
+
+  if (props.allowIndeterminate) {
+    // With indeterminate support: indeterminate -> true, then cycles between true <-> false
+    newValue = isIndeterminate.value ? true : !isChecked.value;
+  } else {
+    // Without indeterminate support: true <-> false
+    newValue = !isChecked.value;
+  }
 
   emit("update:modelValue", newValue);
 };
