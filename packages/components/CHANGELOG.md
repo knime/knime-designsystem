@@ -1,5 +1,16 @@
 # @knime/kds-components
 
+## 0.5.1
+
+### Patch Changes
+
+- fc72a47: Extend KdsModal API
+  - add overflow prop to KdsModal
+  - changed name of variant from default to padded
+  - allow update configuration from within a component passed to showByTemplate()
+  - add a context prop to config to send external data to the component rendered by showByTemplate()
+  - @knime/kds-styles@0.5.1
+
 ## 0.5.0
 
 ### Minor Changes
