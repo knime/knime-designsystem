@@ -2,28 +2,21 @@
 import { nextTick, ref, useTemplateRef, watch } from "vue";
 
 import KdsModalLayout from "./KdsModalLayout.vue";
+import { modalPropsDefault } from "./constants";
 import type { KdsModalProps } from "./types";
 
-const props = withDefaults(defineProps<KdsModalProps>(), {
-  icon: undefined,
-  title: "",
-  active: false,
-  height: "auto",
-  width: "medium",
-  variant: "default",
-  closedby: "closerequest",
-});
+const props = withDefaults(defineProps<KdsModalProps>(), modalPropsDefault);
 
 const emit = defineEmits<{
   /** request to close of the dialog */
-  close: [event: Event];
+  close: [event?: Event];
   /** the dialog is closed (different to the active state due to possible animations) */
   closed: [];
 }>();
 
 const dialog = useTemplateRef("dialogElement");
 
-const onClose = (event: Event) => {
+const onClose = (event?: Event) => {
   emit("close", event);
 };
 
@@ -73,15 +66,27 @@ watch(
   <dialog
     v-if="renderDialog"
     ref="dialogElement"
-    :class="['kds-modal', `width-${width}`, `height-${height}`]"
+    :class="[
+      'kds-modal',
+      `width-${width}`,
+      `height-${height}`,
+      `overflow-${overflow}`,
+    ]"
     :closedby="closedby"
     @cancel.prevent="onClose"
   >
-    <slot :title="title" :icon="icon" :variant="variant" :on-close="onClose">
+    <slot
+      :title="title"
+      :icon="icon"
+      :variant="variant"
+      :overflow="overflow"
+      :on-close="onClose"
+    >
       <KdsModalLayout
         :title="title"
         :icon="icon"
         :variant="variant"
+        :overflow="overflow"
         @close="onClose"
       >
         <template #body>
@@ -154,13 +159,20 @@ body:has(dialog.modal[open]) {
   height: var(--modal-height);
   max-height: var(--modal-full-size);
   padding: 0;
-  overflow: hidden;
+  overflow: v-bind(overflow);
   font: var(--kds-font-base-body-small);
   color: var(--kds-color-text-and-icon-neutral);
   background-color: var(--kds-color-surface-default);
   border: none;
   border-radius: var(--kds-border-radius-container-0-37x);
   box-shadow: var(--kds-elevation-level-3);
+
+  /** Animation */
+  opacity: 0;
+  transform: scale(var(--modal-scale-base));
+  transition: var(--modal-animation-time) allow-discrete;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  transition-property: display, opacity, overlay, transform;
 
   /* hide if its not open */
   &:not([open]) {
@@ -171,13 +183,6 @@ body:has(dialog.modal[open]) {
   &:focus {
     outline: none;
   }
-
-  /** Animation */
-  opacity: 0;
-  transform: scale(var(--modal-scale-base));
-  transition: var(--modal-animation-time) allow-discrete;
-  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-  transition-property: display, opacity, overlay, transform;
 
   &::backdrop {
     background: var(--kds-color-blanket-default);

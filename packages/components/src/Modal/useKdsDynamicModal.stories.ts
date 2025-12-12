@@ -213,13 +213,19 @@ export const WithCustomComponentWithoutLayout: Story = {
           title: "Can you see this?",
           icon: "list-bulletpoint",
           closedby: "any",
+          context: {
+            someData: true,
+            something: "asdf",
+          },
           component: (props) =>
             h("div", [
               h("h3", "A Headline"),
               h("p", [
-                "This is some ",
+                "This: ",
                 h("button", { onClick: props.onClose }, "click me"),
-                " text. Just supply a VNode as component.",
+                props.context.someData
+                  ? "Just supply a VNode."
+                  : "someData false",
               ]),
             ]),
         });

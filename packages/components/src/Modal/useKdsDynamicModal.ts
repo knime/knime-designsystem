@@ -32,26 +32,7 @@ type CancellationButton = CommonButtonProps & {
 
 export type ConfirmModalButton = ConfirmationButton | CancellationButton;
 
-type CommonConfig = {
-  /**
-   * Modal title
-   */
-  title: string;
-
-  /**
-   * Icon shown in the title bar of the modal. Defaults to no icon used
-   */
-  icon?: KdsModalProps["icon"];
-
-  /**
-   * If the modal gets closed by user actions:
-   *   closerequest: pressing the "Esc" key (or equivalent on mobile) dismisses the modal.
-   *   any: the above and also clicking outside of the modal
-   *
-   * Defaults to 'closerequest'
-   */
-  closedby?: KdsModalProps["closedby"];
-};
+type CommonConfig = Omit<KdsModalProps, "active">;
 
 type PropertyBasedConfirmModalConfig = CommonConfig & {
   /**
@@ -92,19 +73,29 @@ export type KdsDynamicDialogConfirmConfig =
   | PropertyBasedConfirmModalConfig
   | TemplateBasedConfirmModalConfig;
 
+type UpdateConfigType = Partial<
+  Omit<KdsDynamicModalTemplateConfig, "component" | "context">
+>;
+
 /**
  * Define a props api which dynamic template components can optionally
  * define to get access to the configuration the dynamic modal was called with
  */
-export type KdsDynamicModalPropsAPI = KdsModalLayoutProps;
-type DynamicModalComponent = abstract new (...args: unknown[]) => {
-  $props: KdsDynamicModalPropsAPI;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type KdsDynamicModalPropsAPI<T = any> = KdsModalLayoutProps & {
+  context: T;
+  updateConfig: (config: UpdateConfigType) => void;
+};
+type DynamicModalComponent<T> = abstract new (...args: unknown[]) => {
+  $props: KdsDynamicModalPropsAPI<T>;
 };
 
-export type KdsDynamicModalTemplateConfig = CommonConfig & {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type KdsDynamicModalTemplateConfig<T = any> = CommonConfig & {
   component:
-    | DynamicModalComponent
-    | FunctionalComponent<KdsDynamicModalPropsAPI>;
+    | DynamicModalComponent<T>
+    | FunctionalComponent<KdsDynamicModalPropsAPI<T>>;
+  context?: T;
 };
 
 const defaultCancelButton: CancellationButton = {
@@ -167,11 +158,28 @@ const isTemplateBasedConfirm = (
   return "component" in config;
 };
 
+const updateConfig = (config: UpdateConfigType) => {
+  if (
+    !isActive.value ||
+    !activeModalConfig.value ||
+    activeModalConfig.value.type === "confirm"
+  ) {
+    consola.warn("useKdsDynamicModal: invalid invocation of updateConfig");
+    return;
+  }
+
+  activeModalConfig.value.value = {
+    ...activeModalConfig.value.value,
+    ...config,
+  };
+};
+
 export const internal = {
   confirm,
   close,
   isTemplateBasedConfirm,
   onClosed,
+  updateConfig,
 };
 
 export const useKdsDynamicModal = () => {
@@ -200,8 +208,8 @@ export const useKdsDynamicModal = () => {
     return unwrappedPromise.value.promise as Promise<ConfirmResult>;
   }
 
-  const showByTemplate = (
-    config: KdsDynamicModalTemplateConfig,
+  const showByTemplate = <T>(
+    config: KdsDynamicModalTemplateConfig<T>,
   ): Promise<void> => {
     activeModalConfig.value = {
       type: "dynamic",

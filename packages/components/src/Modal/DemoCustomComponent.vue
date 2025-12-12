@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 import KdsButton from "../Button/KdsButton.vue";
 import KdsCheckbox from "../Checkbox/KdsCheckbox.vue";
@@ -9,6 +9,18 @@ import type { KdsDynamicModalPropsAPI } from "./useKdsDynamicModal";
 
 const props = defineProps<KdsDynamicModalPropsAPI>();
 const checked = ref<boolean | "indeterminate">(false);
+
+const title = "Can you see this?";
+const icon = "ai-general";
+
+props.updateConfig({ title, icon });
+
+watch(checked, (value) => {
+  props.updateConfig({
+    title: title + (value ? " (checked)" : ""),
+    icon: value ? "checkmark" : icon,
+  });
+});
 </script>
 
 <template>
