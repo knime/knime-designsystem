@@ -60,6 +60,6 @@ jobs:
 
       - name: Sonar scan (temporarily disabled)
         if: false # steps.check-changes.outputs.run-full-checks == 'true' && github.actor != 'dependabot[bot]'
-        uses: SonarSource/sonarqube-scan-action@v6
+        uses: SonarSource/sonarqube-scan-action@v7
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
