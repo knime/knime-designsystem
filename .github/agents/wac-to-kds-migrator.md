@@ -60,7 +60,7 @@ Your responsibilities:
 
 ## `--knime-` CSS Custom Properties
 
-- find usages of CSS custom properties starting with `--knime-` in _.vue and _.css files
+- find usages of CSS custom properties starting with `--knime-` in `*.vue` and `*.css` files
 - replace them with the equivalent KDS CSS custom properties (defined in `@knime/kds-styles/kds-variables.css`)
 - IMPORTANT: in case of doubt, ask the user to provide a Figma design link and tree of used design tokens. Then follow the [Figma MCP Integration Rules](../instructions/figma.md).
 - the following table provides common mappings for `--knime-` CSS custom properties to KDS equivalents.
