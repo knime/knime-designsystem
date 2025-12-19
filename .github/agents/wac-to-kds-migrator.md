@@ -21,13 +21,14 @@ Your responsibilities:
 
 ### Component Mapping
 
-| @knime/components                   | @knime/kds-components | Prop differences                                                                                             | Slot differences                                                           |
-| ----------------------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
-| `Button`                            | `KdsButton`           | `primary` → `variant="filled"`<br> `withBorder` → `variant="outlined"`<br> otherwise `variant="transparent"` | Text in default slot → `label` prop<br> Icon in slot → `leadingIcon` prop  |
-| `Button` with `to`/`href` prop      | `KdsLinkButton`       | see above                                                                                                    | see above                                                                  |
-| `FunctionButton`                    | `KdsButton`           |                                                                                                              | Text in default slot → `label` prop<br> Icon in default slot → `icon` prop |
-| `FunctionButton` with `active` prop | `KdsToggleButton`     | `active` → `v-model`                                                                                         | see above                                                                  |
-| `Checkbox`                          | `KdsCheckbox`         | `invalid` → `error`                                                                                          | default slot → `label` prop                                                |
+| @knime/components                      | @knime/kds-components | Prop differences                                                                                                                             | Slot differences                                                           |
+| -------------------------------------- | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `Button`                               | `KdsButton`           | `primary` → `variant="filled"`<br> `withBorder` → `variant="outlined"`<br> otherwise `variant="transparent"`;<br> `compact` → `size="small"` | Text in default slot → `label` prop<br> Icon in slot → `leadingIcon` prop  |
+| `Button` with `to`/`href` prop         | `KdsLinkButton`       | see above                                                                                                                                    | see above                                                                  |
+| `FunctionButton`                       | `KdsButton`           | `primary` → `variant="filled"`<br> otherwise `variant="transparent"`;<br> `compact` → `size="small"`                                         | Text in default slot → `label` prop<br> Icon in default slot → `icon` prop |
+| `FunctionButton` with `to`/`href` prop | `KdsLinkButton`       | see above                                                                                                                                    | see above                                                                  |
+| `FunctionButton` with `active` prop    | `KdsToggleButton`     | see above + `active` → `v-model`                                                                                                             | see above                                                                  |
+| `Checkbox`                             | `KdsCheckbox`         | `invalid` → `error`                                                                                                                          | default slot → `label` prop                                                |
 
 ## Icons
 
@@ -36,37 +37,47 @@ Your responsibilities:
 
   ```vue
   <!-- Before migration -->
-
   <script>
   import CloseIcon from "@knime/styles/img/icons/close.svg";
   </script>
   <template>
-    <CloseIcon />
+    <CloseIcon class="icon" />
   </template>
+  <style>
+  .icon {
+    width: 16px;
+    height: 16px;
+    stroke: var(--knime-masala);
+  }
+  </style>
   ```
 
   ```vue
   <!-- After migration -->
   <script>
   import { KdsIcon } from "@knime/kds-components";
-  </script>
+  </scrip>
   <template>
-    <KdsIcon name="close" />
+    <KdsIcon name="close" size="medium" />
   </template>
   ```
 
-- Always double-check the icon name in KDS (defined in `@knime/kds-styles/img/icons/def.ts`). Some icons may have different names or may not be available yet.
+- IMPORTANT: Always double-check the icon name in KDS (defined in `@knime/kds-styles/img/icons/def.ts`). Some icons may have different names or may not be available yet.
 - If you can't find an equivalent icon, leave the icon usage unchanged but document it for further review.
+- translate the applied `width` and `height` styles on the original SVG icon into the `size` prop of `KdsIcon`. Use the closest available size from `xsmall` = 9px, `small` = 12px, `medium` = 16 px, `large` = 20 px. Then remove the original `width` and `height` styles.
+- translate applied `stroke` color: `KdsIcon` uses the current (inherited) text color by default. `stroke: var(--knime-masala);` can be removed as it's the default color. If a different color is set, e.g. for hover states, transform it into `color: var(--kds-color-...);` using the equivalent KDS custom property, see next chapter.
 
 ## `--knime-` CSS Custom Properties
 
 - find usages of CSS custom properties starting with `--knime-` in `*.vue` and `*.css` files
-- replace them with the equivalent KDS CSS custom properties (defined in `@knime/kds-styles/kds-variables.css`)
+- replace them with the equivalent KDS CSS custom properties (defined in `@knime/kds-styles/kds-variables.css`), see mapping below
 - IMPORTANT: in case of doubt, ask the user to provide a Figma design link and tree of used design tokens. Then follow the [Figma MCP Integration Rules](../instructions/figma.md).
-- the following table provides common mappings for `--knime-` CSS custom properties to KDS equivalents.
+- Disabled states: text and icons should get converted to the available KDS disabled colors for these (usually `--kds-color-text-and-icon-disabled`), borders to the available KDS disabled border colors (usually `--kds-border-action-disabled`).
 
 Common mappings include:
 
-| @knime/styles    | @knime/kds-styles | Notes |
-| ---------------- | ----------------- | ----- |
-| `--knime-masala` | `--kds-`          |       |
+| @knime/styles        | @knime/kds-styles                                                  | Notes |
+| -------------------- | ------------------------------------------------------------------ | ----- |
+| `--knime-masala`     | when used as `color`/`stroke`: `--kds-color-text-and-icon-neutral` |       |
+| `--knime-stone-gray` | when used as `color`/`stroke`: `--kds-color-text-and-icon-subtle`  |       |
+| `--knime-dove-gray`  | when used as `color`: `--kds-color-text-and-icon-subtle`           |       |

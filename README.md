@@ -67,6 +67,10 @@ Here are some of the most important scripts defined in the top-level [`package.j
   pnpm build:tokens
   ```
 
+## Coding guidelines
+
+See [copilot-instructions.md](.github/copilot-instructions.md).
+
 ## AI assistance
 
 - copy [./documentation/.env.development](./documentation/.env.development) to `./documentation/.env.development.local` and set your [Figma Personal Access Token](https://help.figma.com/hc/en-us/articles/8085703771159-Manage-personal-access-tokens) (needs `file_content:read` permission). This is needed to display Figma screenshots in Storybook in the "SimpleBrowser" integrated in VS Code.
