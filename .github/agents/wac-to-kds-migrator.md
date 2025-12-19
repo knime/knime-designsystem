@@ -29,6 +29,7 @@ Your responsibilities:
 | `FunctionButton` with `to`/`href` prop | `KdsLinkButton`       | see above                                                                                                                                    | see above                                                                  |
 | `FunctionButton` with `active` prop    | `KdsToggleButton`     | see above + `active` → `v-model`                                                                                                             | see above                                                                  |
 | `Checkbox`                             | `KdsCheckbox`         | `invalid` → `error`                                                                                                                          | default slot → `label` prop                                                |
+| `Modal`                                | `KdsModal`            |                                                                                                                                              |                                                                            |
 
 ## Icons
 
@@ -66,6 +67,60 @@ Your responsibilities:
 - If you can't find an equivalent icon, leave the icon usage unchanged but document it for further review.
 - translate the applied `width` and `height` styles on the original SVG icon into the `size` prop of `KdsIcon`. Use the closest available size from `xsmall` = 9px, `small` = 12px, `medium` = 16 px, `large` = 20 px. Then remove the original `width` and `height` styles.
 - translate applied `stroke` color: `KdsIcon` uses the current (inherited) text color by default. `stroke: var(--knime-masala);` can be removed as it's the default color. If a different color is set, e.g. for hover states, transform it into `color: var(--kds-color-...);` using the equivalent KDS custom property, see next chapter.
+
+### Icon components passed as props
+
+In case an SVG icon from `@knime/styles` is passed as a prop to a component, adjust the prop type and only pass the icon name as string.
+
+Example:
+
+```vue
+<!-- Before migration: CustomComponent.vue -->
+<script setup lang="ts">
+const props = defineProps<{
+  icon: Component;
+}>();
+</script>
+<template>
+  <div>
+    <component :is="props.icon" />
+  </div>
+</template>
+```
+
+```vue
+<!-- Before migration: Usage.vue -->
+<script>
+import CloseIcon from "@knime/styles/img/icons/close.svg";
+</script>
+<template>
+  <SomeComponent :icon="CloseIcon" />
+</template>
+```
+
+```vue
+<!-- After migration: CustomComponent.vue -->
+<script setup lang="ts">
+import { KdsIcon } from "@knime/kds-components";
+import type { IconName } from "@knime/kds-styles/img/icons/def";
+
+const props = defineProps<{
+  icon: IconName;
+}>();
+</script>
+<template>
+  <div>
+    <KdsIcon :name="props.icon" />
+  </div>
+</template>
+```
+
+```vue
+<!-- After migration: Usage.vue -->
+<template>
+  <SomeComponent icon="close" />
+</template>
+```
 
 ## `--knime-` CSS Custom Properties
 
