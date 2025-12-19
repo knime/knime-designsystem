@@ -65,7 +65,7 @@ Your responsibilities:
 
 - IMPORTANT: Always double-check the icon name in KDS (defined in `@knime/kds-styles/img/icons/def.ts`). Some icons may have different names or may not be available yet.
 - If you can't find an equivalent icon, leave the icon usage unchanged but document it for further review.
-- translate the applied `width` and `height` styles on the original SVG icon into the `size` prop of `KdsIcon`. Use the closest available size from `xsmall` = 9px, `small` = 12px, `medium` = 16 px, `large` = 20 px. Then remove the original `width` and `height` styles.
+- translate the applied `width` and `height` styles on the original SVG icon into the `size` prop of `KdsIcon`. Use the closest available size from `xsmall` = 9px, `small` = 12px, `medium` = 16px, `large` = 20px. Then remove the original `width` and `height` styles.
 - translate applied `stroke` color: `KdsIcon` uses the current (inherited) text color by default. `stroke: var(--knime-masala);` can be removed as it's the default color. If a different color is set, e.g. for hover states, transform it into `color: var(--kds-color-...);` using the equivalent KDS custom property, see next chapter.
 
 ### Icon components passed as props
