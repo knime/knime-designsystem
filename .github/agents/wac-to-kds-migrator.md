@@ -70,7 +70,7 @@ Your responsibilities:
 
 ### Icon components passed as props
 
-In case an SVG icon from `@knime/styles` is passed as a prop to a component, adjust the prop type and only pass the icon name as string.
+In case an SVG icon from `@knime/styles` is passed as a prop to a component, adjust the prop type (should be `IconName`) and only pass the icon name as string.
 
 Example:
 
@@ -82,9 +82,7 @@ const props = defineProps<{
 }>();
 </script>
 <template>
-  <div>
-    <component :is="props.icon" />
-  </div>
+  <component :is="props.icon" />
 </template>
 ```
 
@@ -94,7 +92,7 @@ const props = defineProps<{
 import CloseIcon from "@knime/styles/img/icons/close.svg";
 </script>
 <template>
-  <SomeComponent :icon="CloseIcon" />
+  <CustomComponent :icon="CloseIcon" />
 </template>
 ```
 
@@ -109,16 +107,14 @@ const props = defineProps<{
 }>();
 </script>
 <template>
-  <div>
-    <KdsIcon :name="props.icon" />
-  </div>
+  <KdsIcon :name="props.icon" />
 </template>
 ```
 
 ```vue
 <!-- After migration: Usage.vue -->
 <template>
-  <SomeComponent icon="close" />
+  <CustomComponent icon="close" />
 </template>
 ```
 
