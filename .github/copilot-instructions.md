@@ -2,6 +2,8 @@
 
 The KNIME Design System is a Vue3 TypeScript monorepo providing design tokens, icons, and reusable components for KNIME applications. It includes 3 packages: @knime/kds-styles (tokens/icons), @knime/kds-components (Vue components), and @knime/kds-documentation (Storybook docs).
 
+**Trust these instructions** - only search/explore if information is incomplete or contradicts your findings.
+
 ## Important commands
 
 1. **Setup (required first time)**: `pnpm install` (takes ~7s, creates node_modules + installs packages)
@@ -18,7 +20,7 @@ The KNIME Design System is a Vue3 TypeScript monorepo providing design tokens, i
 
 ## Project Architecture & Key Locations
 
-**Monorepo Structure:**
+### Monorepo Structure
 
 ```
 packages/
@@ -34,11 +36,11 @@ packages/
     └── .storybook/   # Storybook configuration
 ```
 
-**Design Token System:**
+### Design Token System
 
-- Generated CSS variables in `packages/styles/dist/tokens/css/_variables.css`
+- Generated CSS variables in `packages/styles/dist/tokens/css/_variables.css` (= `@knime/kds-styles/kds-variables.css`)
 - Light/dark mode support with merged tokens (`light-dark()` function)
-- Icon definitions auto-generated in `packages/styles/dist/img/icons/def.ts`
+- Icon definitions auto-generated in `packages/styles/dist/img/icons/def.ts` (= `@knime/kds-styles/img/icons/def.ts`)
 
 ## Example implementations
 
@@ -47,7 +49,7 @@ packages/
 
 ## Development Rules & Conventions
 
-**Component Development:**
+### Component Development
 
 - All publicly exported components must be prefixed with `Kds` (e.g., `KdsButton`, `KdsIcon`)
 - All publicly exported types must be prefixed with `Kds` (e.g., `KdsButtonProps`)
@@ -55,6 +57,7 @@ packages/
 - Use Composition API with `<script setup lang="ts">`
 - Type all props with `defineProps<T>()` or `withDefaults(defineProps<T>(), {})`
 - Type all emits with `defineEmits<T>()`
+- Use `defineModel()` for v-model bindings
 - Use `type` instead of `interface`
 - Create a `types.ts` file for shared types. Don't export types from .vue files.
 - Use `<style scoped>`
@@ -63,27 +66,29 @@ packages/
 - Export components and types in `packages/components/src/index.ts`
 - Follow WCAG accessibility requirements
 
-**Icons & Components:**
+### Icons & Components
 
 - Use `KdsIcon` component for all icons (never inline SVGs)
 - Available icons listed in `packages/styles/dist/img/icons/def.ts` (always read the whole file, it's not big)
 - For links, use `KdsLinkButton` component
 - Reuse existing components instead of duplicating functionality
 
-**Storybook Stories (required for all components):**
+### Storybook Stories (required for all components)
 
 1. **AllCombinations**: Use `buildAllCombinationsStory()` from `test-utils/storybook`
 2. **DesignComparator**: Use `buildDesignComparatorStory()` from `test-utils/storybook` with Figma URLs + node IDs. Make sure to include all variants shown in Figma. Do use the node id of the exact component usage (without potential wrapping explanations).
 3. **TextOverflow**: Use `buildTextOverflowStory()` from `test-utils/storybook` and provide long text to test text overflow behavior
 4. Include Figma design URL in story parameters
 
-**Figma Integration (when implementing from Figma):**
+### Figma Integration (when implementing from Figma)
 
 - Follow [Figma MCP Integration Rules](./instructions/figma.md).
 
-**Testing:**
+### Testing
 
 - Vitest for unit tests
 - Test files in `src/**/__tests__/*.test.ts`
 
-**Trust these instructions** - only search/explore if information is incomplete or contradicts your findings.
+### Migration documentation
+
+- When creating a new component, ask the user if it has an equivalent one in `@knime/components`. If it does, add migration instructions to `.github/agents/wac-to-kds-migrator.md`.

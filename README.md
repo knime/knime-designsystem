@@ -67,11 +67,27 @@ Here are some of the most important scripts defined in the top-level [`package.j
   pnpm build:tokens
   ```
 
+## Coding guidelines
+
+See [copilot-instructions.md](.github/copilot-instructions.md).
+
 ## AI assistance
+
+### Setup
 
 - copy [./documentation/.env.development](./documentation/.env.development) to `./documentation/.env.development.local` and set your [Figma Personal Access Token](https://help.figma.com/hc/en-us/articles/8085703771159-Manage-personal-access-tokens) (needs `file_content:read` permission). This is needed to display Figma screenshots in Storybook in the "SimpleBrowser" integrated in VS Code.
 - in VS Code, add the [Figma MCP server](https://github.com/figma/mcp-server-guide) - use the cloud-based server to not require the Figma desktop app
-- then select a component or a design in Figma, copy the URL including the node id and prompt into Agent mode, e.g.: `implement component: {{FigmaUrl}}`
+
+### Implement/verify a KDS component (`Kds` prefix)
+
+- select a component or a design in Figma, copy the URL including the node id
+- prompt into chat in Agent mode, e.g.: `implement component: {{FigmaUrl}}`
+
+### Migrate existing project/components to KDS
+
+- add both, knime-designsystem and the project you want to migrate, to the same workspace in VS Code
+- in the chat, select the [`wac-to-kds-migrator`](.github/agents/wac-to-kds-migrator.md) agent
+- it works best when migrating in little steps, e.g. `migrate files in the folder XY` or select individual files. Or migrate one component: `migrate all Button usages`.
 
 ## Maintaining changelogs & publishing to npm
 
