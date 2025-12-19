@@ -91,4 +91,4 @@ packages/
 
 ### Migration documentation
 
-- ask the user if the component has an equivalent one in `@knime/components`; if it does, add migration instructions to `.github/agents/wac-to-kds-migrator.md`.
+- When creating a new component, ask the user if it has an equivalent one in `@knime/components`. If it does, add migration instructions to `.github/agents/wac-to-kds-migrator.md`.
