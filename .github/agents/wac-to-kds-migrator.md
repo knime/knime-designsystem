@@ -57,7 +57,7 @@ Your responsibilities:
   <!-- After migration -->
   <script>
   import { KdsIcon } from "@knime/kds-components";
-  </scrip>
+  </script>
   <template>
     <KdsIcon name="close" size="medium" />
   </template>
