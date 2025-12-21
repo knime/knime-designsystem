@@ -81,13 +81,19 @@ See [copilot-instructions.md](.github/copilot-instructions.md).
 ### Implement/verify a KDS component (`Kds` prefix)
 
 - select a component or a design in Figma, copy the URL including the node id
-- prompt into chat in Agent mode, e.g.: `implement component: {{FigmaUrl}}`
+- prompt into chat in Agent mode, e.g.:
+  - `Implement component: {{FigmaUrl}}`
+  - `Verify if used design tokens match Figma: {{FigmaUrl}}`
+  - `Create Storybook stories for component XYZ to match Figma: {{FigmaUrl}}`
 
 ### Migrate existing project/components to KDS
 
 - add both, knime-designsystem and the project you want to migrate, to the same workspace in VS Code
 - in the chat, select the [`wac-to-kds-migrator`](.github/agents/wac-to-kds-migrator.md) agent
-- it works best when migrating in little steps, e.g. `migrate files in the folder XY` or select individual files. Or migrate one component: `migrate all Button usages`.
+- it works best when migrating in little steps, e.g.
+  - `Migrate files in the folder XY` or select individual files
+  - `Migrate all usages of @knime/components "Button"` to migrate a specific component
+  - `Migrate all icons of @knime/styles`
 
 ## Maintaining changelogs & publishing to npm
 
