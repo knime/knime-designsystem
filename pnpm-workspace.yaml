@@ -31,12 +31,12 @@ catalogs:
     "@vueuse/core": ~13.8.0
     vue: ~3.5.0
   storybook:
-    "@storybook/addon-a11y": ^10.1.4
-    "@storybook/addon-designs": ^11.0.2
-    "@storybook/addon-docs": ^10.1.4
-    "@storybook/addon-links": ^10.1.4
-    "@storybook/addon-themes": ^10.1.4
-    "@storybook/vue3-vite": ^10.1.4
+    "@storybook/addon-a11y": ^10.1.9
+    "@storybook/addon-designs": ^11.1.0
+    "@storybook/addon-docs": ^10.1.9
+    "@storybook/addon-links": ^10.1.9
+    "@storybook/addon-themes": ^10.1.9
+    "@storybook/vue3-vite": ^10.1.9
     "@storybook-community/storybook-dark-mode": ^7.0.2
     eslint-plugin-storybook: ^10.1.10
     storybook: ^10.1.10
