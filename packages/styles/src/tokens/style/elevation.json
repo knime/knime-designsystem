@@ -77,7 +77,7 @@
       }
     },
     "fake-border": {
-      "hairline": {
+      "hairline-muted": {
         "$type": "boxShadow",
         "$value": {
           "x": "0",
