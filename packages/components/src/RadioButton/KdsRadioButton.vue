@@ -18,7 +18,7 @@ const emit = defineEmits<{
 
 const id = useId();
 
-const isSelected = computed(() => props.modelValue === true);
+const isSelected = computed(() => props.modelValue);
 
 const ariaChecked = computed(() => isSelected.value);
 
@@ -134,7 +134,6 @@ const handleClick = () => {
     display: flex;
     flex-direction: column;
     gap: var(--kds-spacing-container-0-12x);
-    text-rendering: geometricprecision;
 
     & .label {
       padding-top: var(--kds-spacing-container-0-10x);
