@@ -12,11 +12,18 @@ import type {
 const props = withDefaults(defineProps<KdsRadioButtonGroupProps>(), {
   disabled: false,
   error: false,
+  modelValue: null,
+  alignment: "vertical",
 });
 
-const modelValue = defineModel<KdsRadioButtonGroupValue | null>({
-  default: null,
-});
+const modelValue = computed(() => props.modelValue ?? null);
+
+const emit = defineEmits<{
+  /**
+   * Emitted when the radio selection changes
+   */
+  "update:modelValue": [value: KdsRadioButtonGroupValue | null];
+}>();
 
 const legendId = useId();
 
@@ -32,6 +39,8 @@ const selectedIndex = computed(() =>
 const firstEnabledIndex = computed(() =>
   props.options.findIndex((_, index) => !isOptionDisabled(index)),
 );
+
+const isHorizontal = computed(() => props.alignment === "horizontal");
 
 const tabIndexForOption = (index: number) => {
   if (isOptionDisabled(index)) {
@@ -56,7 +65,7 @@ const selectIndex = (index: number) => {
   if (isOptionDisabled(index)) {
     return;
   }
-  modelValue.value = props.options[index].value;
+  emit("update:modelValue", props.options[index].value);
 };
 
 const nextEnabledIndex = (startIndex: number, direction: 1 | -1) => {
@@ -85,13 +94,15 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
   if (
     key === "ArrowDown" ||
     key === "ArrowUp" ||
+    key === "ArrowLeft" ||
+    key === "ArrowRight" ||
     key === "Home" ||
     key === "End"
   ) {
     event.preventDefault();
   }
 
-  if (key === "ArrowDown") {
+  if (key === "ArrowDown" || key === "ArrowRight") {
     const nextIndex = nextEnabledIndex(index, 1);
     if (nextIndex >= 0) {
       selectIndex(nextIndex);
@@ -100,7 +111,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
     return;
   }
 
-  if (key === "ArrowUp") {
+  if (key === "ArrowUp" || key === "ArrowLeft") {
     const nextIndex = nextEnabledIndex(index, -1);
     if (nextIndex >= 0) {
       selectIndex(nextIndex);
@@ -148,7 +159,11 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
       </span>
     </legend>
 
-    <div class="options" role="radiogroup" :aria-labelledby="legendId">
+    <div
+      :class="{ options: true, horizontal: isHorizontal }"
+      role="radiogroup"
+      :aria-labelledby="legendId"
+    >
       <div
         v-for="(option, index) in props.options"
         :key="option.value"
@@ -180,7 +195,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
 
 .group-label {
   display: flex;
-  gap: var(--kds-spacing-container-0-25x);
+  gap: var(--kds-spacing-container-0-5x);
   align-items: center;
   justify-content: flex-start;
   padding: 0;
@@ -206,7 +221,12 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
 .options {
   display: flex;
   flex-direction: column;
-  gap: var(--kds-spacing-container-0-25x);
+  gap: var(--kds-spacing-container-0-5x);
+}
+
+.options.horizontal {
+  flex-flow: row wrap;
+  align-items: flex-start;
 }
 
 .option {
