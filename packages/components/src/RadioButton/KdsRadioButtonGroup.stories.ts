@@ -48,6 +48,10 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
     modelValue: {
       control: { type: "text" },
     },
+    alignment: {
+      control: { type: "select" },
+      options: ["vertical", "horizontal"],
+    },
     disabled: {
       control: { type: "boolean" },
     },
@@ -108,6 +112,12 @@ export default meta;
 
 export const Default: Story = {};
 
+export const Horizontal: Story = {
+  args: {
+    alignment: "horizontal",
+  },
+};
+
 export const TwoOptions: Story = {
   args: {
     options: twoOptions,
@@ -145,6 +155,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       label: ["Label"],
       options: [twoOptions, threeOptions, fourOptions, optionsWithHelperText],
       modelValue: [null, "a", "b"],
+      alignment: ["vertical", "horizontal"],
       disabled: [false, true],
       error: [false, true],
       labelIcon: [undefined, "re-execution"],
@@ -165,6 +176,10 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9325-7964&p=f&m=dev":
           {},
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=12282-131903&m=dev":
+          {
+            alignment: "horizontal",
+          },
       },
     },
   },

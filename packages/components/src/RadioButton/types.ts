@@ -41,6 +41,8 @@ propTypeTester<KdsRadioButtonProps>({ helperText: "foo" });
 
 export type KdsRadioButtonGroupValue = string | number;
 
+export type KdsRadioButtonGroupAlignment = "vertical" | "horizontal";
+
 type AtLeastTwo<T> = [T, T, ...T[]];
 
 export type KdsRadioButtonGroupOption<
@@ -57,6 +59,8 @@ export type KdsRadioButtonGroupProps<
   TValue extends KdsRadioButtonGroupValue = KdsRadioButtonGroupValue,
 > = {
   label: string;
+  modelValue?: TValue | null;
+  alignment?: KdsRadioButtonGroupAlignment;
   options: AtLeastTwo<KdsRadioButtonGroupOption<TValue>>;
   disabled?: boolean;
   error?: boolean;
@@ -71,6 +75,7 @@ propTypeTester<KdsRadioButtonGroupProps>({
     { label: "Option A", value: "a" },
     { label: "Option B", value: "b" },
   ],
+  alignment: "horizontal",
 });
 
 // supports optional label icon
