@@ -77,7 +77,7 @@
       }
     },
     "fake-border": {
-      "hairline-muted": {
+      "xs-muted": {
         "$type": "boxShadow",
         "$value": {
           "x": "0",
@@ -85,8 +85,9 @@
           "blur": "0",
           "spread": "0.5 px",
           "color": "{kds.color.border.muted}",
-          "type": "dropShadow"
-        }
+          "type": "innerShadow"
+        },
+        "$description": "0.5px inner border implemented as shadow for proper alignment in layout. re-uses the muted border color for light and dark. Used in value switch, array, preview list for a11y."
       }
     }
   }

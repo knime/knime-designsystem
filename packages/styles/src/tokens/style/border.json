@@ -229,15 +229,6 @@
             "style": "solid"
           },
           "$description": "1px blue outline for info inline messages and containers.\n"
-        },
-        "0_5_gradient": {
-          "$type": "border",
-          "$value": {
-            "color": "{kds.color.border.0_5_gradient}",
-            "style": "solid",
-            "width": "{kds.border-width.icon-stroke.s}"
-          },
-          "$description": "TESTING"
         }
       },
       "node-status": {
