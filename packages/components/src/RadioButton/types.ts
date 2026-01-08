@@ -1,3 +1,5 @@
+import type { KdsIconName } from "../Icon/types";
+
 type BaseProps = {
   /**
    * The selected state of the radio button
@@ -36,3 +38,66 @@ propTypeTester<KdsRadioButtonProps>({ label: "foo", helperText: "bar" });
 propTypeTester<KdsRadioButtonProps>({});
 // @ts-expect-error - should not allow helper text without label
 propTypeTester<KdsRadioButtonProps>({ helperText: "foo" });
+
+export type KdsRadioButtonGroupValue = string | number;
+
+type AtLeastTwo<T> = [T, T, ...T[]];
+
+export type KdsRadioButtonGroupOption<
+  TValue extends KdsRadioButtonGroupValue = KdsRadioButtonGroupValue,
+> = {
+  label: string;
+  value: TValue;
+  disabled?: boolean;
+  helperText?: string;
+  title?: string;
+};
+
+export type KdsRadioButtonGroupProps<
+  TValue extends KdsRadioButtonGroupValue = KdsRadioButtonGroupValue,
+> = {
+  label: string;
+  options: AtLeastTwo<KdsRadioButtonGroupOption<TValue>>;
+  disabled?: boolean;
+  error?: boolean;
+  labelIcon?: KdsIconName;
+  labelIconTitle?: string;
+};
+
+// supports minimal props
+propTypeTester<KdsRadioButtonGroupProps>({
+  label: "Group label",
+  options: [
+    { label: "Option A", value: "a" },
+    { label: "Option B", value: "b" },
+  ],
+});
+
+// supports optional label icon
+propTypeTester<KdsRadioButtonGroupProps>({
+  label: "Group label",
+  options: [
+    { label: "Option A", value: "a" },
+    { label: "Option B", value: "b" },
+  ],
+  labelIcon: "re-execution",
+});
+
+// @ts-expect-error - label is required
+propTypeTester<KdsRadioButtonGroupProps>({
+  options: [
+    { label: "Option", value: "a" },
+    { label: "Option", value: "b" },
+  ],
+});
+
+// @ts-expect-error - options are required
+propTypeTester<KdsRadioButtonGroupProps>({
+  label: "Group label",
+});
+
+propTypeTester<KdsRadioButtonGroupProps>({
+  label: "Group label",
+  // @ts-expect-error - options must contain at least two entries
+  options: [{ label: "Option", value: "a" }],
+});
