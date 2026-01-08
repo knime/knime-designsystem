@@ -1,0 +1,179 @@
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { useArgs } from "storybook/preview-api";
+import { fn } from "storybook/test";
+
+import {
+  buildAllCombinationsStory,
+  buildDesignComparatorStory,
+  buildTextOverflowStory,
+} from "../test-utils/storybook";
+
+import KdsRadioButton from "./KdsRadioButton.vue";
+
+type Story = StoryObj<typeof KdsRadioButton>;
+
+const meta: Meta<typeof KdsRadioButton> = {
+  title: "Components/KdsRadioButton",
+  component: KdsRadioButton as Meta<typeof KdsRadioButton>["component"],
+  tags: ["autodocs"],
+  argTypes: {
+    modelValue: {
+      control: { type: "boolean" },
+    },
+    disabled: {
+      control: { type: "boolean" },
+    },
+    error: {
+      control: { type: "boolean" },
+    },
+    label: {
+      control: { type: "text" },
+    },
+    helperText: {
+      control: { type: "text" },
+    },
+    title: {
+      control: { type: "text" },
+    },
+  },
+  args: {
+    "onUpdate:modelValue": fn(),
+  },
+  decorators: [
+    (story) => {
+      const [currentArgs, updateArgs] = useArgs();
+      return {
+        components: { story },
+        setup() {
+          return {
+            args: currentArgs,
+            updateArgs,
+          };
+        },
+        template:
+          '<story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" />',
+      };
+    },
+  ],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A radio button component that follows the WAI-ARIA radio design pattern. It displays a circular control with an inner dot when selected.",
+      },
+    },
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=327-25185",
+    },
+  },
+};
+
+export default meta;
+
+export const Default: Story = {
+  args: {
+    label: "Label",
+    modelValue: false,
+  },
+};
+
+export const Selected: Story = {
+  args: {
+    label: "Label",
+    modelValue: true,
+  },
+};
+
+export const HelperText: Story = {
+  args: {
+    label: "Label",
+    helperText: "Helper text",
+    modelValue: false,
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    label: "Label",
+    helperText: "Helper text",
+    modelValue: true,
+    disabled: true,
+  },
+};
+
+export const Error: Story = {
+  args: {
+    label: "Label",
+    helperText: "Error message",
+    modelValue: false,
+    error: true,
+  },
+};
+
+export const AllCombinations: Story = buildAllCombinationsStory({
+  component: KdsRadioButton,
+  combinationsProps: [
+    {
+      modelValue: [false, true],
+      disabled: [false, true],
+      error: [false, true],
+      label: ["Label"],
+    },
+    {
+      modelValue: [false, true],
+      disabled: [false, true],
+      error: [false, true],
+      label: ["Label"],
+      helperText: ["Helper text"],
+    },
+  ],
+});
+
+export const DesignComparator: Story = buildDesignComparatorStory({
+  component: KdsRadioButton,
+  designsToCompare: {
+    Default: {
+      props: {
+        label: "Label",
+        modelValue: false,
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=1827-5573":
+          {},
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=1827-5624":
+          { disabled: true },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=1827-5634":
+          { error: true, helperText: "Error message" },
+      },
+    },
+    Selected: {
+      props: {
+        label: "Label",
+        modelValue: true,
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=1827-5579":
+          {},
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=1827-5629":
+          { disabled: true },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=1827-5639":
+          { error: true, helperText: "Error message" },
+      },
+    },
+  },
+});
+
+export const TextOverflow: Story = {
+  ...buildTextOverflowStory({
+    component: KdsRadioButton,
+    width: 200,
+  }),
+  args: {
+    label:
+      "This is a very long radio label that should overflow and wrap properly when the container is too narrow",
+    helperText:
+      "This is a very long helper text that should also overflow and wrap properly when there is not enough space",
+    modelValue: false,
+  },
+};
