@@ -75,6 +75,20 @@
           "$description": "High elevation shadow for elements floating above content (e.g. tooltips, toasts).\n\nUsed for elements that float above content and who are sitting on top of the ui; but don’t obscure the full context.\n\nExamples are: tooltips, menus or toasts.\n\nIf you use the elevation level 3, you have to reset the surface level to page."
         }
       }
+    },
+    "fake-border": {
+      "xs-muted": {
+        "$type": "boxShadow",
+        "$value": {
+          "x": "0",
+          "y": "0",
+          "blur": "0",
+          "spread": "0.5 px",
+          "color": "{kds.color.border.muted}",
+          "type": "innerShadow"
+        },
+        "$description": "0.5px inner border implemented as shadow for proper alignment in layout. re-uses the muted border color for light and dark. Used in value switch, array, preview list for a11y."
+      }
     }
   }
 }
