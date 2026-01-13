@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import type { KdsIconSize } from "../Icon/types";
 
+type LoadingSpinnerStyle = "onFilled" | "onTransparent";
+
 withDefaults(
-  defineProps<{ size?: KdsIconSize; style?: "onFilled" | "onTransparent" }>(),
+  defineProps<{ size?: KdsIconSize; style?: LoadingSpinnerStyle }>(),
   {
     style: "onTransparent",
     size: "medium",
