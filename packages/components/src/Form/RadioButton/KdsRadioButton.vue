@@ -46,7 +46,17 @@ const handleClick = () => {
     type="button"
     @click="handleClick"
   >
-    <div class="control" />
+    <div class="control">
+      <svg
+        v-if="modelValue"
+        class="dot"
+        viewBox="0 0 2 2"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <circle cx="1" cy="1" r="1" />
+      </svg>
+    </div>
     <div class="content">
       <div class="label">{{ props.label }}</div>
       <div v-if="props.helperText" :id="`${id}-helper`" class="helper-text">
@@ -63,7 +73,6 @@ const handleClick = () => {
   --bg-active: var(--kds-color-background-input-active);
   --border: var(--kds-border-action-input);
   --dot-color: var(--kds-color-text-and-icon-selected);
-  --dot-size: round(calc(var(--kds-dimension-component-height-0-88x) / 2), 2px);
   --text-color: var(--kds-color-text-and-icon-neutral);
   --helper-text-color: var(--kds-color-text-and-icon-muted);
 
@@ -90,14 +99,18 @@ const handleClick = () => {
     border-radius: 50%;
   }
 
-  & .control::after {
+  & .control .dot {
     display: block;
-    width: var(--dot-size);
-    height: var(--dot-size);
-    content: "";
-    background: var(--dot-color);
-    border-radius: 50%;
-    opacity: 0;
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  & .control .dot circle {
+    fill: var(--dot-color);
+    transform: scale(0.5);
+    transform-origin: center;
+    transform-box: fill-box;
   }
 
   &:focus-visible {
@@ -120,10 +133,6 @@ const handleClick = () => {
   &.selected {
     /* Radios keep neutral background; emphasize selected via dot + border */
     --border: var(--kds-border-action-selected);
-
-    & .control::after {
-      opacity: 1;
-    }
   }
 
   & .content {
