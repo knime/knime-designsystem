@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, useId } from "vue";
+import { computed, ref, useId } from "vue";
 
 import KdsIcon from "../../Icon/KdsIcon.vue";
 
@@ -20,7 +20,7 @@ const emit = defineEmits<{
 
 const legendId = useId();
 
-const optionContainerEls: Array<HTMLElement | null> = [];
+const optionContainerEls = ref<Array<HTMLElement | null>>([]);
 
 const isOptionDisabled = (index: number) =>
   props.disabled || props.options[index]?.disabled === true;
@@ -50,7 +50,7 @@ const tabIndexForOption = (index: number) => {
 };
 
 const focusOption = (index: number) => {
-  const button = optionContainerEls[index]?.querySelector(
+  const button = optionContainerEls.value[index]?.querySelector(
     'button[role="radio"]',
   ) as HTMLButtonElement | null;
   button?.focus();
@@ -162,7 +162,9 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
       <div
         v-for="(option, index) in props.options"
         :key="option.value"
-        :ref="(el) => (optionContainerEls[index] = el as HTMLElement | null)"
+        :ref="
+          (el) => (optionContainerEls.value[index] = el as HTMLElement | null)
+        "
         class="option"
       >
         <KdsRadioButton
