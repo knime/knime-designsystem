@@ -32,9 +32,6 @@ const meta: Meta<typeof KdsRadioButton> = {
     subText: {
       control: { type: "text" },
     },
-    title: {
-      control: { type: "text" },
-    },
   },
   args: {
     "onUpdate:modelValue": fn(),
