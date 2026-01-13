@@ -159,11 +159,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
       </span>
     </legend>
 
-    <div
-      :aria-labelledby="props.label ? legendId : undefined"
-      :class="{ options: true, horizontal: isHorizontal }"
-      role="radiogroup"
-    >
+    <div :class="{ options: true, horizontal: isHorizontal }" role="radiogroup">
       <div
         v-for="(option, index) in props.options"
         :key="option.value"
