@@ -1,5 +1,13 @@
 # @knime/kds-components
 
+## 0.5.3
+
+### Patch Changes
+
+- b18e89a: KDS-433: add LoadingSpinner
+- Updated dependencies [b54fab7]
+  - @knime/kds-styles@0.5.3
+
 ## 0.5.2
 
 ### Patch Changes
