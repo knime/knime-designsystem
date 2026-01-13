@@ -222,10 +222,6 @@ legend {
   align-items: flex-start;
 }
 
-.option {
-  display: flex;
-}
-
 .subtext {
   margin-top: var(--kds-spacing-container-0-25x);
   font: var(--kds-font-base-subtext-small);
