@@ -69,7 +69,7 @@
       },
       "LoadingSpinner": {
         "progress": {
-          "onFilled": {
+          "onPrimary": {
             "$extensions": {
               "studio.tokens": {
                 "modify": {
@@ -83,14 +83,14 @@
             "$value": "{kds.color.text-and-icon.primary-inverted}",
             "$description": "LoadingSpinner"
           },
-          "onTransparent": {
+          "onSurface": {
             "$type": "color",
             "$value": "{kds.color.text-and-icon.neutral}",
             "$description": "LoadingSpinner"
           }
         },
         "track": {
-          "onFilled": {
+          "onPrimary": {
             "$extensions": {
               "studio.tokens": {
                 "modify": {
@@ -104,7 +104,7 @@
             "$value": "{kds.color.text-and-icon.primary-inverted}",
             "$description": "LoadingSpinner"
           },
-          "onTransparent": {
+          "onSurface": {
             "$extensions": {
               "studio.tokens": {
                 "modify": {
