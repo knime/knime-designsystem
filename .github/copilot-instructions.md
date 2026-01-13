@@ -59,7 +59,7 @@ packages/
 - Type all emits with `defineEmits<T>()`
 - Use `defineModel()` for v-model bindings
 - Use `type` instead of `interface`
-- Create a `types.ts` file for shared types. Don't export types from .vue files.
+- Create a `types.ts` file for shared types. Don't export types from .vue files. Use global [propTypeTester](../packages/components/globals.d.ts) for static type checks.
 - Use `<style scoped>`
 - IMPORTANT: Don't use BEM! Use CSS nesting to NOT duplicate selectors.
 - Style ONLY with CSS custom properties from design tokens - never hardcode colors/spacing/typography!
