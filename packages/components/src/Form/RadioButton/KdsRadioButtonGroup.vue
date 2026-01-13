@@ -199,7 +199,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
 <style scoped>
 legend {
   display: flex;
-  gap: var(--kds-spacing-container-0-5x);
+  gap: var(--kds-spacing-container-0-25x);
   align-items: center;
   min-height: var(--kds-dimension-component-height-0-75x);
   padding-bottom: var(--kds-spacing-input-label-spacing-bottom);
@@ -210,6 +210,7 @@ legend {
 .icon-wrapper {
   display: inline-flex;
   align-items: center;
+  color: var(--kds-color-text-and-icon-muted);
 }
 
 .radio-button-group {

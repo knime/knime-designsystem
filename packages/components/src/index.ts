@@ -3,7 +3,6 @@ export { default as KdsButton } from "./Button/KdsButton.vue";
 export { default as KdsLinkButton } from "./Button/KdsLinkButton.vue";
 export { default as KdsToggleButton } from "./Button/KdsToggleButton.vue";
 export { default as KdsCheckbox } from "./Checkbox/KdsCheckbox.vue";
-export { default as KdsRadioButtonGroup } from "./Form/RadioButton/KdsRadioButtonGroup.vue";
 export { default as KdsIcon } from "./Icon/KdsIcon.vue";
 export { default as KdsDataType } from "./Icon/KdsDataType.vue";
 export { default as KdsModal } from "./Modal/KdsModal.vue";
@@ -20,11 +19,6 @@ export {
 // Export component types
 export type * from "./Button/types";
 export type * from "./Checkbox/types";
-export type {
-  KdsRadioButtonGroupOption,
-  KdsRadioButtonGroupProps,
-  KdsRadioButtonGroupValue,
-} from "./Form/RadioButton/types";
 export type * from "./Icon/types";
 export type * from "./Modal/types";
 
@@ -33,3 +27,7 @@ export * from "./util";
 
 // Export util types
 export type * from "./util";
+
+// Export form components
+export * from "./Form";
+export type * from "./Form";

@@ -180,7 +180,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       alignment: ["vertical", "horizontal"],
       disabled: [false, true],
       labelTrailingIcon: [undefined, "re-execution"],
-      labelTrailingIconTitle: [undefined, "Needs re-execution"],
+      labelTrailingIconTitle: ["Needs re-execution"],
     },
   ],
 });
@@ -190,16 +190,44 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   designsToCompare: {
     Default: {
       props: {
-        label: "Label",
-        options: fourOptions,
+        label: "{Label}",
+        options: [
+          { label: "Label", value: "a" },
+          { label: "Label", value: "b" },
+          { label: "Label", value: "c" },
+          { label: "Label", value: "d" },
+        ],
         modelValue: "a",
         labelTrailingIcon: "re-execution",
         labelTrailingIconTitle: "Needs re-execution",
       },
       variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9325-7964&p=f&m=dev":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7118-319373&m=dev":
           {},
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=12282-131903&m=dev":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=12591-110389&m=dev":
+          {
+            alignment: "horizontal",
+          },
+      },
+    },
+    Error: {
+      props: {
+        label: "{Label}",
+        options: [
+          { label: "Label", value: "a", error: true },
+          { label: "Label", value: "b" },
+          { label: "Label", value: "c" },
+          { label: "Label", value: "d" },
+        ],
+        modelValue: "a",
+        labelTrailingIcon: "re-execution",
+        labelTrailingIconTitle: "Needs re-execution",
+        subText: "{Error message}",
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=12591-97153&m=dev":
+          {},
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=12591-110317&m=dev":
           {
             alignment: "horizontal",
           },

@@ -1,4 +1,4 @@
-import type { KdsIconName } from "../../Icon/types.ts";
+import type { KdsLabelProps, KdsSubTextProps } from "../types.ts";
 
 export type KdsRadioButtonProps = {
   modelValue?: boolean;
@@ -6,28 +6,17 @@ export type KdsRadioButtonProps = {
   subText?: string;
   disabled?: boolean;
   error?: boolean;
-  title?: string;
 };
 
 type KdsRadioButtonGroupAlignment = "vertical" | "horizontal";
 
 type AtLeastTwo<T> = [T, T, ...T[]];
 
-type KdsLabelProps =
-  | { label?: never; labelTrailingIcon?: never; labelTrailingIconTitle?: never }
-  | { label: string; labelTrailingIcon?: never; labelTrailingIconTitle?: never }
-  | {
-      label: string;
-      labelTrailingIcon: KdsIconName;
-      labelTrailingIconTitle: string;
-    };
-
 export type KdsRadioButtonGroupOption<TValue extends string = string> = {
   label: string;
   value: TValue;
   disabled?: boolean;
   subText?: string;
-  title?: string;
   error?: boolean;
 };
 
@@ -36,8 +25,8 @@ export type KdsRadioButtonGroupProps<TValue extends string = string> = {
   options: AtLeastTwo<KdsRadioButtonGroupOption<TValue>>;
   alignment?: KdsRadioButtonGroupAlignment;
   disabled?: boolean;
-  subText?: string;
-} & KdsLabelProps;
+} & KdsLabelProps &
+  KdsSubTextProps;
 
 // supports just label
 propTypeTester<KdsRadioButtonProps>({ label: "foo" });
