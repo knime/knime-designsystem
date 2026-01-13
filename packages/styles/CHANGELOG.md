@@ -1,5 +1,11 @@
 # @knime/kds-styles
 
+## 0.5.3
+
+### Patch Changes
+
+- b54fab7: KDS-680: Added cloud sync and cloud pending icons
+
 ## 0.5.2
 
 ## 0.5.1
