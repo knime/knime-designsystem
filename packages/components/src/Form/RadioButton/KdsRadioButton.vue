@@ -32,7 +32,7 @@ const handleClick = () => {
 <template>
   <button
     :aria-checked="modelValue"
-    :aria-describedby="props.helperText ? `${id}-helper` : undefined"
+    :aria-describedby="props.subText ? `${id}-helper` : undefined"
     :aria-invalid="props.error"
     :class="{
       radio: true,
@@ -59,8 +59,8 @@ const handleClick = () => {
     </div>
     <div class="content">
       <div class="label">{{ props.label }}</div>
-      <div v-if="props.helperText" :id="`${id}-helper`" class="helper-text">
-        {{ props.helperText }}
+      <div v-if="props.subText" :id="`${id}-helper`" class="sub-text">
+        {{ props.subText }}
       </div>
     </div>
   </button>
@@ -74,7 +74,7 @@ const handleClick = () => {
   --border: var(--kds-border-action-input);
   --dot-color: var(--kds-color-text-and-icon-selected);
   --text-color: var(--kds-color-text-and-icon-neutral);
-  --helper-text-color: var(--kds-color-text-and-icon-muted);
+  --sub-text-color: var(--kds-color-text-and-icon-muted);
 
   display: flex;
   gap: var(--kds-spacing-container-0-5x);
@@ -131,8 +131,10 @@ const handleClick = () => {
   }
 
   &.selected {
-    /* Radios keep neutral background; emphasize selected via dot + border */
     --border: var(--kds-border-action-selected);
+    --bg-initial: var(--kds-color-background-selected-initial);
+    --bg-hover: var(--kds-color-background-selected-hover);
+    --bg-active: var(--kds-color-background-selected-active);
   }
 
   & .content {
@@ -146,28 +148,31 @@ const handleClick = () => {
       color: var(--text-color);
     }
 
-    & .helper-text {
+    & .sub-text {
       font: var(--kds-font-base-subtext-small);
-      color: var(--helper-text-color);
+      color: var(--sub-text-color);
     }
   }
 
   &.disabled {
+    --bg-initial: var(--kds-color-background-input-initial);
     --border: var(--kds-border-action-disabled);
     --dot-color: var(--kds-color-text-and-icon-disabled);
     --text-color: var(--kds-color-text-and-icon-disabled);
-    --helper-text-color: var(--kds-color-text-and-icon-disabled);
+    --sub-text-color: var(--kds-color-text-and-icon-disabled);
 
     cursor: not-allowed;
   }
 
   &.error {
+    --bg-hover: var(--kds-color-background-danger-hover);
+    --bg-active: var(--kds-color-background-danger-active);
     --border: var(--kds-border-action-error);
     --dot-color: var(--kds-color-text-and-icon-danger);
     --text-color: var(--kds-color-text-and-icon-danger);
 
     &.selected {
-      --bg-active: var(--kds-color-background-danger-initial);
+      --bg-initial: var(--kds-color-background-danger-initial);
       --border: var(--kds-border-action-error);
     }
   }

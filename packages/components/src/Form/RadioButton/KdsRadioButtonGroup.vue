@@ -175,7 +175,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
         <KdsRadioButton
           :disabled="props.disabled || option.disabled"
           :error="option.error"
-          :helper-text="option.subText"
+          :sub-text="option.subText"
           :label="option.label"
           :model-value="modelValue === option.value"
           :tabindex="tabIndexForOption(index)"
