@@ -227,9 +227,7 @@ export const TextOverflow: Story = {
       },
     ],
     modelValue: "a",
-    labelTrailingIcon: {
-      name: "re-execution",
-      title: "Needs re-execution",
-    },
+    labelTrailingIcon: "re-execution",
+    labelTrailingIconTitle: "Needs re-execution",
   },
 };
