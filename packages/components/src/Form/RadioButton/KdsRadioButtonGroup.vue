@@ -1,13 +1,13 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { computed, useId } from "vue";
 
-import KdsIcon from "../Icon/KdsIcon.vue";
+import KdsIcon from "../../Icon/KdsIcon.vue";
 
 import KdsRadioButton from "./KdsRadioButton.vue";
 import type {
   KdsRadioButtonGroupProps,
   KdsRadioButtonGroupValue,
-} from "./types";
+} from "./types.ts";
 
 const props = withDefaults(defineProps<KdsRadioButtonGroupProps>(), {
   disabled: false,
@@ -147,22 +147,16 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
 </script>
 
 <template>
-  <fieldset class="radio-button-group" :disabled="props.disabled">
-    <legend :id="legendId" class="group-label">
-      <span class="label-text">{{ props.label }}</span>
-      <span
-        v-if="props.labelIcon"
-        class="label-icon"
-        :title="props.labelIconTitle"
-      >
-        <KdsIcon :name="props.labelIcon" size="xsmall" />
-      </span>
+  <fieldset :disabled="props.disabled" class="radio-button-group">
+    <legend v-if="props.label" :id="legendId">
+      {{ props.label }}
+      <KdsIcon v-if="props.labelIcon" :name="props.labelIcon" size="xsmall" />
     </legend>
 
     <div
+      :aria-labelledby="legendId"
       :class="{ options: true, horizontal: isHorizontal }"
       role="radiogroup"
-      :aria-labelledby="legendId"
     >
       <div
         v-for="(option, index) in props.options"
@@ -171,13 +165,13 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
         class="option"
       >
         <KdsRadioButton
-          :model-value="modelValue === option.value"
           :disabled="props.disabled || option.disabled"
           :error="props.error"
-          :label="option.label"
           :helper-text="option.helperText"
-          :title="option.title"
+          :label="option.label"
+          :model-value="modelValue === option.value"
           :tabindex="tabIndexForOption(index)"
+          :title="option.title"
           @keydown="(e: KeyboardEvent) => handleKeyDown(e, index)"
           @update:model-value="() => selectIndex(index)"
         />
@@ -187,35 +181,18 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
 </template>
 
 <style scoped>
+legend {
+  display: flex;
+  gap: var(--kds-spacing-container-0-5x);
+  align-items: center;
+  min-height: var(--kds-dimension-component-height-0-75x);
+  padding-bottom: var(--kds-spacing-input-label-spacing-bottom);
+}
+
 .radio-button-group {
   padding: 0;
   margin: 0;
   border: none;
-}
-
-.group-label {
-  display: flex;
-  gap: var(--kds-spacing-container-0-5x);
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0;
-  padding-bottom: var(--kds-spacing-input-label-spacing-bottom);
-  margin: 0;
-}
-
-.label-text {
-  height: var(--kds-dimension-component-height-0-75x);
-  font: var(--kds-font-base-title-small-strong);
-  color: var(--kds-color-text-and-icon-neutral);
-}
-
-.label-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--kds-dimension-component-width-0-75x);
-  height: var(--kds-dimension-component-height-0-75x);
-  color: var(--kds-color-text-and-icon-muted);
 }
 
 .options {

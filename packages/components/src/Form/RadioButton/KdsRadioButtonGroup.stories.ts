@@ -6,10 +6,10 @@ import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
   buildTextOverflowStory,
-} from "../test-utils/storybook";
+} from "../../test-utils/storybook.ts";
 
 import KdsRadioButtonGroup from "./KdsRadioButtonGroup.vue";
-import type { KdsRadioButtonGroupProps } from "./types";
+import type { KdsRadioButtonGroupProps } from "./types.ts";
 
 type Story = StoryObj<typeof KdsRadioButtonGroup>;
 
@@ -39,7 +39,7 @@ const optionsWithHelperText: KdsRadioButtonGroupProps["options"] = [
 ];
 
 const meta: Meta<typeof KdsRadioButtonGroup> = {
-  title: "Components/KdsRadioButtonGroup",
+  title: "Components/Form/KdsRadioButtonGroup",
   component: KdsRadioButtonGroup as Meta<
     typeof KdsRadioButtonGroup
   >["component"],
@@ -98,7 +98,7 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
     docs: {
       description: {
         component:
-          "A radio button group component that renders a vertical list of options from a data array and manages selection via v-model.",
+          "A radio button group component that renders a list of options from a data array and manages selection via v-model.",
       },
     },
     design: {
@@ -148,6 +148,14 @@ export const Error: Story = {
   },
 };
 
+export const WithoutLabel: Story = {
+  args: {
+    label: undefined,
+    options: fourOptions,
+    modelValue: "a",
+  },
+};
+
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsRadioButtonGroup,
   combinationsProps: [
@@ -159,6 +167,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       disabled: [false, true],
       error: [false, true],
       labelIcon: [undefined, "re-execution"],
+      labelIconTitle: [undefined, "Needs re-execution"],
     },
   ],
 });

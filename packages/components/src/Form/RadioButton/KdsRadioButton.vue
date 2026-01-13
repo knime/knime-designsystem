@@ -1,7 +1,7 @@
-<script setup lang="ts">
-import { computed, useId } from "vue";
+<script lang="ts" setup>
+import { useId } from "vue";
 
-import type { KdsRadioButtonProps } from "./types";
+import type { KdsRadioButtonProps } from "./types.ts";
 
 const props = withDefaults(defineProps<KdsRadioButtonProps>(), {
   modelValue: false,
@@ -18,16 +18,12 @@ const emit = defineEmits<{
 
 const id = useId();
 
-const isSelected = computed(() => props.modelValue);
-
-const ariaChecked = computed(() => isSelected.value);
-
 const handleClick = () => {
   if (props.disabled) {
     return;
   }
   // Radio buttons do not toggle off when clicked; they only set to selected
-  if (!isSelected.value) {
+  if (!props.modelValue) {
     emit("update:modelValue", true);
   }
 };
@@ -35,19 +31,19 @@ const handleClick = () => {
 
 <template>
   <button
+    :aria-checked="modelValue"
+    :aria-describedby="props.helperText ? `${id}-helper` : undefined"
+    :aria-invalid="props.error"
     :class="{
       radio: true,
-      selected: isSelected,
+      selected: modelValue,
       disabled: props.disabled,
       error: props.error,
     }"
     :disabled="props.disabled"
-    :aria-checked="ariaChecked"
-    :aria-describedby="props.helperText ? `${id}-helper` : undefined"
-    :aria-invalid="props.error"
     :title="props.title"
-    type="button"
     role="radio"
+    type="button"
     @click="handleClick"
   >
     <div class="control" />
