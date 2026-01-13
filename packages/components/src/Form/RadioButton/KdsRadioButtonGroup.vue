@@ -150,7 +150,13 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
   <fieldset :disabled="props.disabled" class="radio-button-group">
     <legend v-if="props.label" :id="legendId">
       {{ props.label }}
-      <KdsIcon v-if="props.labelIcon" :name="props.labelIcon" size="xsmall" />
+      <span
+        v-if="props.labelTrailingIcon"
+        :title="props.labelTrailingIconTitle"
+        class="icon-wrapper"
+      >
+        <KdsIcon :name="props.labelTrailingIcon" size="xsmall" />
+      </span>
     </legend>
 
     <div
@@ -187,6 +193,11 @@ legend {
   align-items: center;
   min-height: var(--kds-dimension-component-height-0-75x);
   padding-bottom: var(--kds-spacing-input-label-spacing-bottom);
+}
+
+.icon-wrapper {
+  display: inline-flex;
+  align-items: center;
 }
 
 .radio-button-group {

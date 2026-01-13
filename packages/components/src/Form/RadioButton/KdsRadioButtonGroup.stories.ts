@@ -61,10 +61,10 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
     label: {
       control: { type: "text" },
     },
-    labelIcon: {
+    labelTrailingIcon: {
       control: { type: "text" },
     },
-    labelIconTitle: {
+    labelTrailingIconTitle: {
       control: { type: "text" },
     },
     options: {
@@ -75,7 +75,8 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
     label: "Label",
     options: fourOptions,
     modelValue: "a",
-    labelIcon: "re-execution",
+    labelTrailingIcon: "re-execution",
+    labelTrailingIconTitle: "Needs re-execution",
     "onUpdate:modelValue": fn(),
   },
   decorators: [
@@ -111,6 +112,16 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
 export default meta;
 
 export const Default: Story = {};
+
+export const WithTrailingIcon: Story = {
+  args: {
+    label: "Label",
+    labelTrailingIcon: "re-execution",
+    labelTrailingIconTitle: "Needs re-execution",
+    options: fourOptions,
+    modelValue: "a",
+  },
+};
 
 export const Horizontal: Story = {
   args: {
@@ -166,8 +177,8 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       alignment: ["vertical", "horizontal"],
       disabled: [false, true],
       error: [false, true],
-      labelIcon: [undefined, "re-execution"],
-      labelIconTitle: [undefined, "Needs re-execution"],
+      labelTrailingIcon: [undefined, "re-execution"],
+      labelTrailingIconTitle: [undefined, "Needs re-execution"],
     },
   ],
 });
@@ -180,7 +191,8 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         label: "Label",
         options: fourOptions,
         modelValue: "a",
-        labelIcon: "re-execution",
+        labelTrailingIcon: "re-execution",
+        labelTrailingIconTitle: "Needs re-execution",
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9325-7964&p=f&m=dev":
@@ -215,6 +227,9 @@ export const TextOverflow: Story = {
       },
     ],
     modelValue: "a",
-    labelIcon: "re-execution",
+    labelTrailingIcon: {
+      name: "re-execution",
+      title: "Needs re-execution",
+    },
   },
 };
