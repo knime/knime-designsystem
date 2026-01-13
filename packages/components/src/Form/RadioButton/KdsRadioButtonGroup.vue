@@ -162,9 +162,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
       <div
         v-for="(option, index) in props.options"
         :key="option.value"
-        :ref="
-          (el) => (optionContainerEls.value[index] = el as HTMLElement | null)
-        "
+        :ref="(el) => (optionContainerEls[index] = el as HTMLElement | null)"
         class="option"
       >
         <KdsRadioButton
