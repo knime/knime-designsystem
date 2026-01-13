@@ -41,9 +41,18 @@ propTypeTester<KdsRadioButtonProps>({ helperText: "foo" });
 
 export type KdsRadioButtonGroupValue = string | number;
 
-export type KdsRadioButtonGroupAlignment = "vertical" | "horizontal";
+type KdsRadioButtonGroupAlignment = "vertical" | "horizontal";
 
 type AtLeastTwo<T> = [T, T, ...T[]];
+
+type KdsLabelProps =
+  | { label?: never; labelTrailingIcon?: never; labelTrailingIconTitle?: never }
+  | { label: string; labelTrailingIcon?: never; labelTrailingIconTitle?: never }
+  | {
+      label: string;
+      labelTrailingIcon: KdsIconName;
+      labelTrailingIconTitle: string;
+    };
 
 export type KdsRadioButtonGroupOption<
   TValue extends KdsRadioButtonGroupValue = KdsRadioButtonGroupValue,
@@ -58,15 +67,12 @@ export type KdsRadioButtonGroupOption<
 export type KdsRadioButtonGroupProps<
   TValue extends KdsRadioButtonGroupValue = KdsRadioButtonGroupValue,
 > = {
-  label?: string;
   modelValue?: TValue | null;
   alignment?: KdsRadioButtonGroupAlignment;
   options: AtLeastTwo<KdsRadioButtonGroupOption<TValue>>;
   disabled?: boolean;
   error?: boolean;
-  labelIcon?: KdsIconName;
-  labelIconTitle?: string;
-};
+} & KdsLabelProps;
 
 // supports minimal props
 propTypeTester<KdsRadioButtonGroupProps>({
@@ -79,7 +85,8 @@ propTypeTester<KdsRadioButtonGroupProps>({
 // supports optional label and icon
 propTypeTester<KdsRadioButtonGroupProps>({
   label: "Group label",
-  labelIcon: "re-execution",
+  labelTrailingIcon: "re-execution",
+  labelTrailingIconTitle: "Needs re-execution",
   options: [
     { label: "Option A", value: "a" },
     { label: "Option B", value: "b" },
@@ -91,8 +98,12 @@ propTypeTester<KdsRadioButtonGroupProps>({
   label: "Group label",
 });
 
+// @ts-expect-error - icon must also define a title
 propTypeTester<KdsRadioButtonGroupProps>({
   label: "Group label",
-  // @ts-expect-error - options must contain at least two entries
-  options: [{ label: "Option", value: "a" }],
+  labelTrailingIcon: "re-execution",
+  options: [
+    { label: "Option A", value: "a" },
+    { label: "Option B", value: "b" },
+  ],
 });
