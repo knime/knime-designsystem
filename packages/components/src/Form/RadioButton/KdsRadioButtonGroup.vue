@@ -154,7 +154,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
     </legend>
 
     <div
-      :aria-labelledby="legendId"
+      :aria-labelledby="props.label ? legendId : undefined"
       :class="{ options: true, horizontal: isHorizontal }"
       role="radiogroup"
     >
