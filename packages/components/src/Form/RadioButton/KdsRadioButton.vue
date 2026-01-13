@@ -138,7 +138,7 @@ const handleClick = () => {
   & .content {
     display: flex;
     flex-direction: column;
-    gap: var(--kds-spacing-container-0-12x);
+    gap: var(--kds-spacing-container-0-25x);
 
     & .label {
       padding-top: var(--kds-spacing-container-0-10x);
@@ -165,12 +165,10 @@ const handleClick = () => {
     --border: var(--kds-border-action-error);
     --dot-color: var(--kds-color-text-and-icon-danger);
     --text-color: var(--kds-color-text-and-icon-danger);
-    --helper-text-color: var(--kds-color-text-and-icon-danger);
-    --bg-hover: var(--kds-color-background-danger-hover);
-    --bg-active: var(--kds-color-background-danger-active);
 
     &.selected {
-      --bg-initial: var(--kds-color-background-danger-initial);
+      --bg-active: var(--kds-color-background-danger-initial);
+      --border: var(--kds-border-action-error);
     }
   }
 }
