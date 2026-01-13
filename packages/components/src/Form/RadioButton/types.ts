@@ -1,4 +1,4 @@
-import type { KdsIconName } from "../Icon/types";
+import type { KdsIconName } from "../../Icon/types.ts";
 
 type BaseProps = {
   /**
@@ -58,7 +58,7 @@ export type KdsRadioButtonGroupOption<
 export type KdsRadioButtonGroupProps<
   TValue extends KdsRadioButtonGroupValue = KdsRadioButtonGroupValue,
 > = {
-  label: string;
+  label?: string;
   modelValue?: TValue | null;
   alignment?: KdsRadioButtonGroupAlignment;
   options: AtLeastTwo<KdsRadioButtonGroupOption<TValue>>;
@@ -70,29 +70,19 @@ export type KdsRadioButtonGroupProps<
 
 // supports minimal props
 propTypeTester<KdsRadioButtonGroupProps>({
-  label: "Group label",
   options: [
     { label: "Option A", value: "a" },
     { label: "Option B", value: "b" },
   ],
-  alignment: "horizontal",
 });
 
-// supports optional label icon
+// supports optional label and icon
 propTypeTester<KdsRadioButtonGroupProps>({
   label: "Group label",
-  options: [
-    { label: "Option A", value: "a" },
-    { label: "Option B", value: "b" },
-  ],
   labelIcon: "re-execution",
-});
-
-// @ts-expect-error - label is required
-propTypeTester<KdsRadioButtonGroupProps>({
   options: [
-    { label: "Option", value: "a" },
-    { label: "Option", value: "b" },
+    { label: "Option A", value: "a" },
+    { label: "Option B", value: "b" },
   ],
 });
 

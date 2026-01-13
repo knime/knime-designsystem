@@ -6,14 +6,14 @@ import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
   buildTextOverflowStory,
-} from "../test-utils/storybook";
+} from "../../test-utils/storybook.ts";
 
 import KdsRadioButton from "./KdsRadioButton.vue";
 
 type Story = StoryObj<typeof KdsRadioButton>;
 
 const meta: Meta<typeof KdsRadioButton> = {
-  title: "Components/KdsRadioButton",
+  title: "Components/Form/KdsRadioButton",
   component: KdsRadioButton as Meta<typeof KdsRadioButton>["component"],
   tags: ["autodocs"],
   argTypes: {
