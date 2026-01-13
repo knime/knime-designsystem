@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import type { KdsIconSize } from "../Icon/types";
 
-type LoadingSpinnerStyle = "onFilled" | "onTransparent";
+type LoadingSpinnerStyle = "onPrimary" | "onSurface";
 
 withDefaults(
   defineProps<{ size?: KdsIconSize; style?: LoadingSpinnerStyle }>(),
   {
-    style: "onTransparent",
+    style: "onSurface",
     size: "medium",
   },
 );
@@ -47,12 +47,12 @@ withDefaults(
   width: var(--icon-width);
   height: var(--icon-height);
 
-  --color-track: var(--kds-color-loading-spinner-track-on-transparent);
-  --color-loader: var(--kds-color-loading-spinner-progress-on-transparent);
+  --color-track: var(--kds-color-loading-spinner-track-on-surface);
+  --color-loader: var(--kds-color-loading-spinner-progress-on-surface);
 
-  &[data-style="onFilled"] {
-    --color-track: var(--kds-color-loading-spinner-track-on-filled);
-    --color-loader: var(--kds-color-loading-spinner-progress-on-filled);
+  &[data-style="onPrimary"] {
+    --color-track: var(--kds-color-loading-spinner-track-on-primary);
+    --color-loader: var(--kds-color-loading-spinner-progress-on-primary);
   }
 
   & .track {

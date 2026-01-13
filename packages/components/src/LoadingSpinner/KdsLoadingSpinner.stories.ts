@@ -13,7 +13,7 @@ const meta: Meta<typeof KdsLoadingSpinner> = {
     },
     style: {
       control: { type: "select" },
-      options: ["onTransparent", "onFilled"],
+      options: ["onSurface", "onPrimary"],
     },
   },
 };
@@ -21,9 +21,9 @@ export default meta;
 
 type Story = StoryObj<typeof KdsLoadingSpinner>;
 
-export const DataTypeStory: Story = {
+export const Default: Story = {
   args: {
     size: "medium",
-    style: "onTransparent",
+    style: "onSurface",
   },
 };
