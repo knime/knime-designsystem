@@ -29,7 +29,7 @@ const meta: Meta<typeof KdsRadioButton> = {
     label: {
       control: { type: "text" },
     },
-    helperText: {
+    subText: {
       control: { type: "text" },
     },
     title: {
@@ -85,10 +85,10 @@ export const Selected: Story = {
   },
 };
 
-export const HelperText: Story = {
+export const subText: Story = {
   args: {
     label: "Label",
-    helperText: "Helper text",
+    subText: "Helper text",
     modelValue: false,
   },
 };
@@ -96,7 +96,7 @@ export const HelperText: Story = {
 export const Disabled: Story = {
   args: {
     label: "Label",
-    helperText: "Helper text",
+    subText: "Helper text",
     modelValue: true,
     disabled: true,
   },
@@ -105,7 +105,7 @@ export const Disabled: Story = {
 export const Error: Story = {
   args: {
     label: "Label",
-    helperText: "Error message",
+    subText: "Error message",
     modelValue: false,
     error: true,
   },
@@ -125,7 +125,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       disabled: [false, true],
       error: [false, true],
       label: ["Label"],
-      helperText: ["Helper text"],
+      subText: ["Helper text"],
     },
   ],
 });
@@ -137,7 +137,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       props: {
         label: "Label",
         modelValue: false,
-        helperText: "{SubText content}",
+        subText: "{SubText content}",
       },
       variants: {
         // Enabled
@@ -167,7 +167,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       props: {
         label: "Label",
         modelValue: true,
-        helperText: "{SubText content}",
+        subText: "{SubText content}",
       },
       variants: {
         // Enabled
@@ -204,7 +204,7 @@ export const TextOverflow: Story = {
   args: {
     label:
       "This is a very long radio label that should overflow and wrap properly when the container is too narrow",
-    helperText:
+    subText:
       "This is a very long helper text that should also overflow and wrap properly when there is not enough space",
     modelValue: false,
   },

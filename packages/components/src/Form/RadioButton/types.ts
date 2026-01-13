@@ -1,45 +1,13 @@
 import type { KdsIconName } from "../../Icon/types.ts";
 
-type BaseProps = {
-  /**
-   * The selected state of the radio button
-   */
+export type KdsRadioButtonProps = {
   modelValue?: boolean;
-  /**
-   * Whether the radio button is disabled
-   */
+  label: string;
+  subText?: string;
   disabled?: boolean;
-  /**
-   * Whether the radio button is in an error state
-   */
   error?: boolean;
-  /**
-   * Title text shown on hover
-   */
   title?: string;
 };
-
-export type KdsRadioButtonProps = BaseProps & {
-  /**
-   * The label text for the radio button (required)
-   */
-  label: string;
-  /**
-   * Helper text displayed below the label
-   */
-  helperText?: string;
-};
-
-// supports just label
-propTypeTester<KdsRadioButtonProps>({ label: "foo" });
-// supports both label and helper text
-propTypeTester<KdsRadioButtonProps>({ label: "foo", helperText: "bar" });
-// @ts-expect-error - label is required
-propTypeTester<KdsRadioButtonProps>({});
-// @ts-expect-error - should not allow helper text without label
-propTypeTester<KdsRadioButtonProps>({ helperText: "foo" });
-
-export type KdsRadioButtonGroupValue = string | number;
 
 type KdsRadioButtonGroupAlignment = "vertical" | "horizontal";
 
@@ -54,9 +22,7 @@ type KdsLabelProps =
       labelTrailingIconTitle: string;
     };
 
-export type KdsRadioButtonGroupOption<
-  TValue extends KdsRadioButtonGroupValue = KdsRadioButtonGroupValue,
-> = {
+export type KdsRadioButtonGroupOption<TValue extends string = string> = {
   label: string;
   value: TValue;
   disabled?: boolean;
@@ -65,15 +31,22 @@ export type KdsRadioButtonGroupOption<
   error?: boolean;
 };
 
-export type KdsRadioButtonGroupProps<
-  TValue extends KdsRadioButtonGroupValue = KdsRadioButtonGroupValue,
-> = {
+export type KdsRadioButtonGroupProps<TValue extends string = string> = {
   modelValue?: TValue | null;
-  alignment?: KdsRadioButtonGroupAlignment;
   options: AtLeastTwo<KdsRadioButtonGroupOption<TValue>>;
+  alignment?: KdsRadioButtonGroupAlignment;
   disabled?: boolean;
   subText?: string;
 } & KdsLabelProps;
+
+// supports just label
+propTypeTester<KdsRadioButtonProps>({ label: "foo" });
+// supports both label and helper text
+propTypeTester<KdsRadioButtonProps>({ label: "foo", subText: "bar" });
+// @ts-expect-error - label is required
+propTypeTester<KdsRadioButtonProps>({});
+// @ts-expect-error - should not allow helper text without label
+propTypeTester<KdsRadioButtonProps>({ subText: "foo" });
 
 // supports minimal props
 propTypeTester<KdsRadioButtonGroupProps>({
