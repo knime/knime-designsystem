@@ -8,7 +8,6 @@ import type { KdsRadioButtonGroupProps } from "./types.ts";
 
 const props = withDefaults(defineProps<KdsRadioButtonGroupProps>(), {
   disabled: false,
-  error: false,
   modelValue: null,
   alignment: "vertical",
 });
