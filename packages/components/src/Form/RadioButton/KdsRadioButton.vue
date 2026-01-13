@@ -10,9 +10,6 @@ const props = withDefaults(defineProps<KdsRadioButtonProps>(), {
 });
 
 const emit = defineEmits<{
-  /**
-   * Emitted when the radio selection changes
-   */
   "update:modelValue": [value: boolean];
 }>();
 
@@ -41,7 +38,6 @@ const handleClick = () => {
       error: props.error,
     }"
     :disabled="props.disabled"
-    :title="props.title"
     role="radio"
     type="button"
     @click="handleClick"

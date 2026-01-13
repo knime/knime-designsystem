@@ -4,10 +4,7 @@ import { computed, useId } from "vue";
 import KdsIcon from "../../Icon/KdsIcon.vue";
 
 import KdsRadioButton from "./KdsRadioButton.vue";
-import type {
-  KdsRadioButtonGroupProps,
-  KdsRadioButtonGroupValue,
-} from "./types.ts";
+import type { KdsRadioButtonGroupProps } from "./types.ts";
 
 const props = withDefaults(defineProps<KdsRadioButtonGroupProps>(), {
   disabled: false,
@@ -19,10 +16,7 @@ const props = withDefaults(defineProps<KdsRadioButtonGroupProps>(), {
 const modelValue = computed(() => props.modelValue ?? null);
 
 const emit = defineEmits<{
-  /**
-   * Emitted when the radio selection changes
-   */
-  "update:modelValue": [value: KdsRadioButtonGroupValue | null];
+  "update:modelValue": [value: string | null];
 }>();
 
 const legendId = useId();
@@ -179,7 +173,6 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
           :label="option.label"
           :model-value="modelValue === option.value"
           :tabindex="tabIndexForOption(index)"
-          :title="option.title"
           @keydown="(e: KeyboardEvent) => handleKeyDown(e, index)"
           @update:model-value="() => selectIndex(index)"
         />
