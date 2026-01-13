@@ -1,5 +1,12 @@
 # @knime/kds-components
 
+## 0.5.4
+
+### Patch Changes
+
+- cea2454: KDS-433: loading spinner add missing export
+  - @knime/kds-styles@0.5.4
+
 ## 0.5.3
 
 ### Patch Changes
