@@ -20,22 +20,19 @@ const fourOptions: KdsRadioButtonGroupProps["options"] = [
   { label: "Option D", value: "d" },
 ];
 
-const threeOptions: KdsRadioButtonGroupProps["options"] = [
-  { label: "Option A", value: "a" },
-  { label: "Option B", value: "b" },
-  { label: "Option C", value: "c" },
-];
-
 const twoOptions: KdsRadioButtonGroupProps["options"] = [
   { label: "Option A", value: "a" },
   { label: "Option B", value: "b" },
 ];
 
+const optionsWithError: KdsRadioButtonGroupProps["options"] = [
+  { label: "Option A", value: "a", error: true },
+  { label: "Option B", value: "b" },
+];
+
 const optionsWithHelperText: KdsRadioButtonGroupProps["options"] = [
-  { label: "Option A", value: "a", helperText: "Helper text" },
-  { label: "Option B", value: "b", helperText: "Helper text" },
-  { label: "Option C", value: "c" },
-  { label: "Option D", value: "d" },
+  { label: "Option A", value: "a", subText: "Helper text" },
+  { label: "Option B", value: "b", subText: "Helper text" },
 ];
 
 const meta: Meta<typeof KdsRadioButtonGroup> = {
@@ -67,6 +64,9 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
     labelTrailingIconTitle: {
       control: { type: "text" },
     },
+    subText: {
+      control: { type: "text" },
+    },
     options: {
       control: { type: "object" },
     },
@@ -75,8 +75,6 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
     label: "Label",
     options: fourOptions,
     modelValue: "a",
-    labelTrailingIcon: "re-execution",
-    labelTrailingIconTitle: "Needs re-execution",
     "onUpdate:modelValue": fn(),
   },
   decorators: [
@@ -123,6 +121,12 @@ export const WithTrailingIcon: Story = {
   },
 };
 
+export const WithSubText: Story = {
+  args: {
+    subText: "Additional information about this selection",
+  },
+};
+
 export const Horizontal: Story = {
   args: {
     alignment: "horizontal",
@@ -132,12 +136,6 @@ export const Horizontal: Story = {
 export const TwoOptions: Story = {
   args: {
     options: twoOptions,
-  },
-};
-
-export const ThreeOptions: Story = {
-  args: {
-    options: threeOptions,
   },
 };
 
@@ -155,7 +153,11 @@ export const Disabled: Story = {
 
 export const Error: Story = {
   args: {
-    error: true,
+    options: [
+      { label: "Option A", value: "a", error: true },
+      { label: "Option B", value: "b" },
+    ],
+    subText: "Selected option has an error",
   },
 };
 
@@ -172,11 +174,11 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   combinationsProps: [
     {
       label: ["Label"],
-      options: [twoOptions, threeOptions, fourOptions, optionsWithHelperText],
+      subText: [undefined, "Additional information"],
+      options: [twoOptions, optionsWithError, optionsWithHelperText],
       modelValue: [null, "a", "b"],
       alignment: ["vertical", "horizontal"],
       disabled: [false, true],
-      error: [false, true],
       labelTrailingIcon: [undefined, "re-execution"],
       labelTrailingIconTitle: [undefined, "Needs re-execution"],
     },

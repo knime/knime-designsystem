@@ -42,6 +42,8 @@ const firstEnabledIndex = computed(() =>
 
 const isHorizontal = computed(() => props.alignment === "horizontal");
 
+const anyOptionError = computed(() => props.options.some((o) => o.error));
+
 const tabIndexForOption = (index: number) => {
   if (isOptionDisabled(index)) {
     return undefined;
@@ -147,7 +149,11 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
 </script>
 
 <template>
-  <fieldset :disabled="props.disabled" class="radio-button-group">
+  <fieldset
+    :disabled="props.disabled"
+    class="radio-button-group"
+    :aria-describedby="props.subText ? legendId + '-subtext' : undefined"
+  >
     <legend v-if="props.label" :id="legendId">
       {{ props.label }}
       <span
@@ -168,8 +174,8 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
       >
         <KdsRadioButton
           :disabled="props.disabled || option.disabled"
-          :error="props.error"
-          :helper-text="option.helperText"
+          :error="option.error"
+          :helper-text="option.subText"
           :label="option.label"
           :model-value="modelValue === option.value"
           :tabindex="tabIndexForOption(index)"
@@ -178,6 +184,14 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
           @update:model-value="() => selectIndex(index)"
         />
       </div>
+    </div>
+
+    <div
+      v-if="props.subText"
+      :id="legendId + '-subtext'"
+      :class="{ subtext: true, error: anyOptionError }"
+    >
+      {{ props.subText }}
     </div>
   </fieldset>
 </template>
@@ -217,5 +231,15 @@ legend {
 
 .option {
   display: flex;
+}
+
+.subtext {
+  margin-top: var(--kds-spacing-container-0-25x);
+  font: var(--kds-font-base-subtext-small);
+  color: var(--kds-color-text-and-icon-muted);
+
+  &.error {
+    color: var(--kds-color-text-and-icon-danger);
+  }
 }
 </style>

@@ -60,8 +60,9 @@ export type KdsRadioButtonGroupOption<
   label: string;
   value: TValue;
   disabled?: boolean;
-  helperText?: string;
+  subText?: string;
   title?: string;
+  error?: boolean;
 };
 
 export type KdsRadioButtonGroupProps<
@@ -71,7 +72,7 @@ export type KdsRadioButtonGroupProps<
   alignment?: KdsRadioButtonGroupAlignment;
   options: AtLeastTwo<KdsRadioButtonGroupOption<TValue>>;
   disabled?: boolean;
-  error?: boolean;
+  subText?: string;
 } & KdsLabelProps;
 
 // supports minimal props
