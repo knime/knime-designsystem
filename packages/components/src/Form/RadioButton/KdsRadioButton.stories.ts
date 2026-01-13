@@ -82,7 +82,7 @@ export const Selected: Story = {
   },
 };
 
-export const subText: Story = {
+export const WithSubText: Story = {
   args: {
     label: "Label",
     subText: "Helper text",
