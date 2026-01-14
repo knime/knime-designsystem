@@ -102,7 +102,7 @@ export const Disabled: Story = {
 export const Error: Story = {
   args: {
     label: "Label",
-    subText: "Error message",
+    subText: "Helper text",
     modelValue: false,
     error: true,
   },
