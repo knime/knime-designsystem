@@ -26,7 +26,8 @@ const possibleValues = computed(
     }) satisfies KdsRadioButtonGroupOption[],
 );
 
-const legendId = useId();
+const labelId = useId();
+const descriptionId = useId();
 
 const optionContainerEls = ref<Array<HTMLElement | null>>([]);
 
@@ -158,12 +159,15 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
 </script>
 
 <template>
-  <fieldset
-    :disabled="props.disabled"
+  <div
     class="radio-button-group"
-    :aria-describedby="props.subText ? legendId + '-subtext' : undefined"
+    role="radiogroup"
+    :aria-labelledby="props.label ? labelId : undefined"
+    :aria-describedby="
+      props.subText || props.preserveSubTextSpace ? descriptionId : undefined
+    "
   >
-    <legend v-if="props.label" :id="legendId">
+    <div v-if="props.label" :id="labelId" class="label">
       {{ props.label }}
       <span
         v-if="props.trailingIcon"
@@ -172,9 +176,9 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
       >
         <KdsIcon :name="props.trailingIcon" size="xsmall" />
       </span>
-    </legend>
+    </div>
 
-    <div :class="{ options: true, horizontal: isHorizontal }" role="radiogroup">
+    <div :class="{ options: true, horizontal: isHorizontal }">
       <div
         v-for="(option, index) in possibleValues"
         :key="option.id"
@@ -196,16 +200,16 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
 
     <div
       v-if="props.subText || props.preserveSubTextSpace"
-      :id="legendId + '-subtext'"
+      :id="descriptionId"
       :class="{ subtext: true, error: anyOptionError }"
     >
       {{ props.subText }}
     </div>
-  </fieldset>
+  </div>
 </template>
 
 <style scoped>
-legend {
+.label {
   display: flex;
   gap: var(--kds-spacing-container-0-25x);
   align-items: center;
