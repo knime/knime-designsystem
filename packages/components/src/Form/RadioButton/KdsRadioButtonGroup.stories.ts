@@ -104,7 +104,7 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
     preserveSubTextSpace: {
       control: { type: "boolean" },
       description:
-        "Reserves space for subText even when it's empty to prevent layout jumps.",
+        "Reserve space for subtext to prevent layout shifts when helper text or errors appear",
       table: { category: "Props" },
     },
   },
