@@ -27,15 +27,15 @@ const meta: Meta<typeof KdsRadioButton> = {
       table: { category: "Model" },
       description: "Emitted when the model changes (v-model update).",
     },
-    label: {
+    text: {
       control: { type: "text" },
-      description: "Required label text shown next to the control.",
+      description: "Required text shown next to the control.",
       table: { category: "Props" },
     },
     subText: {
       control: { type: "text" },
       description:
-        "Optional helper text shown under the label and referenced via aria-describedby.",
+        "Optional helper text shown under the text and referenced via aria-describedby.",
       table: { category: "Props" },
     },
     disabled: {
@@ -87,21 +87,21 @@ export default meta;
 
 export const Default: Story = {
   args: {
-    label: "Label",
+    text: "Label",
     modelValue: false,
   },
 };
 
 export const Selected: Story = {
   args: {
-    label: "Label",
+    text: "Label",
     modelValue: true,
   },
 };
 
 export const WithSubText: Story = {
   args: {
-    label: "Label",
+    text: "Label",
     subText: "Helper text",
     modelValue: false,
   },
@@ -109,7 +109,7 @@ export const WithSubText: Story = {
 
 export const Disabled: Story = {
   args: {
-    label: "Label",
+    text: "Label",
     subText: "Helper text",
     modelValue: true,
     disabled: true,
@@ -118,7 +118,7 @@ export const Disabled: Story = {
 
 export const Error: Story = {
   args: {
-    label: "Label",
+    text: "Label",
     subText: "Helper text",
     modelValue: false,
     error: true,
@@ -132,13 +132,13 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       modelValue: [false, true],
       disabled: [false, true],
       error: [false, true],
-      label: ["Label"],
+      text: ["Label"],
     },
     {
       modelValue: [false, true],
       disabled: [false, true],
       error: [false, true],
-      label: ["Label"],
+      text: ["Label"],
       subText: ["Helper text"],
     },
   ],
@@ -149,7 +149,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   designsToCompare: {
     Default: {
       props: {
-        label: "Label",
+        text: "Label",
         modelValue: false,
         subText: "{SubText content}",
       },
@@ -179,7 +179,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     },
     Selected: {
       props: {
-        label: "Label",
+        text: "Label",
         modelValue: true,
         subText: "{SubText content}",
       },
@@ -216,10 +216,9 @@ export const TextOverflow: Story = {
     width: 200,
   }),
   args: {
-    label:
-      "This is a very long radio label that should overflow and wrap properly when the container is too narrow",
+    text: "This is a very long radio label that should overflow and wrap properly when the container is too narrow",
     subText:
-      "This is a very long helper text that should also overflow and wrap properly when there is not enough space",
+      "This is a very long helper text that should also overflow and wrap properly to test layout stability and accessibility",
     modelValue: false,
   },
 };

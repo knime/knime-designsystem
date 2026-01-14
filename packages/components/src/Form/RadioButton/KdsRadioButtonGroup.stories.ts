@@ -14,19 +14,19 @@ import type { KdsRadioButtonGroupProps } from "./types.ts";
 
 type Story = StoryObj<typeof KdsRadioButtonGroup>;
 
-const twoOptions: KdsRadioButtonGroupProps["options"] = [
+const twoOptions: KdsRadioButtonGroupProps["possibleValues"] = [
   "Option A",
   "Option B",
 ];
 
-const optionsWithError: KdsRadioButtonGroupProps["options"] = [
-  { label: "Option A", value: "a", error: true, subText: "Sub Text" },
-  { label: "Option B", value: "b" },
+const optionsWithError: KdsRadioButtonGroupProps["possibleValues"] = [
+  { text: "Option A", id: "a", error: true, subText: "Sub Text" },
+  { text: "Option B", id: "b" },
 ];
 
-const optionsWithSubText: KdsRadioButtonGroupProps["options"] = [
-  { label: "Option A", value: "a", subText: "Helper text" },
-  { label: "Option B", value: "b", subText: "Helper text" },
+const optionsWithSubText: KdsRadioButtonGroupProps["possibleValues"] = [
+  { text: "Option A", id: "a", subText: "Helper text" },
+  { text: "Option B", id: "b", subText: "Helper text" },
 ];
 
 const meta: Meta<typeof KdsRadioButtonGroup> = {
@@ -39,7 +39,7 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
     docs: {
       description: {
         component:
-          "A radio button group component that renders a list of options from a data array and manages selection via v-model.",
+          "A radio button group component that renders a list of possible values from a data array and manages selection via v-model.",
       },
     },
     design: {
@@ -51,7 +51,7 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
     modelValue: {
       control: { type: "text" },
       description:
-        "The currently selected option value. Can be null when no option is selected.",
+        "The currently selected option id. Can be null when no option is selected.",
       table: { category: "Model" },
     },
     "onUpdate:modelValue": {
@@ -63,42 +63,42 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
       description: "Group label as a legend of the fieldset.",
       table: { category: "Props" },
     },
-    options: {
+    possibleValues: {
       control: { type: "object" },
       description:
-        "Required options array (at least 2 entries). Each option may be a plain string or an object with label, value, and optional disabled/subText/error for advanced settings.",
+        "Required possibleValues array (at least 2 entries). Each entry may be a plain string or an object with text, id, and optional disabled/subText/error for advanced settings.",
       table: { category: "Props" },
     },
     alignment: {
       control: { type: "select" },
       options: ["vertical", "horizontal"],
       description:
-        "Layout of the options: vertical (column) or horizontal (row, wrapping).",
+        "Layout of the radio buttons: vertical (column) or horizontal (row, wrapping).",
       table: { category: "Props" },
     },
     disabled: {
       control: { type: "boolean" },
       description:
-        "Disables the whole group (and therefore all options) and prevents interaction.",
+        "Disables the whole group (and therefore all possible values) and prevents interaction.",
       table: { category: "Props" },
     },
-    labelTrailingIcon: {
+    trailingIcon: {
       control: { type: "select" },
       options: kdsIconNames,
       description:
-        "Optional icon shown next to the label. Requires labelTrailingIconTitle for the tooltip/title.",
+        "Optional icon shown next to the label. Requires trailingIconTitle for the tooltip/title.",
       table: { category: "Props" },
     },
-    labelTrailingIconTitle: {
+    trailingIconTitle: {
       control: { type: "text" },
       description:
-        "Title/tooltip for labelTrailingIcon (accessibility + hover tooltip).",
+        "Title/tooltip for trailingIcon (accessibility + hover tooltip).",
       table: { category: "Props" },
     },
     subText: {
       control: { type: "text" },
       description:
-        "Optional helper or error text shown below the options and referenced via aria-describedby.",
+        "Optional helper or error text shown below the possible values and referenced via aria-describedby.",
       table: { category: "Props" },
     },
     preserveSubTextSpace: {
@@ -110,7 +110,7 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
   },
   args: {
     label: "Label",
-    options: ["Option A", "Option B", "Option C", "Option D"],
+    possibleValues: ["Option A", "Option B", "Option C", "Option D"],
     modelValue: "Option A",
     "onUpdate:modelValue": fn(),
   },
@@ -139,9 +139,9 @@ export const Default: Story = {};
 export const WithTrailingIcon: Story = {
   args: {
     label: "Label",
-    labelTrailingIcon: "re-execution",
-    labelTrailingIconTitle: "Needs re-execution",
-    options: ["Option A", "Option B", "Option C", "Option D"],
+    trailingIcon: "re-execution",
+    trailingIconTitle: "Needs re-execution",
+    possibleValues: ["Option A", "Option B", "Option C", "Option D"],
     modelValue: "a",
   },
 };
@@ -168,27 +168,27 @@ export const Horizontal: Story = {
 export const HorizontalWithHelperTexts: Story = {
   args: {
     alignment: "horizontal",
-    options: [
-      { label: "Option A", value: "a", subText: "Helper text" },
+    possibleValues: [
+      { text: "Option A", id: "a", subText: "Helper text" },
       {
-        label: "Option B",
-        value: "b",
+        text: "Option B",
+        id: "b",
         subText: "Very long helper text that causes problems",
       },
-      { label: "Option C", value: "c", subText: "Helper text" },
+      { text: "Option C", id: "c", subText: "Helper text" },
     ],
   },
 };
 
 export const TwoOptions: Story = {
   args: {
-    options: twoOptions,
+    possibleValues: twoOptions,
   },
 };
 
 export const WithOptionsSubText: Story = {
   args: {
-    options: optionsWithSubText,
+    possibleValues: optionsWithSubText,
   },
 };
 
@@ -200,9 +200,9 @@ export const Disabled: Story = {
 
 export const Error: Story = {
   args: {
-    options: [
-      { label: "Option A", value: "a", error: true },
-      { label: "Option B", value: "b" },
+    possibleValues: [
+      { text: "Option A", id: "a", error: true },
+      { text: "Option B", id: "b" },
     ],
     subText: "Selected option has an error",
   },
@@ -211,7 +211,7 @@ export const Error: Story = {
 export const WithoutLabel: Story = {
   args: {
     label: undefined,
-    options: ["Option A", "Option B", "Option C", "Option D"],
+    possibleValues: ["Option A", "Option B", "Option C", "Option D"],
     modelValue: "a",
   },
 };
@@ -223,12 +223,12 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       label: ["Label"],
       subText: [undefined, "Additional information"],
       preserveSubTextSpace: [false, true],
-      options: [twoOptions, optionsWithError, optionsWithSubText],
+      possibleValues: [twoOptions, optionsWithError, optionsWithSubText],
       modelValue: [null, "a", "b"],
       alignment: ["vertical", "horizontal"],
       disabled: [false, true],
-      labelTrailingIcon: [undefined, "re-execution"],
-      labelTrailingIconTitle: ["Needs re-execution"],
+      trailingIcon: [undefined, "re-execution"],
+      trailingIconTitle: ["Needs re-execution"],
     },
   ],
 });
@@ -239,15 +239,15 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     Default: {
       props: {
         label: "{Label}",
-        options: [
-          { label: "Label", value: "a" },
-          { label: "Label", value: "b" },
-          { label: "Label", value: "c" },
-          { label: "Label", value: "d" },
+        possibleValues: [
+          { text: "Label", id: "a" },
+          { text: "Label", id: "b" },
+          { text: "Label", id: "c" },
+          { text: "Label", id: "d" },
         ],
         modelValue: "a",
-        labelTrailingIcon: "re-execution",
-        labelTrailingIconTitle: "Needs re-execution",
+        trailingIcon: "re-execution",
+        trailingIconTitle: "Needs re-execution",
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7118-319373&m=dev":
@@ -261,15 +261,15 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     Error: {
       props: {
         label: "{Label}",
-        options: [
-          { label: "Label", value: "a", error: true },
-          { label: "Label", value: "b" },
-          { label: "Label", value: "c" },
-          { label: "Label", value: "d" },
+        possibleValues: [
+          { text: "Label", id: "a", error: true },
+          { text: "Label", id: "b" },
+          { text: "Label", id: "c" },
+          { text: "Label", id: "d" },
         ],
         modelValue: "a",
-        labelTrailingIcon: "re-execution",
-        labelTrailingIconTitle: "Needs re-execution",
+        trailingIcon: "re-execution",
+        trailingIconTitle: "Needs re-execution",
         subText: "{Error message}",
       },
       variants: {
@@ -292,28 +292,26 @@ export const TextOverflow: Story = {
   args: {
     label:
       "This is a very long group label that should overflow and wrap properly when the container is too narrow",
-    options: [
+    possibleValues: [
       {
-        label: "Short label",
-        value: "a",
+        text: "Short label",
+        id: "a",
         subText: "Short helper",
       },
       {
-        label:
-          "This is a very long option label that should overflow and wrap properly",
-        value: "b",
+        text: "This is a very long option label that should overflow and wrap properly",
+        id: "b",
         subText: "Helper text that is also quite long and may wrap",
       },
       {
-        label:
-          "This is another very long option label that should overflow and wrap properly",
-        value: "c",
+        text: "This is another very long option label that should overflow and wrap properly",
+        id: "c",
         subText: "Another helper text that is also quite long and may wrap",
       },
     ],
     modelValue: "a",
-    labelTrailingIcon: "re-execution",
-    labelTrailingIconTitle: "Needs re-execution",
+    trailingIcon: "re-execution",
+    trailingIconTitle: "Needs re-execution",
     alignment: "horizontal",
     subText: "General sub text for the entire radio button group",
   },

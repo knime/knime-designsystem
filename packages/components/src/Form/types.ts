@@ -1,12 +1,12 @@
 import type { KdsIconName } from "..";
 
 export type KdsLabelProps =
-  | { label?: never; labelTrailingIcon?: never; labelTrailingIconTitle?: never }
-  | { label: string; labelTrailingIcon?: never; labelTrailingIconTitle?: never }
+  | { label?: never; trailingIcon?: never; trailingIconTitle?: never }
+  | { label: string; trailingIcon?: never; trailingIconTitle?: never }
   | {
       label: string;
-      labelTrailingIcon: KdsIconName;
-      labelTrailingIconTitle: string;
+      trailingIcon: KdsIconName;
+      trailingIconTitle: string;
     };
 
 export type KdsSubTextProps = {

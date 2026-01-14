@@ -51,7 +51,7 @@ const handleClick = () => {
       </svg>
     </div>
     <div class="content">
-      <div class="label">{{ props.label }}</div>
+      <div class="label">{{ props.text }}</div>
       <div v-if="props.subText" :id="`${id}-helper`" class="sub-text">
         {{ props.subText }}
       </div>

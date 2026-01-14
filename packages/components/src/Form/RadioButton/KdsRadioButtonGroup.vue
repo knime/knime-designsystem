@@ -16,11 +16,11 @@ const props = withDefaults(defineProps<KdsRadioButtonGroupProps>(), {
 
 const modelValue = defineModel<string>({ required: true });
 
-const options = computed(
+const possibleValues = computed(
   () =>
-    props.options.map((o) => {
+    props.possibleValues.map((o) => {
       if (typeof o === "string") {
-        return { label: o, value: o };
+        return { text: o, id: o };
       }
       return o;
     }) satisfies KdsRadioButtonGroupOption[],
@@ -31,19 +31,21 @@ const legendId = useId();
 const optionContainerEls = ref<Array<HTMLElement | null>>([]);
 
 const isOptionDisabled = (index: number) =>
-  props.disabled || options.value[index]?.disabled === true;
+  props.disabled || possibleValues.value[index]?.disabled === true;
 
 const selectedIndex = computed(() =>
-  options.value.findIndex((option) => option.value === modelValue.value),
+  possibleValues.value.findIndex((option) => option.id === modelValue.value),
 );
 
 const firstEnabledIndex = computed(() =>
-  options.value.findIndex((_, index) => !isOptionDisabled(index)),
+  possibleValues.value.findIndex((_, index) => !isOptionDisabled(index)),
 );
 
 const isHorizontal = computed(() => props.alignment === "horizontal");
 
-const anyOptionError = computed(() => options.value.some((o) => o.error));
+const anyOptionError = computed(() =>
+  possibleValues.value.some((o) => o.error),
+);
 
 const tabIndexForOption = (index: number) => {
   if (isOptionDisabled(index)) {
@@ -68,17 +70,19 @@ const selectIndex = (index: number) => {
   if (isOptionDisabled(index)) {
     return;
   }
-  modelValue.value = options.value[index].value;
+  modelValue.value = possibleValues.value[index].id;
 };
 
 const nextEnabledIndex = (startIndex: number, direction: 1 | -1) => {
-  if (props.options.length === 0) {
+  if (props.possibleValues.length === 0) {
     return -1;
   }
 
   let index = startIndex;
-  for (let i = 0; i < props.options.length; i++) {
-    index = (index + direction + props.options.length) % props.options.length;
+  for (let i = 0; i < props.possibleValues.length; i++) {
+    index =
+      (index + direction + props.possibleValues.length) %
+      props.possibleValues.length;
     if (!isOptionDisabled(index)) {
       return index;
     }
@@ -103,7 +107,7 @@ const goToFirstEnabled = () => {
 };
 
 const goToLastEnabled = () => {
-  for (let i = props.options.length - 1; i >= 0; i--) {
+  for (let i = props.possibleValues.length - 1; i >= 0; i--) {
     if (!isOptionDisabled(i)) {
       selectIndex(i);
       focusOption(i);
@@ -162,18 +166,18 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
     <legend v-if="props.label" :id="legendId">
       {{ props.label }}
       <span
-        v-if="props.labelTrailingIcon"
-        :title="props.labelTrailingIconTitle"
+        v-if="props.trailingIcon"
+        :title="props.trailingIconTitle"
         class="icon-wrapper"
       >
-        <KdsIcon :name="props.labelTrailingIcon" size="xsmall" />
+        <KdsIcon :name="props.trailingIcon" size="xsmall" />
       </span>
     </legend>
 
     <div :class="{ options: true, horizontal: isHorizontal }" role="radiogroup">
       <div
-        v-for="(option, index) in options"
-        :key="option.value"
+        v-for="(option, index) in possibleValues"
+        :key="option.id"
         :ref="(el) => (optionContainerEls[index] = el as HTMLElement | null)"
         class="option"
       >
@@ -181,8 +185,8 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
           :disabled="props.disabled || option.disabled"
           :error="option.error"
           :sub-text="option.subText"
-          :label="option.label"
-          :model-value="modelValue === option.value"
+          :text="option.text"
+          :model-value="modelValue === option.id"
           :tabindex="tabIndexForOption(index)"
           @keydown="(e: KeyboardEvent) => handleKeyDown(e, index)"
           @update:model-value="() => selectIndex(index)"
