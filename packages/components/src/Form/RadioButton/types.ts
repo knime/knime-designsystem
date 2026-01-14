@@ -2,7 +2,7 @@ import type { KdsLabelProps, KdsSubTextProps } from "../types.ts";
 
 export type KdsRadioButtonProps = {
   text: string;
-  subText?: string;
+  helperText?: string;
   disabled?: boolean;
   error?: boolean;
 };
@@ -15,7 +15,7 @@ export type KdsRadioButtonGroupOption = {
   text: string;
   id: string;
   disabled?: boolean;
-  subText?: string;
+  helperText?: string;
   error?: boolean;
 };
 
@@ -29,11 +29,11 @@ export type KdsRadioButtonGroupProps = {
 // supports just text
 propTypeTester<KdsRadioButtonProps>({ text: "foo" });
 // supports both text and helper text
-propTypeTester<KdsRadioButtonProps>({ text: "foo", subText: "bar" });
+propTypeTester<KdsRadioButtonProps>({ text: "foo", helperText: "bar" });
 // @ts-expect-error - text is required
 propTypeTester<KdsRadioButtonProps>({});
 // @ts-expect-error - should not allow helper text without text
-propTypeTester<KdsRadioButtonProps>({ subText: "foo" });
+propTypeTester<KdsRadioButtonProps>({ helperText: "foo" });
 
 // supports minimal props
 propTypeTester<KdsRadioButtonGroupProps>({

@@ -20,13 +20,13 @@ const twoOptions: KdsRadioButtonGroupProps["possibleValues"] = [
 ];
 
 const optionsWithError: KdsRadioButtonGroupProps["possibleValues"] = [
-  { text: "Option A", id: "a", error: true, subText: "Sub Text" },
+  { text: "Option A", id: "a", error: true, helperText: "Helper text" },
   { text: "Option B", id: "b" },
 ];
 
-const optionsWithSubText: KdsRadioButtonGroupProps["possibleValues"] = [
-  { text: "Option A", id: "a", subText: "Helper text" },
-  { text: "Option B", id: "b", subText: "Helper text" },
+const optionsWithHelperText: KdsRadioButtonGroupProps["possibleValues"] = [
+  { text: "Option A", id: "a", helperText: "Helper text" },
+  { text: "Option B", id: "b", helperText: "Helper text" },
 ];
 
 const meta: Meta<typeof KdsRadioButtonGroup> = {
@@ -66,7 +66,7 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
     possibleValues: {
       control: { type: "object" },
       description:
-        "Required possibleValues array (at least 2 entries). Each entry may be a plain string or an object with text, id, and optional disabled/subText/error for advanced settings.",
+        "Required possibleValues array (at least 2 entries). Each entry may be a plain string or an object with text, id, and optional disabled/helperText/error for advanced settings.",
       table: { category: "Props" },
     },
     alignment: {
@@ -169,13 +169,13 @@ export const HorizontalWithHelperTexts: Story = {
   args: {
     alignment: "horizontal",
     possibleValues: [
-      { text: "Option A", id: "a", subText: "Helper text" },
+      { text: "Option A", id: "a", helperText: "Helper text" },
       {
         text: "Option B",
         id: "b",
-        subText: "Very long helper text that causes problems",
+        helperText: "Very long helper text that causes problems",
       },
-      { text: "Option C", id: "c", subText: "Helper text" },
+      { text: "Option C", id: "c", helperText: "Helper text" },
     ],
   },
 };
@@ -186,9 +186,9 @@ export const TwoOptions: Story = {
   },
 };
 
-export const WithOptionsSubText: Story = {
+export const WithOptionsHelperText: Story = {
   args: {
-    possibleValues: optionsWithSubText,
+    possibleValues: optionsWithHelperText,
   },
 };
 
@@ -223,7 +223,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       label: ["Label", undefined],
       subText: [undefined, "Additional information"],
       preserveSubTextSpace: [false, true],
-      possibleValues: [twoOptions, optionsWithError, optionsWithSubText],
+      possibleValues: [twoOptions, optionsWithError, optionsWithHelperText],
       modelValue: [null, "a", "b"],
       alignment: ["vertical", "horizontal"],
       disabled: [false, true],
@@ -296,17 +296,17 @@ export const TextOverflow: Story = {
       {
         text: "Short label",
         id: "a",
-        subText: "Short helper",
+        helperText: "Short helper",
       },
       {
         text: "This is a very long option label that should overflow and wrap properly",
         id: "b",
-        subText: "Helper text that is also quite long and may wrap",
+        helperText: "Helper text that is also quite long and may wrap",
       },
       {
         text: "This is another very long option label that should overflow and wrap properly",
         id: "c",
-        subText: "Another helper text that is also quite long and may wrap",
+        helperText: "Another helper text that is also quite long and may wrap",
       },
     ],
     modelValue: "a",

@@ -26,7 +26,7 @@ const handleClick = () => {
 <template>
   <button
     :aria-checked="modelValue"
-    :aria-describedby="props.subText ? `${id}-helper` : undefined"
+    :aria-describedby="props.helperText ? `${id}-helper` : undefined"
     :aria-invalid="props.error"
     :class="{
       radio: true,
@@ -52,8 +52,8 @@ const handleClick = () => {
     </div>
     <div class="content">
       <div class="label">{{ props.text }}</div>
-      <div v-if="props.subText" :id="`${id}-helper`" class="sub-text">
-        {{ props.subText }}
+      <div v-if="props.helperText" :id="`${id}-helper`" class="helper-text">
+        {{ props.helperText }}
       </div>
     </div>
   </button>
@@ -67,7 +67,7 @@ const handleClick = () => {
   --border: var(--kds-border-action-input);
   --dot-color: var(--kds-color-text-and-icon-selected);
   --text-color: var(--kds-color-text-and-icon-neutral);
-  --sub-text-color: var(--kds-color-text-and-icon-muted);
+  --helper-text-color: var(--kds-color-text-and-icon-muted);
 
   display: flex;
   gap: var(--kds-spacing-container-0-5x);
@@ -141,9 +141,9 @@ const handleClick = () => {
       color: var(--text-color);
     }
 
-    & .sub-text {
+    & .helper-text {
       font: var(--kds-font-base-subtext-small);
-      color: var(--sub-text-color);
+      color: var(--helper-text-color);
     }
   }
 
@@ -152,7 +152,7 @@ const handleClick = () => {
     --border: var(--kds-border-action-disabled);
     --dot-color: var(--kds-color-text-and-icon-disabled);
     --text-color: var(--kds-color-text-and-icon-disabled);
-    --sub-text-color: var(--kds-color-text-and-icon-disabled);
+    --helper-text-color: var(--kds-color-text-and-icon-disabled);
 
     cursor: default;
   }
