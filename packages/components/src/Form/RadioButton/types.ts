@@ -20,7 +20,7 @@ export type KdsRadioButtonGroupOption<TValue extends string = string> = {
 };
 
 export type KdsRadioButtonGroupProps<TValue extends string = string> = {
-  options: AtLeastTwo<KdsRadioButtonGroupOption<TValue>>;
+  options: AtLeastTwo<TValue | KdsRadioButtonGroupOption<TValue>>;
   alignment?: KdsRadioButtonGroupAlignment;
   disabled?: boolean;
 } & KdsLabelProps &

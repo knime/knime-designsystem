@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { fn } from "storybook/test";
 
+import { kdsIconNames } from "../../Icon/constants";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
@@ -13,16 +14,9 @@ import type { KdsRadioButtonGroupProps } from "./types.ts";
 
 type Story = StoryObj<typeof KdsRadioButtonGroup>;
 
-const fourOptions: KdsRadioButtonGroupProps["options"] = [
-  { label: "Option A", value: "a" },
-  { label: "Option B", value: "b" },
-  { label: "Option C", value: "c" },
-  { label: "Option D", value: "d" },
-];
-
 const twoOptions: KdsRadioButtonGroupProps["options"] = [
-  { label: "Option A", value: "a" },
-  { label: "Option B", value: "b" },
+  "Option A",
+  "Option B",
 ];
 
 const optionsWithError: KdsRadioButtonGroupProps["options"] = [
@@ -30,7 +24,7 @@ const optionsWithError: KdsRadioButtonGroupProps["options"] = [
   { label: "Option B", value: "b" },
 ];
 
-const optionsWithHelperText: KdsRadioButtonGroupProps["options"] = [
+const optionsWithSubText: KdsRadioButtonGroupProps["options"] = [
   { label: "Option A", value: "a", subText: "Helper text" },
   { label: "Option B", value: "b", subText: "Helper text" },
 ];
@@ -41,43 +35,83 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
     typeof KdsRadioButtonGroup
   >["component"],
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A radio button group component that renders a list of options from a data array and manages selection via v-model.",
+      },
+    },
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9325-7964&p=f&m=dev",
+    },
+  },
   argTypes: {
     modelValue: {
       control: { type: "text" },
+      description:
+        "The currently selected option value. Can be null when no option is selected.",
+      table: { category: "Model" },
+    },
+    "onUpdate:modelValue": {
+      table: { category: "Model" },
+      description: "Emitted when the model changes (v-model update).",
+    },
+    label: {
+      control: { type: "text" },
+      description: "Group label as a legend of the fieldset.",
+      table: { category: "Props" },
+    },
+    options: {
+      control: { type: "object" },
+      description:
+        "Required options array (at least 2 entries). Each option may be a plain string or an object with label, value, and optional disabled/subText/error for advanced settings.",
+      table: { category: "Props" },
     },
     alignment: {
       control: { type: "select" },
       options: ["vertical", "horizontal"],
+      description:
+        "Layout of the options: vertical (column) or horizontal (row, wrapping).",
+      table: { category: "Props" },
     },
     disabled: {
       control: { type: "boolean" },
-    },
-    error: {
-      control: { type: "boolean" },
-    },
-    label: {
-      control: { type: "text" },
+      description:
+        "Disables the whole group (and therefore all options) and prevents interaction.",
+      table: { category: "Props" },
     },
     labelTrailingIcon: {
-      control: { type: "text" },
+      control: { type: "select" },
+      options: kdsIconNames,
+      description:
+        "Optional icon shown next to the label. Requires labelTrailingIconTitle for the tooltip/title.",
+      table: { category: "Props" },
     },
     labelTrailingIconTitle: {
       control: { type: "text" },
+      description:
+        "Title/tooltip for labelTrailingIcon (accessibility + hover tooltip).",
+      table: { category: "Props" },
     },
     subText: {
       control: { type: "text" },
+      description:
+        "Optional helper or error text shown below the options and referenced via aria-describedby.",
+      table: { category: "Props" },
     },
     preserveSubTextSpace: {
       control: { type: "boolean" },
-    },
-    options: {
-      control: { type: "object" },
+      description:
+        "Reserves space for subText even when it's empty to prevent layout jumps.",
+      table: { category: "Props" },
     },
   },
   args: {
     label: "Label",
-    options: fourOptions,
-    modelValue: "a",
+    options: ["Option A", "Option B", "Option C", "Option D"],
+    modelValue: "Option A",
     "onUpdate:modelValue": fn(),
   },
   decorators: [
@@ -96,18 +130,6 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
       };
     },
   ],
-  parameters: {
-    docs: {
-      description: {
-        component:
-          "A radio button group component that renders a list of options from a data array and manages selection via v-model.",
-      },
-    },
-    design: {
-      type: "figma",
-      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9325-7964&p=f&m=dev",
-    },
-  },
 };
 
 export default meta;
@@ -119,7 +141,7 @@ export const WithTrailingIcon: Story = {
     label: "Label",
     labelTrailingIcon: "re-execution",
     labelTrailingIconTitle: "Needs re-execution",
-    options: fourOptions,
+    options: ["Option A", "Option B", "Option C", "Option D"],
     modelValue: "a",
   },
 };
@@ -149,9 +171,9 @@ export const TwoOptions: Story = {
   },
 };
 
-export const WithHelperText: Story = {
+export const WithOptionsSubText: Story = {
   args: {
-    options: optionsWithHelperText,
+    options: optionsWithSubText,
   },
 };
 
@@ -174,7 +196,7 @@ export const Error: Story = {
 export const WithoutLabel: Story = {
   args: {
     label: undefined,
-    options: fourOptions,
+    options: ["Option A", "Option B", "Option C", "Option D"],
     modelValue: "a",
   },
 };
@@ -186,7 +208,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       label: ["Label"],
       subText: [undefined, "Additional information"],
       preserveSubTextSpace: [false, true],
-      options: [twoOptions, optionsWithError, optionsWithHelperText],
+      options: [twoOptions, optionsWithError, optionsWithSubText],
       modelValue: [null, "a", "b"],
       alignment: ["vertical", "horizontal"],
       disabled: [false, true],

@@ -4,7 +4,10 @@ import { computed, ref, useId } from "vue";
 import KdsIcon from "../../Icon/KdsIcon.vue";
 
 import KdsRadioButton from "./KdsRadioButton.vue";
-import type { KdsRadioButtonGroupProps } from "./types.ts";
+import type {
+  KdsRadioButtonGroupOption,
+  KdsRadioButtonGroupProps,
+} from "./types.ts";
 
 const props = withDefaults(defineProps<KdsRadioButtonGroupProps>(), {
   disabled: false,
@@ -13,24 +16,34 @@ const props = withDefaults(defineProps<KdsRadioButtonGroupProps>(), {
 
 const modelValue = defineModel<string | null>({ default: null });
 
+const options = computed(
+  () =>
+    props.options.map((o) => {
+      if (typeof o === "string") {
+        return { label: o, value: o };
+      }
+      return o;
+    }) satisfies KdsRadioButtonGroupOption[],
+);
+
 const legendId = useId();
 
 const optionContainerEls = ref<Array<HTMLElement | null>>([]);
 
 const isOptionDisabled = (index: number) =>
-  props.disabled || props.options[index]?.disabled === true;
+  props.disabled || options.value[index]?.disabled === true;
 
 const selectedIndex = computed(() =>
-  props.options.findIndex((option) => option.value === modelValue.value),
+  options.value.findIndex((option) => option.value === modelValue.value),
 );
 
 const firstEnabledIndex = computed(() =>
-  props.options.findIndex((_, index) => !isOptionDisabled(index)),
+  options.value.findIndex((_, index) => !isOptionDisabled(index)),
 );
 
 const isHorizontal = computed(() => props.alignment === "horizontal");
 
-const anyOptionError = computed(() => props.options.some((o) => o.error));
+const anyOptionError = computed(() => options.value.some((o) => o.error));
 
 const tabIndexForOption = (index: number) => {
   if (isOptionDisabled(index)) {
@@ -55,7 +68,7 @@ const selectIndex = (index: number) => {
   if (isOptionDisabled(index)) {
     return;
   }
-  modelValue.value = props.options[index].value;
+  modelValue.value = options.value[index].value;
 };
 
 const nextEnabledIndex = (startIndex: number, direction: 1 | -1) => {
@@ -159,7 +172,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
 
     <div :class="{ options: true, horizontal: isHorizontal }" role="radiogroup">
       <div
-        v-for="(option, index) in props.options"
+        v-for="(option, index) in options"
         :key="option.value"
         :ref="(el) => (optionContainerEls[index] = el as HTMLElement | null)"
         class="option"
