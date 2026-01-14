@@ -221,7 +221,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
 .options {
   display: flex;
   flex-direction: column;
-  gap: var(--kds-spacing-container-0-5x);
+  gap: var(--kds-spacing-container-0-37x) var(--kds-spacing-container-0-75x);
 }
 
 .options.horizontal {
