@@ -68,7 +68,7 @@ packages/
 - Style ONLY with CSS custom properties from design tokens - never hardcode colors/spacing/typography!
 - Export components and types in `packages/components/src/index.ts`
 - Follow WCAG accessibility requirements
-- Make all comments in English
+- Write all comments in English
 
 ### Icons & Components
 
