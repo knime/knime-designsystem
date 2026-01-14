@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, fn, userEvent, within } from "storybook/test";
 
-import { kdsIconNames } from "../../Icon/constants";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
@@ -82,19 +81,6 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
         "Disables the whole group (and therefore all possible values) and prevents interaction.",
       table: { category: "Props" },
     },
-    trailingIcon: {
-      control: { type: "select" },
-      options: kdsIconNames,
-      description:
-        "Optional icon shown next to the label. Requires trailingIconTitle for the tooltip/title.",
-      table: { category: "Props" },
-    },
-    trailingIconTitle: {
-      control: { type: "text" },
-      description:
-        "Title/tooltip for trailingIcon (accessibility + hover tooltip).",
-      table: { category: "Props" },
-    },
     subText: {
       control: { type: "text" },
       description:
@@ -135,16 +121,6 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
 export default meta;
 
 export const Default: Story = {};
-
-export const WithTrailingIcon: Story = {
-  args: {
-    label: "Label",
-    trailingIcon: "re-execution",
-    trailingIconTitle: "Needs re-execution",
-    possibleValues: ["Option A", "Option B", "Option C", "Option D"],
-    modelValue: "a",
-  },
-};
 
 export const WithSubText: Story = {
   args: {
@@ -227,8 +203,6 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       modelValue: [null, "a", "b"],
       alignment: ["vertical", "horizontal"],
       disabled: [false, true],
-      trailingIcon: [undefined, "re-execution"],
-      trailingIconTitle: ["Needs re-execution"],
     },
   ],
 });
@@ -246,8 +220,6 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           { text: "Label", id: "d" },
         ],
         modelValue: "a",
-        trailingIcon: "re-execution",
-        trailingIconTitle: "Needs re-execution",
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7118-319373&m=dev":
@@ -268,8 +240,6 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           { text: "Label", id: "d" },
         ],
         modelValue: "a",
-        trailingIcon: "re-execution",
-        trailingIconTitle: "Needs re-execution",
         subText: "{Error message}",
       },
       variants: {
@@ -310,8 +280,6 @@ export const TextOverflow: Story = {
       },
     ],
     modelValue: "a",
-    trailingIcon: "re-execution",
-    trailingIconTitle: "Needs re-execution",
     alignment: "horizontal",
     subText: "General sub text for the entire radio button group",
   },

@@ -43,11 +43,9 @@ propTypeTester<KdsRadioButtonGroupProps>({
   ],
 });
 
-// supports optional label and icon
+// supports optional label
 propTypeTester<KdsRadioButtonGroupProps>({
   label: "Group label",
-  trailingIcon: "re-execution",
-  trailingIconTitle: "Needs re-execution",
   possibleValues: [
     { text: "Option A", id: "a" },
     { text: "Option B", id: "b" },
@@ -57,14 +55,4 @@ propTypeTester<KdsRadioButtonGroupProps>({
 // @ts-expect-error - possibleValues are required
 propTypeTester<KdsRadioButtonGroupProps>({
   label: "Group label",
-});
-
-// @ts-expect-error - icon must also define a title
-propTypeTester<KdsRadioButtonGroupProps>({
-  label: "Group label",
-  trailingIcon: "re-execution",
-  possibleValues: [
-    { text: "Option A", id: "a" },
-    { text: "Option B", id: "b" },
-  ],
 });

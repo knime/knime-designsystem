@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref, useId } from "vue";
 
-import KdsIcon from "../../Icon/KdsIcon.vue";
-
 import KdsRadioButton from "./KdsRadioButton.vue";
 import type {
   KdsRadioButtonGroupOption,
@@ -170,13 +168,6 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
   >
     <div v-if="props.label" :id="labelId" class="label">
       {{ props.label }}
-      <span
-        v-if="props.trailingIcon"
-        :title="props.trailingIconTitle"
-        class="icon-wrapper"
-      >
-        <KdsIcon :name="props.trailingIcon" size="xsmall" />
-      </span>
     </div>
 
     <div :class="{ options: true, horizontal: isHorizontal }">
@@ -219,12 +210,6 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
   padding-bottom: var(--kds-spacing-input-label-spacing-bottom);
   font: var(--kds-font-base-title-small-strong);
   color: var(--kds-color-text-and-icon-neutral);
-}
-
-.icon-wrapper {
-  display: inline-flex;
-  align-items: center;
-  color: var(--kds-color-text-and-icon-muted);
 }
 
 .radio-button-group {

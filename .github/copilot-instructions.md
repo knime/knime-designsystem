@@ -15,7 +15,7 @@ The KNIME Design System is a Vue3 TypeScript monorepo providing design tokens, i
 7. **Testing**: `pnpm test:unit` (runs Vitest unit tests)
 8. **Formatting**: `pnpm format` (runs Prettier with --write)
 
-**ALWAYS RUN TYPE CHECKS, LINTING, UNIT TESTS AND FORMATTING AFTER EACH CHANGE!**
+**ALWAYS UPDATE DOCUMENTATION AND RUN TYPE CHECKS, LINTING, UNIT TESTS AND FORMATTING AFTER EACH CHANGE!**
 
 **Common Build Issues & Solutions:**
 
