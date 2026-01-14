@@ -67,6 +67,9 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
     subText: {
       control: { type: "text" },
     },
+    preserveSubTextSpace: {
+      control: { type: "boolean" },
+    },
     options: {
       control: { type: "object" },
     },
@@ -127,6 +130,13 @@ export const WithSubText: Story = {
   },
 };
 
+export const PreserveSubTextSpace: Story = {
+  args: {
+    subText: undefined,
+    preserveSubTextSpace: true,
+  },
+};
+
 export const Horizontal: Story = {
   args: {
     alignment: "horizontal",
@@ -175,6 +185,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
     {
       label: ["Label"],
       subText: [undefined, "Additional information"],
+      preserveSubTextSpace: [false, true],
       options: [twoOptions, optionsWithError, optionsWithHelperText],
       modelValue: [null, "a", "b"],
       alignment: ["vertical", "horizontal"],

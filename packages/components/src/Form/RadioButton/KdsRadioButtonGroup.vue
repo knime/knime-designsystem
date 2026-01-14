@@ -178,7 +178,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
     </div>
 
     <div
-      v-if="props.subText"
+      v-if="props.subText || props.preserveSubTextSpace"
       :id="legendId + '-subtext'"
       :class="{ subtext: true, error: anyOptionError }"
     >
@@ -222,6 +222,7 @@ legend {
 }
 
 .subtext {
+  min-height: 1lh;
   margin-top: var(--kds-spacing-container-0-25x);
   font: var(--kds-font-base-subtext-small);
   color: var(--kds-color-text-and-icon-muted);
