@@ -220,7 +220,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsRadioButtonGroup,
   combinationsProps: [
     {
-      label: ["Label"],
+      label: ["Label", undefined],
       subText: [undefined, "Additional information"],
       preserveSubTextSpace: [false, true],
       possibleValues: [twoOptions, optionsWithError, optionsWithSubText],
