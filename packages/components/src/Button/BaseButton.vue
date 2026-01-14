@@ -93,7 +93,7 @@ html.kds-legacy {
   }
 
   &.disabled {
-    cursor: not-allowed;
+    cursor: default;
   }
 
   &:focus-visible {
