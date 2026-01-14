@@ -154,7 +154,7 @@ const handleClick = () => {
     --text-color: var(--kds-color-text-and-icon-disabled);
     --sub-text-color: var(--kds-color-text-and-icon-disabled);
 
-    cursor: not-allowed;
+    cursor: default;
   }
 
   &.error {
