@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
-import { fn } from "storybook/test";
+import { expect, fn, userEvent, within } from "storybook/test";
 
 import { kdsIconNames } from "../../Icon/constants";
 import {
@@ -314,5 +314,123 @@ export const TextOverflow: Story = {
     trailingIconTitle: "Needs re-execution",
     alignment: "horizontal",
     subText: "General sub text for the entire radio button group",
+  },
+};
+
+export const Interaction: Story = {
+  args: {
+    label: "Label",
+  },
+  parameters: {
+    controls: { disable: true },
+    actions: { disable: true },
+  },
+  render: () => ({
+    components: { KdsRadioButtonGroup },
+    template: `
+      <div style="display: grid; gap: 24px; align-items: start;">
+        <div>
+          <KdsRadioButtonGroup
+            label="Interactive group"
+            :possible-values="[
+              { text: 'Option A', id: 'a' },
+              { text: 'Option B', id: 'b' },
+              { text: 'Option C (disabled)', id: 'c', disabled: true },
+              { text: 'Option D', id: 'd' },
+            ]"
+            v-model="interactive"
+          />
+        </div>
+
+        <div>
+          <KdsRadioButtonGroup
+            label="Disabled group"
+            :possible-values="[
+              { text: 'Option A', id: 'a' },
+              { text: 'Option B', id: 'b' },
+            ]"
+            v-model="disabledGroup"
+            disabled
+          />
+        </div>
+      </div>
+    `,
+    data() {
+      return {
+        interactive: "a",
+        disabledGroup: "a",
+      };
+    },
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const groups = canvas.getAllByRole("radiogroup");
+
+    // -------- Interactive group --------
+    const interactiveGroup = groups[0];
+    const interactiveScope = within(interactiveGroup);
+
+    const optionA = interactiveScope.getByRole("radio", { name: "Option A" });
+    const optionB = interactiveScope.getByRole("radio", { name: "Option B" });
+    const optionC = interactiveScope.getByRole("radio", {
+      name: "Option C (disabled)",
+    });
+    const optionD = interactiveScope.getByRole("radio", { name: "Option D" });
+
+    await expect(optionA).toHaveAttribute("aria-checked", "true");
+    await expect(optionA).toHaveAttribute("tabindex", "0");
+    await expect(optionB).toHaveAttribute("tabindex", "-1");
+    await expect(optionC).toBeDisabled();
+
+    // Mouse: selection changes
+    await userEvent.click(optionB);
+    await expect(optionB).toHaveAttribute("aria-checked", "true");
+    await expect(optionB).toHaveAttribute("tabindex", "0");
+    await expect(optionA).toHaveAttribute("tabindex", "-1");
+
+    // Keyboard: ArrowRight moves selection and skips disabled option
+    optionB.focus();
+    await userEvent.keyboard("{ArrowRight}");
+    await expect(optionD).toHaveAttribute("aria-checked", "true");
+    await expect(optionD).toHaveFocus();
+
+    // Home -> first enabled
+    await userEvent.keyboard("{Home}");
+    await expect(optionA).toHaveAttribute("aria-checked", "true");
+    await expect(optionA).toHaveFocus();
+
+    // End -> last enabled
+    await userEvent.keyboard("{End}");
+    await expect(optionD).toHaveAttribute("aria-checked", "true");
+    await expect(optionD).toHaveFocus();
+
+    // Enter on disabled should not change selection
+    optionC.focus();
+    await userEvent.keyboard("{Enter}");
+    await expect(optionD).toHaveAttribute("aria-checked", "true");
+
+    // Reset state so the interaction test can be re-run deterministically
+    await userEvent.click(optionA);
+    await expect(optionA).toHaveAttribute("aria-checked", "true");
+    await expect(optionA).toHaveAttribute("tabindex", "0");
+
+    // -------- Disabled group --------
+    const disabledGroup = groups[1];
+    const disabledScope = within(disabledGroup);
+
+    const disabledA = disabledScope.getByRole("radio", { name: "Option A" });
+    const disabledB = disabledScope.getByRole("radio", { name: "Option B" });
+
+    await expect(disabledA).toBeDisabled();
+    await expect(disabledB).toBeDisabled();
+
+    // Neither click nor keyboard should change selection
+    await userEvent.click(disabledB);
+    await expect(disabledA).toHaveAttribute("aria-checked", "true");
+
+    disabledA.focus();
+    await userEvent.keyboard("{ArrowRight}");
+    await expect(disabledA).toHaveAttribute("aria-checked", "true");
   },
 };

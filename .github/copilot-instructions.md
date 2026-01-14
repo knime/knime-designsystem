@@ -60,7 +60,7 @@ packages/
 - Use Composition API with `<script setup lang="ts">`
 - Type all props with `defineProps<T>()` or `withDefaults(defineProps<T>(), {})`
 - Type all emits with `defineEmits<T>()`
-- **IMPORTANT: Use `defineModel()` for v-model bindings** - do NOT manually emit `update:modelValue` events or include `modelValue` in props
+- Use `defineModel()` for v-model bindings\*\* - do NOT manually emit `update:modelValue` events or include `modelValue` in props
 - Use `type` instead of `interface`
 - Create a `types.ts` file for shared types. Don't export types from .vue files. Use global [propTypeTester](../packages/components/globals.d.ts) for static type checks.
 - Use `<style scoped>`
@@ -68,6 +68,7 @@ packages/
 - Style ONLY with CSS custom properties from design tokens - never hardcode colors/spacing/typography!
 - Export components and types in `packages/components/src/index.ts`
 - Follow WCAG accessibility requirements
+- Make all comments in English
 
 ### Icons & Components
 
