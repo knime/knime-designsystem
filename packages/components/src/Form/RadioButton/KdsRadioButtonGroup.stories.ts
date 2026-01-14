@@ -20,7 +20,7 @@ const twoOptions: KdsRadioButtonGroupProps["options"] = [
 ];
 
 const optionsWithError: KdsRadioButtonGroupProps["options"] = [
-  { label: "Option A", value: "a", error: true },
+  { label: "Option A", value: "a", error: true, subText: "Sub Text" },
   { label: "Option B", value: "b" },
 ];
 
@@ -165,6 +165,21 @@ export const Horizontal: Story = {
   },
 };
 
+export const HorizontalWithHelperTexts: Story = {
+  args: {
+    alignment: "horizontal",
+    options: [
+      { label: "Option A", value: "a", subText: "Helper text" },
+      {
+        label: "Option B",
+        value: "b",
+        subText: "Very long helper text that causes problems",
+      },
+      { label: "Option C", value: "c", subText: "Helper text" },
+    ],
+  },
+};
+
 export const TwoOptions: Story = {
   args: {
     options: twoOptions,
@@ -279,18 +294,27 @@ export const TextOverflow: Story = {
       "This is a very long group label that should overflow and wrap properly when the container is too narrow",
     options: [
       {
+        label: "Short label",
+        value: "a",
+        subText: "Short helper",
+      },
+      {
         label:
           "This is a very long option label that should overflow and wrap properly",
-        value: "a",
+        value: "b",
+        subText: "Helper text that is also quite long and may wrap",
       },
       {
         label:
           "This is another very long option label that should overflow and wrap properly",
-        value: "b",
+        value: "c",
+        subText: "Another helper text that is also quite long and may wrap",
       },
     ],
     modelValue: "a",
     labelTrailingIcon: "re-execution",
     labelTrailingIconTitle: "Needs re-execution",
+    alignment: "horizontal",
+    subText: "General sub text for the entire radio button group",
   },
 };
