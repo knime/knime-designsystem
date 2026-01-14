@@ -28,6 +28,7 @@ const possibleValues = computed(
 
 const labelId = useId();
 const descriptionId = useId();
+const groupName = useId();
 
 const optionContainerEls = ref<Array<HTMLElement | null>>([]);
 
@@ -192,6 +193,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
           :text="option.text"
           :model-value="modelValue === option.id"
           :tabindex="tabIndexForOption(index)"
+          :name="groupName"
           @keydown="(e: KeyboardEvent) => handleKeyDown(e, index)"
           @update:model-value="() => selectIndex(index)"
         />
