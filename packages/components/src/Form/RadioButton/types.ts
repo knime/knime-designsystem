@@ -1,7 +1,6 @@
 import type { KdsLabelProps, KdsSubTextProps } from "../types.ts";
 
 export type KdsRadioButtonProps = {
-  modelValue?: boolean;
   label: string;
   subText?: string;
   disabled?: boolean;
@@ -21,7 +20,6 @@ export type KdsRadioButtonGroupOption<TValue extends string = string> = {
 };
 
 export type KdsRadioButtonGroupProps<TValue extends string = string> = {
-  modelValue?: TValue | null;
   options: AtLeastTwo<KdsRadioButtonGroupOption<TValue>>;
   alignment?: KdsRadioButtonGroupAlignment;
   disabled?: boolean;

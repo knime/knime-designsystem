@@ -8,15 +8,10 @@ import type { KdsRadioButtonGroupProps } from "./types.ts";
 
 const props = withDefaults(defineProps<KdsRadioButtonGroupProps>(), {
   disabled: false,
-  modelValue: null,
   alignment: "vertical",
 });
 
-const modelValue = computed(() => props.modelValue ?? null);
-
-const emit = defineEmits<{
-  "update:modelValue": [value: string | null];
-}>();
+const modelValue = defineModel<string | null>({ default: null });
 
 const legendId = useId();
 
@@ -60,7 +55,7 @@ const selectIndex = (index: number) => {
   if (isOptionDisabled(index)) {
     return;
   }
-  emit("update:modelValue", props.options[index].value);
+  modelValue.value = props.options[index].value;
 };
 
 const nextEnabledIndex = (startIndex: number, direction: 1 | -1) => {

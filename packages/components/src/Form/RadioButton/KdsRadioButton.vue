@@ -4,14 +4,11 @@ import { useId } from "vue";
 import type { KdsRadioButtonProps } from "./types.ts";
 
 const props = withDefaults(defineProps<KdsRadioButtonProps>(), {
-  modelValue: false,
   disabled: false,
   error: false,
 });
 
-const emit = defineEmits<{
-  "update:modelValue": [value: boolean];
-}>();
+const modelValue = defineModel<boolean>({ default: false });
 
 const id = useId();
 
@@ -20,8 +17,8 @@ const handleClick = () => {
     return;
   }
   // Radio buttons do not toggle off when clicked; they only set to selected
-  if (!props.modelValue) {
-    emit("update:modelValue", true);
+  if (!modelValue.value) {
+    modelValue.value = true;
   }
 };
 </script>
