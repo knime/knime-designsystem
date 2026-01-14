@@ -74,64 +74,68 @@ const nextEnabledIndex = (startIndex: number, direction: 1 | -1) => {
   return -1;
 };
 
+const moveSelection = (currentIndex: number, direction: 1 | -1) => {
+  const nextIndex = nextEnabledIndex(currentIndex, direction);
+  if (nextIndex >= 0) {
+    selectIndex(nextIndex);
+    focusOption(nextIndex);
+  }
+};
+
+const goToFirstEnabled = () => {
+  if (firstEnabledIndex.value >= 0) {
+    selectIndex(firstEnabledIndex.value);
+    focusOption(firstEnabledIndex.value);
+  }
+};
+
+const goToLastEnabled = () => {
+  for (let i = props.options.length - 1; i >= 0; i--) {
+    if (!isOptionDisabled(i)) {
+      selectIndex(i);
+      focusOption(i);
+      break;
+    }
+  }
+};
+
 const handleKeyDown = (event: KeyboardEvent, index: number) => {
   if (props.disabled) {
     return;
   }
 
-  const key = event.key;
-
-  if (
-    key === "ArrowDown" ||
-    key === "ArrowUp" ||
-    key === "ArrowLeft" ||
-    key === "ArrowRight" ||
-    key === "Home" ||
-    key === "End"
-  ) {
-    event.preventDefault();
-  }
-
-  if (key === "ArrowDown" || key === "ArrowRight") {
-    const nextIndex = nextEnabledIndex(index, 1);
-    if (nextIndex >= 0) {
-      selectIndex(nextIndex);
-      focusOption(nextIndex);
+  switch (event.key) {
+    case "ArrowDown":
+    case "ArrowRight": {
+      event.preventDefault();
+      moveSelection(index, 1);
+      return;
     }
-    return;
-  }
 
-  if (key === "ArrowUp" || key === "ArrowLeft") {
-    const nextIndex = nextEnabledIndex(index, -1);
-    if (nextIndex >= 0) {
-      selectIndex(nextIndex);
-      focusOption(nextIndex);
+    case "ArrowUp":
+    case "ArrowLeft": {
+      event.preventDefault();
+      moveSelection(index, -1);
+      return;
     }
-    return;
-  }
 
-  if (key === "Home") {
-    if (firstEnabledIndex.value >= 0) {
-      selectIndex(firstEnabledIndex.value);
-      focusOption(firstEnabledIndex.value);
+    case "Home": {
+      event.preventDefault();
+      goToFirstEnabled();
+      return;
     }
-    return;
-  }
 
-  if (key === "End") {
-    for (let i = props.options.length - 1; i >= 0; i--) {
-      if (!isOptionDisabled(i)) {
-        selectIndex(i);
-        focusOption(i);
-        break;
-      }
+    case "End": {
+      event.preventDefault();
+      goToLastEnabled();
+      return;
     }
-    return;
-  }
 
-  if (key === " " || key === "Enter") {
-    event.preventDefault();
-    selectIndex(index);
+    case " ":
+    case "Enter": {
+      event.preventDefault();
+      selectIndex(index);
+    }
   }
 };
 </script>

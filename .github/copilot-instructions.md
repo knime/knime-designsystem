@@ -8,15 +8,17 @@ The KNIME Design System is a Vue3 TypeScript monorepo providing design tokens, i
 
 1. **Setup (required first time)**: `pnpm install` (takes ~7s, creates node_modules + installs packages)
 2. **Build**: `pnpm build` (takes ~3s)
-3. **Development**: `pnpm dev --no-open` (starts Storybook at http://localhost:6006, takes ~200ms)
-4. **Testing**: `pnpm test:unit` (press 'q' to quit watch mode)
-5. **Linting**: `pnpm lint` (runs ESLint + Stylelint with --fix, may show warnings about TODO comments)
-6. **Linting JS**: `pnpm lint:js --fix` (runs only ESLint with --fix)
-7. **Linting CSS**: `pnpm lint:css --fix` (runs only Stylelint with --fix)
+3. **Type check**: `pnpm type-check` (runs TypeScript type checks)
+4. **Linting**: `pnpm lint` (runs ESLint + Stylelint with --fix, may show warnings about TODO comments)
+5. **Linting JS**: `pnpm lint:js --fix` (runs only ESLint with --fix)
+6. **Linting CSS**: `pnpm lint:css --fix` (runs only Stylelint with --fix)
+7. **Testing**: `pnpm test:unit` (runs Vitest unit tests)
+
+**ALWAYS RUN TYPE CHECKS, LINTING AND UNIT TESTS AFTER EACH CHANGE!**
 
 **Common Build Issues & Solutions:**
 
-- Stylelint can't find CSS custom properties → Run `pnpm i` to build @knime/kds-styles first
+- Stylelint can't find CSS custom properties → Run `pnpm install` to build @knime/kds-styles first
 
 ## Project Architecture & Key Locations
 
