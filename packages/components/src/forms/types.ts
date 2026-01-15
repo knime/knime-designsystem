@@ -1,4 +1,6 @@
-export type KdsLabelProps = { label?: string };
+export type KdsLabelProps =
+  | { label?: string; id: string }
+  | { label: string; id?: string };
 
 export type KdsSubTextProps = {
   subText?: string;

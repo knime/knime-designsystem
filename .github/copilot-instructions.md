@@ -92,6 +92,9 @@ packages/
 
 - Vitest for unit tests
 - Test files in `src/**/__tests__/*.test.ts`
+- We want to test as much as possible with Story book tests
+  - story book can cover visual changes for props
+  - unit tests should only cover logic that is internally hidden
 
 ### Migration documentation
 

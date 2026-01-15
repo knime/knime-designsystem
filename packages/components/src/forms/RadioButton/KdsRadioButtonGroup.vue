@@ -43,7 +43,7 @@ const firstEnabledIndex = computed(() =>
 
 const isHorizontal = computed(() => props.alignment === "horizontal");
 
-const anyOptionError = computed(() =>
+const anyOptionHasError = computed(() =>
   possibleValues.value.some((o) => o.error),
 );
 
@@ -159,12 +159,11 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
 
 <template>
   <div
+    :id="props.id"
     class="radio-button-group"
     role="radiogroup"
     :aria-labelledby="props.label ? labelId : undefined"
-    :aria-describedby="
-      props.subText || props.preserveSubTextSpace ? descriptionId : undefined
-    "
+    :aria-describedby="props.subText ? descriptionId : undefined"
   >
     <div v-if="props.label" :id="labelId" class="label">
       {{ props.label }}
@@ -194,7 +193,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
     <div
       v-if="props.subText || props.preserveSubTextSpace"
       :id="descriptionId"
-      :class="{ subtext: true, error: anyOptionError }"
+      :class="{ subtext: true, error: anyOptionHasError }"
     >
       {{ props.subText }}
     </div>

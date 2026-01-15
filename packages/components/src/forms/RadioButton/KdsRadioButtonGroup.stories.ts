@@ -95,6 +95,7 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
     },
   },
   args: {
+    id: "radio-button-group",
     label: "Label",
     possibleValues: ["Option A", "Option B", "Option C", "Option D"],
     modelValue: "Option A",

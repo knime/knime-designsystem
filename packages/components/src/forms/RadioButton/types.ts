@@ -37,6 +37,7 @@ propTypeTester<KdsRadioButtonProps>({ helperText: "foo" });
 
 // supports minimal props
 propTypeTester<KdsRadioButtonGroupProps>({
+  id: "radio-group-id",
   possibleValues: [
     { text: "Option A", id: "a" },
     { text: "Option B", id: "b" },
