@@ -19,13 +19,13 @@ const twoOptions: KdsRadioButtonGroupProps["possibleValues"] = [
 ];
 
 const optionsWithError: KdsRadioButtonGroupProps["possibleValues"] = [
-  { text: "Option A", id: "a", error: true, helperText: "Helper text" },
-  { text: "Option B", id: "b" },
+  { text: "Option A", id: "Option A", error: true, helperText: "Helper text" },
+  { text: "Option B", id: "Option B" },
 ];
 
 const optionsWithHelperText: KdsRadioButtonGroupProps["possibleValues"] = [
-  { text: "Option A", id: "a", helperText: "Helper text" },
-  { text: "Option B", id: "b", helperText: "Helper text" },
+  { text: "Option A", id: "Option A", helperText: "Helper text" },
+  { text: "Option B", id: "Option B", helperText: "Helper text" },
 ];
 
 const meta: Meta<typeof KdsRadioButtonGroup> = {
@@ -145,13 +145,13 @@ export const HorizontalWithHelperTexts: Story = {
   args: {
     alignment: "horizontal",
     possibleValues: [
-      { text: "Option A", id: "a", helperText: "Helper text" },
+      { text: "Option A", id: "Option A", helperText: "Helper text" },
       {
         text: "Option B",
-        id: "b",
+        id: "Option B",
         helperText: "Very long helper text that causes problems",
       },
-      { text: "Option C", id: "c", helperText: "Helper text" },
+      { text: "Option C", id: "Option C", helperText: "Helper text" },
     ],
   },
 };
@@ -177,8 +177,8 @@ export const Disabled: Story = {
 export const Error: Story = {
   args: {
     possibleValues: [
-      { text: "Option A", id: "a", error: true },
-      { text: "Option B", id: "b" },
+      { text: "Option A", id: "Option A", error: true },
+      { text: "Option B", id: "Option B" },
     ],
     subText: "Selected option has an error",
   },
@@ -188,7 +188,7 @@ export const WithoutLabel: Story = {
   args: {
     label: undefined,
     possibleValues: ["Option A", "Option B", "Option C", "Option D"],
-    modelValue: "a",
+    modelValue: "Option A",
   },
 };
 
@@ -200,7 +200,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       subText: [undefined, "Additional information"],
       preserveSubTextSpace: [false, true],
       possibleValues: [twoOptions, optionsWithError, optionsWithHelperText],
-      modelValue: [null, "a", "b"],
+      modelValue: [null, "Option A", "Option B"],
       alignment: ["vertical", "horizontal"],
       disabled: [false, true],
     },
