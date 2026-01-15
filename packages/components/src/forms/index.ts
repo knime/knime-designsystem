@@ -3,6 +3,7 @@ export { default as KdsRadioButtonGroup } from "./RadioButton/KdsRadioButtonGrou
 
 // Export form component types
 export type {
+  KdsRadioButtonGroupAlignment,
   KdsRadioButtonGroupOption,
   KdsRadioButtonGroupProps,
 } from "./RadioButton/types";

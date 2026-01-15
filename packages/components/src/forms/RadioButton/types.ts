@@ -7,7 +7,7 @@ export type KdsRadioButtonProps = {
   error?: boolean;
 };
 
-type KdsRadioButtonGroupAlignment = "vertical" | "horizontal";
+export type KdsRadioButtonGroupAlignment = "vertical" | "horizontal";
 
 type AtLeastTwo<T> = [T, T, ...T[]];
 
