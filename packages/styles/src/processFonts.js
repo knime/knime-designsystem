@@ -52,7 +52,13 @@ fontValues.forEach((fontValue) => {
     }
     // Check for font-weight (numeric or keyword)
     else if (/^\d{3}$/.test(part) || ["bold", "normal"].includes(part)) {
-      fontWeight = part === "bold" ? "700" : part === "normal" ? "400" : part;
+      if (part === "bold") {
+        fontWeight = "700";
+      } else if (part === "normal") {
+        fontWeight = "400";
+      } else {
+        fontWeight = part;
+      }
     }
     // Check for font-family (comes after size/line-height)
     else if (part.includes("/")) {
