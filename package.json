@@ -17,7 +17,7 @@
     "build:styles": "pnpm run --filter @knime/kds-styles build",
     "ci:build": "pnpm run build:components",
     "dev": "pnpm run --filter @knime/kds-documentation storybook",
-    "test:unit": "vitest",
+    "test:unit": "vitest run",
     "coverage": "vitest run --coverage",
     "changeset": "pnpm exec changeset",
     "changeset:version": "pnpm exec changeset version",

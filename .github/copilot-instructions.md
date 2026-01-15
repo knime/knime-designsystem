@@ -8,15 +8,18 @@ The KNIME Design System is a Vue3 TypeScript monorepo providing design tokens, i
 
 1. **Setup (required first time)**: `pnpm install` (takes ~7s, creates node_modules + installs packages)
 2. **Build**: `pnpm build` (takes ~3s)
-3. **Development**: `pnpm dev --no-open` (starts Storybook at http://localhost:6006, takes ~200ms)
-4. **Testing**: `pnpm test:unit` (press 'q' to quit watch mode)
-5. **Linting**: `pnpm lint` (runs ESLint + Stylelint with --fix, may show warnings about TODO comments)
-6. **Linting JS**: `pnpm lint:js --fix` (runs only ESLint with --fix)
-7. **Linting CSS**: `pnpm lint:css --fix` (runs only Stylelint with --fix)
+3. **Type check**: `pnpm type-check` (runs TypeScript type checks)
+4. **Linting**: `pnpm lint` (runs ESLint + Stylelint with --fix, may show warnings about TODO comments)
+5. **Linting JS**: `pnpm lint:js --fix` (runs only ESLint with --fix)
+6. **Linting CSS**: `pnpm lint:css --fix` (runs only Stylelint with --fix)
+7. **Testing**: `pnpm test:unit` (runs Vitest unit tests)
+8. **Formatting**: `pnpm format` (runs Prettier with --write)
+
+**ALWAYS UPDATE DOCUMENTATION AND RUN TYPE CHECKS, LINTING, UNIT TESTS AND FORMATTING AFTER EACH CHANGE!**
 
 **Common Build Issues & Solutions:**
 
-- Stylelint can't find CSS custom properties → Run `pnpm i` to build @knime/kds-styles first
+- Stylelint can't find CSS custom properties → Run `pnpm install` to build @knime/kds-styles first
 
 ## Project Architecture & Key Locations
 
@@ -57,14 +60,15 @@ packages/
 - Use Composition API with `<script setup lang="ts">`
 - Type all props with `defineProps<T>()` or `withDefaults(defineProps<T>(), {})`
 - Type all emits with `defineEmits<T>()`
-- Use `defineModel()` for v-model bindings
+- Use `defineModel()` for v-model bindings - do NOT manually emit `update:modelValue` events or include `modelValue` in props
 - Use `type` instead of `interface`
-- Create a `types.ts` file for shared types. Don't export types from .vue files.
+- Create a `types.ts` file for shared types. Don't export types from .vue files. Use globally defined [propTypeTester](../packages/components/globals.d.ts) for static type checks.
 - Use `<style scoped>`
 - IMPORTANT: Don't use BEM! Use CSS nesting to NOT duplicate selectors.
 - Style ONLY with CSS custom properties from design tokens - never hardcode colors/spacing/typography!
 - Export components and types in `packages/components/src/index.ts`
 - Follow WCAG accessibility requirements
+- Write all comments in English
 
 ### Icons & Components
 
@@ -88,6 +92,9 @@ packages/
 
 - Vitest for unit tests
 - Test files in `src/**/__tests__/*.test.ts`
+- We want to test as much as possible with Story book tests
+  - story book can cover visual changes for props
+  - unit tests should only cover logic that is internally hidden
 
 ### Migration documentation
 

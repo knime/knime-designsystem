@@ -95,6 +95,21 @@ See [copilot-instructions.md](.github/copilot-instructions.md).
   - `Migrate all usages of @knime/components "Button"` to migrate a specific component
   - `Migrate all icons of @knime/styles`
 
+## IntelliJ Setup
+
+In case you are using IntelliJ IDEA as your IDE, please make sure to set the following options to avoid issues with the monorepo structure:
+
+- Mark `packages/styles/dist/tokens/css` as "Sources Root" (right-click on the folder in the Project Explorer)
+  This allows IntelliJ to properly resolve the design token imports in the components package.
+- Install Copilot plugin
+  Add the following commands to `Github Copilot/Chat/Terminal Auto-approve` settings:
+  - pnpm -v
+  - pnpm build
+  - pnpm type-check
+  - pnpm format
+  - pnpm lint
+  - ...
+
 ## Maintaining changelogs & publishing to npm
 
 Every PR with changes that should be published must include changeset file(s) out of which the CHANGELOG file of each package will get generated. Use the following command to create such files:
