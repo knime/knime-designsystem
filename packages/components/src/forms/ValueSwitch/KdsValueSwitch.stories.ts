@@ -90,6 +90,12 @@ const meta: Meta<typeof KdsValueSwitch> = {
         "Size of the value switch (affects height/padding/typography).",
       table: { category: "Props" },
     },
+    error: {
+      control: { type: "boolean" },
+      description:
+        "Marks the whole value switch as invalid (group-level validation).",
+      table: { category: "Props" },
+    },
   },
   args: {
     id: "value-switch",
@@ -155,10 +161,11 @@ export const Disabled: Story = {
 export const Error: Story = {
   args: {
     possibleValues: [
-      { text: "Option A", id: "Option A", error: true },
+      { text: "Option A", id: "Option A" },
       { text: "Option B", id: "Option B" },
     ],
-    subText: "Selected option has an error",
+    error: true,
+    subText: "Error message",
   },
 };
 

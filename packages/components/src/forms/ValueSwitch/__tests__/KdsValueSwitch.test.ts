@@ -56,4 +56,20 @@ describe("KdsValueSwitch", () => {
       "size-small",
     );
   });
+
+  it("supports group-level error state (aria-invalid + subText)", () => {
+    const wrapper = mount(KdsValueSwitch, {
+      props: {
+        possibleValues: ["Option A", "Option B"],
+        modelValue: "Option A",
+        error: true,
+        subText: "Error message",
+        "onUpdate:modelValue": () => undefined,
+      },
+    });
+
+    const group = wrapper.get("[role='radiogroup']");
+    expect(group.attributes("aria-invalid")).toBe("true");
+    expect(wrapper.get(".subtext").text()).toContain("Error message");
+  });
 });

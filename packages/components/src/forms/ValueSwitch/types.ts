@@ -16,6 +16,7 @@ export type KdsValueSwitchProps = {
   possibleValues: AtLeastTwo<string | KdsValueSwitchOption>;
   size?: KdsValueSwitchSize;
   disabled?: boolean;
+  error?: boolean;
 } & KdsLabelProps &
   KdsSubTextProps;
 
@@ -47,4 +48,12 @@ propTypeTester<KdsValueSwitchProps>({
   id: "value-switch-id",
   possibleValues: ["Option A", "Option B"],
   size: "small",
+});
+
+// supports group error state
+propTypeTester<KdsValueSwitchProps>({
+  id: "value-switch-id",
+  possibleValues: ["Option A", "Option B"],
+  error: true,
+  subText: "Error message",
 });

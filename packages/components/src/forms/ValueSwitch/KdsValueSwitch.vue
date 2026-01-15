@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { computed, ref, useId } from "vue";
 
+import KdsIcon from "../../Icon/KdsIcon.vue";
+
 import type { KdsValueSwitchOption, KdsValueSwitchProps } from "./types.ts";
 
 const props = withDefaults(defineProps<KdsValueSwitchProps>(), {
@@ -39,6 +41,8 @@ const firstEnabledIndex = computed(() =>
 const anyOptionHasError = computed(() =>
   possibleValues.value.some((o) => o.error),
 );
+
+const hasError = computed(() => props.error || anyOptionHasError.value);
 
 const tabIndexForOption = (index: number) => {
   if (isOptionDisabled(index)) {
@@ -158,6 +162,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
       'size-small': props.size === 'small',
     }"
     role="radiogroup"
+    :aria-invalid="hasError || undefined"
     :aria-labelledby="props.label ? labelId : undefined"
     :aria-describedby="props.subText ? descriptionId : undefined"
   >
@@ -165,7 +170,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
       {{ props.label }}
     </div>
 
-    <div class="options">
+    <div :class="{ options: true, error: hasError }">
       <button
         v-for="(option, index) in possibleValues"
         :key="option.id"
@@ -195,9 +200,12 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
     <div
       v-if="props.subText || props.preserveSubTextSpace"
       :id="descriptionId"
-      :class="{ subtext: true, error: anyOptionHasError }"
+      :class="{ subtext: true, error: hasError }"
     >
-      {{ props.subText }}
+      <template v-if="hasError && props.subText">
+        <KdsIcon class="subtext-icon" name="circle-error" size="small" />
+      </template>
+      <span class="subtext-text">{{ props.subText }}</span>
     </div>
   </div>
 </template>
@@ -251,6 +259,12 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
     outline-offset: var(--kds-spacing-offset-focus);
     border-radius: var(--kds-border-radius-container-0-44x);
   }
+
+  &.error {
+    background: var(--kds-color-background-danger-initial);
+    border: var(--kds-border-action-error);
+    box-shadow: none;
+  }
 }
 
 .option {
@@ -301,13 +315,50 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
     color: var(--kds-color-text-and-icon-danger);
     border: var(--kds-border-action-error);
 
+    &:hover:not(:disabled) {
+      background: var(--kds-color-background-danger-hover);
+    }
+
+    &:active:not(:disabled) {
+      background: var(--kds-color-background-danger-active);
+    }
+
     &.selected {
       background: var(--kds-color-background-danger-initial);
+
+      &:hover:not(:disabled) {
+        background: var(--kds-color-background-danger-hover);
+      }
+
+      &:active:not(:disabled) {
+        background: var(--kds-color-background-danger-active);
+      }
     }
   }
 }
 
-.option-label {
+.subtext {
+  display: flex;
+  gap: var(--kds-spacing-container-0-25x);
+  align-items: center;
+  min-height: var(--kds-dimension-component-height-0-75x);
+  margin-top: var(--kds-spacing-container-0-25x);
+  font: var(--kds-font-base-subtext-small);
+  color: var(--kds-color-text-and-icon-muted);
+
+  &.error {
+    padding-top: var(--kds-spacing-sub-text-spacing-top);
+    color: var(--kds-color-text-and-icon-danger);
+  }
+}
+
+.subtext-icon {
+  flex: none;
+  width: var(--kds-dimension-component-width-0-75x);
+  height: var(--kds-dimension-component-height-0-75x);
+}
+
+.subtext-text {
   font: inherit;
   color: currentcolor;
 }
@@ -322,16 +373,5 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
   white-space: nowrap;
   border: 0;
   clip-path: inset(50%);
-}
-
-.subtext {
-  min-height: 1lh;
-  margin-top: var(--kds-spacing-container-0-25x);
-  font: var(--kds-font-base-subtext-small);
-  color: var(--kds-color-text-and-icon-muted);
-
-  &.error {
-    color: var(--kds-color-text-and-icon-danger);
-  }
 }
 </style>
