@@ -1,7 +1,5 @@
 import type { KdsLabelProps, KdsSubTextProps } from "../types.ts";
 
-export type KdsValueSwitchAlignment = "vertical" | "horizontal";
-
 export type KdsValueSwitchSize = "small" | "medium";
 
 type AtLeastTwo<T> = [T, T, ...T[]];
@@ -16,7 +14,6 @@ export type KdsValueSwitchOption = {
 
 export type KdsValueSwitchProps = {
   possibleValues: AtLeastTwo<string | KdsValueSwitchOption>;
-  alignment?: KdsValueSwitchAlignment;
   size?: KdsValueSwitchSize;
   disabled?: boolean;
 } & KdsLabelProps &

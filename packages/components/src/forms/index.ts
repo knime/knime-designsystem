@@ -10,7 +10,6 @@ export type {
 } from "./RadioButton/types";
 
 export type {
-  KdsValueSwitchAlignment,
   KdsValueSwitchOption,
   KdsValueSwitchProps,
   KdsValueSwitchSize,

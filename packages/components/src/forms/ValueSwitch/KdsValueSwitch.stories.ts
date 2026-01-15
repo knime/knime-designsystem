@@ -66,13 +66,6 @@ const meta: Meta<typeof KdsValueSwitch> = {
         "Required possibleValues array (at least 2 entries). Each entry may be a plain string or an object with text, id, and optional disabled/helperText/error.",
       table: { category: "Props" },
     },
-    alignment: {
-      control: { type: "select" },
-      options: ["vertical", "horizontal"],
-      description:
-        "Layout of the options: vertical (column) or horizontal (row, wrapping).",
-      table: { category: "Props" },
-    },
     disabled: {
       control: { type: "boolean" },
       description: "Disables the whole group and prevents interaction.",
@@ -92,7 +85,7 @@ const meta: Meta<typeof KdsValueSwitch> = {
     },
     size: {
       control: { type: "select" },
-      options: ["small", "medium"],
+      options: ["medium", "small"],
       description:
         "Size of the value switch (affects height/padding/typography).",
       table: { category: "Props" },
@@ -138,12 +131,6 @@ export const PreserveSubTextSpace: Story = {
   args: {
     subText: undefined,
     preserveSubTextSpace: true,
-  },
-};
-
-export const Vertical: Story = {
-  args: {
-    alignment: "vertical",
   },
 };
 
@@ -198,7 +185,6 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       preserveSubTextSpace: [false, true],
       possibleValues: [twoOptions, optionsWithError, optionsWithHelperText],
       modelValue: [null, "Option A", "Option B"],
-      alignment: ["vertical", "horizontal"],
       disabled: [false, true],
       size: ["small", "medium"],
     },
@@ -288,7 +274,6 @@ export const TextOverflow: Story = {
       },
     ],
     modelValue: "a",
-    alignment: "horizontal",
     subText: "General sub text for the entire value switch",
   },
 };

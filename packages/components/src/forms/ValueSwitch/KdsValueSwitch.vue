@@ -5,7 +5,6 @@ import type { KdsValueSwitchOption, KdsValueSwitchProps } from "./types.ts";
 
 const props = withDefaults(defineProps<KdsValueSwitchProps>(), {
   disabled: false,
-  alignment: "horizontal",
   size: "medium",
 });
 
@@ -36,8 +35,6 @@ const selectedIndex = computed(() =>
 const firstEnabledIndex = computed(() =>
   possibleValues.value.findIndex((_, index) => !isOptionDisabled(index)),
 );
-
-const isHorizontal = computed(() => props.alignment === "horizontal");
 
 const anyOptionHasError = computed(() =>
   possibleValues.value.some((o) => o.error),
@@ -168,7 +165,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
       {{ props.label }}
     </div>
 
-    <div :class="{ options: true, horizontal: isHorizontal }">
+    <div class="options">
       <button
         v-for="(option, index) in possibleValues"
         :key="option.id"
@@ -238,8 +235,9 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
 
 .options {
   display: flex;
-  flex-direction: column;
+  flex-flow: row wrap;
   gap: var(--kds-spacing-container-none);
+  align-items: flex-start;
   padding: calc(
     var(--kds-spacing-container-0-12x) - var(--kds-core-border-width-xs)
   );
@@ -253,11 +251,6 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
     outline-offset: var(--kds-spacing-offset-focus);
     border-radius: var(--kds-border-radius-container-0-44x);
   }
-}
-
-.options.horizontal {
-  flex-flow: row wrap;
-  align-items: flex-start;
 }
 
 .option {
