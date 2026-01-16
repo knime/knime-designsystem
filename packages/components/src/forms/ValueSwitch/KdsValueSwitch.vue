@@ -212,7 +212,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
 }
 
 .value-switch {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 0;
