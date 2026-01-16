@@ -41,7 +41,7 @@ const meta: Meta<typeof KdsValueSwitch> = {
     },
     design: {
       type: "figma",
-      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2007-6014&m=dev",
+      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2007-6814&m=dev",
     },
   },
   argTypes: {
@@ -96,6 +96,13 @@ const meta: Meta<typeof KdsValueSwitch> = {
         "Marks the whole value switch as invalid (group-level validation).",
       table: { category: "Props" },
     },
+    variant: {
+      control: { type: "select" },
+      options: ["default", "muted"],
+      description:
+        "Visual variant of the value switch. 'muted' renders the items on a muted background.",
+      table: { category: "Props" },
+    },
   },
   args: {
     id: "value-switch",
@@ -104,6 +111,7 @@ const meta: Meta<typeof KdsValueSwitch> = {
     modelValue: "Option A",
     "onUpdate:modelValue": fn(),
     size: "medium",
+    variant: "default",
   },
   decorators: [
     (story) => {
@@ -194,6 +202,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       modelValue: [null, "Option A", "Option B"],
       disabled: [false, true],
       size: ["small", "medium"],
+      variant: ["default", "muted"],
     },
   ],
 });
@@ -213,7 +222,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         modelValue: "a",
       },
       variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2007-6014&m=dev":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2007-6814&m=dev":
           {},
       },
     },
@@ -229,7 +238,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         size: "small",
       },
       variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2007-6014&m=dev":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2007-6814&m=dev":
           {
             size: "small",
           },
@@ -248,7 +257,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         subText: "{Error message}",
       },
       variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2007-6014&m=dev":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2007-6814&m=dev":
           {},
       },
     },

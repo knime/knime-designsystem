@@ -3,11 +3,13 @@ import { computed, ref, useId } from "vue";
 
 import KdsIcon from "../../Icon/KdsIcon.vue";
 
+import ValueSwitchItem from "./ValueSwitchItem.vue";
 import type { KdsValueSwitchOption, KdsValueSwitchProps } from "./types.ts";
 
 const props = withDefaults(defineProps<KdsValueSwitchProps>(), {
   disabled: false,
   size: "medium",
+  variant: "default",
 });
 
 const modelValue = defineModel<string | null | undefined>();
@@ -171,30 +173,19 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
     </div>
 
     <div :class="{ options: true, error: hasError }">
-      <button
+      <ValueSwitchItem
         v-for="(option, index) in possibleValues"
         :key="option.id"
         :ref="(el) => (optionContainerEls[index] = el as HTMLElement | null)"
-        :aria-checked="modelValue === option.id"
-        :aria-invalid="option.error || undefined"
-        :class="{
-          option: true,
-          selected: modelValue === option.id,
-          disabled: props.disabled || option.disabled,
-          error: option.error,
-        }"
+        :text="option.text"
+        :selected="modelValue === option.id"
         :disabled="props.disabled || option.disabled"
-        :tabindex="tabIndexForOption(index)"
-        role="radio"
-        type="button"
+        :size="props.size"
+        :variant="props.variant"
+        :tab-index="tabIndexForOption(index)"
         @click="() => selectIndex(index)"
         @keydown="(e: KeyboardEvent) => handleKeyDown(e, index)"
-      >
-        <span class="option-label">{{ option.text }}</span>
-        <span v-if="option.helperText" class="sr-only">{{
-          option.helperText
-        }}</span>
-      </button>
+      />
     </div>
 
     <div
@@ -267,76 +258,6 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
   }
 }
 
-.option {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: var(--kds-value-switch-height);
-  padding: 0 var(--kds-value-switch-padding-x);
-  font: var(--kds-value-switch-font);
-  color: var(--kds-color-text-and-icon-neutral);
-  text-align: center;
-  background: var(--kds-color-background-neutral-initial);
-  border: var(--kds-border-action-transparent);
-  border-radius: var(--kds-border-radius-container-0-25x);
-
-  &:focus-visible {
-    outline: none;
-  }
-
-  &:hover:not(:disabled) {
-    background: var(--kds-color-background-neutral-hover);
-  }
-
-  &:active:not(:disabled) {
-    background: var(--kds-color-background-neutral-active);
-  }
-
-  &.selected {
-    color: var(--kds-color-text-and-icon-selected);
-    background: var(--kds-color-background-selected-initial);
-    border: var(--kds-border-action-selected);
-
-    &:hover:not(:disabled) {
-      background: var(--kds-color-background-selected-hover);
-    }
-
-    &:active:not(:disabled) {
-      background: var(--kds-color-background-selected-active);
-    }
-  }
-
-  &.disabled {
-    color: var(--kds-color-text-and-icon-disabled);
-    cursor: default;
-  }
-
-  &.error {
-    color: var(--kds-color-text-and-icon-danger);
-    border: var(--kds-border-action-error);
-
-    &:hover:not(:disabled) {
-      background: var(--kds-color-background-danger-hover);
-    }
-
-    &:active:not(:disabled) {
-      background: var(--kds-color-background-danger-active);
-    }
-
-    &.selected {
-      background: var(--kds-color-background-danger-initial);
-
-      &:hover:not(:disabled) {
-        background: var(--kds-color-background-danger-hover);
-      }
-
-      &:active:not(:disabled) {
-        background: var(--kds-color-background-danger-active);
-      }
-    }
-  }
-}
-
 .subtext {
   display: flex;
   gap: var(--kds-spacing-container-0-25x);
@@ -361,17 +282,5 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
 .subtext-text {
   font: inherit;
   color: currentcolor;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  white-space: nowrap;
-  border: 0;
-  clip-path: inset(50%);
 }
 </style>
