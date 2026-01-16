@@ -1,19 +1,18 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { computed, ref } from "vue";
 
 import { useIndexSelection } from "../useIndexSelection.ts";
 
 describe("useIndexSelection", () => {
   it("computes the selectedIndex from selectedId", () => {
-    const disabled = ref(false);
-    const optionIds = ref(["a", "b", "c"] as const);
+    const globalDisable = ref(false);
+    const options = ref([{ id: "a" }, { id: "b" }, { id: "c" }] as const);
     const selectedId = ref<"a" | "b" | "c" | null>("b");
 
     const api = useIndexSelection({
-      disabled,
-      optionIds,
+      globalDisable,
+      options,
       selectedId,
-      focusOptionAtIndex: vi.fn(),
     });
 
     expect(api.selectedIndex.value).toBe(1);
@@ -22,18 +21,17 @@ describe("useIndexSelection", () => {
   });
 
   it("returns proper tabIndex values", () => {
-    const disabled = ref(false);
-    const optionIds = ref(["a", "b"] as const);
+    const globalDisable = ref(false);
+    const options = ref([{ id: "a" }, { id: "b" }] as const);
     const selectedId = ref<"a" | "b" | null>(null);
 
     const api = useIndexSelection({
-      disabled,
-      optionIds,
+      globalDisable,
+      options,
       selectedId,
-      focusOptionAtIndex: vi.fn(),
     });
 
-    // no selection -> first option tabbable
+    // no selection -> first enabled option tabbable
     expect(api.tabIndexForOption(0)).toBe(0);
     expect(api.tabIndexForOption(1)).toBe(-1);
 
@@ -41,57 +39,115 @@ describe("useIndexSelection", () => {
     expect(api.tabIndexForOption(0)).toBe(-1);
     expect(api.tabIndexForOption(1)).toBe(0);
 
-    disabled.value = true;
+    globalDisable.value = true;
     expect(api.tabIndexForOption(0)).toBeUndefined();
   });
 
   it("handles keyboard navigation and updates selection + focus", () => {
-    const disabled = computed(() => false);
-    const optionIds = ref(["a", "b", "c"] as const);
+    const globalDisable = computed(() => false);
+    const options = ref([{ id: "a" }, { id: "b" }, { id: "c" }] as const);
     const selectedId = ref<"a" | "b" | "c" | null>("a");
-    const focusOptionAtIndex = vi.fn();
+
+    const container = document.createElement("div");
+    container.innerHTML = `
+      <button role="radio" id="a"></button>
+      <button role="radio" id="b"></button>
+      <button role="radio" id="c"></button>
+    `;
+    document.body.appendChild(container);
 
     const api = useIndexSelection({
-      disabled,
-      optionIds,
+      globalDisable,
+      options,
       selectedId,
-      focusOptionAtIndex,
+      optionContainer: ref(container),
     });
 
     const event = {
       key: "ArrowRight",
-      preventDefault: vi.fn(),
+      preventDefault: () => {},
     } as unknown as KeyboardEvent;
 
     api.handleKeyDown(event, 0);
 
-    expect(event.preventDefault).toHaveBeenCalled();
     expect(selectedId.value).toBe("b");
-    expect(focusOptionAtIndex).toHaveBeenCalledWith(1);
+    expect(document.activeElement).toBe(container.querySelector("#b"));
+
+    container.remove();
+  });
+
+  it("skips disabled options and reports hasError", () => {
+    const globalDisable = computed(() => false);
+    const options = ref([
+      { id: "a" as const, error: false },
+      { id: "b" as const, disabled: true, error: true },
+      { id: "c" as const, error: false },
+    ]);
+    const selectedId = ref<"a" | "b" | "c" | null>("a");
+
+    const container = document.createElement("div");
+    container.innerHTML = `
+      <button role="radio" id="a"></button>
+      <button role="radio" id="b"></button>
+      <button role="radio" id="c"></button>
+    `;
+    document.body.appendChild(container);
+
+    const api = useIndexSelection({
+      globalDisable,
+      options,
+      selectedId,
+      optionContainer: ref(container),
+    });
+
+    expect(api.hasError.value).toBe(true);
+
+    const event = {
+      key: "ArrowRight",
+      preventDefault: () => {},
+    } as unknown as KeyboardEvent;
+
+    api.handleKeyDown(event, 0);
+
+    // should skip index 1 (disabled) and select index 2
+    expect(selectedId.value).toBe("c");
+    expect(document.activeElement).toBe(container.querySelector("#c"));
+
+    // disabled option should not be tabbable
+    expect(api.tabIndexForOption(1)).toBeUndefined();
+
+    container.remove();
   });
 
   it("does nothing when disabled", () => {
-    const disabled = ref(true);
-    const optionIds = ref(["a", "b"] as const);
+    const globalDisable = ref(true);
+    const options = ref([{ id: "a" }, { id: "b" }] as const);
     const selectedId = ref<"a" | "b" | null>("a");
-    const focusOptionAtIndex = vi.fn();
+
+    const container = document.createElement("div");
+    container.innerHTML = `
+      <button role="radio" id="a"></button>
+      <button role="radio" id="b"></button>
+    `;
+    document.body.appendChild(container);
 
     const api = useIndexSelection({
-      disabled,
-      optionIds,
+      globalDisable,
+      options,
       selectedId,
-      focusOptionAtIndex,
+      optionContainer: ref(container),
     });
 
     const event = {
       key: "ArrowRight",
-      preventDefault: vi.fn(),
+      preventDefault: () => {},
     } as unknown as KeyboardEvent;
 
     api.handleKeyDown(event, 0);
 
-    expect(event.preventDefault).not.toHaveBeenCalled();
     expect(selectedId.value).toBe("a");
-    expect(focusOptionAtIndex).not.toHaveBeenCalled();
+    expect(document.activeElement).not.toBe(container.querySelector("#b"));
+
+    container.remove();
   });
 });

@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { computed, ref, useId } from "vue";
 
+import { useIndexSelection } from "../composables/useIndexSelection.ts";
+
 import KdsRadioButton from "./KdsRadioButton.vue";
 import type {
   KdsRadioButtonGroupOption,
@@ -14,7 +16,7 @@ const props = withDefaults(defineProps<KdsRadioButtonGroupProps>(), {
 
 const modelValue = defineModel<string | null | undefined>();
 
-const possibleValues = computed(
+const options = computed(
   () =>
     props.possibleValues.map((o) => {
       if (typeof o === "string") {
@@ -28,133 +30,15 @@ const labelId = useId();
 const descriptionId = useId();
 const groupName = useId();
 
-const optionContainerEls = ref<Array<HTMLElement | null>>([]);
+const optionContainer = ref<HTMLElement | null>(null);
 
-const isOptionDisabled = (index: number) =>
-  props.disabled || possibleValues.value[index]?.disabled === true;
-
-const selectedIndex = computed(() =>
-  possibleValues.value.findIndex((option) => option.id === modelValue.value),
-);
-
-const firstEnabledIndex = computed(() =>
-  possibleValues.value.findIndex((_, index) => !isOptionDisabled(index)),
-);
-
-const isHorizontal = computed(() => props.alignment === "horizontal");
-
-const anyOptionHasError = computed(() =>
-  possibleValues.value.some((o) => o.error),
-);
-
-const tabIndexForOption = (index: number) => {
-  if (isOptionDisabled(index)) {
-    return undefined;
-  }
-
-  if (selectedIndex.value >= 0) {
-    return selectedIndex.value === index ? 0 : -1;
-  }
-
-  return firstEnabledIndex.value === index ? 0 : -1;
-};
-
-const focusOption = (index: number) => {
-  const button = optionContainerEls.value[index]?.querySelector(
-    'button[role="radio"]',
-  ) as HTMLButtonElement | null;
-  button?.focus();
-};
-
-const selectIndex = (index: number) => {
-  if (isOptionDisabled(index)) {
-    return;
-  }
-  modelValue.value = possibleValues.value[index].id;
-};
-
-const nextEnabledIndex = (startIndex: number, direction: 1 | -1) => {
-  if (props.possibleValues.length === 0) {
-    return -1;
-  }
-
-  let index = startIndex;
-  for (let i = 0; i < props.possibleValues.length; i++) {
-    index =
-      (index + direction + props.possibleValues.length) %
-      props.possibleValues.length;
-    if (!isOptionDisabled(index)) {
-      return index;
-    }
-  }
-
-  return -1;
-};
-
-const moveSelection = (currentIndex: number, direction: 1 | -1) => {
-  const nextIndex = nextEnabledIndex(currentIndex, direction);
-  if (nextIndex >= 0) {
-    selectIndex(nextIndex);
-    focusOption(nextIndex);
-  }
-};
-
-const goToFirstEnabled = () => {
-  if (firstEnabledIndex.value >= 0) {
-    selectIndex(firstEnabledIndex.value);
-    focusOption(firstEnabledIndex.value);
-  }
-};
-
-const goToLastEnabled = () => {
-  for (let i = props.possibleValues.length - 1; i >= 0; i--) {
-    if (!isOptionDisabled(i)) {
-      selectIndex(i);
-      focusOption(i);
-      break;
-    }
-  }
-};
-
-const handleKeyDown = (event: KeyboardEvent, index: number) => {
-  if (props.disabled) {
-    return;
-  }
-
-  switch (event.key) {
-    case "ArrowDown":
-    case "ArrowRight": {
-      event.preventDefault();
-      moveSelection(index, 1);
-      return;
-    }
-
-    case "ArrowUp":
-    case "ArrowLeft": {
-      event.preventDefault();
-      moveSelection(index, -1);
-      return;
-    }
-
-    case "Home": {
-      event.preventDefault();
-      goToFirstEnabled();
-      return;
-    }
-
-    case "End": {
-      event.preventDefault();
-      goToLastEnabled();
-      return;
-    }
-
-    case " ":
-    case "Enter": {
-      event.preventDefault();
-      selectIndex(index);
-    }
-  }
-};
+const { tabIndexForOption, handleClick, handleKeyDown, hasError } =
+  useIndexSelection({
+    selectedId: modelValue,
+    options,
+    globalDisable: computed(() => props.disabled),
+    optionContainer,
+  });
 </script>
 
 <template>
@@ -169,13 +53,11 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
       {{ props.label }}
     </div>
 
-    <div :class="{ options: true, horizontal: isHorizontal }">
-      <div
-        v-for="(option, index) in possibleValues"
-        :key="option.id"
-        :ref="(el) => (optionContainerEls[index] = el as HTMLElement | null)"
-        class="option"
-      >
+    <div
+      ref="optionContainer"
+      :class="{ options: true, horizontal: props.alignment === 'horizontal' }"
+    >
+      <div v-for="(option, index) in options" :key="option.id" class="option">
         <KdsRadioButton
           :disabled="props.disabled || option.disabled"
           :error="option.error"
@@ -185,7 +67,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
           :tabindex="tabIndexForOption(index)"
           :name="groupName"
           @keydown="(e: KeyboardEvent) => handleKeyDown(e, index)"
-          @update:model-value="() => selectIndex(index)"
+          @update:model-value="() => handleClick(index)"
         />
       </div>
     </div>
@@ -193,7 +75,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
     <div
       v-if="props.subText || props.preserveSubTextSpace"
       :id="descriptionId"
-      :class="{ subtext: true, error: anyOptionHasError }"
+      :class="{ subtext: true, error: hasError }"
     >
       {{ props.subText }}
     </div>

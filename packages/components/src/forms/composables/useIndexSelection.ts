@@ -1,23 +1,50 @@
 import type { Ref } from "vue";
 import { computed } from "vue";
 
-export const useIndexSelection = <TId extends string>({
-  disabled,
-  optionIds,
+type KdsIndexSelectionOption = {
+  id: string;
+  disabled?: boolean;
+  error?: boolean;
+  [x: string]: unknown;
+};
+
+export const useIndexSelection = ({
   selectedId,
-  focusOptionAtIndex,
+  options,
+  globalDisable,
+  globalError,
+  optionContainer,
 }: {
-  disabled: Ref<boolean>;
-  optionIds: Ref<readonly TId[]>;
-  selectedId: Ref<TId | null | undefined>;
-  focusOptionAtIndex: (index: number) => void;
+  selectedId: Ref<string | null | undefined>;
+  options: Ref<readonly KdsIndexSelectionOption[]>;
+  globalDisable?: Ref<boolean>;
+  globalError?: Ref<boolean>;
+  optionContainer?: Ref<HTMLElement | null>;
 }) => {
+  const focusOptionAtIndex = (index: number) => {
+    const radios = optionContainer?.value?.querySelectorAll<HTMLButtonElement>(
+      'button[role="radio"]',
+    );
+    radios?.[index]?.focus();
+  };
+
+  const isIndexDisabled = (index: number) =>
+    globalDisable?.value || options.value[index]?.disabled === true;
+
+  const hasError = computed(
+    () => globalError?.value || options.value.some((o) => o.error),
+  );
+
   const selectedIndex = computed(() =>
-    optionIds.value.findIndex((id) => id === selectedId.value),
+    options.value.findIndex((o) => o.id === selectedId.value),
+  );
+
+  const firstEnabledIndex = computed(() =>
+    options.value.findIndex((_, index) => !isIndexDisabled(index)),
   );
 
   const tabIndexForOption = (index: number) => {
-    if (disabled.value) {
+    if (isIndexDisabled(index)) {
       return undefined;
     }
 
@@ -25,35 +52,67 @@ export const useIndexSelection = <TId extends string>({
       return selectedIndex.value === index ? 0 : -1;
     }
 
-    return index === 0 ? 0 : -1;
+    return firstEnabledIndex.value === index ? 0 : -1;
   };
 
   const selectIndex = (index: number) => {
-    selectedId.value = optionIds.value[index];
+    if (isIndexDisabled(index)) {
+      return;
+    }
+
+    selectedId.value = options.value[index]?.id;
   };
 
-  const nextEnabledIndex = (startIndex: number, direction: 1 | -1) =>
-    (startIndex + direction + optionIds.value.length) % optionIds.value.length;
+  const nextEnabledIndex = (startIndex: number, direction: 1 | -1) => {
+    const total = options.value.length;
+    if (total === 0) {
+      return -1;
+    }
+
+    let index = startIndex;
+    for (let i = 0; i < total; i++) {
+      index = (index + direction + total) % total;
+      if (!isIndexDisabled(index)) {
+        return index;
+      }
+    }
+
+    return -1;
+  };
 
   const moveSelection = (currentIndex: number, direction: 1 | -1) => {
     const nextIndex = nextEnabledIndex(currentIndex, direction);
+
+    if (nextIndex < 0) {
+      return;
+    }
+
     selectIndex(nextIndex);
     focusOptionAtIndex(nextIndex);
   };
 
   const goToFirstEnabled = () => {
-    selectIndex(0);
-    focusOptionAtIndex(0);
+    const nextIndex = firstEnabledIndex.value;
+    if (nextIndex < 0) {
+      return;
+    }
+
+    selectIndex(nextIndex);
+    focusOptionAtIndex(nextIndex);
   };
 
   const goToLastEnabled = () => {
-    const lastIndex = optionIds.value.length - 1;
-    selectIndex(lastIndex);
-    focusOptionAtIndex(lastIndex);
+    for (let i = options.value.length - 1; i >= 0; i--) {
+      if (!isIndexDisabled(i)) {
+        selectIndex(i);
+        focusOptionAtIndex(i);
+        break;
+      }
+    }
   };
 
   const handleKeyDown = (event: KeyboardEvent, currentIndex: number) => {
-    if (disabled.value) {
+    if (globalDisable?.value) {
       return;
     }
 
@@ -93,9 +152,10 @@ export const useIndexSelection = <TId extends string>({
   };
 
   return {
+    hasError,
     selectedIndex,
     tabIndexForOption,
-    handleClickOnIndex: selectIndex,
+    handleClick: selectIndex,
     handleKeyDown,
   };
 };

@@ -15,7 +15,7 @@ const props = withDefaults(defineProps<KdsValueSwitchProps>(), {
 
 const modelValue = defineModel<string | null | undefined>();
 
-const possibleValues = computed(
+const options = computed(
   () =>
     props.possibleValues.map((o) => {
       if (typeof o === "string") {
@@ -25,27 +25,16 @@ const possibleValues = computed(
     }) satisfies KdsValueSwitchOption[],
 );
 
-const optionIds = computed(() => possibleValues.value.map((o) => o.id));
-
 const labelId = useId();
 const descriptionId = useId();
+const optionContainer = ref<HTMLElement | null>(null);
 
-const optionsEl = ref<HTMLElement | null>(null);
-
-const focusOptionAtIndex = (index: number) => {
-  const radios = optionsEl.value?.querySelectorAll<HTMLButtonElement>(
-    'button[role="radio"]',
-  );
-  radios?.[index]?.focus();
-};
-
-const { tabIndexForOption, handleClickOnIndex, handleKeyDown } =
-  useIndexSelection({
-    disabled: computed(() => props.disabled),
-    optionIds,
-    selectedId: modelValue,
-    focusOptionAtIndex,
-  });
+const { tabIndexForOption, handleClick, handleKeyDown } = useIndexSelection({
+  selectedId: modelValue,
+  options,
+  globalDisable: computed(() => props.disabled),
+  optionContainer,
+});
 </script>
 
 <template>
@@ -64,9 +53,9 @@ const { tabIndexForOption, handleClickOnIndex, handleKeyDown } =
       {{ props.label }}
     </div>
 
-    <div ref="optionsEl" :class="{ options: true, error: props.error }">
+    <div ref="optionContainer" :class="{ options: true, error: props.error }">
       <ValueSwitchItem
-        v-for="(option, index) in possibleValues"
+        v-for="(option, index) in options"
         :key="option.id"
         v-bind="option"
         :selected="modelValue === option.id"
@@ -74,8 +63,8 @@ const { tabIndexForOption, handleClickOnIndex, handleKeyDown } =
         :size="props.size"
         :variant="props.variant"
         :tab-index="tabIndexForOption(index)"
-        @click="() => handleClickOnIndex(index)"
-        @keydown="(e: KeyboardEvent) => handleKeyDown(e, index)"
+        @click="() => handleClick(index)"
+        @keydown="handleKeyDown($event, index)"
       />
     </div>
 
