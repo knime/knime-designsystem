@@ -30,7 +30,6 @@ type AtLeastTwo<T> = [T, T, ...T[]];
 
 export type KdsValueSwitchOption = {
   id: string;
-  error?: boolean;
 } & KdsTextWithIcons;
 
 export type KdsValueSwitchProps = {

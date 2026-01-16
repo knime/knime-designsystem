@@ -33,12 +33,6 @@ const selectedIndex = computed(() =>
   possibleValues.value.findIndex((option) => option.id === modelValue.value),
 );
 
-const anyOptionHasError = computed(() =>
-  possibleValues.value.some((o) => o.error),
-);
-
-const hasError = computed(() => props.error || anyOptionHasError.value);
-
 const tabIndexForOption = (index: number) => {
   if (props.disabled) {
     return undefined;
@@ -132,7 +126,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
       'value-switch': true,
       'size-small': props.size === 'small',
     }"
-    :aria-invalid="hasError || undefined"
+    :aria-invalid="props.error || undefined"
     :aria-labelledby="props.label ? labelId : undefined"
     :aria-describedby="props.subText ? descriptionId : undefined"
   >
@@ -140,7 +134,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
       {{ props.label }}
     </div>
 
-    <div ref="optionsEl" :class="{ options: true, error: hasError }">
+    <div ref="optionsEl" :class="{ options: true, error: props.error }">
       <ValueSwitchItem
         v-for="(option, index) in possibleValues"
         :key="option.id"
@@ -158,9 +152,9 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
     <div
       v-if="props.subText || props.preserveSubTextSpace"
       :id="descriptionId"
-      :class="{ subtext: true, error: hasError }"
+      :class="{ subtext: true, error: props.error }"
     >
-      <template v-if="hasError && props.subText">
+      <template v-if="props.error && props.subText">
         <KdsIcon class="subtext-icon" name="circle-error" size="small" />
       </template>
       <span class="subtext-text">{{ props.subText }}</span>
