@@ -57,7 +57,7 @@ const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
   /* variant=default */
   background: var(--kds-color-background-neutral-initial);
   border: var(--kds-border-action-transparent);
-  border-radius: var(--kds-border-radius-container-0-37x);
+  border-radius: var(--kds-border-radius-container-0-25x);
 
   &.size-small {
     height: var(--kds-dimension-component-height-1-25x);
