@@ -213,6 +213,9 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
 }
 
 .value-switch {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
   padding: 0;
   margin: 0;
   border: none;
@@ -233,10 +236,11 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
 }
 
 .options {
-  display: flex;
+  display: inline-flex;
   flex-flow: row wrap;
   gap: var(--kds-spacing-container-none);
   align-items: flex-start;
+  width: fit-content;
   padding: calc(
     var(--kds-spacing-container-0-12x) - var(--kds-core-border-width-xs)
   );
