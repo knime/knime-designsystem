@@ -176,9 +176,9 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
       <ValueSwitchItem
         v-for="(option, index) in possibleValues"
         :key="option.id"
-        :text="option.text"
+        v-bind="option"
         :selected="modelValue === option.id"
-        :disabled="props.disabled || option.disabled"
+        :disabled="props.disabled"
         :size="props.size"
         :variant="props.variant"
         :tab-index="tabIndexForOption(index)"

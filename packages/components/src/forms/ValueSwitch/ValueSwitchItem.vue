@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import KdsIcon from "../../Icon/KdsIcon.vue";
+
 import type { KdsValueSwitchItemProps } from "./types";
 
 const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
@@ -22,14 +24,26 @@ const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
     }"
     :disabled="props.disabled"
     :tabindex="props.tabIndex"
+    :title="props.title"
   >
+    <KdsIcon
+      v-if="props.leadingIcon"
+      :name="props.leadingIcon"
+      :size="props.size"
+    />
     <span class="option-label">{{ props.text }}</span>
+    <KdsIcon
+      v-if="props.trailingIcon"
+      :name="props.trailingIcon"
+      :size="props.size"
+    />
   </button>
 </template>
 
 <style scoped>
 .option {
   display: flex;
+  gap: var(--kds-spacing-container-0-25x);
   align-items: center;
   justify-content: center;
   height: var(--kds-dimension-component-height-1-5x);
@@ -39,15 +53,15 @@ const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
   text-align: center;
   cursor: pointer;
 
-  &.size-small {
-    height: var(--kds-dimension-component-height-1-25x);
-    font: var(--kds-font-base-interactive-small-strong);
-  }
-
   /* variant=default */
   background: var(--kds-color-background-neutral-initial);
   border: var(--kds-border-action-transparent);
   border-radius: var(--kds-border-radius-container-0-37x);
+
+  &.size-small {
+    height: var(--kds-dimension-component-height-1-25x);
+    font: var(--kds-font-base-interactive-small-strong);
+  }
 
   &:focus-visible {
     outline: none;
@@ -94,6 +108,7 @@ const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
 }
 
 .option-label {
+  padding: 0 var(--kds-spacing-container-0-12x);
   font: inherit;
   color: currentcolor;
 }

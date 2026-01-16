@@ -1,26 +1,39 @@
+import type { KdsIconName } from "../../index.ts";
 import type { KdsLabelProps, KdsSubTextProps } from "../types.ts";
 
 export type KdsValueSwitchSize = "small" | "medium";
 export type KdsValueSwitchVariant = "default" | "muted";
 
 export type KdsValueSwitchItemProps = {
-  text: string;
   selected: boolean;
   disabled?: boolean;
   size?: KdsValueSwitchSize;
   variant?: KdsValueSwitchVariant;
   tabIndex?: number;
-};
+} & KdsTextWithIcons;
+
+type KdsTextWithIcons =
+  | {
+      text: string;
+      leadingIcon?: KdsIconName;
+      trailingIcon?: KdsIconName;
+      title?: undefined;
+    }
+  | {
+      text: never;
+      leadingIcon: KdsIconName;
+      title: string;
+      trailingIcon?: never;
+    };
 
 type AtLeastTwo<T> = [T, T, ...T[]];
 
 export type KdsValueSwitchOption = {
-  text: string;
   id: string;
   disabled?: boolean;
   helperText?: string;
   error?: boolean;
-};
+} & KdsTextWithIcons;
 
 export type KdsValueSwitchProps = {
   possibleValues: AtLeastTwo<string | KdsValueSwitchOption>;

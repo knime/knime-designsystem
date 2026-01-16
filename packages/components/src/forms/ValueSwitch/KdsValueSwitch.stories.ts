@@ -175,13 +175,54 @@ export const WithoutLabel: Story = {
   },
 };
 
+export const WithIcons: Story = {
+  args: {
+    modelValue: "a",
+    possibleValues: [
+      { text: "Option A", id: "a", leadingIcon: "placeholder" },
+      {
+        text: "Option B",
+        id: "b",
+        trailingIcon: "placeholder",
+      },
+      {
+        text: "Option C",
+        id: "c",
+        leadingIcon: "placeholder",
+        trailingIcon: "placeholder",
+      },
+    ],
+  },
+};
+
+export const IconOnly: Story = {
+  args: {
+    modelValue: "a",
+    possibleValues: [
+      { id: "a", leadingIcon: "view-cards", title: "Cards" },
+      { id: "b", leadingIcon: "list", title: "List" },
+      { id: "c", leadingIcon: "mini-map", title: "Mini map" },
+    ],
+  },
+};
+
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsValueSwitch,
   combinationsProps: [
     {
       id: ["value-switch-id"],
-      possibleValues: [["Option A", "Option B"]],
-      modelValue: ["Option A"],
+      possibleValues: [
+        ["Option A", "Option B"],
+        [
+          { text: "Option A", id: "a", leadingIcon: "search" },
+          { text: "Option B", id: "b", trailingIcon: "chevron-right" },
+        ],
+        [
+          { id: "a", leadingIcon: "view-cards", title: "Cards" },
+          { id: "b", leadingIcon: "list", title: "List" },
+        ],
+      ],
+      modelValue: ["Option A", "a"],
       size: ["small", "medium"],
       variant: ["default", "muted"],
       label: ["Label", undefined],
@@ -247,6 +288,33 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           {},
       },
     },
+    WithIcons: {
+      props: {
+        label: "{Label}",
+        possibleValues: [
+          {
+            text: "Label",
+            id: "a",
+            leadingIcon: "search",
+          },
+          {
+            text: "Label",
+            id: "b",
+            leadingIcon: "search",
+          },
+          {
+            text: "Label",
+            id: "c",
+            leadingIcon: "search",
+          },
+        ],
+        modelValue: "a",
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2007-6814&m=dev":
+          {},
+      },
+    },
   },
 });
 
@@ -263,16 +331,19 @@ export const TextOverflow: Story = {
         text: "Short label",
         id: "a",
         helperText: "Short helper",
+        leadingIcon: "search",
       },
       {
         text: "This is a very long option label that should overflow and wrap properly",
         id: "b",
         helperText: "Helper text that is also quite long and may wrap",
+        trailingIcon: "chevron-right",
       },
       {
-        text: "This is another very long option label that should overflow and wrap properly",
         id: "c",
-        helperText: "Another helper text that is also quite long and may wrap",
+        leadingIcon: "view-cards",
+        title:
+          "This is a very long icon-only option title that should be used as the tooltip and overflow reference",
       },
     ],
     modelValue: "a",
