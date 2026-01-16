@@ -28,6 +28,7 @@ const props = withDefaults(defineProps<ValueSwitchItemProps>(), {
 
 <template>
   <button
+    role="radio"
     :aria-checked="props.selected"
     :class="{
       option: true,
@@ -37,8 +38,6 @@ const props = withDefaults(defineProps<ValueSwitchItemProps>(), {
     }"
     :disabled="props.disabled"
     :tabindex="props.tabIndex"
-    role="radio"
-    type="button"
   >
     <span class="option-label">{{ props.text }}</span>
   </button>
@@ -75,7 +74,7 @@ const props = withDefaults(defineProps<ValueSwitchItemProps>(), {
   /* variant=default */
   background: var(--kds-color-background-neutral-initial);
   border: var(--kds-border-action-transparent);
-  border-radius: var(--kds-border-radius-container-0-25x);
+  border-radius: var(--kds-border-radius-container-0-37x);
 
   &:focus-visible {
     outline: none;
@@ -89,18 +88,6 @@ const props = withDefaults(defineProps<ValueSwitchItemProps>(), {
     background: var(--kds-color-background-neutral-active);
   }
 
-  &.variant-muted {
-    background: var(--kds-color-surface-muted);
-
-    &:hover:not(:disabled) {
-      background: var(--kds-color-background-neutral-hover);
-    }
-
-    &:active:not(:disabled) {
-      background: var(--kds-color-background-neutral-active);
-    }
-  }
-
   &.selected {
     color: var(--kds-color-text-and-icon-selected);
     background: var(--kds-color-background-selected-initial);
@@ -112,6 +99,18 @@ const props = withDefaults(defineProps<ValueSwitchItemProps>(), {
 
     &:active:not(:disabled) {
       background: var(--kds-color-background-selected-active);
+    }
+
+    &.variant-muted {
+      background: var(--kds-color-background-input-initial);
+
+      &:hover:not(:disabled) {
+        background: var(--kds-color-background-input-hover);
+      }
+
+      &:active:not(:disabled) {
+        background: var(--kds-color-background-input-active);
+      }
     }
   }
 

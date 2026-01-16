@@ -159,11 +159,11 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
 <template>
   <div
     :id="props.id"
+    role="radiogroup"
     :class="{
       'value-switch': true,
       'size-small': props.size === 'small',
     }"
-    role="radiogroup"
     :aria-invalid="hasError || undefined"
     :aria-labelledby="props.label ? labelId : undefined"
     :aria-describedby="props.subText ? descriptionId : undefined"
@@ -244,7 +244,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
     var(--kds-spacing-container-0-12x) - var(--kds-core-border-width-xs)
   );
   background: var(--kds-color-surface-muted);
-  border: var(--kds-border-action-transparent);
+  border: var(--kds-border-action-default);
   border-radius: var(--kds-border-radius-container-0-37x);
   box-shadow: var(--kds-fake-border-xs-muted);
 
@@ -255,9 +255,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
   }
 
   &.error {
-    background: var(--kds-color-background-danger-initial);
     border: var(--kds-border-action-error);
-    box-shadow: none;
   }
 }
 
