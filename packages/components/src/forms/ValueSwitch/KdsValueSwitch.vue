@@ -249,7 +249,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
   border-radius: var(--kds-border-radius-container-0-37x);
   box-shadow: var(--kds-fake-border-xs-muted);
 
-  &:focus-within {
+  &:focus-within:has(:focus-visible) {
     outline: var(--kds-border-action-focused);
     outline-offset: var(--kds-spacing-offset-focus);
     border-radius: var(--kds-border-radius-container-0-44x);
