@@ -239,79 +239,145 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   designsToCompare: {
     Default: {
       props: {
-        label: "{Label}",
         possibleValues: [
-          { text: "Label", id: "a" },
-          { text: "Label", id: "b" },
-          { text: "Label", id: "c" },
-          { text: "Label", id: "d" },
+          { text: "{Value}", id: "a" },
+          { text: "{Value}", id: "b" },
+          { text: "{Value}", id: "c" },
+          { text: "{Value}", id: "d" },
+          { text: "{Value}", id: "e" },
         ],
         modelValue: "a",
       },
       variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2007-6814&m=dev":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2408-14147&m=dev":
+          {},
+      },
+    },
+    Muted: {
+      props: {
+        possibleValues: [
+          { text: "{Value}", id: "a" },
+          { text: "{Value}", id: "b" },
+          { text: "{Value}", id: "c" },
+          { text: "{Value}", id: "d" },
+          { text: "{Value}", id: "e" },
+        ],
+        modelValue: "a",
+        variant: "muted",
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7684-91713&m=dev":
           {},
       },
     },
     Small: {
       props: {
-        label: "{Label}",
         possibleValues: [
-          { text: "Label", id: "a" },
-          { text: "Label", id: "b" },
-          { text: "Label", id: "c" },
+          { text: "{Value}", id: "a" },
+          { text: "{Value}", id: "b" },
+          { text: "{Value}", id: "c" },
+          { text: "{Value}", id: "d" },
+          { text: "{Value}", id: "e" },
         ],
         modelValue: "a",
         size: "small",
       },
       variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2007-6814&m=dev":
-          {
-            size: "small",
-          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2408-14191&m=dev":
+          {},
+      },
+    },
+    SmallMuted: {
+      props: {
+        possibleValues: [
+          { text: "{Value}", id: "a" },
+          { text: "{Value}", id: "b" },
+          { text: "{Value}", id: "c" },
+          { text: "{Value}", id: "d" },
+          { text: "{Value}", id: "e" },
+        ],
+        modelValue: "a",
+        size: "small",
+        variant: "muted",
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7684-91743&m=dev":
+          {},
       },
     },
     Error: {
       props: {
-        label: "{Label}",
         possibleValues: [
-          { text: "Label", id: "a", error: true },
-          { text: "Label", id: "b" },
-          { text: "Label", id: "c" },
-          { text: "Label", id: "d" },
+          { text: "{Value}", id: "a" },
+          { text: "{Value}", id: "b" },
+          { text: "{Value}", id: "c" },
+          { text: "{Value}", id: "d" },
+          { text: "{Value}", id: "e" },
         ],
         modelValue: "a",
+        error: true,
         subText: "{Error message}",
       },
       variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2007-6814&m=dev":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2082-20723&m=dev":
           {},
       },
     },
-    WithIcons: {
+    ErrorMuted: {
       props: {
-        label: "{Label}",
         possibleValues: [
-          {
-            text: "Label",
-            id: "a",
-            leadingIcon: "search",
-          },
-          {
-            text: "Label",
-            id: "b",
-            leadingIcon: "search",
-          },
-          {
-            text: "Label",
-            id: "c",
-            leadingIcon: "search",
-          },
+          { text: "{Value}", id: "a" },
+          { text: "{Value}", id: "b" },
+          { text: "{Value}", id: "c" },
+          { text: "{Value}", id: "d" },
+          { text: "{Value}", id: "e" },
         ],
         modelValue: "a",
+        error: true,
+        subText: "{Error message}",
+        variant: "muted",
       },
       variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2007-6814&m=dev":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7691-106492&m=dev":
+          {},
+      },
+    },
+    SmallError: {
+      props: {
+        possibleValues: [
+          { text: "{Value}", id: "a" },
+          { text: "{Value}", id: "b" },
+          { text: "{Value}", id: "c" },
+          { text: "{Value}", id: "d" },
+          { text: "{Value}", id: "e" },
+        ],
+        modelValue: "a",
+        size: "small",
+        error: true,
+        subText: "{Error message}",
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2408-13594&m=dev":
+          {},
+      },
+    },
+    SmallErrorMuted: {
+      props: {
+        possibleValues: [
+          { text: "{Value}", id: "a" },
+          { text: "{Value}", id: "b" },
+          { text: "{Value}", id: "c" },
+          { text: "{Value}", id: "d" },
+          { text: "{Value}", id: "e" },
+        ],
+        modelValue: "a",
+        size: "small",
+        error: true,
+        subText: "{Error message}",
+        variant: "muted",
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7691-106458&m=dev":
           {},
       },
     },
