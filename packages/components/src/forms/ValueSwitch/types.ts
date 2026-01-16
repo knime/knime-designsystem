@@ -3,6 +3,15 @@ import type { KdsLabelProps, KdsSubTextProps } from "../types.ts";
 export type KdsValueSwitchSize = "small" | "medium";
 export type KdsValueSwitchVariant = "default" | "muted";
 
+export type KdsValueSwitchItemProps = {
+  text: string;
+  selected: boolean;
+  disabled?: boolean;
+  size?: KdsValueSwitchSize;
+  variant?: KdsValueSwitchVariant;
+  tabIndex?: number;
+};
+
 type AtLeastTwo<T> = [T, T, ...T[]];
 
 export type KdsValueSwitchOption = {

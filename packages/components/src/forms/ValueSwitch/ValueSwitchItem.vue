@@ -1,24 +1,7 @@
 <script setup lang="ts">
-import type { KdsValueSwitchSize } from "./types";
+import type { KdsValueSwitchItemProps } from "./types";
 
-type ValueSwitchItemVariant = "default" | "muted";
-
-type ValueSwitchItemProps = {
-  /** Visual label */
-  text: string;
-  /** Marks the item as selected */
-  selected: boolean;
-  /** Disables the item */
-  disabled?: boolean;
-  /** Size must match the surrounding switch */
-  size?: KdsValueSwitchSize;
-  /** Variant of the switch item */
-  variant?: ValueSwitchItemVariant;
-  /** Calculated tabIndex for roving focus */
-  tabIndex?: number;
-};
-
-const props = withDefaults(defineProps<ValueSwitchItemProps>(), {
+const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
   disabled: false,
   size: "medium",
   variant: "default",
@@ -48,25 +31,9 @@ const props = withDefaults(defineProps<ValueSwitchItemProps>(), {
   display: flex;
   align-items: center;
   justify-content: center;
-
-  /* Fallbacks so Stylelint recognizes the custom properties */
-  height: var(
-    --kds-value-switch-height,
-    var(--kds-dimension-component-height-1-5x)
-  );
-  padding: 0;
-  padding-right: var(
-    --kds-value-switch-padding-x,
-    var(--kds-spacing-container-0-37x)
-  );
-  padding-left: var(
-    --kds-value-switch-padding-x,
-    var(--kds-spacing-container-0-37x)
-  );
-  font: var(
-    --kds-value-switch-font,
-    var(--kds-font-base-interactive-medium-strong)
-  );
+  height: var(--kds-dimension-component-height-1-5x);
+  padding: 0 var(--kds-spacing-container-0-37x);
+  font: var(--kds-font-base-interactive-medium-strong);
   color: var(--kds-color-text-and-icon-neutral);
   text-align: center;
   cursor: pointer;
