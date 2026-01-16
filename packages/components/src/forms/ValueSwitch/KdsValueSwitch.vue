@@ -186,20 +186,6 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
   padding: 0;
   margin: 0;
   border: none;
-
-  --kds-value-switch-height: var(--kds-dimension-component-height-1-5x);
-  --kds-value-switch-font: var(--kds-font-base-interactive-medium-strong);
-  --kds-value-switch-padding-x: calc(
-    var(--kds-spacing-container-0-37x) - var(--kds-core-border-width-xs)
-  );
-
-  &.size-small {
-    --kds-value-switch-height: var(--kds-dimension-component-height-1-25x);
-    --kds-value-switch-font: var(--kds-font-base-interactive-small-strong);
-    --kds-value-switch-padding-x: calc(
-      var(--kds-spacing-container-0-25x) - var(--kds-core-border-width-xs)
-    );
-  }
 }
 
 .options {
