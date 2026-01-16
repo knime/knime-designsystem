@@ -46,6 +46,7 @@ const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
   gap: var(--kds-spacing-container-0-25x);
   align-items: center;
   justify-content: center;
+  max-width: 100%;
   height: var(--kds-dimension-component-height-1-5x);
   padding: 0 var(--kds-spacing-container-0-37x);
   font: var(--kds-font-base-interactive-medium-strong);
@@ -109,7 +110,10 @@ const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
 
 .option-label {
   padding: 0 var(--kds-spacing-container-0-12x);
+  overflow: hidden;
+  text-overflow: ellipsis;
   font: inherit;
   color: currentcolor;
+  white-space: nowrap;
 }
 </style>

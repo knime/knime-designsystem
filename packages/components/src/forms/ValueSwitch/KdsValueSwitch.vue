@@ -240,6 +240,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
   gap: var(--kds-spacing-container-none);
   align-items: flex-start;
   width: fit-content;
+  max-width: 100%;
   padding: var(--kds-spacing-container-0-12x);
   background: var(--kds-color-surface-muted);
   border: var(--kds-border-action-transparent);
