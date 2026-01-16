@@ -31,7 +31,9 @@ const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
       :name="props.leadingIcon"
       :size="props.size"
     />
-    <span class="option-label">{{ props.text }}</span>
+    <span v-if="props.text" class="option-label">
+      {{ props.text }}
+    </span>
     <KdsIcon
       v-if="props.trailingIcon"
       :name="props.trailingIcon"

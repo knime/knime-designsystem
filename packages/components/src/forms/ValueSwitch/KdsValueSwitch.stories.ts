@@ -42,7 +42,7 @@ const meta: Meta<typeof KdsValueSwitch> = {
     possibleValues: {
       control: { type: "object" },
       description:
-        "Required possibleValues array (at least 2 entries). Each entry may be a plain string or an object with text, id, and optional disabled/helperText/error.",
+        "Required possibleValues array (at least 2 entries). Each entry may be a plain string or an object with text and id.",
       table: { category: "Props" },
     },
     disabled: {
@@ -396,7 +396,6 @@ export const TextOverflow: Story = {
       {
         text: "Short label",
         id: "a",
-        helperText: "Short helper",
         leadingIcon: "search",
       },
       {
@@ -408,7 +407,6 @@ export const TextOverflow: Story = {
       {
         text: "This is a very long option label that should overflow and wrap properly",
         id: "c",
-        helperText: "Helper text that is also quite long and may wrap",
         trailingIcon: "chevron-right",
       },
     ],
@@ -435,10 +433,35 @@ export const Interaction: Story = {
             :possible-values="[
               { text: 'Option A', id: 'a' },
               { text: 'Option B', id: 'b' },
-              { text: 'Option C (disabled)', id: 'c', disabled: true },
+              { text: 'Option C', id: 'c' },
               { text: 'Option D', id: 'd' },
             ]"
+            sub-text="Group sub text"
             v-model="interactive"
+          />
+        </div>
+
+        <div>
+          <KdsValueSwitch
+            label="Error group"
+            :possible-values="[
+              { text: 'Option A', id: 'a' },
+              { text: 'Option B', id: 'b' },
+            ]"
+            sub-text="Error message"
+            error
+            v-model="errorGroup"
+          />
+        </div>
+
+        <div>
+          <KdsValueSwitch
+            label="Icon-only group"
+            :possible-values="[
+              { id: 'cards', leadingIcon: 'view-cards', title: 'Cards' },
+              { id: 'list', leadingIcon: 'list', title: 'List' },
+            ]"
+            v-model="iconOnly"
           />
         </div>
 
@@ -458,6 +481,8 @@ export const Interaction: Story = {
     data() {
       return {
         interactive: "a",
+        errorGroup: "a",
+        iconOnly: "cards",
         disabledGroup: "a",
       };
     },
@@ -473,15 +498,16 @@ export const Interaction: Story = {
 
     const optionA = interactiveScope.getByRole("radio", { name: "Option A" });
     const optionB = interactiveScope.getByRole("radio", { name: "Option B" });
-    const optionC = interactiveScope.getByRole("radio", {
-      name: "Option C (disabled)",
-    });
+    const optionC = interactiveScope.getByRole("radio", { name: "Option C" });
     const optionD = interactiveScope.getByRole("radio", { name: "Option D" });
 
+    // Initial state from v-model
     await expect(optionA).toHaveAttribute("aria-checked", "true");
     await expect(optionA).toHaveAttribute("tabindex", "0");
     await expect(optionB).toHaveAttribute("tabindex", "-1");
-    await expect(optionC).toBeDisabled();
+
+    // Group sub text should be wired via aria-describedby
+    await expect(interactiveGroup).toHaveAttribute("aria-describedby");
 
     // Mouse: selection changes
     await userEvent.click(optionB);
@@ -489,34 +515,61 @@ export const Interaction: Story = {
     await expect(optionB).toHaveAttribute("tabindex", "0");
     await expect(optionA).toHaveAttribute("tabindex", "-1");
 
-    // Keyboard: ArrowRight moves selection and skips disabled option
+    // Keyboard: ArrowRight moves selection
     optionB.focus();
     await userEvent.keyboard("{ArrowRight}");
-    await expect(optionD).toHaveAttribute("aria-checked", "true");
-    await expect(optionD).toHaveFocus();
+    await expect(optionC).toHaveAttribute("aria-checked", "true");
+    await expect(optionC).toHaveFocus();
 
-    // Home -> first enabled
+    // ArrowLeft goes back
+    await userEvent.keyboard("{ArrowLeft}");
+    await expect(optionB).toHaveAttribute("aria-checked", "true");
+    await expect(optionB).toHaveFocus();
+
+    // Home -> first
     await userEvent.keyboard("{Home}");
     await expect(optionA).toHaveAttribute("aria-checked", "true");
     await expect(optionA).toHaveFocus();
 
-    // End -> last enabled
+    // End -> last
     await userEvent.keyboard("{End}");
     await expect(optionD).toHaveAttribute("aria-checked", "true");
     await expect(optionD).toHaveFocus();
 
-    // Enter on disabled should not change selection
-    optionC.focus();
-    await userEvent.keyboard("{Enter}");
+    // Space on focused option selects it (common for radios)
+    await userEvent.keyboard(" ");
     await expect(optionD).toHaveAttribute("aria-checked", "true");
 
-    // Reset state so the interaction test can be re-run deterministically
-    await userEvent.click(optionA);
-    await expect(optionA).toHaveAttribute("aria-checked", "true");
-    await expect(optionA).toHaveAttribute("tabindex", "0");
+    // -------- Error group --------
+    const errorGroup = groups[1];
+    const errorScope = within(errorGroup);
+
+    const errorA = errorScope.getByRole("radio", { name: "Option A" });
+    const errorB = errorScope.getByRole("radio", { name: "Option B" });
+
+    // Group-level validation should be exposed via aria-invalid
+    await expect(errorGroup).toHaveAttribute("aria-invalid", "true");
+    await expect(errorGroup).toHaveAttribute("aria-describedby");
+
+    await userEvent.click(errorB);
+    await expect(errorB).toHaveAttribute("aria-checked", "true");
+    await expect(errorA).toHaveAttribute("aria-checked", "false");
+
+    // -------- Icon-only group --------
+    const iconOnlyGroup = groups[2];
+    const iconOnlyScope = within(iconOnlyGroup);
+
+    const cards = iconOnlyScope.getByRole("radio", { name: "Cards" });
+    const list = iconOnlyScope.getByRole("radio", { name: "List" });
+
+    await expect(cards).toHaveAttribute("aria-checked", "true");
+
+    await userEvent.click(list);
+    await expect(list).toHaveAttribute("aria-checked", "true");
+    await expect(cards).toHaveAttribute("aria-checked", "false");
 
     // -------- Disabled group --------
-    const disabledGroup = groups[1];
+    const disabledGroup = groups[3];
     const disabledScope = within(disabledGroup);
 
     const disabledA = disabledScope.getByRole("radio", { name: "Option A" });
@@ -532,5 +585,9 @@ export const Interaction: Story = {
     disabledA.focus();
     await userEvent.keyboard("{ArrowRight}");
     await expect(disabledA).toHaveAttribute("aria-checked", "true");
+
+    // Reset state so the interaction test can be re-run deterministically
+    await userEvent.click(optionA);
+    await expect(optionA).toHaveAttribute("aria-checked", "true");
   },
 };

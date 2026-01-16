@@ -29,15 +29,8 @@ const descriptionId = useId();
 
 const optionsEl = ref<HTMLElement | null>(null);
 
-const isOptionDisabled = (index: number) =>
-  props.disabled || possibleValues.value[index]?.disabled === true;
-
 const selectedIndex = computed(() =>
   possibleValues.value.findIndex((option) => option.id === modelValue.value),
-);
-
-const firstEnabledIndex = computed(() =>
-  possibleValues.value.findIndex((_, index) => !isOptionDisabled(index)),
 );
 
 const anyOptionHasError = computed(() =>
@@ -47,7 +40,7 @@ const anyOptionHasError = computed(() =>
 const hasError = computed(() => props.error || anyOptionHasError.value);
 
 const tabIndexForOption = (index: number) => {
-  if (isOptionDisabled(index)) {
+  if (props.disabled) {
     return undefined;
   }
 
@@ -55,7 +48,7 @@ const tabIndexForOption = (index: number) => {
     return selectedIndex.value === index ? 0 : -1;
   }
 
-  return firstEnabledIndex.value === index ? 0 : -1;
+  return index === 0 ? 0 : -1;
 };
 
 const focusOption = (index: number) => {
@@ -66,53 +59,28 @@ const focusOption = (index: number) => {
 };
 
 const selectIndex = (index: number) => {
-  if (isOptionDisabled(index)) {
-    return;
-  }
   modelValue.value = possibleValues.value[index].id;
 };
 
-const nextEnabledIndex = (startIndex: number, direction: 1 | -1) => {
-  if (props.possibleValues.length === 0) {
-    return -1;
-  }
-
-  let index = startIndex;
-  for (let i = 0; i < props.possibleValues.length; i++) {
-    index =
-      (index + direction + props.possibleValues.length) %
-      props.possibleValues.length;
-    if (!isOptionDisabled(index)) {
-      return index;
-    }
-  }
-
-  return -1;
-};
+const nextEnabledIndex = (startIndex: number, direction: 1 | -1) =>
+  (startIndex + direction + props.possibleValues.length) %
+  props.possibleValues.length;
 
 const moveSelection = (currentIndex: number, direction: 1 | -1) => {
   const nextIndex = nextEnabledIndex(currentIndex, direction);
-  if (nextIndex >= 0) {
-    selectIndex(nextIndex);
-    focusOption(nextIndex);
-  }
+  selectIndex(nextIndex);
+  focusOption(nextIndex);
 };
 
 const goToFirstEnabled = () => {
-  if (firstEnabledIndex.value >= 0) {
-    selectIndex(firstEnabledIndex.value);
-    focusOption(firstEnabledIndex.value);
-  }
+  selectIndex(0);
+  focusOption(0);
 };
 
 const goToLastEnabled = () => {
-  for (let i = props.possibleValues.length - 1; i >= 0; i--) {
-    if (!isOptionDisabled(i)) {
-      selectIndex(i);
-      focusOption(i);
-      break;
-    }
-  }
+  const lastIndex = props.possibleValues.length - 1;
+  selectIndex(lastIndex);
+  focusOption(lastIndex);
 };
 
 const handleKeyDown = (event: KeyboardEvent, index: number) => {
