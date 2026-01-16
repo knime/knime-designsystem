@@ -27,7 +27,7 @@ const possibleValues = computed(
 const labelId = useId();
 const descriptionId = useId();
 
-const optionContainerEls = ref<Array<HTMLElement | null>>([]);
+const optionsEl = ref<HTMLElement | null>(null);
 
 const isOptionDisabled = (index: number) =>
   props.disabled || possibleValues.value[index]?.disabled === true;
@@ -59,10 +59,10 @@ const tabIndexForOption = (index: number) => {
 };
 
 const focusOption = (index: number) => {
-  const button = optionContainerEls.value[index]?.querySelector(
+  const radios = optionsEl.value?.querySelectorAll<HTMLButtonElement>(
     'button[role="radio"]',
-  ) as HTMLButtonElement | null;
-  button?.focus();
+  );
+  radios?.[index]?.focus();
 };
 
 const selectIndex = (index: number) => {
@@ -172,11 +172,10 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
       {{ props.label }}
     </div>
 
-    <div :class="{ options: true, error: hasError }">
+    <div ref="optionsEl" :class="{ options: true, error: hasError }">
       <ValueSwitchItem
         v-for="(option, index) in possibleValues"
         :key="option.id"
-        :ref="(el) => (optionContainerEls[index] = el as HTMLElement | null)"
         :text="option.text"
         :selected="modelValue === option.id"
         :disabled="props.disabled || option.disabled"
