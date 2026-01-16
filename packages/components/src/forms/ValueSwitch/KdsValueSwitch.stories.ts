@@ -316,7 +316,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         ],
         modelValue: "a",
         error: true,
-        subText: "{Error message}",
+        subText: "{SubText content}",
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2082-20723&m=dev":
@@ -334,7 +334,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         ],
         modelValue: "a",
         error: true,
-        subText: "{Error message}",
+        subText: "{SubText content}",
         variant: "muted",
       },
       variants: {
@@ -354,7 +354,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         modelValue: "a",
         size: "small",
         error: true,
-        subText: "{Error message}",
+        subText: "{SubText content}",
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2408-13594&m=dev":
@@ -373,7 +373,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         modelValue: "a",
         size: "small",
         error: true,
-        subText: "{Error message}",
+        subText: "{SubText content}",
         variant: "muted",
       },
       variants: {

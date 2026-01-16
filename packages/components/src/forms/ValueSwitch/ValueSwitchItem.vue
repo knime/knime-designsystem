@@ -90,6 +90,7 @@ const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
     }
 
     &.variant-muted {
+      color: var(--kds-color-text-and-icon-neutral);
       background: var(--kds-color-background-input-initial);
 
       &:hover:not(:disabled) {

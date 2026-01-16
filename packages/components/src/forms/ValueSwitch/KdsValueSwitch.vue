@@ -241,7 +241,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
   align-items: flex-start;
   width: fit-content;
   max-width: 100%;
-  padding: var(--kds-spacing-container-0-12x);
+  padding: calc(var(--kds-spacing-container-0-12x) - 1px);
   background: var(--kds-color-surface-muted);
   border: var(--kds-border-action-transparent);
   border-radius: var(--kds-border-radius-container-0-37x);
@@ -261,7 +261,6 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
 .subtext {
   display: flex;
   gap: var(--kds-spacing-container-0-25x);
-  align-items: center;
   min-height: var(--kds-dimension-component-height-0-75x);
   margin-top: var(--kds-spacing-container-0-25x);
   font: var(--kds-font-base-subtext-small);
@@ -270,16 +269,5 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
   &.error {
     color: var(--kds-color-text-and-icon-danger);
   }
-}
-
-.subtext-icon {
-  flex: none;
-  width: var(--kds-dimension-component-width-0-75x);
-  height: var(--kds-dimension-component-height-0-75x);
-}
-
-.subtext-text {
-  font: inherit;
-  color: currentcolor;
 }
 </style>
