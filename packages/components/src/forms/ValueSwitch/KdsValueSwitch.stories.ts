@@ -222,7 +222,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
           { id: "b", leadingIcon: "list", title: "List" },
         ],
       ],
-      modelValue: ["Option A", "a"],
+      modelValue: ["Option A"],
       size: ["small", "medium"],
       variant: ["default", "muted"],
       label: ["Label", undefined],
