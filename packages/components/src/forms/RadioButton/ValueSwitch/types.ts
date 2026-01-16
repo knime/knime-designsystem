@@ -1,5 +1,5 @@
-import type { KdsIconName } from "../../index.ts";
-import type { KdsLabelProps, KdsSubTextProps } from "../types.ts";
+import type { KdsIconName } from "../../../index.ts";
+import type { KdsLabelProps, KdsSubTextProps } from "../../types.ts";
 
 export type KdsValueSwitchSize = "small" | "medium";
 export type KdsValueSwitchVariant = "default" | "muted";

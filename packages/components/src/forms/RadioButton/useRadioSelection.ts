@@ -8,7 +8,7 @@ type KdsIndexSelectionOption = {
   [x: string]: unknown;
 };
 
-export const useIndexSelection = ({
+export const useRadioSelection = ({
   selectedId,
   options,
   globalDisable,

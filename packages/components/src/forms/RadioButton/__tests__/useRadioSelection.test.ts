@@ -1,15 +1,15 @@
 import { describe, expect, it } from "vitest";
 import { computed, ref } from "vue";
 
-import { useIndexSelection } from "../useIndexSelection.ts";
+import { useRadioSelection } from "../useRadioSelection.ts";
 
-describe("useIndexSelection", () => {
+describe("useRadioSelection", () => {
   it("computes the selectedIndex from selectedId", () => {
     const globalDisable = ref(false);
     const options = ref([{ id: "a" }, { id: "b" }, { id: "c" }] as const);
     const selectedId = ref<"a" | "b" | "c" | null>("b");
 
-    const api = useIndexSelection({
+    const api = useRadioSelection({
       globalDisable,
       options,
       selectedId,
@@ -25,7 +25,7 @@ describe("useIndexSelection", () => {
     const options = ref([{ id: "a" }, { id: "b" }] as const);
     const selectedId = ref<"a" | "b" | null>(null);
 
-    const api = useIndexSelection({
+    const api = useRadioSelection({
       globalDisable,
       options,
       selectedId,
@@ -56,7 +56,7 @@ describe("useIndexSelection", () => {
     `;
     document.body.appendChild(container);
 
-    const api = useIndexSelection({
+    const api = useRadioSelection({
       globalDisable,
       options,
       selectedId,
@@ -93,7 +93,7 @@ describe("useIndexSelection", () => {
     `;
     document.body.appendChild(container);
 
-    const api = useIndexSelection({
+    const api = useRadioSelection({
       globalDisable,
       options,
       selectedId,
@@ -131,7 +131,7 @@ describe("useIndexSelection", () => {
     `;
     document.body.appendChild(container);
 
-    const api = useIndexSelection({
+    const api = useRadioSelection({
       globalDisable,
       options,
       selectedId,

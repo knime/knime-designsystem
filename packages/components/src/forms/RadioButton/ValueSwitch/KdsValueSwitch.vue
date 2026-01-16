@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { computed, ref, useId } from "vue";
 
-import KdsIcon from "../../Icon/KdsIcon.vue";
-import { useIndexSelection } from "../composables/useIndexSelection.ts";
+import KdsIcon from "../../../Icon/KdsIcon.vue";
+import { useRadioSelection } from "../useRadioSelection.ts";
 
 import ValueSwitchItem from "./ValueSwitchItem.vue";
 import type { KdsValueSwitchOption, KdsValueSwitchProps } from "./types.ts";
@@ -29,7 +29,7 @@ const labelId = useId();
 const descriptionId = useId();
 const optionContainer = ref<HTMLElement | null>(null);
 
-const { tabIndexForOption, handleClick, handleKeyDown } = useIndexSelection({
+const { tabIndexForOption, handleClick, handleKeyDown } = useRadioSelection({
   selectedId: modelValue,
   options,
   globalDisable: computed(() => props.disabled),

@@ -1,13 +1,12 @@
 <script lang="ts" setup>
 import { computed, ref, useId } from "vue";
 
-import { useIndexSelection } from "../composables/useIndexSelection.ts";
-
 import KdsRadioButton from "./KdsRadioButton.vue";
 import type {
   KdsRadioButtonGroupOption,
   KdsRadioButtonGroupProps,
 } from "./types.ts";
+import { useRadioSelection } from "./useRadioSelection.ts";
 
 const props = withDefaults(defineProps<KdsRadioButtonGroupProps>(), {
   disabled: false,
@@ -33,7 +32,7 @@ const groupName = useId();
 const optionContainer = ref<HTMLElement | null>(null);
 
 const { tabIndexForOption, handleClick, handleKeyDown, hasError } =
-  useIndexSelection({
+  useRadioSelection({
     selectedId: modelValue,
     options,
     globalDisable: computed(() => props.disabled),
