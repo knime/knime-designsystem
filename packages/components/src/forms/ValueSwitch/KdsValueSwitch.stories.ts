@@ -9,24 +9,8 @@ import {
 } from "../../test-utils/storybook.ts";
 
 import KdsValueSwitch from "./KdsValueSwitch.vue";
-import type { KdsValueSwitchProps } from "./types.ts";
 
 type Story = StoryObj<typeof KdsValueSwitch>;
-
-const twoOptions: KdsValueSwitchProps["possibleValues"] = [
-  "Option A",
-  "Option B",
-];
-
-const optionsWithError: KdsValueSwitchProps["possibleValues"] = [
-  { text: "Option A", id: "Option A", error: true, helperText: "Helper text" },
-  { text: "Option B", id: "Option B" },
-];
-
-const optionsWithHelperText: KdsValueSwitchProps["possibleValues"] = [
-  { text: "Option A", id: "Option A", helperText: "Helper text" },
-  { text: "Option B", id: "Option B", helperText: "Helper text" },
-];
 
 const meta: Meta<typeof KdsValueSwitch> = {
   title: "Components/forms/KdsValueSwitch",
@@ -138,6 +122,35 @@ export const Default: Story = {
   },
 };
 
+export const Small: Story = {
+  args: {
+    modelValue: "Option A",
+    size: "small",
+  },
+};
+
+export const Muted: Story = {
+  args: {
+    modelValue: "Option A",
+    variant: "muted",
+  },
+};
+
+export const Error: Story = {
+  args: {
+    modelValue: "Option A",
+    error: true,
+    subText: "Error message",
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    modelValue: "Option A",
+    disabled: true,
+  },
+};
+
 export const WithSubText: Story = {
   args: {
     modelValue: "Option A",
@@ -153,39 +166,6 @@ export const PreserveSubTextSpace: Story = {
   },
 };
 
-export const TwoOptions: Story = {
-  args: {
-    modelValue: "Option A",
-    possibleValues: twoOptions,
-  },
-};
-
-export const WithOptionsHelperText: Story = {
-  args: {
-    modelValue: "Option A",
-    possibleValues: optionsWithHelperText,
-  },
-};
-
-export const Disabled: Story = {
-  args: {
-    modelValue: "Option A",
-    disabled: true,
-  },
-};
-
-export const Error: Story = {
-  args: {
-    modelValue: "Option A",
-    possibleValues: [
-      { text: "Option A", id: "Option A" },
-      { text: "Option B", id: "Option B" },
-    ],
-    error: true,
-    subText: "Error message",
-  },
-};
-
 export const WithoutLabel: Story = {
   args: {
     label: undefined,
@@ -195,25 +175,20 @@ export const WithoutLabel: Story = {
   },
 };
 
-export const SizeSmall: Story = {
-  args: {
-    modelValue: "Option A",
-    size: "small",
-  },
-};
-
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsValueSwitch,
   combinationsProps: [
     {
-      label: ["Label", undefined],
-      subText: [undefined, "Additional information"],
-      preserveSubTextSpace: [false, true],
-      possibleValues: [twoOptions, optionsWithError, optionsWithHelperText],
-      modelValue: [null, "Option A", "Option B"],
-      disabled: [false, true],
+      id: ["value-switch-id"],
+      possibleValues: [["Option A", "Option B"]],
+      modelValue: ["Option A"],
       size: ["small", "medium"],
       variant: ["default", "muted"],
+      label: ["Label", undefined],
+      subText: [undefined, "Additional information"],
+      error: [false, true],
+      disabled: [false, true],
+      preserveSubTextSpace: [false, true],
     },
   ],
 });
