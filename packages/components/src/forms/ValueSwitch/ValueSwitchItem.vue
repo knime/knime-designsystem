@@ -18,6 +18,7 @@ const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
       selected: props.selected,
       disabled: props.disabled,
       'variant-muted': props.variant === 'muted',
+      'size-small': props.size === 'small',
     }"
     :disabled="props.disabled"
     :tabindex="props.tabIndex"
@@ -37,6 +38,11 @@ const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
   color: var(--kds-color-text-and-icon-neutral);
   text-align: center;
   cursor: pointer;
+
+  &.size-small {
+    height: var(--kds-dimension-component-height-1-25x);
+    font: var(--kds-font-base-interactive-small-strong);
+  }
 
   /* variant=default */
   background: var(--kds-color-background-neutral-initial);
