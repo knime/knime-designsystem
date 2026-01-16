@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import KdsIcon from "../../../Icon/KdsIcon.vue";
+import KdsIcon from "../../Icon/KdsIcon.vue";
 
 import type { KdsValueSwitchItemProps } from "./types.ts";
 

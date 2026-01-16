@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { computed, ref, useId } from "vue";
 
-import KdsIcon from "../../../Icon/KdsIcon.vue";
-import { useRadioSelection } from "../useRadioSelection.ts";
+import KdsIcon from "../../Icon/KdsIcon.vue";
 
 import ValueSwitchItem from "./ValueSwitchItem.vue";
 import type { KdsValueSwitchOption, KdsValueSwitchProps } from "./types.ts";
+import { useRadioSelection } from "./useRadioSelection.ts";
 
 const props = withDefaults(defineProps<KdsValueSwitchProps>(), {
   disabled: false,

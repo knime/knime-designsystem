@@ -1,7 +1,20 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 import { computed, ref } from "vue";
 
 import { useRadioSelection } from "../useRadioSelection.ts";
+
+const createRadioContainer = (ids: string[]) => {
+  const container = document.createElement("div");
+  container.innerHTML = ids
+    .map((id) => `<button role="radio" id="${id}"></button>`)
+    .join("\n");
+  document.body.appendChild(container);
+  return container;
+};
+
+afterEach(() => {
+  document.body.innerHTML = "";
+});
 
 describe("useRadioSelection", () => {
   it("computes the selectedIndex from selectedId", () => {
@@ -18,6 +31,9 @@ describe("useRadioSelection", () => {
     expect(api.selectedIndex.value).toBe(1);
     selectedId.value = "c";
     expect(api.selectedIndex.value).toBe(2);
+
+    selectedId.value = null;
+    expect(api.selectedIndex.value).toBe(-1);
   });
 
   it("returns proper tabIndex values", () => {
@@ -43,18 +59,12 @@ describe("useRadioSelection", () => {
     expect(api.tabIndexForOption(0)).toBeUndefined();
   });
 
-  it("handles keyboard navigation and updates selection + focus", () => {
+  it("handles keyboard navigation (ArrowRight) and updates selection + focus", () => {
     const globalDisable = computed(() => false);
     const options = ref([{ id: "a" }, { id: "b" }, { id: "c" }] as const);
     const selectedId = ref<"a" | "b" | "c" | null>("a");
 
-    const container = document.createElement("div");
-    container.innerHTML = `
-      <button role="radio" id="a"></button>
-      <button role="radio" id="b"></button>
-      <button role="radio" id="c"></button>
-    `;
-    document.body.appendChild(container);
+    const container = createRadioContainer(["a", "b", "c"]);
 
     const api = useRadioSelection({
       globalDisable,
@@ -72,8 +82,64 @@ describe("useRadioSelection", () => {
 
     expect(selectedId.value).toBe("b");
     expect(document.activeElement).toBe(container.querySelector("#b"));
+  });
 
-    container.remove();
+  it("supports wrapping navigation (ArrowLeft from first goes to last)", () => {
+    const globalDisable = computed(() => false);
+    const options = ref([{ id: "a" }, { id: "b" }, { id: "c" }] as const);
+    const selectedId = ref<"a" | "b" | "c" | null>("a");
+
+    const container = createRadioContainer(["a", "b", "c"]);
+
+    const api = useRadioSelection({
+      globalDisable,
+      options,
+      selectedId,
+      optionContainer: ref(container),
+    });
+
+    const event = {
+      key: "ArrowLeft",
+      preventDefault: () => {},
+    } as unknown as KeyboardEvent;
+
+    api.handleKeyDown(event, 0);
+
+    expect(selectedId.value).toBe("c");
+    expect(document.activeElement).toBe(container.querySelector("#c"));
+  });
+
+  it("supports Home/End keys (go to first/last enabled)", () => {
+    const globalDisable = computed(() => false);
+    const options = ref([
+      { id: "a" as const, disabled: true },
+      { id: "b" as const },
+      { id: "c" as const },
+    ]);
+    const selectedId = ref<"a" | "b" | "c" | null>("c");
+
+    const container = createRadioContainer(["a", "b", "c"]);
+
+    const api = useRadioSelection({
+      globalDisable,
+      options,
+      selectedId,
+      optionContainer: ref(container),
+    });
+
+    api.handleKeyDown(
+      { key: "Home", preventDefault: () => {} } as unknown as KeyboardEvent,
+      2,
+    );
+    expect(selectedId.value).toBe("b");
+    expect(document.activeElement).toBe(container.querySelector("#b"));
+
+    api.handleKeyDown(
+      { key: "End", preventDefault: () => {} } as unknown as KeyboardEvent,
+      1,
+    );
+    expect(selectedId.value).toBe("c");
+    expect(document.activeElement).toBe(container.querySelector("#c"));
   });
 
   it("skips disabled options and reports hasError", () => {
@@ -85,13 +151,7 @@ describe("useRadioSelection", () => {
     ]);
     const selectedId = ref<"a" | "b" | "c" | null>("a");
 
-    const container = document.createElement("div");
-    container.innerHTML = `
-      <button role="radio" id="a"></button>
-      <button role="radio" id="b"></button>
-      <button role="radio" id="c"></button>
-    `;
-    document.body.appendChild(container);
+    const container = createRadioContainer(["a", "b", "c"]);
 
     const api = useRadioSelection({
       globalDisable,
@@ -115,21 +175,41 @@ describe("useRadioSelection", () => {
 
     // disabled option should not be tabbable
     expect(api.tabIndexForOption(1)).toBeUndefined();
-
-    container.remove();
   });
 
-  it("does nothing when disabled", () => {
+  it("does not select a disabled option on Space/Enter", () => {
+    const globalDisable = computed(() => false);
+    const options = ref([
+      { id: "a" as const },
+      { id: "b" as const, disabled: true },
+    ]);
+    const selectedId = ref<"a" | "b" | null>("a");
+
+    const api = useRadioSelection({
+      globalDisable,
+      options,
+      selectedId,
+    });
+
+    api.handleKeyDown(
+      { key: " ", preventDefault: () => {} } as unknown as KeyboardEvent,
+      1,
+    );
+    expect(selectedId.value).toBe("a");
+
+    api.handleKeyDown(
+      { key: "Enter", preventDefault: () => {} } as unknown as KeyboardEvent,
+      1,
+    );
+    expect(selectedId.value).toBe("a");
+  });
+
+  it("does nothing when globally disabled", () => {
     const globalDisable = ref(true);
     const options = ref([{ id: "a" }, { id: "b" }] as const);
     const selectedId = ref<"a" | "b" | null>("a");
 
-    const container = document.createElement("div");
-    container.innerHTML = `
-      <button role="radio" id="a"></button>
-      <button role="radio" id="b"></button>
-    `;
-    document.body.appendChild(container);
+    const container = createRadioContainer(["a", "b"]);
 
     const api = useRadioSelection({
       globalDisable,
@@ -138,16 +218,15 @@ describe("useRadioSelection", () => {
       optionContainer: ref(container),
     });
 
-    const event = {
-      key: "ArrowRight",
-      preventDefault: () => {},
-    } as unknown as KeyboardEvent;
-
-    api.handleKeyDown(event, 0);
+    api.handleKeyDown(
+      {
+        key: "ArrowRight",
+        preventDefault: () => {},
+      } as unknown as KeyboardEvent,
+      0,
+    );
 
     expect(selectedId.value).toBe("a");
     expect(document.activeElement).not.toBe(container.querySelector("#b"));
-
-    container.remove();
   });
 });
