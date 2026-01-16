@@ -334,16 +334,16 @@ export const TextOverflow: Story = {
         leadingIcon: "search",
       },
       {
-        text: "This is a very long option label that should overflow and wrap properly",
         id: "b",
-        helperText: "Helper text that is also quite long and may wrap",
-        trailingIcon: "chevron-right",
-      },
-      {
-        id: "c",
         leadingIcon: "view-cards",
         title:
           "This is a very long icon-only option title that should be used as the tooltip and overflow reference",
+      },
+      {
+        text: "This is a very long option label that should overflow and wrap properly",
+        id: "c",
+        helperText: "Helper text that is also quite long and may wrap",
+        trailingIcon: "chevron-right",
       },
     ],
     modelValue: "a",

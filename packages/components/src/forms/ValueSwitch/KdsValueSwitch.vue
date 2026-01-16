@@ -268,7 +268,6 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
   color: var(--kds-color-text-and-icon-muted);
 
   &.error {
-    padding-top: var(--kds-spacing-sub-text-spacing-top);
     color: var(--kds-color-text-and-icon-danger);
   }
 }
