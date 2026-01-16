@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
-import { expect, fn, userEvent, within } from "storybook/test";
+import { expect, userEvent, within } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
@@ -45,15 +45,10 @@ const meta: Meta<typeof KdsValueSwitch> = {
     },
   },
   argTypes: {
-    modelValue: {
+    id: {
       control: { type: "text" },
-      description:
-        "The currently selected option id. Can be null when no option is selected.",
-      table: { category: "Model" },
-    },
-    "onUpdate:modelValue": {
-      table: { category: "Model" },
-      description: "Emitted when the model changes (v-model update).",
+      description: "Optional id for the root element.",
+      table: { category: "Props" },
     },
     label: {
       control: { type: "text" },
@@ -108,14 +103,13 @@ const meta: Meta<typeof KdsValueSwitch> = {
     id: "value-switch",
     label: "Label",
     possibleValues: ["Option A", "Option B", "Option C", "Option D"],
-    modelValue: "Option A",
-    "onUpdate:modelValue": fn(),
     size: "medium",
     variant: "default",
   },
   decorators: [
     (story) => {
       const [currentArgs, updateArgs] = useArgs();
+
       return {
         components: { story },
         setup() {
@@ -124,8 +118,13 @@ const meta: Meta<typeof KdsValueSwitch> = {
             updateArgs,
           };
         },
-        template:
-          '<story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" />',
+        template: `
+          <story
+            v-bind="args"
+            :model-value="args.modelValue"
+            @update:model-value="(value) => updateArgs({ modelValue: value })"
+          />
+        `,
       };
     },
   ],
@@ -133,16 +132,22 @@ const meta: Meta<typeof KdsValueSwitch> = {
 
 export default meta;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: {
+    modelValue: "Option A",
+  },
+};
 
 export const WithSubText: Story = {
   args: {
+    modelValue: "Option A",
     subText: "Additional information about this selection",
   },
 };
 
 export const PreserveSubTextSpace: Story = {
   args: {
+    modelValue: "Option A",
     subText: undefined,
     preserveSubTextSpace: true,
   },
@@ -150,24 +155,28 @@ export const PreserveSubTextSpace: Story = {
 
 export const TwoOptions: Story = {
   args: {
+    modelValue: "Option A",
     possibleValues: twoOptions,
   },
 };
 
 export const WithOptionsHelperText: Story = {
   args: {
+    modelValue: "Option A",
     possibleValues: optionsWithHelperText,
   },
 };
 
 export const Disabled: Story = {
   args: {
+    modelValue: "Option A",
     disabled: true,
   },
 };
 
 export const Error: Story = {
   args: {
+    modelValue: "Option A",
     possibleValues: [
       { text: "Option A", id: "Option A" },
       { text: "Option B", id: "Option B" },
@@ -180,6 +189,7 @@ export const Error: Story = {
 export const WithoutLabel: Story = {
   args: {
     label: undefined,
+    id: "custom-value-switch-id",
     possibleValues: ["Option A", "Option B", "Option C", "Option D"],
     modelValue: "Option A",
   },
@@ -187,6 +197,7 @@ export const WithoutLabel: Story = {
 
 export const SizeSmall: Story = {
   args: {
+    modelValue: "Option A",
     size: "small",
   },
 };
