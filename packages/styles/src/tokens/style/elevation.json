@@ -83,7 +83,7 @@
           "x": "0",
           "y": "0",
           "blur": "0",
-          "spread": "0.5 px",
+          "spread": "0.5px",
           "color": "{kds.color.border.muted}",
           "type": "innerShadow"
         },
