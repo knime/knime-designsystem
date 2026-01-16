@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { computed, ref, useId } from "vue";
 
-import KdsIcon from "../../Icon/KdsIcon.vue";
+import KdsLabel from "../KdsLabel.vue";
+import KdsSubText from "../KdsSubText.vue";
 
 import ValueSwitchItem from "./ValueSwitchItem.vue";
 import type { KdsValueSwitchOption, KdsValueSwitchProps } from "./types.ts";
@@ -49,9 +50,7 @@ const { tabIndexForOption, handleClick, handleKeyDown } = useRadioSelection({
     :aria-labelledby="props.label ? labelId : undefined"
     :aria-describedby="props.subText ? descriptionId : undefined"
   >
-    <div v-if="props.label" :id="labelId" class="label">
-      {{ props.label }}
-    </div>
+    <KdsLabel v-if="props.label" :id="labelId" :label="props.label" />
 
     <div ref="optionContainer" :class="{ options: true, error: props.error }">
       <ValueSwitchItem
@@ -68,30 +67,16 @@ const { tabIndexForOption, handleClick, handleKeyDown } = useRadioSelection({
       />
     </div>
 
-    <div
-      v-if="props.subText || props.preserveSubTextSpace"
+    <KdsSubText
       :id="descriptionId"
-      :class="{ subtext: true, error: props.error }"
-    >
-      <template v-if="props.error && props.subText">
-        <KdsIcon class="subtext-icon" name="circle-error" size="small" />
-      </template>
-      <span class="subtext-text">{{ props.subText }}</span>
-    </div>
+      :sub-text="props.subText"
+      :preserve-sub-text-space="props.preserveSubTextSpace"
+      :error="props.error"
+    />
   </div>
 </template>
 
 <style scoped>
-.label {
-  display: flex;
-  gap: var(--kds-spacing-container-0-25x);
-  align-items: center;
-  min-height: var(--kds-dimension-component-height-0-75x);
-  padding-bottom: var(--kds-spacing-input-label-spacing-bottom);
-  font: var(--kds-font-base-title-small-strong);
-  color: var(--kds-color-text-and-icon-neutral);
-}
-
 .value-switch {
   display: flex;
   flex-direction: column;
@@ -122,19 +107,6 @@ const { tabIndexForOption, handleClick, handleKeyDown } = useRadioSelection({
 
   &.error {
     border: var(--kds-border-action-error);
-  }
-}
-
-.subtext {
-  display: flex;
-  gap: var(--kds-spacing-container-0-25x);
-  min-height: var(--kds-dimension-component-height-0-75x);
-  margin-top: var(--kds-spacing-container-0-25x);
-  font: var(--kds-font-base-subtext-small);
-  color: var(--kds-color-text-and-icon-muted);
-
-  &.error {
-    color: var(--kds-color-text-and-icon-danger);
   }
 }
 </style>

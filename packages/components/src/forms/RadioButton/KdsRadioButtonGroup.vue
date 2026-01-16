@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import { computed, ref, useId } from "vue";
 
+import KdsLabel from "../KdsLabel.vue";
+import KdsSubText from "../KdsSubText.vue";
+
 import KdsRadioButton from "./KdsRadioButton.vue";
 import type {
   KdsRadioButtonGroupOption,
@@ -48,9 +51,7 @@ const { tabIndexForOption, handleClick, handleKeyDown, hasError } =
     :aria-labelledby="props.label ? labelId : undefined"
     :aria-describedby="props.subText ? descriptionId : undefined"
   >
-    <div v-if="props.label" :id="labelId" class="label">
-      {{ props.label }}
-    </div>
+    <KdsLabel v-if="props.label" :id="labelId" :label="props.label" />
 
     <div
       ref="optionContainer"
@@ -71,27 +72,16 @@ const { tabIndexForOption, handleClick, handleKeyDown, hasError } =
       </div>
     </div>
 
-    <div
-      v-if="props.subText || props.preserveSubTextSpace"
+    <KdsSubText
       :id="descriptionId"
-      :class="{ subtext: true, error: hasError }"
-    >
-      {{ props.subText }}
-    </div>
+      :sub-text="props.subText"
+      :preserve-sub-text-space="props.preserveSubTextSpace"
+      :error="hasError"
+    />
   </div>
 </template>
 
 <style scoped>
-.label {
-  display: flex;
-  gap: var(--kds-spacing-container-0-25x);
-  align-items: center;
-  min-height: var(--kds-dimension-component-height-0-75x);
-  padding-bottom: var(--kds-spacing-input-label-spacing-bottom);
-  font: var(--kds-font-base-title-small-strong);
-  color: var(--kds-color-text-and-icon-neutral);
-}
-
 .radio-button-group {
   padding: 0;
   margin: 0;
@@ -107,16 +97,5 @@ const { tabIndexForOption, handleClick, handleKeyDown, hasError } =
 .options.horizontal {
   flex-flow: row wrap;
   align-items: flex-start;
-}
-
-.subtext {
-  min-height: 1lh;
-  margin-top: var(--kds-spacing-container-0-25x);
-  font: var(--kds-font-base-subtext-small);
-  color: var(--kds-color-text-and-icon-muted);
-
-  &.error {
-    color: var(--kds-color-text-and-icon-danger);
-  }
 }
 </style>
