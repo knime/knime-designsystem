@@ -70,6 +70,7 @@ const props = withDefaults(defineProps<ValueSwitchItemProps>(), {
   );
   color: var(--kds-color-text-and-icon-neutral);
   text-align: center;
+  cursor: pointer;
 
   /* variant=default */
   background: var(--kds-color-background-neutral-initial);
