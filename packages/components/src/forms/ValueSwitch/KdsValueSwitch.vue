@@ -2,6 +2,7 @@
 import { computed, ref, useId } from "vue";
 
 import KdsIcon from "../../Icon/KdsIcon.vue";
+import { useIndexSelection } from "../composables/useIndexSelection.ts";
 
 import ValueSwitchItem from "./ValueSwitchItem.vue";
 import type { KdsValueSwitchOption, KdsValueSwitchProps } from "./types.ts";
@@ -24,98 +25,27 @@ const possibleValues = computed(
     }) satisfies KdsValueSwitchOption[],
 );
 
+const optionIds = computed(() => possibleValues.value.map((o) => o.id));
+
 const labelId = useId();
 const descriptionId = useId();
 
 const optionsEl = ref<HTMLElement | null>(null);
 
-const selectedIndex = computed(() =>
-  possibleValues.value.findIndex((option) => option.id === modelValue.value),
-);
-
-const tabIndexForOption = (index: number) => {
-  if (props.disabled) {
-    return undefined;
-  }
-
-  if (selectedIndex.value >= 0) {
-    return selectedIndex.value === index ? 0 : -1;
-  }
-
-  return index === 0 ? 0 : -1;
-};
-
-const focusOption = (index: number) => {
+const focusOptionAtIndex = (index: number) => {
   const radios = optionsEl.value?.querySelectorAll<HTMLButtonElement>(
     'button[role="radio"]',
   );
   radios?.[index]?.focus();
 };
 
-const selectIndex = (index: number) => {
-  modelValue.value = possibleValues.value[index].id;
-};
-
-const nextEnabledIndex = (startIndex: number, direction: 1 | -1) =>
-  (startIndex + direction + props.possibleValues.length) %
-  props.possibleValues.length;
-
-const moveSelection = (currentIndex: number, direction: 1 | -1) => {
-  const nextIndex = nextEnabledIndex(currentIndex, direction);
-  selectIndex(nextIndex);
-  focusOption(nextIndex);
-};
-
-const goToFirstEnabled = () => {
-  selectIndex(0);
-  focusOption(0);
-};
-
-const goToLastEnabled = () => {
-  const lastIndex = props.possibleValues.length - 1;
-  selectIndex(lastIndex);
-  focusOption(lastIndex);
-};
-
-const handleKeyDown = (event: KeyboardEvent, index: number) => {
-  if (props.disabled) {
-    return;
-  }
-
-  switch (event.key) {
-    case "ArrowDown":
-    case "ArrowRight": {
-      event.preventDefault();
-      moveSelection(index, 1);
-      return;
-    }
-
-    case "ArrowUp":
-    case "ArrowLeft": {
-      event.preventDefault();
-      moveSelection(index, -1);
-      return;
-    }
-
-    case "Home": {
-      event.preventDefault();
-      goToFirstEnabled();
-      return;
-    }
-
-    case "End": {
-      event.preventDefault();
-      goToLastEnabled();
-      return;
-    }
-
-    case " ":
-    case "Enter": {
-      event.preventDefault();
-      selectIndex(index);
-    }
-  }
-};
+const { tabIndexForOption, handleClickOnIndex, handleKeyDown } =
+  useIndexSelection({
+    disabled: computed(() => props.disabled),
+    optionIds,
+    selectedId: modelValue,
+    focusOptionAtIndex,
+  });
 </script>
 
 <template>
@@ -144,7 +74,7 @@ const handleKeyDown = (event: KeyboardEvent, index: number) => {
         :size="props.size"
         :variant="props.variant"
         :tab-index="tabIndexForOption(index)"
-        @click="() => selectIndex(index)"
+        @click="() => handleClickOnIndex(index)"
         @keydown="(e: KeyboardEvent) => handleKeyDown(e, index)"
       />
     </div>
