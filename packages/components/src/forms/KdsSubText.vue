@@ -3,12 +3,7 @@ import KdsIcon from "../Icon/KdsIcon.vue";
 
 import type { KdsSubTextProps } from "./types.ts";
 
-type KdsSubTextInternalProps = KdsSubTextProps & {
-  id: string;
-  error?: boolean;
-};
-
-const props = withDefaults(defineProps<KdsSubTextInternalProps>(), {
+const props = withDefaults(defineProps<KdsSubTextProps>(), {
   error: false,
   preserveSubTextSpace: false,
 });

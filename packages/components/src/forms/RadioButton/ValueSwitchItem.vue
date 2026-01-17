@@ -15,6 +15,7 @@ const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
   <button
     role="radio"
     :aria-checked="props.selected"
+    :aria-label="props.text ? undefined : props.title"
     :class="{
       option: true,
       selected: props.selected,

@@ -166,15 +166,6 @@ export const PreserveSubTextSpace: Story = {
   },
 };
 
-export const WithoutLabel: Story = {
-  args: {
-    label: undefined,
-    id: "custom-value-switch-id",
-    possibleValues: ["Option A", "Option B", "Option C", "Option D"],
-    modelValue: "Option A",
-  },
-};
-
 export const WithIcons: Story = {
   args: {
     modelValue: "a",
@@ -206,6 +197,15 @@ export const IconOnly: Story = {
   },
 };
 
+export const WithoutLabel: Story = {
+  args: {
+    label: undefined,
+    id: "custom-value-switch-id",
+    possibleValues: ["Option A", "Option B", "Option C", "Option D"],
+    modelValue: "Option A",
+  },
+};
+
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsValueSwitch,
   combinationsProps: [
@@ -214,21 +214,21 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       possibleValues: [
         ["Option A", "Option B"],
         [
-          { text: "Option A", id: "a", leadingIcon: "search" },
-          { text: "Option B", id: "b", trailingIcon: "chevron-right" },
+          { text: "Option A", id: "Option A", leadingIcon: "search" },
+          { text: "Option B", id: "Option B", trailingIcon: "chevron-right" },
         ],
         [
-          { id: "a", leadingIcon: "view-cards", title: "Cards" },
-          { id: "b", leadingIcon: "list", title: "List" },
+          { id: "Option A", leadingIcon: "view-cards", title: "Cards" },
+          { id: "Option B", leadingIcon: "list", title: "List" },
         ],
       ],
       modelValue: ["Option A"],
-      size: ["small", "medium"],
+      size: ["medium", "small"],
       variant: ["default", "muted"],
       label: ["Label", undefined],
+      disabled: [false, true],
       subText: [undefined, "Additional information"],
       error: [false, true],
-      disabled: [false, true],
       preserveSubTextSpace: [false, true],
     },
   ],
@@ -490,10 +490,10 @@ export const Interaction: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const groups = canvas.getAllByRole("radiogroup");
-
     // -------- Interactive group --------
-    const interactiveGroup = groups[0];
+    const interactiveGroup = canvas.getByRole("radiogroup", {
+      name: "Interactive group",
+    });
     const interactiveScope = within(interactiveGroup);
 
     const optionA = interactiveScope.getByRole("radio", { name: "Option A" });
@@ -541,7 +541,7 @@ export const Interaction: Story = {
     await expect(optionD).toHaveAttribute("aria-checked", "true");
 
     // -------- Error group --------
-    const errorGroup = groups[1];
+    const errorGroup = canvas.getByRole("radiogroup", { name: "Error group" });
     const errorScope = within(errorGroup);
 
     const errorA = errorScope.getByRole("radio", { name: "Option A" });
@@ -556,7 +556,9 @@ export const Interaction: Story = {
     await expect(errorA).toHaveAttribute("aria-checked", "false");
 
     // -------- Icon-only group --------
-    const iconOnlyGroup = groups[2];
+    const iconOnlyGroup = canvas.getByRole("radiogroup", {
+      name: "Icon-only group",
+    });
     const iconOnlyScope = within(iconOnlyGroup);
 
     const cards = iconOnlyScope.getByRole("radio", { name: "Cards" });
@@ -569,7 +571,9 @@ export const Interaction: Story = {
     await expect(cards).toHaveAttribute("aria-checked", "false");
 
     // -------- Disabled group --------
-    const disabledGroup = groups[3];
+    const disabledGroup = canvas.getByRole("radiogroup", {
+      name: "Disabled group",
+    });
     const disabledScope = within(disabledGroup);
 
     const disabledA = disabledScope.getByRole("radio", { name: "Option A" });

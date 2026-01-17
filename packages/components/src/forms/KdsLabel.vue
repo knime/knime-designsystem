@@ -1,10 +1,7 @@
 <script setup lang="ts">
-type KdsLabelInternalProps = {
-  id: string;
-  label: string;
-};
+import type { KdsLabelProps } from "./types.ts";
 
-const props = defineProps<KdsLabelInternalProps>();
+const props = defineProps<KdsLabelProps>();
 </script>
 
 <template>

@@ -63,6 +63,7 @@ packages/
 - Use `defineModel()` for v-model bindings - do NOT manually emit `update:modelValue` events or include `modelValue` in props
 - Use `type` instead of `interface`
 - Create a `types.ts` file for shared types. Don't export types from .vue files. Use globally defined [propTypeTester](../packages/components/globals.d.ts) for static type checks.
+- IMPORTANT: Define component prop types in the co-located `types.ts` and reference them directly from the `.vue` file (no local/"internal" `*InternalProps` types in `.vue`). If a component needs additional values, model them as real props in `types.ts` or compute them inside the component.
 - Use `<style scoped>`
 - IMPORTANT: Don't use BEM! Use CSS nesting to NOT duplicate selectors.
 - IMPORTANT: Don't use `:deep()` selectors. Prefer styling via dedicated wrapper elements, component props, or slots.

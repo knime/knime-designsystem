@@ -1,5 +1,4 @@
 import type { KdsIconName } from "../../index.ts";
-import type { KdsLabelProps, KdsSubTextProps } from "../types.ts";
 
 export type KdsRadioButtonProps = {
   text: string;
@@ -21,11 +20,14 @@ export type KdsRadioButtonGroupOption = {
 };
 
 export type KdsRadioButtonGroupProps = {
+  id?: string;
+  label?: string;
   possibleValues: AtLeastTwo<string | KdsRadioButtonGroupOption>;
   alignment?: KdsRadioButtonGroupAlignment;
   disabled?: boolean;
-} & KdsLabelProps &
-  KdsSubTextProps;
+  subText?: string;
+  preserveSubTextSpace?: boolean;
+};
 
 export type KdsValueSwitchSize = "small" | "medium";
 export type KdsValueSwitchVariant = "default" | "muted";
@@ -46,7 +48,7 @@ type KdsTextWithIcons =
       title?: undefined;
     }
   | {
-      text: never;
+      text?: never;
       leadingIcon: KdsIconName;
       title: string;
       trailingIcon?: never;
@@ -57,13 +59,16 @@ export type KdsValueSwitchOption = {
 } & KdsTextWithIcons;
 
 export type KdsValueSwitchProps = {
+  id?: string;
+  label?: string;
   possibleValues: AtLeastTwo<string | KdsValueSwitchOption>;
   size?: KdsValueSwitchSize;
   variant?: KdsValueSwitchVariant;
   disabled?: boolean;
+  subText?: string;
   error?: boolean;
-} & KdsLabelProps &
-  KdsSubTextProps;
+  preserveSubTextSpace?: boolean;
+};
 
 // supports just text
 propTypeTester<KdsRadioButtonProps>({ text: "foo" });
