@@ -58,7 +58,7 @@ const { tabIndexForOption, handleClick, handleKeyDown } = useRadioSelection({
         :key="option.id"
         v-bind="option"
         :selected="modelValue === option.id"
-        :disabled="props.disabled"
+        :disabled="props.disabled || option.disabled"
         :size="props.size"
         :variant="props.variant"
         :tab-index="tabIndexForOption(index)"

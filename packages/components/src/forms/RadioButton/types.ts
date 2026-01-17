@@ -9,8 +9,6 @@ export type KdsRadioButtonProps = {
 
 export type KdsRadioButtonGroupAlignment = "vertical" | "horizontal";
 
-type AtLeastTwo<T> = [T, T, ...T[]];
-
 export type KdsRadioButtonGroupOption = {
   text: string;
   id: string;
@@ -22,7 +20,7 @@ export type KdsRadioButtonGroupOption = {
 export type KdsRadioButtonGroupProps = {
   id?: string;
   label?: string;
-  possibleValues: AtLeastTwo<string | KdsRadioButtonGroupOption>;
+  possibleValues: (string | KdsRadioButtonGroupOption)[];
   alignment?: KdsRadioButtonGroupAlignment;
   disabled?: boolean;
   subText?: string;
@@ -56,12 +54,13 @@ type KdsValueSwitchItemContent =
 
 export type KdsValueSwitchOption = {
   id: string;
+  disabled?: boolean;
 } & KdsValueSwitchItemContent;
 
 export type KdsValueSwitchProps = {
   id?: string;
   label?: string;
-  possibleValues: AtLeastTwo<string | KdsValueSwitchOption>;
+  possibleValues: (string | KdsValueSwitchOption)[];
   size?: KdsValueSwitchSize;
   variant?: KdsValueSwitchVariant;
   disabled?: boolean;
