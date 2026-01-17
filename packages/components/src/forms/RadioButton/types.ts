@@ -38,9 +38,9 @@ export type KdsValueSwitchItemProps = {
   size?: KdsValueSwitchSize;
   variant?: KdsValueSwitchVariant;
   tabIndex?: number;
-} & KdsTextWithIcons;
+} & KdsValueSwitchItemContent;
 
-type KdsTextWithIcons =
+type KdsValueSwitchItemContent =
   | {
       text: string;
       leadingIcon?: KdsIconName;
@@ -56,7 +56,7 @@ type KdsTextWithIcons =
 
 export type KdsValueSwitchOption = {
   id: string;
-} & KdsTextWithIcons;
+} & KdsValueSwitchItemContent;
 
 export type KdsValueSwitchProps = {
   id?: string;
