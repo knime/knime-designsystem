@@ -16,7 +16,12 @@ const props = withDefaults(defineProps<KdsSubTextProps>(), {
     :class="{ subtext: true, error: props.error }"
   >
     <template v-if="props.error && props.subText">
-      <KdsIcon class="subtext-icon" name="circle-error" size="small" />
+      <KdsIcon
+        class="subtext-icon"
+        name="circle-error"
+        size="small"
+        aria-label="Error"
+      />
     </template>
     <span class="subtext-text">{{ props.subText }}</span>
   </div>
@@ -26,7 +31,7 @@ const props = withDefaults(defineProps<KdsSubTextProps>(), {
 .subtext {
   display: flex;
   gap: var(--kds-spacing-container-0-25x);
-  min-height: var(--kds-dimension-component-height-0-75x);
+  min-height: 1lh;
   margin-top: var(--kds-spacing-container-0-25x);
   font: var(--kds-font-base-subtext-small);
   color: var(--kds-color-text-and-icon-muted);
