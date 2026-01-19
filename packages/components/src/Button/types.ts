@@ -113,6 +113,20 @@ export type KdsToggleButtonProps = CommonProps &
   Partial<WithVariant<KdsToggleButtonVariant>> &
   WithLabelAndIcons;
 
+export type KdsVariableToggleButtonIcon = "none" | "in" | "out" | "in-out";
+
+export type KdsVariableToggleButtonProps = {
+  disabled?: boolean;
+  /**
+   * Controls which flow variable state icon is shown.
+   */
+  icon?: KdsVariableToggleButtonIcon;
+  /**
+   * If set to true, the button indicates an error state.
+   */
+  error?: boolean;
+};
+
 /**
  * Testers
  */
@@ -175,3 +189,8 @@ propTypeTester<KdsToggleButtonProps>({
   variant: "filled",
   leadingIcon: "ai-general",
 });
+
+// KdsVariableToggleButton supports icon, error and disabled
+propTypeTester<KdsVariableToggleButtonProps>({ icon: "none" });
+propTypeTester<KdsVariableToggleButtonProps>({ icon: "in", error: true });
+propTypeTester<KdsVariableToggleButtonProps>({ disabled: true });

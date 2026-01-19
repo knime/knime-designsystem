@@ -1,5 +1,6 @@
 // Export all components
 export { default as KdsButton } from "./Button/KdsButton.vue";
+export { default as KdsVariableToggleButton } from "./Button/KdsVariableToggleButton.vue";
 export { default as KdsLinkButton } from "./Button/KdsLinkButton.vue";
 export { default as KdsToggleButton } from "./Button/KdsToggleButton.vue";
 export { default as KdsCheckbox } from "./Checkbox/KdsCheckbox.vue";
