@@ -24,7 +24,7 @@ const modelValue = defineModel<boolean>({ default: false });
     :aria-label="title"
     :aria-pressed="modelValue"
     type="button"
-    @click="modelValue = !modelValue"
+    @click="!props.disabled && (modelValue = !modelValue)"
   >
     <div class="container">
       <KdsIcon name="circle-question" size="xsmall" />
