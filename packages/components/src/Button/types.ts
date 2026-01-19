@@ -113,6 +113,10 @@ export type KdsToggleButtonProps = CommonProps &
   Partial<WithVariant<KdsToggleButtonVariant>> &
   WithLabelAndIcons;
 
+export type KdsInfoToggleButtonProps = {
+  disabled?: boolean;
+};
+
 /**
  * Testers
  */
@@ -175,3 +179,6 @@ propTypeTester<KdsToggleButtonProps>({
   variant: "filled",
   leadingIcon: "ai-general",
 });
+
+// KdsInfoToggleButton supports disabled
+propTypeTester<KdsInfoToggleButtonProps>({ disabled: true });
