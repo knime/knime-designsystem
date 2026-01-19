@@ -74,6 +74,7 @@ const { tabIndexForOption, handleClick, handleKeyDown } = useRadioSelection({
         :size="props.size"
         :variant="props.variant"
         :tab-index="tabIndexForOption(index)"
+        :title="option.title ?? option.text"
         @click="() => handleClick(index)"
         @keydown="handleKeyDown($event, index)"
       />
