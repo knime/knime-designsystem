@@ -80,7 +80,7 @@ export const useValueSwitchIconHiding = ({
       // First pass: try rendering icons
       shouldHideIcons.value = false;
 
-      // Second pass: hide icons when over-flow.
+      // Second pass: hide icons when width overflowed.
       await nextTick();
       shouldHideIcons.value = hasEllipsizedTextIconItem();
     },
