@@ -10,14 +10,6 @@ const props = withDefaults(defineProps<KdsInfoToggleButtonProps>(), {
 const title = "Click for more information";
 
 const modelValue = defineModel<boolean>({ default: false });
-
-function onClick() {
-  if (props.disabled) {
-    return;
-  }
-
-  modelValue.value = !modelValue.value;
-}
 </script>
 
 <template>
@@ -32,7 +24,7 @@ function onClick() {
     :aria-label="title"
     :aria-pressed="modelValue"
     type="button"
-    @click="onClick"
+    @click="modelValue = !modelValue"
   >
     <div class="container">
       <KdsIcon name="circle-question" size="xsmall" />
