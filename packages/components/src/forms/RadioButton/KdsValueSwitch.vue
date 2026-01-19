@@ -87,13 +87,14 @@ const { tabIndexForOption, handleClick, handleKeyDown } = useRadioSelection({
 }
 
 .options {
-  display: inline-flex;
-  flex-flow: row wrap;
+  display: flex;
+  flex-flow: row nowrap;
   gap: var(--kds-spacing-container-none);
   align-items: flex-start;
-  width: fit-content;
-  max-width: 100%;
+  width: 100%;
+  min-width: 0;
   padding: calc(var(--kds-spacing-container-0-12x) - 1px);
+  overflow: hidden;
   background: var(--kds-color-surface-muted);
   border: var(--kds-border-action-transparent);
   border-radius: var(--kds-border-radius-container-0-37x);

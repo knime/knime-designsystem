@@ -46,9 +46,13 @@ const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
 <style scoped>
 .option {
   display: flex;
+  flex: 0 1 auto;
   gap: var(--kds-spacing-container-0-25x);
   align-items: center;
   justify-content: center;
+  min-width: calc(
+    var(--kds-dimension-icon-1x) + (2 * var(--kds-spacing-container-0-37x))
+  );
   max-width: 100%;
   height: var(--kds-dimension-component-height-1-5x);
   padding: 0 var(--kds-spacing-container-0-37x);
@@ -113,6 +117,7 @@ const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
 }
 
 .option-label {
+  min-width: 0;
   padding: 0 var(--kds-spacing-container-0-12x);
   overflow: hidden;
   text-overflow: ellipsis;
