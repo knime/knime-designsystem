@@ -151,6 +151,14 @@ export const Disabled: Story = {
   },
 };
 
+export const MutedDisabled: Story = {
+  args: {
+    modelValue: "Option A",
+    variant: "muted",
+    disabled: true,
+  },
+};
+
 export const WithSubText: Story = {
   args: {
     modelValue: "Option A",
@@ -378,6 +386,72 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7691-106458&m=dev":
+          {},
+      },
+    },
+    DisabledDefault: {
+      props: {
+        possibleValues: [
+          { text: "{Value}", id: "a" },
+          { text: "{Value}", id: "b" },
+          { text: "{Value}", id: "c" },
+          { text: "{Value}", id: "d" },
+          { text: "{Value}", id: "e" },
+        ],
+        modelValue: "a",
+        disabled: true,
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7588-143386&m=dev":
+          {},
+      },
+    },
+    DisabledMuted: {
+      props: {
+        possibleValues: [
+          { text: "{Value}", id: "a" },
+          { text: "{Value}", id: "b" },
+        ],
+        modelValue: "a",
+        variant: "muted",
+        disabled: true,
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7691-97819&m=dev":
+          {},
+      },
+    },
+    SmallDisabledDefault: {
+      props: {
+        possibleValues: [
+          { text: "{Value}", id: "a" },
+          { text: "{Value}", id: "b" },
+          { text: "{Value}", id: "c" },
+          { text: "{Value}", id: "d" },
+          { text: "{Value}", id: "e" },
+        ],
+        modelValue: "a",
+        size: "small",
+        disabled: true,
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7588-143387&m=dev":
+          {},
+      },
+    },
+    SmallDisabledMuted: {
+      props: {
+        possibleValues: [
+          { text: "{Value}", id: "a" },
+          { text: "{Value}", id: "b" },
+        ],
+        modelValue: "a",
+        size: "small",
+        variant: "muted",
+        disabled: true,
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7691-97820&m=dev":
           {},
       },
     },

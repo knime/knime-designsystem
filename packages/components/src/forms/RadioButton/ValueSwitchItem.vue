@@ -114,6 +114,11 @@ const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
     color: var(--kds-color-text-and-icon-disabled);
     cursor: default;
   }
+
+  &.disabled.selected {
+    color: var(--kds-color-text-and-icon-disabled);
+    border: var(--kds-border-action-disabled);
+  }
 }
 
 .option-label {
