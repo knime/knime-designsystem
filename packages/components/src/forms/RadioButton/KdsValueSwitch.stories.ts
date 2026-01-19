@@ -79,7 +79,7 @@ const meta: Meta<typeof KdsValueSwitch> = {
       control: { type: "select" },
       options: ["default", "muted"],
       description:
-        "Visual variant of the value switch. ‘muted’ is used for less prominent usecases (e.g. in node dialogs)",
+        "Visual variant of the value switch. ‘muted’ is used for less prominent use cases (e.g. in node dialogs)",
       table: { category: "Props" },
     },
   },
