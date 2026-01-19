@@ -57,7 +57,7 @@ packages/
 - All publicly exported components must be prefixed with `Kds` (e.g., `KdsButton`, `KdsIcon`)
 - All publicly exported types must be prefixed with `Kds` (e.g., `KdsButtonProps`)
 - All publicly exported composables must be prefixed with `useKds` (e.g., `useKdsTheme`)
-- i18n is currently not planned in this repo. Hardcoded English strings are OK for now (e.g., labels, aria-labels, titles, helper texts).
+- i18n is currently not planned in this repo. Hardcoded English strings are OK (e.g., labels, aria-labels, titles, helper texts).
 - Use Composition API with `<script setup lang="ts">`
 - Type all props with `defineProps<T>()` or `withDefaults(defineProps<T>(), {})`
 - Type all emits with `defineEmits<T>()`
