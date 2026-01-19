@@ -42,7 +42,7 @@ const meta: Meta<typeof KdsValueSwitch> = {
     possibleValues: {
       control: { type: "object" },
       description:
-        "Required possibleValues array (at least 2 entries). Each entry may be a plain string or an object with text and id.",
+        "Required possibleValues array. Each entry may be a plain string or an object with text and id.",
       table: { category: "Props" },
     },
     disabled: {
