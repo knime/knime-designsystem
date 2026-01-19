@@ -30,7 +30,7 @@ const templateExample = `
 `.trim();
 
 const meta: Meta<typeof KdsDynamicModalProvider> = {
-  title: "Components/Modal/useKdsDynamicModal",
+  title: "Components/overlays/useKdsDynamicModal",
   component: KdsDynamicModalProvider,
   parameters: {
     docs: {
