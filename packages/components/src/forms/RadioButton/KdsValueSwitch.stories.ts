@@ -468,20 +468,29 @@ export const TextOverflow: Story = {
       "This is a very long group label that should overflow and wrap properly when the container is too narrow",
     possibleValues: [
       {
-        text: "Short label",
+        text: "Option A",
         id: "a",
-        leadingIcon: "search",
+        leadingIcon: "placeholder",
+        trailingIcon: "placeholder",
       },
       {
+        text: "Option B",
         id: "b",
-        leadingIcon: "view-cards",
-        title:
-          "This is a very long icon-only option title that should be used as the tooltip and overflow reference",
+        trailingIcon: "placeholder",
       },
       {
-        text: "This is a very long option label that should overflow and wrap properly",
+        text: "Option C",
         id: "c",
-        trailingIcon: "chevron-right",
+        leadingIcon: "placeholder",
+      },
+      {
+        text: "Option D",
+        id: "d",
+      },
+      {
+        id: "f",
+        leadingIcon: "placeholder",
+        title: "Option E",
       },
     ],
     modelValue: "a",

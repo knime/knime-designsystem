@@ -36,6 +36,10 @@ export type KdsValueSwitchItemProps = {
   size?: KdsValueSwitchSize;
   variant?: KdsValueSwitchVariant;
   tabIndex?: number;
+  /**
+   * Internal/responsive: when true, leading/trailing icons are not rendered.
+   */
+  hideIcons?: boolean;
 } & KdsValueSwitchItemContent;
 
 type KdsValueSwitchItemContent =

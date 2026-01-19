@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref, useId } from "vue";
+import { useElementSize } from "@vueuse/core";
 
 import KdsLabel from "../KdsLabel.vue";
 import KdsSubText from "../KdsSubText.vue";
@@ -7,6 +8,7 @@ import KdsSubText from "../KdsSubText.vue";
 import ValueSwitchItem from "./ValueSwitchItem.vue";
 import type { KdsValueSwitchOption, KdsValueSwitchProps } from "./types.ts";
 import { useRadioSelection } from "./useRadioSelection.ts";
+import { useValueSwitchIconHiding } from "./useValueSwitchIconHiding";
 
 const props = withDefaults(defineProps<KdsValueSwitchProps>(), {
   disabled: false,
@@ -28,8 +30,15 @@ const options = computed(
 
 const labelId = useId();
 const descriptionId = useId();
-const optionContainer = ref<HTMLElement | null>(null);
 
+const availableWidthContainer = ref<HTMLElement | null>(null);
+const { width } = useElementSize(availableWidthContainer);
+const { shouldHideIcons, setItemEl } = useValueSwitchIconHiding({
+  width,
+  options,
+});
+
+const optionContainer = ref<HTMLElement | null>(null);
 const { tabIndexForOption, handleClick, handleKeyDown } = useRadioSelection({
   selectedId: modelValue,
   options,
@@ -41,6 +50,7 @@ const { tabIndexForOption, handleClick, handleKeyDown } = useRadioSelection({
 <template>
   <div
     :id="props.id"
+    ref="availableWidthContainer"
     role="radiogroup"
     :class="{
       'value-switch': true,
@@ -56,7 +66,9 @@ const { tabIndexForOption, handleClick, handleKeyDown } = useRadioSelection({
       <ValueSwitchItem
         v-for="(option, index) in options"
         :key="option.id"
+        :ref="(el) => setItemEl(option.id, el)"
         v-bind="option"
+        :hide-icons="shouldHideIcons"
         :selected="modelValue === option.id"
         :disabled="props.disabled || option.disabled"
         :size="props.size"
@@ -91,8 +103,9 @@ const { tabIndexForOption, handleClick, handleKeyDown } = useRadioSelection({
   flex-flow: row nowrap;
   gap: var(--kds-spacing-container-none);
   align-items: flex-start;
-  width: 100%;
+  width: fit-content;
   min-width: 0;
+  max-width: 100%;
   padding: calc(
     var(--kds-spacing-container-0-12x) - var(--kds-core-border-width-xs)
   );

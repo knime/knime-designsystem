@@ -28,7 +28,7 @@ const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
     :title="props.title"
   >
     <KdsIcon
-      v-if="props.leadingIcon"
+      v-if="props.leadingIcon && (!props.hideIcons || !props.text)"
       :name="props.leadingIcon"
       :size="props.size"
     />
@@ -36,7 +36,7 @@ const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
       {{ props.text }}
     </span>
     <KdsIcon
-      v-if="props.trailingIcon"
+      v-if="props.trailingIcon && !props.hideIcons"
       :name="props.trailingIcon"
       :size="props.size"
     />
