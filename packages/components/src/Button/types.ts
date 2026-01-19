@@ -135,6 +135,10 @@ export type KdsVariableToggleButtonProps = {
   pressed?: boolean;
 };
 
+export type KdsInfoToggleButtonProps = {
+  disabled?: boolean;
+};
+
 /**
  * Testers
  */
@@ -206,3 +210,6 @@ propTypeTester<KdsVariableToggleButtonProps>({ inSet: true, outSet: true });
 propTypeTester<KdsVariableToggleButtonProps>({ disabled: true });
 propTypeTester<KdsVariableToggleButtonProps>({ error: true });
 propTypeTester<KdsVariableToggleButtonProps>({ pressed: true });
+
+// KdsInfoToggleButton supports disabled
+propTypeTester<KdsInfoToggleButtonProps>({ disabled: true });
