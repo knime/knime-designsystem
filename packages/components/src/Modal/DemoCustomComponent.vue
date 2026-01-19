@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 
-import KdsButton from "../Button/KdsButton.vue";
 import KdsCheckbox from "../Checkbox/KdsCheckbox.vue";
+import KdsButton from "../buttons/KdsButton.vue";
 
 import KdsModalLayout from "./KdsModalLayout.vue";
 import type { KdsDynamicModalPropsAPI } from "./useKdsDynamicModal";

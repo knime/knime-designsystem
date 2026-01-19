@@ -63,7 +63,7 @@ packages/
 - Type all emits with `defineEmits<T>()`
 - Use `defineModel()` for v-model bindings - do NOT manually emit `update:modelValue` events or include `modelValue` in props
 - Use `type` instead of `interface`
-- Create a `types.ts` file for shared types. Don't export types from .vue files. Use globally defined [propTypeTester](../packages/components/globals.d.ts) for static type checks.
+- Keep TypeScript types out of `.vue` files: put prop/emits/helper types into a `types.ts` (preferably next to the component), even if they are only used by that component. If types are public, export them from `packages/components/src/index.ts`. Don't export types from `.vue` files. Use globally defined [propTypeTester](../packages/components/globals.d.ts) for static type checks.
 - IMPORTANT: Define component prop types in the co-located `types.ts` and reference them directly from the `.vue` file (no local/"internal" `*InternalProps` types in `.vue`). If a component needs additional values, model them as real props in `types.ts` or compute them inside the component.
 - Use `<style scoped>`
 - IMPORTANT: Don't use BEM! Use CSS nesting to NOT duplicate selectors.

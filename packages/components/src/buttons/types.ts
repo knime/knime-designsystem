@@ -1,5 +1,4 @@
-import type { IconName } from "@knime/kds-styles/img/icons/def";
-
+import type { KdsIconName } from "../Icon/types";
 import type { KdsSize } from "../types";
 
 import type { kdsButtonVariants, kdsToggleButtonVariants } from "./constants";
@@ -21,14 +20,14 @@ type CommonProps = {
  */
 type LabelAndIcons = {
   label: string;
-  leadingIcon?: IconName;
-  trailingIcon?: IconName;
+  leadingIcon?: KdsIconName;
+  trailingIcon?: KdsIconName;
   ariaLabel?: never;
 };
 
 type LeadingIconOnly = {
   label?: never;
-  leadingIcon: IconName;
+  leadingIcon: KdsIconName;
   trailingIcon?: never;
   ariaLabel: string;
 };
@@ -113,6 +112,29 @@ export type KdsToggleButtonProps = CommonProps &
   Partial<WithVariant<KdsToggleButtonVariant>> &
   WithLabelAndIcons;
 
+export type KdsVariableToggleButtonProps = KdsInfoToggleButtonProps & {
+  /**
+   * If set to true, indicates that an input flow variable is configured.
+   */
+  inSet?: boolean;
+  /**
+   * If set to true, indicates that an output flow variable is configured.
+   */
+  outSet?: boolean;
+  /**
+   * If set to true, the button indicates an error state.
+   */
+  error?: boolean;
+};
+
+export type KdsInfoToggleButtonProps = {
+  disabled?: boolean;
+  /**
+   * If set to true, the button is visible even when not focused.
+   */
+  hidden?: boolean;
+};
+
 /**
  * Testers
  */
@@ -175,3 +197,16 @@ propTypeTester<KdsToggleButtonProps>({
   variant: "filled",
   leadingIcon: "ai-general",
 });
+
+// KdsVariableToggleButton supports inSet/outSet, error and disabled
+propTypeTester<KdsVariableToggleButtonProps>({});
+propTypeTester<KdsVariableToggleButtonProps>({ inSet: true });
+propTypeTester<KdsVariableToggleButtonProps>({ outSet: true });
+propTypeTester<KdsVariableToggleButtonProps>({ inSet: true, outSet: true });
+propTypeTester<KdsVariableToggleButtonProps>({ disabled: true });
+propTypeTester<KdsVariableToggleButtonProps>({ error: true });
+
+// KdsInfoToggleButton supports disabled
+propTypeTester<KdsInfoToggleButtonProps>({ disabled: true });
+// KdsInfoToggleButton supports visible
+propTypeTester<KdsInfoToggleButtonProps>({ hidden: true });

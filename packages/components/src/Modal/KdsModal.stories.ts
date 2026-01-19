@@ -4,7 +4,7 @@ import { fn } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
-import KdsButton from "../Button/KdsButton.vue";
+import KdsButton from "../buttons/KdsButton.vue";
 import { veryLongText } from "../test-utils/veryLongText";
 
 import KdsModal from "./KdsModal.vue";
