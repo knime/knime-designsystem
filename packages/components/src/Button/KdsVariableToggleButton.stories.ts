@@ -1,5 +1,6 @@
 import type { FunctionalComponent } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { expect, within } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
@@ -49,6 +50,52 @@ type Story = StoryObj<typeof KdsVariableToggleButton>;
 export const Default: Story = {
   parameters: {
     docs: false,
+  },
+};
+
+export const IconStateLogic: Story = {
+  parameters: {
+    docs: false,
+  },
+  render: () => ({
+    components: { KdsVariableToggleButton },
+    template: `
+      <div>
+        <KdsVariableToggleButton data-testid="none" :in-set="false" :out-set="false" />
+        <KdsVariableToggleButton data-testid="in" :in-set="true" :out-set="false" />
+        <KdsVariableToggleButton data-testid="out" :in-set="false" :out-set="true" />
+        <KdsVariableToggleButton data-testid="in-out" :in-set="true" :out-set="true" />
+      </div>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const cases = [
+      {
+        testId: "none",
+        expectedTitle: "No Flow Variable set",
+      },
+      {
+        testId: "in",
+        expectedTitle: "Input Flow Variable",
+      },
+      {
+        testId: "out",
+        expectedTitle: "Output Flow Variable",
+      },
+      {
+        testId: "in-out",
+        expectedTitle: "Input and Output Flow Variable",
+      },
+    ];
+
+    for (const { testId, expectedTitle } of cases) {
+      const button = canvas.getByTestId(testId).closest("button");
+      expect(button).toBeTruthy();
+      await expect(button!).toHaveAttribute("title", expectedTitle);
+      await expect(button!).toHaveAttribute("aria-label", expectedTitle);
+    }
   },
 };
 

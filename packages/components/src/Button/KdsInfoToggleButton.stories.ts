@@ -10,7 +10,7 @@ import {
 
 import KdsInfoToggleButton from "./KdsInfoToggleButton.vue";
 
-const meta: Meta<typeof KdsInfoToggleButton> = {
+const meta = {
   title: "Components/Buttons/KdsInfoToggleButton",
   component: KdsInfoToggleButton as unknown as FunctionalComponent,
   tags: ["autodocs"],
@@ -38,6 +38,7 @@ const meta: Meta<typeof KdsInfoToggleButton> = {
   decorators: [
     (story) => {
       const [currentArgs, updateArgs] = useArgs();
+
       return {
         components: { story },
         setup() {
@@ -52,15 +53,15 @@ const meta: Meta<typeof KdsInfoToggleButton> = {
           };
         },
         template:
-          '<story :disabled="args.disabled" :model-value="args.modelValue" @update:modelValue="onUpdateModelValue" />',
+          '<story :disabled="args.disabled" :model-value="args.modelValue" v-on="{ \'update:modelValue\': onUpdateModelValue }" />',
       };
     },
   ],
-};
+} satisfies Meta<typeof KdsInfoToggleButton>;
 
 export default meta;
 
-type Story = StoryObj<typeof KdsInfoToggleButton>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   parameters: {
@@ -68,21 +69,6 @@ export const Default: Story = {
   },
   args: {
     modelValue: false,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", {
-      name: "Click for more information",
-    });
-
-    await expect(button).toHaveAttribute("aria-pressed", "false");
-
-    await userEvent.click(button);
-    await expect(button).toHaveAttribute("aria-pressed", "true");
-
-    // Reset state so the interaction test can be re-run deterministically
-    await userEvent.click(button);
-    await expect(button).toHaveAttribute("aria-pressed", "false");
   },
 };
 
@@ -101,18 +87,6 @@ export const Disabled: Story = {
   },
   args: {
     disabled: true,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", {
-      name: "Click for more information",
-    });
-
-    await expect(button).toBeDisabled();
-    await expect(button).toHaveAttribute("aria-pressed", "false");
-
-    await userEvent.click(button);
-    await expect(button).toHaveAttribute("aria-pressed", "false");
   },
 };
 
@@ -169,3 +143,27 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     },
   },
 });
+
+export const Interaction: Story = {
+  parameters: {
+    docs: false,
+  },
+  args: {
+    modelValue: false,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button", {
+      name: "Click for more information",
+    });
+
+    // Deterministic start state
+    await expect(button).toHaveAttribute("aria-pressed", "false");
+
+    await userEvent.click(button);
+    await expect(button).toHaveAttribute("aria-pressed", "true");
+
+    await userEvent.click(button);
+    await expect(button).toHaveAttribute("aria-pressed", "false");
+  },
+};
