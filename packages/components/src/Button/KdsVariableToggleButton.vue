@@ -70,7 +70,7 @@ const title = computed(() => {
     :class="{
       'variable-toggle-button': true,
       disabled: props.disabled,
-      error: props.error && iconState !== 'none',
+      error: props.error,
       'pressed-or-set': props.pressed || props.inSet || props.outSet,
     }"
     :disabled="props.disabled"
