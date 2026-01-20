@@ -128,6 +128,29 @@
             "$description": "skeleton animation"
           }
         }
+      },
+      "Tooltip": {
+        "background": {
+          "default-persistent": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.9",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.core.color.neutral.800}"
+          }
+        },
+        "text-and-icon": {
+          "default-persistent": {
+            "$type": "color",
+            "$value": "{kds.core.color.neutral.100}"
+          }
+        }
       }
     },
     "spacing": {

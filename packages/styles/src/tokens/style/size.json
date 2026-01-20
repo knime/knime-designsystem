@@ -187,6 +187,10 @@
             "$type": "dimension",
             "$value": "{kds.core.size.scale} * 4"
           },
+          "16x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 16"
+          },
           "25x": {
             "$type": "dimension",
             "$value": "{kds.core.size.scale} * 25"
