@@ -63,19 +63,15 @@ const modelValue = defineModel<boolean>({ default: false });
   }
 
   &:focus-visible {
-    outline: none;
-
-    & .container {
-      outline: var(--kds-border-action-focused);
-      outline-offset: var(--kds-spacing-offset-focus);
-    }
+    outline: var(--kds-border-action-focused);
+    outline-offset: var(--kds-spacing-offset-focus);
   }
 
-  &:hover:not(.disabled) .container {
+  &:hover:not(.disabled) {
     background-color: var(--bg-hover);
   }
 
-  &:active:not(.disabled) .container {
+  &:active:not(.disabled) {
     background-color: var(--bg-active);
   }
 
