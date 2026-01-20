@@ -1,108 +1,35 @@
 <script setup lang="ts">
-import { onBeforeUnmount, ref, toRef, watch } from "vue";
-import {
-  autoUpdate,
-  flip,
-  offset as floatingOffset,
-  shift,
-  useFloating,
-} from "@floating-ui/vue";
+import { ref, toRef } from "vue";
+import { onClickOutside } from "@vueuse/core";
+import { autoUpdate, flip, offset, shift, useFloating } from "@floating-ui/vue";
+import { FocusTrap } from "focus-trap-vue";
 
 import type { KdsPopoverProps } from "./types";
 
 const props = withDefaults(defineProps<KdsPopoverProps>(), {
   ignoredClickOutsideTarget: null,
 });
-
 const open = defineModel<boolean>({ default: false });
-
-const ignoredClickOutsideTarget = toRef(props, "ignoredClickOutsideTarget");
-
-const offset = 8;
-
 const referenceEl = ref<HTMLElement | null>(null);
 const floatingEl = ref<HTMLElement | null>(null);
+const body = document.body;
 
-const { x, y, update } = useFloating(referenceEl, floatingEl, {
+/**
+ * Floating UI setup
+ */
+const floatingOffset = 8;
+const { x, y } = useFloating(referenceEl, floatingEl, {
   placement: "top",
   whileElementsMounted: autoUpdate,
-  middleware: [shift({ padding: 8 }), floatingOffset(offset), flip()],
+  middleware: [shift({ padding: 8 }), offset(floatingOffset), flip()],
 });
 
-let cleanupAutoUpdate: (() => void) | null = null;
-
-const startAutoUpdate = () => {
-  if (!referenceEl.value || !floatingEl.value) {
-    return;
-  }
-
-  cleanupAutoUpdate?.();
-  cleanupAutoUpdate = autoUpdate(referenceEl.value, floatingEl.value, update);
-};
-
-const stopAutoUpdate = () => {
-  cleanupAutoUpdate?.();
-  cleanupAutoUpdate = null;
-};
-
-const onDocumentPointerDown = (event: PointerEvent) => {
-  if (!open.value) {
-    return;
-  }
-
-  const targetNode = event.target as Node | null;
-  const targets: Array<unknown> = [
-    referenceEl.value,
-    floatingEl.value,
-    ignoredClickOutsideTarget.value,
-  ];
-
-  const clickedInside = targets.some((el) => {
-    return el instanceof HTMLElement && el.contains(targetNode ?? null);
-  });
-
-  if (!clickedInside) {
-    open.value = false;
-  }
-};
-
-const onDocumentKeydown = (event: KeyboardEvent) => {
-  if (!open.value) {
-    return;
-  }
-
-  if (event.key === "Escape") {
-    event.stopPropagation();
-    open.value = false;
-
-    // keep focus behavior simple & predictable: return focus to activator
-    referenceEl.value?.focus();
-  }
-};
-
-watch(
-  () => open.value,
-  (isOpen) => {
-    if (isOpen) {
-      startAutoUpdate();
-      document.addEventListener("pointerdown", onDocumentPointerDown, true);
-      document.addEventListener("keydown", onDocumentKeydown, true);
-
-      // ensure popover positions correctly after it appears
-      update();
-    } else {
-      stopAutoUpdate();
-      document.removeEventListener("pointerdown", onDocumentPointerDown, true);
-      document.removeEventListener("keydown", onDocumentKeydown, true);
-    }
-  },
-  { immediate: true },
-);
-
-onBeforeUnmount(() => {
-  stopAutoUpdate();
-  document.removeEventListener("pointerdown", onDocumentPointerDown, true);
-  document.removeEventListener("keydown", onDocumentKeydown, true);
+/**
+ * Click outside to close popover
+ */
+const ignoredClickOutsideTarget = toRef(props, "ignoredClickOutsideTarget");
+onClickOutside(floatingEl, () => (open.value = false), {
+  ignore: [referenceEl, ignoredClickOutsideTarget],
 });
 </script>
 
@@ -125,23 +52,21 @@ onBeforeUnmount(() => {
         role="dialog"
         aria-modal="false"
       >
-        <div class="content">
-          <slot />
-        </div>
+        <FocusTrap
+          v-model:active="open"
+          :fallback-focus="body"
+          @deactivate="referenceEl?.querySelector('button')?.focus()"
+        >
+          <div class="content">
+            <slot />
+          </div>
+        </FocusTrap>
       </div>
     </Teleport>
   </div>
 </template>
 
 <style scoped>
-.kds-popover {
-  display: inline-flex;
-}
-
-.activator {
-  display: inline-flex;
-}
-
 .floating {
   position: absolute;
   z-index: 1000;
