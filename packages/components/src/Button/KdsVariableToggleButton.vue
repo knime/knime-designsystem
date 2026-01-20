@@ -54,14 +54,14 @@ const errorTitleByState: Partial<Record<typeof iconState.value, string>> = {
   in: "Error in input Flow Variable",
   out: "Error in output Flow Variable",
   "in-out": "Error in Flow Variables",
-  none: "No Flow Variable set",
 };
 
 const title = computed(() => {
+  const baseTitle = baseTitleByState[iconState.value];
   if (!props.error) {
-    return baseTitleByState[iconState.value];
+    return baseTitle;
   }
-  return errorTitleByState[iconState.value];
+  return errorTitleByState[iconState.value] ?? baseTitle;
 });
 </script>
 
