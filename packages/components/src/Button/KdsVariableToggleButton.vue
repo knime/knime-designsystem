@@ -43,26 +43,25 @@ const iconName = computed(() => {
   }
 });
 
+const baseTitleByState: Record<typeof iconState.value, string> = {
+  in: "Input Flow Variable",
+  out: "Output Flow Variable",
+  "in-out": "Input and Output Flow Variable",
+  none: "No Flow Variable set",
+};
+
+const errorTitleByState: Partial<Record<typeof iconState.value, string>> = {
+  in: "Error in input Flow Variable",
+  out: "Error in output Flow Variable",
+  "in-out": "Error in Flow Variables",
+  none: "No Flow Variable set",
+};
+
 const title = computed(() => {
-  const base = (() => {
-    switch (iconState.value) {
-      case "in":
-        return "Input flow variable";
-      case "out":
-        return "Output flow variable";
-      case "in-out":
-        return "Input & Output Flow Variable";
-      case "none":
-      default:
-        return "No flow variable set";
-    }
-  })();
-
-  if (iconState.value === "none" || !props.error) {
-    return base;
+  if (!props.error) {
+    return baseTitleByState[iconState.value];
   }
-
-  return `Error in ${base.toLowerCase()}`;
+  return errorTitleByState[iconState.value];
 });
 </script>
 
