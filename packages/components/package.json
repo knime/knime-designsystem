@@ -40,6 +40,7 @@
   "dependencies": {
     "@knime/kds-styles": "workspace:^",
     "@knime/utils": "^1.8.0",
+    "@floating-ui/vue": "^1.1.9",
     "consola": "catalog:"
   },
   "devDependencies": {
