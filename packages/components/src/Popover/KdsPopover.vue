@@ -51,13 +51,15 @@ const onDocumentPointerDown = (event: PointerEvent) => {
   }
 
   const targetNode = event.target as Node | null;
-  const targets: Array<HTMLElement | null | undefined> = [
+  const targets: Array<unknown> = [
     referenceEl.value,
     floatingEl.value,
     ignoredClickOutsideTarget.value,
   ];
 
-  const clickedInside = targets.some((el) => el?.contains(targetNode ?? null));
+  const clickedInside = targets.some((el) => {
+    return el instanceof HTMLElement && el.contains(targetNode ?? null);
+  });
 
   if (!clickedInside) {
     open.value = false;
