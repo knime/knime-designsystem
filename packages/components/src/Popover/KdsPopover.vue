@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeUnmount, ref, watch } from "vue";
+import { onBeforeUnmount, ref, toRef, watch } from "vue";
 import {
   autoUpdate,
   flip,
@@ -8,7 +8,15 @@ import {
   useFloating,
 } from "@floating-ui/vue";
 
+import type { KdsPopoverProps } from "./types";
+
+const props = withDefaults(defineProps<KdsPopoverProps>(), {
+  ignoredClickOutsideTarget: null,
+});
+
 const open = defineModel<boolean>({ default: false });
+
+const ignoredClickOutsideTarget = toRef(props, "ignoredClickOutsideTarget");
 
 const offset = 8;
 
@@ -46,6 +54,7 @@ const onDocumentPointerDown = (event: PointerEvent) => {
   const targets: Array<HTMLElement | null | undefined> = [
     referenceEl.value,
     floatingEl.value,
+    ignoredClickOutsideTarget.value,
   ];
 
   const clickedInside = targets.some((el) => el?.contains(targetNode ?? null));
