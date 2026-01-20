@@ -137,6 +137,10 @@ export type KdsVariableToggleButtonProps = {
 
 export type KdsInfoToggleButtonProps = {
   disabled?: boolean;
+  /**
+   * If set to true, the button is visible even when not focused.
+   */
+  visible?: boolean;
 };
 
 /**
@@ -213,3 +217,5 @@ propTypeTester<KdsVariableToggleButtonProps>({ pressed: true });
 
 // KdsInfoToggleButton supports disabled
 propTypeTester<KdsInfoToggleButtonProps>({ disabled: true });
+// KdsInfoToggleButton supports visible
+propTypeTester<KdsInfoToggleButtonProps>({ visible: true });

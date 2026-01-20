@@ -29,10 +29,12 @@ const meta = {
   },
   argTypes: {
     disabled: { control: "boolean" },
+    visible: { control: "boolean" },
     modelValue: { control: { type: "boolean" } },
   },
   args: {
     modelValue: false,
+    visible: true,
     "onUpdate:modelValue": fn(),
   },
   decorators: [
@@ -53,7 +55,7 @@ const meta = {
           };
         },
         template:
-          '<story :disabled="args.disabled" :model-value="args.modelValue" v-on="{ \'update:modelValue\': onUpdateModelValue }" />',
+          '<story :disabled="args.disabled" :visible="args.visible" :model-value="args.modelValue" v-on="{ \'update:modelValue\': onUpdateModelValue }" />',
       };
     },
   ],
@@ -96,6 +98,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
     {
       modelValue: [false, true],
       disabled: [false, true],
+      visible: [false, true],
     },
   ],
 });
@@ -150,6 +153,7 @@ export const Interaction: Story = {
   },
   args: {
     modelValue: false,
+    visible: true,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

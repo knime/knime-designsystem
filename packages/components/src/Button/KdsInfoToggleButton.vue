@@ -5,6 +5,7 @@ import type { KdsInfoToggleButtonProps } from "./types";
 
 const props = withDefaults(defineProps<KdsInfoToggleButtonProps>(), {
   disabled: false,
+  visible: false,
 });
 
 const title = "Click for more information";
@@ -18,6 +19,7 @@ const modelValue = defineModel<boolean>({ default: false });
       'info-toggle-button': true,
       selected: modelValue,
       disabled: props.disabled,
+      hidden: !props.visible,
     }"
     :disabled="props.disabled"
     :title="title"
@@ -45,9 +47,15 @@ const modelValue = defineModel<boolean>({ default: false });
   align-items: center;
   justify-content: center;
   padding: 0;
+  pointer-events: auto;
   cursor: pointer;
   background: none;
   border: none;
+  opacity: 1;
+
+  &.hidden:not(:focus-visible, :hover) {
+    opacity: 0;
+  }
 
   & .container {
     display: flex;
