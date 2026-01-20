@@ -79,9 +79,7 @@ const title = computed(() => {
     :aria-pressed="props.pressed"
     type="button"
   >
-    <div class="container">
-      <KdsIcon :name="iconName" size="xsmall" />
-    </div>
+    <KdsIcon :name="iconName" size="xsmall" />
   </button>
 </template>
 
@@ -97,38 +95,26 @@ const title = computed(() => {
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
+  width: var(--kds-dimension-component-width-0-75x);
+  height: var(--kds-dimension-component-height-0-75x);
   padding: 0;
+  color: var(--icon-color);
   cursor: pointer;
-  background: none;
-  border: none;
-
-  & .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--kds-dimension-component-width-0-75x);
-    height: var(--kds-dimension-component-height-0-75x);
-    padding: 0;
-    color: var(--icon-color);
-    background-color: var(--bg-initial);
-    border: var(--border);
-    border-radius: var(--kds-border-radius-container-0-12x);
-  }
+  background-color: var(--bg-initial);
+  border: var(--border);
+  border-radius: var(--kds-border-radius-container-0-12x);
 
   &:focus-visible {
     outline: none;
-
-    & .container {
-      outline: var(--kds-border-action-focused);
-      outline-offset: var(--kds-spacing-offset-focus);
-    }
+    outline: var(--kds-border-action-focused);
+    outline-offset: var(--kds-spacing-offset-focus);
   }
 
-  &:hover:not(.disabled) .container {
+  &:hover:not(.disabled) {
     background-color: var(--bg-hover);
   }
 
-  &:active:not(.disabled) .container {
+  &:active:not(.disabled) {
     background-color: var(--bg-active);
   }
 

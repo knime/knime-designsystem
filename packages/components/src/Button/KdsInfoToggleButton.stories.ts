@@ -3,6 +3,8 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/internal/preview-api";
 import { expect, fn, userEvent, within } from "storybook/test";
 
+import { iconNames } from "@knime/kds-styles/img/icons/def";
+
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
@@ -30,11 +32,18 @@ const meta = {
   argTypes: {
     disabled: { control: "boolean" },
     visible: { control: "boolean" },
+    title: { control: "text" },
+    icon: {
+      control: { type: "select" },
+      options: iconNames,
+    },
     modelValue: { control: { type: "boolean" } },
   },
   args: {
     modelValue: false,
     visible: true,
+    title: "Click for more information",
+    icon: "circle-question",
     "onUpdate:modelValue": fn(),
   },
   decorators: [
@@ -55,7 +64,7 @@ const meta = {
           };
         },
         template:
-          '<story :disabled="args.disabled" :visible="args.visible" :model-value="args.modelValue" v-on="{ \'update:modelValue\': onUpdateModelValue }" />',
+          '<story :disabled="args.disabled" :visible="args.visible" :title="args.title" :icon="args.icon" :model-value="args.modelValue" v-on="{ \'update:modelValue\': onUpdateModelValue }" />',
       };
     },
   ],
@@ -156,6 +165,7 @@ export const Interaction: Story = {
   args: {
     modelValue: false,
     visible: true,
+    title: "Click for more information",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

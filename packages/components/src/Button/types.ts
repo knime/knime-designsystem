@@ -1,5 +1,4 @@
-import type { IconName } from "@knime/kds-styles/img/icons/def";
-
+import type { KdsIconName } from "../Icon/types";
 import type { KdsSize } from "../types";
 
 import type { kdsButtonVariants, kdsToggleButtonVariants } from "./constants";
@@ -21,14 +20,14 @@ type CommonProps = {
  */
 type LabelAndIcons = {
   label: string;
-  leadingIcon?: IconName;
-  trailingIcon?: IconName;
+  leadingIcon?: KdsIconName;
+  trailingIcon?: KdsIconName;
   ariaLabel?: never;
 };
 
 type LeadingIconOnly = {
   label?: never;
-  leadingIcon: IconName;
+  leadingIcon: KdsIconName;
   trailingIcon?: never;
   ariaLabel: string;
 };
@@ -141,6 +140,14 @@ export type KdsInfoToggleButtonProps = {
    * If set to true, the button is visible even when not focused.
    */
   visible?: boolean;
+  /**
+   * Button title used for tooltip and accessibility label.
+   */
+  title?: string;
+  /**
+   * Icon to render within the button.
+   */
+  icon?: KdsIconName;
 };
 
 /**
@@ -219,3 +226,7 @@ propTypeTester<KdsVariableToggleButtonProps>({ pressed: true });
 propTypeTester<KdsInfoToggleButtonProps>({ disabled: true });
 // KdsInfoToggleButton supports visible
 propTypeTester<KdsInfoToggleButtonProps>({ visible: true });
+// KdsInfoToggleButton supports title
+propTypeTester<KdsInfoToggleButtonProps>({ title: "More information" });
+// KdsInfoToggleButton supports icon
+propTypeTester<KdsInfoToggleButtonProps>({ icon: "circle-question" });
