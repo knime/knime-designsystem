@@ -54,7 +54,6 @@ const modelValue = defineModel<boolean>({ default: false });
   pointer-events: auto;
   cursor: pointer;
   background-color: var(--bg-initial);
-  border: none;
   border: var(--border);
   border-radius: var(--kds-border-radius-container-0-12x);
   opacity: 1;
