@@ -109,6 +109,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     Default: {
       props: {
         modelValue: false,
+        visible: true,
       },
       variants: {
         // Enabled
@@ -128,6 +129,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     Selected: {
       props: {
         modelValue: true,
+        visible: true,
       },
       variants: {
         // Enabled

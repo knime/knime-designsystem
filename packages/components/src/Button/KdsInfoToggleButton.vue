@@ -19,7 +19,7 @@ const modelValue = defineModel<boolean>({ default: false });
       'info-toggle-button': true,
       selected: modelValue,
       disabled: props.disabled,
-      hidden: !props.visible,
+      hidden: !props.visible && !modelValue,
     }"
     :disabled="props.disabled"
     :title="title"
@@ -27,10 +27,9 @@ const modelValue = defineModel<boolean>({ default: false });
     :aria-pressed="modelValue"
     type="button"
     @click="modelValue = !modelValue"
+    @blur="modelValue = false"
   >
-    <div class="container">
-      <KdsIcon name="circle-question" size="xsmall" />
-    </div>
+    <KdsIcon name="circle-question" size="xsmall" />
   </button>
 </template>
 
@@ -46,30 +45,22 @@ const modelValue = defineModel<boolean>({ default: false });
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  padding: 0;
+  width: var(--kds-dimension-component-width-0-75x);
+  height: var(--kds-dimension-component-height-0-75x);
+  padding: calc(
+    var(--kds-spacing-container-0-25x) - var(--kds-core-border-width-xs)
+  );
+  color: var(--icon-color);
   pointer-events: auto;
   cursor: pointer;
-  background: none;
+  background-color: var(--bg-initial);
   border: none;
+  border: var(--border);
+  border-radius: var(--kds-border-radius-container-0-12x);
   opacity: 1;
 
-  &.hidden:not(:focus-visible, :hover) {
+  &.hidden:not(:focus-visible, :hover, .disabled) {
     opacity: 0;
-  }
-
-  & .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--kds-dimension-component-width-0-75x);
-    height: var(--kds-dimension-component-height-0-75x);
-    padding: calc(
-      var(--kds-spacing-container-0-25x) - var(--kds-core-border-width-xs)
-    );
-    color: var(--icon-color);
-    background-color: var(--bg-initial);
-    border: var(--border);
-    border-radius: var(--kds-border-radius-container-0-12x);
   }
 
   &:focus-visible {
