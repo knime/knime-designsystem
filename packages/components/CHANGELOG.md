@@ -1,5 +1,14 @@
 # @knime/kds-components
 
+## 0.5.6
+
+### Patch Changes
+
+- ca85c24: KDS-659: change kds modal body from grid to flex to avoid safari always full height bug
+- Updated dependencies [80de341]
+- Updated dependencies [eccfa4f]
+  - @knime/kds-styles@0.5.6
+
 ## 0.5.5
 
 ### Patch Changes

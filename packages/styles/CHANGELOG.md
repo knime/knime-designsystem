@@ -1,5 +1,12 @@
 # @knime/kds-styles
 
+## 0.5.6
+
+### Patch Changes
+
+- 80de341: KDS-689: Adjust circle error and info icons
+- eccfa4f: KDS-688: FIx spacing in spread
+
 ## 0.5.5
 
 ## 0.5.4
