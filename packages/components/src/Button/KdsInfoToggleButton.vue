@@ -27,7 +27,6 @@ const modelValue = defineModel<boolean>({ default: false });
     :aria-pressed="modelValue"
     type="button"
     @click="modelValue = !modelValue"
-    @blur="modelValue = false"
   >
     <KdsIcon :name="props.icon" size="xsmall" />
   </button>
