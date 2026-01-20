@@ -28,16 +28,17 @@ const meta: Meta<typeof KdsVariableToggleButton> = {
   },
   argTypes: {
     disabled: { control: "boolean" },
-    icon: {
-      control: { type: "select" },
-      options: ["none", "in", "out", "in-out"],
-    },
+    inSet: { control: "boolean" },
+    outSet: { control: "boolean" },
     error: { control: "boolean" },
+    pressed: { control: "boolean" },
   },
   args: {
     disabled: false,
-    icon: "none",
+    inSet: false,
+    outSet: false,
     error: false,
+    pressed: false,
   },
 };
 
@@ -55,9 +56,11 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsVariableToggleButton,
   combinationsProps: [
     {
-      icon: ["none", "in", "out", "in-out"],
+      inSet: [false, true],
+      outSet: [false, true],
       error: [false, true],
       disabled: [false, true],
+      pressed: [false, true],
     },
   ],
 });
@@ -66,7 +69,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsVariableToggleButton,
   designsToCompare: {
     "No Variable": {
-      props: { icon: "none" },
+      props: { inSet: false, outSet: false },
       variants: {
         // Enabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2635-14399":
@@ -83,7 +86,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       },
     },
     "In Variable": {
-      props: { icon: "in" },
+      props: { inSet: true, outSet: false },
       variants: {
         // Enabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2648-14565":
@@ -100,7 +103,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       },
     },
     "Out Variable": {
-      props: { icon: "out" },
+      props: { inSet: false, outSet: true },
       variants: {
         // Enabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2990-23734":
@@ -117,7 +120,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       },
     },
     "In + Out Variable": {
-      props: { icon: "in-out" },
+      props: { inSet: true, outSet: true },
       variants: {
         // Enabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2990-23830":
@@ -134,7 +137,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       },
     },
     "Error (In)": {
-      props: { icon: "in", error: true },
+      props: { inSet: true, outSet: false, error: true },
       variants: {
         // Enabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-260717":
@@ -151,7 +154,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       },
     },
     "Error (Out)": {
-      props: { icon: "out", error: true },
+      props: { inSet: false, outSet: true, error: true },
       variants: {
         // Enabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-260719":
@@ -168,7 +171,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       },
     },
     "Error (In + Out)": {
-      props: { icon: "in-out", error: true },
+      props: { inSet: true, outSet: true, error: true },
       variants: {
         // Enabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-260721":

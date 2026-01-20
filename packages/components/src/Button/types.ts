@@ -118,13 +118,21 @@ export type KdsVariableToggleButtonIcon = "none" | "in" | "out" | "in-out";
 export type KdsVariableToggleButtonProps = {
   disabled?: boolean;
   /**
-   * Controls which flow variable state icon is shown.
+   * If set to true, indicates that an input flow variable is configured.
    */
-  icon?: KdsVariableToggleButtonIcon;
+  inSet?: boolean;
+  /**
+   * If set to true, indicates that an output flow variable is configured.
+   */
+  outSet?: boolean;
   /**
    * If set to true, the button indicates an error state.
    */
   error?: boolean;
+  /**
+   * If set to true, indicates that the button is currently pressed (e.g. popover open).
+   */
+  pressed?: boolean;
 };
 
 /**
@@ -190,7 +198,11 @@ propTypeTester<KdsToggleButtonProps>({
   leadingIcon: "ai-general",
 });
 
-// KdsVariableToggleButton supports icon, error and disabled
-propTypeTester<KdsVariableToggleButtonProps>({ icon: "none" });
-propTypeTester<KdsVariableToggleButtonProps>({ icon: "in", error: true });
+// KdsVariableToggleButton supports inSet/outSet, error, disabled and pressed
+propTypeTester<KdsVariableToggleButtonProps>({});
+propTypeTester<KdsVariableToggleButtonProps>({ inSet: true });
+propTypeTester<KdsVariableToggleButtonProps>({ outSet: true });
+propTypeTester<KdsVariableToggleButtonProps>({ inSet: true, outSet: true });
 propTypeTester<KdsVariableToggleButtonProps>({ disabled: true });
+propTypeTester<KdsVariableToggleButtonProps>({ error: true });
+propTypeTester<KdsVariableToggleButtonProps>({ pressed: true });

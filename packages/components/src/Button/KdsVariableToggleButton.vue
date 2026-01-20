@@ -7,12 +7,30 @@ import type { KdsVariableToggleButtonProps } from "./types";
 
 const props = withDefaults(defineProps<KdsVariableToggleButtonProps>(), {
   disabled: false,
-  icon: "none",
+  inSet: false,
+  outSet: false,
   error: false,
+  pressed: false,
+});
+
+const iconState = computed(() => {
+  if (props.inSet && props.outSet) {
+    return "in-out" as const;
+  }
+
+  if (props.inSet) {
+    return "in" as const;
+  }
+
+  if (props.outSet) {
+    return "out" as const;
+  }
+
+  return "none" as const;
 });
 
 const iconName = computed(() => {
-  switch (props.icon) {
+  switch (iconState.value) {
     case "in":
       return "flow-variable-in";
     case "out":
@@ -27,7 +45,7 @@ const iconName = computed(() => {
 
 const title = computed(() => {
   const base = (() => {
-    switch (props.icon) {
+    switch (iconState.value) {
       case "in":
         return "Input flow variable";
       case "out":
@@ -40,7 +58,7 @@ const title = computed(() => {
     }
   })();
 
-  if (props.icon === "none" || !props.error) {
+  if (iconState.value === "none" || !props.error) {
     return base;
   }
 
@@ -53,15 +71,17 @@ const title = computed(() => {
     :class="{
       'variable-toggle-button': true,
       disabled: props.disabled,
-      error: props.error && props.icon !== 'none',
+      error: props.error && iconState !== 'none',
+      'pressed-or-set': props.pressed || props.inSet || props.outSet,
     }"
     :disabled="props.disabled"
     :title="title"
     :aria-label="title"
+    :aria-pressed="props.pressed"
     type="button"
   >
     <div class="container">
-      <KdsIcon :name="iconName" size="small" />
+      <KdsIcon :name="iconName" size="xsmall" />
     </div>
   </button>
 </template>
@@ -113,19 +133,30 @@ const title = computed(() => {
     background-color: var(--bg-active);
   }
 
-  &.disabled {
-    --icon-color: var(--kds-color-text-and-icon-disabled);
-
-    cursor: default;
+  &.pressed-or-set {
+    --bg-initial: var(--kds-color-background-selected-initial);
+    --bg-hover: var(--kds-color-background-selected-hover);
+    --bg-active: var(--kds-color-background-selected-active);
+    --border: var(--kds-border-action-selected);
+    --icon-color: var(--kds-color-text-and-icon-success);
   }
 
-  &.error:not(.disabled) {
+  &.error {
+    --bg-initial: var(--kds-color-background-danger-initial);
+    --bg-hover: var(--kds-color-background-danger-hover);
+    --bg-active: var(--kds-color-background-danger-active);
     --border: var(--kds-border-action-error);
     --icon-color: var(--kds-color-text-and-icon-danger);
   }
 
-  &.error.disabled {
-    --border: var(--kds-border-action-disabled);
+  &.disabled {
+    --icon-color: var(--kds-color-text-and-icon-disabled);
+
+    cursor: default;
+
+    &.pressed-or-set {
+      --border: var(--kds-border-action-disabled);
+    }
   }
 }
 </style>
