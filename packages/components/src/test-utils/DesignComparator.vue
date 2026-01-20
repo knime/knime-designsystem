@@ -246,6 +246,8 @@ function onPaste(event: ClipboardEvent) {
     }
 
     & .implementation {
+      display: flex;
+      align-items: flex-start;
       opacity: v-bind(opacity);
     }
   }
