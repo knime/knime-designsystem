@@ -27,13 +27,13 @@ export const useValueSwitchIconHiding = ({
   });
 
   const setItemEl = (id: string, el: unknown) => {
-    const maybeEl =
+    const elementToRegister =
       el && typeof el === "object" && "$el" in el
         ? (el as { $el: unknown }).$el
         : el;
 
-    if (maybeEl instanceof HTMLButtonElement) {
-      itemEls.value.set(id, maybeEl);
+    if (elementToRegister instanceof HTMLButtonElement) {
+      itemEls.value.set(id, elementToRegister);
     }
   };
 
