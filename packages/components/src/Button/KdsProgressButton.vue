@@ -27,13 +27,6 @@ const state = defineModel<KdsProgressButtonState>("state", {
   default: "default",
 });
 
-const emit = defineEmits<{
-  click: [event: MouseEvent];
-  success: [];
-  error: [error: unknown];
-  done: [];
-}>();
-
 const iconSize = computed<KdsIconSize>(() => {
   if (props.size === "xsmall") {
     return "small";
@@ -82,31 +75,23 @@ function sleep(ms: number): Promise<void> {
   });
 }
 
-async function onClick(event: MouseEvent) {
-  emit("click", event);
-
-  if (state.value !== "default" || !props.action) {
+async function onClick() {
+  if (state.value !== "default") {
     return;
   }
 
   state.value = "progress";
 
   try {
-    await props.action(event);
+    await props.action();
 
     state.value = "success";
-    emit("success");
     await sleep(SUCCESS_DURATION_MS);
-
     state.value = "default";
-    emit("done");
-  } catch (error) {
+  } catch {
     state.value = "error";
-    emit("error", error);
     await sleep(ERROR_DURATION_MS);
-
     state.value = "default";
-    emit("done");
   }
 }
 
