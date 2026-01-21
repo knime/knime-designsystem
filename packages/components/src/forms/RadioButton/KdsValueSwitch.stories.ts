@@ -673,8 +673,26 @@ export const Interaction: Story = {
     await userEvent.keyboard("{ArrowRight}");
     await expect(disabledA).toHaveAttribute("aria-checked", "true");
 
-    // Reset state so the interaction test can be re-run deterministically
+    // Reset state so the interaction test can be re-run deterministically.
+    // We reset every group that we modified above.
+
+    // Interactive group back to initial: "a".
     await userEvent.click(optionA);
     await expect(optionA).toHaveAttribute("aria-checked", "true");
+    await expect(optionA).toHaveAttribute("tabindex", "0");
+
+    // Error group back to initial: "a".
+    await userEvent.click(errorA);
+    await expect(errorA).toHaveAttribute("aria-checked", "true");
+    await expect(errorB).toHaveAttribute("aria-checked", "false");
+
+    // Icon-only group back to initial: "cards".
+    await userEvent.click(cards);
+    await expect(cards).toHaveAttribute("aria-checked", "true");
+    await expect(list).toHaveAttribute("aria-checked", "false");
+
+    // Disabled group should never have changed, but assert initial selection again.
+    await expect(disabledA).toHaveAttribute("aria-checked", "true");
+    await expect(disabledB).toHaveAttribute("aria-checked", "false");
   },
 };
