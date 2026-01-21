@@ -131,7 +131,7 @@
       }
     },
     "spacing": {
-      "inputLabel": {
+      "InputLabel": {
         "spacing-bottom": {
           "$type": "spacing",
           "$value": "{kds.core.size.scale} * 0.375"
