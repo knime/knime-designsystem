@@ -30,6 +30,12 @@ const meta: Meta<typeof KdsProgressButton> = {
   component: KdsProgressButton as unknown as FunctionalComponent,
   tags: ["autodocs"],
   parameters: {
+    docs: {
+      description: {
+        component:
+          'State model:\n\n- `default`: normal button, clickable.\n- `progress`: shows progress indicator and becomes non-interactive while the action promise is pending.\n- `success`: shows success feedback briefly after the action resolves.\n- `error`: shows error feedback briefly after the action rejects.\n\nFor icon-only variants, make sure the accessible name reflects the current state (e.g. "Save" → "Saving…" → "Saved" / "Save failed").',
+      },
+    },
     design: {
       type: "figma",
       url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=278-4918&p=f&m=dev",
@@ -37,24 +43,70 @@ const meta: Meta<typeof KdsProgressButton> = {
   },
   argTypes: {
     size: {
+      description: "Controls the overall button size (including icon size).",
       control: { type: "select" },
       options: kdsSizes,
-      table: { category: "Props" },
+      table: {
+        category: "Props",
+        type: { summary: "KdsSize" },
+        defaultValue: { summary: "medium" },
+      },
     },
     variant: {
+      description: "Visual style variant of the button.",
       control: { type: "select" },
       options: kdsButtonVariants,
-      table: { category: "Props" },
+      table: {
+        category: "Props",
+        type: { summary: "KdsButtonVariant" },
+        defaultValue: { summary: "filled" },
+      },
     },
-    label: { control: "text", table: { category: "Props" } },
+    state: {
+      description:
+        "Visual state of the progress button (see state model in the component docs).",
+      control: { type: "select" },
+      options: ["default", "progress", "success", "error"],
+      table: {
+        category: "Model",
+        type: { summary: "KdsProgressButtonState" },
+        defaultValue: { summary: "default" },
+      },
+    },
+    label: {
+      description:
+        "Button label text. Required for the icon+label variant; must be omitted for icon-only buttons.",
+      control: "text",
+      table: { category: "Props", type: { summary: "string" } },
+    },
     leadingIcon: {
+      description:
+        "Icon shown on the left. This component always requires a leading icon.",
       control: { type: "select" },
       options: iconNames,
-      table: { category: "Props" },
+      table: {
+        category: "Props",
+        type: { summary: "IconName" },
+      },
     },
-    ariaLabel: { control: "text", table: { category: "Props" } },
-    disabled: { control: "boolean", table: { category: "Props" } },
+    ariaLabel: {
+      description:
+        'Accessible label for icon-only buttons. Required when `label` is not provided. Should be set according to the current state (e.g. "Save", "Saving…", "Saved", "Save failed").',
+      control: "text",
+      table: { category: "Props", type: { summary: "string" } },
+    },
+    disabled: {
+      description: "Disables the button.",
+      control: "boolean",
+      table: {
+        category: "Props",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+      },
+    },
     action: {
+      description:
+        "Required async click handler. While the promise is pending, the button switches to the progress state; on resolve it shows success briefly; on reject it shows error briefly.",
       name: "action",
       control: { type: "select" },
       options: ["successful dummy function", "failing dummy function"],
@@ -62,7 +114,10 @@ const meta: Meta<typeof KdsProgressButton> = {
         "successful dummy function": successAction,
         "failing dummy function": errorAction,
       },
-      table: { category: "Props" },
+      table: {
+        category: "Props",
+        type: { summary: "() => Promise<unknown>" },
+      },
     },
   },
   args: {
