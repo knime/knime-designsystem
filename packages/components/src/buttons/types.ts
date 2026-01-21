@@ -152,6 +152,55 @@ export type KdsInfoToggleButtonProps = {
 };
 
 /**
+ * Progress button types
+ */
+export type KdsProgressButtonState =
+  | "default"
+  | "progress"
+  | "success"
+  | "error";
+
+type KdsProgressButtonCommonProps = {
+  size?: KdsSize;
+  variant?: KdsButtonVariant;
+  disabled?: boolean;
+  title?: string;
+};
+
+type KdsProgressButtonIconWithLabel = {
+  label: string;
+  leadingIcon: IconName;
+  ariaLabel?: never;
+};
+
+type KdsProgressButtonIconOnly = {
+  label?: never;
+  leadingIcon: IconName;
+  ariaLabel: string;
+};
+
+type KdsProgressButtonBehaviorProps = {
+  /**
+   * Optional async action handler.
+   * If provided, the button will automatically switch through progress/success/error states.
+   */
+  action?: (event: MouseEvent) => Promise<unknown>;
+
+  /** Delay before showing the spinner when the state becomes `progress` (default: 200ms). */
+  progressDelayMs?: number;
+
+  /** Duration the success state is shown when using `action` (default: 750ms). */
+  successDurationMs?: number;
+
+  /** Duration the error state is shown when using `action` (default: 1000ms). */
+  errorDurationMs?: number;
+};
+
+export type KdsProgressButtonProps = KdsProgressButtonCommonProps &
+  (KdsProgressButtonIconWithLabel | KdsProgressButtonIconOnly) &
+  KdsProgressButtonBehaviorProps;
+
+/**
  * Testers
  */
 
@@ -240,3 +289,20 @@ propTypeTester<KdsVariableToggleButtonProps>({ error: true });
 propTypeTester<KdsInfoToggleButtonProps>({ disabled: true });
 // KdsInfoToggleButton supports visible
 propTypeTester<KdsInfoToggleButtonProps>({ hidden: true });
+
+// ProgressButton supports label + icon
+propTypeTester<KdsProgressButtonProps>({
+  label: "Label",
+  leadingIcon: "ai-general",
+});
+
+// ProgressButton supports icon-only variant
+propTypeTester<KdsProgressButtonProps>({
+  leadingIcon: "ai-general",
+  ariaLabel: "Icon only progress button",
+});
+
+// @ts-expect-error - aria-label is required for icon-only buttons
+propTypeTester<KdsProgressButtonProps>({
+  leadingIcon: "ai-general",
+});

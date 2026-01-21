@@ -4,16 +4,16 @@ import { fn } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
-import { kdsButtonVariants } from "../Button/constants";
-import { kdsSizes } from "../constants";
+import { kdsSizes } from "../constants.ts";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
   buildTextOverflowStory,
-} from "../test-utils/storybook";
+} from "../test-utils/storybook.ts";
 
 import KdsProgressButton from "./KdsProgressButton.vue";
-import type { KdsProgressButtonState } from "./types";
+import { kdsButtonVariants } from "./constants.ts";
+import type { KdsProgressButtonState } from "./types.ts";
 
 const kdsProgressButtonStates: KdsProgressButtonState[] = [
   "default",
