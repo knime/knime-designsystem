@@ -180,10 +180,10 @@ type KdsProgressButtonIconOnly = {
 
 type KdsProgressButtonBehaviorProps = {
   /**
-   * Optional async action handler.
-   * If provided, the button will automatically switch through progress/success/error states.
+   * Async action handler.
+   * The button will automatically switch through progress/success/error states.
    */
-  action?: (event: MouseEvent) => Promise<unknown>;
+  action: () => Promise<unknown>;
 };
 
 export type KdsProgressButtonProps = KdsProgressButtonCommonProps &
@@ -284,15 +284,24 @@ propTypeTester<KdsInfoToggleButtonProps>({ hidden: true });
 propTypeTester<KdsProgressButtonProps>({
   label: "Label",
   leadingIcon: "ai-general",
+  action: async () => {},
 });
 
 // ProgressButton supports icon-only variant
 propTypeTester<KdsProgressButtonProps>({
   leadingIcon: "ai-general",
   ariaLabel: "Icon only progress button",
+  action: async () => {},
 });
 
 // @ts-expect-error - aria-label is required for icon-only buttons
 propTypeTester<KdsProgressButtonProps>({
+  leadingIcon: "ai-general",
+  action: async () => {},
+});
+
+// @ts-expect-error - action is required
+propTypeTester<KdsProgressButtonProps>({
+  label: "Label",
   leadingIcon: "ai-general",
 });
