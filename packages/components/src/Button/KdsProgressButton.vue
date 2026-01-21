@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, ref, watch } from "vue";
 
-import BaseButton from "../Button/BaseButton.vue";
 import KdsIcon from "../Icon/KdsIcon.vue";
-import type { KdsIconSize } from "../Icon/types";
+import type { KdsIconSize } from "../Icon/types.ts";
 import KdsLoadingSpinner from "../LoadingSpinner/KdsLoadingSpinner.vue";
 
-import type { KdsProgressButtonProps, KdsProgressButtonState } from "./types";
+import BaseButton from "./BaseButton.vue";
+import type {
+  KdsProgressButtonProps,
+  KdsProgressButtonState,
+} from "./types.ts";
 
 type LoadingSpinnerStyle = "onPrimary" | "onSurface";
 
