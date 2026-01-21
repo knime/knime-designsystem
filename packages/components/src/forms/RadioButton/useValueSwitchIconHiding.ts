@@ -53,15 +53,8 @@ export const useValueSwitchIconHiding = ({
     return label.scrollWidth > label.clientWidth;
   };
 
-  const hasEllipsizedTextIconItem = () => {
-    const ids = options.value.map((o) => o.id);
-
-    return ids.some((id) => {
-      const option = options.value.find((o) => o.id === id);
-      if (!option) {
-        return false;
-      }
-
+  const hasEllipsizedTextIconItem = () =>
+    options.value.some((option) => {
       if (!option.text) {
         return false;
       }
@@ -70,9 +63,8 @@ export const useValueSwitchIconHiding = ({
         return false;
       }
 
-      return isLabelEllipsized(id);
+      return isLabelEllipsized(option.id);
     });
-  };
 
   watch(
     () => [width.value, options.value],
