@@ -121,11 +121,14 @@ const meta: Meta<typeof KdsProgressButton> = {
     },
   },
   args: {
-    leadingIcon: "placeholder",
+    state: "default",
+    action: "successful dummy function",
     label: "{Label}",
+    leadingIcon: "placeholder",
+    ariaLabel: "",
     variant: "filled",
     size: "medium",
-    action: "successful dummy function",
+    disabled: false,
   },
 };
 
