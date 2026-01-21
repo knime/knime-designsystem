@@ -50,7 +50,7 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
     modelValue: {
       control: { type: "text" },
       description:
-        "The currently selected option id. Can be null when no option is selected.",
+        "The currently selected option id. Can be undefined when no option is selected.",
       table: { category: "Model" },
     },
     "onUpdate:modelValue": {
@@ -122,6 +122,12 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
 export default meta;
 
 export const Default: Story = {};
+
+export const NoSelection: Story = {
+  args: {
+    modelValue: undefined,
+  },
+};
 
 export const WithSubText: Story = {
   args: {
@@ -201,7 +207,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       subText: [undefined, "Additional information"],
       preserveSubTextSpace: [false, true],
       possibleValues: [twoOptions, optionsWithError, optionsWithHelperText],
-      modelValue: [null, "Option A", "Option B"],
+      modelValue: [undefined, "Option A", "Option B"],
       alignment: ["vertical", "horizontal"],
       disabled: [false, true],
     },

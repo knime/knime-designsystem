@@ -29,6 +29,16 @@ const meta: Meta<typeof KdsValueSwitch> = {
     },
   },
   argTypes: {
+    modelValue: {
+      control: { type: "text" },
+      description:
+        "The currently selected option id. Can be undefined when no option is selected.",
+      table: { category: "Model" },
+    },
+    "onUpdate:modelValue": {
+      table: { category: "Model" },
+      description: "Emitted when the model changes (v-model update).",
+    },
     id: {
       control: { type: "text" },
       description: "Optional id for the root element.",
@@ -119,6 +129,12 @@ export default meta;
 export const Default: Story = {
   args: {
     modelValue: "Option A",
+  },
+};
+
+export const NoSelection: Story = {
+  args: {
+    modelValue: undefined,
   },
 };
 
@@ -230,7 +246,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
           { id: "Option B", leadingIcon: "list", title: "List" },
         ],
       ],
-      modelValue: ["Option A"],
+      modelValue: [undefined, "Option A"],
       size: ["medium", "small"],
       variant: ["default", "muted"],
       label: ["Label", undefined],

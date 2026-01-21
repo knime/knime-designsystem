@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<KdsValueSwitchProps>(), {
   variant: "default",
 });
 
-const modelValue = defineModel<string>();
+const modelValue = defineModel<string | undefined>();
 
 const options = computed(
   () =>
