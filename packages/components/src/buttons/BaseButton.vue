@@ -316,12 +316,20 @@ html.kds-legacy {
     color: var(--kds-color-text-and-icon-success-inverted);
     background-color: var(--kds-color-background-success-bold-initial);
     border: var(--kds-border-action-transparent);
+    transition:
+      background-color 300ms ease-out,
+      border-color 300ms ease-out,
+      color 300ms ease-out;
   }
 
   &.error {
     color: var(--kds-color-text-and-icon-danger-inverted);
     background-color: var(--kds-color-background-danger-bold-initial);
     border: var(--kds-border-action-transparent);
+    transition:
+      background-color 200ms ease-out,
+      border-color 200ms ease-out,
+      color 200ms ease-out;
   }
 }
 </style>

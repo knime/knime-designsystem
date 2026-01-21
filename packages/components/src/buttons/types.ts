@@ -185,15 +185,6 @@ type KdsProgressButtonBehaviorProps = {
    * If provided, the button will automatically switch through progress/success/error states.
    */
   action?: (event: MouseEvent) => Promise<unknown>;
-
-  /** Delay before showing the spinner when the state becomes `progress` (default: 200ms). */
-  progressDelayMs?: number;
-
-  /** Duration the success state is shown when using `action` (default: 750ms). */
-  successDurationMs?: number;
-
-  /** Duration the error state is shown when using `action` (default: 1000ms). */
-  errorDurationMs?: number;
 };
 
 export type KdsProgressButtonProps = KdsProgressButtonCommonProps &
