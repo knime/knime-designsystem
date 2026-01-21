@@ -13,6 +13,7 @@ export {
 
 // Export component types
 export type * from "./Icon/types";
+export type * from "./Modal/types";
 
 // Export button components
 export * from "./buttons";

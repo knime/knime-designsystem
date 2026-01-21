@@ -48,6 +48,20 @@ type WithDestructive = {
   destructive?: boolean;
 };
 
+type WithSuccess = {
+  /**
+   * If set to true, the button will be styled as a success/positive action.
+   */
+  success?: boolean;
+};
+
+type WithError = {
+  /**
+   * If set to true, the button will be styled as an error/negative action.
+   */
+  error?: boolean;
+};
+
 type WithRouterNavigation = {
   /**
    * Route Location the link should navigate to when clicked on; passed to RouterLink/NuxtLink component if globally available
@@ -91,6 +105,8 @@ export type BaseButtonProps = CommonProps &
   WithVariant<KdsButtonVariant> &
   WithLabelAndIcons &
   WithDestructive &
+  WithSuccess &
+  WithError &
   WithToggled;
 
 /**
@@ -181,6 +197,20 @@ propTypeTester<BaseButtonProps>({
 
 // KdsButton supports "destructive" prop
 propTypeTester<KdsButtonProps>({ label: "Label", destructive: true });
+
+// BaseButton supports "success" prop
+propTypeTester<BaseButtonProps>({
+  variant: "filled",
+  label: "Label",
+  success: true,
+});
+
+// BaseButton supports "error" prop
+propTypeTester<BaseButtonProps>({
+  variant: "filled",
+  label: "Label",
+  error: true,
+});
 
 // @ts-expect-error - KdsLinkButton should require "to" prop
 propTypeTester<KdsLinkButtonProps>({ label: "Label" });

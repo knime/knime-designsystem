@@ -13,6 +13,8 @@ const props = withDefaults(defineProps<BaseButtonPropsWithComponent>(), {
   component: "button",
   size: "medium",
   destructive: false,
+  success: false,
+  error: false,
   disabled: false,
   toggled: false,
 });
@@ -28,6 +30,8 @@ const classes = computed(() => [
   { destructive: props.destructive },
   { disabled: props.disabled },
   { toggled: props.toggled },
+  { success: props.success },
+  { error: props.error },
 ]);
 
 const iconSize = computed(() => {
@@ -54,11 +58,13 @@ function onClick(e: MouseEvent) {
     :aria-label="props.ariaLabel"
     @click="onClick($event)"
   >
-    <KdsIcon
-      v-if="props.leadingIcon"
-      :name="props.leadingIcon"
-      :size="iconSize"
-    />
+    <slot name="leading">
+      <KdsIcon
+        v-if="props.leadingIcon"
+        :name="props.leadingIcon"
+        :size="iconSize"
+      />
+    </slot>
     <span v-if="props.label" class="label">{{ props.label }}</span>
     <KdsIcon
       v-if="props.trailingIcon && props.label"
@@ -304,6 +310,18 @@ html.kds-legacy {
     & .label {
       padding: 0 var(--kds-spacing-container-0-25x);
     }
+  }
+
+  &.success {
+    color: var(--kds-color-text-and-icon-success-inverted);
+    background-color: var(--kds-color-background-success-bold-initial);
+    border: var(--kds-border-action-transparent);
+  }
+
+  &.error {
+    color: var(--kds-color-text-and-icon-danger-inverted);
+    background-color: var(--kds-color-background-danger-bold-initial);
+    border: var(--kds-border-action-transparent);
   }
 }
 </style>
