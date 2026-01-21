@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { ref } from "vue";
+
 import KdsIcon from "../../Icon/KdsIcon.vue";
+import { useIsTruncated } from "../../util";
 
 import type { KdsValueSwitchItemProps } from "./types.ts";
 
@@ -9,6 +12,9 @@ const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
   variant: "default",
   tabIndex: undefined,
 });
+
+const optionTextEl = ref<HTMLElement | null>(null);
+const { isTruncated } = useIsTruncated(optionTextEl);
 </script>
 
 <template>
@@ -25,14 +31,14 @@ const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
     }"
     :disabled="props.disabled"
     :tabindex="props.tabIndex"
-    :title="props.title"
+    :title="props.title ?? (isTruncated && props.text ? props.text : undefined)"
   >
     <KdsIcon
       v-if="props.leadingIcon && (!props.hideIcons || !props.text)"
       :name="props.leadingIcon"
       :size="props.size"
     />
-    <span v-if="props.text" class="option-label">
+    <span v-if="props.text" ref="optionTextEl" class="option-label">
       {{ props.text }}
     </span>
     <KdsIcon
