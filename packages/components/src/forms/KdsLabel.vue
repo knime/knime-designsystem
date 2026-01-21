@@ -5,7 +5,11 @@ const props = defineProps<KdsLabelProps>();
 </script>
 
 <template>
-  <label :id="props.id" :class="{ label: true, large: props.large }">
+  <label
+    :id="props.id"
+    :for="props.for"
+    :class="{ label: true, large: props.large }"
+  >
     {{ props.label }}
   </label>
 </template>
