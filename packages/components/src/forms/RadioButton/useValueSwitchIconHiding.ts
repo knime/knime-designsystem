@@ -50,7 +50,7 @@ export const useValueSwitchIconHiding = ({
       return false;
     }
 
-    return label.scrollWidth - label.clientWidth > 0;
+    return label.scrollWidth > label.clientWidth;
   };
 
   const hasEllipsizedTextIconItem = () => {
