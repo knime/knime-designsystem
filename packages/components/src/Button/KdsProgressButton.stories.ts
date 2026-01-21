@@ -1,6 +1,5 @@
 import type { FunctionalComponent } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { fn } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
@@ -13,25 +12,16 @@ import {
 
 import KdsProgressButton from "./KdsProgressButton.vue";
 import { kdsButtonVariants } from "./constants.ts";
-import type { KdsProgressButtonState } from "./types.ts";
 
-const kdsProgressButtonStates: KdsProgressButtonState[] = [
-  "default",
-  "progress",
-  "success",
-  "error",
-];
-
+const ACTION_TIMEOUT = 900;
 const successAction = async () => {
   await new Promise((resolve) => {
-    // eslint-disable-next-line no-magic-numbers
-    setTimeout(resolve, 900);
+    setTimeout(resolve, ACTION_TIMEOUT);
   });
 };
 const errorAction = async () => {
   await new Promise((_, reject) => {
-    // eslint-disable-next-line no-magic-numbers
-    setTimeout(reject, 900);
+    setTimeout(reject, ACTION_TIMEOUT);
   });
 };
 
@@ -49,35 +39,38 @@ const meta: Meta<typeof KdsProgressButton> = {
     size: {
       control: { type: "select" },
       options: kdsSizes,
+      table: { category: "Props" },
     },
     variant: {
       control: { type: "select" },
       options: kdsButtonVariants,
+      table: { category: "Props" },
     },
+    label: { control: "text", table: { category: "Props" } },
     leadingIcon: {
       control: { type: "select" },
       options: iconNames,
+      table: { category: "Props" },
     },
-    label: { control: "text" },
-    ariaLabel: { control: "text" },
-    title: { control: "text" },
-    disabled: { control: "boolean" },
-    state: {
-      control: { type: "select" },
-      options: kdsProgressButtonStates,
-    },
+    ariaLabel: { control: "text", table: { category: "Props" } },
+    disabled: { control: "boolean", table: { category: "Props" } },
     action: {
       name: "action",
       control: { type: "select" },
-      options: ["none", successAction, errorAction],
+      options: ["successful dummy function", "failing dummy function"],
+      mapping: {
+        "successful dummy function": successAction,
+        "failing dummy function": errorAction,
+      },
+      table: { category: "Props" },
     },
   },
   args: {
-    onClick: fn(),
     leadingIcon: "placeholder",
     label: "{Label}",
-    state: "default",
     variant: "filled",
+    size: "medium",
+    action: "successful dummy function",
   },
 };
 
