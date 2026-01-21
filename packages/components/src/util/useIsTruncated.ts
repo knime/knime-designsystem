@@ -1,24 +1,33 @@
-import { type Ref, onMounted, onUnmounted, ref, watchEffect } from "vue";
+import { type Ref, ref, watchEffect } from "vue";
 
 export function useIsTruncated(elementRef: Ref<HTMLElement | null>) {
   const isTruncated = ref(false);
 
   const checkTruncation = () => {
-    if (elementRef.value) {
-      isTruncated.value =
-        elementRef.value.scrollWidth > elementRef.value.clientWidth;
+    const el = elementRef.value;
+    if (!el) {
+      isTruncated.value = false;
+      return;
     }
+
+    isTruncated.value = el.scrollWidth > el.clientWidth;
   };
 
-  onMounted(() => {
-    const observer = new ResizeObserver(checkTruncation);
-    if (elementRef.value) {
-      observer.observe(elementRef.value);
-    }
-    onUnmounted(() => observer.disconnect());
-  });
+  watchEffect((onCleanup) => {
+    const el = elementRef.value;
 
-  watchEffect(checkTruncation);
+    // Always compute the current truncation state when the element changes.
+    checkTruncation();
+
+    if (!el) {
+      return;
+    }
+
+    const observer = new ResizeObserver(checkTruncation);
+    observer.observe(el);
+
+    onCleanup(() => observer.disconnect());
+  });
 
   return { isTruncated };
 }
