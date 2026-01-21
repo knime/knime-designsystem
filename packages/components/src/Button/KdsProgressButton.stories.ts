@@ -53,9 +53,6 @@ const meta: Meta<typeof KdsProgressButton> = {
       control: { type: "select" },
       options: kdsProgressButtonStates,
     },
-    progressDelayMs: { control: "number" },
-    successDurationMs: { control: "number" },
-    errorDurationMs: { control: "number" },
     action: { control: false },
   },
   args: {
