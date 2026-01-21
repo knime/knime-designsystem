@@ -17,7 +17,6 @@ const props = defineProps<KdsLabelProps>();
 <style scoped>
 .label {
   display: block;
-  width: max-content;
   max-width: 100%;
   min-height: var(--kds-dimension-component-height-0-75x);
   padding-bottom: var(--kds-spacing-input-label-spacing-bottom);
