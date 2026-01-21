@@ -11,8 +11,6 @@ import type {
   KdsProgressButtonState,
 } from "./types.ts";
 
-type LoadingSpinnerStyle = "onPrimary" | "onSurface";
-
 const PROGRESS_DELAY_MS = 200;
 const SUCCESS_DURATION_MS = 750;
 const ERROR_DURATION_MS = 1000;
@@ -32,13 +30,6 @@ const iconSize = computed<KdsIconSize>(() => {
     return "small";
   }
   return props.size;
-});
-
-const spinnerStyle = computed<LoadingSpinnerStyle>(() => {
-  if (props.variant === "filled") {
-    return "onPrimary";
-  }
-  return "onSurface";
 });
 
 const showSpinner = ref(false);
@@ -125,7 +116,10 @@ onBeforeUnmount(() => {
           <KdsIcon :name="props.leadingIcon" :size="iconSize" />
         </span>
         <span class="spinner" :data-visible="showSpinner">
-          <KdsLoadingSpinner :size="iconSize" :style="spinnerStyle" />
+          <KdsLoadingSpinner
+            :size="iconSize"
+            :style="props.variant === 'filled' ? 'onPrimary' : 'onSurface'"
+          />
         </span>
       </span>
     </template>
