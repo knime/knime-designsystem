@@ -4,6 +4,10 @@ export type KdsLabelProps = {
    * Id to link the label to form elements via `aria-labelledby`.
    */
   id: string;
+  /**
+   * Use a larger label style.
+   */
+  large?: boolean;
 };
 
 export type KdsSubTextProps = {
