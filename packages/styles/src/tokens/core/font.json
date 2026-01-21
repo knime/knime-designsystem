@@ -4,187 +4,231 @@
       "font-size": {
         "0_5x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 0.5"
+          "$value": "{kds.core.size.scale} * 0.5",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "0_56x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 0.5625"
+          "$value": "{kds.core.size.scale} * 0.5625",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "0_62x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 0.625"
+          "$value": "{kds.core.size.scale} * 0.625",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "0_68x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 0.6875"
+          "$value": "{kds.core.size.scale} * 0.6875",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "0_75x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 0.75"
+          "$value": "{kds.core.size.scale} * 0.75",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "0_81x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 0.8125"
+          "$value": "{kds.core.size.scale} * 0.8125",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "0_87x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 0.875"
+          "$value": "{kds.core.size.scale} * 0.875",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "1x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 1"
+          "$value": "{kds.core.size.scale} * 1",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "1_13x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 1.125"
+          "$value": "{kds.core.size.scale} * 1.125",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "1_25x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 1.25"
+          "$value": "{kds.core.size.scale} * 1.25",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "1_375x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 1.375"
+          "$value": "{kds.core.size.scale} * 1.375",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "1_625x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 1.625"
+          "$value": "{kds.core.size.scale} * 1.625",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "1_5x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 1.5"
+          "$value": "{kds.core.size.scale} * 1.5",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "1_75x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 1.75"
+          "$value": "{kds.core.size.scale} * 1.75",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "1_875x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 1.875"
+          "$value": "{kds.core.size.scale} * 1.875",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "2x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 2"
+          "$value": "{kds.core.size.scale} * 2",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "2_25x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 2.25"
+          "$value": "{kds.core.size.scale} * 2.25",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "2_5x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 2.5"
+          "$value": "{kds.core.size.scale} * 2.5",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "2_75x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 2.75"
+          "$value": "{kds.core.size.scale} * 2.75",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "3x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 3"
+          "$value": "{kds.core.size.scale} * 3",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "3_25x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 3.25"
+          "$value": "{kds.core.size.scale} * 3.25",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "3_5x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 3.5"
+          "$value": "{kds.core.size.scale} * 3.5",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "3_75x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 3.75"
+          "$value": "{kds.core.size.scale} * 3.75",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "4x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 4"
+          "$value": "{kds.core.size.scale} * 4",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "4_5x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 4.5"
+          "$value": "{kds.core.size.scale} * 4.5",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "5x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 5"
+          "$value": "{kds.core.size.scale} * 5",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "5_5x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 5.5"
+          "$value": "{kds.core.size.scale} * 5.5",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         },
         "6x": {
           "$type": "fontSizes",
-          "$value": "{kds.core.size.scale} * 6"
+          "$value": "{kds.core.size.scale} * 6",
+          "$description": "Primitive fontSizes token. Do not use to tokenize a component."
         }
       },
       "paragraph-spacing": {
         "none": {
           "$type": "paragraphSpacing",
-          "$value": "0.0"
+          "$value": "0.0",
+          "$description": "Primitive paragraphSpacing token. Do not use to tokenize a component."
         },
         "small": {
           "$type": "paragraphSpacing",
-          "$value": "0.25"
+          "$value": "0.25",
+          "$description": "Primitive paragraphSpacing token. Do not use to tokenize a component."
         },
         "medium": {
           "$type": "paragraphSpacing",
-          "$value": "0.5"
+          "$value": "0.5",
+          "$description": "Primitive paragraphSpacing token. Do not use to tokenize a component."
         },
         "large": {
           "$type": "paragraphSpacing",
-          "$value": "0.75"
+          "$value": "0.75",
+          "$description": "Primitive paragraphSpacing token. Do not use to tokenize a component."
         },
         "extra-large": {
           "$type": "paragraphSpacing",
-          "$value": "1"
+          "$value": "1",
+          "$description": "Primitive paragraphSpacing token. Do not use to tokenize a component."
         }
       },
       "font-family": {
         "roboto": {
           "$type": "fontFamilies",
-          "$value": "Roboto"
+          "$value": "Roboto",
+          "$description": "Primitive fontFamilies token. Do not use to tokenize a component."
         },
         "roboto-condensed": {
           "$type": "fontFamilies",
-          "$value": "Roboto Condensed"
+          "$value": "Roboto Condensed",
+          "$description": "Primitive fontFamilies token. Do not use to tokenize a component."
         },
         "roboto-mono": {
           "$type": "fontFamilies",
-          "$value": "Roboto Mono"
+          "$value": "Roboto Mono",
+          "$description": "Primitive fontFamilies token. Do not use to tokenize a component."
         }
       },
       "font-weight": {
         "regular": {
           "$type": "fontWeights",
-          "$value": "400"
+          "$value": "400",
+          "$description": "Primitive fontWeights token. Do not use to tokenize a component."
         },
         "regular-italic": {
           "$type": "fontWeights",
-          "$value": "Italic"
+          "$value": "Italic",
+          "$description": "Primitive fontWeights token. Do not use to tokenize a component."
         },
         "medium": {
           "$type": "fontWeights",
-          "$value": "500"
+          "$value": "500",
+          "$description": "Primitive fontWeights token. Do not use to tokenize a component."
         },
         "strong": {
           "$type": "fontWeights",
-          "$value": "700"
+          "$value": "700",
+          "$description": "Primitive fontWeights token. Do not use to tokenize a component."
         },
         "strong-italic": {
           "$type": "fontWeights",
-          "$value": "Bold Italic"
+          "$value": "Bold Italic",
+          "$description": "Primitive fontWeights token. Do not use to tokenize a component."
         }
       },
       "line-height": {
         "singleline": {
           "$type": "lineHeights",
-          "$value": "100%"
+          "$value": "100%",
+          "$description": "Primitive lineHeights token. Do not use to tokenize a component."
         },
         "multiline_narrow": {
           "$type": "lineHeights",
-          "$value": "130%"
+          "$value": "130%",
+          "$description": "Primitive lineHeights token. Do not use to tokenize a component."
         },
         "multiline_wide": {
           "$type": "lineHeights",
-          "$value": "150%"
+          "$value": "150%",
+          "$description": "Primitive lineHeights token. Do not use to tokenize a component."
         }
       }
     }

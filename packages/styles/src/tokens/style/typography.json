@@ -11,7 +11,7 @@
               "lineHeight": "{kds.core.line-height.multiline_narrow}",
               "fontSize": "{kds.core.font-size.1_13x}"
             },
-            "$description": "Can be used for large headlines in components that require a multi-line setup."
+            "$description": "Can be used for large headlines in components that require a multi-line setup (xsmall)."
           },
           "small": {
             "$type": "typography",
@@ -21,7 +21,7 @@
               "lineHeight": "{kds.core.line-height.multiline_narrow}",
               "fontSize": "{kds.core.font-size.1_25x}"
             },
-            "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels"
+            "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels (small)."
           },
           "medium": {
             "$type": "typography",
@@ -31,7 +31,7 @@
               "lineHeight": "{kds.core.line-height.multiline_narrow}",
               "fontSize": "{kds.core.font-size.1_5x}"
             },
-            "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels"
+            "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels (medium)."
           },
           "large": {
             "$type": "typography",
@@ -41,7 +41,7 @@
               "lineHeight": "{kds.core.line-height.multiline_narrow}",
               "fontSize": "{kds.core.font-size.2x}"
             },
-            "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels"
+            "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels (large)."
           },
           "xlarge": {
             "$type": "typography",
@@ -51,7 +51,7 @@
               "lineHeight": "{kds.core.line-height.multiline_narrow}",
               "fontSize": "{kds.core.font-size.2_5x}"
             },
-            "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels"
+            "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels (xlarge)."
           }
         },
         "title": {
@@ -63,7 +63,7 @@
               "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.0_62x}"
             },
-            "$description": "Single-line text, used inside component headers."
+            "$description": "Single-line text, used inside component headers (xsmall)."
           },
           "small": {
             "$type": "typography",
@@ -73,7 +73,7 @@
               "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.0_75x}"
             },
-            "$description": "Single-line text, used inside component headers."
+            "$description": "Single-line text, used inside component headers (small)."
           },
           "small-strong": {
             "$type": "typography",
@@ -83,7 +83,7 @@
               "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.0_75x}"
             },
-            "$description": "Single-line text, used inside component headers."
+            "$description": "Single-line text, used inside component headers (small-strong)."
           },
           "medium": {
             "$type": "typography",
@@ -93,7 +93,7 @@
               "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.0_87x}"
             },
-            "$description": "Single-line text, used inside component headers."
+            "$description": "Single-line text, used inside component headers (medium)."
           },
           "medium-strong": {
             "$type": "typography",
@@ -103,7 +103,7 @@
               "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.0_87x}"
             },
-            "$description": "Single-line text, used inside component headers."
+            "$description": "Single-line text, used inside component headers (medium-strong)."
           },
           "large": {
             "$type": "typography",
@@ -113,7 +113,7 @@
               "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.1x}"
             },
-            "$description": "Single-line text, used inside component headers."
+            "$description": "Single-line text, used inside component headers (large)."
           },
           "large-strong": {
             "$type": "typography",
@@ -123,7 +123,7 @@
               "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.1x}"
             },
-            "$description": "Single-line text, used inside component headers."
+            "$description": "Single-line text, used inside component headers (large-strong)."
           }
         },
         "body": {
@@ -135,7 +135,7 @@
               "lineHeight": "{kds.core.line-height.multiline_wide}",
               "fontSize": "{kds.core.font-size.0_75x}"
             },
-            "$description": "multiline text, used for paragraphes inside components, pages or panels"
+            "$description": "Multiline text, used for paragraphs inside components, pages or panels (small)."
           },
           "small-italic": {
             "$type": "typography",
@@ -145,7 +145,7 @@
               "lineHeight": "{kds.core.line-height.multiline_wide}",
               "fontSize": "{kds.core.font-size.0_75x}"
             },
-            "$description": "multiline text, used for paragraphes inside components, pages or panels"
+            "$description": "Multiline text, used for paragraphs inside components, pages or panels (small-italic)."
           },
           "small-strong": {
             "$type": "typography",
@@ -155,7 +155,7 @@
               "lineHeight": "{kds.core.line-height.multiline_wide}",
               "fontSize": "{kds.core.font-size.0_75x}"
             },
-            "$description": "multiline text, used for paragraphes inside components, pages or panels"
+            "$description": "Multiline text, used for paragraphs inside components, pages or panels (small-strong)."
           },
           "small-strong-italic": {
             "$type": "typography",
@@ -165,7 +165,7 @@
               "lineHeight": "{kds.core.line-height.multiline_wide}",
               "fontSize": "{kds.core.font-size.0_75x}"
             },
-            "$description": "multiline text, used for paragraphes inside components, pages or panels"
+            "$description": "Multiline text, used for paragraphs inside components, pages or panels (small-strong-italic)."
           },
           "medium": {
             "$type": "typography",
@@ -175,7 +175,7 @@
               "lineHeight": "{kds.core.line-height.multiline_wide}",
               "fontSize": "{kds.core.font-size.0_87x}"
             },
-            "$description": "multiline text, used for paragraphes inside components, pages or panels"
+            "$description": "Multiline text, used for paragraphs inside components, pages or panels (medium)."
           },
           "large": {
             "$type": "typography",
@@ -185,7 +185,7 @@
               "lineHeight": "{kds.core.line-height.multiline_narrow}",
               "fontSize": "{kds.core.font-size.1x}"
             },
-            "$description": "multiline text, used for paragraphes inside components, pages or panels"
+            "$description": "Multiline text, used for paragraphs inside components, pages or panels (large)."
           },
           "xlarge": {
             "$type": "typography",
@@ -195,7 +195,7 @@
               "lineHeight": "{kds.core.line-height.multiline_wide}",
               "fontSize": "{kds.core.font-size.1_25x}"
             },
-            "$description": "multiline text, used for paragraphes inside components, pages or panels"
+            "$description": "Multiline text, used for paragraphs inside components, pages or panels (xlarge)."
           }
         },
         "subtext": {
@@ -206,7 +206,7 @@
               "fontWeight": "{kds.core.font-weight.regular}",
               "fontSize": "{kds.core.font-size.0_56x}"
             },
-            "$description": "Caption is used for disclosing extra information or smaller items in hierarchical relationships of text. \n\nExamples: Input helping Text, Character Count, # Columns in Twinlist, Datatypes...)"
+            "$description": "Caption is used for disclosing extra information or smaller items in hierarchical relationships of text. Examples: Input helping Text, Character Count, # Columns in Twinlist, Datatypes (xsmall)."
           },
           "small": {
             "$type": "typography",
@@ -216,7 +216,7 @@
               "fontSize": "{kds.core.font-size.0_62x}",
               "lineHeight": "{kds.core.line-height.multiline_narrow}"
             },
-            "$description": "Caption is used for disclosing extra information or smaller items in hierarchical relationships of text. \n\nExamples: Input helping Text, Character Count, # Columns in Twinlist, Datatypes...)"
+            "$description": "Caption is used for disclosing extra information or smaller items in hierarchical relationships of text. Examples: Input helping Text, Character Count, # Columns in Twinlist, Datatypes (small)."
           },
           "medium": {
             "$type": "typography",
@@ -226,7 +226,7 @@
               "lineHeight": "{kds.core.line-height.multiline_narrow}",
               "fontSize": "{kds.core.font-size.0_75x}"
             },
-            "$description": "singleline text, used for button labels, breadcrumbs, chips and everything that is clickable."
+            "$description": "Singleline text, used for button labels, breadcrumbs, chips and everything that is clickable (medium)."
           }
         },
         "interactive": {
@@ -238,7 +238,7 @@
               "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.0_68x}"
             },
-            "$description": "singleline text, used for button labels, breadcrumbs, chips and everything that is clickable."
+            "$description": "Singleline text, used for button labels, breadcrumbs, chips and everything that is clickable (xsmall-strong)."
           },
           "small": {
             "$type": "typography",
@@ -248,7 +248,7 @@
               "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.0_75x}"
             },
-            "$description": "singleline text, used for button labels, breadcrumbs, chips and everything that is clickable."
+            "$description": "Singleline text, used for button labels, breadcrumbs, chips and everything that is clickable (small)."
           },
           "small-italic": {
             "$type": "typography",
@@ -258,7 +258,7 @@
               "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.0_75x}"
             },
-            "$description": "singleline text, used for button labels, breadcrumbs, chips and everything that is clickable."
+            "$description": "Singleline text, used for button labels, breadcrumbs, chips and everything that is clickable (small-italic)."
           },
           "small-strong": {
             "$type": "typography",
@@ -268,7 +268,7 @@
               "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.0_75x}"
             },
-            "$description": "singleline text, used for button labels, breadcrumbs, chips and everything that is clickable."
+            "$description": "Singleline text, used for button labels, breadcrumbs, chips and everything that is clickable (small-strong)."
           },
           "medium": {
             "$type": "typography",
@@ -278,7 +278,7 @@
               "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.0_87x}"
             },
-            "$description": "singleline text, used for button labels, breadcrumbs, chips and everything that is clickable."
+            "$description": "Singleline text, used for button labels, breadcrumbs, chips and everything that is clickable (medium)."
           },
           "medium-strong": {
             "$type": "typography",
@@ -288,7 +288,7 @@
               "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.0_87x}"
             },
-            "$description": "singleline text, used for button labels, breadcrumbs, chips and everything that is clickable."
+            "$description": "Singleline text, used for button labels, breadcrumbs, chips and everything that is clickable (medium-strong)."
           },
           "large": {
             "$type": "typography",
@@ -298,7 +298,7 @@
               "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.1x}"
             },
-            "$description": "singleline text, used for button labels, breadcrumbs, chips and everything that is clickable."
+            "$description": "Singleline text, used for button labels, breadcrumbs, chips and everything that is clickable (large)."
           },
           "large-strong": {
             "$type": "typography",
@@ -308,7 +308,7 @@
               "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.1x}"
             },
-            "$description": "singleline text, used for button labels, breadcrumbs, chips and everything that is clickable."
+            "$description": "Singleline text, used for button labels, breadcrumbs, chips and everything that is clickable (large-strong)."
           }
         },
         "code": {
@@ -320,7 +320,7 @@
               "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.0_62x}"
             },
-            "$description": "singleline code, used for code snippets"
+            "$description": "Singleline code, used for code snippets (xsmall)."
           },
           "small": {
             "$type": "typography",
@@ -330,7 +330,7 @@
               "lineHeight": "{kds.core.line-height.multiline_narrow}",
               "fontSize": "{kds.core.font-size.0_68x}"
             },
-            "$description": "Code blocks"
+            "$description": "Code blocks (small)."
           }
         }
       },
@@ -345,7 +345,7 @@
                 "lineHeight": "{kds.core.line-height.multiline_wide}",
                 "fontSize": "{kds.core.font-size.2_25x}"
               },
-              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps."
             },
             "H2": {
               "$type": "typography",
@@ -355,7 +355,7 @@
                 "lineHeight": "{kds.core.line-height.multiline_wide}",
                 "fontSize": "30"
               },
-              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps."
             },
             "H3": {
               "$type": "typography",
@@ -365,7 +365,7 @@
                 "lineHeight": "{kds.core.line-height.multiline_wide}",
                 "fontSize": "26"
               },
-              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps."
             },
             "H4": {
               "$type": "typography",
@@ -375,7 +375,7 @@
                 "lineHeight": "{kds.core.line-height.multiline_wide}",
                 "fontSize": "22"
               },
-              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps."
             },
             "H5": {
               "$type": "typography",
@@ -385,7 +385,7 @@
                 "lineHeight": "{kds.core.line-height.multiline_wide}",
                 "fontSize": "{kds.core.font-size.1x}"
               },
-              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps."
             },
             "H1-italic": {
               "$type": "typography",
@@ -395,7 +395,7 @@
                 "lineHeight": "{kds.core.line-height.multiline_wide}",
                 "fontSize": "{kds.core.font-size.2_25x}"
               },
-              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps."
             },
             "H2-italic": {
               "$type": "typography",
@@ -405,7 +405,7 @@
                 "lineHeight": "{kds.core.line-height.multiline_wide}",
                 "fontSize": "30"
               },
-              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps."
             },
             "H3-italic": {
               "$type": "typography",
@@ -415,7 +415,7 @@
                 "lineHeight": "{kds.core.line-height.multiline_wide}",
                 "fontSize": "26"
               },
-              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps."
             },
             "H4-italic": {
               "$type": "typography",
@@ -425,7 +425,7 @@
                 "lineHeight": "{kds.core.line-height.multiline_wide}",
                 "fontSize": "22"
               },
-              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps."
             },
             "H5-italic": {
               "$type": "typography",
@@ -435,7 +435,7 @@
                 "lineHeight": "{kds.core.line-height.multiline_wide}",
                 "fontSize": "{kds.core.font-size.1x}"
               },
-              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps."
             },
             "H6": {
               "$type": "typography",
@@ -445,7 +445,7 @@
                 "lineHeight": "{kds.core.line-height.multiline_wide}",
                 "fontSize": "{kds.core.font-size.0_81x}"
               },
-              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps."
             },
             "H6-italic": {
               "$type": "typography",
@@ -455,7 +455,7 @@
                 "lineHeight": "{kds.core.line-height.multiline_wide}",
                 "fontSize": "{kds.core.font-size.0_81x}"
               },
-              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps."
             }
           },
           "body": {
@@ -467,7 +467,7 @@
                 "lineHeight": "{kds.core.line-height.multiline_wide}",
                 "fontSize": "{kds.core.font-size.0_81x}"
               },
-              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps."
             },
             "small-italic": {
               "$type": "typography",
@@ -477,7 +477,7 @@
                 "lineHeight": "{kds.core.line-height.multiline_wide}",
                 "fontSize": "{kds.core.font-size.0_81x}"
               },
-              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps."
             },
             "small-strong": {
               "$type": "typography",
@@ -487,7 +487,7 @@
                 "lineHeight": "{kds.core.line-height.multiline_wide}",
                 "fontSize": "{kds.core.font-size.0_81x}"
               },
-              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps."
             },
             "small-strong-Italic": {
               "$type": "typography",
@@ -497,7 +497,7 @@
                 "lineHeight": "{kds.core.line-height.multiline_wide}",
                 "fontSize": "{kds.core.font-size.0_81x}"
               },
-              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+              "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps."
             }
           }
         },
@@ -508,7 +508,8 @@
               "fontFamily": "{kds.core.font-family.roboto-condensed}",
               "fontSize": "{kds.core.font-size.0_81x}",
               "fontWeight": "{kds.core.font-weight.strong}"
-            }
+            },
+            "$description": "Typography for workflow node names."
           },
           "label": {
             "$type": "typography",
@@ -516,7 +517,8 @@
               "fontWeight": "{kds.core.font-weight.regular}",
               "fontFamily": "{kds.core.font-family.roboto-condensed}",
               "fontSize": "{kds.core.font-size.0_75x}"
-            }
+            },
+            "$description": "Typography for workflow node labels."
           },
           "status": {
             "$type": "typography",
@@ -524,7 +526,8 @@
               "fontWeight": "{kds.core.font-weight.regular}",
               "fontFamily": "{kds.core.font-family.roboto-condensed}",
               "fontSize": "{kds.core.font-size.0_5x}"
-            }
+            },
+            "$description": "Typography for workflow node status text."
           }
         }
       },
@@ -537,7 +540,7 @@
             "lineHeight": "{kds.core.line-height.multiline_wide}",
             "fontSize": "{kds.core.font-size.2_25x}"
           },
-          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps."
         },
         "H2": {
           "$type": "typography",
@@ -547,7 +550,7 @@
             "lineHeight": "{kds.core.line-height.multiline_wide}",
             "fontSize": "30"
           },
-          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps."
         },
         "H3": {
           "$type": "typography",
@@ -557,7 +560,7 @@
             "lineHeight": "{kds.core.line-height.multiline_wide}",
             "fontSize": "26"
           },
-          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps."
         },
         "H4": {
           "$type": "typography",
@@ -567,7 +570,7 @@
             "lineHeight": "{kds.core.line-height.multiline_wide}",
             "fontSize": "22"
           },
-          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps."
         },
         "H5": {
           "$type": "typography",
@@ -577,7 +580,7 @@
             "lineHeight": "{kds.core.line-height.multiline_wide}",
             "fontSize": "{kds.core.font-size.1x}"
           },
-          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps."
         },
         "H6": {
           "$type": "typography",
@@ -587,7 +590,7 @@
             "lineHeight": "{kds.core.line-height.multiline_wide}",
             "fontSize": "{kds.core.font-size.0_81x}"
           },
-          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps."
         },
         "body": {
           "$type": "typography",
@@ -597,7 +600,7 @@
             "lineHeight": "{kds.core.line-height.multiline_wide}",
             "fontSize": "{kds.core.font-size.0_81x}"
           },
-          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps."
         },
         "body-small": {
           "$type": "typography",
@@ -607,7 +610,7 @@
             "lineHeight": "{kds.core.line-height.multiline_wide}",
             "fontSize": "{kds.core.font-size.0_62x}"
           },
-          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps"
+          "$description": "Fixed Fontformats for Workflow annotations and in Rich Text editor and Data Apps. Properties of this tokengroup cannot be changed easily because of their impact in layout of Workflows and Data Apps."
         }
       }
     }
