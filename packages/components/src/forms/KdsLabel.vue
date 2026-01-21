@@ -22,6 +22,7 @@ const props = defineProps<KdsLabelProps>();
   min-height: var(--kds-dimension-component-height-0-75x);
   padding-bottom: var(--kds-spacing-input-label-spacing-bottom);
   overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
   font: var(--kds-font-base-title-small-strong);
   color: var(--kds-color-text-and-icon-neutral);
