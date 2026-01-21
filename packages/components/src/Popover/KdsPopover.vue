@@ -12,7 +12,6 @@ const props = withDefaults(defineProps<KdsPopoverProps>(), {
 const open = defineModel<boolean>({ default: false });
 const referenceEl = ref<HTMLElement | null>(null);
 const floatingEl = ref<HTMLElement | null>(null);
-const body = document.body;
 
 /**
  * Floating UI setup
@@ -54,7 +53,7 @@ onClickOutside(floatingEl, () => (open.value = false), {
       >
         <FocusTrap
           v-model:active="open"
-          :fallback-focus="body"
+          fallback-focus="body"
           @deactivate="referenceEl?.querySelector('button')?.focus()"
         >
           <div class="content">
