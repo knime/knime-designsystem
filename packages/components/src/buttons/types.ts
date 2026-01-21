@@ -164,7 +164,6 @@ type KdsProgressButtonCommonProps = {
   size?: KdsSize;
   variant?: KdsButtonVariant;
   disabled?: boolean;
-  title?: string;
 };
 
 type KdsProgressButtonIconWithLabel = {

@@ -116,7 +116,7 @@ const baseButtonProps = computed(() => ({
   disabled: props.disabled,
   success: state.value === "success",
   error: state.value === "error",
-  title: props.title,
+  title: props.ariaLabel,
   label: props.label,
   leadingIcon: props.leadingIcon,
   ariaLabel: props.ariaLabel,
