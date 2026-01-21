@@ -22,6 +22,19 @@ const kdsProgressButtonStates: KdsProgressButtonState[] = [
   "error",
 ];
 
+const successAction = async () => {
+  await new Promise((resolve) => {
+    // eslint-disable-next-line no-magic-numbers
+    setTimeout(resolve, 900);
+  });
+};
+const errorAction = async () => {
+  await new Promise((_, reject) => {
+    // eslint-disable-next-line no-magic-numbers
+    setTimeout(reject, 900);
+  });
+};
+
 const meta: Meta<typeof KdsProgressButton> = {
   title: "Components/Buttons/KdsProgressButton",
   component: KdsProgressButton as unknown as FunctionalComponent,
@@ -53,7 +66,11 @@ const meta: Meta<typeof KdsProgressButton> = {
       control: { type: "select" },
       options: kdsProgressButtonStates,
     },
-    action: { control: false },
+    action: {
+      name: "action",
+      control: { type: "select" },
+      options: ["none", successAction, errorAction],
+    },
   },
   args: {
     onClick: fn(),
@@ -67,8 +84,6 @@ const meta: Meta<typeof KdsProgressButton> = {
 export default meta;
 
 type Story = StoryObj<typeof KdsProgressButton>;
-
-const actionDelayMs = 900;
 
 export const Filled: Story = {
   args: {
@@ -98,22 +113,14 @@ export const IconOnly: Story = {
 export const WithSuccessAction: Story = {
   args: {
     label: "Click me",
-    action: async () => {
-      await new Promise((resolve) => {
-        window.setTimeout(resolve, actionDelayMs);
-      });
-    },
+    action: successAction,
   },
 };
 
 export const WithErrorAction: Story = {
   args: {
     label: "Click me",
-    action: async () => {
-      await new Promise((_, reject) => {
-        window.setTimeout(reject, actionDelayMs);
-      });
-    },
+    action: errorAction,
   },
 };
 
