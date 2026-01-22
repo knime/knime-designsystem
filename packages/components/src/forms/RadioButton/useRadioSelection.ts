@@ -15,7 +15,7 @@ export const useRadioSelection = ({
   globalError,
   optionContainer,
 }: {
-  selectedId: Ref<string | null | undefined>;
+  selectedId: Ref<string | undefined>;
   options: Ref<readonly KdsIndexSelectionOption[]>;
   globalDisable?: Ref<boolean>;
   globalError?: Ref<boolean>;
