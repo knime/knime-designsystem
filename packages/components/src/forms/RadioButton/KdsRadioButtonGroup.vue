@@ -8,8 +8,8 @@ import KdsRadioButton from "./KdsRadioButton.vue";
 import type {
   KdsRadioButtonGroupOption,
   KdsRadioButtonGroupProps,
-} from "./types.ts";
-import { useRadioSelection } from "./useRadioSelection.ts";
+} from "./types";
+import { useRadioSelection } from "./useRadioSelection";
 
 const props = withDefaults(defineProps<KdsRadioButtonGroupProps>(), {
   disabled: false,
