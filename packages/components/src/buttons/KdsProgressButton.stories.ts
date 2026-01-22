@@ -1,5 +1,6 @@
 import type { FunctionalComponent } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
@@ -166,12 +167,54 @@ export const WithSuccessAction: Story = {
     label: "Click me",
     action: successAction,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button", { name: "Click me" });
+
+    await expect(button).toHaveAttribute("data-kds-progress-state", "default");
+
+    await userEvent.click(button);
+    await expect(button).toHaveAttribute("data-kds-progress-state", "progress");
+
+    // While in progress, subsequent clicks should be ignored.
+    await userEvent.click(button);
+    await expect(button).toHaveAttribute("data-kds-progress-state", "progress");
+
+    await waitFor(() =>
+      expect(button).toHaveAttribute("data-kds-progress-state", "success"),
+    );
+
+    await waitFor(
+      () =>
+        expect(button).toHaveAttribute("data-kds-progress-state", "default"),
+      { timeout: 2000 },
+    );
+  },
 };
 
 export const WithErrorAction: Story = {
   args: {
     label: "Click me",
     action: errorAction,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button", { name: "Click me" });
+
+    await expect(button).toHaveAttribute("data-kds-progress-state", "default");
+
+    await userEvent.click(button);
+    await expect(button).toHaveAttribute("data-kds-progress-state", "progress");
+
+    await waitFor(() =>
+      expect(button).toHaveAttribute("data-kds-progress-state", "error"),
+    );
+
+    await waitFor(
+      () =>
+        expect(button).toHaveAttribute("data-kds-progress-state", "default"),
+      { timeout: 2500 },
+    );
   },
 };
 
