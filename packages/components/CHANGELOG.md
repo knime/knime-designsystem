@@ -1,5 +1,13 @@
 # @knime/kds-components
 
+## 0.5.9
+
+### Patch Changes
+
+- a49aa87: Fix border for KdsValueSwitch
+- Updated dependencies [a49aa87]
+  - @knime/kds-styles@0.5.9
+
 ## 0.5.8
 
 ### Patch Changes
