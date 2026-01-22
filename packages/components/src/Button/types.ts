@@ -164,7 +164,7 @@ type KdsProgressButtonBehaviorProps = {
    * lead to the "success" state. Throw an error or return a rejected promise
    * to indicate failure; this will move the button into the "error" state.
    */
-  action: () => Promise<unknown>;
+  action: () => Promise<void>;
 };
 
 export type KdsProgressButtonProps = KdsProgressButtonCommonProps &
