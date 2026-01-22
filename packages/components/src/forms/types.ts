@@ -16,6 +16,9 @@ export type KdsSubTextProps = {
    */
   id: string;
   subText?: string;
+  /**
+   * When true, applies error styling to the subtext and shows the error icon.
+   */
   error?: boolean;
   /**
    * Reserve space for subtext to prevent layout shifts when helper text or errors appear
