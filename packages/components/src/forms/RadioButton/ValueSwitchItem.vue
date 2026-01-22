@@ -133,7 +133,6 @@ const { isTruncated } = useIsTruncated(optionTextEl);
   overflow: hidden;
   text-overflow: ellipsis;
   font: inherit;
-  color: currentcolor;
   white-space: nowrap;
 }
 </style>
