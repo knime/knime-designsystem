@@ -182,6 +182,9 @@ type KdsProgressButtonBehaviorProps = {
   /**
    * Async action handler.
    * The button will automatically switch through progress/success/error states.
+   * The returned promise resolving indicates a successful action and will
+   * lead to the "success" state. Throw an error or return a rejected promise
+   * to indicate failure; this will move the button into the "error" state.
    */
   action: () => Promise<unknown>;
 };
