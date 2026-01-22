@@ -34,10 +34,5 @@ const { isTruncated } = useIsTruncated(labelEl);
   font: var(--kds-font-base-title-small-strong);
   color: var(--kds-color-text-and-icon-neutral);
   white-space: nowrap;
-
-  &.large {
-    min-height: var(--kds-dimension-component-height-1x);
-    font: var(--kds-font-base-title-medium-strong);
-  }
 }
 </style>

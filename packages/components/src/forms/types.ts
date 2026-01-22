@@ -8,10 +8,6 @@ export type KdsLabelProps = {
    * Id of the form control this label is for.
    */
   for?: string;
-  /**
-   * Use a larger label style.
-   */
-  large?: boolean;
 };
 
 export type KdsSubTextProps = {
