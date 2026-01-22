@@ -57,14 +57,17 @@ packages/
 - All publicly exported components must be prefixed with `Kds` (e.g., `KdsButton`, `KdsIcon`)
 - All publicly exported types must be prefixed with `Kds` (e.g., `KdsButtonProps`)
 - All publicly exported composables must be prefixed with `useKds` (e.g., `useKdsTheme`)
+- i18n is currently not planned in this repo. Hardcoded English strings are OK (e.g., labels, aria-labels, titles, helper texts).
 - Use Composition API with `<script setup lang="ts">`
 - Type all props with `defineProps<T>()` or `withDefaults(defineProps<T>(), {})`
 - Type all emits with `defineEmits<T>()`
 - Use `defineModel()` for v-model bindings - do NOT manually emit `update:modelValue` events or include `modelValue` in props
 - Use `type` instead of `interface`
 - Create a `types.ts` file for shared types. Don't export types from .vue files. Use globally defined [propTypeTester](../packages/components/globals.d.ts) for static type checks.
+- IMPORTANT: Define component prop types in the co-located `types.ts` and reference them directly from the `.vue` file (no local/"internal" `*InternalProps` types in `.vue`). If a component needs additional values, model them as real props in `types.ts` or compute them inside the component.
 - Use `<style scoped>`
 - IMPORTANT: Don't use BEM! Use CSS nesting to NOT duplicate selectors.
+- IMPORTANT: Don't use `:deep()` selectors. Prefer styling via dedicated wrapper elements, component props, or slots.
 - Style ONLY with CSS custom properties from design tokens - never hardcode colors/spacing/typography!
 - Export components and types in `packages/components/src/index.ts`
 - Follow WCAG accessibility requirements

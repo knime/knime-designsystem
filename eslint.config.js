@@ -31,4 +31,10 @@ export default [
     },
   },
   ...storybook.configs["flat/recommended"],
+  {
+    files: ["**/*.stories.ts"],
+    rules: {
+      "max-lines": "off",
+    },
+  },
 ];
