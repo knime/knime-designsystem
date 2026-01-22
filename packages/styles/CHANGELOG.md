@@ -1,5 +1,11 @@
 # @knime/kds-styles
 
+## 0.5.8
+
+### Patch Changes
+
+- 904359b: enh/kds 695 icon for secret store and key
+
 ## 0.5.7
 
 ## 0.5.6
