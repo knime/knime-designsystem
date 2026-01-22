@@ -14,8 +14,7 @@ export const useValueSwitchIconHiding = ({
   options,
 }: {
   /**
-   * Container that defines the available width (e.g. the radiogroup/root). This
-   * is important when `optionContainer` uses `width: fit-content`.
+   * Potentially available width to render options
    */
   width: Ref<number>;
   options: Ref<readonly KdsValueSwitchOption[]>;
