@@ -124,6 +124,7 @@ const { tabIndexForOption, handleClick, handleKeyDown } = useRadioSelection({
 
   &.error {
     border: var(--kds-border-action-error);
+    box-shadow: none;
   }
 }
 </style>
