@@ -35,21 +35,21 @@
     "@knime/licenses": "^1.4.0",
     "@knime/utils": "^1.8.0",
     "@tsconfig/node24": "catalog:",
+    "@types/jsdom": "catalog:",
+    "@types/node": "catalog:",
     "@vitest/coverage-v8": "catalog:vitest",
+    "@vue/tsconfig": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-storybook": "catalog:storybook",
     "globals": "16.4.0",
     "husky": "catalog:",
+    "jsdom": "catalog:",
     "lint-staged": "catalog:",
     "npm-run-all": "catalog:",
     "prettier": "catalog:",
     "stylelint": "catalog:",
     "vitest": "catalog:vitest",
-    "vue-tsc": "catalog:",
-    "@types/node": "catalog:",
-    "@vue/tsconfig": "catalog:",
-    "jsdom": "catalog:",
-    "@types/jsdom": "catalog:"
+    "vue-tsc": "catalog:"
   },
   "engines": {
     "node": "24.10.0",
@@ -58,8 +58,13 @@
   "packageManager": "pnpm@10.20.0",
   "pnpm": {
     "overrides": {
-      "esbuild@<=0.24.2": ">=0.25.0",
-      "@babel/runtime@<7.26.10": ">=7.26.10"
+      "lodash@<=4.17.22": ">=4.17.23",
+      "js-yaml@<3.14.2": ">=3.14.2",
+      "js-yaml@>=4.0.0 <4.1.1": ">=4.1.1",
+      "glob@>=10.2.0 <10.5.0": ">=10.5.0",
+      "glob@>=11.0.0 <11.1.0": ">=11.1.0",
+      "expr-eval-fork@<=3.0.0": ">=3.0.1",
+      "qs@<6.14.1": ">=6.14.1"
     },
     "auditConfig": {
       "ignoreGhsas": [
