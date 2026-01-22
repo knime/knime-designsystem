@@ -40,7 +40,7 @@ export const useValueSwitchIconHiding = ({
 
   const shouldHideIcons = ref(false);
 
-  const isLabelEllipsized = (id: string) => {
+  const hasLabelEllipsis = (id: string) => {
     const el = itemEls.value.get(id);
     if (!el) {
       return false;
@@ -50,7 +50,7 @@ export const useValueSwitchIconHiding = ({
     return elementOverflowsHorizontally(label);
   };
 
-  const hasEllipsizedTextIconItem = () =>
+  const anyOptionHasEllipsis = () =>
     options.value.some((option) => {
       if (!option.text) {
         return false;
@@ -60,7 +60,7 @@ export const useValueSwitchIconHiding = ({
         return false;
       }
 
-      return isLabelEllipsized(option.id);
+      return hasLabelEllipsis(option.id);
     });
 
   watch(
@@ -71,7 +71,7 @@ export const useValueSwitchIconHiding = ({
 
       // Second pass: hide icons when width overflowed.
       await nextTick();
-      shouldHideIcons.value = hasEllipsizedTextIconItem();
+      shouldHideIcons.value = anyOptionHasEllipsis();
     },
     {
       immediate: true,
