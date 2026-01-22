@@ -16,7 +16,7 @@ const { isTruncated } = useKdsIsTruncated(labelEl);
     :id="props.id"
     ref="labelEl"
     :for="props.for"
-    :class="{ label: true, large: props.large }"
+    class="label"
     :title="isTruncated ? props.label : undefined"
   >
     {{ props.label }}
