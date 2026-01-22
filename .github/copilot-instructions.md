@@ -17,6 +17,12 @@ The KNIME Design System is a Vue3 TypeScript monorepo providing design tokens, i
 
 **ALWAYS UPDATE DOCUMENTATION AND RUN TYPE CHECKS, LINTING, UNIT TESTS AND FORMATTING AFTER EACH CHANGE!**
 
+### Type safety note (Vue SFC templates)
+
+- Many component props are intentionally typed as string unions (e.g. `KdsLoadingSpinner` `style` = `"onPrimary" | "onSurface"`).
+- It's OK to pass these as **inline string literals** in templates.
+- If an invalid literal is used, `vue-tsc` will report it and the CI checks will fail (typically via `pnpm type-check` and often also `pnpm build`).
+
 **Common Build Issues & Solutions:**
 
 - Stylelint can't find CSS custom properties → Run `pnpm install` to build @knime/kds-styles first
