@@ -4,7 +4,7 @@ import { ref } from "vue";
 import KdsIcon from "../../Icon/KdsIcon.vue";
 import { useKdsIsTruncated } from "../../util";
 
-import type { KdsValueSwitchItemProps } from "./types.ts";
+import type { KdsValueSwitchItemProps } from "./types";
 
 const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
   disabled: false,
