@@ -1,5 +1,12 @@
 # @knime/kds-components
 
+## 0.5.7
+
+### Patch Changes
+
+- 1bf37b9: Add KdsValueSwitch component
+  - @knime/kds-styles@0.5.7
+
 ## 0.5.6
 
 ### Patch Changes
