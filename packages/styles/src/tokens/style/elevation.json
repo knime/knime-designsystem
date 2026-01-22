@@ -85,7 +85,7 @@
           "blur": "0",
           "spread": "0.5px",
           "color": "{kds.color.border.muted}",
-          "type": "innerShadow"
+          "type": "dropShadow"
         },
         "$description": "0.5px inner border implemented as shadow for proper alignment in layout. re-uses the muted border color for light and dark. Used in value switch, array, preview list for a11y."
       }
