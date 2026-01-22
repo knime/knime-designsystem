@@ -6,8 +6,8 @@ import KdsLabel from "../KdsLabel.vue";
 import KdsSubText from "../KdsSubText.vue";
 
 import ValueSwitchItem from "./ValueSwitchItem.vue";
-import type { KdsValueSwitchOption, KdsValueSwitchProps } from "./types.ts";
-import { useRadioSelection } from "./useRadioSelection.ts";
+import type { KdsValueSwitchOption, KdsValueSwitchProps } from "./types";
+import { useRadioSelection } from "./useRadioSelection";
 import { useValueSwitchIconHiding } from "./useValueSwitchIconHiding";
 
 const props = withDefaults(defineProps<KdsValueSwitchProps>(), {
