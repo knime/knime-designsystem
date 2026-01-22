@@ -5,24 +5,24 @@
         "default": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.650}",
-          "$description": "Main surface background, one layer above page. Serves as the primary container surface color.\n\nUSED IN: Sidepanels, configuration panel, Node Monitor\n\n"
+          "$description": "Main surface background, one layer above page. Serves as the primary container surface color. USED IN: Sidepanels, configuration panel, Node Monitor"
         },
         "muted": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.550}",
-          "$description": "Muted background, one layer above surface-default. Used for secondary sections or nested containers on main surface. USED IN: Table Column Header, Value Switch bg, Card Array\n"
+          "$description": "Muted background, one layer above surface-default. Used for secondary sections or nested containers on main surface. USED IN: Table Column Header, Value Switch bg, Card Array"
         },
         "subtle": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.475}",
-          "$description": "Topmost background, one layer above surface-muted. USED IN: –"
+          "$description": "Topmost background, one layer above surface-muted."
         }
       },
       "page": {
         "default": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.725}",
-          "$description": "The base background for the entire app, on which all other surfaces sit on. \nThe darkest background color in the dark theme. USED IN: Workflow Canvas\n"
+          "$description": "The base background for the entire app, on which all other surfaces sit on. The darkest background color in the dark theme. USED IN: Workflow Canvas"
         }
       },
       "background": {
@@ -58,31 +58,31 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.neutral.325}",
-            "$description": "Stronger neutral overlay for active (pressed) state feedback. USED IN: Button Transparent, List Item\n"
+            "$description": "Stronger neutral overlay for active (pressed) state feedback. USED IN: Button Transparent, List Item"
           }
         },
         "neutral-bold": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.neutral.400}",
-            "$description": "More prominent background for clickable or neutral elements. USED IN: Badge\n"
+            "$description": "More prominent background for clickable or neutral elements. USED IN: Badge"
           },
           "hover": {
             "$type": "color",
             "$value": "{kds.core.color.neutral.325}",
-            "$description": "Lighter background on hover for more prominent clickable or neutral elements.\nUSED IN: Badge"
+            "$description": "Lighter background on hover for more prominent clickable or neutral elements. USED IN: Badge"
           },
           "active": {
             "$type": "color",
             "$value": "{kds.core.color.neutral.250}",
-            "$description": "Lightest background on pressed for more prominent clickable or neutral elements.\nUSED IN: Badge"
+            "$description": "Lightest background on pressed for more prominent clickable or neutral elements. USED IN: Badge"
           }
         },
         "primary": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.teal.250}",
-            "$description": "Teal background for primary actions or highlights. USED IN: "
+            "$description": "Teal background for primary actions or highlights."
           },
           "hover": {
             "$extensions": {
@@ -96,7 +96,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.primary.initial}",
-            "$description": "Lighter teal background on hover for primary actions.\nUSED IN: Button (outline and transparent variants), ProgressButton (Outline variant), SplitButton (outline), .TabBar-Item, Toggle, chip"
+            "$description": "Lighter teal background on hover for primary actions. USED IN: Button (outline and transparent variants), ProgressButton (Outline variant), SplitButton (outline), .TabBar-Item, Toggle, chip"
           },
           "active": {
             "$extensions": {
@@ -110,7 +110,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.primary.initial}",
-            "$description": "Lightest teal background on pressed for primary actions.\nUSED IN: Button (outline and transparent variants), ProgressButton (Outline variant), SplitButton (outline), .TabBar-Item, Toggle, chip"
+            "$description": "Lightest teal background on pressed for primary actions. USED IN: Button (outline and transparent variants), ProgressButton (Outline variant), SplitButton (outline), .TabBar-Item, Toggle, chip"
           }
         },
         "primary-bold": {
@@ -131,7 +131,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.primary-bold.initial}",
-            "$description": "Lighter teal background on hover for most prominent, primary actions or highlights.\nUSED IN: Button (filled), ProgressButton (filled), SplitButton"
+            "$description": "Lighter teal background on hover for most prominent, primary actions or highlights. USED IN: Button (filled), ProgressButton (filled), SplitButton"
           },
           "active": {
             "$extensions": {
@@ -145,7 +145,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.primary-bold.initial}",
-            "$description": "Lightest teal background on pressed for most prominent, primary actions or highlights.\nUSED IN: Button (filled), ProgressButton (filled), SplitButton"
+            "$description": "Lightest teal background on pressed for most prominent, primary actions or highlights. USED IN: Button (filled), ProgressButton (filled), SplitButton"
           }
         },
         "selected": {
@@ -175,7 +175,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.teal.550}",
-            "$description": "Semi-transparent lighter teal on hover for selectable elements.\nUSED IN: ValueSwitch-item, Chip, Checkbox, RadioButton, TabBar-Item, VerticalMenu-Item, List Item"
+            "$description": "Semi-transparent lighter teal on hover for selectable elements. USED IN: ValueSwitch-item, Chip, Checkbox, RadioButton, TabBar-Item, VerticalMenu-Item, List Item"
           },
           "active": {
             "$extensions": {
@@ -189,7 +189,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.teal.400}",
-            "$description": "Semi-transparent lightest teal on pressed for selectable elements.\nUSED IN: ValueSwitch-item, Chip, Checkbox, RadioButton, TabBar-Item, VerticalMenu-Item, List Item"
+            "$description": "Semi-transparent lightest teal on pressed for selectable elements. USED IN: ValueSwitch-item, Chip, Checkbox, RadioButton, TabBar-Item, VerticalMenu-Item, List Item"
           }
         },
         "selected-bold": {
@@ -201,12 +201,12 @@
           "hover": {
             "$type": "color",
             "$value": "{kds.core.color.teal.550}",
-            "$description": "Lighter teal background on hover for most prominent, selectable elements.\nUSED IN: RadioButton"
+            "$description": "Lighter teal background on hover for most prominent, selectable elements. USED IN: RadioButton"
           },
           "active": {
             "$type": "color",
             "$value": "{kds.core.color.teal.400}",
-            "$description": "Lightest teal background on pressed for most prominent, selectable elements.\nUSED IN: RadioButton"
+            "$description": "Lightest teal background on pressed for most prominent, selectable elements. USED IN: RadioButton"
           }
         },
         "danger": {
@@ -236,7 +236,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.red.650}",
-            "$description": "Semi-transparent lighter red background on hover for error or destructive states.\nUSED IN: Inline Message"
+            "$description": "Semi-transparent lighter red background on hover for error or destructive states. USED IN: Inline Message"
           },
           "active": {
             "$extensions": {
@@ -250,14 +250,14 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.red.550}",
-            "$description": "Semi-transparent lightest red background on pressed for error or destructive states.\nUSED IN: Inline Message"
+            "$description": "Semi-transparent lightest red background on pressed for error or destructive states. USED IN: Inline Message"
           }
         },
         "danger-bold": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.red.725}",
-            "$description": "More prominent red background for most prominent, error or destructive states.\nUSED IN: Destructive Button"
+            "$description": "More prominent red background for most prominent, error or destructive states. USED IN: Destructive Button"
           },
           "hover": {
             "$extensions": {
@@ -271,7 +271,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.red.550}",
-            "$description": "Semi-transparent lighter red background on hover for most prominent, error callouts or destructive buttons.\nUSED IN: Destructive Button"
+            "$description": "Semi-transparent lighter red background on hover for most prominent, error callouts or destructive buttons. USED IN: Destructive Button"
           },
           "active": {
             "$extensions": {
@@ -285,7 +285,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.red.475}",
-            "$description": "Semi-transparent lightest red background on pressed for most prominent, error callouts or destructive buttons.\nUSED IN: Destructive Button"
+            "$description": "Semi-transparent lightest red background on pressed for most prominent, error callouts or destructive buttons. USED IN: Destructive Button"
           }
         },
         "input": {
@@ -306,7 +306,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.input.initial}",
-            "$description": "Lighter neutral background on hover for input elements.\nUSED IN: Checkbox, RadioButton, Input components"
+            "$description": "Lighter neutral background on hover for input elements. USED IN: Checkbox, RadioButton, Input components"
           },
           "active": {
             "$extensions": {
@@ -320,7 +320,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.background.input.initial}",
-            "$description": "Lightest neutral background on pressed for input elements.\nUSED IN: Checkbox, RadioButton, Input components"
+            "$description": "Lightest neutral background on pressed for input elements. USED IN: Checkbox, RadioButton, Input components"
           }
         },
         "disabled": {
@@ -336,7 +336,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.neutral.325}",
-            "$description": "Neutral overlay for component backgrounds in the disabled state.\nUSED IN: Buttons, checkboxes, input fields, and other components when disabled."
+            "$description": "Neutral overlay for component backgrounds in the disabled state. USED IN: Buttons, checkboxes, input fields, and other components when disabled."
           },
           "primary": {
             "$extensions": {
@@ -351,7 +351,7 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.neutral.275}",
-            "$description": "Disabled background for primary backgrounds\nUSED IN: Filled Button and other very prominent primary components when disabled."
+            "$description": "Disabled background for primary backgrounds. USED IN: Filled Button and other very prominent primary components when disabled."
           },
           "danger": {
             "$extensions": {
@@ -366,14 +366,14 @@
             },
             "$type": "color",
             "$value": "{kds.core.color.neutral.400}",
-            "$description": "Disabled background for bold danger backgrounds\nUSED IN: Filled Button and other very prominent bold danger components when disabled."
+            "$description": "Disabled background for bold danger backgrounds. USED IN: Filled Button and other very prominent bold danger components when disabled."
           }
         },
         "success-bold": {
           "initial": {
             "$type": "color",
             "$value": "{kds.core.color.green.725}",
-            "$description": "More prominent green background for most prominent, success states.\nUSED IN: Success Button"
+            "$description": "More prominent green background for most prominent, success states. USED IN: Success Button"
           }
         }
       },
@@ -381,7 +381,7 @@
         "info": {
           "$type": "color",
           "$value": "{kds.core.color.blue.725}",
-          "$description": "More prominent blue background for most prominent, informational messages.\nUSED IN: –"
+          "$description": "More prominent blue background for most prominent, informational messages."
         },
         "info-muted": {
           "$extensions": {
@@ -395,12 +395,12 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.blue.725}",
-          "$description": "Darker blue background on opaque for most prominent, informational messages.\nUSED IN: –\n"
+          "$description": "Darker blue background on opaque for most prominent, informational messages."
         },
         "warning": {
           "$type": "color",
           "$value": "{kds.core.color.orange.800}",
-          "$description": "Light orange background for warning states. \nUSED IN: Inline Message"
+          "$description": "Light orange background for warning states. USED IN: Inline Message"
         },
         "warning-muted": {
           "$extensions": {
@@ -414,12 +414,12 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.orange.800}",
-          "$description": "Darker orange background on opaque for most prominent, warning states.\nUSED IN: –"
+          "$description": "Darker orange background on opaque for most prominent, warning states."
         },
         "danger": {
           "$type": "color",
           "$value": "{kds.core.color.red.725}",
-          "$description": "Very light red background for error or destructive states (red 100, lightened 60%).\n"
+          "$description": "Very light red background for error or destructive states (red 100, lightened 60%)."
         },
         "danger-muted": {
           "$extensions": {
@@ -433,12 +433,12 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.red.800}",
-          "$description": "Darker red background on hover for error or destructive states.\nUSED IN: Inline Message\n"
+          "$description": "Darker red background on hover for error or destructive states. USED IN: Inline Message"
         },
         "success": {
           "$type": "color",
           "$value": "{kds.core.color.green.725}",
-          "$description": "Light green background for success states. \nUSED IN: Inline Message"
+          "$description": "Light green background for success states. USED IN: Inline Message"
         },
         "success-muted": {
           "$extensions": {
@@ -452,7 +452,7 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.green.800}",
-          "$description": "Darker green background on opaque for most prominent, success states.\nUSED IN: –"
+          "$description": "Darker green background on opaque for most prominent, success states."
         },
         "brand": {
           "$type": "color",
@@ -464,7 +464,7 @@
         "neutral": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.100}",
-          "$description": "Text and icon color for primary content on dark surfaces"
+          "$description": "Text and icon color for primary content on dark surfaces."
         },
         "muted": {
           "$type": "color",
@@ -489,12 +489,12 @@
         "primary-inverted": {
           "$type": "color",
           "$value": "{kds.core.color.teal.50}",
-          "$description": "Light teal color for text and icons on dark surfaces.\n"
+          "$description": "Light teal color for text and icons on dark surfaces."
         },
         "selected": {
           "$type": "color",
           "$value": "{kds.core.color.teal.175}",
-          "$description": "Teal color for selected text and icons on dark surfaces.\n"
+          "$description": "Teal color for selected text and icons on dark surfaces."
         },
         "selected-inverted": {
           "$type": "color",
@@ -504,32 +504,32 @@
         "warning": {
           "$type": "color",
           "$value": "{kds.core.color.orange.250}",
-          "$description": "Orange color for warning text and icons on dark surfaces (e.g warning backgrounds)\n"
+          "$description": "Orange color for warning text and icons on dark surfaces (e.g warning backgrounds)."
         },
         "warning-inverted": {
           "$type": "color",
           "$value": "{kds.core.color.orange.100}",
-          "$description": "Pale orange color for warning text and icons on dark surfaces. (e.g warning backgrounds)\n"
+          "$description": "Pale orange color for warning text and icons on dark surfaces (e.g warning backgrounds)."
         },
         "danger": {
           "$type": "color",
           "$value": "{kds.core.color.red.250}",
-          "$description": "Red color for danger text and icons on dark surfaces. (e.g danger backgrounds)\n"
+          "$description": "Red color for danger text and icons on dark surfaces (e.g danger backgrounds)."
         },
         "danger-inverted": {
           "$type": "color",
           "$value": "{kds.core.color.red.100}",
-          "$description": "Pale red color for danger text and icons on dark surfaces. (e.g danger backgrounds)\n"
+          "$description": "Pale red color for danger text and icons on dark surfaces (e.g danger backgrounds)."
         },
         "success": {
           "$type": "color",
           "$value": "{kds.core.color.green.250}",
-          "$description": "Green color for success text and icons on dark surfaces. (e.g success backgrounds)\n"
+          "$description": "Green color for success text and icons on dark surfaces (e.g success backgrounds)."
         },
         "success-inverted": {
           "$type": "color",
           "$value": "{kds.core.color.green.50}",
-          "$description": "Pale green color for success text and icons on dark surfaces. (e.g success backgrounds)\n"
+          "$description": "Pale green color for success text and icons on dark surfaces (e.g success backgrounds)."
         },
         "disabled": {
           "$type": "color",
@@ -544,11 +544,12 @@
         "info": {
           "$type": "color",
           "$value": "{kds.core.color.blue.250}",
-          "$description": "Blue color for informational text and icons on dark surfaces.\n"
+          "$description": "Blue color for informational text and icons on dark surfaces."
         },
         "editor": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.100}"
+          "$value": "{kds.core.color.neutral.100}",
+          "$description": "Text and icon color for editor content."
         }
       },
       "border": {
@@ -564,7 +565,7 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.25}",
-          "$description": "❌ Neutral border for components.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "Neutral border for components. Used as reference token only for the Border composite tokens."
         },
         "muted": {
           "$extensions": {
@@ -578,7 +579,7 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.25}",
-          "$description": "❌ Muted neutral border for less emphasis.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "Muted neutral border for less emphasis. Used as reference token only for the Border composite tokens."
         },
         "subtle": {
           "$extensions": {
@@ -592,87 +593,87 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.25}",
-          "$description": "❌ Subtle neutral border for faint components.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "Subtle neutral border for faint components. Used as reference token only for the Border composite tokens."
         },
         "primary-bold": {
           "$type": "color",
           "$value": "{kds.core.color.teal.725}",
-          "$description": "❌ Dark teal border accent for most prominent emphasis.\n[Used as reference token only for the Border composite tokens]\n\n"
+          "$description": "Dark teal border accent for most prominent emphasis. Used as reference token only for the Border composite tokens."
         },
         "primary": {
           "$type": "color",
           "$value": "{kds.core.color.teal.175}",
-          "$description": "❌ Light teal border accent for emphasis.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "Light teal border accent for emphasis. Used as reference token only for the Border composite tokens."
         },
         "selected-bold": {
           "$type": "color",
           "$value": "{kds.core.color.teal.175}",
-          "$description": "❌ Teal border indicating the selected state (most prominent).\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "Teal border indicating the selected state (most prominent). Used as reference token only for the Border composite tokens."
         },
         "selected": {
           "$type": "color",
           "$value": "{kds.core.color.teal.100}",
-          "$description": "❌ Faint teal border indicating the selected state.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "Faint teal border indicating the selected state. Used as reference token only for the Border composite tokens."
         },
         "selected-accent": {
           "$type": "color",
           "$value": "{kds.core.color.blue.250}",
-          "$description": "❌ Accent border indicating the accented selected state.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "Accent border indicating the accented selected state. Used as reference token only for the Border composite tokens."
         },
         "warning-bold": {
           "$type": "color",
           "$value": "{kds.core.color.orange.100}",
-          "$description": "❌ Orange border for most prominent warnings.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "Orange border for most prominent warnings. Used as reference token only for the Border composite tokens."
         },
         "warning": {
           "$type": "color",
           "$value": "{kds.core.color.orange.800}",
-          "$description": "❌ Orange border for warnings.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "Orange border for warnings. Used as reference token only for the Border composite tokens."
         },
         "danger-bold": {
           "$type": "color",
           "$value": "{kds.core.color.red.250}",
-          "$description": "❌ Red border for most prominent error elements.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "Red border for most prominent error elements. Used as reference token only for the Border composite tokens."
         },
         "danger": {
           "$type": "color",
           "$value": "{kds.core.color.red.800}",
-          "$description": "❌ Red border for error elements.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "Red border for error elements. Used as reference token only for the Border composite tokens."
         },
         "success-bold": {
           "$type": "color",
           "$value": "{kds.core.color.green.175}",
-          "$description": "❌ Green border for most prominent success elements.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "Green border for most prominent success elements. Used as reference token only for the Border composite tokens."
         },
         "success": {
           "$type": "color",
           "$value": "{kds.core.color.green.725}",
-          "$description": "❌ Green border for success elements.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "Green border for success elements. Used as reference token only for the Border composite tokens."
         },
         "info-bold": {
           "$type": "color",
           "$value": "{kds.core.color.blue.175}",
-          "$description": "❌ Blue border for most prominent info elements.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "Blue border for most prominent info elements. Used as reference token only for the Border composite tokens."
         },
         "info": {
           "$type": "color",
           "$value": "{kds.core.color.blue.725}",
-          "$description": "❌ Blue border for info elements.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "Blue border for info elements. Used as reference token only for the Border composite tokens."
         },
         "disabled": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.325}",
-          "$description": "❌ Neutral border for components in the disabled state.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "Neutral border for components in the disabled state. Used as reference token only for the Border composite tokens."
         },
         "transparent": {
           "$type": "color",
           "$value": "{kds.core.color.transparent}",
-          "$description": "❌ Fully transparent border for components with invisible borders.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "Fully transparent border for components with invisible borders. Used as reference token only for the Border composite tokens."
         },
         "brand": {
           "$type": "color",
           "$value": "{kds.core.color.yellow.250}",
-          "$description": "❌ Yellow border accent for brand highlights.\n[Used as reference token only for the Border composite tokens]\n"
+          "$description": "Yellow border accent for brand highlights. Used as reference token only for the Border composite tokens."
         },
         "neutral-bold-initial": {
           "$extensions": {
@@ -686,7 +687,7 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.25}",
-          "$description": "❌ Neutral border for ResizeHandler.\n[Used as reference token only for the ResizeHandler composite tokens]"
+          "$description": "Neutral border for ResizeHandler. Used as reference token only for the ResizeHandler composite tokens."
         },
         "neutral-bold-hover": {
           "$extensions": {
@@ -700,7 +701,7 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.25}",
-          "$description": "❌ Neutral border for ResizeHandler.\n[Used as reference token only for the ResizeHandler composite tokens]"
+          "$description": "Neutral border for ResizeHandler. Used as reference token only for the ResizeHandler composite tokens."
         },
         "neutral-bold-active": {
           "$extensions": {
@@ -714,14 +715,14 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.25}",
-          "$description": "❌ Neutral border for ResizeHandler.\n[Used as reference token only for the ResizeHandler composite tokens]"
+          "$description": "Neutral border for ResizeHandler. Used as reference token only for the ResizeHandler composite tokens."
         }
       },
       "focus": {
         "outline": {
           "$type": "color",
           "$value": "{kds.core.color.blue.250}",
-          "$description": "❌ Blue outline highlight for focused elements.\n[Used as reference token only for the Border composite tokens]\n\n\n"
+          "$description": "Blue outline highlight for focused elements. Used as reference token only for the Border composite tokens."
         },
         "background": {
           "$extensions": {
@@ -735,7 +736,7 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.blue.725}",
-          "$description": "Blue background highlight for focused elements.\n[Used with elements that are using 1px Border focus color through Border composite tokens]\n"
+          "$description": "Blue background highlight for focused elements. Used with elements that are using 1px Border focus color through Border composite tokens."
         }
       },
       "blanket": {
@@ -751,235 +752,284 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.800}",
-          "$description": "Dimmed overlay background for modals and dialogs.\n"
+          "$description": "Dimmed overlay background for modals and dialogs."
         }
       },
       "nodes-and-variables": {
         "flow-variable": {
           "$type": "color",
           "$value": "{kds.core.color.red.400}",
-          "$description": "FlowVariable"
+          "$description": "Specific color for Nodes and Variables."
         },
         "loop": {
           "$type": "color",
-          "$value": "{kds.core.color.aquamarine.325}"
+          "$value": "{kds.core.color.aquamarine.325}",
+          "$description": "Specific color for Nodes and Variables."
         },
         "manipulator": {
           "$type": "color",
-          "$value": "{kds.color.background-static.brand}"
+          "$value": "{kds.color.background-static.brand}",
+          "$description": "Specific color for Nodes and Variables."
         },
         "predictor": {
           "$type": "color",
-          "$value": "{kds.core.color.green.250}"
+          "$value": "{kds.core.color.green.250}",
+          "$description": "Specific color for Nodes and Variables."
         },
         "source": {
           "$type": "color",
-          "$value": "{kds.core.color.orange.325}"
+          "$value": "{kds.core.color.orange.325}",
+          "$description": "Specific color for Nodes and Variables."
         },
         "visualizer": {
           "$type": "color",
-          "$value": "{kds.core.color.aquamarine.475}"
+          "$value": "{kds.core.color.aquamarine.475}",
+          "$description": "Specific color for Nodes and Variables."
         },
         "scope": {
           "$type": "color",
-          "$value": "{kds.core.color.purple.475}"
+          "$value": "{kds.core.color.purple.475}",
+          "$description": "Specific color for Nodes and Variables."
         },
         "learner": {
           "$type": "color",
-          "$value": "{kds.core.color.grassgreen.400}"
+          "$value": "{kds.core.color.grassgreen.400}",
+          "$description": "Specific color for Nodes and Variables."
         },
         "sink": {
           "$type": "color",
-          "$value": "{kds.core.color.red.400}"
+          "$value": "{kds.core.color.red.400}",
+          "$description": "Specific color for Nodes and Variables."
         },
         "container": {
           "$type": "color",
-          "$value": "{kds.core.color.grassgreen.725}"
+          "$value": "{kds.core.color.grassgreen.725}",
+          "$description": "Specific color for Nodes and Variables."
         },
         "unknown": {
           "$type": "color",
-          "$value": "{kds.core.color.red.475}"
+          "$value": "{kds.core.color.red.475}",
+          "$description": "Specific color for Nodes and Variables."
         },
         "other": {
           "$type": "color",
-          "$value": "{kds.core.color.brown.250}"
+          "$value": "{kds.core.color.brown.250}",
+          "$description": "Specific color for Nodes and Variables."
         },
         "specialNodesBold": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.100}"
+          "$value": "{kds.core.color.neutral.100}",
+          "$description": "Specific color for Nodes and Variables."
         },
         "specialNodes": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.400}"
+          "$value": "{kds.core.color.neutral.400}",
+          "$description": "Specific color for Nodes and Variables."
         },
         "specialNodes-muted": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.475}"
+          "$value": "{kds.core.color.neutral.475}",
+          "$description": "Specific color for Nodes and Variables."
         },
         "specialNodesBorder": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.175}"
+          "$value": "{kds.core.color.neutral.175}",
+          "$description": "Specific color for Nodes and Variables."
         },
         "specialNodesBackground": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.725}"
+          "$value": "{kds.core.color.neutral.725}",
+          "$description": "Specific color for Nodes and Variables."
         },
         "warningBold": {
           "$type": "color",
-          "$value": "{kds.core.color.orange.250}"
+          "$value": "{kds.core.color.orange.250}",
+          "$description": "Specific color for Nodes and Variables."
         },
         "warning": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.475}"
+          "$value": "{kds.core.color.neutral.475}",
+          "$description": "Specific color for Nodes and Variables."
         },
         "errorBold": {
           "$type": "color",
-          "$value": "{kds.core.color.red.400}"
+          "$value": "{kds.core.color.red.400}",
+          "$description": "Specific color for Nodes and Variables."
         },
         "error": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.475}"
+          "$value": "{kds.core.color.neutral.475}",
+          "$description": "Specific color for Nodes and Variables."
         },
         "loading": {
           "$type": "color",
-          "$value": "{kds.core.color.blue.800}"
+          "$value": "{kds.core.color.blue.800}",
+          "$description": "Specific color for Nodes and Variables."
         },
         "loadingBold": {
           "$type": "color",
-          "$value": "{kds.core.color.blue.175}"
+          "$value": "{kds.core.color.blue.175}",
+          "$description": "Specific color for Nodes and Variables."
         },
         "configuration": {
           "$type": "color",
-          "$value": "{kds.core.color.grassgreen.100}"
+          "$value": "{kds.core.color.grassgreen.100}",
+          "$description": "Specific color for Nodes and Variables."
         }
       },
       "port": {
         "data": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.100}"
+          "$value": "{kds.core.color.neutral.100}",
+          "$description": "Specific color for Ports."
         },
         "flow-variable": {
           "$type": "color",
           "$value": "{kds.core.color.red.435}",
-          "$description": "Flow Variables"
+          "$description": "Specific color for Ports."
         },
         "neutral-inverted": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.725}"
+          "$value": "{kds.core.color.neutral.725}",
+          "$description": "Specific color for Ports."
         }
       },
       "annotations": {
         "specialNodes": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.400}"
+          "$value": "{kds.core.color.neutral.400}",
+          "$description": "Specific color for Annotations."
         },
         "specialNodesBold": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.175}"
+          "$value": "{kds.core.color.neutral.175}",
+          "$description": "Specific color for Annotations."
         },
         "visualizer": {
           "$type": "color",
-          "$value": "{kds.core.color.aquamarine.475}"
+          "$value": "{kds.core.color.aquamarine.475}",
+          "$description": "Specific color for Annotations."
         },
         "loadingBold": {
           "$type": "color",
-          "$value": "{kds.core.color.blue.175}"
+          "$value": "{kds.core.color.blue.175}",
+          "$description": "Specific color for Annotations."
         },
         "manipulator": {
           "$type": "color",
-          "$value": "{kds.color.background-static.brand}"
+          "$value": "{kds.color.background-static.brand}",
+          "$description": "Specific color for Annotations."
         },
         "source": {
           "$type": "color",
-          "$value": "{kds.core.color.orange.325}"
+          "$value": "{kds.core.color.orange.325}",
+          "$description": "Specific color for Annotations."
         },
         "sink": {
           "$type": "color",
-          "$value": "{kds.core.color.red.400}"
+          "$value": "{kds.core.color.red.400}",
+          "$description": "Specific color for Annotations."
         },
         "learner": {
           "$type": "color",
-          "$value": "{kds.core.color.grassgreen.400}"
+          "$value": "{kds.core.color.grassgreen.400}",
+          "$description": "Specific color for Annotations."
         },
         "predictor": {
           "$type": "color",
-          "$value": "{kds.core.color.green.250}"
+          "$value": "{kds.core.color.green.250}",
+          "$description": "Specific color for Annotations."
         },
         "container": {
           "$type": "color",
-          "$value": "{kds.core.color.grassgreen.100}"
+          "$value": "{kds.core.color.grassgreen.100}",
+          "$description": "Specific color for Annotations."
         },
         "flow-variable": {
           "$type": "color",
           "$value": "{kds.core.color.teal.400}",
-          "$description": "Flow Variables"
+          "$description": "Specific color for Annotations."
         },
         "tealDark": {
           "$type": "color",
-          "$value": "{kds.core.color.teal.650}"
+          "$value": "{kds.core.color.teal.650}",
+          "$description": "Specific color for Annotations."
         },
         "other": {
           "$type": "color",
-          "$value": "{kds.core.color.brown.250}"
+          "$value": "{kds.core.color.brown.250}",
+          "$description": "Specific color for Annotations."
         },
         "loop": {
           "$type": "color",
-          "$value": "{kds.core.color.brown.475}"
+          "$value": "{kds.core.color.brown.475}",
+          "$description": "Specific color for Annotations."
         }
       },
       "node-state": {
         "error": {
           "$type": "color",
-          "$value": "{kds.core.color.red.800}"
+          "$value": "{kds.core.color.red.800}",
+          "$description": "State-based color for Nodes."
         },
         "errorBorder": {
           "$type": "color",
-          "$value": "{kds.core.color.red.435}"
+          "$value": "{kds.core.color.red.435}",
+          "$description": "State-based color for Nodes."
         },
         "warning": {
           "$type": "color",
-          "$value": "{kds.core.color.yellow.725}"
+          "$value": "{kds.core.color.yellow.725}",
+          "$description": "State-based color for Nodes."
         },
         "warningBorder": {
           "$type": "color",
-          "$value": "{kds.core.color.yellow.250}"
+          "$value": "{kds.core.color.yellow.250}",
+          "$description": "State-based color for Nodes."
         },
         "executed": {
           "$type": "color",
-          "$value": "{kds.core.color.green.650}"
+          "$value": "{kds.core.color.green.650}",
+          "$description": "State-based color for Nodes."
         },
         "executedBorder": {
           "$type": "color",
-          "$value": "{kds.core.color.green.325}"
+          "$value": "{kds.core.color.green.325}",
+          "$description": "State-based color for Nodes."
         },
         "executing": {
           "$type": "color",
-          "$value": "{kds.core.color.blue.400}"
+          "$value": "{kds.core.color.blue.400}",
+          "$description": "State-based color for Nodes."
         },
         "inactive": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.800}"
+          "$value": "{kds.core.color.neutral.800}",
+          "$description": "State-based color for Nodes."
         },
         "inactiveBorder": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.400}"
+          "$value": "{kds.core.color.neutral.400}",
+          "$description": "State-based color for Nodes."
         }
       },
       "connector": {
         "data": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.100}"
+          "$value": "{kds.core.color.neutral.100}",
+          "$description": "Specific color for Connectors."
         },
         "flow-variable": {
           "$type": "color",
-          "$value": "{kds.core.color.red.435}"
+          "$value": "{kds.core.color.red.435}",
+          "$description": "Specific color for Connectors."
         }
       },
       "skeleton": {
         "default": {
           "$type": "color",
           "$value": "linear-gradient(90deg, hsla(0, 0%, 94%, 0.02) 0%, hsla(0, 0%, 94%, 0.15) 25%, hsla(0, 0%, 94%, 0.02) 65%, hsla(0, 0%, 94%, 0.00) 100%)",
-          "$description": "Shimmering gray placeholder gradient for loading content animation.\n"
+          "$description": "Shimmering gray placeholder gradient for loading content animation."
         }
       },
       "elevation": {
@@ -995,7 +1045,7 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.875}",
-          "$description": "Light shadow layer color for the top elevation USED IN:"
+          "$description": "Light shadow layer color for the top elevation."
         },
         "middle": {
           "$extensions": {
@@ -1009,7 +1059,7 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.875}",
-          "$description": "Medium shadow layer color for mid-level elevation. USED IN:\n"
+          "$description": "Medium shadow layer color for mid-level elevation."
         },
         "bottom": {
           "$extensions": {
@@ -1023,7 +1073,7 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.875}",
-          "$description": "Dark shadow layer color for bottom elevation. USED IN:\n"
+          "$description": "Dark shadow layer color for bottom elevation."
         },
         "knob": {
           "$extensions": {
@@ -1037,7 +1087,7 @@
           },
           "$type": "color",
           "$value": "{kds.core.color.neutral.875}",
-          "$description": "Dark shadow layer color for knob elevation. USED IN: ToogleSwitch\n"
+          "$description": "Dark shadow layer color for knob elevation. USED IN: ToggleSwitch"
         }
       }
     }
