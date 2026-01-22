@@ -1,5 +1,16 @@
-import { type Ref, ref, watchEffect } from "vue";
+import { type Ref, onWatcherCleanup, ref, watchEffect } from "vue";
 
+/**
+ * Tracks whether the content of a single-line element is visually truncated.
+ *
+ * This can be used to set tooltips or other UI affordances when text is cut off.
+ *
+ * Note: This is intended for horizontal truncation (e.g. `text-overflow: ellipsis`).
+ * It does not detect multi-line clamping.
+ *
+ * @param elementRef - A ref pointing to the element that might be truncated.
+ * @returns An object containing a reactive `isTruncated` ref.
+ */
 export function useIsTruncated(elementRef: Ref<HTMLElement | null>) {
   const isTruncated = ref(false);
 
@@ -13,7 +24,7 @@ export function useIsTruncated(elementRef: Ref<HTMLElement | null>) {
     isTruncated.value = el.scrollWidth > el.clientWidth;
   };
 
-  watchEffect((onCleanup) => {
+  watchEffect(() => {
     const el = elementRef.value;
 
     // Always compute the current truncation state when the element changes.
@@ -26,7 +37,7 @@ export function useIsTruncated(elementRef: Ref<HTMLElement | null>) {
     const observer = new ResizeObserver(checkTruncation);
     observer.observe(el);
 
-    onCleanup(() => observer.disconnect());
+    onWatcherCleanup(() => observer.disconnect());
   });
 
   return { isTruncated };
