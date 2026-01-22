@@ -1,4 +1,14 @@
-import { type Ref, onWatcherCleanup, ref, watchEffect } from "vue";
+import { type Ref, ref } from "vue";
+import { useResizeObserver } from "@vueuse/core";
+
+export function elementOverflowsHorizontally(
+  element: HTMLElement | null,
+): boolean {
+  if (!element) {
+    return false;
+  }
+  return element.scrollWidth > element.clientWidth;
+}
 
 /**
  * Tracks whether the content of a single-line element is visually truncated.
@@ -15,30 +25,8 @@ import { type Ref, onWatcherCleanup, ref, watchEffect } from "vue";
 export function useIsTruncated(elementRef: Ref<HTMLElement | null>) {
   const isTruncated = ref(false);
 
-  const checkTruncation = () => {
-    const el = elementRef.value;
-    if (!el) {
-      isTruncated.value = false;
-      return;
-    }
-
-    isTruncated.value = el.scrollWidth > el.clientWidth;
-  };
-
-  watchEffect(() => {
-    const el = elementRef.value;
-
-    // Always compute the current truncation state when the element changes.
-    checkTruncation();
-
-    if (!el) {
-      return;
-    }
-
-    const observer = new ResizeObserver(checkTruncation);
-    observer.observe(el);
-
-    onWatcherCleanup(() => observer.disconnect());
+  useResizeObserver(elementRef, () => {
+    isTruncated.value = elementOverflowsHorizontally(elementRef.value);
   });
 
   return { isTruncated };

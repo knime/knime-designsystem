@@ -1,6 +1,8 @@
 import type { Ref } from "vue";
 import { nextTick, onBeforeUpdate, ref, watch } from "vue";
 
+import { elementOverflowsHorizontally } from "../../util/useIsTruncated.ts";
+
 import type { KdsValueSwitchOption } from "./types";
 /**
  * Computes whether icons in ValueSwitch items should be hidden.
@@ -45,11 +47,7 @@ export const useValueSwitchIconHiding = ({
     }
 
     const label = el.querySelector<HTMLElement>(".option-label");
-    if (!label) {
-      return false;
-    }
-
-    return label.scrollWidth > label.clientWidth;
+    return elementOverflowsHorizontally(label);
   };
 
   const hasEllipsizedTextIconItem = () =>
