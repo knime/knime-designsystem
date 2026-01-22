@@ -4,6 +4,7 @@ import { type Ref, onWatcherCleanup, ref, watchEffect } from "vue";
  * Tracks whether the content of a single-line element is visually truncated.
  *
  * This can be used to set tooltips or other UI affordances when text is cut off.
+ * Changing the width of the provided element based on this composable may result in an infinite loop!
  *
  * Note: This is intended for horizontal truncation (e.g. `text-overflow: ellipsis`).
  * It does not detect multi-line clamping.
