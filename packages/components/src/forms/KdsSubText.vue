@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import KdsIcon from "../Icon/KdsIcon.vue";
 
-import type { KdsSubTextProps } from "./types.ts";
+import type { KdsSubTextProps } from "./types";
 
 const props = withDefaults(defineProps<KdsSubTextProps>(), {
   error: false,
