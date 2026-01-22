@@ -1,7 +1,7 @@
 import type { Ref } from "vue";
 import { nextTick, onBeforeUpdate, ref, watch } from "vue";
 
-import { elementOverflowsHorizontally } from "../../util/useIsTruncated.ts";
+import { elementOverflowsHorizontally } from "../../util/useKdsIsTruncated.ts";
 
 import type { KdsValueSwitchOption } from "./types";
 /**

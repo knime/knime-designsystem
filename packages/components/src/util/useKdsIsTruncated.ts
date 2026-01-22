@@ -22,7 +22,7 @@ export function elementOverflowsHorizontally(
  * @param elementRef - A ref pointing to the element that might be truncated.
  * @returns An object containing a reactive `isTruncated` ref.
  */
-export function useIsTruncated(elementRef: Ref<HTMLElement | null>) {
+export function useKdsIsTruncated(elementRef: Ref<HTMLElement | null>) {
   const isTruncated = ref(false);
 
   useResizeObserver(elementRef, () => {

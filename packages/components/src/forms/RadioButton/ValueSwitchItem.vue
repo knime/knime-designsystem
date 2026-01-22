@@ -2,7 +2,7 @@
 import { ref } from "vue";
 
 import KdsIcon from "../../Icon/KdsIcon.vue";
-import { useIsTruncated } from "../../util";
+import { useKdsIsTruncated } from "../../util";
 
 import type { KdsValueSwitchItemProps } from "./types.ts";
 
@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
 });
 
 const optionTextEl = ref<HTMLElement | null>(null);
-const { isTruncated } = useIsTruncated(optionTextEl);
+const { isTruncated } = useKdsIsTruncated(optionTextEl);
 </script>
 
 <template>

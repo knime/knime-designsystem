@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-import { useIsTruncated } from "../util";
+import { useKdsIsTruncated } from "../util";
 
 import type { KdsLabelProps } from "./types.ts";
 
 const props = defineProps<KdsLabelProps>();
 
 const labelEl = ref<HTMLLabelElement | null>(null);
-const { isTruncated } = useIsTruncated(labelEl);
+const { isTruncated } = useKdsIsTruncated(labelEl);
 </script>
 
 <template>
