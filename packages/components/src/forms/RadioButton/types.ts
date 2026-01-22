@@ -1,4 +1,4 @@
-import type { KdsIconName } from "../../Icon/types.ts";
+import type { KdsIconName } from "../../Icon/types";
 
 export type KdsRadioButtonProps = {
   text: string;
