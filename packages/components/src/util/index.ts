@@ -1,6 +1,6 @@
 export { useKdsDarkMode } from "./useKdsDarkMode";
 export { useKdsLegacyMode } from "./useKdsLegacyMode";
-export { useKdsIsTruncated } from "./useKdsIsTruncated.ts";
+export { useKdsIsTruncated } from "./useKdsIsTruncated";
 
 // Export types
 export type * from "./useKdsDarkMode";
