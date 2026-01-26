@@ -240,7 +240,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=14198-38239&p=f&m=dev":
           {
             alignment: "vertical",
-            modelValue: "a",
+            modelValue: ["a"],
             possibleValues: [
               {
                 text: "Label",
@@ -269,7 +269,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=14198-38462&p=f&m=dev":
           {
             alignment: "horizontal",
-            modelValue: "a",
+            modelValue: ["a"],
             possibleValues: [
               {
                 text: "Label",
@@ -335,7 +335,7 @@ export const Interaction: Story = {
       <div style="display: grid; gap: 24px; align-items: start;">
         <div>
           <KdsCheckboxGroup
-            id="radio-group-1"
+            id="checkbox-group-1"
             label="Interactive group"
             :possible-values="[
               { text: 'Option A', id: 'a' },
@@ -349,7 +349,7 @@ export const Interaction: Story = {
 
         <div>
           <KdsCheckboxGroup
-            id="radio-group-2"
+            id="checkbox-group-2"
             label="Disabled group"
             :possible-values="[
               { text: 'Option A', id: 'a' },
