@@ -47,7 +47,6 @@ const modelValue = defineModel<boolean>({ default: false });
   width: var(--kds-dimension-component-width-0-75x);
   height: var(--kds-dimension-component-height-0-75x);
   color: var(--icon-color);
-  pointer-events: auto;
   cursor: pointer;
   background-color: var(--bg-initial);
   border: var(--border);
