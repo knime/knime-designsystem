@@ -7,11 +7,11 @@ import {
   useKdsLegacyMode,
 } from "../../packages/components/src";
 
-let vueAppCounter = 0;
+let storybookAppInstanceCounter = 0;
 
 setup((app) => {
-  vueAppCounter += 1;
-  app.config.idPrefix = `sb-${vueAppCounter}`;
+  storybookAppInstanceCounter += 1;
+  app.config.idPrefix = `sb-${storybookAppInstanceCounter}`;
 });
 
 const globalStyles = `
