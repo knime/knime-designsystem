@@ -117,7 +117,7 @@ html.kds-legacy {
       background-color: var(--kds-color-background-disabled-primary);
     }
 
-    &:not(.disabled) {
+    &:not(.disabled, .success, .error) {
       &:hover {
         background-color: var(--kds-color-background-primary-bold-hover);
       }
@@ -136,7 +136,7 @@ html.kds-legacy {
         background-color: var(--kds-color-background-disabled-danger);
       }
 
-      &:not(.disabled) {
+      &:not(.disabled, .success, .error) {
         &:hover {
           background-color: var(--kds-color-background-danger-bold-hover);
         }
@@ -158,7 +158,7 @@ html.kds-legacy {
       border: var(--kds-border-action-disabled);
     }
 
-    &:not(.disabled) {
+    &:not(.disabled, .success, .error) {
       &:hover {
         background-color: var(--kds-color-background-neutral-hover);
       }
@@ -177,7 +177,7 @@ html.kds-legacy {
         border: var(--kds-border-action-disabled);
       }
 
-      &:not(.disabled) {
+      &:not(.disabled, .success, .error) {
         &:hover {
           background-color: var(--kds-color-background-danger-hover);
         }
@@ -198,7 +198,7 @@ html.kds-legacy {
       color: var(--kds-color-text-and-icon-disabled);
     }
 
-    &:not(.disabled) {
+    &:not(.disabled, .success, .error) {
       &:hover {
         background-color: var(--kds-color-background-neutral-hover);
       }
@@ -215,7 +215,7 @@ html.kds-legacy {
         color: var(--kds-color-text-and-icon-disabled);
       }
 
-      &:not(.disabled) {
+      &:not(.disabled, .success, .error) {
         &:hover {
           background-color: var(--kds-color-background-danger-hover);
         }
@@ -236,7 +236,7 @@ html.kds-legacy {
       color: var(--kds-color-text-and-icon-disabled);
     }
 
-    &:not(.disabled) {
+    &:not(.disabled, .success, .error) {
       &:hover {
         background-color: var(--kds-color-background-selected-hover);
       }
