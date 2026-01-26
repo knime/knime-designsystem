@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<KdsRadioButtonGroupProps>(), {
   alignment: "vertical",
 });
 
-const modelValue = defineModel<string | undefined>();
+const modelValue = defineModel<string>();
 
 const options = computed(
   () =>
