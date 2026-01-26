@@ -55,6 +55,11 @@ const meta: Meta<typeof KdsCheckboxGroup> = {
       table: { category: "Model" },
       description: "Emitted when the model changes (v-model update).",
     },
+    id: {
+      control: { type: "text" },
+      description: "Id for label linkage.",
+      table: { category: "Props" },
+    },
     label: {
       control: { type: "text" },
       description: "Group label.",
@@ -93,11 +98,11 @@ const meta: Meta<typeof KdsCheckboxGroup> = {
     },
   },
   args: {
+    modelValue: ["Option A"],
+    "onUpdate:modelValue": fn(),
     id: "checkbox-group",
     label: "Label",
     possibleValues: ["Option A", "Option B", "Option C", "Option D"],
-    modelValue: ["Option A"],
-    "onUpdate:modelValue": fn(),
   },
   decorators: [
     (story) => {
@@ -279,6 +284,7 @@ export const Interaction: Story = {
       <div style="display: grid; gap: 24px; align-items: start;">
         <div>
           <KdsCheckboxGroup
+            id="radio-group-1"
             label="Interactive group"
             :possible-values="[
               { text: 'Option A', id: 'a' },
@@ -287,11 +293,12 @@ export const Interaction: Story = {
               { text: 'Option D', id: 'd' },
             ]"
             v-model="interactive"
-          />
+           />
         </div>
 
         <div>
           <KdsCheckboxGroup
+            id="radio-group-2"
             label="Disabled group"
             :possible-values="[
               { text: 'Option A', id: 'a' },

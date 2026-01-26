@@ -6,14 +6,14 @@ import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
   buildTextOverflowStory,
-} from "../test-utils/storybook";
+} from "../../test-utils/storybook.ts";
 
 import KdsCheckbox from "./KdsCheckbox.vue";
 
 type Story = StoryObj<typeof KdsCheckbox>;
 
 const meta: Meta<typeof KdsCheckbox> = {
-  title: "Components/KdsCheckbox",
+  title: "Components/forms/KdsCheckbox",
   component: KdsCheckbox as Meta<typeof KdsCheckbox>["component"],
   tags: ["autodocs"],
   argTypes: {

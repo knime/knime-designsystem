@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, useId } from "vue";
 
-import Icon from "../Icon/KdsIcon.vue";
+import Icon from "../../Icon/KdsIcon.vue";
 
-import type { KdsCheckboxProps } from "./types";
+import type { KdsCheckboxProps } from "./types.ts";
 
 type CheckboxModelValue = KdsCheckboxProps["modelValue"];
 

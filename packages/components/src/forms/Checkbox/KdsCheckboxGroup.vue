@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-import { computed, ref, useId } from "vue";
+import { computed, useId } from "vue";
 
-import KdsCheckbox from "../KdsCheckbox.vue";
-
+import KdsCheckbox from "./KdsCheckbox.vue";
 import type { KdsCheckboxGroupOption, KdsCheckboxGroupProps } from "./types.ts";
 
 const props = withDefaults(defineProps<KdsCheckboxGroupProps>(), {
@@ -24,8 +23,6 @@ const possibleValues = computed(
 
 const labelId = useId();
 const descriptionId = useId();
-
-const optionContainerEls = ref<Array<HTMLElement | null>>([]);
 
 const isOptionDisabled = (index: number) =>
   props.disabled || possibleValues.value[index]?.disabled === true;
@@ -69,7 +66,6 @@ const handleCheckboxChange = (index: number, checked: boolean) => {
       <div
         v-for="(option, index) in possibleValues"
         :key="option.id"
-        :ref="(el) => (optionContainerEls[index] = el as HTMLElement | null)"
         class="option"
       >
         <KdsCheckbox
