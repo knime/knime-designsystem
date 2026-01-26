@@ -1,11 +1,18 @@
-import { type Preview } from "@storybook/vue3-vite";
+import { type Preview, setup } from "@storybook/vue3-vite";
 
 import "@knime/kds-styles/index.css";
 import "@knime/kds-styles/kds-legacy-theme.css";
 import {
   useKdsDarkMode,
   useKdsLegacyMode,
-} from "../../packages/components/src/util";
+} from "../../packages/components/src";
+
+let vueAppCounter = 0;
+
+setup((app) => {
+  vueAppCounter += 1;
+  app.config.idPrefix = `sb-${vueAppCounter}`;
+});
 
 const globalStyles = `
   h1 {
