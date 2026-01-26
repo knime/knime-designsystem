@@ -40,7 +40,7 @@ const meta: Meta<typeof KdsProgressButton> = {
     docs: {
       description: {
         component:
-          'State model:\n\n- `default`: normal button, clickable.\n- `progress`: shows progress indicator and becomes non-interactive while the action promise is pending.\n- `success`: shows success feedback briefly after the action resolves.\n- `error`: shows error feedback briefly after the action rejects.\n\nFor icon-only variants, make sure the accessible name reflects the current state (e.g. "Save" → "Saving…" → "Saved" / "Save failed").',
+          'State model:\n\n- `default`: normal button, clickable.\n- `progress`: shows progress indicator and becomes non-interactive while the action promise is pending.\n- `success`: shows success feedback briefly after the action resolves.\n- `error`: shows error feedback briefly after the action rejects.\n\nRecommended usage:\n\n- Keep the action duration short (ideally <= 3–5 seconds).\n- For longer running tasks, use a more detailed loading/progress state (e.g. a dedicated progress indicator or page-level loading UI) instead of keeping the user on a single button-level spinner.\n\nFor icon-only variants, make sure the accessible name reflects the current state (e.g. "Save" → "Saving…" → "Saved" / "Save failed").',
       },
     },
     design: {
