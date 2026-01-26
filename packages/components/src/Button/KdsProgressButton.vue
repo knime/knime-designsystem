@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
+import { useTimeoutFn } from "@vueuse/core";
 
 import KdsIcon from "../Icon/KdsIcon.vue";
 import type { KdsIconSize } from "../Icon/types.ts";
@@ -33,29 +34,23 @@ const iconSize = computed<KdsIconSize>(() => {
 });
 
 const showSpinner = ref(false);
-let spinnerDelayTimer: number | undefined;
-
-function clearSpinnerDelayTimer() {
-  if (spinnerDelayTimer !== undefined) {
-    window.clearTimeout(spinnerDelayTimer);
-    spinnerDelayTimer = undefined;
-  }
-}
+const { start: startSpinnerDelay, stop: stopSpinnerDelay } = useTimeoutFn(
+  () => {
+    showSpinner.value = true;
+  },
+  PROGRESS_DELAY_MS,
+  { immediate: false },
+);
 
 watch(
   () => state.value,
   (nextState) => {
-    clearSpinnerDelayTimer();
+    stopSpinnerDelay();
+    showSpinner.value = false;
 
     if (nextState === "progress") {
-      showSpinner.value = false;
-      spinnerDelayTimer = window.setTimeout(() => {
-        showSpinner.value = true;
-      }, PROGRESS_DELAY_MS);
-      return;
+      startSpinnerDelay();
     }
-
-    showSpinner.value = false;
   },
   { immediate: true },
 );
@@ -97,10 +92,6 @@ const baseButtonProps = computed(() => ({
   leadingIcon: props.leadingIcon,
   ariaLabel: props.ariaLabel,
 }));
-
-onBeforeUnmount(() => {
-  clearSpinnerDelayTimer();
-});
 </script>
 
 <template>
