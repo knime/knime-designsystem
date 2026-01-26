@@ -66,6 +66,10 @@ onClickOutside(floatingEl, () => (open.value = false), {
 </template>
 
 <style scoped>
+.activator {
+  display: flex;
+}
+
 .floating {
   position: absolute;
   z-index: 1000;
