@@ -1,5 +1,3 @@
-import type { KdsSubTextProps } from "../types.ts";
-
 type BaseProps = {
   /**
    * The checked or indeterminate state of the checkbox
@@ -55,7 +53,9 @@ export type KdsCheckboxGroupProps = {
   possibleValues: Array<string | KdsCheckboxGroupOption>;
   alignment?: KdsCheckboxGroupAlignment;
   disabled?: boolean;
-} & KdsSubTextProps;
+  subText?: string;
+  preserveSubTextSpace?: boolean;
+};
 
 // supports minimal props
 propTypeTester<KdsCheckboxGroupProps>({

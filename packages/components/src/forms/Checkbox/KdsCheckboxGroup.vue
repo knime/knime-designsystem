@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import { computed, useId } from "vue";
 
+import KdsLabel from "../KdsLabel.vue";
+import KdsSubText from "../KdsSubText.vue";
+
 import KdsCheckbox from "./KdsCheckbox.vue";
 import type { KdsCheckboxGroupOption, KdsCheckboxGroupProps } from "./types.ts";
 
@@ -58,9 +61,7 @@ const handleCheckboxChange = (index: number, checked: boolean) => {
     :aria-labelledby="props.label ? labelId : undefined"
     :aria-describedby="props.subText ? descriptionId : undefined"
   >
-    <div v-if="props.label" :id="labelId" class="label">
-      {{ props.label }}
-    </div>
+    <KdsLabel v-if="props.label" :id="labelId" :label="props.label" />
 
     <div :class="{ options: true, horizontal: isHorizontal }">
       <div
@@ -81,27 +82,16 @@ const handleCheckboxChange = (index: number, checked: boolean) => {
       </div>
     </div>
 
-    <div
-      v-if="props.subText || props.preserveSubTextSpace"
+    <KdsSubText
       :id="descriptionId"
-      :class="{ subtext: true, error: anyOptionHasError }"
-    >
-      {{ props.subText }}
-    </div>
+      :sub-text="props.subText"
+      :preserve-sub-text-space="props.preserveSubTextSpace"
+      :error="anyOptionHasError"
+    />
   </div>
 </template>
 
 <style scoped>
-.label {
-  display: flex;
-  gap: var(--kds-spacing-container-0-25x);
-  align-items: center;
-  min-height: var(--kds-dimension-component-height-0-75x);
-  padding-bottom: var(--kds-spacing-input-label-spacing-bottom);
-  font: var(--kds-font-base-title-small-strong);
-  color: var(--kds-color-text-and-icon-neutral);
-}
-
 .checkbox-group {
   padding: 0;
   margin: 0;
@@ -111,23 +101,11 @@ const handleCheckboxChange = (index: number, checked: boolean) => {
 .options {
   display: flex;
   flex-direction: column;
-  gap: var(--kds-spacing-container-0-5x);
-  padding: var(--kds-spacing-container-0-25x) 0;
+  gap: var(--kds-spacing-container-0-5x) var(--kds-spacing-container-0-75x);
 }
 
 .options.horizontal {
   flex-flow: row wrap;
   align-items: flex-start;
-}
-
-.subtext {
-  min-height: 1lh;
-  margin-top: var(--kds-spacing-container-0-25x);
-  font: var(--kds-font-base-subtext-small);
-  color: var(--kds-color-text-and-icon-muted);
-
-  &.error {
-    color: var(--kds-color-text-and-icon-danger);
-  }
 }
 </style>

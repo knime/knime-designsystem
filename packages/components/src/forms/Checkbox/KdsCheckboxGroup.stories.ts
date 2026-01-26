@@ -126,6 +126,12 @@ export default meta;
 
 export const Default: Story = {};
 
+export const MultipleSelections: Story = {
+  args: {
+    modelValue: ["Option A", "Option C"],
+  },
+};
+
 export const WithSubText: Story = {
   args: {
     subText: "Additional information about this selection",
@@ -160,12 +166,6 @@ export const HorizontalWithHelperTexts: Story = {
   },
 };
 
-export const TwoOptions: Story = {
-  args: {
-    possibleValues: twoOptions,
-  },
-};
-
 export const WithOptionsHelperText: Story = {
   args: {
     possibleValues: optionsWithHelperText,
@@ -196,12 +196,6 @@ export const WithoutLabel: Story = {
   },
 };
 
-export const MultipleSelections: Story = {
-  args: {
-    modelValue: ["Option A", "Option C"],
-  },
-};
-
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsCheckboxGroup,
   combinationsProps: [
@@ -220,7 +214,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsCheckboxGroup,
   designsToCompare: {
-    Default: {
+    "Component Source": {
       props: {
         label: "{Label}",
         possibleValues: [
@@ -232,8 +226,65 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         modelValue: [],
       },
       variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7118-319636&m=dev":
-          {},
+        // Variants from Figma frame 14198:4812
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7118-319636&p=f&m=dev":
+          {
+            alignment: "vertical",
+            possibleValues: [
+              { text: "Label", id: "a" },
+              { text: "Label", id: "b" },
+              { text: "Label", id: "c" },
+              { text: "Label", id: "d" },
+            ],
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=14198-38239&p=f&m=dev":
+          {
+            alignment: "vertical",
+            modelValue: "a",
+            possibleValues: [
+              {
+                text: "Label",
+                id: "a",
+                error: true,
+              },
+              { text: "Label", id: "b" },
+              { text: "Label", id: "c" },
+              { text: "Label", id: "d" },
+            ],
+            subText: "{Error message}",
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=14198-9884&p=f&m=dev":
+          {
+            alignment: "horizontal",
+            possibleValues: [
+              { text: "Label", id: "a" },
+              { text: "Label", id: "b" },
+              { text: "Label", id: "c" },
+              { text: "Label", id: "d" },
+              { text: "Label", id: "e" },
+              { text: "Label", id: "f" },
+              { text: "Label", id: "g" },
+            ],
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=14198-38462&p=f&m=dev":
+          {
+            alignment: "horizontal",
+            modelValue: "a",
+            possibleValues: [
+              {
+                text: "Label",
+                id: "a",
+                error: true,
+              },
+              { text: "Label", id: "b" },
+              { text: "Label", id: "c" },
+              { text: "Label", id: "d" },
+              { text: "Label", id: "e" },
+              { text: "Label", id: "f" },
+              { text: "Label", id: "g" },
+            ],
+            subText: "{Error message}",
+          },
       },
     },
   },

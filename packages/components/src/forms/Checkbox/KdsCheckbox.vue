@@ -95,7 +95,7 @@ const handleClick = () => {
   --helper-text-color: var(--kds-color-text-and-icon-muted);
 
   display: flex;
-  gap: var(--kds-spacing-container-0-5x);
+  gap: var(--kds-spacing-container-0-37x);
   align-items: flex-start;
   padding: 0;
   margin: 0;
