@@ -3,7 +3,7 @@ import { computed, useId } from "vue";
 
 import Icon from "../../Icon/KdsIcon.vue";
 
-import type { KdsCheckboxProps } from "./types.ts";
+import type { KdsCheckboxProps } from "./types";
 
 type CheckboxModelValue = KdsCheckboxProps["modelValue"];
 

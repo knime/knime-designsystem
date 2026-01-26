@@ -9,7 +9,7 @@ import {
 } from "../../test-utils/storybook.ts";
 
 import KdsCheckboxGroup from "./KdsCheckboxGroup.vue";
-import type { KdsCheckboxGroupProps } from "./types.ts";
+import type { KdsCheckboxGroupProps } from "./types";
 
 type Story = StoryObj<typeof KdsCheckboxGroup>;
 

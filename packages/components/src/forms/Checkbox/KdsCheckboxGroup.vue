@@ -5,7 +5,7 @@ import KdsLabel from "../KdsLabel.vue";
 import KdsSubText from "../KdsSubText.vue";
 
 import KdsCheckbox from "./KdsCheckbox.vue";
-import type { KdsCheckboxGroupOption, KdsCheckboxGroupProps } from "./types.ts";
+import type { KdsCheckboxGroupOption, KdsCheckboxGroupProps } from "./types";
 
 const props = withDefaults(defineProps<KdsCheckboxGroupProps>(), {
   disabled: false,
