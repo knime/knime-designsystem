@@ -1,4 +1,5 @@
 import { type Preview, setup } from "@storybook/vue3-vite";
+import { useDarkMode } from "@storybook-community/storybook-dark-mode";
 
 import "@knime/kds-styles/index.css";
 import "@knime/kds-styles/kds-legacy-theme.css";
@@ -67,16 +68,6 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
-    backgrounds: {
-      default: "light",
-      options: {
-        light: {
-          name: "Light",
-          value: "hsl(0 0% 98%)",
-        } /* would use the design token but it also needed as SVG property and there it doesn't work */,
-        dark: { name: "Dark", value: "hsl(0 0% 16%)" },
-      },
-    },
     options: {
       storySort: {
         order: [
@@ -98,7 +89,7 @@ const preview: Preview = {
   },
   decorators: [
     (story, context) => {
-      const isDark = context.globals.backgrounds?.value === "dark";
+      const isDark = useDarkMode();
       useKdsDarkMode().currentMode.value = isDark ? "dark" : "light";
 
       const isLegacy = context.globals.legacy === "true";
