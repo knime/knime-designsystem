@@ -15,9 +15,15 @@ import KdsProgressButton from "./KdsProgressButton.vue";
 import { kdsButtonVariants } from "./constants.ts";
 
 const ACTION_TIMEOUT = 900;
+const QUICK_ACTION_TIMEOUT = 100;
 const successAction = async () => {
   await new Promise((resolve) => {
     setTimeout(resolve, ACTION_TIMEOUT);
+  });
+};
+const quickSuccessAction = async () => {
+  await new Promise((resolve) => {
+    setTimeout(resolve, QUICK_ACTION_TIMEOUT);
   });
 };
 const errorAction = async () => {
@@ -110,9 +116,14 @@ const meta: Meta<typeof KdsProgressButton> = {
         "Required async click handler. While the promise is pending, the button switches to the progress state; on resolve it shows success briefly; on reject it shows error briefly.",
       name: "action",
       control: { type: "select" },
-      options: ["successful dummy function", "failing dummy function"],
+      options: [
+        "successful dummy function",
+        "quick successful dummy function",
+        "failing dummy function",
+      ],
       mapping: {
         "successful dummy function": successAction,
+        "quick successful dummy function": quickSuccessAction,
         "failing dummy function": errorAction,
       },
       table: {
