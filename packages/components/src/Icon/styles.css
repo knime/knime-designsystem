@@ -30,10 +30,7 @@
         --icon-stroke-width: calc(
           var(--kds-border-width-icon-stroke-s) / var(--scaling-factor)
         );
-        /* crispEdges makes vector icons look pixelated on low-DPI screens */
-        shape-rendering: geometricPrecision;
         transform: scale(var(--scaling-factor));
-        transform-origin: center;
       }
     }
   }
