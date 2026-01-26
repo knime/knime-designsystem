@@ -65,6 +65,7 @@ packages/
 - All publicly exported types must be prefixed with `Kds` (e.g., `KdsButtonProps`)
 - All publicly exported composables must be prefixed with `useKds` (e.g., `useKdsTheme`)
 - i18n is currently not planned in this repo. Hardcoded English strings are OK (e.g., labels, aria-labels, titles, helper texts).
+- Prefer using well-known utilities from `@vueuse/core` over custom implementations (e.g. timers via `useTimeoutFn`, debouncing/throttling via `watchDebounced` / `refDebounced`, observers via `useResizeObserver`, etc.). This improves consistency and reduces the risk of missing cleanup on unmount.
 - Use Composition API with `<script setup lang="ts">`
 - Type all props with `defineProps<T>()` or `withDefaults(defineProps<T>(), {})`
 - Type all emits with `defineEmits<T>()`
