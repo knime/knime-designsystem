@@ -36,3 +36,33 @@ export const IconStory: Story = {
     size: "medium",
   },
 };
+
+export const SizeComparison: Story = {
+  render: (args) => ({
+    components: { KdsIcon },
+    setup: () => ({ args }),
+    template: `
+      <div style="display:flex; gap: 16px; align-items: center;">
+        <div style="display:flex; flex-direction:column; gap: 8px; align-items:center;">
+          <div style="font-size: 12px;">xsmall</div>
+          <KdsIcon v-bind="args" size="xsmall" />
+        </div>
+        <div style="display:flex; flex-direction:column; gap: 8px; align-items:center;">
+          <div style="font-size: 12px;">small</div>
+          <KdsIcon v-bind="args" size="small" />
+        </div>
+        <div style="display:flex; flex-direction:column; gap: 8px; align-items:center;">
+          <div style="font-size: 12px;">medium</div>
+          <KdsIcon v-bind="args" size="medium" />
+        </div>
+        <div style="display:flex; flex-direction:column; gap: 8px; align-items:center;">
+          <div style="font-size: 12px;">large</div>
+          <KdsIcon v-bind="args" size="large" />
+        </div>
+      </div>
+    `,
+  }),
+  args: {
+    name: "placeholder",
+  },
+};
