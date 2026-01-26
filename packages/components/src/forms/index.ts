@@ -19,4 +19,4 @@ export type {
   KdsCheckboxGroupOption,
   KdsCheckboxGroupProps,
   KdsCheckboxGroupAlignment,
-} from "./Checkbox/types.ts";
+} from "./Checkbox/types";
