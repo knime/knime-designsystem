@@ -44,9 +44,7 @@ const handleCheckboxChange = (index: number, checked: boolean) => {
   }
   const option = possibleValues.value[index];
   if (checked) {
-    if (!isChecked(option.id)) {
-      modelValue.value = [...modelValue.value, option.id];
-    }
+    modelValue.value = [...modelValue.value, option.id];
   } else {
     modelValue.value = modelValue.value.filter((v) => v !== option.id);
   }
