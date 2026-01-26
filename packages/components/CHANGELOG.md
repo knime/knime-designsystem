@@ -1,5 +1,12 @@
 # @knime/kds-components
 
+## 0.5.10
+
+### Patch Changes
+
+- 382c8d0: Remove undefined from RadioButtonGroup and ValueSwitch model emissions
+  - @knime/kds-styles@0.5.10
+
 ## 0.5.9
 
 ### Patch Changes
