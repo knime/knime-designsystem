@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref, toRef } from "vue";
+import { ref, toRef, useId } from "vue";
 import { onClickOutside } from "@vueuse/core";
 import { autoUpdate, flip, offset, shift, useFloating } from "@floating-ui/vue";
 import { FocusTrap } from "focus-trap-vue";
 
+import BasePopover from "./BasePopover.vue";
 import type { KdsPopoverProps } from "./types";
 
 const props = withDefaults(defineProps<KdsPopoverProps>(), {
@@ -12,6 +13,7 @@ const props = withDefaults(defineProps<KdsPopoverProps>(), {
 const open = defineModel<boolean>({ default: false });
 const referenceEl = ref<HTMLElement | null>(null);
 const floatingEl = ref<HTMLElement | null>(null);
+const popoverId = useId();
 
 /**
  * Floating UI setup
@@ -34,13 +36,20 @@ onClickOutside(floatingEl, () => (open.value = false), {
 
 <template>
   <div class="kds-popover">
-    <div ref="referenceEl" class="activator" :data-open="open">
+    <div
+      ref="referenceEl"
+      class="activator"
+      :data-open="open"
+      :aria-expanded="open"
+      :aria-controls="popoverId"
+    >
       <slot name="activator" />
     </div>
 
     <Teleport v-if="$slots.default" to="body">
       <div
         v-if="open"
+        :id="popoverId"
         ref="floatingEl"
         class="floating"
         :data-open="open"
@@ -56,9 +65,9 @@ onClickOutside(floatingEl, () => (open.value = false), {
           fallback-focus="body"
           @deactivate="referenceEl?.querySelector('button')?.focus()"
         >
-          <div class="content">
+          <BasePopover>
             <slot />
-          </div>
+          </BasePopover>
         </FocusTrap>
       </div>
     </Teleport>
@@ -73,15 +82,5 @@ onClickOutside(floatingEl, () => (open.value = false), {
 .floating {
   position: absolute;
   z-index: 1000;
-  max-width: 400px;
-}
-
-.content {
-  padding: var(--kds-spacing-container-0-5x) var(--kds-spacing-container-0-75x);
-  font: var(--kds-font-base-body-small);
-  color: var(--kds-color-text-and-icon-neutral);
-  background: var(--kds-color-surface-default);
-  border-radius: var(--kds-border-radius-container-0-37x);
-  box-shadow: var(--kds-elevation-level-3);
 }
 </style>

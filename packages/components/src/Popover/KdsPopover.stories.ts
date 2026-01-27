@@ -1,6 +1,11 @@
 import type { FunctionalComponent } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
+import KdsToggleButton from "../Button/KdsToggleButton.vue";
+import { KdsInfoToggleButton } from "../index.ts";
+import { buildDesignComparatorStory } from "../test-utils/storybook";
+
+import BasePopover from "./BasePopover.vue";
 import KdsPopover from "./KdsPopover.vue";
 
 const meta: Meta<typeof KdsPopover> = {
@@ -8,10 +13,9 @@ const meta: Meta<typeof KdsPopover> = {
   component: KdsPopover as unknown as FunctionalComponent,
   tags: ["autodocs"],
   parameters: {
-    // No Figma design linked yet
     design: {
       type: "figma",
-      url: "",
+      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=8522-305454",
     },
   },
 };
@@ -22,16 +26,13 @@ type Story = StoryObj<typeof KdsPopover>;
 
 export const Default: Story = {
   render: () => ({
-    components: { KdsPopover },
+    components: { KdsPopover, KdsToggleButton },
     template: `
       <div style="display: flex">
         <KdsPopover v-model="open">
           <template #activator>
-            <button type="button" @click="open = !open">
-              Toggle popover
-            </button>
+            <KdsToggleButton v-model="open" label="Toggle popover" />
           </template>
-
           <div style="display: flex; flex-direction: column; gap: var(--kds-spacing-container-0-5x);">
             <label>
               First input
@@ -54,30 +55,26 @@ export const Default: Story = {
   }),
 };
 
-export const NoFocusableElements: Story = {
+export const InfoPopover: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Popover content without any focusable elements. Pressing Tab should not move focus into the popover; focus stays on (or returns to) the activator. ESC closes the popover.",
+        story: "Info button with description for input elements",
       },
     },
     chromatic: { disableSnapshot: true },
-    a11y: { disable: true },
   },
   render: () => ({
-    components: { KdsPopover },
+    components: { KdsPopover, KdsInfoToggleButton },
     template: `
       <div style="display: flex">
         <KdsPopover v-model="open">
           <template #activator>
-            <button type="button" @click="open = !open">
-              Toggle popover
-            </button>
+            <KdsInfoToggleButton v-model="open" visible/>
           </template>
 
           <div>
-            No focusable elements here (no links, no inputs, no buttons).
+            Description of the control element
           </div>
         </KdsPopover>
       </div>
@@ -87,3 +84,26 @@ export const NoFocusableElements: Story = {
     },
   }),
 };
+
+export const DesignComparator: Story = buildDesignComparatorStory({
+  component: {
+    components: { BasePopover },
+    template: `
+      <BasePopover v-model="open" style="margin: 20px">
+        Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large.
+      </BasePopover>
+    `,
+    data() {
+      return { open: true };
+    },
+  },
+  designsToCompare: {
+    infoPopover: {
+      props: {},
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=8522-305454&m=dev":
+          {},
+      },
+    },
+  },
+});
