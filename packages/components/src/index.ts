@@ -18,9 +18,13 @@ export {
 } from "./Modal/useKdsDynamicModal";
 
 // Export component types
-export type * from "./Button/types";
+export type {
+  KdsButtonProps,
+  KdsLinkButtonProps,
+  KdsToggleButtonProps,
+} from "./Button/types";
 export type * from "./Checkbox/types";
-export type * from "./EmptyState/types";
+export type { KdsEmptyStateProps } from "./EmptyState/types";
 export type * from "./Icon/types";
 export type * from "./Modal/types";
 
