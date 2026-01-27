@@ -11,7 +11,7 @@
   min-height: var(--icon-height);
   vertical-align: middle;
   stroke-width: var(--icon-stroke-width);
-  shape-rendering: geometricprecision;
+  shape-rendering: geometricPrecision;
 
   &.xsmall {
     --icon-width: var(--kds-dimension-icon-0-56x);
@@ -19,9 +19,9 @@
     --icon-stroke-width: var(--kds-border-width-icon-stroke-s);
 
     @media (max-resolution: 1.5dppx) {
-      /* For small icons on low density screens, we can't simply set the sizes as this leads to subpixel 
+      /* For small icons on low density screens, we can't simply set the sizes as this leads to subpixel
       rendering issues which manifests in misaligned or 'jumping' svg content.
-      Solution is to render the SVG in it's natural size (don't indirectly modify the viewBox) and instead apply a 
+      Solution is to render the SVG in it's natural size (don't indirectly modify the viewBox) and instead apply a
       CSS transform. Thus the position of the SVG elements stays intact. */
       & {
         --scaling-factor: 0.75;
@@ -30,7 +30,6 @@
         --icon-stroke-width: calc(
           var(--kds-border-width-icon-stroke-s) / var(--scaling-factor)
         );
-        shape-rendering: crispEdges;
         transform: scale(var(--scaling-factor));
       }
     }
