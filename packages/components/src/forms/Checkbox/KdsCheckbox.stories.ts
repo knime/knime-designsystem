@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
-import { fn } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
@@ -20,31 +19,41 @@ const meta: Meta<typeof KdsCheckbox> = {
     modelValue: {
       control: { type: "select" },
       options: [false, true, "indeterminate"],
-    },
-    disabled: {
-      control: { type: "boolean" },
-    },
-    error: {
-      control: { type: "boolean" },
+      description: "v-model binding for the checkbox state",
+      table: { category: "Model" },
     },
     label: {
       control: { type: "text" },
+      description: "Required label of the checkbox",
+      table: {
+        category: "Props",
+        required: true,
+      },
     },
-    helperText: {
-      control: { type: "text" },
+    disabled: {
+      control: { type: "boolean" },
+      table: { category: "Props" },
     },
     subText: {
       control: { type: "text" },
+      table: { category: "Props" },
+    },
+    error: {
+      control: { type: "boolean" },
+      table: { category: "Props" },
     },
     preserveSubTextSpace: {
       control: { type: "boolean" },
-    },
-    title: {
-      control: { type: "text" },
+      table: { category: "Props" },
     },
   },
   args: {
-    "onUpdate:modelValue": fn(),
+    modelValue: false,
+    label: "Label",
+    disabled: false,
+    subText: "",
+    error: false,
+    preserveSubTextSpace: false,
   },
   decorators: [
     (story) => {
@@ -99,10 +108,10 @@ export const Indeterminate: Story = {
   },
 };
 
-export const HelperText: Story = {
+export const SubText: Story = {
   args: {
     label: "Label",
-    helperText: "Helper text",
+    subText: "Sub text",
     modelValue: false,
   },
 };
@@ -110,7 +119,6 @@ export const HelperText: Story = {
 export const Disabled: Story = {
   args: {
     label: "Label",
-    helperText: "Helper text",
     modelValue: true,
     disabled: true,
   },
@@ -135,16 +143,9 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   combinationsProps: [
     {
       modelValue: [false, true, "indeterminate"],
-      disabled: [false, true],
-      error: [false, true],
-      label: [null],
-    },
-    {
-      modelValue: [false, true, "indeterminate"],
-      disabled: [false, true],
-      error: [false, true],
       label: ["Label"],
-      helperText: [undefined, "Helper text"],
+      disabled: [false, true],
+      error: [false, true],
       subText: [undefined, "SubText"],
     },
   ],
@@ -169,12 +170,6 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           {
             subText: "{SubText content}",
           },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51588":
-          {
-            helperText: "Helper text",
-            subText: "{SubText content}",
-            disabled: true,
-          },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51627":
           {
             error: true,
@@ -193,11 +188,6 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51273":
           {
             disabled: true,
-          },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9186-197571":
-          {
-            helperText: "Helper text",
-            subText: "{SubText content}",
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9186-199107":
           {
@@ -250,8 +240,8 @@ export const TextOverflow: Story = {
   args: {
     label:
       "This is a very long checkbox label that should overflow and wrap properly when the container is too narrow",
-    helperText:
-      "This is a very long helper text that should also overflow and wrap properly when there is not enough space",
+    subText:
+      "This is a very long sub text that should also overflow and wrap properly when there is not enough space",
     modelValue: false,
   },
 };

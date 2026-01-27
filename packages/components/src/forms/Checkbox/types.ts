@@ -1,8 +1,10 @@
+export type KdsCheckboxValue = boolean | "indeterminate";
+
 type BaseProps = {
   /**
    * The checked or indeterminate state of the checkbox
    */
-  modelValue?: boolean | "indeterminate";
+  modelValue?: KdsCheckboxValue;
   /**
    * Whether the checkbox is disabled
    */
@@ -11,10 +13,6 @@ type BaseProps = {
    * Whether the checkbox is in an error state
    */
   error?: boolean;
-  /**
-   * Title text shown on hover
-   */
-  title?: string;
   /**
    * Optional helper or error text shown below the checkbox and referenced via aria-describedby.
    */
@@ -25,25 +23,23 @@ type BaseProps = {
   preserveSubTextSpace?: boolean;
 };
 
-type WithoutLabelAndHelperText = BaseProps & {
-  label?: never;
-  helperText?: never;
-};
-
-type WithLabelAndHelperText = BaseProps & {
+export type BaseCheckboxProps = BaseProps & {
   /**
    * The label text for the checkbox
    */
-  label: string;
+  label?: string;
   /**
    * Helper text displayed below the label
    */
   helperText?: string;
 };
 
-export type KdsCheckboxProps =
-  | WithoutLabelAndHelperText
-  | WithLabelAndHelperText;
+export type KdsCheckboxProps = BaseProps & {
+  /**
+   * The label text for the checkbox
+   */
+  label: string;
+};
 
 export type KdsCheckboxGroupOption = {
   text: string;
@@ -74,15 +70,18 @@ propTypeTester<KdsCheckboxGroupProps>({
   ],
 });
 
-// supports without label
-propTypeTester<KdsCheckboxProps>({});
-// supports just label
+// BaseCheckbox supports without label
+propTypeTester<BaseCheckboxProps>({});
+// BaseCheckbox supports label
+propTypeTester<BaseCheckboxProps>({ label: "foo" });
+// BaseCheckbox supports helper text
+propTypeTester<BaseCheckboxProps>({ label: "foo", helperText: "bar" });
+// KdsCheckbox requires label
 propTypeTester<KdsCheckboxProps>({ label: "foo" });
-// supports both label and helper text
+// @ts-expect-error - KdsCheckbox should not allow helperText
 propTypeTester<KdsCheckboxProps>({ label: "foo", helperText: "bar" });
-// @ts-expect-error - should not allow helper text without label
-propTypeTester<KdsCheckboxProps>({ helperText: "foo" });
-
+// @ts-expect-error - KdsCheckbox requires label
+propTypeTester<KdsCheckboxProps>({});
 // supports string array
 propTypeTester<KdsCheckboxGroupProps>({
   id: "checkbox-group-id",

@@ -4,8 +4,12 @@ import { computed, useId } from "vue";
 import KdsLabel from "../KdsLabel.vue";
 import KdsSubText from "../KdsSubText.vue";
 
-import KdsCheckbox from "./KdsCheckbox.vue";
-import type { KdsCheckboxGroupOption, KdsCheckboxGroupProps } from "./types";
+import BaseCheckbox from "./BaseCheckbox.vue";
+import type {
+  KdsCheckboxGroupOption,
+  KdsCheckboxGroupProps,
+  KdsCheckboxValue,
+} from "./types";
 
 const props = withDefaults(defineProps<KdsCheckboxGroupProps>(), {
   disabled: false,
@@ -38,16 +42,18 @@ const anyOptionHasError = computed(() =>
 
 const isChecked = (id: string) => modelValue.value.includes(id);
 
-const handleCheckboxChange = (index: number, checked: boolean) => {
+const handleCheckboxChange = (index: number, checked: KdsCheckboxValue) => {
   if (isOptionDisabled(index)) {
     return;
   }
   const option = possibleValues.value[index];
-  if (checked) {
+
+  if (checked === true) {
     modelValue.value = [...modelValue.value, option.id];
-  } else {
-    modelValue.value = modelValue.value.filter((v) => v !== option.id);
+    return;
   }
+
+  modelValue.value = modelValue.value.filter((v) => v !== option.id);
 };
 </script>
 
@@ -67,14 +73,14 @@ const handleCheckboxChange = (index: number, checked: boolean) => {
         :key="option.id"
         class="option"
       >
-        <KdsCheckbox
+        <BaseCheckbox
           :disabled="props.disabled || option.disabled"
           :error="option.error"
           :helper-text="option.helperText"
           :label="option.text"
           :model-value="isChecked(option.id)"
           @update:model-value="
-            (checked: boolean) => handleCheckboxChange(index, checked)
+            (checked: KdsCheckboxValue) => handleCheckboxChange(index, checked)
           "
         />
       </div>

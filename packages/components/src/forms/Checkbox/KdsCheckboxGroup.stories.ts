@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
-import { expect, fn, userEvent, within } from "storybook/test";
+import { expect, userEvent, within } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
@@ -18,13 +18,18 @@ const twoOptions: KdsCheckboxGroupProps["possibleValues"] = [
   "Option B",
 ];
 
+const optionsWithHelperText: KdsCheckboxGroupProps["possibleValues"] = [
+  { text: "Option A", id: "Option A", helperText: "Helper text" },
+  { text: "Option B", id: "Option B", helperText: "Helper text" },
+];
+
 const optionsWithError: KdsCheckboxGroupProps["possibleValues"] = [
-  { text: "Option A", id: "Option A", error: true, helperText: "Helper text" },
+  { text: "Option A", id: "Option A", error: true },
   { text: "Option B", id: "Option B" },
 ];
 
-const optionsWithHelperText: KdsCheckboxGroupProps["possibleValues"] = [
-  { text: "Option A", id: "Option A", helperText: "Helper text" },
+const optionsWithHelperTextAndError: KdsCheckboxGroupProps["possibleValues"] = [
+  { text: "Option A", id: "Option A", helperText: "Helper text", error: true },
   { text: "Option B", id: "Option B", helperText: "Helper text" },
 ];
 
@@ -51,10 +56,6 @@ const meta: Meta<typeof KdsCheckboxGroup> = {
         "The currently selected option ids. Array of strings representing selected checkboxes.",
       table: { category: "Model" },
     },
-    "onUpdate:modelValue": {
-      table: { category: "Model" },
-      description: "Emitted when the model changes (v-model update).",
-    },
     id: {
       control: { type: "text" },
       description: "Id for label linkage.",
@@ -62,7 +63,7 @@ const meta: Meta<typeof KdsCheckboxGroup> = {
     },
     label: {
       control: { type: "text" },
-      description: "Group label.",
+      description: "Required label for group.",
       table: { category: "Props" },
     },
     possibleValues: {
@@ -99,7 +100,6 @@ const meta: Meta<typeof KdsCheckboxGroup> = {
   },
   args: {
     modelValue: ["Option A"],
-    "onUpdate:modelValue": fn(),
     id: "checkbox-group",
     label: "Label",
     possibleValues: ["Option A", "Option B", "Option C", "Option D"],
@@ -205,13 +205,19 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsCheckboxGroup,
   combinationsProps: [
     {
-      label: ["Label", undefined],
-      subText: [undefined, "Additional information"],
-      preserveSubTextSpace: [false, true],
-      possibleValues: [twoOptions, optionsWithError, optionsWithHelperText],
-      modelValue: [[], ["Option A"], ["Option A", "Option B"]],
-      alignment: ["vertical", "horizontal"],
+      label: ["Label"],
       disabled: [false, true],
+      alignment: ["vertical", "horizontal"],
+      subText: [undefined, "Additional information"],
+      possibleValues: [twoOptions, optionsWithHelperText],
+      modelValue: [[], ["Option A"], ["Option A", "Option B"]],
+    },
+    {
+      label: ["Label"],
+      alignment: ["vertical", "horizontal"],
+      subText: ["Error information"],
+      possibleValues: [optionsWithError, optionsWithHelperTextAndError],
+      modelValue: [[], ["Option A"], ["Option A", "Option B"]],
     },
   ],
 });
