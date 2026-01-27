@@ -1,39 +1,24 @@
 import type {
-  KdsButtonProps,
-  KdsLinkButtonProps,
-  WithAnchorElementAttributes,
-  WithRouterNavigation,
+  PrefixedKdsButtonProps,
+  PrefixedKdsLinkButtonProps,
+  PrefixedButtonPropsAsNever,
+  PrefixedAnchorAttributesAsNever,
+  PrefixedRouterNavigationAsNever,
 } from "../Button/types";
-import type { PrefixKeys, TypeAsNever } from "../types";
 
 type CommonProps = {
   headline: string;
   description?: string;
 };
 
-type buttonPropsPrefix = "button";
-
-type ButtonPrefixedProps = PrefixKeys<KdsButtonProps, buttonPropsPrefix>;
-type LinkButtonPrefixedProps = PrefixKeys<
-  KdsLinkButtonProps,
-  buttonPropsPrefix
->;
-type AnchorAttributesAsNever = TypeAsNever<
-  PrefixKeys<WithAnchorElementAttributes, buttonPropsPrefix>
->;
-type RouterNavigationAsNever = TypeAsNever<
-  PrefixKeys<WithRouterNavigation, buttonPropsPrefix>
->;
-type LinkButtonPropsAsNever = TypeAsNever<LinkButtonPrefixedProps>;
-
-type BaseEmptyStateProps = CommonProps & LinkButtonPropsAsNever;
+type BaseEmptyStateProps = CommonProps & PrefixedButtonPropsAsNever;
 
 type EmptyStateWithButtonProps = CommonProps &
-  ButtonPrefixedProps &
-  RouterNavigationAsNever &
-  AnchorAttributesAsNever;
+  PrefixedKdsButtonProps &
+  PrefixedRouterNavigationAsNever &
+  PrefixedAnchorAttributesAsNever;
 
-type EmptyStateWithLinkButtonProps = CommonProps & LinkButtonPrefixedProps;
+type EmptyStateWithLinkButtonProps = CommonProps & PrefixedKdsLinkButtonProps;
 
 export type KdsEmptyStateProps =
   | BaseEmptyStateProps
@@ -76,7 +61,7 @@ propTypeTester<KdsEmptyStateProps>({
 propTypeTester<KdsEmptyStateProps>({
   buttonLabel: "foo",
 });
-// @ts-expect-error - buttonTo requires buttonLabel
+// @ts-expect-error - buttonTo requires buttonLabel or icon
 propTypeTester<KdsEmptyStateProps>({
   headline: "headline",
   buttonTo: "#",

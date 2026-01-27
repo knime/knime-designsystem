@@ -1,28 +1,30 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
+import KdsButton from "../Button/KdsButton.vue";
+import KdsLinkButton from "../Button/KdsLinkButton.vue";
+import { isDefinedAndNotEmpty } from "../util/isDefinedAndNotEmpty";
+
 import type { KdsEmptyStateProps } from "./types";
 
 const props = defineProps<KdsEmptyStateProps>();
 
 const emit = defineEmits<{
-  (e: "click", event: MouseEvent): void;
+  (e: "buttonClick", event: MouseEvent): void;
 }>();
 
 const hasButton = computed(() => {
-  // FIXME: this is wrong
   return (
-    "buttonLabel" in props &&
-    props.buttonLabel !== undefined &&
-    props.buttonLabel !== ""
+    isDefinedAndNotEmpty(props, "buttonLabel") ||
+    isDefinedAndNotEmpty(props, "buttonLeadingIcon")
   );
 });
 
 const buttonType = computed(() => {
-  if (hasButton.value && "buttonTo" in props && props.buttonTo !== undefined) {
-    return "KdsLinkButton";
+  if (isDefinedAndNotEmpty(props, "buttonTo")) {
+    return KdsLinkButton;
   }
-  return "KdsButton";
+  return KdsButton;
 });
 
 const buttonProps = computed(() => {
@@ -41,7 +43,7 @@ const buttonProps = computed(() => {
     variant: props.buttonVariant,
   };
 
-  if ("buttonTo" in props && props.buttonTo !== undefined) {
+  if (buttonType.value === KdsLinkButton) {
     return {
       ...baseProps,
       to: props.buttonTo,
@@ -68,7 +70,7 @@ const buttonProps = computed(() => {
         :is="buttonType"
         v-if="hasButton"
         v-bind="buttonProps"
-        @click="emit('click', $event)"
+        @click="emit('buttonClick', $event)"
       />
     </div>
   </div>
