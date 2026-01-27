@@ -6,13 +6,13 @@ import {
   KdsPopover,
   KdsToggleButton,
   KdsVariableToggleButton,
-} from "../index.ts";
-import { buildDesignComparatorStory } from "../test-utils/storybook";
+} from "../../index";
+import { buildDesignComparatorStory } from "../../test-utils/storybook";
 
 import BasePopover from "./BasePopover.vue";
 
 const meta: Meta<typeof KdsPopover> = {
-  title: "Components/Overlay/KdsPopover",
+  title: "Components/overlays/KdsPopover",
   component: KdsPopover,
   tags: ["autodocs"],
   parameters: {
