@@ -38,6 +38,7 @@ export function generateCombinations(
 }
 
 type AllCombinationsStoryParams = {
+  parameters?: Record<string, unknown>;
   component: Component;
   combinationsProps: Record<string, readonly unknown[]>[]; // or can we infer the possible props from the component type?
 };
@@ -71,6 +72,7 @@ export function buildAllCombinationsStory(
   return {
     parameters: {
       controls: { disable: true },
+      ...config.parameters,
     },
     render: () => ({
       setup() {

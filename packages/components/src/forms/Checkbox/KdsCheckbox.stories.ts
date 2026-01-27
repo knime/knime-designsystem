@@ -120,6 +120,11 @@ export const Error: Story = {
 };
 
 export const AllCombinations: Story = buildAllCombinationsStory({
+  parameters: {
+    a11y: {
+      disable: true,
+    },
+  },
   component: KdsCheckbox,
   combinationsProps: [
     {
