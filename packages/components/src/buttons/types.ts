@@ -62,14 +62,14 @@ type WithError = {
   error?: boolean;
 };
 
-type WithRouterNavigation = {
+export type WithRouterNavigation = {
   /**
    * Route Location the link should navigate to when clicked on; passed to RouterLink/NuxtLink component if globally available
    */
   to: string | Record<string, unknown>; // not the exact type, but don't want to add the dependency on vue-router
 };
 
-type WithAnchorElementAttributes = {
+export type WithAnchorElementAttributes = {
   /**
    * If set to true, the link will be downloaded instead of navigating to it.
    */

@@ -16,7 +16,7 @@ export {
 // Export component types
 export type * from "./Icon/types";
 export type * from "./Modal/types";
-export type * from "./EmptyState/types";
+export type { KdsEmptyStateProps } from "./EmptyState/types";
 
 // Export button components
 export * from "./buttons";

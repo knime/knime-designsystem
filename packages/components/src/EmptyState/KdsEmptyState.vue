@@ -1,21 +1,60 @@
 <script setup lang="ts">
-import KdsButton from "../Button/KdsButton.vue";
-import KdsLinkButton from "../Button/KdsLinkButton.vue";
+import { computed } from "vue";
 
-import type {
-  KdsEmptyStateProps,
-  KdsEmptyStateWithActionProps,
-  KdsEmptyStateWithLinkProps,
-} from "./types";
+import type { KdsEmptyStateProps } from "./types";
 
-const props = withDefaults(
-  defineProps<
-    | KdsEmptyStateProps
-    | KdsEmptyStateWithActionProps
-    | KdsEmptyStateWithLinkProps
-  >(),
-  {},
-);
+const props = defineProps<KdsEmptyStateProps>();
+
+const emit = defineEmits<{
+  (e: "click", event: MouseEvent): void;
+}>();
+
+const hasButton = computed(() => {
+  // FIXME: this is wrong
+  return (
+    "buttonLabel" in props &&
+    props.buttonLabel !== undefined &&
+    props.buttonLabel !== ""
+  );
+});
+
+const buttonType = computed(() => {
+  if (hasButton.value && "buttonTo" in props && props.buttonTo !== undefined) {
+    return "KdsLinkButton";
+  }
+  return "KdsButton";
+});
+
+const buttonProps = computed(() => {
+  if (!hasButton.value) {
+    return {};
+  }
+
+  // FIXME: check if this can be done more dynamic with a mapping
+
+  const baseProps = {
+    label: props.buttonLabel,
+    leadingIcon: props.buttonLeadingIcon,
+    trailingIcon: props.buttonTrailingIcon,
+    ariaLabel: props.buttonAriaLabel,
+    disabled: props.buttonDisabled,
+    variant: props.buttonVariant,
+  };
+
+  if ("buttonTo" in props && props.buttonTo !== undefined) {
+    return {
+      ...baseProps,
+      to: props.buttonTo,
+      target: props.buttonTarget,
+      rel: props.buttonRel,
+      download: props.buttonDownload,
+    };
+  } else {
+    return {
+      ...baseProps,
+    };
+  }
+});
 </script>
 
 <template>
@@ -25,22 +64,11 @@ const props = withDefaults(
       {{ props.description }}
     </p>
     <div class="kds-empty-state-action">
-      <KdsButton
-        v-if="'buttonAction' in props && props.buttonAction"
-        :label="props.label"
-        :variant="props.variant"
-        :leading-icon="props.leadingIcon"
-        :trailing-icon="props.trailingIcon"
-        :disabled="props.disabled"
-        :destructive="props.destructive"
-        @click="props.buttonAction"
-      />
-      <KdsLinkButton
-        v-else-if="'buttonLink' in props && props.buttonLink"
-        :to="props.buttonLink"
-        :label="props.label"
-        :variant="props.variant"
-        leading-icon="external-link"
+      <component
+        :is="buttonType"
+        v-if="hasButton"
+        v-bind="buttonProps"
+        @click="emit('click', $event)"
       />
     </div>
   </div>
