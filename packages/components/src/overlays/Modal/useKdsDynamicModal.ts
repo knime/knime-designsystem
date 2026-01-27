@@ -8,7 +8,7 @@ import {
 
 import { promise as PromiseUtils } from "@knime/utils";
 
-import type { KdsButtonProps } from "../../Button/types";
+import type { KdsButtonProps } from "../../buttons/types";
 
 import type { KdsModalLayoutProps, KdsModalProps } from "./types";
 
