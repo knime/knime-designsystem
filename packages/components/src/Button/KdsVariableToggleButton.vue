@@ -105,7 +105,6 @@ const title = computed(() => {
   border-radius: var(--kds-border-radius-container-0-12x);
 
   &:focus-visible {
-    outline: none;
     outline: var(--kds-border-action-focused);
     outline-offset: var(--kds-spacing-offset-focus);
   }
