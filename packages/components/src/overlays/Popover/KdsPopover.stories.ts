@@ -73,7 +73,7 @@ export const InfoPopover: Story = {
       <div style="display: flex">
         <KdsPopover v-model="open">
           <template #activator>
-            <KdsInfoToggleButton v-model="open" visible/>
+            <KdsInfoToggleButton v-model="open" visible />
           </template>
 
           <div>

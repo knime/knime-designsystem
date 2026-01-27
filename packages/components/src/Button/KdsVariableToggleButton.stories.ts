@@ -10,7 +10,7 @@ import {
 import KdsVariableToggleButton from "./KdsVariableToggleButton.vue";
 
 const meta: Meta<typeof KdsVariableToggleButton> = {
-  title: "Components/Buttons/KdsVariableToggleButton",
+  title: "Components/buttons/KdsVariableToggleButton",
   component: KdsVariableToggleButton as unknown as FunctionalComponent,
   tags: ["autodocs"],
   parameters: {
