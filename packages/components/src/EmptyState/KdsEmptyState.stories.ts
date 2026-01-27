@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { fn } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
@@ -11,6 +10,7 @@ import {
 } from "../test-utils/storybook";
 
 import KdsEmptyState from "./KdsEmptyState.vue";
+import { fn } from "storybook/test";
 
 type Story = StoryObj<typeof KdsEmptyState>;
 
@@ -33,55 +33,52 @@ const meta: Meta<typeof KdsEmptyState> = {
       control: "text",
       description: "Optional description text displayed below the headline",
     },
-    buttonAction: {
-      control: "boolean",
-      description: "Show button with action callback",
-    },
-    buttonLink: {
+    buttonTo: {
       control: "text",
       description:
         "Optional link URL. When provided, a link button will be rendered instead of an action button.",
     },
-    label: {
+    buttonLabel: {
       control: "text",
       description: "Button label text",
       table: { category: "Button Props" },
     },
-    variant: {
+    buttonVariant: {
       control: "select",
       options: kdsButtonVariants,
       description: "Button variant style",
       table: { category: "Button Props" },
     },
-    destructive: {
+    buttonDestructive: {
       control: "boolean",
       table: { category: "Button Props" },
     },
-    disabled: {
+    buttonDisabled: {
       control: "boolean",
       table: { category: "Button Props" },
     },
-    leadingIcon: {
+    buttonLeadingIcon: {
       control: { type: "select" },
       options: [undefined, ...iconNames],
       table: { category: "Button Props" },
     },
-    trailingIcon: {
+    buttonTrailingIcon: {
       control: { type: "select" },
       options: [undefined, ...iconNames],
       table: { category: "Button Props" },
     },
-    ariaLabel: {
+    buttonAriaLabel: {
       control: "text",
       table: { category: "Button Props" },
     },
-    title: {
+    buttonTitle: {
       control: "text",
       table: { category: "Button Props" },
     },
   },
   args: {
     headline: "No entries in this list.",
+    onButtonClick: fn(),
   },
 };
 
@@ -104,9 +101,8 @@ export const WithButtonAction: Story = {
   args: {
     headline: "No entries in this list.",
     description: "Here is a smaller description of the state.",
-    label: "Create Item",
-    variant: "outlined",
-    buttonAction: fn(),
+    buttonLabel: "Create Item",
+    buttonVariant: "outlined",
   },
 };
 
@@ -114,27 +110,26 @@ export const WithButtonLink: Story = {
   args: {
     headline: "No entries in this list.",
     description: "Here is a smaller description of the state.",
-    label: "Learn More",
-    variant: "outlined",
-    buttonLink: "https://example.com",
+    buttonLabel: "Learn More",
+    buttonVariant: "outlined",
+    buttonTo: "https://example.com",
   },
 };
 
 export const ButtonActionOnly: Story = {
   args: {
     headline: "No entries in this list.",
-    label: "Create Item",
-    variant: "outlined",
-    buttonAction: fn(),
+    buttonLabel: "Create Item",
+    buttonVariant: "outlined",
   },
 };
 
 export const ButtonLinkOnly: Story = {
   args: {
     headline: "No entries in this list.",
-    label: "Learn More",
-    variant: "outlined",
-    buttonLink: "https://example.com",
+    buttonLabel: "Learn More",
+    buttonVariant: "outlined",
+    buttonTo: "https://example.com",
   },
 };
 
@@ -148,16 +143,15 @@ export const AllCombinations: Story = buildAllCombinationsStory({
     {
       headline: ["No entries in this list."],
       description: [undefined, "Here is a smaller description of the state."],
-      label: ["Create Item"],
-      variant: kdsButtonVariants,
-      buttonAction: [fn()],
+      buttonLabel: ["Create Item"],
+      buttonVariant: kdsButtonVariants,
     },
     {
       headline: ["No entries in this list."],
       description: [undefined, "Here is a smaller description of the state."],
-      label: ["Learn More"],
-      variant: kdsButtonVariants,
-      buttonLink: ["https://example.com"],
+      buttonLabel: ["Learn More"],
+      buttonVariant: kdsButtonVariants,
+      buttonTo: ["https://example.com"],
     },
   ],
 });
@@ -172,9 +166,8 @@ export const TextOverflow: Story = {
       "This is a very long headline text that should overflow and wrap properly when the container is too narrow for all the text to fit",
     description:
       "This is a very long helper text that should also overflow and wrap properly when there is not enough space available for the content",
-    label: "Create Item",
-    variant: "outlined",
-    buttonAction: fn(),
+    buttonLabel: "Create Item",
+    buttonVariant: "outlined",
   },
 };
 
@@ -197,9 +190,8 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     WithAction: {
       props: {
         headline: "No entries in this list.",
-        label: "Create Item",
-        variant: "outlined",
-        buttonAction: fn(),
+        buttonLabel: "Create Item",
+        buttonVariant: "outlined",
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7118-357942&m=dev":

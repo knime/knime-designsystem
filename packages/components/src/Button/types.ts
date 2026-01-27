@@ -86,6 +86,52 @@ type WithToggled = {
 };
 
 /**
+ * Prefixed versions of composable types for use in composite components
+ * Pre-computed here to avoid Vue SFC compiler issues with mapped types
+ */
+type PrefixedCommonProps = {
+  buttonSize?: CommonProps["size"];
+  buttonDisabled?: CommonProps["disabled"];
+  buttonTitle?: CommonProps["title"];
+};
+
+type PrefixedLabelAndIcons = {
+  buttonLabel: string;
+  buttonLeadingIcon?: LabelAndIcons["leadingIcon"];
+  buttonTrailingIcon?: LabelAndIcons["trailingIcon"];
+  buttonAriaLabel?: never;
+};
+
+type PrefixedLeadingIconOnly = {
+  buttonLabel?: never;
+  buttonLeadingIcon: LeadingIconOnly["leadingIcon"];
+  buttonTrailingIcon?: never;
+  buttonAriaLabel: string;
+};
+
+type PrefixedWithLabelAndIcons =
+  | PrefixedLabelAndIcons
+  | PrefixedLeadingIconOnly;
+
+type PrefixedWithVariant = {
+  buttonVariant?: KdsButtonVariant;
+};
+
+type PrefixedWithDestructive = {
+  buttonDestructive?: WithDestructive["destructive"];
+};
+
+type PrefixedWithRouterNavigation = {
+  buttonTo: WithRouterNavigation["to"];
+};
+
+type PrefixedWithAnchorElementAttributes = {
+  buttonDownload?: WithAnchorElementAttributes["download"];
+  buttonTarget?: WithAnchorElementAttributes["target"];
+  buttonRel?: WithAnchorElementAttributes["rel"];
+};
+
+/**
  * Type for BaseButton component which supports all behaviors
  */
 export type BaseButtonProps = CommonProps &
@@ -112,6 +158,52 @@ export type KdsLinkButtonProps = CommonProps &
 export type KdsToggleButtonProps = CommonProps &
   Partial<WithVariant<KdsToggleButtonVariant>> &
   WithLabelAndIcons;
+
+/**
+ * Prefixed component types for use in composite components
+ * Pre-computed here to avoid Vue SFC compiler issues with mapped types
+ */
+export type PrefixedKdsButtonProps = PrefixedCommonProps &
+  PrefixedWithVariant &
+  PrefixedWithLabelAndIcons &
+  PrefixedWithDestructive;
+
+export type PrefixedKdsLinkButtonProps = PrefixedCommonProps &
+  PrefixedWithVariant &
+  PrefixedWithLabelAndIcons &
+  PrefixedWithDestructive &
+  PrefixedWithRouterNavigation &
+  PrefixedWithAnchorElementAttributes;
+
+/**
+ * Helper types for excluding button props in composite components
+ * These represent the negation of prefixed button props
+ */
+export type PrefixedButtonPropsAsNever = {
+  buttonLabel?: never;
+  buttonLeadingIcon?: never;
+  buttonTrailingIcon?: never;
+  buttonAriaLabel?: never;
+  buttonSize?: never;
+  buttonDisabled?: never;
+  buttonTitle?: never;
+  buttonVariant?: never;
+  buttonDestructive?: never;
+  buttonTo?: never;
+  buttonDownload?: never;
+  buttonTarget?: never;
+  buttonRel?: never;
+};
+
+export type PrefixedAnchorAttributesAsNever = {
+  buttonDownload?: never;
+  buttonTarget?: never;
+  buttonRel?: never;
+};
+
+export type PrefixedRouterNavigationAsNever = {
+  buttonTo?: never;
+};
 
 /**
  * Testers
@@ -174,4 +266,63 @@ propTypeTester<KdsToggleButtonProps>({
   // @ts-expect-error see above
   variant: "filled",
   leadingIcon: "ai-general",
+});
+
+// PrefixedKdsButtonProps - supports just label
+propTypeTester<PrefixedKdsButtonProps>({ buttonLabel: "foo" });
+// supports just leading icon
+propTypeTester<PrefixedKdsButtonProps>({
+  buttonLeadingIcon: "ai-general",
+  buttonAriaLabel: "bond",
+});
+// @ts-expect-error - aria-label is required for icon-only buttons
+propTypeTester<PrefixedKdsButtonProps>({
+  buttonLeadingIcon: "ai-general",
+});
+// supports both leading icon and label
+propTypeTester<PrefixedKdsButtonProps>({
+  buttonLeadingIcon: "ai-general",
+  buttonLabel: "foo",
+});
+// supports label and trailing icon
+propTypeTester<PrefixedKdsButtonProps>({
+  buttonLabel: "foo",
+  buttonTrailingIcon: "ai-general",
+});
+// supports all 3
+propTypeTester<PrefixedKdsButtonProps>({
+  buttonLeadingIcon: "ai-general",
+  buttonLabel: "foo",
+  buttonTrailingIcon: "ai-general",
+});
+// @ts-expect-error - should not allow leading and trailing icons without label
+propTypeTester<PrefixedKdsButtonProps>({
+  buttonLeadingIcon: "ai-general",
+  buttonTrailingIcon: "ai-general",
+});
+// supports destructive
+propTypeTester<PrefixedKdsButtonProps>({
+  buttonLabel: "Label",
+  buttonDestructive: true,
+});
+
+// PrefixedKdsLinkButtonProps - requires buttonTo
+propTypeTester<PrefixedKdsLinkButtonProps>({
+  buttonLabel: "Label",
+  buttonTo: "/path",
+});
+// @ts-expect-error - buttonTo is required
+propTypeTester<PrefixedKdsLinkButtonProps>({ buttonLabel: "Label" });
+// supports icon-only with buttonTo
+propTypeTester<PrefixedKdsLinkButtonProps>({
+  buttonLeadingIcon: "ai-general",
+  buttonAriaLabel: "bond",
+  buttonTo: "/path",
+});
+// supports anchor attributes
+propTypeTester<PrefixedKdsLinkButtonProps>({
+  buttonLabel: "Label",
+  buttonTo: "/path",
+  buttonTarget: "_blank",
+  buttonRel: "noopener",
 });
