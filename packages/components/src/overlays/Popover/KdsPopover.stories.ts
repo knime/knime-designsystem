@@ -176,7 +176,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   component: {
     components: { BasePopover },
     template: `
-      <BasePopover v-model="open" style="margin: 20px">
+      <BasePopover style="margin: 20px">
         Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large.
       </BasePopover>
     `,
