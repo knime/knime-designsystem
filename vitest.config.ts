@@ -11,7 +11,6 @@ export default defineConfig({
       junit: "test-results/junit.xml",
     },
     coverage: {
-      all: true,
       exclude: [
         ...coverageConfigDefaults.exclude,
         "**/.DS_Store",
