@@ -15,6 +15,14 @@ type BaseProps = {
    * Title text shown on hover
    */
   title?: string;
+  /**
+   * Optional helper or error text shown below the checkbox and referenced via aria-describedby.
+   */
+  subText?: string;
+  /**
+   * Reserve space for subtext to prevent layout shifts when helper text or errors appear.
+   */
+  preserveSubTextSpace?: boolean;
 };
 
 type WithoutLabelAndHelperText = BaseProps & {

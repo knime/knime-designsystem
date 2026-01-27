@@ -33,6 +33,12 @@ const meta: Meta<typeof KdsCheckbox> = {
     helperText: {
       control: { type: "text" },
     },
+    subText: {
+      control: { type: "text" },
+    },
+    preserveSubTextSpace: {
+      control: { type: "boolean" },
+    },
     title: {
       control: { type: "text" },
     },
@@ -113,7 +119,7 @@ export const Disabled: Story = {
 export const Error: Story = {
   args: {
     label: "Label",
-    helperText: "Error message",
+    subText: "Error message",
     modelValue: false,
     error: true,
   },
@@ -131,14 +137,15 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       modelValue: [false, true, "indeterminate"],
       disabled: [false, true],
       error: [false, true],
-      label: [null, "Label"],
+      label: [null],
     },
     {
       modelValue: [false, true, "indeterminate"],
       disabled: [false, true],
       error: [false, true],
       label: ["Label"],
-      helperText: ["Helper text"],
+      helperText: [undefined, "Helper text"],
+      subText: [undefined, "SubText"],
     },
   ],
 });
@@ -160,17 +167,18 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51573":
           {
-            helperText: "Helper text",
+            subText: "{SubText content}",
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51588":
           {
             helperText: "Helper text",
+            subText: "{SubText content}",
             disabled: true,
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51627":
           {
             error: true,
-            helperText: "Error message",
+            subText: "{Error message}",
           },
       },
     },
@@ -189,16 +197,17 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9186-197571":
           {
             helperText: "Helper text",
+            subText: "{SubText content}",
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9186-199107":
           {
-            helperText: "Helper text",
+            subText: "{SubText content}",
             disabled: true,
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51641":
           {
             error: true,
-            helperText: "Error message",
+            subText: "{Error message}",
           },
       },
     },
@@ -216,17 +225,17 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9186-200078":
           {
-            helperText: "Helper text",
+            subText: "{SubText content}",
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9186-200090":
           {
-            helperText: "Helper text",
+            subText: "{SubText content}",
             disabled: true,
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9175-181407":
           {
             error: true,
-            helperText: "Error message",
+            subText: "{Error message}",
           },
       },
     },

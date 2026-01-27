@@ -181,7 +181,12 @@ export const Disabled: Story = {
 export const Error: Story = {
   args: {
     possibleValues: [
-      { text: "Option A", id: "Option A", error: true },
+      {
+        text: "Option A",
+        id: "Option A",
+        error: true,
+        helperText: "Still grey",
+      },
       { text: "Option B", id: "Option B" },
     ],
     subText: "Selected option has an error",

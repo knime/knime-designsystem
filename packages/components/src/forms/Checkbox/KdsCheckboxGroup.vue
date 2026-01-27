@@ -85,6 +85,7 @@ const handleCheckboxChange = (index: number, checked: boolean) => {
       :sub-text="props.subText"
       :preserve-sub-text-space="props.preserveSubTextSpace"
       :error="anyOptionHasError"
+      :disabled="props.disabled"
     />
   </div>
 </template>

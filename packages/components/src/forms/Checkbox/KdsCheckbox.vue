@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { computed, useId } from "vue";
 
+defineOptions({ inheritAttrs: false });
+
 import Icon from "../../Icon/KdsIcon.vue";
+import KdsSubText from "../KdsSubText.vue";
 
 import type { KdsCheckboxProps } from "./types";
 
@@ -21,6 +24,7 @@ const emit = defineEmits<{
 }>();
 
 const id = useId();
+const descriptionId = useId();
 
 const isChecked = computed(() => props.modelValue === true);
 const isIndeterminate = computed(() => props.modelValue === "indeterminate");
@@ -41,6 +45,17 @@ const ariaChecked = computed(() => {
   return isChecked.value;
 });
 
+const ariaDescribedBy = computed(() => {
+  const ids: string[] = [];
+  if (props.helperText) {
+    ids.push(`${id}-helper`);
+  }
+  if (props.subText) {
+    ids.push(descriptionId);
+  }
+  return ids.length > 0 ? ids.join(" ") : undefined;
+});
+
 const handleClick = () => {
   if (props.disabled) {
     return;
@@ -56,6 +71,7 @@ const handleClick = () => {
 
 <template>
   <button
+    v-bind="$attrs"
     :class="{
       checkbox: true,
       checked: isChecked,
@@ -65,7 +81,7 @@ const handleClick = () => {
     }"
     :disabled="props.disabled"
     :aria-checked="ariaChecked"
-    :aria-describedby="props.helperText ? `${id}-helper` : undefined"
+    :aria-describedby="ariaDescribedBy"
     :aria-invalid="props.error"
     :title="props.title"
     type="button"
@@ -82,6 +98,15 @@ const handleClick = () => {
       </div>
     </div>
   </button>
+  <div class="subtext-wrapper">
+    <KdsSubText
+      :id="descriptionId"
+      :sub-text="props.subText"
+      :preserve-sub-text-space="props.preserveSubTextSpace"
+      :error="props.error"
+      :disabled="props.disabled"
+    />
+  </div>
 </template>
 
 <style scoped>
@@ -174,7 +199,6 @@ const handleClick = () => {
     --border: var(--kds-border-action-error);
     --icon-color: var(--kds-color-text-and-icon-danger);
     --text-color: var(--kds-color-text-and-icon-danger);
-    --helper-text-color: var(--kds-color-text-and-icon-danger);
     --bg-hover: var(--kds-color-background-danger-hover);
     --bg-active: var(--kds-color-background-danger-active);
 
@@ -183,5 +207,12 @@ const handleClick = () => {
       --bg-initial: var(--kds-color-background-danger-initial);
     }
   }
+}
+
+.subtext-wrapper {
+  padding-left: calc(
+    var(--kds-dimension-component-height-0-88x) +
+      var(--kds-spacing-container-0-37x)
+  );
 }
 </style>
