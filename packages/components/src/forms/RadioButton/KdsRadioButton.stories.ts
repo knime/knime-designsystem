@@ -165,7 +165,12 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           { parameters: { pseudo: { active: true } } },
         // Enabled :focus-visible
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2416-30882":
-          { parameters: { pseudo: { focusVisible: true } } },
+          {
+            parameters: {
+              pseudo: { focusVisible: true },
+              figmaOffset: { x: -3, y: -3 },
+            },
+          },
         // Disabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=1827-5624":
           { disabled: true },
@@ -198,7 +203,12 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           { parameters: { pseudo: { active: true } } },
         // Enabled :focus-visible
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2416-30883":
-          { parameters: { pseudo: { focusVisible: true } } },
+          {
+            parameters: {
+              pseudo: { focusVisible: true },
+              figmaOffset: { x: -3, y: -3 },
+            },
+          },
         // Disabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=1827-5629":
           { disabled: true },

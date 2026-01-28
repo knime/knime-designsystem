@@ -21,6 +21,10 @@ export type DesignsToCompare = Record<
             focus?: boolean;
             focusVisible?: boolean;
           };
+          figmaOffset?: {
+            x?: number;
+            y?: number;
+          };
         };
       }
     >;
@@ -168,6 +172,10 @@ function onPaste(event: ClipboardEvent) {
           v-for="(variantProps, figmaUrl) in set.variants"
           :key="figmaUrl"
           class="variant"
+          :style="{
+            '--figma-offset-x': `${variantProps.parameters?.figmaOffset?.x ?? 0}px`,
+            '--figma-offset-y': `${variantProps.parameters?.figmaOffset?.y ?? 0}px`,
+          }"
         >
           <img
             v-if="figmaImageByUrl(figmaUrl)"
@@ -267,8 +275,8 @@ function onPaste(event: ClipboardEvent) {
       --scale: calc(1 / v-bind(figmaImageScale));
 
       position: absolute;
-      top: var(--padding);
-      left: var(--padding);
+      top: calc(var(--padding) + var(--figma-offset-y, 0px));
+      left: calc(var(--padding) + var(--figma-offset-x, 0px));
       pointer-events: none;
       opacity: v-bind(figmaOpacity);
       transform: scale(var(--scale));
