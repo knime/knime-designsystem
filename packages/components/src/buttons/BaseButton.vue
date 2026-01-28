@@ -317,9 +317,9 @@ html.kds-legacy {
     background-color: var(--kds-color-background-success-bold-initial);
     border: var(--kds-border-action-transparent);
     transition:
-      background-color 300ms ease-out,
-      border-color 300ms ease-out,
-      color 300ms ease-out;
+      background-color 200ms ease-out,
+      border-color 200ms ease-out,
+      color 200ms ease-out;
   }
 
   &.error {

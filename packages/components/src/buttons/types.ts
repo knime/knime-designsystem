@@ -178,20 +178,8 @@ type KdsProgressButtonIconOnly = {
   ariaLabel: string;
 };
 
-type KdsProgressButtonBehaviorProps = {
-  /**
-   * Async action handler.
-   * The button will automatically switch through progress/success/error states.
-   * The returned promise resolving indicates a successful action and will
-   * lead to the "success" state. Throw an error or return a rejected promise
-   * to indicate failure; this will move the button into the "error" state.
-   */
-  action: () => Promise<void>;
-};
-
 export type KdsProgressButtonProps = KdsProgressButtonCommonProps &
-  (KdsProgressButtonIconWithLabel | KdsProgressButtonIconOnly) &
-  KdsProgressButtonBehaviorProps;
+  (KdsProgressButtonIconWithLabel | KdsProgressButtonIconOnly);
 
 /**
  * Testers
@@ -287,24 +275,15 @@ propTypeTester<KdsInfoToggleButtonProps>({ hidden: true });
 propTypeTester<KdsProgressButtonProps>({
   label: "Label",
   leadingIcon: "ai-general",
-  action: async () => {},
 });
 
 // ProgressButton supports icon-only variant
 propTypeTester<KdsProgressButtonProps>({
   leadingIcon: "ai-general",
   ariaLabel: "Icon only progress button",
-  action: async () => {},
 });
 
 // @ts-expect-error - aria-label is required for icon-only buttons
 propTypeTester<KdsProgressButtonProps>({
-  leadingIcon: "ai-general",
-  action: async () => {},
-});
-
-// @ts-expect-error - action is required
-propTypeTester<KdsProgressButtonProps>({
-  label: "Label",
   leadingIcon: "ai-general",
 });
