@@ -2,10 +2,6 @@ export type KdsCheckboxValue = boolean | "indeterminate";
 
 type BaseProps = {
   /**
-   * The checked or indeterminate state of the checkbox
-   */
-  modelValue?: KdsCheckboxValue;
-  /**
    * Whether the checkbox is disabled
    */
   disabled?: boolean;

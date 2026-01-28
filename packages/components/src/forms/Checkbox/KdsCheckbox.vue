@@ -3,15 +3,12 @@ import BaseCheckbox from "./BaseCheckbox.vue";
 import type { KdsCheckboxProps, KdsCheckboxValue } from "./types";
 
 const props = withDefaults(defineProps<KdsCheckboxProps>(), {
-  modelValue: false,
   disabled: false,
   error: false,
   preserveSubTextSpace: false,
 });
 
-const modelValue = defineModel<KdsCheckboxValue>({
-  default: false,
-});
+const modelValue = defineModel<KdsCheckboxValue>({ default: false });
 </script>
 
 <template>
