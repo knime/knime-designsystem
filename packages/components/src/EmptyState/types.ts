@@ -1,8 +1,8 @@
 import type {
+  PrefixedAnchorAttributesAsNever,
+  PrefixedButtonPropsAsNever,
   PrefixedKdsButtonProps,
   PrefixedKdsLinkButtonProps,
-  PrefixedButtonPropsAsNever,
-  PrefixedAnchorAttributesAsNever,
   PrefixedRouterNavigationAsNever,
 } from "../Button/types";
 

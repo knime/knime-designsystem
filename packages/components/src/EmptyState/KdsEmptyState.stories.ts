@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { fn } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
@@ -10,7 +11,6 @@ import {
 } from "../test-utils/storybook";
 
 import KdsEmptyState from "./KdsEmptyState.vue";
-import { fn } from "storybook/test";
 
 type Story = StoryObj<typeof KdsEmptyState>;
 
@@ -19,6 +19,26 @@ const meta: Meta<typeof KdsEmptyState> = {
   title: "Components/KdsEmptyState",
   tags: ["autodocs"],
   parameters: {
+    docs: {
+      description: {
+        component:
+          "Use `KdsEmptyState` to communicate that a view has *no content to show yet* (e.g. an empty list, nothing selected yet).\n\n" +
+          "**How it works**\n" +
+          "- Provide a `headline` (required) and optionally a `description`.\n" +
+          "- Optionally provide a primary next step via the button props. For details about variants/icons/behavior, see the `KdsButton` and `KdsLinkButton` stories.\n" +
+          "- If you set `buttonTo`, the component renders a link button; otherwise it renders an action button and calls `onButtonClick`.\n\n" +
+          "**Example**\n" +
+          "```vue\n" +
+          "<KdsEmptyState\n" +
+          '  headline="No entries in this list."\n' +
+          '  description="Create your first item to get started."\n' +
+          '  button-label="Create item"\n' +
+          '  button-variant="outlined"\n' +
+          '  :on-button-click="onCreate"\n' +
+          "/>\n" +
+          "```\n",
+      },
+    },
     design: {
       type: "figma",
       url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6088-32811&m=dev",
@@ -32,6 +52,11 @@ const meta: Meta<typeof KdsEmptyState> = {
     description: {
       control: "text",
       description: "Optional description text displayed below the headline",
+    },
+    onButtonClick: {
+      description:
+        "Callback for action button clicks (used when `buttonTo` is not set).",
+      table: { category: "Events" },
     },
     buttonTo: {
       control: "text",
@@ -85,6 +110,14 @@ const meta: Meta<typeof KdsEmptyState> = {
 export default meta;
 
 export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Minimal setup: just provide a `headline` to explain why the view is empty.",
+      },
+    },
+  },
   args: {
     headline: "No entries in this list.",
   },
@@ -98,6 +131,14 @@ export const WithDescription: Story = {
 };
 
 export const WithButtonAction: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Add an action button to offer a next step (e.g. create, import, refresh). This uses `onButtonClick` because `buttonTo` is not set.",
+      },
+    },
+  },
   args: {
     headline: "No entries in this list.",
     description: "Here is a smaller description of the state.",
@@ -107,6 +148,14 @@ export const WithButtonAction: Story = {
 };
 
 export const WithButtonLink: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Use a link button for navigation by setting `buttonTo` (e.g. to a documentation page or another view).",
+      },
+    },
+  },
   args: {
     headline: "No entries in this list.",
     description: "Here is a smaller description of the state.",

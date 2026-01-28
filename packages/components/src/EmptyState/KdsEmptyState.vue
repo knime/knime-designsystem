@@ -27,35 +27,43 @@ const buttonType = computed(() => {
   return KdsButton;
 });
 
+const mapProps = (
+  mappings: ReadonlyArray<readonly [string, keyof KdsEmptyStateProps]>,
+) => {
+  return Object.fromEntries(
+    mappings
+      .map(([targetKey, sourceKey]) => [targetKey, props[sourceKey]] as const)
+      .filter(([, value]) => value !== undefined),
+  );
+};
+
 const buttonProps = computed(() => {
   if (!hasButton.value) {
     return {};
   }
 
-  // FIXME: check if this can be done more dynamic with a mapping
+  const baseProps = mapProps([
+    ["label", "buttonLabel"],
+    ["leadingIcon", "buttonLeadingIcon"],
+    ["trailingIcon", "buttonTrailingIcon"],
+    ["ariaLabel", "buttonAriaLabel"],
+    ["disabled", "buttonDisabled"],
+    ["variant", "buttonVariant"],
+  ]);
 
-  const baseProps = {
-    label: props.buttonLabel,
-    leadingIcon: props.buttonLeadingIcon,
-    trailingIcon: props.buttonTrailingIcon,
-    ariaLabel: props.buttonAriaLabel,
-    disabled: props.buttonDisabled,
-    variant: props.buttonVariant,
-  };
-
-  if (buttonType.value === KdsLinkButton) {
-    return {
-      ...baseProps,
-      to: props.buttonTo,
-      target: props.buttonTarget,
-      rel: props.buttonRel,
-      download: props.buttonDownload,
-    };
-  } else {
-    return {
-      ...baseProps,
-    };
+  if (buttonType.value !== KdsLinkButton) {
+    return baseProps;
   }
+
+  return {
+    ...baseProps,
+    ...mapProps([
+      ["to", "buttonTo"],
+      ["target", "buttonTarget"],
+      ["rel", "buttonRel"],
+      ["download", "buttonDownload"],
+    ]),
+  };
 });
 </script>
 
