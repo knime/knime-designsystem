@@ -9,7 +9,6 @@ import type { BaseCheckboxProps, KdsCheckboxValue } from "./types";
 defineOptions({ inheritAttrs: false });
 
 const props = withDefaults(defineProps<BaseCheckboxProps>(), {
-  modelValue: false,
   disabled: false,
   error: false,
 });
