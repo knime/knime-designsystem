@@ -1,3 +1,4 @@
+import { ref } from "vue";
 import type { FunctionalComponent } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { expect, userEvent, waitFor, within } from "storybook/test";
@@ -15,22 +16,7 @@ import KdsProgressButton from "./KdsProgressButton.vue";
 import { kdsButtonVariants } from "./constants.ts";
 
 const ACTION_TIMEOUT = 900;
-const QUICK_ACTION_TIMEOUT = 100;
-const successAction = async () => {
-  await new Promise((resolve) => {
-    setTimeout(resolve, ACTION_TIMEOUT);
-  });
-};
-const quickSuccessAction = async () => {
-  await new Promise((resolve) => {
-    setTimeout(resolve, QUICK_ACTION_TIMEOUT);
-  });
-};
-const errorAction = async () => {
-  await new Promise((_, reject) => {
-    setTimeout(reject, ACTION_TIMEOUT);
-  });
-};
+const FEEDBACK_TIMEOUT = 900;
 
 const meta: Meta<typeof KdsProgressButton> = {
   title: "Components/Buttons/KdsProgressButton",
@@ -40,7 +26,7 @@ const meta: Meta<typeof KdsProgressButton> = {
     docs: {
       description: {
         component:
-          'State model:\n\n- `default`: normal button, clickable.\n- `progress`: shows progress indicator and becomes non-interactive while the action promise is pending.\n- `success`: shows success feedback briefly after the action resolves.\n- `error`: shows error feedback briefly after the action rejects.\n\nRecommended usage:\n\n- Keep the action duration short (ideally <= 3–5 seconds).\n- For longer running tasks, use a more detailed loading/progress state (e.g. a dedicated progress indicator or page-level loading UI) instead of keeping the user on a single button-level spinner.\n\nFor icon-only variants, make sure the accessible name reflects the current state (e.g. "Save" → "Saving…" → "Saved" / "Save failed").',
+          'State model (controlled via `v-model:state`):\n\n- `default`: normal button, clickable.\n- `progress`: shows progress indicator and becomes non-interactive.\n- `success`: shows success feedback (visual only).\n- `error`: shows error feedback (visual only).\n\nRecommended usage:\n\n- Treat this component as a *controlled* component. It does not run an async action itself. Your click handler should update the state (e.g. `default` → `progress` → `success`/`error` → `default`).\n- Keep the progress duration short (ideally <= 3–5 seconds). For longer running tasks, use a more detailed loading/progress state (e.g. a dedicated progress indicator or page-level loading UI) instead of keeping the user on a single button-level spinner.\n\nFor icon-only variants, make sure the accessible name reflects the current state (e.g. "Save" → "Saving…" → "Saved" / "Save failed").',
       },
     },
     design: {
@@ -71,7 +57,7 @@ const meta: Meta<typeof KdsProgressButton> = {
     },
     state: {
       description:
-        "Visual state of the progress button (see state model in the component docs).",
+        "Visual state of the progress button (controlled model; see state model in the component docs).",
       control: { type: "select" },
       options: ["default", "progress", "success", "error"],
       table: {
@@ -111,36 +97,17 @@ const meta: Meta<typeof KdsProgressButton> = {
         defaultValue: { summary: "false" },
       },
     },
-    action: {
-      description:
-        "Required async click handler. While the promise is pending, the button switches to the progress state; on resolve it shows success briefly; on reject it shows error briefly.",
-      name: "action",
-      control: { type: "select" },
-      options: [
-        "successful dummy function",
-        "quick successful dummy function",
-        "failing dummy function",
-      ],
-      mapping: {
-        "successful dummy function": successAction,
-        "quick successful dummy function": quickSuccessAction,
-        "failing dummy function": errorAction,
-      },
-      table: {
-        category: "Props",
-        type: { summary: "() => Promise<unknown>" },
-      },
-    },
   },
   args: {
     state: "default",
-    action: "successful dummy function",
     label: "{Label}",
     leadingIcon: "placeholder",
     ariaLabel: "",
     variant: "filled",
     size: "medium",
     disabled: false,
+    // eslint-disable-next-line no-console
+    onClick: () => console.log("KdsProgressButton clicked"),
   },
 };
 
@@ -173,10 +140,38 @@ export const IconOnly: Story = {
   },
 };
 
-export const WithSuccessAction: Story = {
+const sleep = (ms: number): Promise<void> =>
+  new Promise((resolve) => {
+    window.setTimeout(resolve, ms);
+  });
+
+export const ControlledSuccessFlow: Story = {
+  name: "Controlled success flow",
+  render: (args) => ({
+    components: { KdsProgressButton },
+    setup() {
+      const state = ref(args.state);
+      const leadingIconFallback = args.leadingIcon ?? "placeholder";
+      const onClick = async () => {
+        if (state.value !== "default") {
+          return;
+        }
+
+        state.value = "progress";
+        await sleep(ACTION_TIMEOUT);
+        state.value = "success";
+        await sleep(FEEDBACK_TIMEOUT);
+        state.value = "default";
+      };
+
+      return { args, onClick, state, leadingIconFallback };
+    },
+    template:
+      '<KdsProgressButton v-bind="args" :leading-icon="leadingIconFallback" v-model:state="state" @click="onClick" />',
+  }),
   args: {
     label: "Click me",
-    action: successAction,
+    leadingIcon: "placeholder",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -185,7 +180,9 @@ export const WithSuccessAction: Story = {
     await expect(button).toHaveAttribute("data-kds-progress-state", "default");
 
     await userEvent.click(button);
-    await expect(button).toHaveAttribute("data-kds-progress-state", "progress");
+    await waitFor(() =>
+      expect(button).toHaveAttribute("data-kds-progress-state", "progress"),
+    );
 
     // While in progress, subsequent clicks should be ignored.
     await userEvent.click(button);
@@ -198,15 +195,38 @@ export const WithSuccessAction: Story = {
     await waitFor(
       () =>
         expect(button).toHaveAttribute("data-kds-progress-state", "default"),
-      { timeout: 2000 },
+      { timeout: 2500 },
     );
   },
 };
 
-export const WithErrorAction: Story = {
+export const ControlledErrorFlow: Story = {
+  name: "Controlled error flow",
+  render: (args) => ({
+    components: { KdsProgressButton },
+    setup() {
+      const state = ref(args.state);
+      const leadingIconFallback = args.leadingIcon ?? "placeholder";
+      const onClick = async () => {
+        if (state.value !== "default") {
+          return;
+        }
+
+        state.value = "progress";
+        await sleep(ACTION_TIMEOUT);
+        state.value = "error";
+        await sleep(FEEDBACK_TIMEOUT);
+        state.value = "default";
+      };
+
+      return { args, onClick, state, leadingIconFallback };
+    },
+    template:
+      '<KdsProgressButton v-bind="args" :leading-icon="leadingIconFallback" v-model:state="state" @click="onClick" />',
+  }),
   args: {
     label: "Click me",
-    action: errorAction,
+    leadingIcon: "placeholder",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -215,7 +235,9 @@ export const WithErrorAction: Story = {
     await expect(button).toHaveAttribute("data-kds-progress-state", "default");
 
     await userEvent.click(button);
-    await expect(button).toHaveAttribute("data-kds-progress-state", "progress");
+    await waitFor(() =>
+      expect(button).toHaveAttribute("data-kds-progress-state", "progress"),
+    );
 
     await waitFor(() =>
       expect(button).toHaveAttribute("data-kds-progress-state", "error"),

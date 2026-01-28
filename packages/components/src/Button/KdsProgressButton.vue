@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
-import { useTimeoutFn } from "@vueuse/core";
+import { computed } from "vue";
 
 import KdsIcon from "../Icon/KdsIcon.vue";
 import type { KdsIconSize } from "../Icon/types.ts";
@@ -12,15 +11,21 @@ import type {
   KdsProgressButtonState,
 } from "./types.ts";
 
-const PROGRESS_DELAY_MS = 200;
-const SUCCESS_DURATION_MS = 750;
-const ERROR_DURATION_MS = 1000;
-
 const props = withDefaults(defineProps<KdsProgressButtonProps>(), {
   variant: "filled",
   size: "medium",
   disabled: false,
 });
+
+const emit = defineEmits<{
+  /**
+   * Fired when the button is clicked.
+   *
+   * This event is only emitted when `state` is `default`.
+   * Clicks while in `progress`, `success` or `error` are ignored.
+   */
+  click: [event: MouseEvent];
+}>();
 
 const state = defineModel<KdsProgressButtonState>("state", {
   default: "default",
@@ -33,52 +38,14 @@ const iconSize = computed<KdsIconSize>(() => {
   return props.size;
 });
 
-const showSpinner = ref(false);
-const { start: startSpinnerDelay, stop: stopSpinnerDelay } = useTimeoutFn(
-  () => {
-    showSpinner.value = true;
-  },
-  PROGRESS_DELAY_MS,
-  { immediate: false },
-);
+function onClick(event: MouseEvent) {
+  event.preventDefault();
 
-watch(
-  () => state.value,
-  (nextState) => {
-    stopSpinnerDelay();
-    showSpinner.value = false;
-
-    if (nextState === "progress") {
-      startSpinnerDelay();
-    }
-  },
-  { immediate: true },
-);
-
-function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => {
-    window.setTimeout(resolve, ms);
-  });
-}
-
-async function onClick() {
   if (state.value !== "default") {
     return;
   }
 
-  state.value = "progress";
-
-  try {
-    await props.action();
-
-    state.value = "success";
-    await sleep(SUCCESS_DURATION_MS);
-    state.value = "default";
-  } catch {
-    state.value = "error";
-    await sleep(ERROR_DURATION_MS);
-    state.value = "default";
-  }
+  emit("click", event);
 }
 
 const baseButtonProps = computed(() => ({
@@ -103,10 +70,10 @@ const baseButtonProps = computed(() => ({
   >
     <template #leading>
       <span :class="['leading', iconSize]">
-        <span class="leading-icon" :data-visible="!showSpinner">
+        <span class="leading-icon" :data-visible="state !== 'progress'">
           <KdsIcon :name="props.leadingIcon" :size="iconSize" />
         </span>
-        <span class="spinner" :data-visible="showSpinner">
+        <span class="spinner" :data-visible="state === 'progress'">
           <KdsLoadingSpinner
             :size="iconSize"
             :style="props.variant === 'filled' ? 'onPrimary' : 'onSurface'"
