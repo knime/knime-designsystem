@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { fn } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
@@ -26,7 +25,7 @@ const meta: Meta<typeof KdsEmptyState> = {
           "**How it works**\n" +
           "- Provide a `headline` (required) and optionally a `description`.\n" +
           "- Optionally provide a primary next step via the button props. For details about variants/icons/behavior, see the `KdsButton` and `KdsLinkButton` stories.\n" +
-          "- If you set `buttonTo`, the component renders a link button; otherwise it renders an action button and calls `onButtonClick`.\n\n" +
+          "- If you set `buttonTo`, the component renders a link button; otherwise it renders an action button. In both cases it emits `buttonClick` when the button is clicked.\n\n" +
           "**Example**\n" +
           "```vue\n" +
           "<KdsEmptyState\n" +
@@ -34,7 +33,7 @@ const meta: Meta<typeof KdsEmptyState> = {
           '  description="Create your first item to get started."\n' +
           '  button-label="Create item"\n' +
           '  button-variant="outlined"\n' +
-          '  :on-button-click="onCreate"\n' +
+          '  @button-click="onCreate"\n' +
           "/>\n" +
           "```\n",
       },
@@ -53,15 +52,11 @@ const meta: Meta<typeof KdsEmptyState> = {
       control: "text",
       description: "Optional description text displayed below the headline",
     },
-    onButtonClick: {
-      description:
-        "Callback for action button clicks (used when `buttonTo` is not set).",
-      table: { category: "Events" },
-    },
     buttonTo: {
       control: "text",
       description:
         "Optional link URL. When provided, a link button will be rendered instead of an action button.",
+      table: { category: "Link Button Props" },
     },
     buttonLabel: {
       control: "text",
@@ -75,35 +70,41 @@ const meta: Meta<typeof KdsEmptyState> = {
       table: { category: "Button Props" },
     },
     buttonDestructive: {
+      description:
+        "Marks the button as destructive (use for dangerous/irreversible actions).",
       control: "boolean",
       table: { category: "Button Props" },
     },
     buttonDisabled: {
+      description: "Disables the button.",
       control: "boolean",
       table: { category: "Button Props" },
     },
     buttonLeadingIcon: {
       control: { type: "select" },
+      description:
+        "Optional leading icon. For icon-only buttons, set `buttonAriaLabel`.",
       options: [undefined, ...iconNames],
       table: { category: "Button Props" },
     },
     buttonTrailingIcon: {
       control: { type: "select" },
+      description:
+        "Optional trailing icon (requires `buttonLabel`, no trailing-icon-only button).",
       options: [undefined, ...iconNames],
       table: { category: "Button Props" },
     },
     buttonAriaLabel: {
+      description:
+        "Accessible label for icon-only buttons (and to override the accessible name).",
       control: "text",
       table: { category: "Button Props" },
     },
     buttonTitle: {
+      description: "Optional tooltip text (HTML `title` attribute).",
       control: "text",
       table: { category: "Button Props" },
     },
-  },
-  args: {
-    headline: "No entries in this list.",
-    onButtonClick: fn(),
   },
 };
 
@@ -114,7 +115,7 @@ export const Default: Story = {
     docs: {
       description: {
         story:
-          "Minimal setup: just provide a `headline` to explain why the view is empty.",
+          " Use when the empty state is self-explanatory and requires no user action (e.g. list that is often empty).",
       },
     },
   },
@@ -124,18 +125,26 @@ export const Default: Story = {
 };
 
 export const WithDescription: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          " Use when users may need context to understand why the list is empty or what kind of content will appear here.",
+      },
+    },
+  },
   args: {
     headline: "No entries in this list.",
     description: "Here is a smaller description of the state.",
   },
 };
 
-export const WithButtonAction: Story = {
+export const WithActionButton: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          "Add an action button to offer a next step (e.g. create, import, refresh). This uses `onButtonClick` because `buttonTo` is not set.",
+          " Use when the empty state should guide the user toward a next step, such as creating, adding, or configuring something.",
       },
     },
   },
@@ -147,7 +156,7 @@ export const WithButtonAction: Story = {
   },
 };
 
-export const WithButtonLink: Story = {
+export const WithLinkButton: Story = {
   parameters: {
     docs: {
       description: {
@@ -165,15 +174,15 @@ export const WithButtonLink: Story = {
   },
 };
 
-export const ButtonActionOnly: Story = {
-  args: {
-    headline: "No entries in this list.",
-    buttonLabel: "Create Item",
-    buttonVariant: "outlined",
+export const LinkButtonOnly: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Render a link button without description to keep the focus on the primary next step.",
+      },
+    },
   },
-};
-
-export const ButtonLinkOnly: Story = {
   args: {
     headline: "No entries in this list.",
     buttonLabel: "Learn More",
