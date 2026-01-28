@@ -13,6 +13,8 @@ const props = withDefaults(defineProps<BaseButtonPropsWithComponent>(), {
   component: "button",
   size: "medium",
   destructive: false,
+  success: false,
+  error: false,
   disabled: false,
   toggled: false,
 });
@@ -28,6 +30,8 @@ const classes = computed(() => [
   { destructive: props.destructive },
   { disabled: props.disabled },
   { toggled: props.toggled },
+  { success: props.success },
+  { error: props.error },
 ]);
 
 const iconSize = computed(() => {
@@ -54,11 +58,13 @@ function onClick(e: MouseEvent) {
     :aria-label="props.ariaLabel"
     @click="onClick($event)"
   >
-    <KdsIcon
-      v-if="props.leadingIcon"
-      :name="props.leadingIcon"
-      :size="iconSize"
-    />
+    <slot name="leading">
+      <KdsIcon
+        v-if="props.leadingIcon"
+        :name="props.leadingIcon"
+        :size="iconSize"
+      />
+    </slot>
     <span v-if="props.label" class="label">{{ props.label }}</span>
     <KdsIcon
       v-if="props.trailingIcon && props.label"
@@ -111,7 +117,7 @@ html.kds-legacy {
       background-color: var(--kds-color-background-disabled-primary);
     }
 
-    &:not(.disabled) {
+    &:not(.disabled, .success, .error) {
       &:hover {
         background-color: var(--kds-color-background-primary-bold-hover);
       }
@@ -130,7 +136,7 @@ html.kds-legacy {
         background-color: var(--kds-color-background-disabled-danger);
       }
 
-      &:not(.disabled) {
+      &:not(.disabled, .success, .error) {
         &:hover {
           background-color: var(--kds-color-background-danger-bold-hover);
         }
@@ -152,7 +158,7 @@ html.kds-legacy {
       border: var(--kds-border-action-disabled);
     }
 
-    &:not(.disabled) {
+    &:not(.disabled, .success, .error) {
       &:hover {
         background-color: var(--kds-color-background-neutral-hover);
       }
@@ -171,7 +177,7 @@ html.kds-legacy {
         border: var(--kds-border-action-disabled);
       }
 
-      &:not(.disabled) {
+      &:not(.disabled, .success, .error) {
         &:hover {
           background-color: var(--kds-color-background-danger-hover);
         }
@@ -192,7 +198,7 @@ html.kds-legacy {
       color: var(--kds-color-text-and-icon-disabled);
     }
 
-    &:not(.disabled) {
+    &:not(.disabled, .success, .error) {
       &:hover {
         background-color: var(--kds-color-background-neutral-hover);
       }
@@ -209,7 +215,7 @@ html.kds-legacy {
         color: var(--kds-color-text-and-icon-disabled);
       }
 
-      &:not(.disabled) {
+      &:not(.disabled, .success, .error) {
         &:hover {
           background-color: var(--kds-color-background-danger-hover);
         }
@@ -230,7 +236,7 @@ html.kds-legacy {
       color: var(--kds-color-text-and-icon-disabled);
     }
 
-    &:not(.disabled) {
+    &:not(.disabled, .success, .error) {
       &:hover {
         background-color: var(--kds-color-background-selected-hover);
       }
@@ -304,6 +310,26 @@ html.kds-legacy {
     & .label {
       padding: 0 var(--kds-spacing-container-0-25x);
     }
+  }
+
+  &.success {
+    color: var(--kds-color-text-and-icon-success-inverted);
+    background-color: var(--kds-color-background-success-bold-initial);
+    border: var(--kds-border-action-transparent);
+    transition:
+      background-color 200ms ease-out,
+      border-color 200ms ease-out,
+      color 200ms ease-out;
+  }
+
+  &.error {
+    color: var(--kds-color-text-and-icon-danger-inverted);
+    background-color: var(--kds-color-background-danger-bold-initial);
+    border: var(--kds-border-action-transparent);
+    transition:
+      background-color 200ms ease-out,
+      border-color 200ms ease-out,
+      color 200ms ease-out;
   }
 }
 </style>

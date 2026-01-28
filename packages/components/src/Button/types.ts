@@ -49,6 +49,20 @@ type WithDestructive = {
   destructive?: boolean;
 };
 
+type WithSuccess = {
+  /**
+   * If set to true, the button will be styled as a success/positive action.
+   */
+  success?: boolean;
+};
+
+type WithError = {
+  /**
+   * If set to true, the button will be styled as an error/negative action.
+   */
+  error?: boolean;
+};
+
 type WithRouterNavigation = {
   /**
    * Route Location the link should navigate to when clicked on; passed to RouterLink/NuxtLink component if globally available
@@ -92,6 +106,8 @@ export type BaseButtonProps = CommonProps &
   WithVariant<KdsButtonVariant> &
   WithLabelAndIcons &
   WithDestructive &
+  WithSuccess &
+  WithError &
   WithToggled;
 
 /**
@@ -112,6 +128,36 @@ export type KdsLinkButtonProps = CommonProps &
 export type KdsToggleButtonProps = CommonProps &
   Partial<WithVariant<KdsToggleButtonVariant>> &
   WithLabelAndIcons;
+
+/**
+ * Progress button types
+ */
+export type KdsProgressButtonState =
+  | "default"
+  | "progress"
+  | "success"
+  | "error";
+
+type KdsProgressButtonCommonProps = {
+  size?: KdsSize;
+  variant?: KdsButtonVariant;
+  disabled?: boolean;
+};
+
+type KdsProgressButtonIconWithLabel = {
+  label: string;
+  leadingIcon: IconName;
+  ariaLabel?: never;
+};
+
+type KdsProgressButtonIconOnly = {
+  label?: never;
+  leadingIcon: IconName;
+  ariaLabel: string;
+};
+
+export type KdsProgressButtonProps = KdsProgressButtonCommonProps &
+  (KdsProgressButtonIconWithLabel | KdsProgressButtonIconOnly);
 
 /**
  * Testers
@@ -160,6 +206,20 @@ propTypeTester<BaseButtonProps>({
 // KdsButton supports "destructive" prop
 propTypeTester<KdsButtonProps>({ label: "Label", destructive: true });
 
+// BaseButton supports "success" prop
+propTypeTester<BaseButtonProps>({
+  variant: "filled",
+  label: "Label",
+  success: true,
+});
+
+// BaseButton supports "error" prop
+propTypeTester<BaseButtonProps>({
+  variant: "filled",
+  label: "Label",
+  error: true,
+});
+
 // @ts-expect-error - KdsLinkButton should require "to" prop
 propTypeTester<KdsLinkButtonProps>({ label: "Label" });
 
@@ -173,5 +233,22 @@ propTypeTester<KdsToggleButtonProps>({
 propTypeTester<KdsToggleButtonProps>({
   // @ts-expect-error see above
   variant: "filled",
+  leadingIcon: "ai-general",
+});
+
+// ProgressButton supports label + icon
+propTypeTester<KdsProgressButtonProps>({
+  label: "Label",
+  leadingIcon: "ai-general",
+});
+
+// ProgressButton supports icon-only variant
+propTypeTester<KdsProgressButtonProps>({
+  leadingIcon: "ai-general",
+  ariaLabel: "Icon only progress button",
+});
+
+// @ts-expect-error - aria-label is required for icon-only buttons
+propTypeTester<KdsProgressButtonProps>({
   leadingIcon: "ai-general",
 });
