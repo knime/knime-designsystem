@@ -92,6 +92,50 @@ export const Default: Story = {
   },
 };
 
+export const DefaultHover: Story = {
+  parameters: {
+    docs: false,
+    pseudo: { hover: true },
+  },
+  args: {
+    text: "Label",
+    modelValue: false,
+  },
+};
+
+export const DefaultActive: Story = {
+  parameters: {
+    docs: false,
+    pseudo: { active: true },
+  },
+  args: {
+    text: "Label",
+    modelValue: false,
+  },
+};
+
+export const DefaultFocus: Story = {
+  parameters: {
+    docs: false,
+    pseudo: { focus: true },
+  },
+  args: {
+    text: "Label",
+    modelValue: false,
+  },
+};
+
+export const DefaultFocusVisible: Story = {
+  parameters: {
+    docs: false,
+    pseudo: { focusVisible: true },
+  },
+  args: {
+    text: "Label",
+    modelValue: false,
+  },
+};
+
 export const Selected: Story = {
   args: {
     text: "Label",
@@ -151,7 +195,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       props: {
         text: "Label",
         modelValue: false,
-        helperText: "{HelperText content}",
+        helperText: "{SubText content}",
       },
       variants: {
         // Enabled
@@ -181,7 +225,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       props: {
         text: "Label",
         modelValue: true,
-        helperText: "{HelperText content}",
+        helperText: "{SubText content}",
       },
       variants: {
         // Enabled
