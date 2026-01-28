@@ -10,8 +10,9 @@ const props = withDefaults(defineProps<KdsVariableToggleButtonProps>(), {
   inSet: false,
   outSet: false,
   error: false,
-  pressed: false,
 });
+
+const modelValue = defineModel<boolean>({ default: false });
 
 const iconState = computed(() => {
   if (props.inSet && props.outSet) {
@@ -71,13 +72,14 @@ const title = computed(() => {
       'variable-toggle-button': true,
       disabled: props.disabled,
       error: props.error,
-      'pressed-or-set': props.pressed || props.inSet || props.outSet,
+      'pressed-or-set': modelValue || props.inSet || props.outSet,
     }"
     :disabled="props.disabled"
     :title="title"
     :aria-label="title"
-    :aria-pressed="props.pressed"
+    :aria-pressed="modelValue"
     type="button"
+    @click="modelValue = !modelValue"
   >
     <KdsIcon :name="iconName" size="xsmall" />
   </button>

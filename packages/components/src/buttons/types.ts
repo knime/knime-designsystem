@@ -112,8 +112,6 @@ export type KdsToggleButtonProps = CommonProps &
   Partial<WithVariant<KdsToggleButtonVariant>> &
   WithLabelAndIcons;
 
-export type KdsVariableToggleButtonIcon = "none" | "in" | "out" | "in-out";
-
 export type KdsVariableToggleButtonProps = {
   disabled?: boolean;
   /**
@@ -128,10 +126,6 @@ export type KdsVariableToggleButtonProps = {
    * If set to true, the button indicates an error state.
    */
   error?: boolean;
-  /**
-   * If set to true, indicates that the button is currently pressed (e.g. popover open).
-   */
-  pressed?: boolean;
 };
 
 export type KdsInfoToggleButtonProps = {
@@ -213,14 +207,13 @@ propTypeTester<KdsToggleButtonProps>({
   leadingIcon: "ai-general",
 });
 
-// KdsVariableToggleButton supports inSet/outSet, error, disabled and pressed
+// KdsVariableToggleButton supports inSet/outSet, error and disabled
 propTypeTester<KdsVariableToggleButtonProps>({});
 propTypeTester<KdsVariableToggleButtonProps>({ inSet: true });
 propTypeTester<KdsVariableToggleButtonProps>({ outSet: true });
 propTypeTester<KdsVariableToggleButtonProps>({ inSet: true, outSet: true });
 propTypeTester<KdsVariableToggleButtonProps>({ disabled: true });
 propTypeTester<KdsVariableToggleButtonProps>({ error: true });
-propTypeTester<KdsVariableToggleButtonProps>({ pressed: true });
 
 // KdsInfoToggleButton supports disabled
 propTypeTester<KdsInfoToggleButtonProps>({ disabled: true });

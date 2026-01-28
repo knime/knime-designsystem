@@ -28,18 +28,18 @@ const meta: Meta<typeof KdsVariableToggleButton> = {
     },
   },
   argTypes: {
+    modelValue: { control: "boolean" },
     disabled: { control: "boolean" },
     inSet: { control: "boolean" },
     outSet: { control: "boolean" },
     error: { control: "boolean" },
-    pressed: { control: "boolean" },
   },
   args: {
+    modelValue: false,
     disabled: false,
     inSet: false,
     outSet: false,
     error: false,
-    pressed: false,
   },
 };
 
@@ -107,7 +107,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       outSet: [false, true],
       error: [false, true],
       disabled: [false, true],
-      pressed: [false, true],
+      modelValue: [false, true],
     },
   ],
 });
