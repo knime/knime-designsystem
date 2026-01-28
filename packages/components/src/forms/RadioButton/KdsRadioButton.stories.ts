@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
-import { fn } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
@@ -22,10 +21,6 @@ const meta: Meta<typeof KdsRadioButton> = {
       description:
         "Whether the radio button is selected (true) or not (false). Radio buttons don't toggle back to false on click.",
       table: { category: "Model" },
-    },
-    "onUpdate:modelValue": {
-      table: { category: "Model" },
-      description: "Emitted when the model changes (v-model update).",
     },
     text: {
       control: { type: "text" },
@@ -51,7 +46,11 @@ const meta: Meta<typeof KdsRadioButton> = {
     },
   },
   args: {
-    "onUpdate:modelValue": fn(),
+    modelValue: false,
+    text: "Label",
+    helperText: "",
+    disabled: false,
+    error: false,
   },
   decorators: [
     (story) => {
