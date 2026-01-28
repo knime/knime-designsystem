@@ -288,6 +288,14 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2408-14147&m=dev":
           {},
+        // Focus (Figma bounding box includes outline)
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2416-31010&p=f&m=dev":
+          {
+            parameters: {
+              pseudo: { focusVisible: true },
+              figmaOffset: { x: -3, y: -3 },
+            },
+          },
       },
     },
     Muted: {
@@ -358,6 +366,14 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2082-20723&m=dev":
           {},
+        // Error + :focus-visible (Accessibility example)
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2416-31011&m=dev":
+          {
+            parameters: {
+              pseudo: { focusVisible: true },
+              figmaOffset: { x: -3, y: -3 },
+            },
+          },
       },
     },
     ErrorMuted: {
