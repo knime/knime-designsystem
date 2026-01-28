@@ -46,6 +46,7 @@ const modelValue = defineModel<boolean>({ default: false });
   justify-content: center;
   width: var(--kds-dimension-component-width-0-75x);
   height: var(--kds-dimension-component-height-0-75x);
+  padding: 0;
   color: var(--icon-color);
   cursor: pointer;
   background-color: var(--bg-initial);
