@@ -4,8 +4,8 @@ import { fn } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
-import KdsButton from "../../buttons/KdsButton.vue";
-import { veryLongText } from "../../test-utils/veryLongText";
+import KdsButton from "../buttons/KdsButton.vue";
+import { veryLongText } from "../test-utils/veryLongText";
 
 import KdsModal from "./KdsModal.vue";
 import {
@@ -16,7 +16,7 @@ import {
 } from "./constants";
 
 const meta: Meta<typeof KdsModal> = {
-  title: "Components/overlays/KdsModal",
+  title: "Components/Modal/KdsModal",
   component: KdsModal,
   tags: ["autodocs"],
   parameters: {
