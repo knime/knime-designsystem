@@ -29,17 +29,19 @@ const meta: Meta<typeof KdsVariableToggleButton> = {
   },
   argTypes: {
     modelValue: { control: "boolean" },
-    disabled: { control: "boolean" },
     inSet: { control: "boolean" },
     outSet: { control: "boolean" },
     error: { control: "boolean" },
+    disabled: { control: "boolean" },
+    hidden: { control: "boolean" },
   },
   args: {
     modelValue: false,
-    disabled: false,
     inSet: false,
     outSet: false,
     error: false,
+    disabled: false,
+    hidden: false,
   },
 };
 
@@ -63,6 +65,33 @@ export const Disabled: Story = {
       <div style="display: inline-flex; gap: 12px; align-items: center;">
         <KdsVariableToggleButton :disabled="true" />
         <KdsVariableToggleButton :disabled="true" :model-value="true" />
+      </div>
+    `,
+  }),
+};
+
+export const OnlyVisibleOnHover: Story = {
+  parameters: {
+    docs: false,
+  },
+  args: {
+    hidden: true,
+  },
+  render: (args) => ({
+    components: { KdsVariableToggleButton },
+    setup() {
+      return { args };
+    },
+    template: `
+      <div
+        class="hover-wrapper"
+        @mouseover="args.hidden = false"
+        @mouseleave="args.hidden = true"
+      >
+        <div class="hint">Hover this area to show the button, toggle it to keep it visible</div>
+        <div class="anchor">
+          <KdsVariableToggleButton v-bind="args" />
+        </div>
       </div>
     `,
   }),

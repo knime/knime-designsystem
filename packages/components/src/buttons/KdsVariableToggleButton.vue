@@ -10,6 +10,7 @@ const props = withDefaults(defineProps<KdsVariableToggleButtonProps>(), {
   inSet: false,
   outSet: false,
   error: false,
+  hidden: false,
 });
 
 const modelValue = defineModel<boolean>({ default: false });
@@ -73,6 +74,7 @@ const title = computed(() => {
       disabled: props.disabled,
       error: props.error,
       'pressed-or-set': modelValue || props.inSet || props.outSet,
+      hidden: props.hidden && !modelValue,
     }"
     :disabled="props.disabled"
     :title="title"
@@ -105,6 +107,11 @@ const title = computed(() => {
   background-color: var(--bg-initial);
   border: var(--border);
   border-radius: var(--kds-border-radius-container-0-12x);
+  opacity: 1;
+
+  &.hidden:not(:focus-visible, :hover, .disabled) {
+    opacity: 0;
+  }
 
   &:focus-visible {
     outline: var(--kds-border-action-focused);

@@ -1,9 +1,7 @@
 import type { FunctionalComponent } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/internal/preview-api";
-import { expect, fn, userEvent, within } from "storybook/test";
-
-import { iconNames } from "@knime/kds-styles/img/icons/def";
+import { expect, userEvent, within } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
@@ -30,21 +28,13 @@ const meta = {
     },
   },
   argTypes: {
+    modelValue: { control: { type: "boolean" }, table: { category: "Model" } },
     disabled: { control: "boolean" },
-    visible: { control: "boolean" },
-    title: { control: "text" },
-    icon: {
-      control: { type: "select" },
-      options: iconNames,
-    },
-    modelValue: { control: { type: "boolean" } },
+    hidden: { control: "boolean" },
   },
   args: {
     modelValue: false,
-    visible: true,
-    title: "Click for more information",
-    icon: "circle-question",
-    "onUpdate:modelValue": fn(),
+    hidden: false,
   },
   decorators: [
     (story) => {
@@ -64,7 +54,7 @@ const meta = {
           };
         },
         template:
-          '<story :disabled="args.disabled" :visible="args.visible" :title="args.title" :icon="args.icon" :model-value="args.modelValue" v-on="{ \'update:modelValue\': onUpdateModelValue }" />',
+          '<story :disabled="args.disabled" :hidden="args.hidden" :title="args.title" :icon="args.icon" :model-value="args.modelValue" v-on="{ \'update:modelValue\': onUpdateModelValue }" />',
       };
     },
   ],
@@ -101,13 +91,35 @@ export const Disabled: Story = {
   },
 };
 
+export const OnlyVisibleOnHover: Story = {
+  parameters: {
+    docs: false,
+  },
+  args: {
+    hidden: true,
+  },
+  render: (args) => ({
+    components: { KdsInfoToggleButton },
+    setup() {
+      return { args };
+    },
+    template: `
+      <div class="hover-wrapper" @mouseover="args.hidden = false" @mouseleave="args.hidden = true">
+        <div class="hint">Hover this area to show the button, toggle it to keep it visible</div>
+        <div class="anchor">
+          <KdsInfoToggleButton v-bind="args" />
+        </div>
+      </div>
+    `,
+  }),
+};
+
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsInfoToggleButton,
   combinationsProps: [
     {
       modelValue: [false, true],
       disabled: [false, true],
-      visible: [false, true],
     },
   ],
 });
@@ -118,7 +130,6 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     Default: {
       props: {
         modelValue: false,
-        visible: true,
       },
       variants: {
         // Enabled
@@ -138,7 +149,6 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     Selected: {
       props: {
         modelValue: true,
-        visible: true,
       },
       variants: {
         // Enabled
@@ -164,8 +174,6 @@ export const Interaction: Story = {
   },
   args: {
     modelValue: false,
-    visible: true,
-    title: "Click for more information",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

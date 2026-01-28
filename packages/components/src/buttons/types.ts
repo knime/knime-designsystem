@@ -112,8 +112,7 @@ export type KdsToggleButtonProps = CommonProps &
   Partial<WithVariant<KdsToggleButtonVariant>> &
   WithLabelAndIcons;
 
-export type KdsVariableToggleButtonProps = {
-  disabled?: boolean;
+export type KdsVariableToggleButtonProps = KdsInfoToggleButtonProps & {
   /**
    * If set to true, indicates that an input flow variable is configured.
    */
@@ -133,15 +132,7 @@ export type KdsInfoToggleButtonProps = {
   /**
    * If set to true, the button is visible even when not focused.
    */
-  visible?: boolean;
-  /**
-   * Button title used for tooltip and accessibility label.
-   */
-  title?: string;
-  /**
-   * Icon to render within the button.
-   */
-  icon?: KdsIconName;
+  hidden?: boolean;
 };
 
 /**
@@ -218,8 +209,4 @@ propTypeTester<KdsVariableToggleButtonProps>({ error: true });
 // KdsInfoToggleButton supports disabled
 propTypeTester<KdsInfoToggleButtonProps>({ disabled: true });
 // KdsInfoToggleButton supports visible
-propTypeTester<KdsInfoToggleButtonProps>({ visible: true });
-// KdsInfoToggleButton supports title
-propTypeTester<KdsInfoToggleButtonProps>({ title: "More information" });
-// KdsInfoToggleButton supports icon
-propTypeTester<KdsInfoToggleButtonProps>({ icon: "circle-question" });
+propTypeTester<KdsInfoToggleButtonProps>({ hidden: true });

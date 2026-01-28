@@ -5,10 +5,10 @@ import type { KdsInfoToggleButtonProps } from "./types";
 
 const props = withDefaults(defineProps<KdsInfoToggleButtonProps>(), {
   disabled: false,
-  visible: false,
-  title: "Click for more information",
-  icon: "circle-question",
+  hidden: false,
 });
+
+const TITLE = "Click for more information";
 
 const modelValue = defineModel<boolean>({ default: false });
 </script>
@@ -19,16 +19,16 @@ const modelValue = defineModel<boolean>({ default: false });
       'info-toggle-button': true,
       selected: modelValue,
       disabled: props.disabled,
-      hidden: !props.visible && !modelValue,
+      hidden: props.hidden && !modelValue,
     }"
     :disabled="props.disabled"
-    :title="props.title"
-    :aria-label="props.title"
+    :title="TITLE"
+    :aria-label="TITLE"
     :aria-pressed="modelValue"
     type="button"
     @click="modelValue = !modelValue"
   >
-    <KdsIcon :name="props.icon" size="xsmall" />
+    <KdsIcon name="circle-question" size="xsmall" />
   </button>
 </template>
 
