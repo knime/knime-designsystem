@@ -53,6 +53,21 @@ export const Default: Story = {
   },
 };
 
+export const Disabled: Story = {
+  parameters: {
+    docs: false,
+  },
+  render: () => ({
+    components: { KdsVariableToggleButton },
+    template: `
+      <div style="display: inline-flex; gap: 12px; align-items: center;">
+        <KdsVariableToggleButton :disabled="true" />
+        <KdsVariableToggleButton :disabled="true" :model-value="true" />
+      </div>
+    `,
+  }),
+};
+
 export const IconStateLogic: Story = {
   parameters: {
     docs: false,
