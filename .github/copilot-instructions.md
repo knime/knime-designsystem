@@ -89,7 +89,8 @@ packages/
 - Define modelValues for all v-model bindings in stories as category "Model". Do not add model update emit function since this is already covered by the term model.
 - Define all props in stories as category "Props" ordered by importance for users and similar to other stories.
 - Provide arg values for all props, e.g. false for boolean and "" for string props in the same order.
-- Provide stories for important prop combinations.
+- Provide stories for important prop combinations in the same order (if possible).
+- Do not allow stories witch violate accessibility rules. Rewrite the story accordingly (e.g. no label story -> use a custom label story).
 - ALWAYS add a story **AllCombinations**: Use `buildAllCombinationsStory()` from `test-utils/storybook`
 - ALWAYS add a story **DesignComparator**: Use `buildDesignComparatorStory()` from `test-utils/storybook` with Figma URLs + node IDs. Make sure to include all variants shown in Figma. Do use the node id of the exact component usage (without potential wrapping explanations). Also include variants for different states (hover, focus, disabled) if applicable.
 - ALWAYS add a story **TextOverflow**: Use `buildTextOverflowStory()` from `test-utils/storybook` and provide long text to test text overflow behavior
