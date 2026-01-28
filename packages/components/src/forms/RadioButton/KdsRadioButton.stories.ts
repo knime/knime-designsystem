@@ -92,50 +92,6 @@ export const Default: Story = {
   },
 };
 
-export const DefaultHover: Story = {
-  parameters: {
-    docs: false,
-    pseudo: { hover: true },
-  },
-  args: {
-    text: "Label",
-    modelValue: false,
-  },
-};
-
-export const DefaultActive: Story = {
-  parameters: {
-    docs: false,
-    pseudo: { active: true },
-  },
-  args: {
-    text: "Label",
-    modelValue: false,
-  },
-};
-
-export const DefaultFocus: Story = {
-  parameters: {
-    docs: false,
-    pseudo: { focus: true },
-  },
-  args: {
-    text: "Label",
-    modelValue: false,
-  },
-};
-
-export const DefaultFocusVisible: Story = {
-  parameters: {
-    docs: false,
-    pseudo: { focusVisible: true },
-  },
-  args: {
-    text: "Label",
-    modelValue: false,
-  },
-};
-
 export const Selected: Story = {
   args: {
     text: "Label",
@@ -207,6 +163,9 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         // Enabled :active
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=1827-5594":
           { parameters: { pseudo: { active: true } } },
+        // Enabled :focus-visible
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2416-30882":
+          { parameters: { pseudo: { focusVisible: true } } },
         // Disabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=1827-5624":
           { disabled: true },
@@ -237,6 +196,9 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         // Enabled :active
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=1827-5609":
           { parameters: { pseudo: { active: true } } },
+        // Enabled :focus-visible
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2416-30883":
+          { parameters: { pseudo: { focusVisible: true } } },
         // Disabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=1827-5629":
           { disabled: true },
