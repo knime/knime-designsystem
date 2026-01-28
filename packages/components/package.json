@@ -38,11 +38,9 @@
     "vue": "catalog:peer"
   },
   "dependencies": {
-    "@floating-ui/vue": "1.1.9",
     "@knime/kds-styles": "workspace:^",
     "@knime/utils": "^1.8.0",
-    "consola": "catalog:",
-    "focus-trap-vue": "4.1.0"
+    "consola": "catalog:"
   },
   "devDependencies": {
     "@storybook/vue3-vite": "catalog:storybook",
