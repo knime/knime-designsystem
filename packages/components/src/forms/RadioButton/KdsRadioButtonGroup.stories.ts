@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
-import { expect, fn, userEvent, within } from "storybook/test";
+import { expect, userEvent, within } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
@@ -53,9 +53,10 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
         "The currently selected option id. Can be undefined when no option is selected.",
       table: { category: "Model" },
     },
-    "onUpdate:modelValue": {
-      table: { category: "Model" },
-      description: "Emitted when the model changes (v-model update).",
+    id: {
+      control: { type: "text" },
+      description: "Id set for the group to be linked for an external label.",
+      table: { category: "Props" },
     },
     label: {
       control: { type: "text" },
@@ -95,11 +96,14 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
     },
   },
   args: {
+    modelValue: "Option A",
     id: "radio-button-group",
     label: "Label",
     possibleValues: ["Option A", "Option B", "Option C", "Option D"],
-    modelValue: "Option A",
-    "onUpdate:modelValue": fn(),
+    alignment: "vertical",
+    disabled: false,
+    subText: "",
+    preserveSubTextSpace: false,
   },
   decorators: [
     (story) => {
