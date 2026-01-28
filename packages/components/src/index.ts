@@ -9,6 +9,8 @@ export { default as KdsModal } from "./Modal/KdsModal.vue";
 export { default as KdsModalLayout } from "./Modal/KdsModalLayout.vue";
 export { default as KdsDynamicModalProvider } from "./Modal/KdsDynamicModalProvider.vue";
 export { default as KdsLoadingSpinner } from "./LoadingSpinner/KdsLoadingSpinner.vue";
+export { default as KdsBaseInput } from "./forms/Input/BaseInput.vue";
+export { default as KdsTextInput } from "./forms/Input/KdsTextInput.vue";
 export {
   type KdsDynamicDialogConfirmConfig,
   type KdsDynamicModalTemplateConfig,
@@ -21,6 +23,7 @@ export type * from "./Button/types";
 export type * from "./Checkbox/types";
 export type * from "./Icon/types";
 export type * from "./Modal/types";
+export type * from "./forms/Input/types";
 
 // Export utils
 export * from "./util";
