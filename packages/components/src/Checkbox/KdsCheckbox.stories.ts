@@ -21,6 +21,9 @@ const meta: Meta<typeof KdsCheckbox> = {
       control: { type: "select" },
       options: [false, true, "indeterminate"],
     },
+    allowIndeterminate: {
+      control: { type: "boolean" },
+    },
     disabled: {
       control: { type: "boolean" },
     },
@@ -60,7 +63,7 @@ const meta: Meta<typeof KdsCheckbox> = {
     docs: {
       description: {
         component:
-          "A checkbox component that follows the WAI-ARIA tri-state checkbox design pattern. Supports checked, unchecked, and indeterminate states.",
+          "A checkbox component that supports checked and unchecked states. Set `allowIndeterminate` to `true` to enable the tri-state checkbox pattern with indeterminate state.",
       },
     },
     design: {
@@ -90,6 +93,7 @@ export const Indeterminate: Story = {
   args: {
     label: "Label",
     modelValue: "indeterminate",
+    allowIndeterminate: true,
   },
 };
 
@@ -119,6 +123,14 @@ export const Error: Story = {
   },
 };
 
+export const BooleanOnly: Story = {
+  args: {
+    label: "Boolean checkbox",
+    helperText: "This checkbox only supports true/false values",
+    modelValue: false,
+  },
+};
+
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsCheckbox,
   combinationsProps: [
@@ -127,6 +139,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       disabled: [false, true],
       error: [false, true],
       label: [null, "Label"],
+      allowIndeterminate: [true, false],
     },
     {
       modelValue: [false, true, "indeterminate"],
@@ -134,6 +147,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       error: [false, true],
       label: ["Label"],
       helperText: ["Helper text"],
+      allowIndeterminate: [true, false],
     },
   ],
 });
@@ -201,6 +215,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       props: {
         label: "Label",
         modelValue: "indeterminate",
+        allowIndeterminate: true,
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9175-170318":
