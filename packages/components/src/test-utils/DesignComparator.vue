@@ -11,7 +11,19 @@ export type DesignsToCompare = Record<
   string,
   {
     props: Record<string, unknown>;
-    variants: Record<FigmaDesignURL, Record<string, unknown>>;
+    variants: Record<
+      FigmaDesignURL,
+      Record<string, unknown> & {
+        parameters?: {
+          pseudo?: {
+            hover?: boolean;
+            active?: boolean;
+            focus?: boolean;
+            focusVisible?: boolean;
+          };
+        };
+      }
+    >;
   }
 >;
 
@@ -161,13 +173,31 @@ function onPaste(event: ClipboardEvent) {
             v-if="figmaImageByUrl(figmaUrl)"
             class="design"
             :src="figmaImageByUrl(figmaUrl)"
+            alt="Figma snapshot"
           />
           <div class="implementation" :style="{ opacity: opacity }">
-            <component
-              :is="props.component"
-              v-if="props.component"
-              v-bind="{ ...set.props, ...variantProps }"
-            />
+            <div
+              :class="{
+                'pseudo-hover-all': Boolean(
+                  variantProps.parameters?.pseudo?.hover,
+                ),
+                'pseudo-active-all': Boolean(
+                  variantProps.parameters?.pseudo?.active,
+                ),
+                'pseudo-focus-all': Boolean(
+                  variantProps.parameters?.pseudo?.focus,
+                ),
+                'pseudo-focus-visible-all': Boolean(
+                  variantProps.parameters?.pseudo?.focusVisible,
+                ),
+              }"
+            >
+              <component
+                :is="props.component"
+                v-if="props.component"
+                v-bind="{ ...set.props, ...variantProps }"
+              />
+            </div>
           </div>
         </div>
       </div>
