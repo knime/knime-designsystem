@@ -20,7 +20,7 @@ const popoverId = useId();
  */
 const floatingOffset = 8;
 const { x, y } = useFloating(referenceEl, floatingEl, {
-  placement: "top",
+  placement: props.placement ?? "top",
   whileElementsMounted: autoUpdate,
   middleware: [shift({ padding: 8 }), offset(floatingOffset), flip()],
 });
