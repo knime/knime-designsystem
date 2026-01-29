@@ -40,6 +40,7 @@ catalogs:
     "@storybook-community/storybook-dark-mode": ^7.1.0
     eslint-plugin-storybook: ^10.2.0
     storybook: ^10.2.0
+    storybook-addon-pseudo-states: ^10.2.0
   vitest:
     "@vitest/coverage-v8": ^4.0.17
     "@vitest/ui": ^4.0.17

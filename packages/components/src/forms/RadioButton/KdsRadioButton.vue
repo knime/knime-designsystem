@@ -76,10 +76,11 @@ const handleClick = () => {
   margin: 0;
   text-align: left;
   cursor: pointer;
+  outline: none;
   background: none;
   border: none;
 
-  & .control {
+  .control {
     position: relative;
     display: flex;
     flex-shrink: 0;
@@ -92,27 +93,24 @@ const handleClick = () => {
     border-radius: 50%;
   }
 
-  & .control .dot {
+  .control .dot {
     display: block;
     flex-shrink: 0;
     width: 100%;
     height: 100%;
   }
 
-  & .control .dot circle {
+  .control .dot circle {
     fill: var(--dot-color);
     transform: scale(0.5);
     transform-origin: center;
     transform-box: fill-box;
   }
 
-  &:focus-visible {
-    outline: none;
-
-    & .control {
-      outline: var(--kds-border-action-focused);
-      outline-offset: var(--kds-spacing-offset-focus);
-    }
+  &:focus-visible .control {
+    outline: var(--kds-border-action-focused);
+    outline-offset: var(--kds-spacing-offset-focus);
+    background: var(--bg-hover);
   }
 
   &:hover:not(.disabled) .control {
@@ -130,7 +128,7 @@ const handleClick = () => {
     --bg-active: var(--kds-color-background-selected-active);
   }
 
-  & .content {
+  .content {
     display: flex;
     flex-direction: column;
     gap: var(--kds-spacing-container-0-25x);

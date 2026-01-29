@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
-import { expect, fn, userEvent, within } from "storybook/test";
+import { expect, userEvent, within } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
@@ -12,11 +12,6 @@ import KdsRadioButtonGroup from "./KdsRadioButtonGroup.vue";
 import type { KdsRadioButtonGroupProps } from "./types.ts";
 
 type Story = StoryObj<typeof KdsRadioButtonGroup>;
-
-const twoOptions: KdsRadioButtonGroupProps["possibleValues"] = [
-  "Option A",
-  "Option B",
-];
 
 const optionsWithError: KdsRadioButtonGroupProps["possibleValues"] = [
   { text: "Option A", id: "Option A", error: true, helperText: "Helper text" },
@@ -53,9 +48,10 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
         "The currently selected option id. Can be undefined when no option is selected.",
       table: { category: "Model" },
     },
-    "onUpdate:modelValue": {
-      table: { category: "Model" },
-      description: "Emitted when the model changes (v-model update).",
+    id: {
+      control: { type: "text" },
+      description: "Id set for the group to be linked for an external label.",
+      table: { category: "Props" },
     },
     label: {
       control: { type: "text" },
@@ -95,11 +91,14 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
     },
   },
   args: {
+    modelValue: "Option A",
     id: "radio-button-group",
     label: "Label",
     possibleValues: ["Option A", "Option B", "Option C", "Option D"],
-    modelValue: "Option A",
-    "onUpdate:modelValue": fn(),
+    alignment: "vertical",
+    disabled: false,
+    subText: "",
+    preserveSubTextSpace: false,
   },
   decorators: [
     (story) => {
@@ -123,55 +122,43 @@ export default meta;
 
 export const Default: Story = {};
 
-export const NoSelection: Story = {
-  args: {
-    modelValue: undefined,
-  },
-};
-
-export const WithSubText: Story = {
-  args: {
-    subText: "Additional information about this selection",
-  },
-};
-
-export const PreserveSubTextSpace: Story = {
-  args: {
-    subText: undefined,
-    preserveSubTextSpace: true,
-  },
-};
-
-export const Horizontal: Story = {
-  args: {
-    alignment: "horizontal",
-  },
-};
-
-export const HorizontalWithHelperTexts: Story = {
-  args: {
-    alignment: "horizontal",
-    possibleValues: [
-      { text: "Option A", id: "Option A", helperText: "Helper text" },
-      {
-        text: "Option B",
-        id: "Option B",
-        helperText: "Very long helper text that causes problems",
-      },
-      { text: "Option C", id: "Option C", helperText: "Helper text" },
-    ],
-  },
-};
-
-export const TwoOptions: Story = {
-  args: {
-    possibleValues: twoOptions,
-  },
-};
-
 export const WithOptionsHelperText: Story = {
   args: {
     possibleValues: optionsWithHelperText,
+  },
+};
+export const Horizontal: Story = {
+  render: () => ({
+    components: { KdsRadioButtonGroup },
+    template: `
+      <div style="display: grid; gap: 24px; align-items: start;">
+        <KdsRadioButtonGroup
+          label="Horizontal"
+          :possible-values="['Option A', 'Option B', 'Option C', 'Option D']"
+          alignment="horizontal"
+          model-value="Option A"
+        />
+
+        <KdsRadioButtonGroup
+          label="Horizontal with helper texts"
+          :possible-values="[
+            { text: 'Option A', id: 'Option A', helperText: 'Helper text' },
+            {
+              text: 'Option B',
+              id: 'Option B',
+              helperText: 'Very long helper text that causes problems',
+            },
+            { text: 'Option C', id: 'Option C', helperText: 'Helper text' },
+          ]"
+          alignment="horizontal"
+          model-value="Option A"
+        />
+      </div>
+    `,
+  }),
+  parameters: {
+    controls: { disable: true },
+    actions: { disable: true },
   },
 };
 
@@ -180,23 +167,91 @@ export const Disabled: Story = {
     disabled: true,
   },
 };
+export const WithSubText: Story = {
+  render: () => ({
+    components: { KdsRadioButtonGroup },
+    template: `
+      <div style="display: grid; gap: 24px; align-items: start;">
+        <KdsRadioButtonGroup
+          label="Preserve sub text space (no text)"
+          :possible-values="['Option A', 'Option B', 'Option C', 'Option D']"
+          model-value="Option A"
+          :preserve-sub-text-space="true"
+        />
 
-export const Error: Story = {
-  args: {
-    possibleValues: [
-      { text: "Option A", id: "Option A", error: true },
-      { text: "Option B", id: "Option B" },
-    ],
-    subText: "Selected option has an error",
+        <KdsRadioButtonGroup
+          label="With sub text"
+          :possible-values="['Option A', 'Option B', 'Option C', 'Option D']"
+          model-value="Option A"
+          sub-text="Additional information about this selection"
+        />
+      </div>
+    `,
+  }),
+  parameters: {
+    controls: { disable: true },
+    actions: { disable: true },
   },
 };
 
-export const WithoutLabel: Story = {
-  args: {
-    label: undefined,
-    possibleValues: ["Option A", "Option B", "Option C", "Option D"],
-    modelValue: "Option A",
+export const Error: Story = {
+  render: () => ({
+    components: { KdsRadioButtonGroup },
+    template: `
+      <div style="display: grid; gap: 24px; align-items: start;">
+        <KdsRadioButtonGroup
+          label="Error"
+          :possible-values="[
+            { text: 'Option A', id: 'Option A', error: true },
+            { text: 'Option B', id: 'Option B' },
+          ]"
+          sub-text="Selected option has an error"
+          model-value="Option A"
+        />
+
+        <KdsRadioButtonGroup
+          label="Error (with option helper text)"
+          :possible-values="[
+            {
+              text: 'Option A',
+              id: 'Option A',
+              error: true,
+              helperText: 'Helper text',
+            },
+            {
+              text: 'Option B',
+              id: 'Option B',
+              helperText: 'Helper text',
+            },
+          ]"
+          sub-text="Selected option has an error"
+          model-value="Option A"
+        />
+      </div>
+    `,
+  }),
+  parameters: {
+    controls: { disable: true },
+    actions: { disable: true },
   },
+};
+
+export const WithCustomLabel: Story = {
+  render: () => ({
+    components: { KdsRadioButtonGroup },
+    template: `
+      <div style="display: grid; gap: 8px; align-items: start;">
+        <label for="custom-radio-button-group">Custom label</label>
+
+        <KdsRadioButtonGroup
+          id="custom-radio-button-group"
+          :possible-values="['Option A', 'Option B', 'Option C', 'Option D']"
+          model-value="Option A"
+          :label="undefined"
+        />
+      </div>
+    `,
+  }),
 };
 
 export const AllCombinations: Story = buildAllCombinationsStory({
@@ -206,7 +261,11 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       label: ["Label", undefined],
       subText: [undefined, "Additional information"],
       preserveSubTextSpace: [false, true],
-      possibleValues: [twoOptions, optionsWithError, optionsWithHelperText],
+      possibleValues: [
+        ["Option A", "Option B"],
+        optionsWithError,
+        optionsWithHelperText,
+      ],
       modelValue: [undefined, "Option A", "Option B"],
       alignment: ["vertical", "horizontal"],
       disabled: [false, true],
