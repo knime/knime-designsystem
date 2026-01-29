@@ -44,7 +44,7 @@ const props = defineProps<NuxtLinkButtonProps>();
 `.trim();
 
 const meta: Meta<typeof KdsLinkButton> = {
-  title: "Components/Buttons/KdsLinkButton",
+  title: "Components/buttons/KdsLinkButton",
   component: KdsLinkButton as unknown as FunctionalComponent,
   tags: ["autodocs"],
   parameters: {
