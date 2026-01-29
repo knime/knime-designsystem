@@ -1,5 +1,12 @@
 # @knime/kds-components
 
+## 0.6.1
+
+### Patch Changes
+
+- 44d9726: Readd missing KdsDataType export
+  - @knime/kds-styles@0.6.1
+
 ## 0.6.0
 
 ### Minor Changes
