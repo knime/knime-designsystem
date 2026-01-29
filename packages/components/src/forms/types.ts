@@ -21,10 +21,6 @@ export type KdsSubTextProps = {
    */
   error?: boolean;
   /**
-   * When true, renders the subtext in disabled styling.
-   */
-  disabled?: boolean;
-  /**
    * Reserve space for subtext to prevent layout shifts when helper text or errors appear
    */
   preserveSubTextSpace?: boolean;

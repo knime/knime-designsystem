@@ -91,7 +91,6 @@ const handleCheckboxChange = (index: number, checked: KdsCheckboxValue) => {
       :sub-text="props.subText"
       :preserve-sub-text-space="props.preserveSubTextSpace"
       :error="anyOptionHasError"
-      :disabled="props.disabled"
     />
   </div>
 </template>

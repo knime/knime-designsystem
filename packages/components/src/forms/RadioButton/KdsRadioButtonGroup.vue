@@ -77,7 +77,6 @@ const { tabIndexForOption, handleClick, handleKeyDown, hasError } =
       :sub-text="props.subText"
       :preserve-sub-text-space="props.preserveSubTextSpace"
       :error="hasError"
-      :disabled="props.disabled"
     />
   </div>
 </template>
