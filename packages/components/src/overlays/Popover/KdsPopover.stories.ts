@@ -24,9 +24,17 @@ const meta: Meta<typeof KdsPopover> = {
         category: "Props",
       },
     },
+    mainContainer: {
+      description:
+        "Container the popover is teleported to. Useful when your app renders inside a dedicated root element or when you need the popover to stay within a specific stacking/scrolling context. Defaults to document.body.",
+      table: {
+        category: "Props",
+      },
+    },
   },
   args: {
     placement: "top",
+    mainContainer: document.body,
     ignoredClickOutsideTarget: null,
   },
   parameters: {

@@ -9,6 +9,7 @@ import type { KdsPopoverProps } from "./types";
 
 const props = withDefaults(defineProps<KdsPopoverProps>(), {
   ignoredClickOutsideTarget: null,
+  mainContainer: () => document.body,
   placement: "top",
 });
 const open = defineModel<boolean>({ default: false });
@@ -48,7 +49,7 @@ onClickOutside(floatingEl, () => (open.value = false), {
       <slot name="activator" />
     </div>
 
-    <Teleport v-if="$slots.default" to="body">
+    <Teleport v-if="$slots.default" :to="props.mainContainer">
       <div
         v-if="open"
         :id="popoverId"
