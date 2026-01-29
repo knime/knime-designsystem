@@ -40,15 +40,13 @@ type PropertyBasedConfirmModalConfig = CommonConfig & {
    */
   message: string;
   /**
-   * The label and helperText to be rendered for the "do not ask again" checkbox option.
-   * The title will be shown as tooltip on hover. The checkbox will only be present when
-   * an object is supplied. The value will be returned on the modal result.
+   * The label and subText to be rendered for the "do not ask again" checkbox option.
+   * The checkbox will only be present when an object is supplied. The value will be returned on the modal result.
    * Defaults to empty undefined.
    */
   doNotAskAgain?: {
     label: string;
-    title?: string;
-    helperText?: string;
+    subText?: string;
   };
 
   /**

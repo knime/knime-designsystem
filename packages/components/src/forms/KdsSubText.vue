@@ -13,7 +13,10 @@ const props = withDefaults(defineProps<KdsSubTextProps>(), {
   <div
     v-if="props.subText || props.preserveSubTextSpace"
     :id="props.id"
-    :class="{ subtext: true, error: props.error }"
+    :class="{
+      subtext: true,
+      error: props.error,
+    }"
   >
     <template v-if="props.error && props.subText">
       <KdsIcon name="circle-error" size="small" aria-label="Error" />

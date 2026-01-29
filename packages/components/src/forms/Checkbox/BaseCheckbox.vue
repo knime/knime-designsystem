@@ -1,29 +1,23 @@
 <script setup lang="ts">
 import { computed, useId } from "vue";
 
-import Icon from "../Icon/KdsIcon.vue";
+import Icon from "../../Icon/KdsIcon.vue";
+import KdsSubText from "../KdsSubText.vue";
 
-import type { KdsCheckboxProps } from "./types";
+import type { BaseCheckboxProps, KdsCheckboxValue } from "./types";
 
-type CheckboxModelValue = KdsCheckboxProps["modelValue"];
-
-const props = withDefaults(defineProps<KdsCheckboxProps>(), {
-  modelValue: false,
+const props = withDefaults(defineProps<BaseCheckboxProps>(), {
   disabled: false,
   error: false,
 });
 
-const emit = defineEmits<{
-  /**
-   * Emitted when the checkbox value changes
-   */
-  "update:modelValue": [value: CheckboxModelValue];
-}>();
+const modelValue = defineModel<KdsCheckboxValue>({ default: false });
 
-const id = useId();
+const helperId = useId();
+const descriptionId = useId();
 
-const isChecked = computed(() => props.modelValue === true);
-const isIndeterminate = computed(() => props.modelValue === "indeterminate");
+const isChecked = computed(() => modelValue.value === true);
+const isIndeterminate = computed(() => modelValue.value === "indeterminate");
 const icon = computed(() => {
   if (isChecked.value) {
     return "checkmark";
@@ -41,47 +35,68 @@ const ariaChecked = computed(() => {
   return isChecked.value;
 });
 
+const ariaDescribedBy = computed(() => {
+  const ids: string[] = [];
+
+  if (props.helperText) {
+    ids.push(helperId);
+  }
+
+  if (props.subText) {
+    ids.push(descriptionId);
+  }
+
+  return ids.length > 0 ? ids.join(" ") : undefined;
+});
+
 const handleClick = () => {
   if (props.disabled) {
     return;
   }
 
-  const newValue: CheckboxModelValue = isIndeterminate.value
-    ? true
-    : !isChecked.value;
-
-  emit("update:modelValue", newValue);
+  modelValue.value = isIndeterminate.value ? true : !isChecked.value;
 };
 </script>
 
 <template>
-  <button
-    :class="{
-      checkbox: true,
-      checked: isChecked,
-      indeterminate: isIndeterminate,
-      disabled: props.disabled,
-      error: props.error,
-    }"
-    :disabled="props.disabled"
-    :aria-checked="ariaChecked"
-    :aria-describedby="props.helperText ? `${id}-helper` : undefined"
-    :aria-invalid="props.error"
-    :title="props.title"
-    type="button"
-    role="checkbox"
-    @click="handleClick"
-  >
-    <div class="control">
-      <Icon v-if="icon" :name="icon" class="icon" size="xsmall" />
-    </div>
-    <div v-if="props.label || props.helperText" class="content">
-      <div class="label">{{ props.label }}</div>
-      <div v-if="props.helperText" :id="`${id}-helper`" class="helper-text">
-        {{ props.helperText }}
+  <div>
+    <button
+      :class="{
+        checkbox: true,
+        checked: isChecked,
+        indeterminate: isIndeterminate,
+        disabled: props.disabled,
+        error: props.error,
+      }"
+      :disabled="props.disabled"
+      :title="props.title"
+      :aria-label="props.title"
+      :aria-checked="ariaChecked"
+      :aria-describedby="ariaDescribedBy"
+      :aria-invalid="props.error"
+      type="button"
+      role="checkbox"
+      @click="handleClick"
+    >
+      <div class="control">
+        <Icon v-if="icon" :name="icon" class="icon" size="xsmall" />
       </div>
+      <div v-if="props.label || props.helperText" class="content">
+        <div class="label">{{ props.label }}</div>
+        <div v-if="props.helperText" :id="helperId" class="helper-text">
+          {{ props.helperText }}
+        </div>
+      </div>
+    </button>
+    <div class="subtext-wrapper">
+      <KdsSubText
+        :id="descriptionId"
+        :sub-text="props.subText"
+        :preserve-sub-text-space="props.preserveSubTextSpace"
+        :error="props.error"
+      />
     </div>
-  </button>
+  </div>
 </template>
 
 <style scoped>
@@ -95,16 +110,17 @@ const handleClick = () => {
   --helper-text-color: var(--kds-color-text-and-icon-muted);
 
   display: flex;
-  gap: var(--kds-spacing-container-0-5x);
+  gap: var(--kds-spacing-container-0-37x);
   align-items: flex-start;
   padding: 0;
   margin: 0;
   text-align: left;
   cursor: pointer;
+  outline: none;
   background: none;
   border: none;
 
-  & .control {
+  .control {
     position: relative;
     display: flex;
     flex-shrink: 0;
@@ -118,13 +134,9 @@ const handleClick = () => {
     border-radius: var(--kds-border-radius-container-0-25x);
   }
 
-  &:focus-visible {
-    outline: none;
-
-    & .control {
-      outline: var(--kds-border-action-focused);
-      outline-offset: var(--kds-spacing-offset-focus);
-    }
+  &:focus-visible .control {
+    outline: var(--kds-border-action-focused);
+    outline-offset: var(--kds-spacing-offset-focus);
   }
 
   &:hover:not(.disabled) .control {
@@ -143,7 +155,7 @@ const handleClick = () => {
     --border: var(--kds-border-action-selected);
   }
 
-  & .content {
+  .content {
     display: flex;
     flex-direction: column;
     gap: var(--kds-spacing-container-0-12x);
@@ -174,7 +186,6 @@ const handleClick = () => {
     --border: var(--kds-border-action-error);
     --icon-color: var(--kds-color-text-and-icon-danger);
     --text-color: var(--kds-color-text-and-icon-danger);
-    --helper-text-color: var(--kds-color-text-and-icon-danger);
     --bg-hover: var(--kds-color-background-danger-hover);
     --bg-active: var(--kds-color-background-danger-active);
 
@@ -183,5 +194,12 @@ const handleClick = () => {
       --bg-initial: var(--kds-color-background-danger-initial);
     }
   }
+}
+
+.subtext-wrapper {
+  padding-left: calc(
+    var(--kds-dimension-component-height-0-88x) +
+      var(--kds-spacing-container-0-37x)
+  );
 }
 </style>

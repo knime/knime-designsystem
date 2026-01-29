@@ -77,8 +77,7 @@ export const Confirmation: Story = {
           message: "Are you sure?",
           doNotAskAgain: {
             label: "Do not ask again",
-            title: "Some more info…",
-            helperText: "Can be changed in the settings.",
+            subText: "Can be changed in the settings.",
           },
           buttons: [
             {

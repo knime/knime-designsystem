@@ -110,7 +110,6 @@ const handleClick = () => {
   &:focus-visible .control {
     outline: var(--kds-border-action-focused);
     outline-offset: var(--kds-spacing-offset-focus);
-    background: var(--bg-hover);
   }
 
   &:hover:not(.disabled) .control {

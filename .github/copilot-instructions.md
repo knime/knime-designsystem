@@ -91,8 +91,8 @@ packages/
 - Provide arg values for all props, e.g. false for boolean and "" for string props in the same order.
 - Provide stories for important prop combinations in the same order (if possible).
 - Do not allow stories witch violate accessibility rules. Rewrite the story accordingly (e.g. no label story -> use a custom label story).
-- ALWAYS add a story **AllCombinations**: Use `buildAllCombinationsStory()` from `test-utils/storybook`
-- ALWAYS add a story **DesignComparator**: Use `buildDesignComparatorStory()` from `test-utils/storybook` with Figma URLs + node IDs. Make sure to include all variants shown in Figma. Do use the node id of the exact component usage (without potential wrapping explanations). Also include variants for different states (hover, focus, disabled) if applicable.
+- ALWAYS add a story **AllCombinations**: Use `buildAllCombinationsStory()` from `test-utils/storybook`. Also add hover, active, focus and focus-visible states via `pseudoStates: ['hover', 'active', 'focus', 'focus-visible']` as variants if applicable.
+- ALWAYS add a story **DesignComparator**: Use `buildDesignComparatorStory()` from `test-utils/storybook` with Figma URLs + node IDs. Make sure to include all variants shown in Figma. Do use the node id of the exact component usage (without potential wrapping explanations). Also include variants for different states (hover, focus, disabled) if applicable via `parameters: { pseudo: { hover: true } }`. Exclude DesignComparator story from visual regression tests via `parameters: { chromatic: { disableSnapshot: true } }`.
 - ALWAYS add a story **TextOverflow**: Use `buildTextOverflowStory()` from `test-utils/storybook` and provide long text to test text overflow behavior
 - ALWAYS add a story **Interaction**: Use build in play function to test important interactions (e.g., clicks, keyboard navigation). Make sure to reset the state end the end of the test to allow re-running the test in Storybook.
 
