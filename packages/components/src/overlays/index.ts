@@ -10,3 +10,4 @@ export {
 } from "./Modal/useKdsDynamicModal";
 
 export type * from "./Modal/types";
+export type * from "./Popover/types";
