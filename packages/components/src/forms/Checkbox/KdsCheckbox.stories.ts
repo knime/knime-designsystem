@@ -134,12 +134,15 @@ export const Error: Story = {
   },
 };
 
-export const AllCombinations: Story = buildAllCombinationsStory({
-  parameters: {
-    a11y: {
-      disable: true,
-    },
+export const WithoutLabel: Story = {
+  args: {
+    label: undefined,
+    title: "Checkbox title",
+    modelValue: false,
   },
+};
+
+export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsCheckbox,
   combinationsProps: [
     {
