@@ -15,7 +15,7 @@ const props = withDefaults(defineProps<BaseCheckboxProps>(), {
 
 const modelValue = defineModel<KdsCheckboxValue>({ default: false });
 
-const id = useId();
+const helperId = useId();
 const descriptionId = useId();
 
 const isChecked = computed(() => modelValue.value === true);
@@ -41,7 +41,7 @@ const ariaDescribedBy = computed(() => {
   const ids: string[] = [];
 
   if (props.helperText) {
-    ids.push(`${id}-helper`);
+    ids.push(helperId);
   }
 
   if (props.subText) {
@@ -83,7 +83,7 @@ const handleClick = () => {
     </div>
     <div v-if="props.label || props.helperText" class="content">
       <div class="label">{{ props.label }}</div>
-      <div v-if="props.helperText" :id="`${id}-helper`" class="helper-text">
+      <div v-if="props.helperText" :id="helperId" class="helper-text">
         {{ props.helperText }}
       </div>
     </div>
