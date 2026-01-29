@@ -37,10 +37,13 @@ export function generateCombinations(
   return helper(0, {});
 }
 
+type PseudoState = "hover" | "active" | "focus" | "focus-visible";
+
 type AllCombinationsStoryParams = {
   parameters?: Record<string, unknown>;
   component: Component;
   combinationsProps: Record<string, readonly unknown[]>[]; // or can we infer the possible props from the component type?
+  pseudoStates?: PseudoState[];
 };
 
 /**
@@ -76,15 +79,35 @@ export function buildAllCombinationsStory(
     },
     render: () => ({
       setup() {
-        return { allCombinations, component: config.component };
+        return {
+          allCombinations,
+          component: config.component,
+          pseudoStates: config.pseudoStates,
+        };
       },
       template: `
       Hover to see the props of each instance:
       <div style="display: grid; grid-template-columns: repeat(4, auto); gap: 1rem;">
-        <div v-for="(props, index) in allCombinations" :key="index" :title="JSON.stringify(props, null, 2)">
-          <span style="font-size: 10px; color: var(--kds-color-text-and-icon-subtle);">{{ index }}</span> 
-          <Component :is="component" v-bind="props" />
-        </div>
+        <template v-for="(props, index) in allCombinations" :key="index">
+          <div :title="JSON.stringify(props, null, 2)">
+            <div style="font-size: 10px; color: var(--kds-color-text-and-icon-subtle);">
+              {{ index }}
+            </div>
+            <Component :is="component" v-bind="props" />
+          </div>
+
+          <div
+            v-for="state in pseudoStates"
+            :key="index + '-' + state"
+            :title="JSON.stringify({ ...props, _pseudo: state }, null, 2)"
+            :class="'pseudo-' + state + '-all'"
+          >
+            <div style="font-size: 10px; color: var(--kds-color-text-and-icon-subtle);">
+              {{ index }} · {{ state }}
+            </div>
+            <Component :is="component" v-bind="props" />
+          </div>
+        </template>
       </div>
     `,
     }),

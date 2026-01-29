@@ -150,6 +150,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       subText: [undefined, "SubText"],
     },
   ],
+  pseudoStates: ["hover", "active", "focus-visible"],
 });
 
 export const DesignComparator: Story = buildDesignComparatorStory({
