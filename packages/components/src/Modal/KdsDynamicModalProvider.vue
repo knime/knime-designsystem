@@ -3,7 +3,7 @@ import { computed, ref } from "vue";
 
 import type { KdsButtonProps } from "../buttons";
 import KdsButton from "../buttons/KdsButton.vue";
-import BaseCheckbox from "../forms/Checkbox/BaseCheckbox.vue";
+import KdsCheckbox from "../forms/Checkbox/KdsCheckbox.vue";
 
 import KdsModal from "./KdsModal.vue";
 import {
@@ -83,10 +83,10 @@ const kdsModalProps = computed(() => {
       <div v-else class="confirmation">
         <div class="message">{{ config.value.message }}</div>
         <div v-if="config.value.doNotAskAgain" class="ask-again">
-          <BaseCheckbox
+          <KdsCheckbox
             v-model="askAgain"
             :label="config.value.doNotAskAgain.label"
-            :helper-text="config.value.doNotAskAgain.helperText"
+            :sub-text="config.value.doNotAskAgain.helperText"
           />
         </div>
       </div>
