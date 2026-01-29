@@ -34,7 +34,7 @@ export type KdsCheckboxProps = BaseProps & {
   /**
    * The label text for the checkbox
    */
-  label: string;
+  label?: string;
 };
 
 export type KdsCheckboxGroupOption = {
@@ -72,11 +72,11 @@ propTypeTester<BaseCheckboxProps>({});
 propTypeTester<BaseCheckboxProps>({ label: "foo" });
 // BaseCheckbox supports helper text
 propTypeTester<BaseCheckboxProps>({ label: "foo", helperText: "bar" });
-// KdsCheckbox requires label
+// KdsCheckbox supports label
 propTypeTester<KdsCheckboxProps>({ label: "foo" });
 // @ts-expect-error - KdsCheckbox should not allow helperText
 propTypeTester<KdsCheckboxProps>({ label: "foo", helperText: "bar" });
-// @ts-expect-error - KdsCheckbox requires label
+// KdsCheckbox supports without label (e.g. for useHideOnNull)
 propTypeTester<KdsCheckboxProps>({});
 // supports string array
 propTypeTester<KdsCheckboxGroupProps>({
