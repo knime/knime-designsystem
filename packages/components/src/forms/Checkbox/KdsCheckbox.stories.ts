@@ -80,7 +80,7 @@ const meta: Meta<typeof KdsCheckbox> = {
     },
     design: {
       type: "figma",
-      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51679",
+      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=278-4921&p=f",
     },
   },
 };
@@ -160,20 +160,77 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         modelValue: false,
       },
       variants: {
+        // Default state
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51009":
           {},
+        // Default with subtext
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51573":
+          { subText: "{SubText content}" },
+        // Enabled :hover
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=615-30434":
+          { parameters: { pseudo: { hover: true } } },
+        // :hover with subtext
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51582":
+          {
+            parameters: { pseudo: { hover: true } },
+            subText: "{SubText content}",
+          },
+        // Enabled :active
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=1801-30585":
+          { parameters: { pseudo: { active: true } } },
+        // :active with subtext
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51579":
+          {
+            parameters: { pseudo: { active: true } },
+            subText: "{SubText content}",
+          },
+        // Enabled :focus-visible (Accessibility example)
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51117":
+          {
+            parameters: {
+              pseudo: { focusVisible: true },
+              figmaOffset: { x: -3, y: -3 },
+            },
+          },
+        // :focus-visible with subtext
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51576":
+          {
+            subText: "{SubText content}",
+            parameters: {
+              pseudo: { focusVisible: true },
+              figmaOffset: { x: -3, y: -3 },
+            },
+          },
+        // disabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51255":
           {
             disabled: true,
           },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51573":
+        // disabled with subtext
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51588":
           {
+            disabled: true,
             subText: "{SubText content}",
           },
+        // Error
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51627":
           {
             error: true,
             subText: "{Error message}",
+          },
+        // Error :hover
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9171-169136":
+          {
+            error: true,
+            subText: "{Error message}",
+            parameters: { pseudo: { hover: true } },
+          },
+        // Error :active
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9223-233133":
+          {
+            error: true,
+            subText: "{Error message}",
+            parameters: { pseudo: { active: true } },
           },
       },
     },
@@ -183,21 +240,77 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         modelValue: true,
       },
       variants: {
+        // Default
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51100":
           {},
+        // Default with subtext
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9186-197571":
+          { subText: "{SubText content}" },
+        // Enabled :hover
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=1801-30499":
+          { parameters: { pseudo: { hover: true } } },
+        // :hover with subtext
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9186-198316":
+          {
+            parameters: { pseudo: { hover: true } },
+            subText: "{SubText content}",
+          },
+        // Enabled :active
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=1801-30590":
+          { parameters: { pseudo: { active: true } } },
+        // :active with subtext
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9186-198689":
+          {
+            parameters: { pseudo: { active: true } },
+            subText: "{SubText content}",
+          },
+        // Enabled :focus-visible (Accessibility example)
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51125":
+          {
+            parameters: {
+              pseudo: { focusVisible: true },
+              figmaOffset: { x: -3, y: -3 },
+            },
+          },
+        // :focus-visible with subtext
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9186-197988":
+          {
+            subText: "{SubText content}",
+            parameters: {
+              pseudo: { focusVisible: true },
+              figmaOffset: { x: -3, y: -3 },
+            },
+          },
+        // disabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51273":
           {
             disabled: true,
           },
+        // disabled with subtext
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9186-199107":
           {
             subText: "{SubText content}",
             disabled: true,
           },
+        // Error
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3932-51641":
           {
             error: true,
             subText: "{Error message}",
+          },
+        // Error :hover
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9171-169146":
+          {
+            error: true,
+            subText: "{Error message}",
+            parameters: { pseudo: { hover: true } },
+          },
+        // Error :active
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9171-169204":
+          {
+            error: true,
+            subText: "{Error message}",
+            parameters: { pseudo: { active: true } },
           },
       },
     },
@@ -207,25 +320,77 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         modelValue: "indeterminate",
       },
       variants: {
+        // Default
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9175-170318":
           {},
+        // Default with subtext
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9186-200078":
+          { subText: "{SubText content}" },
+        // Enabled :hover
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9175-173832":
+          { parameters: { pseudo: { hover: true } } },
+        // :hover with subtext
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9186-200084":
+          {
+            parameters: { pseudo: { hover: true } },
+            subText: "{SubText content}",
+          },
+        // Enabled :active
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9175-173842":
+          { parameters: { pseudo: { active: true } } },
+        // :active with subtext
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9186-200087":
+          {
+            parameters: { pseudo: { active: true } },
+            subText: "{SubText content}",
+          },
+        // Enabled :focus-visible (Accessibility example)
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9175-181398":
+          {
+            parameters: {
+              pseudo: { focusVisible: true },
+              figmaOffset: { x: -3, y: -3 },
+            },
+          },
+        // :focus-visible with subtext
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9186-200081":
+          {
+            subText: "{SubText content}",
+            parameters: {
+              pseudo: { focusVisible: true },
+              figmaOffset: { x: -3, y: -3 },
+            },
+          },
+        // disabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9175-170321":
           {
             disabled: true,
           },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9186-200078":
-          {
-            subText: "{SubText content}",
-          },
+        // disabled with subtext
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9186-200090":
           {
             subText: "{SubText content}",
             disabled: true,
           },
+        // Error
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9175-181407":
           {
             error: true,
             subText: "{Error message}",
+          },
+        // Error :hover
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9175-173473":
+          {
+            error: true,
+            subText: "{Error message}",
+            parameters: { pseudo: { hover: true } },
+          },
+        // Error :active
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9175-173463":
+          {
+            error: true,
+            subText: "{Error message}",
+            parameters: { pseudo: { active: true } },
           },
       },
     },

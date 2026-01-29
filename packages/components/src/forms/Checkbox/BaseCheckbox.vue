@@ -116,10 +116,11 @@ const handleClick = () => {
   margin: 0;
   text-align: left;
   cursor: pointer;
+  outline: none;
   background: none;
   border: none;
 
-  & .control {
+  .control {
     position: relative;
     display: flex;
     flex-shrink: 0;
@@ -133,13 +134,9 @@ const handleClick = () => {
     border-radius: var(--kds-border-radius-container-0-25x);
   }
 
-  &:focus-visible {
-    outline: none;
-
-    & .control {
-      outline: var(--kds-border-action-focused);
-      outline-offset: var(--kds-spacing-offset-focus);
-    }
+  &:focus-visible .control {
+    outline: var(--kds-border-action-focused);
+    outline-offset: var(--kds-spacing-offset-focus);
   }
 
   &:hover:not(.disabled) .control {
@@ -158,7 +155,7 @@ const handleClick = () => {
     --border: var(--kds-border-action-selected);
   }
 
-  & .content {
+  .content {
     display: flex;
     flex-direction: column;
     gap: var(--kds-spacing-container-0-12x);

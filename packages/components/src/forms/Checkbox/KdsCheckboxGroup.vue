@@ -76,7 +76,7 @@ const handleCheckboxChange = (index: number, checked: KdsCheckboxValue) => {
         <BaseCheckbox
           :disabled="props.disabled || option.disabled"
           :error="option.error"
-          :helperText="option.helperText"
+          :helper-text="option.helperText"
           :label="option.text"
           :model-value="isChecked(option.id)"
           @update:model-value="
