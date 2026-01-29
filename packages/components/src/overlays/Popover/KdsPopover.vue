@@ -43,6 +43,7 @@ onClickOutside(floatingEl, () => (open.value = false), {
       :data-open="open"
       :aria-expanded="open"
       :aria-controls="popoverId"
+      aria-haspopup="dialog"
     >
       <slot name="activator" />
     </div>
@@ -55,11 +56,12 @@ onClickOutside(floatingEl, () => (open.value = false), {
         class="floating"
         :data-open="open"
         :style="{
-          left: `${x}px`,
-          top: `${y}px`,
+          left: x == null ? undefined : `${x}px`,
+          top: y == null ? undefined : `${y}px`,
         }"
         role="dialog"
-        aria-modal="false"
+        aria-modal="true"
+        tabindex="-1"
       >
         <FocusTrap
           v-model:active="open"
