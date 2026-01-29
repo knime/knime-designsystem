@@ -86,7 +86,7 @@ const kdsModalProps = computed(() => {
           <KdsCheckbox
             v-model="askAgain"
             :label="config.value.doNotAskAgain.label"
-            :sub-text="config.value.doNotAskAgain.helperText"
+            :sub-text="config.value.doNotAskAgain.subText"
           />
         </div>
       </div>
