@@ -85,6 +85,7 @@ const { tabIndexForOption, handleClick, handleKeyDown } = useRadioSelection({
       :sub-text="props.subText"
       :preserve-sub-text-space="props.preserveSubTextSpace"
       :error="props.error"
+      :disabled="props.disabled"
     />
   </div>
 </template>

@@ -5,6 +5,7 @@ import type { KdsSubTextProps } from "./types";
 
 const props = withDefaults(defineProps<KdsSubTextProps>(), {
   error: false,
+  disabled: false,
   preserveSubTextSpace: false,
 });
 </script>
@@ -13,7 +14,11 @@ const props = withDefaults(defineProps<KdsSubTextProps>(), {
   <div
     v-if="props.subText || props.preserveSubTextSpace"
     :id="props.id"
-    :class="{ subtext: true, error: props.error }"
+    :class="{
+      subtext: true,
+      error: props.error,
+      disabled: props.disabled,
+    }"
   >
     <template v-if="props.error && props.subText">
       <KdsIcon name="circle-error" size="small" aria-label="Error" />
@@ -30,6 +35,10 @@ const props = withDefaults(defineProps<KdsSubTextProps>(), {
   margin-top: var(--kds-spacing-container-0-25x);
   font: var(--kds-font-base-subtext-small);
   color: var(--kds-color-text-and-icon-muted);
+
+  &.disabled {
+    color: var(--kds-color-text-and-icon-disabled);
+  }
 
   &.error {
     color: var(--kds-color-text-and-icon-danger);

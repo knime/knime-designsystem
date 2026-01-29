@@ -154,6 +154,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       modelValue: [false, true],
     },
   ],
+  pseudoStates: ["hover", "active", "focus-visible"],
 });
 
 export const DesignComparator: Story = buildDesignComparatorStory({
