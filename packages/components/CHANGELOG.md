@@ -1,5 +1,21 @@
 # @knime/kds-components
 
+## 0.6.0
+
+### Minor Changes
+
+- b92aa44: KdsCheckbox: Require title when no label is set
+- b92aa44: Renamed ConfirmModalConfig doNotAskAgain helperText to subText and removed title
+
+### Patch Changes
+
+- 8b25fa3: Add KdsInfoToggleButton component
+- 8b25fa3: Add KdsVariableToggleButton
+- e851b0c: Fix rendering of xsmall icons on non-HiDPI screens
+- b92aa44: Add KdsCheckboxGroup component
+- 810302b: Add KdsProgressButton component
+  - @knime/kds-styles@0.6.0
+
 ## 0.5.10
 
 ### Patch Changes
