@@ -146,7 +146,7 @@ describe("KdsDynamicModalProvider.vue", () => {
         message: "This is the message",
         doNotAskAgain: {
           label: "Do not ask me again",
-          helperText: "please please",
+          subText: "please please",
         },
       }).then(done);
       await nextTick();
