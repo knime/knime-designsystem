@@ -269,6 +269,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       ariaLabel: ["Icon only progress button"],
     },
   ],
+  pseudoStates: ["hover", "active", "focus-visible"],
 });
 
 export const TextOverflow: Story = {
