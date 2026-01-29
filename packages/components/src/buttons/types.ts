@@ -168,13 +168,13 @@ type KdsProgressButtonCommonProps = {
 
 type KdsProgressButtonIconWithLabel = {
   label: string;
-  leadingIcon: IconName;
+  leadingIcon: KdsIconName;
   ariaLabel?: never;
 };
 
 type KdsProgressButtonIconOnly = {
   label?: never;
-  leadingIcon: IconName;
+  leadingIcon: KdsIconName;
   ariaLabel: string;
 };
 
