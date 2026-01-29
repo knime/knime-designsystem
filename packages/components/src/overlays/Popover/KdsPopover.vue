@@ -69,7 +69,7 @@ onClickOutside(floatingEl, () => (open.value = false), {
           fallback-focus="body"
           @deactivate="referenceEl?.querySelector('button')?.focus()"
         >
-          <BasePopover>
+          <BasePopover @close="open = false">
             <slot />
           </BasePopover>
         </FocusTrap>
