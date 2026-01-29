@@ -97,7 +97,7 @@ export function buildAllCombinationsStory(
               :title="state ? JSON.stringify({ ...props, _pseudo: state }, null, 2) : JSON.stringify(props, null, 2)" 
               style="display: grid; 
               gap: 0.5rem;"
-              :class="`pseudo-${state}-all`"
+              :class="state ? \`pseudo-\${state}-all\` : undefined"
             >
               <div>
                 <div style="font-size: 10px; color: var(--kds-color-text-and-icon-subtle);">
