@@ -17,6 +17,12 @@ The KNIME Design System is a Vue3 TypeScript monorepo providing design tokens, i
 
 **ALWAYS UPDATE DOCUMENTATION AND RUN TYPE CHECKS, LINTING, UNIT TESTS AND FORMATTING AFTER EACH CHANGE!**
 
+### Type safety note (Vue SFC templates)
+
+- Many component props are intentionally typed as string unions (e.g. `KdsLoadingSpinner` `style` = `"onPrimary" | "onSurface"`).
+- It's OK to pass these as **inline string literals** in templates.
+- If an invalid literal is used, `vue-tsc` will report it and the CI checks will fail (typically via `pnpm type-check` and often also `pnpm build`).
+
 **Common Build Issues & Solutions:**
 
 - Stylelint can't find CSS custom properties → Run `pnpm install` to build @knime/kds-styles first
@@ -59,6 +65,7 @@ packages/
 - All publicly exported types must be prefixed with `Kds` (e.g., `KdsButtonProps`)
 - All publicly exported composables must be prefixed with `useKds` (e.g., `useKdsTheme`)
 - i18n is currently not planned in this repo. Hardcoded English strings are OK (e.g., labels, aria-labels, titles, helper texts).
+- Prefer using well-known utilities from `@vueuse/core` over custom implementations (e.g. timers via `useTimeoutFn`, debouncing/throttling via `watchDebounced` / `refDebounced`, observers via `useResizeObserver`, etc.). This improves consistency and reduces the risk of missing cleanup on unmount.
 - Use Composition API with `<script setup lang="ts">`
 - Type all props with `defineProps<T>()` or `withDefaults(defineProps<T>(), {})`
 - Type all emits with `defineEmits<T>()`
