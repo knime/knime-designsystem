@@ -19,23 +19,31 @@ type BaseProps = {
   preserveSubTextSpace?: boolean;
 };
 
-export type BaseCheckboxProps = BaseProps & {
-  /**
-   * The label text for the checkbox
-   */
-  label?: string;
-  /**
-   * Helper text displayed below the label
-   */
-  helperText?: string;
-};
+type LabelOrTitle =
+  | {
+      /**
+       * The label text for the checkbox
+       */
+      label: string;
+      title?: never;
+    }
+  | {
+      label?: "" | undefined | never;
+      /**
+       * Used when no visible label is provided (required for accessibility).
+       */
+      title: string;
+    };
 
-export type KdsCheckboxProps = BaseProps & {
-  /**
-   * The label text for the checkbox
-   */
-  label?: string;
-};
+export type BaseCheckboxProps = BaseProps &
+  LabelOrTitle & {
+    /**
+     * Helper text displayed below the label
+     */
+    helperText?: string;
+  };
+
+export type KdsCheckboxProps = BaseProps & LabelOrTitle;
 
 export type KdsCheckboxGroupOption = {
   text: string;
@@ -66,17 +74,21 @@ propTypeTester<KdsCheckboxGroupProps>({
   ],
 });
 
-// BaseCheckbox supports without label
+// BaseCheckbox supports without label (but requires aria-label)
+// @ts-expect-error - BaseCheckbox requires either label or aria-label
 propTypeTester<BaseCheckboxProps>({});
+// BaseCheckbox supports title only
+propTypeTester<BaseCheckboxProps>({ title: "foo" });
 // BaseCheckbox supports label
 propTypeTester<BaseCheckboxProps>({ label: "foo" });
 // BaseCheckbox supports helper text
 propTypeTester<BaseCheckboxProps>({ label: "foo", helperText: "bar" });
-// KdsCheckbox supports label
+// KdsCheckbox supports label or title
 propTypeTester<KdsCheckboxProps>({ label: "foo" });
+propTypeTester<KdsCheckboxProps>({ title: "foo" });
 // @ts-expect-error - KdsCheckbox should not allow helperText
 propTypeTester<KdsCheckboxProps>({ label: "foo", helperText: "bar" });
-// KdsCheckbox supports without label (e.g. for useHideOnNull)
+// @ts-expect-error - KdsCheckbox requires label or aria-label
 propTypeTester<KdsCheckboxProps>({});
 // supports string array
 propTypeTester<KdsCheckboxGroupProps>({

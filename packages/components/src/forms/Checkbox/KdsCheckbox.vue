@@ -17,6 +17,7 @@ const modelValue = defineModel<KdsCheckboxValue>({ default: false });
     :disabled="props.disabled"
     :error="props.error"
     :label="props.label"
+    :aria-label="props.ariaLabel"
     :sub-text="props.subText"
     :preserve-sub-text-space="props.preserveSubTextSpace"
   />
