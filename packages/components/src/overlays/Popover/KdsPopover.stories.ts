@@ -181,7 +181,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       </BasePopover>
     `,
     data() {
-      return { open: true };
+      return {};
     },
   },
   designsToCompare: {
