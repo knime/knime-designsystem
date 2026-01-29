@@ -2,7 +2,7 @@
 import { ref, watch } from "vue";
 
 import KdsButton from "../buttons/KdsButton.vue";
-import { KdsCheckbox } from "../forms";
+import KdsCheckbox from "../forms/Checkbox/KdsCheckbox.vue";
 
 import KdsModalLayout from "./KdsModalLayout.vue";
 import type { KdsDynamicModalPropsAPI } from "./useKdsDynamicModal";

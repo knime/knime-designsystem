@@ -257,7 +257,7 @@ describe("KdsDynamicModalProvider.vue", () => {
         "THIS IS THE BODY INSIDE THE CUSTOM TEMPLATE",
       );
 
-      await wrapper.find("[data-test-id='checkbox']").trigger("click");
+      await wrapper.find("[data-test-id='checkbox'] button").trigger("click");
       await wrapper.find("[data-test-id='close-button']").trigger("click");
 
       await flushPromises();
