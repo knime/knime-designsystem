@@ -2,4 +2,4 @@
 "@knime/kds-components": patch
 ---
 
-Remove Checkbox min width restriction
+Fix Checkbox taking unnecessary space when subtext is absent
