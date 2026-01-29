@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
@@ -408,5 +409,41 @@ export const TextOverflow: Story = {
     subText:
       "This is a very long sub text that should also overflow and wrap properly when there is not enough space",
     modelValue: false,
+  },
+};
+
+export const Interaction: Story = {
+  args: {
+    label: "Label",
+    modelValue: false,
+    disabled: false,
+    subText: "",
+    error: false,
+    preserveSubTextSpace: false,
+  },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const checkbox = canvas.getByRole("checkbox", { name: "Label" });
+
+    expect(checkbox).not.toBeChecked();
+
+    await step("Toggle with mouse click", async () => {
+      await userEvent.click(checkbox);
+      await waitFor(expect(checkbox).toBeChecked);
+
+      await userEvent.click(checkbox);
+      await waitFor(expect(checkbox).not.toBeChecked);
+    });
+
+    await step("Toggle with keyboard (Space) while focused", async () => {
+      // Checkbox should have focus from previous step
+      await expect(checkbox).toHaveFocus();
+
+      await userEvent.keyboard(" ");
+      await waitFor(expect(checkbox).toBeChecked);
+
+      await userEvent.keyboard(" ");
+      await waitFor(expect(checkbox).not.toBeChecked);
+    });
   },
 };
