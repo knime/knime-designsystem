@@ -269,6 +269,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       error: [false, true],
     },
   ],
+  pseudoStates: ["hover", "active", "focus-visible"],
 });
 
 export const DesignComparator: Story = buildDesignComparatorStory({

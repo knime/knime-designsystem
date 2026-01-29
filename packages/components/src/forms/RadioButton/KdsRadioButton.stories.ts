@@ -141,6 +141,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       helperText: ["Helper text"],
     },
   ],
+  pseudoStates: ["hover", "active", "focus-visible"],
 });
 
 export const DesignComparator: Story = buildDesignComparatorStory({
