@@ -9,6 +9,7 @@ import type { KdsPopoverProps } from "./types";
 
 const props = withDefaults(defineProps<KdsPopoverProps>(), {
   ignoredClickOutsideTarget: null,
+  placement: "top",
 });
 const open = defineModel<boolean>({ default: false });
 const referenceEl = ref<HTMLElement | null>(null);
@@ -20,7 +21,7 @@ const popoverId = useId();
  */
 const floatingOffset = 8;
 const { x, y } = useFloating(referenceEl, floatingEl, {
-  placement: props.placement ?? "top",
+  placement: toRef(props, "placement"),
   whileElementsMounted: autoUpdate,
   middleware: [shift({ padding: 8 }), offset(floatingOffset), flip()],
 });

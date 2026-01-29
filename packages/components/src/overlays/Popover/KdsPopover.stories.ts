@@ -10,11 +10,25 @@ import {
 import { buildDesignComparatorStory } from "../../test-utils/storybook";
 
 import BasePopover from "./BasePopover.vue";
+import { kdsPopoverPlacements } from "./constants";
 
 const meta: Meta<typeof KdsPopover> = {
   title: "Components/overlays/KdsPopover",
   component: KdsPopover,
   tags: ["autodocs"],
+  argTypes: {
+    placement: {
+      control: "select",
+      options: kdsPopoverPlacements,
+      table: {
+        category: "Props",
+      },
+    },
+  },
+  args: {
+    placement: "top",
+    ignoredClickOutsideTarget: null,
+  },
   parameters: {
     design: {
       type: "figma",
@@ -28,11 +42,11 @@ export default meta;
 type Story = StoryObj<typeof KdsPopover>;
 
 export const Default: Story = {
-  render: () => ({
+  render: (args) => ({
     components: { KdsPopover, KdsToggleButton },
     template: `
       <div style="display: flex">
-        <KdsPopover v-model="open">
+        <KdsPopover v-model="open" v-bind="args">
           <template #activator>
             <KdsToggleButton v-model="open" label="Toggle popover" />
           </template>
@@ -53,7 +67,7 @@ export const Default: Story = {
       </div>
     `,
     data() {
-      return { open: false };
+      return { open: false, args };
     },
   }),
 };
