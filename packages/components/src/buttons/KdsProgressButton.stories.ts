@@ -106,8 +106,6 @@ const meta: Meta<typeof KdsProgressButton> = {
     variant: "filled",
     size: "medium",
     disabled: false,
-    // eslint-disable-next-line no-console
-    onClick: () => console.log("KdsProgressButton clicked"),
   },
 };
 
