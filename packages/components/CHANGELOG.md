@@ -1,5 +1,14 @@
 # @knime/kds-components
 
+## 0.5.11
+
+### Patch Changes
+
+- 8b25fa3: Add KdsInfoToggleButton component
+- 8b25fa3: Add KdsVariableToggleButton
+- e851b0c: Fix rendering of xsmall icons on non-HiDPI screens
+  - @knime/kds-styles@0.5.11
+
 ## 0.5.10
 
 ### Patch Changes
