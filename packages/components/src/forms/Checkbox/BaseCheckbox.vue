@@ -6,8 +6,6 @@ import KdsSubText from "../KdsSubText.vue";
 
 import type { BaseCheckboxProps, KdsCheckboxValue } from "./types";
 
-defineOptions({ inheritAttrs: false });
-
 const props = withDefaults(defineProps<BaseCheckboxProps>(), {
   disabled: false,
   error: false,
@@ -61,43 +59,44 @@ const handleClick = () => {
 </script>
 
 <template>
-  <button
-    v-bind="$attrs"
-    :class="{
-      checkbox: true,
-      checked: isChecked,
-      indeterminate: isIndeterminate,
-      disabled: props.disabled,
-      error: props.error,
-    }"
-    :disabled="props.disabled"
-    :title="props.title"
-    :aria-label="props.title"
-    :aria-checked="ariaChecked"
-    :aria-describedby="ariaDescribedBy"
-    :aria-invalid="props.error"
-    type="button"
-    role="checkbox"
-    @click="handleClick"
-  >
-    <div class="control">
-      <Icon v-if="icon" :name="icon" class="icon" size="xsmall" />
-    </div>
-    <div v-if="props.label || props.helperText" class="content">
-      <div class="label">{{ props.label }}</div>
-      <div v-if="props.helperText" :id="helperId" class="helper-text">
-        {{ props.helperText }}
-      </div>
-    </div>
-  </button>
-  <div class="subtext-wrapper">
-    <KdsSubText
-      :id="descriptionId"
-      :sub-text="props.subText"
-      :preserve-sub-text-space="props.preserveSubTextSpace"
-      :error="props.error"
+  <div>
+    <button
+      :class="{
+        checkbox: true,
+        checked: isChecked,
+        indeterminate: isIndeterminate,
+        disabled: props.disabled,
+        error: props.error,
+      }"
       :disabled="props.disabled"
-    />
+      :title="props.title"
+      :aria-label="props.title"
+      :aria-checked="ariaChecked"
+      :aria-describedby="ariaDescribedBy"
+      :aria-invalid="props.error"
+      type="button"
+      role="checkbox"
+      @click="handleClick"
+    >
+      <div class="control">
+        <Icon v-if="icon" :name="icon" class="icon" size="xsmall" />
+      </div>
+      <div v-if="props.label || props.helperText" class="content">
+        <div class="label">{{ props.label }}</div>
+        <div v-if="props.helperText" :id="helperId" class="helper-text">
+          {{ props.helperText }}
+        </div>
+      </div>
+    </button>
+    <div class="subtext-wrapper">
+      <KdsSubText
+        :id="descriptionId"
+        :sub-text="props.subText"
+        :preserve-sub-text-space="props.preserveSubTextSpace"
+        :error="props.error"
+        :disabled="props.disabled"
+      />
+    </div>
   </div>
 </template>
 
