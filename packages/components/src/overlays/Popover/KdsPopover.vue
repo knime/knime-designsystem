@@ -1,7 +1,14 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, toRef, useId, watch } from "vue";
-import { onClickOutside } from "@vueuse/core";
-import { autoUpdate, flip, offset, shift, useFloating } from "@floating-ui/vue";
+import { onClickOutside, useElementBounding } from "@vueuse/core";
+import {
+  arrow,
+  autoUpdate,
+  flip,
+  offset,
+  shift,
+  useFloating,
+} from "@floating-ui/vue";
 
 import BasePopover from "./BasePopover.vue";
 import type { KdsPopoverProps } from "./types";
@@ -14,6 +21,7 @@ const props = withDefaults(defineProps<KdsPopoverProps>(), {
 const open = defineModel<boolean>({ default: false });
 const referenceEl = ref<HTMLElement | null>(null);
 const floatingEl = ref<HTMLElement | null>(null);
+const floatingArrow = ref<HTMLElement | null>(null);
 const focusCatch = ref<HTMLElement | null>(null);
 const popoverId = useId();
 
@@ -24,16 +32,55 @@ const teleportTarget = computed<HTMLElement>(() => {
   return target instanceof HTMLElement ? target : document.body;
 });
 
+const safeMainContainer = computed<HTMLElement>(() => {
+  const target = props.mainContainer;
+  return target instanceof HTMLElement ? target : document.body;
+});
+
+const boundaryPaddingPx = 8;
+const { x, y, width, height } = useElementBounding(safeMainContainer);
+const boundingRect = computed(() => ({
+  x: x.value,
+  y: y.value,
+  width: width.value,
+  height: height.value,
+}));
+
 /**
  * Floating UI setup
  */
-const floatingOffset = 8;
-const { x, y } = useFloating(referenceEl, floatingEl, {
-  placement: toRef(props, "placement"),
-  strategy: "fixed",
-  whileElementsMounted: autoUpdate,
-  middleware: [shift({ padding: 8 }), offset(floatingOffset), flip()],
+const placement = toRef(props, "placement");
+const basePlacement = computed((): "top" | "right" | "bottom" | "left" => {
+  // Floating UI placement strings can include -start/-end.
+  return (
+    (placement.value.split("-")[0] as "top" | "right" | "bottom" | "left") ??
+    "top"
+  );
 });
+const middleware = computed(() => {
+  return [
+    shift({
+      rootBoundary: boundingRect.value,
+      padding: boundaryPaddingPx,
+    }),
+    flip({
+      rootBoundary: boundingRect.value,
+    }),
+    offset(boundaryPaddingPx),
+    arrow({ element: floatingArrow }),
+  ];
+});
+const { floatingStyles, middlewareData } = useFloating(
+  referenceEl,
+  floatingEl,
+  {
+    placement,
+    strategy: "fixed",
+    whileElementsMounted: autoUpdate,
+    middleware,
+    open,
+  },
+);
 
 /**
  * Click/Focus outside to close popover
@@ -93,21 +140,37 @@ watch(open, (isOpen) => {
         ref="floatingEl"
         class="floating"
         :data-open="open"
-        :style="{
-          left: x == null ? undefined : `${x}px`,
-          top: y == null ? undefined : `${y}px`,
-        }"
+        :data-placement="basePlacement"
+        :style="floatingStyles"
         role="dialog"
         aria-modal="true"
         tabindex="-1"
         @keydown.esc="closePopover"
       >
-        <BasePopover>
+        <BasePopover
+          :style="{ 'max-width': width - 2 * boundaryPaddingPx + 'px' }"
+        >
           <div tabindex="0" @focus="closePopover" />
           <div ref="focusCatch" class="focus-catch" tabindex="-1" />
           <slot />
           <div tabindex="0" @focus="closePopover" />
         </BasePopover>
+
+        <div
+          ref="floatingArrow"
+          class="arrow"
+          :style="{
+            left:
+              middlewareData.arrow?.x != null
+                ? `${middlewareData.arrow.x}px`
+                : '',
+            top:
+              middlewareData.arrow?.y != null
+                ? `${middlewareData.arrow.y}px`
+                : '',
+          }"
+          aria-hidden="true"
+        />
       </div>
     </Teleport>
   </div>
@@ -115,12 +178,17 @@ watch(open, (isOpen) => {
 
 <style scoped>
 .activator {
-  display: flex;
+  /* Shrink-wrap to the activator content so the reference box matches the toggle button.
+     This fixes horizontal misalignment in some story layouts. */
+  display: inline-flex;
 }
 
 .floating {
   position: fixed;
   z-index: 1000;
+
+  /* Ensure the arrow isn't clipped by an ancestor with overflow (rare but can happen in app shells). */
+  overflow: visible;
 
   .focus-catch {
     outline: none;
@@ -130,6 +198,39 @@ watch(open, (isOpen) => {
     outline: var(--kds-border-action-focused);
     outline-offset: var(--kds-spacing-offset-focus);
     border-radius: var(--kds-border-radius-container-0-37x);
+  }
+
+  .arrow {
+    position: absolute;
+
+    /* Keep above host background; using -1 can hide it completely depending on stacking contexts. */
+    z-index: 0;
+
+    /* Square rotated 45deg = diamond arrow */
+    width: 12px;
+    height: 12px;
+    background: var(--kds-color-surface-default);
+    border-radius: 2px;
+
+    /* Match container elevation a bit so the arrow is actually visible on varied backgrounds */
+    box-shadow: var(--kds-elevation-level-3);
+    transform: rotate(45deg);
+  }
+
+  &[data-placement="top"] .arrow {
+    bottom: -6px;
+  }
+
+  &[data-placement="bottom"] .arrow {
+    top: -6px;
+  }
+
+  &[data-placement="left"] .arrow {
+    right: -6px;
+  }
+
+  &[data-placement="right"] .arrow {
+    left: -6px;
   }
 }
 </style>

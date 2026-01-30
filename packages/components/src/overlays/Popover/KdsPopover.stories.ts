@@ -345,3 +345,90 @@ export const Interaction: Story = {
     });
   },
 };
+
+export const RestrictedMainContainer: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates `mainContainer`: the popover is teleported into a dedicated container instead of `document.body`. The container is also used as the positioning boundary, so the popover will be shifted/flipped to stay within it.",
+      },
+    },
+    chromatic: { disableSnapshot: true },
+  },
+  render: (args) => ({
+    components: { KdsPopover, KdsToggleButton },
+    setup() {
+      const open = ref(false);
+      const container = ref<HTMLElement | null>(null);
+
+      return {
+        args,
+        open,
+        container,
+      };
+    },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: var(--kds-spacing-container-1x);">
+        <div
+          ref="container"
+          style="
+            width: 100%;
+            height: 360px;
+            padding: var(--kds-spacing-container-1x);
+            border: var(--kds-border-action-input);
+            border-radius: var(--kds-border-radius-container-0-25x);
+            background: var(--kds-color-background-input-initial);
+            resize: both;
+            overflow: auto;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: var(--kds-spacing-container-1x);
+              min-height: 600px;
+            "
+          >
+            <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-subtle);">
+              <p>This panel is the teleport target (mainContainer) and also the positioning boundary.</p>
+              <p>Resize and scroll to see how the popover stays within its container.</p>
+              <p>The popover has default position "top" but is moved to the right to fit inside.</p>
+              <p>When scrolled, the position is flipped to the bottom.</p>
+            </div>
+
+            <KdsPopover
+              v-model="open"
+              v-bind="args"
+              :mainContainer="container"
+              placement="top"
+            >
+              <template #activator>
+                <KdsToggleButton v-model="open" label="Toggle popover" />
+              </template>
+
+              <div style="display: flex; flex-direction: column; gap: var(--kds-spacing-container-0-5x); width: 280px;">
+                <div style="font: var(--kds-font-base-body-small);">
+                  Teleported into the restricted container.
+                </div>
+                <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-subtle);">
+                  This content is intentionally wider to force boundary shifting.
+                </div>
+                <button type="button">Focusable element inside popover</button>
+              </div>
+            </KdsPopover>
+
+            <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-subtle);">
+              Some extra content to force scrolling.
+            </div>
+          </div>
+        </div>
+
+        <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-subtle);">
+          Note: mainContainer expects an HTMLElement. When it is not an HTMLElement (e.g. null), the popover falls back to document.body.
+        </div>
+      </div>
+    `,
+  }),
+};
