@@ -40,10 +40,6 @@ const ariaDescribedby = computed(() =>
   props.subText ? subTextId.value : undefined,
 );
 
-const inputAriaLabel = computed(() =>
-  props.label ? undefined : props.ariaLabel,
-);
-
 const hasValue = computed(() => modelValue.value.trim().length > 0);
 const showClearButton = computed(
   () => props.clearable && hasValue.value && !props.disabled && !props.readonly,
@@ -105,7 +101,6 @@ const clear = () => {
       :name="props.name"
       :autocomplete="props.autocomplete"
       leading-icon="filter"
-      :aria-label="inputAriaLabel"
       :aria-labelledby="ariaLabelledby"
       :aria-describedby="ariaDescribedby"
       @focus="handleFocus"

@@ -1,5 +1,66 @@
 import type { KdsIconName } from "../../Icon/types";
 
+type KdsInputLabelProps = {
+  /**
+   * Label text displayed above the input
+   */
+  label?: string;
+  /**
+   * Helper text or error message displayed below the input
+   */
+  subText?: string;
+  /**
+   * Reserve space for subtext to prevent layout shifts
+   */
+  preserveSubTextSpace?: boolean;
+  /**
+   * Placeholder text when input is empty
+   */
+  placeholder?: string;
+  /**
+   * Icon displayed at the start of the input
+   */
+  leadingIcon?: KdsIconName;
+  /**
+   * Icon displayed at the end of the input
+   */
+  trailingIcon?: KdsIconName;
+};
+
+type KdsInputNameAutocompleteProps = {
+  /**
+   * Name attribute for the input element
+   */
+  name?: string;
+  /**
+   * Autocomplete attribute for the input element
+   */
+  autocomplete?: string;
+};
+
+type KdsInputStateProps = {
+  /**
+   * Whether the input is disabled
+   */
+  disabled?: boolean;
+  /**
+   * Whether the input is readonly
+   */
+  readonly?: boolean;
+  /**
+   * Whether the input is required
+   */
+  required?: boolean;
+  /**
+   * Whether the input has an error state
+   */
+  error?: boolean;
+  /**
+   * Whether the input is in a validating state (shows loading indicator)
+   */
+  validating?: boolean;
+};
+
 export type KdsBaseInputProps = {
   /**
    * The type of input field
@@ -79,90 +140,24 @@ export type KdsBaseInputProps = {
   unit?: string;
 };
 
-export type KdsBaseInputEmits = {
+type KdsCommonInputEmits = {
   focus: [event: FocusEvent];
   blur: [event: FocusEvent];
   input: [value: string];
   keydown: [event: KeyboardEvent];
 };
 
-export type KdsTextInputProps = {
-  /**
-   * Label text displayed above the input
-   */
-  label?: string;
-  /**
-   * Helper text or error message displayed below the input
-   */
-  subText?: string;
-  /**
-   * Placeholder text when input is empty
-   */
-  placeholder?: string;
-  /**
-   * Whether the input is disabled
-   */
-  disabled?: boolean;
-  /**
-   * Whether the input is readonly
-   */
-  readonly?: boolean;
-  /**
-   * Whether the input is required
-   */
-  required?: boolean;
-  /**
-   * Icon displayed at the start of the input
-   */
-  leadingIcon?: KdsIconName;
-  /**
-   * Icon displayed at the end of the input
-   */
-  trailingIcon?: KdsIconName;
-  /**
-   * Whether the input has an error state
-   */
-  error?: boolean;
-  /**
-   * Whether the input is in a validating state (shows loading indicator)
-   */
-  validating?: boolean;
-  /**
-   * Name attribute for the input element
-   */
-  name?: string;
-  /**
-   * Autocomplete attribute for the input element
-   */
-  autocomplete?: string;
-  /**
-   * Reserve space for subtext to prevent layout shifts
-   */
-  preserveSubTextSpace?: boolean;
-};
+export type KdsBaseInputEmits = KdsCommonInputEmits;
 
-export type KdsTextInputEmits = {
-  focus: [event: FocusEvent];
-  blur: [event: FocusEvent];
-  input: [value: string];
-  keydown: [event: KeyboardEvent];
-};
+export type KdsTextInputProps = KdsInputLabelProps &
+  KdsInputStateProps &
+  KdsInputNameAutocompleteProps;
 
-export type KdsNumberInputProps = {
+export type KdsTextInputEmits = KdsCommonInputEmits;
+
+export type KdsNumberInputProps = KdsInputLabelProps & {
   /**
-   * Label text displayed above the input
-   */
-  label?: string;
-  /**
-   * Helper text or error message displayed below the input
-   */
-  subText?: string;
-  /**
-   * Placeholder text when input is empty
-   */
-  placeholder?: string;
-  /**
-   * Unit shown next to the number value
+   * Unit shown next to the input value
    */
   unit?: string;
   /**
@@ -177,105 +172,18 @@ export type KdsNumberInputProps = {
    * Step size used for +/- buttons and arrow key increments
    */
   step?: number;
-  /**
-   * Whether the input is disabled
-   */
-  disabled?: boolean;
-  /**
-   * Whether the input is readonly
-   */
-  readonly?: boolean;
-  /**
-   * Whether the input is required
-   */
-  required?: boolean;
-  /**
-   * Whether the input has an error state
-   */
-  error?: boolean;
-  /**
-   * Whether the input is in a validating state (shows loading indicator)
-   */
-  validating?: boolean;
-  /**
-   * Name attribute for the input element
-   */
-  name?: string;
-  /**
-   * Autocomplete attribute for the input element
-   */
-  autocomplete?: string;
-  /**
-   * Reserve space for subtext to prevent layout shifts
-   */
-  preserveSubTextSpace?: boolean;
-};
+} & KdsInputStateProps &
+  KdsInputNameAutocompleteProps;
 
-export type KdsNumberInputEmits = {
-  focus: [event: FocusEvent];
-  blur: [event: FocusEvent];
-  input: [value: string];
-  keydown: [event: KeyboardEvent];
-};
+export type KdsNumberInputEmits = KdsCommonInputEmits;
 
-export type KdsPatternInputProps = {
-  /**
-   * Label text displayed above the input
-   */
-  label?: string;
-  /**
-   * Helper text or error message displayed below the input
-   */
-  subText?: string;
-  /**
-   * Placeholder text when input is empty
-   */
-  placeholder?: string;
-  /**
-   * Accessible label for screen readers when no visible label is present
-   */
-  ariaLabel?: string;
-  /**
-   * Whether the input is disabled
-   */
-  disabled?: boolean;
-  /**
-   * Whether the input is readonly
-   */
-  readonly?: boolean;
-  /**
-   * Whether the input is required
-   */
-  required?: boolean;
-  /**
-   * Whether the input has an error state
-   */
-  error?: boolean;
-  /**
-   * Whether the input is in a validating state (shows loading indicator)
-   */
-  validating?: boolean;
-  /**
-   * Reserve space for subtext to prevent layout shifts
-   */
-  preserveSubTextSpace?: boolean;
-  /**
-   * Name attribute for the input element
-   */
-  name?: string;
-  /**
-   * Autocomplete attribute for the input element
-   */
-  autocomplete?: string;
-  /**
-   * Whether to show a clear button when the input has a value
-   */
-  clearable?: boolean;
-};
+export type KdsPatternInputProps = KdsInputLabelProps &
+  KdsInputStateProps &
+  KdsInputNameAutocompleteProps & {
+    /**
+     * Whether to show a clear button when the input has a value
+     */
+    clearable?: boolean;
+  };
 
-export type KdsPatternInputEmits = {
-  focus: [event: FocusEvent];
-  blur: [event: FocusEvent];
-  input: [value: string];
-  keydown: [event: KeyboardEvent];
-};
+export type KdsPatternInputEmits = KdsCommonInputEmits;

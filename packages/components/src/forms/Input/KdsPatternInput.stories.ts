@@ -62,11 +62,6 @@ const meta: Meta<typeof KdsPatternInput> = {
       control: "text",
       table: { category: "Props" },
     },
-    ariaLabel: {
-      control: "text",
-      description: "Accessible label used when no visible label is provided",
-      table: { category: "Props" },
-    },
     disabled: {
       control: "boolean",
       table: { category: "Props" },
@@ -113,7 +108,6 @@ const meta: Meta<typeof KdsPatternInput> = {
     label: "Pattern",
     placeholder: "",
     subText: "",
-    ariaLabel: "Pattern",
     required: false,
     disabled: false,
     readonly: false,
@@ -254,7 +248,6 @@ export const TextOverflow: Story = {
 export const Interaction: Story = {
   args: {
     label: "Pattern",
-    ariaLabel: "Pattern",
     modelValue: "",
     placeholder: "^column([1-9]|10)$",
     disabled: false,
