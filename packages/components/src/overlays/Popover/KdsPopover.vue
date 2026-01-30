@@ -50,13 +50,6 @@ const boundingRect = computed(() => ({
  * Floating UI setup
  */
 const placement = toRef(props, "placement");
-const basePlacement = computed((): "top" | "right" | "bottom" | "left" => {
-  // Floating UI placement strings can include -start/-end.
-  return (
-    (placement.value.split("-")[0] as "top" | "right" | "bottom" | "left") ??
-    "top"
-  );
-});
 const middleware = computed(() => {
   return [
     shift({
@@ -70,17 +63,27 @@ const middleware = computed(() => {
     arrow({ element: floatingArrow }),
   ];
 });
-const { floatingStyles, middlewareData } = useFloating(
-  referenceEl,
-  floatingEl,
-  {
-    placement,
-    strategy: "fixed",
-    whileElementsMounted: autoUpdate,
-    middleware,
-    open,
-  },
-);
+const {
+  floatingStyles,
+  middlewareData,
+  placement: resolvedPlacement,
+} = useFloating(referenceEl, floatingEl, {
+  placement,
+  strategy: "fixed",
+  whileElementsMounted: autoUpdate,
+  middleware,
+  open,
+});
+
+const actualBasePlacement = computed(() => {
+  return (
+    ((resolvedPlacement.value ?? placement.value).split("-")[0] as
+      | "top"
+      | "right"
+      | "bottom"
+      | "left") ?? "top"
+  );
+});
 
 /**
  * Click/Focus outside to close popover
@@ -140,7 +143,7 @@ watch(open, (isOpen) => {
         ref="floatingEl"
         class="floating"
         :data-open="open"
-        :data-placement="basePlacement"
+        :data-placement="actualBasePlacement"
         :style="floatingStyles"
         role="dialog"
         aria-modal="true"
