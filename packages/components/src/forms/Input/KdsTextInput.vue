@@ -82,6 +82,7 @@ const handleKeydown = (event: KeyboardEvent) => {
       :id="subTextId"
       :sub-text="props.subText"
       :error="props.error"
+      :validating="props.validating"
       :preserve-sub-text-space="props.preserveSubTextSpace"
     />
   </div>

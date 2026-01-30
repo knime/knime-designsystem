@@ -74,21 +74,8 @@ const handleKeydown = (event: KeyboardEvent) => {
         @blur="handleBlur"
         @keydown="handleKeydown"
       />
-      <div
-        v-if="props.trailingIcon || props.validating"
-        class="icon-wrapper trailing"
-      >
-        <KdsIcon
-          v-if="props.validating"
-          name="pending-changes"
-          size="small"
-          aria-label="Validating"
-        />
-        <KdsIcon
-          v-else-if="props.trailingIcon"
-          :name="props.trailingIcon"
-          size="small"
-        />
+      <div v-if="props.trailingIcon" class="icon-wrapper trailing">
+        <KdsIcon :name="props.trailingIcon" size="small" />
       </div>
     </div>
   </div>
