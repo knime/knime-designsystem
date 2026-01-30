@@ -1,4 +1,6 @@
+import { ref } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 
 import { KdsButton } from "../../buttons";
 import {
@@ -34,11 +36,11 @@ const meta: Meta<typeof KdsPopover> = {
     },
     ignoredClickOutsideTarget: {
       description:
-        'Optional additional element that should be treated as "inside" for click-outside handling. For example, a separate panel or a nested menu that should not close the popover.',
+        'Optional additional element(s) that should be treated as "inside" for click-outside handling. Use this if you have a separate DOM element (e.g. a panel or nested menu) that should not close the popover when clicked.',
       table: {
         category: "Props",
         type: {
-          summary: "HTMLElement | null",
+          summary: "HTMLElement | HTMLElement[] | null",
         },
       },
     },
@@ -87,6 +89,67 @@ export const Default: Story = {
     data() {
       return { open: false, args };
     },
+  }),
+};
+
+export const IgnoredClickOutsideTarget: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates `ignoredClickOutsideTarget`: clicking the side panel does not close the popover. Clicking anywhere else outside still closes it.",
+      },
+    },
+    chromatic: { disableSnapshot: true },
+  },
+  render: (args) => ({
+    components: { KdsPopover, KdsToggleButton },
+    setup() {
+      const open = ref(false);
+      const ignoredPanel = ref<HTMLElement | null>(null);
+
+      return {
+        args,
+        open,
+        ignoredPanel,
+      };
+    },
+    template: `
+      <div style="display: flex; gap: var(--kds-spacing-container-2x); align-items: flex-start;">
+        <div>
+          <KdsPopover v-model="open" v-bind="args" :ignoredClickOutsideTarget="ignoredPanel">
+            <template #activator>
+              <KdsToggleButton v-model="open" label="Toggle popover" />
+            </template>
+
+            <div style="display: flex; flex-direction: column; gap: var(--kds-spacing-container-0-5x);">
+              <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-subtle);">
+                Clicks inside the side panel are ignored (popover stays open).
+              </div>
+              <button type="button">Focusable element inside popover</button>
+            </div>
+          </KdsPopover>
+        </div>
+
+        <div
+          ref="ignoredPanel"
+          style="
+            width: 240px;
+            padding: var(--kds-spacing-container-1x);
+            border: var(--kds-border-action-input);
+            border-radius: var(--kds-border-radius-container-0-25x);
+            background: var(--kds-color-background-input-initial);
+          "
+        >
+          <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-subtle);">
+            Ignored click-outside panel
+          </div>
+          <button type="button" style="margin-top: var(--kds-spacing-container-0-5x);">
+            Clicking me should not close the popover
+          </button>
+        </div>
+      </div>
+    `,
   }),
 };
 
@@ -225,3 +288,60 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     },
   },
 });
+
+export const Interaction: Story = {
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
+  render: (args) => ({
+    components: { KdsPopover, KdsToggleButton },
+    template: `
+      <div style="display: flex">
+        <KdsPopover v-model="open" v-bind="args">
+          <template #activator>
+            <KdsToggleButton v-model="open" label="Toggle popover" />
+          </template>
+
+          <div style="display: flex; flex-direction: column; gap: var(--kds-spacing-container-0-5x);">
+            <div style="font: var(--kds-font-base-body-small);">Popover content</div>
+            <button type="button">Focusable element inside popover</button>
+          </div>
+        </KdsPopover>
+      </div>
+    `,
+    setup() {
+      const open = ref(false);
+      return { open, args };
+    },
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // The popover content is teleported to document.body, so we must query on the document.
+    const dialogQuery = () =>
+      canvasElement.ownerDocument.querySelector('[role="dialog"]');
+
+    const toggle = canvas.getByRole("button", { name: "Toggle popover" });
+
+    await userEvent.click(toggle);
+    await waitFor(() => {
+      expect(dialogQuery()).not.toBeNull();
+    });
+
+    await userEvent.keyboard("{Escape}");
+    await waitFor(() => {
+      expect(dialogQuery()).toBeNull();
+    });
+
+    // Reset state to allow rerunning the interaction test.
+    await userEvent.click(toggle);
+    await waitFor(() => {
+      expect(dialogQuery()).not.toBeNull();
+    });
+
+    await userEvent.keyboard("{Escape}");
+    await waitFor(() => {
+      expect(dialogQuery()).toBeNull();
+    });
+  },
+};

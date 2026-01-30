@@ -49,9 +49,18 @@ function closePopover() {
   nextTick(() => focusActivatorButton());
 }
 
-const ignoredClickOutsideTarget = toRef(props, "ignoredClickOutsideTarget");
+const ignoredClickOutsideTarget = computed<(HTMLElement | null)[]>(() => {
+  const targets = props.ignoredClickOutsideTarget;
+  if (targets === null) {
+    return [referenceEl.value];
+  }
+  if (Array.isArray(targets)) {
+    return [referenceEl.value, ...targets];
+  }
+  return [referenceEl.value, targets];
+});
 onClickOutside(floatingEl, () => closePopover(), {
-  ignore: [referenceEl, ignoredClickOutsideTarget],
+  ignore: ignoredClickOutsideTarget,
 });
 
 watch(open, (isOpen) => {
