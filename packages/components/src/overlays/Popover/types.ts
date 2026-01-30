@@ -16,8 +16,8 @@ export type KdsPopoverProps = {
   mainContainer?: HTMLElement;
 
   /**
-   * Optional additional element that should be treated as "inside" for click-outside handling.
+   * Optional additional element (or elements) that should be treated as "inside" for click-outside handling.
    * For example, a separate panel or a nested menu that should not close the popover.
    */
-  ignoredClickOutsideTarget?: HTMLElement | null;
+  ignoredClickOutsideTarget?: HTMLElement | HTMLElement[] | null;
 };
