@@ -86,7 +86,7 @@ export type KdsBaseInputEmits = {
   keydown: [event: KeyboardEvent];
 };
 
-export type KdsTextInputProps = {
+export type KdsTextInputProps = KdsBaseInputProps & {
   /**
    * Label text displayed above the input
    */
@@ -95,46 +95,6 @@ export type KdsTextInputProps = {
    * Helper text or error message displayed below the input
    */
   subText?: string;
-  /**
-   * Placeholder text when input is empty
-   */
-  placeholder?: string;
-  /**
-   * Whether the input is disabled
-   */
-  disabled?: boolean;
-  /**
-   * Whether the input is readonly
-   */
-  readonly?: boolean;
-  /**
-   * Whether the input is required
-   */
-  required?: boolean;
-  /**
-   * Icon displayed at the start of the input
-   */
-  leadingIcon?: KdsIconName;
-  /**
-   * Icon displayed at the end of the input
-   */
-  trailingIcon?: KdsIconName;
-  /**
-   * Whether the input has an error state
-   */
-  error?: boolean;
-  /**
-   * Whether the input is in a validating state (shows loading indicator)
-   */
-  validating?: boolean;
-  /**
-   * Name attribute for the input element
-   */
-  name?: string;
-  /**
-   * Autocomplete attribute for the input element
-   */
-  autocomplete?: string;
   /**
    * Reserve space for subtext to prevent layout shifts
    */
