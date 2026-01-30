@@ -31,22 +31,6 @@ const ariaLabelledby = computed(() =>
 const ariaDescribedby = computed(() =>
   props.subText ? subTextId.value : undefined,
 );
-
-const handleFocus = (event: FocusEvent) => {
-  emit("focus", event);
-};
-
-const handleBlur = (event: FocusEvent) => {
-  emit("blur", event);
-};
-
-const handleInput = (value: string) => {
-  emit("input", value);
-};
-
-const handleKeydown = (event: KeyboardEvent) => {
-  emit("keydown", event);
-};
 </script>
 
 <template>
@@ -73,10 +57,10 @@ const handleKeydown = (event: KeyboardEvent) => {
       :autocomplete="props.autocomplete"
       :aria-labelledby="ariaLabelledby"
       :aria-describedby="ariaDescribedby"
-      @focus="handleFocus"
-      @blur="handleBlur"
-      @input="handleInput"
-      @keydown="handleKeydown"
+      @focus="emit('focus', $event)"
+      @blur="emit('blur', $event)"
+      @input="emit('input', $event)"
+      @keydown="emit('keydown', $event)"
     />
     <KdsSubText
       :id="subTextId"

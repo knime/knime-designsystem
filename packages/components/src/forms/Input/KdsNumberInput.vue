@@ -126,18 +126,6 @@ const adjustByStep = (direction: -1 | 1) => {
   setValue(base + direction * step);
 };
 
-const handleInput = (value: string) => {
-  emit("input", value);
-};
-
-const handleFocus = (event: FocusEvent) => {
-  emit("focus", event);
-};
-
-const handleBlur = (event: FocusEvent) => {
-  emit("blur", event);
-};
-
 const handleKeydown = (event: KeyboardEvent) => {
   if (!props.disabled && !props.readonly) {
     if (event.key === "ArrowUp") {
@@ -179,9 +167,9 @@ const handleKeydown = (event: KeyboardEvent) => {
       :unit="props.unit"
       :aria-labelledby="ariaLabelledby"
       :aria-describedby="ariaDescribedby"
-      @focus="handleFocus"
-      @blur="handleBlur"
-      @input="handleInput"
+      @focus="emit('focus', $event)"
+      @blur="emit('blur', $event)"
+      @input="emit('input', $event)"
       @keydown="handleKeydown"
     >
       <template #trailing>

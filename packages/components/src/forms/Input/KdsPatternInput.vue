@@ -47,22 +47,6 @@ const excludeMatchesAriaLabel = computed(() =>
 const patternModeAriaLabel = computed(() =>
   useRegex.value ? "Use regex pattern" : "Use wildcard pattern",
 );
-
-const handleFocus = (event: FocusEvent) => {
-  emit("focus", event);
-};
-
-const handleBlur = (event: FocusEvent) => {
-  emit("blur", event);
-};
-
-const handleInput = (value: string) => {
-  emit("input", value);
-};
-
-const handleKeydown = (event: KeyboardEvent) => {
-  emit("keydown", event);
-};
 </script>
 
 <template>
@@ -90,10 +74,10 @@ const handleKeydown = (event: KeyboardEvent) => {
       clearable
       :aria-labelledby="ariaLabelledby"
       :aria-describedby="ariaDescribedby"
-      @focus="handleFocus"
-      @blur="handleBlur"
-      @input="handleInput"
-      @keydown="handleKeydown"
+      @focus="emit('focus', $event)"
+      @blur="emit('blur', $event)"
+      @input="emit('input', $event)"
+      @keydown="emit('keydown', $event)"
     >
       <template #trailing>
         <div class="button-wrapper">

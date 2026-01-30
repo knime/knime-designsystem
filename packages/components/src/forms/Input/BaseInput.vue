@@ -37,18 +37,6 @@ const handleInput = (event: Event) => {
   emit("input", target.value);
 };
 
-const handleFocus = (event: FocusEvent) => {
-  emit("focus", event);
-};
-
-const handleBlur = (event: FocusEvent) => {
-  emit("blur", event);
-};
-
-const handleKeydown = (event: KeyboardEvent) => {
-  emit("keydown", event);
-};
-
 const showClearButton = computed(
   () => props.clearable && hasValue.value && !props.disabled && !props.readonly,
 );
@@ -99,9 +87,9 @@ const clear = () => {
         :aria-invalid="props.error"
         :class="{ 'input-field': true, 'has-value': hasValue }"
         @input="handleInput"
-        @focus="handleFocus"
-        @blur="handleBlur"
-        @keydown="handleKeydown"
+        @focus="emit('focus', $event)"
+        @blur="emit('blur', $event)"
+        @keydown="emit('keydown', $event)"
       />
 
       <span
