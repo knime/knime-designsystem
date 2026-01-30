@@ -7,9 +7,9 @@ import BasePopover from "./BasePopover.vue";
 import type { KdsPopoverProps } from "./types";
 
 const props = withDefaults(defineProps<KdsPopoverProps>(), {
-  ignoredClickOutsideTarget: null,
-  mainContainer: () => document.body,
   placement: "top",
+  mainContainer: () => document.body,
+  ignoredClickOutsideTarget: null,
 });
 const open = defineModel<boolean>({ default: false });
 const referenceEl = ref<HTMLElement | null>(null);
