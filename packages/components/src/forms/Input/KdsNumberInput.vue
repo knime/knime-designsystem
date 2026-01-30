@@ -193,7 +193,6 @@ const handleKeydown = (event: KeyboardEvent) => {
             leading-icon="minus"
             aria-label="Decrease"
             :disabled="!canDecrease"
-            @mousedown.prevent
             @click="adjustByStep(-1)"
           />
           <KdsButton
@@ -203,7 +202,6 @@ const handleKeydown = (event: KeyboardEvent) => {
             leading-icon="plus"
             aria-label="Increase"
             :disabled="!canIncrease"
-            @mousedown.prevent
             @click="adjustByStep(1)"
           />
         </div>
