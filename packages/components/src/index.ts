@@ -8,6 +8,7 @@ export { default as KdsDynamicModalProvider } from "./Modal/KdsDynamicModalProvi
 export { default as KdsLoadingSpinner } from "./LoadingSpinner/KdsLoadingSpinner.vue";
 export { default as KdsBaseInput } from "./forms/Input/BaseInput.vue";
 export { default as KdsTextInput } from "./forms/Input/KdsTextInput.vue";
+export { default as KdsNumberInput } from "./forms/Input/KdsNumberInput.vue";
 export {
   type KdsDynamicDialogConfirmConfig,
   type KdsDynamicModalTemplateConfig,
