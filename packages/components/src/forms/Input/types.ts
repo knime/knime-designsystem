@@ -217,3 +217,65 @@ export type KdsNumberInputEmits = {
   input: [value: string];
   keydown: [event: KeyboardEvent];
 };
+
+export type KdsPatternInputProps = {
+  /**
+   * Label text displayed above the input
+   */
+  label?: string;
+  /**
+   * Helper text or error message displayed below the input
+   */
+  subText?: string;
+  /**
+   * Placeholder text when input is empty
+   */
+  placeholder?: string;
+  /**
+   * Accessible label for screen readers when no visible label is present
+   */
+  ariaLabel?: string;
+  /**
+   * Whether the input is disabled
+   */
+  disabled?: boolean;
+  /**
+   * Whether the input is readonly
+   */
+  readonly?: boolean;
+  /**
+   * Whether the input is required
+   */
+  required?: boolean;
+  /**
+   * Whether the input has an error state
+   */
+  error?: boolean;
+  /**
+   * Whether the input is in a validating state (shows loading indicator)
+   */
+  validating?: boolean;
+  /**
+   * Reserve space for subtext to prevent layout shifts
+   */
+  preserveSubTextSpace?: boolean;
+  /**
+   * Name attribute for the input element
+   */
+  name?: string;
+  /**
+   * Autocomplete attribute for the input element
+   */
+  autocomplete?: string;
+  /**
+   * Whether to show a clear button when the input has a value
+   */
+  clearable?: boolean;
+};
+
+export type KdsPatternInputEmits = {
+  focus: [event: FocusEvent];
+  blur: [event: FocusEvent];
+  input: [value: string];
+  keydown: [event: KeyboardEvent];
+};

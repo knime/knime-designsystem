@@ -5,9 +5,9 @@ export { default as KdsRadioButtonGroup } from "./RadioButton/KdsRadioButtonGrou
 export { default as KdsValueSwitch } from "./RadioButton/KdsValueSwitch.vue";
 export { default as KdsLabel } from "./KdsLabel.vue";
 export { default as KdsSubText } from "./KdsSubText.vue";
-export { default as KdsBaseInput } from "./Input/BaseInput.vue";
 export { default as KdsTextInput } from "./Input/KdsTextInput.vue";
 export { default as KdsNumberInput } from "./Input/KdsNumberInput.vue";
+export { default as KdsPatternInput } from "./Input/KdsPatternInput.vue";
 
 // Export form component types
 export type {
@@ -31,4 +31,6 @@ export type {
   KdsTextInputEmits,
   KdsNumberInputProps,
   KdsNumberInputEmits,
+  KdsPatternInputProps,
+  KdsPatternInputEmits,
 } from "./Input/types";
