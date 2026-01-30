@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ref, toRef, useId } from "vue";
-import { onClickOutside } from "@vueuse/core";
+import { nextTick, ref, toRef, useId, watch } from "vue";
+import { onClickOutside, useFocusWithin } from "@vueuse/core";
 import { autoUpdate, flip, offset, shift, useFloating } from "@floating-ui/vue";
-import { FocusTrap } from "focus-trap-vue";
 
 import BasePopover from "./BasePopover.vue";
 import type { KdsPopoverProps } from "./types";
@@ -23,16 +22,45 @@ const popoverId = useId();
 const floatingOffset = 8;
 const { x, y } = useFloating(referenceEl, floatingEl, {
   placement: toRef(props, "placement"),
+  strategy: "fixed",
   whileElementsMounted: autoUpdate,
   middleware: [shift({ padding: 8 }), offset(floatingOffset), flip()],
 });
 
 /**
- * Click outside to close popover
+ * Click/Focus outside to close popover
  */
 const ignoredClickOutsideTarget = toRef(props, "ignoredClickOutsideTarget");
 onClickOutside(floatingEl, () => (open.value = false), {
-  ignore: [referenceEl, ignoredClickOutsideTarget],
+  ignore: [ignoredClickOutsideTarget],
+});
+
+function focusActivatorButton() {
+  const button = referenceEl.value?.querySelector<HTMLButtonElement>("button");
+  button?.focus({ preventScroll: true });
+}
+
+function closePopover() {
+  open.value = false;
+  // Restore focus back to the activator without causing the page to scroll.
+  nextTick(() => focusActivatorButton());
+}
+
+const { focused } = useFocusWithin(floatingEl);
+
+watch(open, (isOpen) => {
+  if (isOpen) {
+    // Focus the popover when it opens; prevent scroll jumps in Storybook.
+    nextTick(() => {
+      floatingEl.value?.focus({ preventScroll: true });
+    });
+  }
+});
+
+watch(focused, (isFocused) => {
+  if (!isFocused && open.value) {
+    closePopover();
+  }
 });
 </script>
 
@@ -63,16 +91,12 @@ onClickOutside(floatingEl, () => (open.value = false), {
         role="dialog"
         aria-modal="true"
         tabindex="-1"
+        @keydown.esc="closePopover"
       >
-        <FocusTrap
-          v-model:active="open"
-          fallback-focus="body"
-          @deactivate="referenceEl?.querySelector('button')?.focus()"
-        >
-          <BasePopover @close="open = false">
-            <slot />
-          </BasePopover>
-        </FocusTrap>
+        <BasePopover>
+          <slot />
+          <div tabindex="0" @focus="closePopover" />
+        </BasePopover>
       </div>
     </Teleport>
   </div>
@@ -84,7 +108,13 @@ onClickOutside(floatingEl, () => (open.value = false), {
 }
 
 .floating {
-  position: absolute;
+  position: fixed;
   z-index: 1000;
+
+  &:focus-visible {
+    outline: var(--kds-border-action-focused);
+    outline-offset: var(--kds-spacing-offset-focus);
+    border-radius: var(--kds-border-radius-container-0-37x);
+  }
 }
 </style>
