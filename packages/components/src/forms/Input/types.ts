@@ -73,6 +73,10 @@ export type KdsBaseInputProps = {
    * Autocomplete attribute for the input element
    */
   autocomplete?: string;
+  /**
+   * Unit shown next to the input value
+   */
+  unit?: string;
 };
 
 export type KdsBaseInputEmits = {

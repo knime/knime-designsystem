@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useId } from "vue";
+import { computed, useId } from "vue";
 
 import KdsButton from "../../buttons/KdsButton.vue";
 import KdsLabel from "../KdsLabel.vue";
@@ -34,9 +34,6 @@ const ariaLabelledby = computed(() =>
 const ariaDescribedby = computed(() =>
   props.subText ? subTextId.value : undefined,
 );
-
-const isFocused = ref(false);
-const hasValue = computed(() => modelValue.value.trim().length > 0);
 
 const parseCurrent = () => {
   if (modelValue.value.trim().length === 0) {
@@ -134,12 +131,10 @@ const handleInput = (value: string) => {
 };
 
 const handleFocus = (event: FocusEvent) => {
-  isFocused.value = true;
   emit("focus", event);
 };
 
 const handleBlur = (event: FocusEvent) => {
-  isFocused.value = false;
   emit("blur", event);
 };
 
@@ -155,12 +150,6 @@ const handleKeydown = (event: KeyboardEvent) => {
   }
   emit("keydown", event);
 };
-
-const unitClasses = computed(() => ({
-  unit: true,
-  placeholder: !hasValue.value && !isFocused.value,
-  disabled: props.disabled,
-}));
 </script>
 
 <template>
@@ -187,6 +176,7 @@ const unitClasses = computed(() => ({
       :min="props.min"
       :max="props.max"
       :step="props.stepsize"
+      :unit="props.unit"
       :aria-labelledby="ariaLabelledby"
       :aria-describedby="ariaDescribedby"
       @focus="handleFocus"
@@ -194,9 +184,6 @@ const unitClasses = computed(() => ({
       @input="handleInput"
       @keydown="handleKeydown"
     >
-      <template #afterInput>
-        <span v-if="props.unit" :class="unitClasses">{{ props.unit }}</span>
-      </template>
       <template #trailing>
         <div class="button-wrapper">
           <KdsButton
@@ -237,24 +224,6 @@ const unitClasses = computed(() => ({
 .number-input {
   display: flex;
   flex-direction: column;
-}
-
-.unit {
-  flex-shrink: 0;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font: var(--kds-font-base-interactive-small);
-  color: var(--kds-color-text-and-icon-neutral);
-  white-space: nowrap;
-
-  &.placeholder {
-    color: var(--kds-color-text-and-icon-subtle);
-  }
-
-  &.disabled {
-    color: var(--kds-color-text-and-icon-disabled);
-  }
 }
 
 .button-wrapper {
