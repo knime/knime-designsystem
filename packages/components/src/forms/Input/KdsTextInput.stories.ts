@@ -156,7 +156,7 @@ export const WithTrailingIcon: Story = {
   args: {
     label: "Email",
     placeholder: "your@email.com",
-    trailingIcon: "checkmark",
+    trailingIcon: "user",
   },
 };
 
@@ -225,7 +225,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       validating: [false, true],
       subText: [undefined, "Helper text"],
       leadingIcon: [undefined, "search"],
-      trailingIcon: [undefined, "checkmark"],
+      trailingIcon: [undefined, "user"],
     },
   ],
   pseudoStates: ["hover", "active", "focus", "focus-visible"],
@@ -293,7 +293,7 @@ export const TextOverflow: Story = {
     subText:
       "Very long helper text that should wrap to multiple lines when needed",
     leadingIcon: "search",
-    trailingIcon: "checkmark",
+    trailingIcon: "user",
   },
 };
 
