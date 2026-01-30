@@ -135,7 +135,6 @@ export type KdsTextInputProps = {
 };
 
 export type KdsTextInputEmits = {
-  "update:modelValue": [value: string];
   focus: [event: FocusEvent];
   blur: [event: FocusEvent];
   input: [value: string];

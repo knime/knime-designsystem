@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { fn } from "storybook/test";
+import { useArgs } from "storybook/preview-api";
+import { expect, userEvent, within } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
@@ -11,9 +12,12 @@ import {
 
 import KdsTextInput from "./KdsTextInput.vue";
 
+type Story = StoryObj<typeof KdsTextInput>;
+
 const meta: Meta<typeof KdsTextInput> = {
   title: "Components/forms/KdsTextInput",
-  component: KdsTextInput,
+  component: KdsTextInput as Meta<typeof KdsTextInput>["component"],
+  tags: ["autodocs"],
   parameters: {
     docs: {
       description: {
@@ -28,38 +32,105 @@ const meta: Meta<typeof KdsTextInput> = {
     },
   },
   argTypes: {
-    modelValue: { control: "text" },
-    label: { control: "text" },
-    subText: { control: "text" },
-    placeholder: { control: "text" },
-    disabled: { control: "boolean" },
-    readonly: { control: "boolean" },
-    required: { control: "boolean" },
-    error: { control: "boolean" },
-    validating: { control: "boolean" },
-    preserveSubTextSpace: { control: "boolean" },
+    modelValue: {
+      control: "text",
+      description: "v-model binding for the input value",
+      table: { category: "Model" },
+    },
+    label: {
+      control: "text",
+      description: "Label shown above the input",
+      table: { category: "Props" },
+    },
+    placeholder: {
+      control: "text",
+      description: "Placeholder shown when the input is empty",
+      table: { category: "Props" },
+    },
+    subText: {
+      control: "text",
+      description: "Helper text or error message shown below the input",
+      table: { category: "Props" },
+    },
+    disabled: {
+      control: "boolean",
+      table: { category: "Props" },
+    },
+    readonly: {
+      control: "boolean",
+      table: { category: "Props" },
+    },
+    required: {
+      control: "boolean",
+      table: { category: "Props" },
+    },
+    error: {
+      control: "boolean",
+      table: { category: "Props" },
+    },
+    validating: {
+      control: "boolean",
+      description: "Shows a spinner next to the subtext when true",
+      table: { category: "Props" },
+    },
+    preserveSubTextSpace: {
+      control: "boolean",
+      table: { category: "Props" },
+    },
     leadingIcon: {
       control: { type: "select" },
       options: [undefined, ...iconNames],
+      table: { category: "Props" },
     },
     trailingIcon: {
       control: { type: "select" },
       options: [undefined, ...iconNames],
+      table: { category: "Props" },
     },
-    name: { control: "text" },
-    autocomplete: { control: "text" },
+    name: {
+      control: "text",
+      table: { category: "Props" },
+    },
+    autocomplete: {
+      control: "text",
+      table: { category: "Props" },
+    },
   },
   args: {
-    onFocus: fn(),
-    onBlur: fn(),
-    onInput: fn(),
-    onKeydown: fn(),
+    modelValue: "",
+    label: "Label",
+    leadingIcon: undefined,
+    trailingIcon: undefined,
+    placeholder: "",
+    required: false,
+    disabled: false,
+    readonly: false,
+    validating: false,
+    error: false,
+    subText: "",
+    preserveSubTextSpace: false,
+    name: "",
+    autocomplete: "",
   },
+  decorators: [
+    (story) => {
+      const [currentArgs, updateArgs] = useArgs();
+      return {
+        components: { story },
+        setup() {
+          return {
+            args: currentArgs,
+            updateArgs,
+          };
+        },
+        template:
+          '<story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" />',
+      };
+    },
+  ],
 };
 
 export default meta;
-
-type Story = StoryObj<typeof KdsTextInput>;
 
 export const Default: Story = {
   args: {
@@ -146,7 +217,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       trailingIcon: [undefined, "checkmark"],
     },
   ],
-  pseudoStates: ["hover", "active", "focus"],
+  pseudoStates: ["hover", "active", "focus", "focus-visible"],
 });
 
 export const DesignComparator: Story = buildDesignComparatorStory({
@@ -212,5 +283,43 @@ export const TextOverflow: Story = {
       "Very long helper text that should wrap to multiple lines when needed",
     leadingIcon: "search",
     trailingIcon: "checkmark",
+  },
+};
+
+export const Interaction: Story = {
+  args: {
+    label: "Label",
+    modelValue: "",
+    placeholder: "Enter text",
+    disabled: false,
+    readonly: false,
+    required: false,
+    error: false,
+    validating: false,
+    subText: "",
+    preserveSubTextSpace: false,
+    leadingIcon: undefined,
+    trailingIcon: undefined,
+    name: "",
+    autocomplete: "",
+  },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("textbox", { name: "Label" });
+
+    await step("Type into the input", async () => {
+      await userEvent.click(input);
+      await userEvent.clear(input);
+      await userEvent.type(input, "Hello");
+      await expect(input).toHaveValue("Hello");
+
+      await userEvent.clear(input);
+      await expect(input).toHaveValue("");
+    });
+
+    await step("Tab focus", async () => {
+      await userEvent.tab();
+      await expect(input).toHaveFocus();
+    });
   },
 };
