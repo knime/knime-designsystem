@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { nextTick, ref, toRef, useId, watch } from "vue";
+import { computed, nextTick, ref, toRef, useId, watch } from "vue";
 import { onClickOutside } from "@vueuse/core";
 import { autoUpdate, flip, offset, shift, useFloating } from "@floating-ui/vue";
 
@@ -16,6 +16,13 @@ const referenceEl = ref<HTMLElement | null>(null);
 const floatingEl = ref<HTMLElement | null>(null);
 const focusCatch = ref<HTMLElement | null>(null);
 const popoverId = useId();
+
+const teleportTarget = computed<HTMLElement>(() => {
+  // Storybook (and some app shells) can temporarily hand us an object that's not a DOM Node.
+  // Vue Teleport expects an Element; if it's not, patching can crash (parent.insertBefore).
+  const target = props.mainContainer;
+  return target instanceof HTMLElement ? target : document.body;
+});
 
 /**
  * Floating UI setup
@@ -70,7 +77,7 @@ watch(open, (isOpen) => {
       <slot name="activator" />
     </div>
 
-    <Teleport v-if="$slots.default" :to="props.mainContainer">
+    <Teleport v-if="$slots.default" :to="teleportTarget">
       <div
         v-if="open"
         :id="popoverId"
