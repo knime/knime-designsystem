@@ -130,10 +130,9 @@ export const VariablePopover: Story = {
         <KdsPopover v-model="open">
           <template #activator>
             <KdsVariableToggleButton
-              :pressed="open"
+              v-model="open"
               :inSet="!!inValue"
               :outSet="!!outValue"
-              @click="open = !open"
             />
           </template>
 

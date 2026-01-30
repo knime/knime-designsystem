@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { nextTick, ref, toRef, useId, watch } from "vue";
-import { onClickOutside, useFocusWithin } from "@vueuse/core";
+import { onClickOutside } from "@vueuse/core";
 import { autoUpdate, flip, offset, shift, useFloating } from "@floating-ui/vue";
 
 import BasePopover from "./BasePopover.vue";
@@ -14,6 +14,7 @@ const props = withDefaults(defineProps<KdsPopoverProps>(), {
 const open = defineModel<boolean>({ default: false });
 const referenceEl = ref<HTMLElement | null>(null);
 const floatingEl = ref<HTMLElement | null>(null);
+const focusCatch = ref<HTMLElement | null>(null);
 const popoverId = useId();
 
 /**
@@ -30,11 +31,6 @@ const { x, y } = useFloating(referenceEl, floatingEl, {
 /**
  * Click/Focus outside to close popover
  */
-const ignoredClickOutsideTarget = toRef(props, "ignoredClickOutsideTarget");
-onClickOutside(floatingEl, () => (open.value = false), {
-  ignore: [ignoredClickOutsideTarget],
-});
-
 function focusActivatorButton() {
   const button = referenceEl.value?.querySelector<HTMLButtonElement>("button");
   button?.focus({ preventScroll: true });
@@ -46,20 +42,17 @@ function closePopover() {
   nextTick(() => focusActivatorButton());
 }
 
-const { focused } = useFocusWithin(floatingEl);
+const ignoredClickOutsideTarget = toRef(props, "ignoredClickOutsideTarget");
+onClickOutside(floatingEl, () => closePopover(), {
+  ignore: [referenceEl, ignoredClickOutsideTarget],
+});
 
 watch(open, (isOpen) => {
   if (isOpen) {
     // Focus the popover when it opens; prevent scroll jumps in Storybook.
     nextTick(() => {
-      floatingEl.value?.focus({ preventScroll: true });
+      focusCatch.value?.focus({ preventScroll: true });
     });
-  }
-});
-
-watch(focused, (isFocused) => {
-  if (!isFocused && open.value) {
-    closePopover();
   }
 });
 </script>
@@ -94,6 +87,8 @@ watch(focused, (isFocused) => {
         @keydown.esc="closePopover"
       >
         <BasePopover>
+          <div tabindex="0" @focus="closePopover" />
+          <div ref="focusCatch" class="focus-catch" tabindex="-1" />
           <slot />
           <div tabindex="0" @focus="closePopover" />
         </BasePopover>
@@ -111,7 +106,11 @@ watch(focused, (isFocused) => {
   position: fixed;
   z-index: 1000;
 
-  &:focus-visible {
+  .focus-catch {
+    outline: none;
+  }
+
+  &:has(.focus-catch:focus-visible) {
     outline: var(--kds-border-action-focused);
     outline-offset: var(--kds-spacing-offset-focus);
     border-radius: var(--kds-border-radius-container-0-37x);
