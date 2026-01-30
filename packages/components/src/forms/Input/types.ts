@@ -1,4 +1,4 @@
-import type { IconName } from "@knime/kds-styles/img/icons/def";
+import type { KdsIconName } from "../../Icon/types";
 
 export type KdsBaseInputProps = {
   /**
@@ -32,11 +32,11 @@ export type KdsBaseInputProps = {
   /**
    * Icon displayed at the start of the input
    */
-  leadingIcon?: IconName;
+  leadingIcon?: KdsIconName;
   /**
    * Icon displayed at the end of the input
    */
-  trailingIcon?: IconName;
+  trailingIcon?: KdsIconName;
   /**
    * Whether the input has an error state
    */
@@ -107,11 +107,11 @@ export type KdsTextInputProps = {
   /**
    * Icon displayed at the start of the input
    */
-  leadingIcon?: IconName;
+  leadingIcon?: KdsIconName;
   /**
    * Icon displayed at the end of the input
    */
-  trailingIcon?: IconName;
+  trailingIcon?: KdsIconName;
   /**
    * Whether the input has an error state
    */
