@@ -4,6 +4,13 @@
   </div>
 </template>
 
+<script setup lang="ts">
+/**
+ * Internal base popover wrapper.
+ *
+ * Provides consistent styling and layout for popover content used by higher-level overlay components.
+ */
+</script>
 <style scoped>
 .content {
   max-width: 354px;
