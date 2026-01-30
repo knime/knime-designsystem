@@ -99,9 +99,9 @@ const meta: Meta<typeof KdsTextInput> = {
   args: {
     modelValue: "",
     label: "Label",
+    placeholder: "",
     leadingIcon: undefined,
     trailingIcon: undefined,
-    placeholder: "",
     required: false,
     disabled: false,
     readonly: false,
@@ -138,51 +138,9 @@ export const Default: Story = {
   },
 };
 
-export const WithLabel: Story = {
-  args: {
-    label: "Label",
-    placeholder: "Enter text",
-  },
-};
-
 export const WithValue: Story = {
   args: {
-    label: "Label",
     modelValue: "Some value",
-  },
-};
-
-export const WithSubText: Story = {
-  args: {
-    label: "Label",
-    placeholder: "Enter text",
-    subText: "Helper text goes here",
-  },
-};
-
-export const WithError: Story = {
-  args: {
-    label: "Label",
-    modelValue: "Invalid value",
-    error: true,
-    subText: "Error message",
-  },
-};
-
-export const Validating: Story = {
-  args: {
-    label: "Label",
-    modelValue: "Checking...",
-    validating: true,
-    subText: "Validation message",
-  },
-};
-
-export const Disabled: Story = {
-  args: {
-    label: "Label",
-    placeholder: "Enter text",
-    disabled: true,
   },
 };
 
@@ -202,13 +160,66 @@ export const WithTrailingIcon: Story = {
   },
 };
 
+export const Required: Story = {
+  args: {
+    placeholder: "Enter text",
+    required: true,
+  },
+};
+
+export const Readonly: Story = {
+  args: {
+    readonly: true,
+    modelValue: "Read only value",
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    placeholder: "Enter text",
+    disabled: true,
+  },
+};
+
+export const WithSubText: Story = {
+  args: {
+    placeholder: "Enter text",
+    subText: "Helper text goes here",
+  },
+};
+
+export const Validating: Story = {
+  args: {
+    modelValue: "Checking...",
+    validating: true,
+    subText: "Validation message",
+  },
+};
+
+export const WithError: Story = {
+  args: {
+    modelValue: "Invalid value",
+    error: true,
+    subText: "Error message",
+  },
+};
+
+export const NameAndAutocomplete: Story = {
+  args: {
+    label: "Email",
+    placeholder: "your@email.com",
+    name: "email",
+    autocomplete: "email",
+  },
+};
+
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsTextInput,
   combinationsProps: [
     {
       label: ["Label"],
       modelValue: ["", "Value"],
-      placeholder: ["Placeholder"],
+      placeholder: ["", "Placeholder"],
       disabled: [false, true],
       error: [false, true],
       validating: [false, true],
