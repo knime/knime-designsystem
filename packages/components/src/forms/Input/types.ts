@@ -176,7 +176,7 @@ export type KdsNumberInputProps = {
   /**
    * Step size used for +/- buttons and arrow key increments
    */
-  stepsize?: number;
+  step?: number;
   /**
    * Whether the input is disabled
    */

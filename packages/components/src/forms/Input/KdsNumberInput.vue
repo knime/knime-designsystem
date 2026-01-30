@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<KdsNumberInputProps>(), {
   validating: false,
   preserveSubTextSpace: false,
   unit: "",
-  stepsize: 1,
+  step: 1,
 });
 
 const emit = defineEmits<KdsNumberInputEmits>();
@@ -57,7 +57,7 @@ const clamp = (value: number) => {
 };
 
 const stepDecimals = computed(() => {
-  const step = props.stepsize;
+  const step = props.step;
   if (!Number.isFinite(step)) {
     return 0;
   }
@@ -117,7 +117,7 @@ const canIncrease = computed(() => {
 });
 
 const adjustByStep = (direction: -1 | 1) => {
-  const step = props.stepsize;
+  const step = props.step;
   if (!Number.isFinite(step) || step <= 0) {
     return;
   }
@@ -175,7 +175,7 @@ const handleKeydown = (event: KeyboardEvent) => {
       :autocomplete="props.autocomplete"
       :min="props.min"
       :max="props.max"
-      :step="props.stepsize"
+      :step="props.step"
       :unit="props.unit"
       :aria-labelledby="ariaLabelledby"
       :aria-describedby="ariaDescribedby"

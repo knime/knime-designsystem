@@ -55,7 +55,7 @@ const meta: Meta<typeof KdsNumberInput> = {
       control: "number",
       table: { category: "Props" },
     },
-    stepsize: {
+    step: {
       control: "number",
       table: { category: "Props" },
     },
@@ -104,7 +104,7 @@ const meta: Meta<typeof KdsNumberInput> = {
     unit: "",
     min: undefined,
     max: undefined,
-    stepsize: 1,
+    step: 1,
     disabled: false,
     readonly: false,
     required: false,
@@ -154,7 +154,7 @@ export const WithMinMax: Story = {
     modelValue: "5",
     min: 0,
     max: 10,
-    stepsize: 1,
+    step: 1,
     unit: "kg",
   },
 };
@@ -288,7 +288,7 @@ export const Interaction: Story = {
     unit: "ms",
     min: 0,
     max: 2,
-    stepsize: 1,
+    step: 1,
     disabled: false,
     readonly: false,
     required: false,
