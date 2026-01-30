@@ -98,11 +98,6 @@ watch(open, (isOpen) => {
           <div ref="focusCatch" class="focus-catch" tabindex="-1" />
           <slot />
           <div tabindex="0" @focus="closePopover" />
-          <button
-            class="close-button"
-            aria-label="Close popover"
-            @click="closePopover"
-          />
         </BasePopover>
       </div>
     </Teleport>

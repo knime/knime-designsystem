@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
+import { KdsButton } from "../../buttons";
 import {
   KdsInfoToggleButton,
   KdsLabel,
@@ -51,7 +52,7 @@ type Story = StoryObj<typeof KdsPopover>;
 
 export const Default: Story = {
   render: (args) => ({
-    components: { KdsPopover, KdsToggleButton },
+    components: { KdsPopover, KdsToggleButton, KdsButton },
     template: `
       <div style="display: flex">
         <KdsPopover v-model="open" v-bind="args">
@@ -59,17 +60,16 @@ export const Default: Story = {
             <KdsToggleButton v-model="open" label="Toggle popover" />
           </template>
           <div style="display: flex; flex-direction: column; gap: var(--kds-spacing-container-0-5x);">
+            <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-subtle);">
+              Close via Escape/double finger z-gesture or clicking/focusing outside.
+            </div>
+            <KdsButton label="A button" />
             <label>
-              First input
-              <input type="text" placeholder="Should be focused on open" />
+              An input
+              <input type="text" placeholder="that can be focsed" />
             </label>
 
-            <button type="button">Second focusable</button>
-            <a href="#">Third focusable</a>
-
-            <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-subtle);">
-              Close via the “Close popover” button (recommended for iOS VoiceOver), by clicking/tapping outside, or by pressing Escape on desktop.
-            </div>
+            <a href="#">A link</a>
           </div>
         </KdsPopover>
       </div>
