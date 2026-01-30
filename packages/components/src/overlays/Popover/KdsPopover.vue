@@ -214,9 +214,6 @@ watch(open, (isOpen) => {
     height: 12px;
     background: var(--kds-color-surface-default);
     border-radius: 2px;
-
-    /* Match container elevation a bit so the arrow is actually visible on varied backgrounds */
-    box-shadow: var(--kds-elevation-level-3);
     transform: rotate(45deg);
   }
 
