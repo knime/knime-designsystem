@@ -238,4 +238,8 @@ const handleKeydown = (event: KeyboardEvent) => {
     color: var(--kds-color-text-and-icon-disabled);
   }
 }
+
+.container:focus-within .unit {
+  color: var(--kds-color-text-and-icon-neutral);
+}
 </style>

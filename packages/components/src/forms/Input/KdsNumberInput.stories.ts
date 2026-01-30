@@ -218,12 +218,12 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3524-14821":
           {
-            modelValue: "{value}",
+            placeholder: "{value}",
             unit: "{unit}",
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3524-14830":
           {
-            modelValue: "{value}",
+            placeholder: "{value}",
             unit: "{unit}",
             parameters: { pseudo: { hover: true } },
           },
@@ -238,26 +238,26 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3524-14848":
           {
-            modelValue: "{value}",
+            modelValue: "42",
             unit: "{unit}",
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3524-14857":
           {
-            modelValue: "{value}",
+            modelValue: "42",
             unit: "{unit}",
             error: true,
             subText: "{Error message}",
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=5351-35547":
           {
-            modelValue: "{value}",
+            modelValue: "42",
             unit: "{unit}",
             validating: true,
             subText: "{Validation message}",
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3524-14866":
           {
-            modelValue: "{value}",
+            modelValue: "42",
             unit: "{unit}",
             disabled: true,
           },
