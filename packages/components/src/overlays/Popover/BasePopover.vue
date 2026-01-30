@@ -1,9 +1,3 @@
-<template>
-  <div class="content">
-    <slot />
-  </div>
-</template>
-
 <script setup lang="ts">
 /**
  * Internal base popover wrapper.
@@ -11,6 +5,12 @@
  * Provides consistent styling and layout for popover content used by higher-level overlay components.
  */
 </script>
+
+<template>
+  <div class="content">
+    <slot />
+  </div>
+</template>
 
 <style scoped>
 .content {
