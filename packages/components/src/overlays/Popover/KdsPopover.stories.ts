@@ -32,6 +32,16 @@ const meta: Meta<typeof KdsPopover> = {
         category: "Props",
       },
     },
+    ignoredClickOutsideTarget: {
+      description:
+        'Optional additional element that should be treated as "inside" for click-outside handling. For example, a separate panel or a nested menu that should not close the popover.',
+      table: {
+        category: "Props",
+        type: {
+          summary: "HTMLElement | null",
+        },
+      },
+    },
   },
   args: {
     placement: "top",
