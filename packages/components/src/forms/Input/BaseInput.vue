@@ -153,6 +153,10 @@ const handleKeydown = (event: KeyboardEvent) => {
   &:disabled {
     color: var(--kds-color-text-and-icon-disabled);
     cursor: default;
+
+    &::placeholder {
+      color: var(--kds-color-text-and-icon-disabled);
+    }
   }
 }
 </style>
