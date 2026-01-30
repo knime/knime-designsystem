@@ -25,10 +25,6 @@ const hasValue = computed(() => modelValue.value.length > 0);
 
 const inputRef = ref<HTMLInputElement | null>(null);
 
-defineExpose({
-  focus: () => inputRef.value?.focus(),
-});
-
 const handleInput = (event: Event) => {
   const target = event.target as HTMLInputElement;
   modelValue.value = target.value;
