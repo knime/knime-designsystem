@@ -91,6 +91,11 @@ watch(open, (isOpen) => {
           <div ref="focusCatch" class="focus-catch" tabindex="-1" />
           <slot />
           <div tabindex="0" @focus="closePopover" />
+          <button
+            class="close-button"
+            aria-label="Close popover"
+            @click="closePopover"
+          />
         </BasePopover>
       </div>
     </Teleport>
@@ -114,6 +119,23 @@ watch(open, (isOpen) => {
     outline: var(--kds-border-action-focused);
     outline-offset: var(--kds-spacing-offset-focus);
     border-radius: var(--kds-border-radius-container-0-37x);
+  }
+
+  .close-button {
+    /*
+      Screen-reader-only close control.
+      - Keeps the button available to assistive tech (e.g., VoiceOver)
+      - Removes it from the visual layout to avoid an invisible focus target
+    */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    white-space: nowrap;
+    border: 0;
+    clip-path: inset(50%);
   }
 }
 </style>

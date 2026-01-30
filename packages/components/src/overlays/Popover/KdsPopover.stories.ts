@@ -68,7 +68,7 @@ export const Default: Story = {
             <a href="#">Third focusable</a>
 
             <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-subtle);">
-              Use Tab / Shift+Tab to verify focus is trapped. Press ESC to close.
+              Close via the “Close popover” button (recommended for iOS VoiceOver), by clicking/tapping outside, or by pressing Escape on desktop.
             </div>
           </div>
         </KdsPopover>
