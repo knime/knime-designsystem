@@ -2,6 +2,7 @@
 import { computed, ref, useId } from "vue";
 
 import KdsIcon from "../../Icon/KdsIcon.vue";
+import KdsButton from "../../buttons/KdsButton.vue";
 
 import type { KdsBaseInputEmits, KdsBaseInputProps } from "./types";
 
@@ -12,6 +13,7 @@ const props = withDefaults(defineProps<KdsBaseInputProps>(), {
   required: false,
   error: false,
   validating: false,
+  clearable: false,
 });
 
 const emit = defineEmits<KdsBaseInputEmits>();
@@ -45,6 +47,17 @@ const handleBlur = (event: FocusEvent) => {
 
 const handleKeydown = (event: KeyboardEvent) => {
   emit("keydown", event);
+};
+
+const showClearButton = computed(
+  () => props.clearable && hasValue.value && !props.disabled && !props.readonly,
+);
+
+const clearButtonAriaLabel = "Clear";
+
+const clear = () => {
+  modelValue.value = "";
+  emit("input", "");
 };
 </script>
 
@@ -103,11 +116,22 @@ const handleKeydown = (event: KeyboardEvent) => {
       </span>
 
       <div
-        v-if="props.trailingIcon || $slots.trailing"
+        v-if="props.trailingIcon || showClearButton || $slots.trailing"
         class="icon-wrapper trailing"
       >
         <slot name="trailing">
-          <KdsIcon v-if="props.trailingIcon" :name="props.trailingIcon" />
+          <KdsButton
+            v-if="showClearButton"
+            type="button"
+            size="xsmall"
+            variant="transparent"
+            leading-icon="x-close"
+            :aria-label="clearButtonAriaLabel"
+            :disabled="props.disabled || props.readonly"
+            @click="clear"
+          />
+
+          <KdsIcon v-else-if="props.trailingIcon" :name="props.trailingIcon" />
         </slot>
       </div>
     </div>
@@ -170,6 +194,10 @@ const handleKeydown = (event: KeyboardEvent) => {
 
   &.leading {
     padding-left: var(--kds-spacing-container-0-12x);
+  }
+
+  &.trailing {
+    padding-right: var(--kds-spacing-container-0-12x);
   }
 }
 

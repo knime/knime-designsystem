@@ -95,10 +95,6 @@ const meta: Meta<typeof KdsPatternInput> = {
       control: "text",
       table: { category: "Props" },
     },
-    clearable: {
-      control: "boolean",
-      table: { category: "Props" },
-    },
   },
   args: {
     modelValue: "",
@@ -116,7 +112,6 @@ const meta: Meta<typeof KdsPatternInput> = {
     preserveSubTextSpace: false,
     name: "",
     autocomplete: "",
-    clearable: true,
   },
   decorators: [
     (story) => {
@@ -206,13 +201,12 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       error: [false, true],
       validating: [false, true],
       subText: [undefined, "Message"],
-      clearable: [true, false],
-      caseSensitive: [false, true],
-      excludeMatches: [false, true],
-      useRegex: [false, true],
+      caseSensitive: [false],
+      excludeMatches: [false],
+      useRegex: [false],
     },
   ],
-  pseudoStates: ["hover", "active", "focus", "focus-visible"],
+  pseudoStates: ["hover", "active", "focus"],
 });
 
 export const DesignComparator: Story = buildDesignComparatorStory({
@@ -259,7 +253,6 @@ export const Interaction: Story = {
     preserveSubTextSpace: false,
     name: "",
     autocomplete: "",
-    clearable: true,
     caseSensitive: false,
     excludeMatches: false,
     useRegex: false,

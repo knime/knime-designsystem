@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, useId } from "vue";
 
-import KdsButton from "../../buttons/KdsButton.vue";
 import KdsToggleButton from "../../buttons/KdsToggleButton.vue";
 import KdsLabel from "../KdsLabel.vue";
 import KdsSubText from "../KdsSubText.vue";
@@ -16,7 +15,6 @@ const props = withDefaults(defineProps<KdsPatternInputProps>(), {
   error: false,
   validating: false,
   preserveSubTextSpace: false,
-  clearable: true,
 });
 
 const emit = defineEmits<KdsPatternInputEmits>();
@@ -39,13 +37,6 @@ const ariaLabelledby = computed(() =>
 const ariaDescribedby = computed(() =>
   props.subText ? subTextId.value : undefined,
 );
-
-const hasValue = computed(() => modelValue.value.trim().length > 0);
-const showClearButton = computed(
-  () => props.clearable && hasValue.value && !props.disabled && !props.readonly,
-);
-
-const clearButtonAriaLabel = "Clear";
 
 const caseSensitiveAriaLabel = computed(() =>
   caseSensitive.value ? "Case-sensitive" : "Case-insensitive",
@@ -72,11 +63,6 @@ const handleInput = (value: string) => {
 const handleKeydown = (event: KeyboardEvent) => {
   emit("keydown", event);
 };
-
-const clear = () => {
-  modelValue.value = "";
-  emit("input", "");
-};
 </script>
 
 <template>
@@ -101,6 +87,7 @@ const clear = () => {
       :name="props.name"
       :autocomplete="props.autocomplete"
       leading-icon="filter"
+      clearable
       :aria-labelledby="ariaLabelledby"
       :aria-describedby="ariaDescribedby"
       @focus="handleFocus"
@@ -110,17 +97,6 @@ const clear = () => {
     >
       <template #trailing>
         <div class="button-wrapper">
-          <KdsButton
-            v-if="showClearButton"
-            type="button"
-            size="xsmall"
-            variant="transparent"
-            leading-icon="x-close"
-            :aria-label="clearButtonAriaLabel"
-            :disabled="props.disabled || props.readonly"
-            @click="clear"
-          />
-
           <KdsToggleButton
             v-model="caseSensitive"
             size="xsmall"

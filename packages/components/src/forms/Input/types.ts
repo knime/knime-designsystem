@@ -138,6 +138,12 @@ export type KdsBaseInputProps = {
    * Unit shown next to the input value
    */
   unit?: string;
+  /**
+   * Whether to show a clear button when the input has a value.
+   *
+   * When used, the clear button resets the v-model value to an empty string and emits `input("")`.
+   */
+  clearable?: boolean;
 };
 
 type KdsCommonInputEmits = {
@@ -179,11 +185,6 @@ export type KdsNumberInputEmits = KdsCommonInputEmits;
 
 export type KdsPatternInputProps = KdsInputLabelProps &
   KdsInputStateProps &
-  KdsInputNameAutocompleteProps & {
-    /**
-     * Whether to show a clear button when the input has a value
-     */
-    clearable?: boolean;
-  };
+  KdsInputNameAutocompleteProps;
 
 export type KdsPatternInputEmits = KdsCommonInputEmits;
