@@ -70,43 +70,41 @@ const handleKeydown = (event: KeyboardEvent) => {
         </slot>
       </div>
 
-      <div class="field-wrapper">
-        <input
-          :id="inputId"
-          ref="inputRef"
-          :value="modelValue"
-          :type="props.type"
-          :placeholder="props.placeholder"
-          :disabled="props.disabled"
-          :readonly="props.readonly"
-          :required="props.required"
-          :name="props.name"
-          :autocomplete="props.autocomplete"
-          :min="props.min"
-          :max="props.max"
-          :step="props.step"
-          :aria-label="props.ariaLabel"
-          :aria-labelledby="props.ariaLabelledby"
-          :aria-describedby="props.ariaDescribedby"
-          :aria-invalid="props.error"
-          :class="{ 'input-field': true, 'has-value': hasValue }"
-          @input="handleInput"
-          @focus="handleFocus"
-          @blur="handleBlur"
-          @keydown="handleKeydown"
-        />
+      <input
+        :id="inputId"
+        ref="inputRef"
+        :value="modelValue"
+        :type="props.type"
+        :placeholder="props.placeholder"
+        :disabled="props.disabled"
+        :readonly="props.readonly"
+        :required="props.required"
+        :name="props.name"
+        :autocomplete="props.autocomplete"
+        :min="props.min"
+        :max="props.max"
+        :step="props.step"
+        :aria-label="props.ariaLabel"
+        :aria-labelledby="props.ariaLabelledby"
+        :aria-describedby="props.ariaDescribedby"
+        :aria-invalid="props.error"
+        :class="{ 'input-field': true, 'has-value': hasValue }"
+        @input="handleInput"
+        @focus="handleFocus"
+        @blur="handleBlur"
+        @keydown="handleKeydown"
+      />
 
-        <span
-          v-if="props.unit"
-          :class="{
-            unit: true,
-            placeholder: showUnitPlaceholder,
-            disabled: props.disabled,
-          }"
-        >
-          {{ props.unit }}
-        </span>
-      </div>
+      <span
+        v-if="props.unit"
+        :class="{
+          unit: true,
+          placeholder: showUnitPlaceholder,
+          disabled: props.disabled,
+        }"
+      >
+        {{ props.unit }}
+      </span>
 
       <div
         v-if="props.trailingIcon || $slots.trailing"
@@ -225,6 +223,7 @@ const handleKeydown = (event: KeyboardEvent) => {
 .unit {
   flex-shrink: 0;
   min-width: 0;
+  padding-right: var(--kds-spacing-container-0-25x);
   overflow: hidden;
   text-overflow: ellipsis;
   font: var(--kds-font-base-interactive-small);
