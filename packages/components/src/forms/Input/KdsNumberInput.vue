@@ -48,12 +48,14 @@ const parseCurrent = () => {
 
 const clamp = (value: number) => {
   let next = value;
-  if (typeof props.min === "number") {
+
+  if (props.min !== undefined && !Number.isNaN(props.min)) {
     next = Math.max(props.min, next);
   }
-  if (typeof props.max === "number") {
+  if (props.max !== undefined && !Number.isNaN(props.max)) {
     next = Math.min(props.max, next);
   }
+
   return next;
 };
 
@@ -79,9 +81,11 @@ const getBaseValue = () => {
   if (parsed !== undefined) {
     return parsed;
   }
-  if (typeof props.min === "number") {
+
+  if (props.min !== undefined && !Number.isNaN(props.min)) {
     return props.min;
   }
+
   return 0;
 };
 
@@ -95,9 +99,11 @@ const canDecrease = computed(() => {
   if (props.disabled || props.readonly) {
     return false;
   }
-  if (typeof props.min !== "number") {
+
+  if (props.min === undefined || Number.isNaN(props.min)) {
     return true;
   }
+
   return getBaseValue() > props.min;
 });
 
@@ -105,9 +111,11 @@ const canIncrease = computed(() => {
   if (props.disabled || props.readonly) {
     return false;
   }
-  if (typeof props.max !== "number") {
+
+  if (props.max === undefined || Number.isNaN(props.max)) {
     return true;
   }
+
   return getBaseValue() < props.max;
 });
 
@@ -116,7 +124,9 @@ const adjustByStep = (direction: -1 | 1) => {
   if (!Number.isFinite(step) || step <= 0) {
     return;
   }
-  setValue(getBaseValue() + direction * step);
+
+  const base = getBaseValue();
+  setValue(base + direction * step);
 };
 
 const handleInput = (value: string) => {
@@ -144,18 +154,6 @@ const handleKeydown = (event: KeyboardEvent) => {
     }
   }
   emit("keydown", event);
-};
-
-const decrement = () => {
-  adjustByStep(-1);
-};
-
-const increment = () => {
-  adjustByStep(1);
-};
-
-const preventButtonFocus = (event: MouseEvent) => {
-  event.preventDefault();
 };
 
 const unitClasses = computed(() => ({
@@ -208,8 +206,8 @@ const unitClasses = computed(() => ({
             leading-icon="minus"
             aria-label="Decrease"
             :disabled="!canDecrease"
-            @mousedown="preventButtonFocus"
-            @click="decrement"
+            @mousedown.prevent
+            @click="adjustByStep(-1)"
           />
           <KdsButton
             type="button"
@@ -218,8 +216,8 @@ const unitClasses = computed(() => ({
             leading-icon="plus"
             aria-label="Increase"
             :disabled="!canIncrease"
-            @mousedown="preventButtonFocus"
-            @click="increment"
+            @mousedown.prevent
+            @click="adjustByStep(1)"
           />
         </div>
       </template>
