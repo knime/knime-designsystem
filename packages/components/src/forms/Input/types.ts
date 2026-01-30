@@ -2,13 +2,21 @@ import type { KdsIconName } from "../../Icon/types";
 
 export type KdsBaseInputProps = {
   /**
-   * The value of the input field
-   */
-  modelValue: string;
-  /**
    * The type of input field
    */
   type?: "text" | "email" | "password" | "number" | "tel" | "url" | "search";
+  /**
+   * Minimum allowed value (relevant for type="number")
+   */
+  min?: number;
+  /**
+   * Maximum allowed value (relevant for type="number")
+   */
+  max?: number;
+  /**
+   * Step size (relevant for type="number")
+   */
+  step?: number;
   /**
    * Placeholder text when input is empty
    */
@@ -68,7 +76,6 @@ export type KdsBaseInputProps = {
 };
 
 export type KdsBaseInputEmits = {
-  "update:modelValue": [value: string];
   focus: [event: FocusEvent];
   blur: [event: FocusEvent];
   input: [value: string];
@@ -76,10 +83,6 @@ export type KdsBaseInputEmits = {
 };
 
 export type KdsTextInputProps = {
-  /**
-   * The value of the text input
-   */
-  modelValue: string;
   /**
    * Label text displayed above the input
    */
@@ -135,6 +138,76 @@ export type KdsTextInputProps = {
 };
 
 export type KdsTextInputEmits = {
+  focus: [event: FocusEvent];
+  blur: [event: FocusEvent];
+  input: [value: string];
+  keydown: [event: KeyboardEvent];
+};
+
+export type KdsNumberInputProps = {
+  /**
+   * Label text displayed above the input
+   */
+  label?: string;
+  /**
+   * Helper text or error message displayed below the input
+   */
+  subText?: string;
+  /**
+   * Placeholder text when input is empty
+   */
+  placeholder?: string;
+  /**
+   * Unit shown next to the number value
+   */
+  unit?: string;
+  /**
+   * Minimum allowed value
+   */
+  min?: number;
+  /**
+   * Maximum allowed value
+   */
+  max?: number;
+  /**
+   * Step size used for +/- buttons and arrow key increments
+   */
+  stepsize?: number;
+  /**
+   * Whether the input is disabled
+   */
+  disabled?: boolean;
+  /**
+   * Whether the input is readonly
+   */
+  readonly?: boolean;
+  /**
+   * Whether the input is required
+   */
+  required?: boolean;
+  /**
+   * Whether the input has an error state
+   */
+  error?: boolean;
+  /**
+   * Whether the input is in a validating state (shows loading indicator)
+   */
+  validating?: boolean;
+  /**
+   * Name attribute for the input element
+   */
+  name?: string;
+  /**
+   * Autocomplete attribute for the input element
+   */
+  autocomplete?: string;
+  /**
+   * Reserve space for subtext to prevent layout shifts
+   */
+  preserveSubTextSpace?: boolean;
+};
+
+export type KdsNumberInputEmits = {
   focus: [event: FocusEvent];
   blur: [event: FocusEvent];
   input: [value: string];

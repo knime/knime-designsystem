@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useId } from "vue";
+import { computed, ref, useId } from "vue";
 
 import KdsIcon from "../../Icon/KdsIcon.vue";
 
@@ -22,6 +22,12 @@ const generatedId = useId();
 const inputId = computed(() => props.id ?? generatedId);
 
 const hasValue = computed(() => modelValue.value.length > 0);
+
+const inputRef = ref<HTMLInputElement | null>(null);
+
+defineExpose({
+  focus: () => inputRef.value?.focus(),
+});
 
 const handleInput = (event: Event) => {
   const target = event.target as HTMLInputElement;
@@ -51,31 +57,58 @@ const handleKeydown = (event: KeyboardEvent) => {
     }"
   >
     <div class="content">
-      <div v-if="props.leadingIcon" class="icon-wrapper leading">
-        <KdsIcon :name="props.leadingIcon" size="small" />
+      <div
+        v-if="props.leadingIcon || $slots.leading"
+        class="icon-wrapper leading"
+      >
+        <slot name="leading">
+          <KdsIcon
+            v-if="props.leadingIcon"
+            :name="props.leadingIcon"
+            size="small"
+          />
+        </slot>
       </div>
-      <input
-        :id="inputId"
-        :value="modelValue"
-        :type="props.type"
-        :placeholder="props.placeholder"
-        :disabled="props.disabled"
-        :readonly="props.readonly"
-        :required="props.required"
-        :name="props.name"
-        :autocomplete="props.autocomplete"
-        :aria-label="props.ariaLabel"
-        :aria-labelledby="props.ariaLabelledby"
-        :aria-describedby="props.ariaDescribedby"
-        :aria-invalid="props.error"
-        :class="{ 'input-field': true, 'has-value': hasValue }"
-        @input="handleInput"
-        @focus="handleFocus"
-        @blur="handleBlur"
-        @keydown="handleKeydown"
-      />
-      <div v-if="props.trailingIcon" class="icon-wrapper trailing">
-        <KdsIcon :name="props.trailingIcon" size="small" />
+
+      <div class="field-wrapper">
+        <input
+          :id="inputId"
+          ref="inputRef"
+          :value="modelValue"
+          :type="props.type"
+          :placeholder="props.placeholder"
+          :disabled="props.disabled"
+          :readonly="props.readonly"
+          :required="props.required"
+          :name="props.name"
+          :autocomplete="props.autocomplete"
+          :min="props.min"
+          :max="props.max"
+          :step="props.step"
+          :aria-label="props.ariaLabel"
+          :aria-labelledby="props.ariaLabelledby"
+          :aria-describedby="props.ariaDescribedby"
+          :aria-invalid="props.error"
+          :class="{ 'input-field': true, 'has-value': hasValue }"
+          @input="handleInput"
+          @focus="handleFocus"
+          @blur="handleBlur"
+          @keydown="handleKeydown"
+        />
+        <slot name="afterInput" />
+      </div>
+
+      <div
+        v-if="props.trailingIcon || $slots.trailing"
+        class="icon-wrapper trailing"
+      >
+        <slot name="trailing">
+          <KdsIcon
+            v-if="props.trailingIcon"
+            :name="props.trailingIcon"
+            size="small"
+          />
+        </slot>
       </div>
     </div>
   </div>
@@ -122,6 +155,14 @@ const handleKeydown = (event: KeyboardEvent) => {
   padding: 0 var(--kds-spacing-container-0-25x);
 }
 
+.field-wrapper {
+  display: flex;
+  flex: 1 0 0;
+  gap: var(--kds-spacing-container-0-12x);
+  align-items: center;
+  min-width: 0;
+}
+
 .icon-wrapper {
   display: flex;
   flex-shrink: 0;
@@ -145,6 +186,17 @@ const handleKeydown = (event: KeyboardEvent) => {
   outline: none;
   background: transparent;
   border: none;
+
+  /* hide native steppers, we provide our own in NumberInput */
+  &[type="number"] {
+    appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      margin: 0;
+      appearance: none;
+    }
+  }
 
   &::placeholder {
     color: var(--kds-color-text-and-icon-subtle);
