@@ -62,11 +62,7 @@ const handleKeydown = (event: KeyboardEvent) => {
         class="icon-wrapper leading"
       >
         <slot name="leading">
-          <KdsIcon
-            v-if="props.leadingIcon"
-            :name="props.leadingIcon"
-            size="small"
-          />
+          <KdsIcon v-if="props.leadingIcon" :name="props.leadingIcon" />
         </slot>
       </div>
 
@@ -111,11 +107,7 @@ const handleKeydown = (event: KeyboardEvent) => {
         class="icon-wrapper trailing"
       >
         <slot name="trailing">
-          <KdsIcon
-            v-if="props.trailingIcon"
-            :name="props.trailingIcon"
-            size="small"
-          />
+          <KdsIcon v-if="props.trailingIcon" :name="props.trailingIcon" />
         </slot>
       </div>
     </div>
@@ -134,7 +126,7 @@ const handleKeydown = (event: KeyboardEvent) => {
   border: var(--kds-border-action-input);
   border-radius: var(--kds-border-radius-container-0-37x);
 
-  &:has(.input-field:focus) {
+  &:focus-within {
     outline: var(--kds-border-action-focused);
     outline-offset: var(--kds-spacing-offset-focus);
   }
