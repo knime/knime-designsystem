@@ -76,7 +76,7 @@ export const Default: Story = {
             <KdsButton label="A button" />
             <label>
               An input
-              <input type="text" placeholder="that can be focsed" />
+              <input type="text" placeholder="that can be focused" />
             </label>
 
             <a href="#">A link</a>
