@@ -23,6 +23,10 @@ const inputId = computed(() => props.id ?? generatedId);
 
 const hasValue = computed(() => modelValue.value.length > 0);
 
+const showUnitPlaceholder = computed(
+  () => Boolean(props.unit) && modelValue.value.trim().length === 0,
+);
+
 const inputRef = ref<HTMLInputElement | null>(null);
 
 const handleInput = (event: Event) => {
@@ -91,7 +95,17 @@ const handleKeydown = (event: KeyboardEvent) => {
           @blur="handleBlur"
           @keydown="handleKeydown"
         />
-        <slot name="afterInput" />
+
+        <span
+          v-if="props.unit"
+          :class="{
+            unit: true,
+            placeholder: showUnitPlaceholder,
+            disabled: props.disabled,
+          }"
+        >
+          {{ props.unit }}
+        </span>
       </div>
 
       <div
@@ -205,6 +219,24 @@ const handleKeydown = (event: KeyboardEvent) => {
     &::placeholder {
       color: var(--kds-color-text-and-icon-disabled);
     }
+  }
+}
+
+.unit {
+  flex-shrink: 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font: var(--kds-font-base-interactive-small);
+  color: var(--kds-color-text-and-icon-neutral);
+  white-space: nowrap;
+
+  &.placeholder {
+    color: var(--kds-color-text-and-icon-subtle);
+  }
+
+  &.disabled {
+    color: var(--kds-color-text-and-icon-disabled);
   }
 }
 </style>
