@@ -99,6 +99,7 @@ const handleKeydown = (event: KeyboardEvent) => {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 218px;
   height: var(--kds-dimension-component-height-1-75x);
   padding: 0;
   background: var(--kds-color-background-input-initial);
@@ -108,8 +109,6 @@ const handleKeydown = (event: KeyboardEvent) => {
   &:has(.input-field:focus) {
     outline: var(--kds-border-action-focused);
     outline-offset: var(--kds-spacing-offset-focus);
-    border-color: var(--kds-color-focus-outline);
-    border-radius: var(--kds-border-radius-container-0-44x);
   }
 
   &:has(.input-field:hover:not(:disabled, :read-only)) {

@@ -146,6 +146,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       trailingIcon: [undefined, "checkmark"],
     },
   ],
+  pseudoStates: ["hover", "active", "focus"],
 });
 
 export const DesignComparator: Story = buildDesignComparatorStory({
@@ -156,35 +157,40 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3498-31293":
           {
-            placeholder: "Placeholder",
+            placeholder: "{text}",
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3498-31309":
           {
-            placeholder: "Hover",
+            placeholder: "{text}",
+            parameters: { pseudo: { hover: true } },
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3498-31359":
           {
-            placeholder: "Focus",
+            modelValue: "|",
+            parameters: {
+              pseudo: { focus: true },
+              figmaOffset: { x: -3, y: -3 },
+            },
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3498-31387":
           {
-            modelValue: "With Value",
+            modelValue: "{text}",
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3498-50384":
           {
-            modelValue: "Value",
+            modelValue: "{text}",
             error: true,
-            subText: "Error message",
+            subText: "{Error message}",
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=5351-35518":
           {
-            modelValue: "Value",
+            modelValue: "{text}",
             validating: true,
-            subText: "Validation message",
+            subText: "{Validation message}",
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3498-31415":
           {
-            placeholder: "Disabled",
+            placeholder: "{text}",
             disabled: true,
           },
       },
