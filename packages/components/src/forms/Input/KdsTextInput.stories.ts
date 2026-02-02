@@ -233,6 +233,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
 
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsTextInput,
+  componentStyle: "width: 218px",
   designsToCompare: {
     ".TextInput": {
       props: {},

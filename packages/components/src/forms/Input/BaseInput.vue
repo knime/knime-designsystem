@@ -130,14 +130,14 @@ const clear = () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 218px;
+  width: 100%;
   height: var(--kds-dimension-component-height-1-75x);
   padding: 0;
   background: var(--kds-color-background-input-initial);
   border: var(--kds-border-action-input);
   border-radius: var(--kds-border-radius-container-0-37x);
 
-  &:focus-within {
+  &:has(input:focus) {
     outline: var(--kds-border-action-focused);
     outline-offset: var(--kds-spacing-offset-focus);
   }

@@ -211,6 +211,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
 
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsPatternInput,
+  componentStyle: "width: 218px",
   designsToCompare: {
     ".PatternInput": {
       props: {},
