@@ -24,7 +24,7 @@ const isExpanded = ref(false);
 `.trim();
 
 const meta: Meta<typeof KdsToggleButton> = {
-  title: "Components/Buttons/KdsToggleButton",
+  title: "Components/buttons/KdsToggleButton",
   component: KdsToggleButton as unknown as FunctionalComponent,
   tags: ["autodocs"],
   parameters: {
@@ -142,4 +142,5 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       modelValue: [false, true],
     },
   ],
+  pseudoStates: ["hover", "active", "focus-visible"],
 });

@@ -4,27 +4,33 @@
       "viewport-breakpoints": {
         "576": {
           "$type": "sizing",
-          "$value": "576"
+          "$value": "576",
+          "$description": "Extra small breakpoint (576px). For small mobile devices and narrow viewports."
         },
         "768": {
           "$type": "sizing",
-          "$value": "768"
+          "$value": "768",
+          "$description": "Small breakpoint (768px). For tablets and larger mobile devices in landscape."
         },
         "1024": {
           "$type": "sizing",
-          "$value": "1024"
+          "$value": "1024",
+          "$description": "Medium breakpoint (1024px). For small laptops and tablets in landscape."
         },
         "1200": {
           "$type": "sizing",
-          "$value": "1200"
+          "$value": "1200",
+          "$description": "Large breakpoint (1200px). For standard desktop displays."
         },
         "1400": {
           "$type": "sizing",
-          "$value": "1400"
+          "$value": "1400",
+          "$description": "Extra large breakpoint (1400px). For larger desktop displays."
         },
         "1728": {
           "$type": "sizing",
-          "$value": "1728"
+          "$value": "1728",
+          "$description": "Extra extra large breakpoint (1728px). For wide desktop displays and high-resolution monitors."
         }
       }
     },
@@ -34,75 +40,90 @@
           "0_25x": {
             "$type": "spacing",
             "$value": "-4",
-            "$description": "Negative spacing, used for the negative item gap in the KdsAvatarGroup component. "
+            "$description": "Negative spacing (-4px). Used for overlapping elements like the KdsAvatarGroup component."
           }
         },
         "none": {
           "$type": "spacing",
-          "$value": "0"
+          "$value": "0",
+          "$description": "No spacing (0px). Use when no gap or padding is needed."
         },
         "0_10x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} * 0.0625"
+          "$value": "{kds.core.size.scale} * 0.0625",
+          "$description": "Micro spacing (1px). Use for minimal separation between tightly grouped elements."
         },
         "0_12x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} * 0.125"
+          "$value": "{kds.core.size.scale} * 0.125",
+          "$description": "Extra extra small spacing (2px). Use for very tight gaps between related elements."
         },
         "0_25x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} * 0.25"
+          "$value": "{kds.core.size.scale} * 0.25",
+          "$description": "Extra small spacing (4px). Use for tight gaps between closely related elements."
         },
         "0_37x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} * 0.375"
+          "$value": "{kds.core.size.scale} * 0.375",
+          "$description": "Small spacing (6px). Use for compact component internal padding."
         },
         "0_5x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} * 0.5"
+          "$value": "{kds.core.size.scale} * 0.5",
+          "$description": "Small-medium spacing (8px). Use for standard tight gaps and small component padding."
         },
         "0_75x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} * 0.75"
+          "$value": "{kds.core.size.scale} * 0.75",
+          "$description": "Medium-small spacing (12px). Use for moderate gaps between related elements."
         },
         "1x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} * 1"
+          "$value": "{kds.core.size.scale} * 1",
+          "$description": "Base spacing (16px). The standard spacing unit for most component padding and gaps."
         },
         "1_25x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} * 1.25"
+          "$value": "{kds.core.size.scale} * 1.25",
+          "$description": "Medium spacing (20px). Use for comfortable gaps between content sections."
         },
         "1_5x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} * 1.5"
+          "$value": "{kds.core.size.scale} * 1.5",
+          "$description": "Medium-large spacing (24px). Use for section padding and larger content gaps."
         },
         "2x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} * 2"
+          "$value": "{kds.core.size.scale} * 2",
+          "$description": "Large spacing (32px). Use for major section separation and container padding."
         },
         "3x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} * 3"
+          "$value": "{kds.core.size.scale} * 3",
+          "$description": "Extra large spacing (48px). Use for prominent section separation."
         },
         "4x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} * 4"
+          "$value": "{kds.core.size.scale} * 4",
+          "$description": "Extra extra large spacing (64px). Use for major layout divisions."
         },
         "5x": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} * 5"
+          "$value": "{kds.core.size.scale} * 5",
+          "$description": "Maximum spacing (80px). Use for large layout gaps and page-level separation."
         },
         "auto": {
           "$type": "spacing",
-          "$value": "AUTO"
+          "$value": "AUTO",
+          "$description": "Auto spacing. Allows flexible distribution of space, typically used with flexbox layouts."
         }
       },
       "offset": {
         "focus": {
           "$type": "spacing",
           "$value": "{kds.core.size.scale} * 0.0625",
-          "$description": "Only used by devs to set offset for focus border. Figma does not support offset."
+          "$description": "Focus ring offset (1px). Used by developers to set offset for focus border. Figma does not support offset."
         }
       }
     },
@@ -111,81 +132,100 @@
         "height": {
           "0_25x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} * 0.25"
+            "$value": "{kds.core.size.scale} * 0.25",
+            "$description": "Extra small component height (4px). Use for thin dividers and minimal height elements."
           },
           "0_75x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} * 0.75"
+            "$value": "{kds.core.size.scale} * 0.75",
+            "$description": "Small component height (12px). Use for compact inline elements and badges."
           },
           "0_88x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} * 0.875"
+            "$value": "{kds.core.size.scale} * 0.875",
+            "$description": "Small-medium component height (14px). Use for compact buttons and form elements."
           },
           "1x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} * 1"
+            "$value": "{kds.core.size.scale} * 1",
+            "$description": "Base component height (16px). Standard height for icons and small interactive elements."
           },
           "1_25x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} * 1.25"
+            "$value": "{kds.core.size.scale} * 1.25",
+            "$description": "Medium-small component height (20px). Use for small buttons and compact controls."
           },
           "1_5x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} * 1.5"
+            "$value": "{kds.core.size.scale} * 1.5",
+            "$description": "Medium component height (24px). Use for standard icons and small form elements."
           },
           "1_75x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} * 1.75"
+            "$value": "{kds.core.size.scale} * 1.75",
+            "$description": "Medium-large component height (28px). Use for small buttons and compact input fields."
           },
           "2_25x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} * 2.25"
+            "$value": "{kds.core.size.scale} * 2.25",
+            "$description": "Large component height (36px). Use for standard buttons and form inputs."
           },
           "2_5x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} * 2.5"
+            "$value": "{kds.core.size.scale} * 2.5",
+            "$description": "Large-extra component height (40px). Use for prominent buttons and larger inputs."
           },
           "4x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} * 4"
+            "$value": "{kds.core.size.scale} * 4",
+            "$description": "Extra large component height (64px). Use for large interactive elements and cards."
           }
         },
         "width": {
           "0_25x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} * 0.25"
+            "$value": "{kds.core.size.scale} * 0.25",
+            "$description": "Extra small component width (4px). Use for thin dividers and minimal width elements."
           },
           "0_75x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} * 0.75"
+            "$value": "{kds.core.size.scale} * 0.75",
+            "$description": "Small component width (12px). Use for compact inline elements."
           },
           "0_88x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} * 0.875"
+            "$value": "{kds.core.size.scale} * 0.875",
+            "$description": "Small-medium component width (14px). Use for compact elements."
           },
           "1x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} * 1"
+            "$value": "{kds.core.size.scale} * 1",
+            "$description": "Base component width (16px). Standard width for icons and small elements."
           },
           "1_25x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} * 1.25"
+            "$value": "{kds.core.size.scale} * 1.25",
+            "$description": "Medium-small component width (20px). Use for small icons and compact controls."
           },
           "1_5x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} * 1.5"
+            "$value": "{kds.core.size.scale} * 1.5",
+            "$description": "Medium component width (24px). Use for standard icons."
           },
           "1_75x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} * 1.75"
+            "$value": "{kds.core.size.scale} * 1.75",
+            "$description": "Medium-large component width (28px). Use for larger icons and compact buttons."
           },
           "2_25x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} * 2.25"
+            "$value": "{kds.core.size.scale} * 2.25",
+            "$description": "Large component width (36px). Use for square buttons and larger icons."
           },
           "4x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} * 4"
+            "$value": "{kds.core.size.scale} * 4",
+            "$description": "Extra large component width (64px). Use for large interactive elements."
           },
           "16x": {
             "$type": "dimension",
@@ -193,38 +233,46 @@
           },
           "25x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} * 25"
+            "$value": "{kds.core.size.scale} * 25",
+            "$description": "Container width (400px). Use for narrow sidepanels and modal widths."
           },
           "32x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} * 32"
+            "$value": "{kds.core.size.scale} * 32",
+            "$description": "Medium container width (512px). Use for standard sidepanels and dialogs."
           },
           "45x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} * 45"
+            "$value": "{kds.core.size.scale} * 45",
+            "$description": "Large container width (720px). Use for wide sidepanels and content areas."
           },
           "61x": {
             "$type": "dimension",
-            "$value": "{kds.core.size.scale} * 61"
+            "$value": "{kds.core.size.scale} * 61",
+            "$description": "Extra large container width (976px). Use for full-width content panels."
           }
         }
       },
       "icon": {
         "0_56x": {
           "$type": "dimension",
-          "$value": "{kds.core.size.scale} * 0.5625"
+          "$value": "{kds.core.size.scale} * 0.5625",
+          "$description": "Extra small icon size (9px). Use for micro icons in compact contexts."
         },
         "0_75x": {
           "$type": "dimension",
-          "$value": "{kds.core.size.scale} * 0.75"
+          "$value": "{kds.core.size.scale} * 0.75",
+          "$description": "Small icon size (12px). Use for small icons in tight spaces and inline text."
         },
         "1x": {
           "$type": "dimension",
-          "$value": "{kds.core.size.scale} * 1"
+          "$value": "{kds.core.size.scale} * 1",
+          "$description": "Base icon size (16px). Standard icon size for most UI elements."
         },
         "1_25x": {
           "$type": "dimension",
-          "$value": "{kds.core.size.scale} * 1.25"
+          "$value": "{kds.core.size.scale} * 1.25",
+          "$description": "Large icon size (20px). Use for prominent icons and larger interactive elements."
         }
       }
     }

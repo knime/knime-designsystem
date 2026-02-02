@@ -146,7 +146,7 @@ describe("KdsDynamicModalProvider.vue", () => {
         message: "This is the message",
         doNotAskAgain: {
           label: "Do not ask me again",
-          helperText: "please please",
+          subText: "please please",
         },
       }).then(done);
       await nextTick();
@@ -257,7 +257,7 @@ describe("KdsDynamicModalProvider.vue", () => {
         "THIS IS THE BODY INSIDE THE CUSTOM TEMPLATE",
       );
 
-      await wrapper.find("[data-test-id='checkbox']").trigger("click");
+      await wrapper.find("[data-test-id='checkbox'] button").trigger("click");
       await wrapper.find("[data-test-id='close-button']").trigger("click");
 
       await flushPromises();

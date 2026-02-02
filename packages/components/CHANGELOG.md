@@ -1,5 +1,66 @@
 # @knime/kds-components
 
+## 0.6.1
+
+### Patch Changes
+
+- 44d9726: Readd missing KdsDataType export
+  - @knime/kds-styles@0.6.1
+
+## 0.6.0
+
+### Minor Changes
+
+- b92aa44: KdsCheckbox: Require title when no label is set
+- b92aa44: Renamed ConfirmModalConfig doNotAskAgain helperText to subText and removed title
+
+### Patch Changes
+
+- 8b25fa3: Add KdsInfoToggleButton component
+- 8b25fa3: Add KdsVariableToggleButton
+- e851b0c: Fix rendering of xsmall icons on non-HiDPI screens
+- b92aa44: Add KdsCheckboxGroup component
+- 810302b: Add KdsProgressButton component
+  - @knime/kds-styles@0.6.0
+
+## 0.5.10
+
+### Patch Changes
+
+- 382c8d0: Remove undefined from RadioButtonGroup and ValueSwitch model emissions
+  - @knime/kds-styles@0.5.10
+
+## 0.5.9
+
+### Patch Changes
+
+- a49aa87: Fix border for KdsValueSwitch
+- Updated dependencies [a49aa87]
+  - @knime/kds-styles@0.5.9
+
+## 0.5.8
+
+### Patch Changes
+
+- Updated dependencies [904359b]
+  - @knime/kds-styles@0.5.8
+
+## 0.5.7
+
+### Patch Changes
+
+- 1bf37b9: Add KdsValueSwitch component
+  - @knime/kds-styles@0.5.7
+
+## 0.5.6
+
+### Patch Changes
+
+- ca85c24: KDS-659: change kds modal body from grid to flex to avoid safari always full height bug
+- Updated dependencies [80de341]
+- Updated dependencies [eccfa4f]
+  - @knime/kds-styles@0.5.6
+
 ## 0.5.5
 
 ### Patch Changes

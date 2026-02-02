@@ -153,8 +153,8 @@ body:has(dialog.modal[open]) {
     --modal-height: fit-content;
   }
 
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+  display: flex;
+  flex-direction: column;
   width: min(var(--modal-full-size), var(--modal-width));
   height: var(--modal-height);
   max-height: var(--modal-full-size);

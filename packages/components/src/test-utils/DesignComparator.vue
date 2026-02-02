@@ -11,7 +11,23 @@ export type DesignsToCompare = Record<
   string,
   {
     props: Record<string, unknown>;
-    variants: Record<FigmaDesignURL, Record<string, unknown>>;
+    variants: Record<
+      FigmaDesignURL,
+      Record<string, unknown> & {
+        parameters?: {
+          pseudo?: {
+            hover?: boolean;
+            active?: boolean;
+            focus?: boolean;
+            focusVisible?: boolean;
+          };
+          figmaOffset?: {
+            x?: number;
+            y?: number;
+          };
+        };
+      }
+    >;
   }
 >;
 
@@ -156,18 +172,40 @@ function onPaste(event: ClipboardEvent) {
           v-for="(variantProps, figmaUrl) in set.variants"
           :key="figmaUrl"
           class="variant"
+          :style="{
+            '--figma-offset-x': `${variantProps.parameters?.figmaOffset?.x ?? 0}px`,
+            '--figma-offset-y': `${variantProps.parameters?.figmaOffset?.y ?? 0}px`,
+          }"
         >
           <img
             v-if="figmaImageByUrl(figmaUrl)"
             class="design"
             :src="figmaImageByUrl(figmaUrl)"
+            alt="Figma snapshot"
           />
           <div class="implementation" :style="{ opacity: opacity }">
-            <component
-              :is="props.component"
-              v-if="props.component"
-              v-bind="{ ...set.props, ...variantProps }"
-            />
+            <div
+              :class="{
+                'pseudo-hover-all': Boolean(
+                  variantProps.parameters?.pseudo?.hover,
+                ),
+                'pseudo-active-all': Boolean(
+                  variantProps.parameters?.pseudo?.active,
+                ),
+                'pseudo-focus-all': Boolean(
+                  variantProps.parameters?.pseudo?.focus,
+                ),
+                'pseudo-focus-visible-all': Boolean(
+                  variantProps.parameters?.pseudo?.focusVisible,
+                ),
+              }"
+            >
+              <component
+                :is="props.component"
+                v-if="props.component"
+                v-bind="{ ...set.props, ...variantProps }"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -237,8 +275,8 @@ function onPaste(event: ClipboardEvent) {
       --scale: calc(1 / v-bind(figmaImageScale));
 
       position: absolute;
-      top: var(--padding);
-      left: var(--padding);
+      top: calc(var(--padding) + var(--figma-offset-y, 0px));
+      left: calc(var(--padding) + var(--figma-offset-x, 0px));
       pointer-events: none;
       opacity: v-bind(figmaOpacity);
       transform: scale(var(--scale));
@@ -246,6 +284,8 @@ function onPaste(event: ClipboardEvent) {
     }
 
     & .implementation {
+      display: flex;
+      align-items: flex-start;
       opacity: v-bind(opacity);
     }
   }

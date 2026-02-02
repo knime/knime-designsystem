@@ -12,27 +12,27 @@
         "none": {
           "$type": "borderWidth",
           "$value": "0",
-          "$description": "0px – removes the stroke. Handy for \"ghost\" components."
+          "$description": "Primitive borderWidth token. Do not use to tokenize a component."
         },
         "xs": {
           "$type": "borderWidth",
           "$value": "{kds.core.size.scale} * 0.0625",
-          "$description": "Hairline stroke (1 px). Standard outline for most components (e.g inputs, Outline Buttons)\n"
+          "$description": "Primitive borderWidth token. Do not use to tokenize a component."
         },
         "s": {
           "$type": "borderWidth",
           "$value": "{kds.core.size.scale} * 0.0781",
-          "$description": "1.25 px stroke for specific icon use cases."
+          "$description": "Primitive borderWidth token. Do not use to tokenize a component."
         },
         "m": {
           "$type": "borderWidth",
           "$value": "{kds.core.size.scale} * 0.09375",
-          "$description": "1.5 px stroke for specific icon use cases."
+          "$description": "Primitive borderWidth token. Do not use to tokenize a component."
         },
         "l": {
           "$type": "borderWidth",
           "$value": "{kds.core.size.scale} * 0.125",
-          "$description": "Bold stroke (2 px). Used for focus rings or elements that must stand out strongly.\n"
+          "$description": "Primitive borderWidth token. Do not use to tokenize a component."
         }
       }
     }

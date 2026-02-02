@@ -1,5 +1,32 @@
 # @knime/kds-styles
 
+## 0.6.1
+
+## 0.6.0
+
+## 0.5.10
+
+## 0.5.9
+
+### Patch Changes
+
+- a49aa87: Fix border for KdsValueSwitch
+
+## 0.5.8
+
+### Patch Changes
+
+- 904359b: enh/kds 695 icon for secret store and key
+
+## 0.5.7
+
+## 0.5.6
+
+### Patch Changes
+
+- 80de341: KDS-689: Adjust circle error and info icons
+- eccfa4f: KDS-688: FIx spacing in spread
+
 ## 0.5.5
 
 ## 0.5.4

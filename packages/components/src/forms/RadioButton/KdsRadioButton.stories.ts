@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
-import { fn } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
@@ -22,10 +21,6 @@ const meta: Meta<typeof KdsRadioButton> = {
       description:
         "Whether the radio button is selected (true) or not (false). Radio buttons don't toggle back to false on click.",
       table: { category: "Model" },
-    },
-    "onUpdate:modelValue": {
-      table: { category: "Model" },
-      description: "Emitted when the model changes (v-model update).",
     },
     text: {
       control: { type: "text" },
@@ -51,7 +46,11 @@ const meta: Meta<typeof KdsRadioButton> = {
     },
   },
   args: {
-    "onUpdate:modelValue": fn(),
+    modelValue: false,
+    text: "Label",
+    helperText: "",
+    disabled: false,
+    error: false,
   },
   decorators: [
     (story) => {
@@ -142,6 +141,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       helperText: ["Helper text"],
     },
   ],
+  pseudoStates: ["hover", "active", "focus-visible"],
 });
 
 export const DesignComparator: Story = buildDesignComparatorStory({
@@ -151,7 +151,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       props: {
         text: "Label",
         modelValue: false,
-        helperText: "{HelperText content}",
+        helperText: "{SubText content}",
       },
       variants: {
         // Enabled
@@ -163,6 +163,14 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         // Enabled :active
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=1827-5594":
           { parameters: { pseudo: { active: true } } },
+        // Enabled :focus-visible
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2416-30882":
+          {
+            parameters: {
+              pseudo: { focusVisible: true },
+              figmaOffset: { x: -3, y: -3 },
+            },
+          },
         // Disabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=1827-5624":
           { disabled: true },
@@ -181,7 +189,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       props: {
         text: "Label",
         modelValue: true,
-        helperText: "{HelperText content}",
+        helperText: "{SubText content}",
       },
       variants: {
         // Enabled
@@ -193,6 +201,14 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         // Enabled :active
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=1827-5609":
           { parameters: { pseudo: { active: true } } },
+        // Enabled :focus-visible
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2416-30883":
+          {
+            parameters: {
+              pseudo: { focusVisible: true },
+              figmaOffset: { x: -3, y: -3 },
+            },
+          },
         // Disabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=1827-5629":
           { disabled: true },

@@ -1,5 +1,4 @@
-import type { IconName } from "@knime/kds-styles/img/icons/def";
-
+import type { KdsIconName } from "../Icon/types";
 import type { KdsSize } from "../types";
 
 import type { kdsButtonVariants, kdsToggleButtonVariants } from "./constants";
@@ -21,14 +20,14 @@ type CommonProps = {
  */
 type LabelAndIcons = {
   label: string;
-  leadingIcon?: IconName;
-  trailingIcon?: IconName;
+  leadingIcon?: KdsIconName;
+  trailingIcon?: KdsIconName;
   ariaLabel?: never;
 };
 
 type LeadingIconOnly = {
   label?: never;
-  leadingIcon: IconName;
+  leadingIcon: KdsIconName;
   trailingIcon?: never;
   ariaLabel: string;
 };
@@ -47,6 +46,20 @@ type WithDestructive = {
    * If set to true, the button will prominently warn the user of a destructive action.
    */
   destructive?: boolean;
+};
+
+type WithSuccess = {
+  /**
+   * If set to true, the button will be styled as a success/positive action.
+   */
+  success?: boolean;
+};
+
+type WithError = {
+  /**
+   * If set to true, the button will be styled as an error/negative action.
+   */
+  error?: boolean;
 };
 
 type WithRouterNavigation = {
@@ -92,6 +105,8 @@ export type BaseButtonProps = CommonProps &
   WithVariant<KdsButtonVariant> &
   WithLabelAndIcons &
   WithDestructive &
+  WithSuccess &
+  WithError &
   WithToggled;
 
 /**
@@ -112,6 +127,59 @@ export type KdsLinkButtonProps = CommonProps &
 export type KdsToggleButtonProps = CommonProps &
   Partial<WithVariant<KdsToggleButtonVariant>> &
   WithLabelAndIcons;
+
+export type KdsVariableToggleButtonProps = KdsInfoToggleButtonProps & {
+  /**
+   * If set to true, indicates that an input flow variable is configured.
+   */
+  inSet?: boolean;
+  /**
+   * If set to true, indicates that an output flow variable is configured.
+   */
+  outSet?: boolean;
+  /**
+   * If set to true, the button indicates an error state.
+   */
+  error?: boolean;
+};
+
+export type KdsInfoToggleButtonProps = {
+  disabled?: boolean;
+  /**
+   * If set to true, the button is visible even when not focused.
+   */
+  hidden?: boolean;
+};
+
+/**
+ * Progress button types
+ */
+export type KdsProgressButtonState =
+  | "default"
+  | "progress"
+  | "success"
+  | "error";
+
+type KdsProgressButtonCommonProps = {
+  size?: KdsSize;
+  variant?: KdsButtonVariant;
+  disabled?: boolean;
+};
+
+type KdsProgressButtonIconWithLabel = {
+  label: string;
+  leadingIcon: KdsIconName;
+  ariaLabel?: never;
+};
+
+type KdsProgressButtonIconOnly = {
+  label?: never;
+  leadingIcon: KdsIconName;
+  ariaLabel: string;
+};
+
+export type KdsProgressButtonProps = KdsProgressButtonCommonProps &
+  (KdsProgressButtonIconWithLabel | KdsProgressButtonIconOnly);
 
 /**
  * Testers
@@ -160,6 +228,20 @@ propTypeTester<BaseButtonProps>({
 // KdsButton supports "destructive" prop
 propTypeTester<KdsButtonProps>({ label: "Label", destructive: true });
 
+// BaseButton supports "success" prop
+propTypeTester<BaseButtonProps>({
+  variant: "filled",
+  label: "Label",
+  success: true,
+});
+
+// BaseButton supports "error" prop
+propTypeTester<BaseButtonProps>({
+  variant: "filled",
+  label: "Label",
+  error: true,
+});
+
 // @ts-expect-error - KdsLinkButton should require "to" prop
 propTypeTester<KdsLinkButtonProps>({ label: "Label" });
 
@@ -173,5 +255,35 @@ propTypeTester<KdsToggleButtonProps>({
 propTypeTester<KdsToggleButtonProps>({
   // @ts-expect-error see above
   variant: "filled",
+  leadingIcon: "ai-general",
+});
+
+// KdsVariableToggleButton supports inSet/outSet, error and disabled
+propTypeTester<KdsVariableToggleButtonProps>({});
+propTypeTester<KdsVariableToggleButtonProps>({ inSet: true });
+propTypeTester<KdsVariableToggleButtonProps>({ outSet: true });
+propTypeTester<KdsVariableToggleButtonProps>({ inSet: true, outSet: true });
+propTypeTester<KdsVariableToggleButtonProps>({ disabled: true });
+propTypeTester<KdsVariableToggleButtonProps>({ error: true });
+
+// KdsInfoToggleButton supports disabled
+propTypeTester<KdsInfoToggleButtonProps>({ disabled: true });
+// KdsInfoToggleButton supports visible
+propTypeTester<KdsInfoToggleButtonProps>({ hidden: true });
+
+// ProgressButton supports label + icon
+propTypeTester<KdsProgressButtonProps>({
+  label: "Label",
+  leadingIcon: "ai-general",
+});
+
+// ProgressButton supports icon-only variant
+propTypeTester<KdsProgressButtonProps>({
+  leadingIcon: "ai-general",
+  ariaLabel: "Icon only progress button",
+});
+
+// @ts-expect-error - aria-label is required for icon-only buttons
+propTypeTester<KdsProgressButtonProps>({
   leadingIcon: "ai-general",
 });

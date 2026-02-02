@@ -15,7 +15,7 @@ import KdsButton from "./KdsButton.vue";
 import { kdsButtonVariants } from "./constants";
 
 const meta: Meta<typeof KdsButton> = {
-  title: "Components/Buttons/KdsButton",
+  title: "Components/buttons/KdsButton",
   component: KdsButton as unknown as FunctionalComponent,
   tags: ["autodocs"],
   parameters: {
@@ -145,6 +145,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       ariaLabel: ["Icon only button"],
     },
   ],
+  pseudoStates: ["hover", "active", "focus-visible"],
 });
 
 export const TextOverflow: Story = {

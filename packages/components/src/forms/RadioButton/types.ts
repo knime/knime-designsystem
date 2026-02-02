@@ -1,4 +1,4 @@
-import type { KdsLabelProps, KdsSubTextProps } from "../types.ts";
+import type { KdsIconName } from "../../Icon/types";
 
 export type KdsRadioButtonProps = {
   text: string;
@@ -9,8 +9,6 @@ export type KdsRadioButtonProps = {
 
 export type KdsRadioButtonGroupAlignment = "vertical" | "horizontal";
 
-type AtLeastTwo<T> = [T, T, ...T[]];
-
 export type KdsRadioButtonGroupOption = {
   text: string;
   id: string;
@@ -20,11 +18,60 @@ export type KdsRadioButtonGroupOption = {
 };
 
 export type KdsRadioButtonGroupProps = {
-  possibleValues: AtLeastTwo<string | KdsRadioButtonGroupOption>;
+  id?: string;
+  label?: string;
+  possibleValues: (string | KdsRadioButtonGroupOption)[];
   alignment?: KdsRadioButtonGroupAlignment;
   disabled?: boolean;
-} & KdsLabelProps &
-  KdsSubTextProps;
+  subText?: string;
+  preserveSubTextSpace?: boolean;
+};
+
+export type KdsValueSwitchSize = "small" | "medium";
+export type KdsValueSwitchVariant = "default" | "muted";
+
+export type KdsValueSwitchItemProps = {
+  selected: boolean;
+  disabled?: boolean;
+  size?: KdsValueSwitchSize;
+  variant?: KdsValueSwitchVariant;
+  tabIndex?: number;
+  /**
+   * Internal/responsive: when true, leading/trailing icons are not rendered.
+   */
+  hideIcons?: boolean;
+} & KdsValueSwitchItemContent;
+
+type KdsValueSwitchItemContent =
+  | {
+      text: string;
+      leadingIcon?: KdsIconName;
+      trailingIcon?: KdsIconName;
+      title?: undefined;
+    }
+  | {
+      text?: never;
+      leadingIcon: KdsIconName;
+      title: string;
+      trailingIcon?: never;
+    };
+
+export type KdsValueSwitchOption = {
+  id: string;
+  disabled?: boolean;
+} & KdsValueSwitchItemContent;
+
+export type KdsValueSwitchProps = {
+  id?: string;
+  label?: string;
+  possibleValues: (string | KdsValueSwitchOption)[];
+  size?: KdsValueSwitchSize;
+  variant?: KdsValueSwitchVariant;
+  disabled?: boolean;
+  subText?: string;
+  error?: boolean;
+  preserveSubTextSpace?: boolean;
+};
 
 // supports just text
 propTypeTester<KdsRadioButtonProps>({ text: "foo" });
@@ -56,4 +103,49 @@ propTypeTester<KdsRadioButtonGroupProps>({
 // @ts-expect-error - possibleValues are required
 propTypeTester<KdsRadioButtonGroupProps>({
   label: "Group label",
+});
+
+// supports minimal props
+propTypeTester<KdsValueSwitchProps>({
+  id: "value-switch-id",
+  possibleValues: [
+    { text: "Option A", id: "a" },
+    { text: "Option B", id: "b" },
+  ],
+});
+
+// supports optional label
+propTypeTester<KdsValueSwitchProps>({
+  label: "Group label",
+  possibleValues: [
+    { text: "Option A", id: "a" },
+    { text: "Option B", id: "b" },
+  ],
+});
+
+// @ts-expect-error - possibleValues are required
+propTypeTester<KdsValueSwitchProps>({
+  label: "Group label",
+});
+
+// supports size
+propTypeTester<KdsValueSwitchProps>({
+  id: "value-switch-id",
+  possibleValues: ["Option A", "Option B"],
+  size: "small",
+});
+
+// supports group error state
+propTypeTester<KdsValueSwitchProps>({
+  id: "value-switch-id",
+  possibleValues: ["Option A", "Option B"],
+  error: true,
+  subText: "Error message",
+});
+
+// supports variant
+propTypeTester<KdsValueSwitchProps>({
+  id: "value-switch-id",
+  possibleValues: ["Option A", "Option B"],
+  variant: "muted",
 });

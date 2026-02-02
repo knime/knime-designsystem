@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 
-import KdsButton from "../Button/KdsButton.vue";
-import type { KdsButtonProps } from "../Button/types";
-import KdsCheckbox from "../Checkbox/KdsCheckbox.vue";
+import type { KdsButtonProps } from "../buttons";
+import KdsButton from "../buttons/KdsButton.vue";
+import KdsCheckbox from "../forms/Checkbox/KdsCheckbox.vue";
 
 import KdsModal from "./KdsModal.vue";
 import {
@@ -86,8 +86,7 @@ const kdsModalProps = computed(() => {
           <KdsCheckbox
             v-model="askAgain"
             :label="config.value.doNotAskAgain.label"
-            :title="config.value.doNotAskAgain.title"
-            :helper-text="config.value.doNotAskAgain.helperText"
+            :sub-text="config.value.doNotAskAgain.subText"
           />
         </div>
       </div>

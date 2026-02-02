@@ -1,5 +1,51 @@
 # @knime/kds-documentation
 
+## 0.6.1
+
+### Patch Changes
+
+- @knime/kds-styles@0.6.1
+
+## 0.6.0
+
+### Patch Changes
+
+- @knime/kds-styles@0.6.0
+
+## 0.5.10
+
+### Patch Changes
+
+- @knime/kds-styles@0.5.10
+
+## 0.5.9
+
+### Patch Changes
+
+- Updated dependencies [a49aa87]
+  - @knime/kds-styles@0.5.9
+
+## 0.5.8
+
+### Patch Changes
+
+- Updated dependencies [904359b]
+  - @knime/kds-styles@0.5.8
+
+## 0.5.7
+
+### Patch Changes
+
+- @knime/kds-styles@0.5.7
+
+## 0.5.6
+
+### Patch Changes
+
+- Updated dependencies [80de341]
+- Updated dependencies [eccfa4f]
+  - @knime/kds-styles@0.5.6
+
 ## 0.5.5
 
 ### Patch Changes

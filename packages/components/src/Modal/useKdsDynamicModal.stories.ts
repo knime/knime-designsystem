@@ -1,7 +1,7 @@
 import { h, markRaw } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
-import KdsButton from "../Button/KdsButton.vue";
+import KdsButton from "../buttons/KdsButton.vue";
 import { convertImportsInSfc } from "../test-utils/convertImportsInSfc";
 import { convertStoryCodeToSfc } from "../test-utils/convertStoryCodeToSfc";
 
@@ -77,8 +77,7 @@ export const Confirmation: Story = {
           message: "Are you sure?",
           doNotAskAgain: {
             label: "Do not ask again",
-            title: "Some more info…",
-            helperText: "Can be changed in the settings.",
+            subText: "Can be changed in the settings.",
           },
           buttons: [
             {

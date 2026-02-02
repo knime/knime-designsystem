@@ -5,42 +5,42 @@
         "none": {
           "$type": "borderRadius",
           "$value": "0",
-          "$description": "Perfectly sharp corners. Use when elements demands no rounding. USED IN: ListContainer, TabBar-Item \n"
+          "$description": "Perfectly sharp corners. Use when elements demands no rounding. USED IN: ListContainer, TabBar-Item"
         },
         "0_12x": {
           "$type": "borderRadius",
           "$value": "{kds.core.size.scale} * 0.125",
-          "$description": "Softens crisp elements while keeping a sharp feel\n"
+          "$description": "Softens crisp elements while keeping a sharp feel."
         },
         "0_25x": {
           "$type": "borderRadius",
           "$value": "{kds.core.size.scale} * 0.25",
-          "$description": "Radius on small UI pieces and compact elements USED IN: Xsmall buttons, checkboxes.\n"
+          "$description": "Radius on small UI pieces and compact elements. USED IN: Xsmall buttons, checkboxes."
         },
         "0_31x": {
           "$type": "borderRadius",
           "$value": "{kds.core.size.scale} * 0.3125",
-          "$description": "A touch rounder than previous radius. use for elements that need a gentler feel USED IN: Focus outlines on Xsmall buttons.\n\n"
+          "$description": "A touch rounder than previous radius. Use for elements that need a gentler feel. USED IN: Focus outlines on Xsmall buttons."
         },
         "0_37x": {
           "$type": "borderRadius",
           "$value": "{kds.core.size.scale} * 0.375",
-          "$description": "Balanced rounding for small to medium components. USED IN: small and medium buttons and input fields.\n"
+          "$description": "Balanced rounding for small to medium components. USED IN: small and medium buttons and input fields."
         },
         "0_44x": {
           "$type": "borderRadius",
           "$value": "{kds.core.size.scale} * 0.4375",
-          "$description": " A touch rounder than previous radius. use for elements that need a gentler feel USED IN: Focus outlines on small and medium buttons.\n\n"
+          "$description": "A touch rounder than previous radius. Use for elements that need a gentler feel. USED IN: Focus outlines on small and medium buttons."
         },
         "0_50x": {
           "$type": "borderRadius",
           "$value": "{kds.core.size.scale} * 0.5",
-          "$description": "Soft rounding for larger components. USED IN: large buttons.\n"
+          "$description": "Soft rounding for larger components. USED IN: large buttons."
         },
         "0_56x": {
           "$type": "borderRadius",
           "$value": "{kds.core.size.scale} * 0.5625",
-          "$description": "A touch rounder than previous radius. use for elements that need a gentler feel USED IN: Focus outlines on large buttons.\n\n"
+          "$description": "A touch rounder than previous radius. Use for elements that need a gentler feel. USED IN: Focus outlines on large buttons."
         },
         "1x": {
           "$type": "borderRadius",
@@ -50,7 +50,7 @@
         "pill": {
           "$type": "borderRadius",
           "$value": "1000",
-          "$description": "Makes circles or capsules. USED IN: radiobuttons and Badge.\n"
+          "$description": "Makes circles or capsules. USED IN: radiobuttons and Badge."
         }
       }
     },
@@ -59,17 +59,17 @@
         "s": {
           "$type": "borderWidth",
           "$value": "{kds.core.border-width.xs}",
-          "$description": "1 px vector stroke - default for XSmall and Small icons.\n"
+          "$description": "1px vector stroke - default for XSmall and Small icons."
         },
         "m": {
           "$type": "borderWidth",
           "$value": "{kds.core.border-width.s}",
-          "$description": "1.25 px - use when scaling icons to Medium size"
+          "$description": "1.25px - use when scaling icons to Medium size."
         },
         "l": {
           "$type": "borderWidth",
           "$value": "{kds.core.border-width.m}",
-          "$description": "1.5 px - thick stroke, use when scaling icons to Large size"
+          "$description": "1.5px - thick stroke, use when scaling icons to Large size."
         }
       }
     },
@@ -82,7 +82,7 @@
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
-          "$description": "Invisible outline that still occupies stroke space. Use to avoid layout-shift when a border appears on other states/variants of the same component.\n\n[Themable composite token referencing border tokens from the mode set]\n"
+          "$description": "Invisible outline that still occupies stroke space. Use to avoid layout-shift when a border appears on other states/variants of the same component. Themable composite token referencing border tokens from the mode set."
         },
         "default": {
           "$type": "border",
@@ -91,7 +91,7 @@
             "width": "{kds.border-width.icon-stroke.s}",
             "style": "solid"
           },
-          "$description": "Default 1 px neutral outline for interactive controls (e.g outline buttons).\n\n[Themable composite token referencing border tokens from the mode set]\n"
+          "$description": "Default 1px neutral outline for interactive controls (e.g outline buttons). Themable composite token referencing border tokens from the mode set."
         },
         "disabled": {
           "$type": "border",
@@ -100,7 +100,7 @@
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
-          "$description": "Dimmed 1 px outline (color.border.disabled). Indicates the component cant be interacted with.\n\n[Themable composite token referencing border tokens from the mode set]\n"
+          "$description": "Dimmed 1px outline (color.border.disabled). Indicates the component cant be interacted with. Themable composite token referencing border tokens from the mode set."
         },
         "focused": {
           "$type": "border",
@@ -109,7 +109,7 @@
             "width": "{kds.core.border-width.l}",
             "style": "solid"
           },
-          "$description": "2px focus ring (color.focus.outline) - appears on keyboard or programmatic focus. Meets accessibility contrast.\n\n[Themable composite token referencing border tokens from the mode set]\n"
+          "$description": "2px focus ring (color.focus.outline) - appears on keyboard or programmatic focus. Meets accessibility contrast. Themable composite token referencing border tokens from the mode set."
         },
         "selected": {
           "$type": "border",
@@ -118,7 +118,7 @@
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
-          "$description": "1px teal outline (color.border.selected) - shows current selection (e.g. radio, checkbox, TabBar-Item).\n\n[Themable composite token referencing border tokens from the mode set]\n"
+          "$description": "1px teal outline (color.border.selected) - shows current selection (e.g. radio, checkbox, TabBar-Item). Themable composite token referencing border tokens from the mode set."
         },
         "selected-accent": {
           "$type": "border",
@@ -127,7 +127,7 @@
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
-          "$description": "1px outline (color.border.selected) - shows current selection (e.g. table cell, node instance).\n\n[Themable composite token referencing border tokens from the mode set]\n"
+          "$description": "1px outline (color.border.selected) - shows current selection (e.g. table cell, node instance). Themable composite token referencing border tokens from the mode set."
         },
         "error": {
           "$type": "border",
@@ -136,7 +136,7 @@
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
-          "$description": "1px strong red outline for invalid inputs or destructive elements.\n\n[Themable composite token referencing border tokens from the mode set]\n"
+          "$description": "1px strong red outline for invalid inputs or destructive elements. Themable composite token referencing border tokens from the mode set."
         },
         "primary": {
           "$type": "border",
@@ -145,7 +145,7 @@
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
-          "$description": "1 px bold-teal outline for elements using primary color\n\n[Themable composite token referencing border tokens from the mode set]\n"
+          "$description": "1px bold-teal outline for elements using primary color. Themable composite token referencing border tokens from the mode set."
         },
         "input": {
           "$type": "border",
@@ -154,7 +154,7 @@
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
-          "$description": "Neutral 1 px outline specifically tuned for input elements (e.g text-field and textarea, radio and checkbox components.)\n\n[Themable composite token referencing border tokens from the mode set]\n"
+          "$description": "Neutral 1px outline specifically tuned for input elements (e.g text-field and textarea, radio and checkbox components). Themable composite token referencing border tokens from the mode set."
         }
       },
       "base": {
@@ -165,7 +165,7 @@
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
-          "$description": "1 px neutral divider for most containers and separators.\n"
+          "$description": "1px neutral divider for most containers and separators."
         },
         "muted": {
           "$type": "border",
@@ -174,7 +174,7 @@
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
-          "$description": "1px subtler neutral stroke for low-contrast sections and containers.\n"
+          "$description": "1px subtler neutral stroke for low-contrast sections and containers."
         },
         "subtle": {
           "$type": "border",
@@ -183,7 +183,7 @@
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
-          "$description": "1px hairline neutral stroke (10% opacity). Use for the faintest elements (e.g dividers).\n"
+          "$description": "1px hairline neutral stroke (10% opacity). Use for the faintest elements (e.g dividers)."
         },
         "brand": {
           "$type": "border",
@@ -192,7 +192,7 @@
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
-          "$description": "1px brand-yellow bar - decorative accent to be used on branded elements e.g Desktop header.\n"
+          "$description": "1px brand-yellow bar - decorative accent to be used on branded elements e.g Desktop header."
         },
         "danger": {
           "$type": "border",
@@ -201,7 +201,7 @@
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
-          "$description": "1px red outline for critical inline messages and containers.\n"
+          "$description": "1px red outline for critical inline messages and containers."
         },
         "warning": {
           "$type": "border",
@@ -210,7 +210,7 @@
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
-          "$description": "1px orange outline for warning inline messages and containers.\n"
+          "$description": "1px orange outline for warning inline messages and containers."
         },
         "success": {
           "$type": "border",
@@ -219,7 +219,7 @@
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
-          "$description": "1px green outline for success inline messages and containers.\n"
+          "$description": "1px green outline for success inline messages and containers."
         },
         "info": {
           "$type": "border",
@@ -228,7 +228,7 @@
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
-          "$description": "1px blue outline for info inline messages and containers.\n"
+          "$description": "1px blue outline for info inline messages and containers."
         }
       },
       "node-status": {
@@ -239,7 +239,7 @@
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
-          "$description": "border around node status"
+          "$description": "Border around node status."
         },
         "idle": {
           "$type": "border",
@@ -248,7 +248,7 @@
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
-          "$description": "border around node status"
+          "$description": "Border around node status."
         },
         "warning": {
           "$type": "border",
@@ -257,7 +257,7 @@
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
-          "$description": "border around node status"
+          "$description": "Border around node status."
         },
         "executed": {
           "$type": "border",
@@ -266,7 +266,7 @@
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
-          "$description": "border around node status"
+          "$description": "Border around node status."
         }
       }
     }
