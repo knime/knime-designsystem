@@ -45,16 +45,7 @@ watchEffect(() => {
 const popoverStyles = computed<CSSProperties>(() => {
   const gap = `${defaultGapPx}px`;
   const placement = props.placement ?? "top-center";
-
-  const placementParts = placement.split("-") as [
-    BasePopoverSide,
-    BasePopoverAlign | "center" | undefined,
-  ];
-  const [sideRaw, alignRaw] = placementParts;
-
-  const side: BasePopoverSide = sideRaw;
-  const align: BasePopoverAlign =
-    alignRaw === "start" || alignRaw === "end" ? alignRaw : "center";
+  const [side, align] = placement.split("-");
 
   const positionTryFallbacks = (() => {
     if (side === "top") {
@@ -64,7 +55,7 @@ const popoverStyles = computed<CSSProperties>(() => {
       if (align === "end") {
         return "--kds-base-popover-try-bottom-end, --kds-base-popover-try-top-end";
       }
-      return "--kds-base-popover-try-bottom, --kds-base-popover-try-top";
+      return "--kds-base-popover-try-top-start, --kds-base-popover-try-top-end, --kds-base-popover-try-bottom-center, --kds-base-popover-try-bottom-start, --kds-base-popover-try-bottom-end";
     }
 
     if (align === "start") {
@@ -73,7 +64,7 @@ const popoverStyles = computed<CSSProperties>(() => {
     if (align === "end") {
       return "--kds-base-popover-try-top-end, --kds-base-popover-try-bottom-end";
     }
-    return "--kds-base-popover-try-top, --kds-base-popover-try-bottom";
+    return "--kds-base-popover-try-top-center, --kds-base-popover-try-bottom-center";
   })();
 
   const common: CSSProperties = {
@@ -124,7 +115,7 @@ const popoverStyles = computed<CSSProperties>(() => {
 <style scoped>
 /* stylelint-disable at-rule-descriptor-value-no-unknown */
 /* stylelint-disable-next-line at-rule-no-unknown */
-@position-try --kds-base-popover-try-top {
+@position-try --kds-base-popover-try-top-center {
   top: auto;
 
   /* noinspection CssInvalidFunction */
@@ -154,7 +145,7 @@ const popoverStyles = computed<CSSProperties>(() => {
 }
 
 /* stylelint-disable-next-line at-rule-no-unknown */
-@position-try --kds-base-popover-try-bottom {
+@position-try --kds-base-popover-try-bottom-center {
   /* noinspection CssInvalidFunction */
   top: anchor(bottom);
   bottom: auto;
