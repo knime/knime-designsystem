@@ -135,6 +135,12 @@
             "$type": "color",
             "$value": "{kds.core.color.neutral.100}"
           }
+        },
+        "background": {
+          "default": {
+            "$type": "color",
+            "$value": "{kds.color.background-static.overlay}"
+          }
         }
       }
     },

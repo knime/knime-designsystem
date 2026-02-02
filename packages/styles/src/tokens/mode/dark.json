@@ -462,7 +462,7 @@
         "overlay": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.475}",
-          "$description": "Background color for content overlay"
+          "$description": "Background color for content overlay like tooltip"
         }
       },
       "text-and-icon": {
