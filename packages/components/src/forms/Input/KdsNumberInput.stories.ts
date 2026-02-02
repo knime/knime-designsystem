@@ -43,6 +43,14 @@ const meta: Meta<typeof KdsNumberInput> = {
       control: "text",
       table: { category: "Props" },
     },
+    name: {
+      control: "text",
+      table: { category: "Props" },
+    },
+    autocomplete: {
+      control: "text",
+      table: { category: "Props" },
+    },
     unit: {
       control: "text",
       table: { category: "Props" },
@@ -88,19 +96,13 @@ const meta: Meta<typeof KdsNumberInput> = {
       control: "boolean",
       table: { category: "Props" },
     },
-    name: {
-      control: "text",
-      table: { category: "Props" },
-    },
-    autocomplete: {
-      control: "text",
-      table: { category: "Props" },
-    },
   },
   args: {
     modelValue: "",
     label: "Label",
     placeholder: "",
+    name: "",
+    autocomplete: "",
     unit: "",
     min: undefined,
     max: undefined,
@@ -112,8 +114,6 @@ const meta: Meta<typeof KdsNumberInput> = {
     validating: false,
     subText: "",
     preserveSubTextSpace: false,
-    name: "",
-    autocomplete: "",
   },
   decorators: [
     (story) => {

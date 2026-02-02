@@ -47,6 +47,14 @@ const meta: Meta<typeof KdsTextInput> = {
       description: "Placeholder shown when the input is empty",
       table: { category: "Props" },
     },
+    name: {
+      control: "text",
+      table: { category: "Props" },
+    },
+    autocomplete: {
+      control: "text",
+      table: { category: "Props" },
+    },
     subText: {
       control: "text",
       description: "Helper text or error message shown below the input",
@@ -87,19 +95,13 @@ const meta: Meta<typeof KdsTextInput> = {
       options: [undefined, ...iconNames],
       table: { category: "Props" },
     },
-    name: {
-      control: "text",
-      table: { category: "Props" },
-    },
-    autocomplete: {
-      control: "text",
-      table: { category: "Props" },
-    },
   },
   args: {
     modelValue: "",
     label: "Label",
     placeholder: "",
+    name: "",
+    autocomplete: "",
     leadingIcon: undefined,
     trailingIcon: undefined,
     required: false,
@@ -109,8 +111,6 @@ const meta: Meta<typeof KdsTextInput> = {
     error: false,
     subText: "",
     preserveSubTextSpace: false,
-    name: "",
-    autocomplete: "",
   },
   decorators: [
     (story) => {

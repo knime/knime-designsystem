@@ -81,7 +81,6 @@ const clear = () => {
         :min="props.min"
         :max="props.max"
         :step="props.step"
-        :aria-label="props.ariaLabel"
         :aria-labelledby="props.ariaLabelledby"
         :aria-describedby="props.ariaDescribedby"
         :aria-invalid="props.error"

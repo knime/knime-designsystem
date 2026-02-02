@@ -58,6 +58,14 @@ const meta: Meta<typeof KdsPatternInput> = {
       control: "text",
       table: { category: "Props" },
     },
+    name: {
+      control: "text",
+      table: { category: "Props" },
+    },
+    autocomplete: {
+      control: "text",
+      table: { category: "Props" },
+    },
     subText: {
       control: "text",
       table: { category: "Props" },
@@ -87,14 +95,6 @@ const meta: Meta<typeof KdsPatternInput> = {
       control: "boolean",
       table: { category: "Props" },
     },
-    name: {
-      control: "text",
-      table: { category: "Props" },
-    },
-    autocomplete: {
-      control: "text",
-      table: { category: "Props" },
-    },
   },
   args: {
     modelValue: "",
@@ -103,6 +103,8 @@ const meta: Meta<typeof KdsPatternInput> = {
     useRegex: false,
     label: "Pattern",
     placeholder: "",
+    name: "",
+    autocomplete: "",
     subText: "",
     required: false,
     disabled: false,
@@ -110,8 +112,6 @@ const meta: Meta<typeof KdsPatternInput> = {
     validating: false,
     error: false,
     preserveSubTextSpace: false,
-    name: "",
-    autocomplete: "",
   },
   decorators: [
     (story) => {

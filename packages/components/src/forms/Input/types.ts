@@ -18,17 +18,6 @@ type KdsInputLabelProps = {
    */
   placeholder?: string;
   /**
-   * Icon displayed at the start of the input
-   */
-  leadingIcon?: KdsIconName;
-  /**
-   * Icon displayed at the end of the input
-   */
-  trailingIcon?: KdsIconName;
-};
-
-type KdsInputNameAutocompleteProps = {
-  /**
    * Name attribute for the input element
    */
   name?: string;
@@ -36,6 +25,14 @@ type KdsInputNameAutocompleteProps = {
    * Autocomplete attribute for the input element
    */
   autocomplete?: string;
+  /**
+   * Icon displayed at the start of the input
+   */
+  leadingIcon?: KdsIconName;
+  /**
+   * Icon displayed at the end of the input
+   */
+  trailingIcon?: KdsIconName;
 };
 
 type KdsInputStateProps = {
@@ -115,10 +112,6 @@ export type KdsBaseInputProps = {
    */
   validating?: boolean;
   /**
-   * Accessible label for screen readers when no visible label is present
-   */
-  ariaLabel?: string;
-  /**
    * ID of element that labels this input (for aria-labelledby)
    */
   ariaLabelledby?: string;
@@ -155,9 +148,7 @@ type KdsCommonInputEmits = {
 
 export type KdsBaseInputEmits = KdsCommonInputEmits;
 
-export type KdsTextInputProps = KdsInputLabelProps &
-  KdsInputStateProps &
-  KdsInputNameAutocompleteProps;
+export type KdsTextInputProps = KdsInputLabelProps & KdsInputStateProps;
 
 export type KdsTextInputEmits = KdsCommonInputEmits;
 
@@ -178,13 +169,10 @@ export type KdsNumberInputProps = KdsInputLabelProps & {
    * Step size used for +/- buttons and arrow key increments
    */
   step?: number;
-} & KdsInputStateProps &
-  KdsInputNameAutocompleteProps;
+} & KdsInputStateProps;
 
 export type KdsNumberInputEmits = KdsCommonInputEmits;
 
-export type KdsPatternInputProps = KdsInputLabelProps &
-  KdsInputStateProps &
-  KdsInputNameAutocompleteProps;
+export type KdsPatternInputProps = KdsInputLabelProps & KdsInputStateProps;
 
 export type KdsPatternInputEmits = KdsCommonInputEmits;
