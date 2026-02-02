@@ -154,15 +154,7 @@ export const MissingValue: Story = {
   args: {
     open: true,
     modelValue: "missing",
-    options: [
-      {
-        value: "missing",
-        label: "Label",
-        missing: true,
-        dataTypeIconName: "string-datatype",
-      },
-      ...baseOptions,
-    ],
+    options: baseOptions,
   },
 };
 
@@ -255,15 +247,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           {
             open: true,
             modelValue: "missing",
-            options: [
-              {
-                value: "missing",
-                label: "Label",
-                missing: true,
-                dataTypeIconName: "string-datatype",
-              },
-              ...baseOptions,
-            ],
+            options: baseOptions,
           },
       },
     },

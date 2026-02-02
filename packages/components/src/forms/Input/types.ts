@@ -105,8 +105,6 @@ export type KdsDropdownOption = {
   label: string;
   /** Optional datatype icon shown before the label */
   dataTypeIconName?: string;
-  /** Marks an option as missing (e.g. value no longer exists) */
-  missing?: boolean;
   /** Disables the option in the list */
   disabled?: boolean;
 };

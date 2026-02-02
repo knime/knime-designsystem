@@ -56,25 +56,34 @@ const searchQuery = ref("");
 const activeIndex = ref<number>(-1);
 const draftValue = ref<string | null>(null);
 
-const optionsWithSyntheticMissing = computed<KdsDropdownOption[]>(() => {
-  if (modelValue.value === null) {
-    return props.options;
-  }
+type DropdownOptionWithMissing = KdsDropdownOption & { missing: boolean };
 
-  const hasSelected = props.options.some((o) => o.value === modelValue.value);
-  if (hasSelected) {
-    return props.options;
-  }
+const optionsWithSyntheticMissing = computed<DropdownOptionWithMissing[]>(
+  () => {
+    const baseOptions = props.options.map((option) => ({
+      ...option,
+      missing: false,
+    }));
 
-  return [
-    {
-      value: modelValue.value,
-      label: modelValue.value,
-      missing: true,
-    },
-    ...props.options,
-  ];
-});
+    if (modelValue.value === null) {
+      return baseOptions;
+    }
+
+    const hasSelected = props.options.some((o) => o.value === modelValue.value);
+    if (hasSelected) {
+      return baseOptions;
+    }
+
+    return [
+      {
+        value: modelValue.value,
+        label: modelValue.value,
+        missing: true,
+      },
+      ...baseOptions,
+    ];
+  },
+);
 
 const filteredOptions = computed(() => {
   const normalizedQuery = searchQuery.value.trim().toLowerCase();
@@ -327,7 +336,7 @@ const onTriggerKeydown = (event: KeyboardEvent) => {
   }
 };
 
-const onOptionClick = (option: KdsDropdownOption) => {
+const onOptionClick = (option: DropdownOptionWithMissing) => {
   if (option.disabled) {
     return;
   }
@@ -480,106 +489,4 @@ const ariaActiveDescendant = computed(() => {
   </div>
 </template>
 
-<style scoped>
-.dropdown {
-  display: flex;
-  flex-direction: column;
-}
-
-.trigger {
-  position: relative;
-}
-
-.popover {
-  position: absolute;
-  top: calc(
-    var(--kds-dimension-component-height-1-75x) +
-      var(--kds-spacing-container-0-25x)
-  );
-  left: 0;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  background: var(--kds-color-surface-default);
-  border-radius: var(--kds-border-radius-container-0-50x);
-  box-shadow: var(--kds-elevation-level-3);
-}
-
-.sticky-top {
-  padding: var(--kds-spacing-container-0-25x);
-  border-bottom: var(--kds-border-base-subtle);
-}
-
-.list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--kds-spacing-container-0-10x);
-  max-height: calc(var(--kds-dimension-component-height-1-5x) * 8);
-  padding: var(--kds-spacing-container-0-25x);
-  margin: 0;
-  overflow: auto;
-  list-style: none;
-}
-
-.empty {
-  padding: var(--kds-spacing-container-0-25x);
-  font: var(--kds-font-base-interactive-small);
-  color: var(--kds-color-text-and-icon-muted);
-}
-
-.option {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: var(--kds-dimension-component-height-1-5x);
-  padding-right: var(--kds-spacing-container-0-25x);
-  padding-left: var(--kds-spacing-container-0-5x);
-  cursor: pointer;
-  background: var(--kds-color-background-neutral-initial);
-  border-radius: var(--kds-border-radius-container-0-25x);
-
-  &:hover:not(.disabled) {
-    background: var(--kds-color-background-neutral-hover);
-  }
-
-  &.active:not(.disabled) {
-    background: var(--kds-color-background-neutral-hover);
-  }
-
-  &.disabled {
-    cursor: default;
-    opacity: 0.6;
-  }
-
-  &.missing {
-    background: var(--kds-color-background-danger-initial);
-  }
-}
-
-.option-content {
-  display: flex;
-  gap: var(--kds-spacing-container-0-25x);
-  align-items: center;
-  min-width: 0;
-  padding: var(--kds-spacing-container-0-25x) 0;
-  font: var(--kds-font-base-interactive-small);
-  color: var(--kds-color-text-and-icon-neutral);
-
-  & .label {
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  & .missing-label {
-    flex-shrink: 0;
-    color: var(--kds-color-text-and-icon-danger);
-  }
-
-  .option.missing & {
-    color: var(--kds-color-text-and-icon-danger);
-  }
-}
-</style>
+<style scoped src="./KdsDropdown.css"></style>
