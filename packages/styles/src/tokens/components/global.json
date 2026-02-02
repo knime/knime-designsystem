@@ -5,37 +5,31 @@
         "background": {
           "default": {
             "$type": "color",
-            "$value": "{kds.core.color.neutral.875}",
-            "$description": "Default background color for the DesktopHeader component."
+            "$value": "{kds.core.color.neutral.875}"
           },
           "muted": {
             "$type": "color",
-            "$value": "{kds.color.surface.default}",
-            "$description": "Muted background color for the DesktopHeader component."
+            "$value": "{kds.color.surface.default}"
           },
           "accent": {
             "$type": "color",
-            "$value": "{kds.color.surface.default}",
-            "$description": "Accent background color for the DesktopHeader component."
+            "$value": "{kds.color.surface.default}"
           }
         },
         "text-and-icon": {
           "neutral": {
             "$type": "color",
-            "$value": "{kds.color.text-and-icon.neutral}",
-            "$description": "Neutral text and icon color for the DesktopHeader component."
+            "$value": "{kds.color.text-and-icon.neutral}"
           },
           "muted": {
             "$type": "color",
-            "$value": "{kds.color.text-and-icon.muted}",
-            "$description": "Muted text and icon color for the DesktopHeader component."
+            "$value": "{kds.color.text-and-icon.muted}"
           }
         },
         "border": {
           "default": {
             "$type": "color",
-            "$value": "{kds.color.border.subtle}",
-            "$description": "Default border color for the DesktopHeader component."
+            "$value": "{kds.color.border.subtle}"
           }
         }
       },
@@ -43,8 +37,7 @@
         "background": {
           "default": {
             "$type": "color",
-            "$value": "{kds.core.color.neutral.25}",
-            "$description": "Default background color for the TableHeader component."
+            "$value": "{kds.core.color.neutral.25}"
           }
         }
       },
@@ -52,30 +45,25 @@
         "knob": {
           "initial": {
             "$type": "color",
-            "$value": "{kds.core.color.neutral.25}",
-            "$description": "Initial knob color for the ToggleSwitch component."
+            "$value": "{kds.core.color.neutral.25}"
           },
           "disabled": {
             "$type": "color",
-            "$value": "{kds.core.color.neutral.175}",
-            "$description": "Disabled knob color for the ToggleSwitch component."
+            "$value": "{kds.core.color.neutral.175}"
           }
         },
         "icon": {
           "on": {
             "$type": "color",
-            "$value": "{kds.color.text-and-icon.primary}",
-            "$description": "Icon color when the ToggleSwitch is on."
+            "$value": "{kds.color.text-and-icon.primary}"
           },
           "off": {
             "$type": "color",
-            "$value": "{kds.core.color.neutral.375}",
-            "$description": "Icon color when the ToggleSwitch is off."
+            "$value": "{kds.core.color.neutral.375}"
           },
           "disabled": {
             "$type": "color",
-            "$value": "{kds.core.color.neutral.275}",
-            "$description": "Icon color when the ToggleSwitch is disabled."
+            "$value": "{kds.core.color.neutral.275}"
           }
         }
       },
@@ -93,12 +81,12 @@
             },
             "$type": "color",
             "$value": "{kds.color.text-and-icon.primary-inverted}",
-            "$description": "Progress indicator color for LoadingSpinner on primary backgrounds."
+            "$description": "LoadingSpinner"
           },
           "onSurface": {
             "$type": "color",
             "$value": "{kds.color.text-and-icon.neutral}",
-            "$description": "Progress indicator color for LoadingSpinner on surface backgrounds."
+            "$description": "LoadingSpinner"
           }
         },
         "track": {
@@ -114,7 +102,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.text-and-icon.primary-inverted}",
-            "$description": "Track color for LoadingSpinner on primary backgrounds."
+            "$description": "LoadingSpinner"
           },
           "onSurface": {
             "$extensions": {
@@ -128,7 +116,7 @@
             },
             "$type": "color",
             "$value": "{kds.color.text-and-icon.neutral}",
-            "$description": "Track color for LoadingSpinner on surface backgrounds."
+            "$description": "LoadingSpinner"
           }
         }
       },
@@ -137,7 +125,7 @@
           "default": {
             "$type": "color",
             "$value": "{kds.color.skeleton.default}",
-            "$description": "Skeleton animation gradient for the SkeletonBar component."
+            "$description": "skeleton animation"
           }
         }
       },
@@ -149,7 +137,7 @@
           }
         },
         "background": {
-          "default": {
+          "default-persistent": {
             "$type": "color",
             "$value": "{kds.color.background-static.overlay}"
           }
@@ -160,15 +148,13 @@
       "inputLabel": {
         "spacing-bottom": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} * 0.375",
-          "$description": "Bottom spacing between an input label and its input field."
+          "$value": "{kds.core.size.scale} * 0.375"
         }
       },
       "SubText": {
         "spacing-top": {
           "$type": "spacing",
-          "$value": "{kds.core.size.scale} * 0.25",
-          "$description": "Top spacing between SubText and its associated element."
+          "$value": "{kds.core.size.scale} * 0.25"
         }
       }
     },
@@ -180,8 +166,7 @@
             "color": "{kds.color.border.neutral-bold-initial}",
             "width": "{kds.core.border-width.l}",
             "style": "solid"
-          },
-          "$description": "Default border style for the ResizeHandle component."
+          }
         },
         "hover": {
           "$type": "border",
@@ -189,8 +174,7 @@
             "color": "{kds.color.border.neutral-bold-hover}",
             "width": "{kds.core.border-width.l}",
             "style": "solid"
-          },
-          "$description": "Border style for the ResizeHandle component on hover."
+          }
         },
         "active": {
           "$type": "border",
@@ -198,8 +182,7 @@
             "color": "{kds.color.border.neutral-bold-active}",
             "width": "{kds.core.border-width.l}",
             "style": "solid"
-          },
-          "$description": "Border style for the ResizeHandle component when active."
+          }
         }
       }
     },
@@ -213,8 +196,7 @@
           "spread": "0",
           "color": "{kds.color.elevation.knob}",
           "type": "dropShadow"
-        },
-        "$description": "Drop shadow for knob elements like the ToggleSwitch handle."
+        }
       }
     }
   }
