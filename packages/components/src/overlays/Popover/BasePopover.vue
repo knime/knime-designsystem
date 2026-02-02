@@ -8,7 +8,7 @@
 import { type CSSProperties, computed, ref, useId, watchEffect } from "vue";
 import type { MaybeRef } from "@vueuse/core";
 
-type BasePopoverSide = "top" | "bottom" | "left" | "right";
+type BasePopoverSide = "top" | "bottom";
 type BasePopoverAlign = "start" | "center" | "end";
 
 type BasePopoverPlacement =
@@ -53,10 +53,33 @@ const popoverStyles = computed<CSSProperties>(() => {
   const side: BasePopoverSide = sideRaw;
   const align: BasePopoverAlign = (alignRaw ?? "center") as BasePopoverAlign;
 
+  const positionTryFallbacks = (() => {
+    if (side === "top") {
+      if (align === "start") {
+        return "--kds-base-popover-try-bottom-start, --kds-base-popover-try-top-start";
+      }
+      if (align === "end") {
+        return "--kds-base-popover-try-bottom-end, --kds-base-popover-try-top-end";
+      }
+      return "--kds-base-popover-try-bottom, --kds-base-popover-try-top";
+    }
+
+    if (align === "start") {
+      return "--kds-base-popover-try-top-start, --kds-base-popover-try-bottom-start";
+    }
+    if (align === "end") {
+      return "--kds-base-popover-try-top-end, --kds-base-popover-try-bottom-end";
+    }
+    return "--kds-base-popover-try-top, --kds-base-popover-try-bottom";
+  })();
+
   const common: CSSProperties = {
     positionAnchor: anchorName,
     position: "fixed",
     zIndex: 1000,
+    // If the preferred placement doesn't fit, try flipping to the opposite side.
+    // Note: this is supported in the target browsers for this repo.
+    ...({ positionTryFallbacks } as unknown as CSSProperties),
   };
 
   const alignedX: CSSProperties = (() => {
@@ -71,18 +94,6 @@ const popoverStyles = computed<CSSProperties>(() => {
     return { left: "anchor(center)", translate: "-50% 0" };
   })();
 
-  const alignedY: CSSProperties = (() => {
-    if (align === "start") {
-      return { top: "anchor(top)", translate: "0 0" };
-    }
-
-    if (align === "end") {
-      return { top: "anchor(bottom)", translate: "0 -100%" };
-    }
-
-    return { top: "anchor(center)", translate: "0 -50%" };
-  })();
-
   if (side === "top") {
     return {
       ...common,
@@ -92,29 +103,11 @@ const popoverStyles = computed<CSSProperties>(() => {
     } satisfies CSSProperties;
   }
 
-  if (side === "bottom") {
-    return {
-      ...common,
-      top: "anchor(bottom)",
-      marginTop: gap,
-      ...alignedX,
-    } satisfies CSSProperties;
-  }
-
-  if (side === "left") {
-    return {
-      ...common,
-      right: "anchor(left)",
-      marginRight: gap,
-      ...alignedY,
-    } satisfies CSSProperties;
-  }
-
   return {
     ...common,
-    left: "anchor(right)",
-    marginLeft: gap,
-    ...alignedY,
+    top: "anchor(bottom)",
+    marginTop: gap,
+    ...alignedX,
   } satisfies CSSProperties;
 });
 </script>
@@ -126,6 +119,66 @@ const popoverStyles = computed<CSSProperties>(() => {
 </template>
 
 <style scoped>
+/* stylelint-disable at-rule-descriptor-value-no-unknown */
+/* stylelint-disable-next-line at-rule-no-unknown */
+@position-try --kds-base-popover-try-top {
+  top: auto;
+
+  /* noinspection CssInvalidFunction */
+  bottom: anchor(top);
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+/* stylelint-disable-next-line at-rule-no-unknown */
+@position-try --kds-base-popover-try-top-start {
+  top: auto;
+
+  /* noinspection CssInvalidFunction */
+  bottom: anchor(top);
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+/* stylelint-disable-next-line at-rule-no-unknown */
+@position-try --kds-base-popover-try-top-end {
+  top: auto;
+
+  /* noinspection CssInvalidFunction */
+  bottom: anchor(top);
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+/* stylelint-disable-next-line at-rule-no-unknown */
+@position-try --kds-base-popover-try-bottom {
+  /* noinspection CssInvalidFunction */
+  top: anchor(bottom);
+  bottom: auto;
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+/* stylelint-disable-next-line at-rule-no-unknown */
+@position-try --kds-base-popover-try-bottom-start {
+  /* noinspection CssInvalidFunction */
+  top: anchor(bottom);
+  bottom: auto;
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+/* stylelint-disable-next-line at-rule-no-unknown */
+@position-try --kds-base-popover-try-bottom-end {
+  /* noinspection CssInvalidFunction */
+  top: anchor(bottom);
+  bottom: auto;
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+/* stylelint-enable at-rule-descriptor-value-no-unknown */
+
 .content {
   width: 354px;
   padding: var(--kds-spacing-container-0-5x) var(--kds-spacing-container-0-75x);
