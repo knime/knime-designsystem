@@ -413,6 +413,11 @@
           "$type": "color",
           "$value": "{kds.core.color.yellow.250}",
           "$description": "Vibrant brand yellow background for branding elements. USED IN: DesktopHeader-Tab"
+        },
+        "overlay": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.725}",
+          "$description": "Background color for content overlay"
         }
       },
       "text-and-icon": {
