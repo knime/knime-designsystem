@@ -195,7 +195,7 @@ importers:
         version: link:../packages/styles
       '@knime/styles':
         specifier: ^1.15.0
-        version: 1.15.0(@fontsource/roboto-mono@5.2.8)(@fontsource/roboto@5.2.8)
+        version: 1.15.0(@fontsource/roboto-mono@5.2.8)(@fontsource/roboto@5.2.9)
       storybook:
         specifier: catalog:storybook
         version: 10.2.0(@testing-library/dom@10.4.0)(prettier@3.6.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -334,8 +334,8 @@ importers:
   packages/styles:
     dependencies:
       '@fontsource/roboto':
-        specifier: 5.2.8
-        version: 5.2.8
+        specifier: 5.2.9
+        version: 5.2.9
       '@fontsource/roboto-condensed':
         specifier: 5.2.8
         version: 5.2.8
@@ -1227,8 +1227,8 @@ packages:
   '@fontsource/roboto-mono@5.2.8':
     resolution: {integrity: sha512-M0XPRcvkOKiTPooXwX7yJSNpuad3CPcQwsADBfnopz3apBs+VKI47pc42mlvAxJjNTRauu5rndSxHc8F52bR7Q==}
 
-  '@fontsource/roboto@5.2.8':
-    resolution: {integrity: sha512-oh9g4Cg3loVMz9MWeKWfDI+ooxxG1aRVetkiKIb2ESS2rrryGecQ/y4pAj4z5A5ebyw450dYRi/c4k/I3UBhHA==}
+  '@fontsource/roboto@5.2.9':
+    resolution: {integrity: sha512-ZTkyHiPk74B/aj8BZWbsxD5Yu+Lq+nR64eV4wirlrac2qXR7jYk2h6JlLYuOuoruTkGQWNw2fMuKNavw7/rg0w==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -6678,7 +6678,7 @@ snapshots:
 
   '@fontsource/roboto-mono@5.2.8': {}
 
-  '@fontsource/roboto@5.2.8': {}
+  '@fontsource/roboto@5.2.9': {}
 
   '@humanfs/core@0.19.1': {}
 
@@ -6806,9 +6806,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@knime/styles@1.15.0(@fontsource/roboto-mono@5.2.8)(@fontsource/roboto@5.2.8)':
+  '@knime/styles@1.15.0(@fontsource/roboto-mono@5.2.8)(@fontsource/roboto@5.2.9)':
     dependencies:
-      '@fontsource/roboto': 5.2.8
+      '@fontsource/roboto': 5.2.9
       '@fontsource/roboto-mono': 5.2.8
       modern-normalize: 2.0.0
       postcss: 8.5.6
