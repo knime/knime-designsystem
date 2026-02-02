@@ -79,11 +79,6 @@ function onNativeToggle(e: Event) {
       :id="popoverId"
       ref="floatingEl"
       class="floating"
-      :data-open="open"
-      :data-placement="actualBasePlacement"
-      role="dialog"
-      aria-modal="true"
-      tabindex="-1"
       popover="auto"
       @toggle="onNativeToggle"
     >
@@ -106,35 +101,9 @@ function onNativeToggle(e: Event) {
 }
 
 .floating {
-  /* Native popover default user-agent styles include margins/outline in some browsers.
-     We keep it neutral and let BasePopover handle visuals. */
   padding: 0;
-
-  /* Ensure the arrow isn't clipped by an ancestor with overflow (rare but can happen in app shells). */
   overflow: visible;
   background: transparent;
   border: 0;
-
-  .arrow {
-    position: absolute;
-
-    /* Keep above host background; using -1 can hide it completely depending on stacking contexts. */
-    z-index: 0;
-
-    /* Square rotated 45deg = diamond arrow */
-    width: 12px;
-    height: 12px;
-    background: var(--kds-color-surface-default);
-    border-radius: 2px;
-    transform: rotate(45deg);
-  }
-
-  &[data-placement="top"] .arrow {
-    bottom: -6px;
-  }
-
-  &[data-placement="bottom"] .arrow {
-    top: -6px;
-  }
 }
 </style>

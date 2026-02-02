@@ -5,8 +5,8 @@
  * Provides consistent styling and layout for popover content used by higher-level overlay components.
  */
 
-import { computed, ref, useId, watchEffect } from "vue";
-import type { CSSProperties, MaybeRef } from "vue";
+import { type CSSProperties, computed, ref, useId, watchEffect } from "vue";
+import type { MaybeRef } from "@vueuse/core";
 
 type BasePopoverPlacement = "top" | "bottom";
 
