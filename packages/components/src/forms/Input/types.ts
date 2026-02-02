@@ -95,3 +95,7 @@ export type KdsNumberInputEmits = KdsCommonInputEmits;
 export type KdsPatternInputProps = KdsInputLabelProps & KdsInputStateProps;
 
 export type KdsPatternInputEmits = KdsCommonInputEmits;
+
+export type KdsSearchInputProps = KdsInputLabelProps & KdsInputStateProps;
+
+export type KdsSearchInputEmits = KdsCommonInputEmits;

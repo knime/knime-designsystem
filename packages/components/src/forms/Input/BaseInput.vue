@@ -61,6 +61,12 @@ type BaseInputProps = {
    */
   validating?: boolean;
   /**
+   * Accessible label for the input (for aria-label).
+   *
+   * Prefer this when there is no visible label element.
+   */
+  ariaLabel?: string;
+  /**
    * ID of element that labels this input (for aria-labelledby)
    */
   ariaLabelledby?: string;
@@ -157,6 +163,7 @@ const clear = () => {
         :min="props.min"
         :max="props.max"
         :step="props.step"
+        :aria-label="props.ariaLabel"
         :aria-labelledby="props.ariaLabelledby"
         :aria-describedby="props.ariaDescribedby"
         :aria-invalid="props.error"
@@ -250,6 +257,10 @@ const clear = () => {
 
   &.trailing {
     padding-right: var(--kds-spacing-container-0-12x);
+  }
+
+  .container.disabled & {
+    color: var(--kds-color-text-and-icon-disabled);
   }
 }
 
