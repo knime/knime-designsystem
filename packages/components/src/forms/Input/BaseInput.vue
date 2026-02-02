@@ -102,25 +102,22 @@ const clear = () => {
         {{ props.unit }}
       </span>
 
-      <div
-        v-if="props.trailingIcon || showClearButton || $slots.trailing"
-        class="icon-wrapper trailing"
-      >
-        <slot name="trailing">
-          <KdsButton
-            v-if="showClearButton"
-            type="button"
-            size="xsmall"
-            variant="transparent"
-            leading-icon="x-close"
-            :aria-label="clearButtonAriaLabel"
-            :disabled="props.disabled || props.readonly"
-            @click="clear"
-          />
+      <slot name="trailing">
+        <KdsButton
+          v-if="showClearButton"
+          type="button"
+          size="xsmall"
+          variant="transparent"
+          leading-icon="x-close"
+          :aria-label="clearButtonAriaLabel"
+          :disabled="props.disabled || props.readonly"
+          @click="clear"
+        />
 
-          <KdsIcon v-else-if="props.trailingIcon" :name="props.trailingIcon" />
-        </slot>
-      </div>
+        <KdsIcon v-else-if="props.trailingIcon" :name="props.trailingIcon" />
+      </slot>
+
+      <div v-if="props.trailingIcon" class="icon-wrapper trailing" />
     </div>
   </div>
 </template>
