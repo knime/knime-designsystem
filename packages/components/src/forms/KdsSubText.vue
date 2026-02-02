@@ -26,7 +26,7 @@ const props = withDefaults(defineProps<KdsSubTextProps>(), {
     <template v-else-if="props.validating">
       <KdsLoadingSpinner
         size="small"
-        :style="'onSurface'"
+        style="onSurface"
         aria-label="Validating"
       />
     </template>
