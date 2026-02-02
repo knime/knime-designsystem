@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { computed, ref, toRef, useId, watch } from "vue";
-import { onClickOutside, useElementBounding } from "@vueuse/core";
+import { computed, ref, useId, watch } from "vue";
 
 import BasePopover from "./BasePopover.vue";
 import type { KdsPopoverProps } from "./types";
 
 const props = withDefaults(defineProps<KdsPopoverProps>(), {
-  placement: "top-center",
+  placement: "top-right",
   mainContainer: () => document.body,
   ignoredClickOutsideTarget: null,
 });
@@ -15,18 +14,7 @@ const referenceEl = ref<HTMLElement | null>(null);
 const floatingEl = ref<HTMLElement | null>(null);
 const popoverId = useId();
 
-const safeMainContainer = computed<HTMLElement>(() => {
-  const target = props.mainContainer;
-  return target instanceof HTMLElement ? target : document.body;
-});
-
-const boundaryPaddingPx = 8;
-const { width } = useElementBounding(safeMainContainer);
-
-const placement = toRef(props, "placement");
-const actualBasePlacement = computed(() => placement.value);
-
-const ignoredClickOutsideTarget = computed<(HTMLElement | null)[]>(() => {
+const _ignoredClickOutsideTarget = computed<(HTMLElement | null)[]>(() => {
   const targets = props.ignoredClickOutsideTarget;
   if (targets === null) {
     return [referenceEl.value];
@@ -35,10 +23,6 @@ const ignoredClickOutsideTarget = computed<(HTMLElement | null)[]>(() => {
     return [referenceEl.value, ...targets];
   }
   return [referenceEl.value, targets];
-});
-
-onClickOutside(floatingEl, () => (open.value = false), {
-  ignore: ignoredClickOutsideTarget,
 });
 
 watch(
@@ -59,6 +43,8 @@ function onNativeToggle(e: Event) {
   )?.matches?.(":popover-open");
   open.value = Boolean(isOpen);
 }
+
+const anchorId = `--${useId()}`;
 </script>
 
 <template>
@@ -70,6 +56,7 @@ function onNativeToggle(e: Event) {
       :aria-expanded="open"
       :aria-controls="popoverId"
       aria-haspopup="dialog"
+      :style="'anchor-name: ' + anchorId"
     >
       <slot name="activator" />
     </div>
@@ -78,15 +65,12 @@ function onNativeToggle(e: Event) {
       v-if="$slots.default"
       :id="popoverId"
       ref="floatingEl"
-      class="floating"
+      :class="['floating', placement]"
       popover="auto"
+      :style="'position-anchor: ' + anchorId"
       @toggle="onNativeToggle"
     >
-      <BasePopover
-        :placement="actualBasePlacement"
-        :anchor="referenceEl"
-        :style="{ 'max-width': width - 2 * boundaryPaddingPx + 'px' }"
-      >
+      <BasePopover>
         <slot />
       </BasePopover>
 
@@ -102,8 +86,62 @@ function onNativeToggle(e: Event) {
 
 .floating {
   padding: 0;
+  margin: var(--kds-spacing-container-0-5x);
   overflow: visible;
-  background: transparent;
   border: 0;
 }
+
+/* stylelint-disable declaration-property-value-no-unknown, at-rule-descriptor-value-no-unknown */
+.floating.top-left {
+  inset: auto anchor(right) anchor(top) auto;
+  margin-right: 0;
+  position-try-fallbacks:
+    --kds-popover-try-top-right, --kds-popover-try-bottom-left,
+    --kds-popover-try-bottom-right;
+}
+
+.floating.top-right {
+  inset: auto auto anchor(top) anchor(left);
+  margin-left: 0;
+  position-try-fallbacks:
+    --kds-popover-try-top-left, --kds-popover-try-bottom-right,
+    --kds-popover-try-bottom-left;
+}
+
+.floating.bottom-left {
+  inset: anchor(bottom) anchor(right) auto auto;
+  margin-right: 0;
+  position-try-fallbacks:
+    --kds-popover-try-bottom-right, --kds-popover-try-top-left,
+    --kds-popover-try-top-right;
+}
+
+.floating.bottom-right {
+  inset: anchor(bottom) auto auto anchor(left);
+  margin-left: 0;
+  position-try-fallbacks:
+    --kds-popover-try-bottom-left, --kds-popover-try-top-right,
+    --kds-popover-try-top-left;
+}
+
+@position-try --kds-popover-try-top-left {
+  inset: auto anchor(right) anchor(top) auto;
+  margin: 8px 0;
+}
+
+@position-try --kds-popover-try-top-right {
+  inset: auto auto anchor(top) anchor(left);
+  margin: 8px 0;
+}
+
+@position-try --kds-popover-try-bottom-left {
+  inset: anchor(bottom) anchor(right) auto auto;
+  margin: 8px 0;
+}
+
+@position-try --kds-popover-try-bottom-right {
+  inset: anchor(bottom) auto auto anchor(left);
+  margin: 8px 0;
+}
+/* stylelint-enable declaration-property-value-no-unknown, at-rule-descriptor-value-no-unknown */
 </style>

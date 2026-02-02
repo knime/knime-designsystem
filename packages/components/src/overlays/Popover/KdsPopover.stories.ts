@@ -46,7 +46,7 @@ const meta: Meta<typeof KdsPopover> = {
     },
   },
   args: {
-    placement: "top-center",
+    placement: "top-right",
     mainContainer: document.body,
     ignoredClickOutsideTarget: null,
   },
@@ -73,7 +73,7 @@ export const Default: Story = {
           </template>
           <div style="display: flex; flex-direction: column; gap: var(--kds-spacing-container-0-5x);">
             <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-subtle);">
-              Close via Escape/double finger z-gesture or clicking/focusing outside.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
             </div>
             <KdsButton label="A button" />
             <label>
@@ -270,12 +270,25 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   component: {
     components: { BasePopover },
     template: `
-      <BasePopover style="margin: 20px">
-        Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large.
-      </BasePopover>
+      <div style="position: relative; padding: 20px;">
+        <div
+          ref="anchor"
+          style="
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 1px;
+            height: 1px;
+          "
+        />
+
+        <BasePopover :anchor="anchor" placement="top-left">
+          Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large.
+        </BasePopover>
+      </div>
     `,
     data() {
-      return {};
+      return { anchor: null as HTMLElement | null };
     },
   },
   designsToCompare: {
@@ -394,7 +407,7 @@ export const RestrictedMainContainer: Story = {
             <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-subtle);">
               <p>This panel is the teleport target (mainContainer) and also the positioning boundary.</p>
               <p>Resize and scroll to see how the popover stays within its container.</p>
-              <p>The popover has default position "top" but is moved to the right to fit inside.</p>
+              <p>The popover has default position "top" but may be moved to fit inside.</p>
               <p>When scrolled, the position is flipped to the bottom.</p>
             </div>
 
@@ -402,7 +415,7 @@ export const RestrictedMainContainer: Story = {
               v-model="open"
               v-bind="args"
               :mainContainer="container"
-              placement="top-center"
+              placement="top-left"
             >
               <template #activator>
                 <KdsToggleButton v-model="open" label="Toggle popover" />
