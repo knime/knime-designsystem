@@ -38,7 +38,6 @@
     "vue": "catalog:peer"
   },
   "dependencies": {
-    "@floating-ui/vue": "1.1.9",
     "@knime/kds-styles": "workspace:^",
     "@knime/utils": "^1.9.2",
     "consola": "catalog:"
