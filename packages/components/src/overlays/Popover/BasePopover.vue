@@ -4,10 +4,69 @@
  *
  * Provides consistent styling and layout for popover content used by higher-level overlay components.
  */
+
+import { computed, ref, useId, watchEffect } from "vue";
+import type { CSSProperties, MaybeRef } from "vue";
+
+type BasePopoverPlacement = "top" | "bottom";
+
+type BasePopoverProps = {
+  /**
+   * Where the popover should be positioned relative to its anchor.
+   */
+  placement: BasePopoverPlacement;
+
+  /**
+   * Anchor element used for CSS Anchor Positioning.
+   *
+   * Accepts either a Vue ref (template ref) or a raw element.
+   */
+  anchor: MaybeRef<HTMLElement | null>;
+};
+
+const props = defineProps<BasePopoverProps>();
+
+const defaultGapPx = 8;
+const anchorName = `--kds-base-popover-${useId()}`;
+
+watchEffect(() => {
+  const anchorEl = ref(props.anchor).value;
+  if (anchorEl) {
+    // TS doesn't know about `style.anchorName` yet; use a custom property assignment.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (anchorEl.style as any).anchorName = anchorName;
+  }
+});
+
+const popoverStyles = computed<CSSProperties>(() => {
+  const gap = `${defaultGapPx}px`;
+
+  if (props.placement === "top") {
+    return {
+      positionAnchor: anchorName,
+      bottom: "anchor(top)",
+      left: "anchor(center)",
+      translate: "-50% 0",
+      marginBottom: gap,
+      position: "fixed",
+      zIndex: 1000,
+    } satisfies CSSProperties;
+  }
+
+  return {
+    positionAnchor: anchorName,
+    top: "anchor(bottom)",
+    left: "anchor(center)",
+    translate: "-50% 0",
+    marginTop: gap,
+    position: "fixed",
+    zIndex: 1000,
+  } satisfies CSSProperties;
+});
 </script>
 
 <template>
-  <div class="content">
+  <div class="content" :style="popoverStyles">
     <slot />
   </div>
 </template>

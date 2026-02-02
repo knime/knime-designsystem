@@ -317,9 +317,9 @@ export const Interaction: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // The popover content is teleported to document.body, so we must query on the document.
+    // The popover content is rendered in-place (native popover API), so we can query within the canvas.
     const dialogQuery = () =>
-      canvasElement.ownerDocument.querySelector('[role="dialog"]');
+      within(canvasElement.ownerDocument.body).queryByRole("dialog");
 
     const toggle = canvas.getByRole("button", { name: "Toggle popover" });
 

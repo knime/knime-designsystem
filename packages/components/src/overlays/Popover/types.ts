@@ -9,11 +9,11 @@ export type KdsPopoverProps = {
   placement?: KdsPopoverPlacement;
 
   /**
-   * Container the popover should be teleported to.
+   * Container that defines the positioning boundary.
    *
    * Defaults to `document.body`.
    */
-  mainContainer?: HTMLElement;
+  mainContainer?: HTMLElement | (() => HTMLElement);
 
   /**
    * Optional additional element (or elements) that should be treated as "inside" for click-outside handling.
