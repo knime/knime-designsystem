@@ -65,11 +65,11 @@ const stepDecimals = computed(() => {
   return decimals.length;
 });
 
-const decimalRadix = 10;
+const DECIMAL_BASE = 10;
 
 const normalizeNumber = (value: number) => {
   const decimals = stepDecimals.value;
-  const factor = decimalRadix ** decimals;
+  const factor = DECIMAL_BASE ** decimals;
   return Math.round(value * factor) / factor;
 };
 
