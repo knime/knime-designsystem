@@ -109,7 +109,9 @@ const clear = () => {
 
       <slot name="trailing" />
 
-      <div v-if="props.trailingIcon" class="icon-wrapper trailing" />
+      <div v-if="props.trailingIcon" class="icon-wrapper trailing">
+        <KdsIcon :name="props.trailingIcon" />
+      </div>
     </div>
   </div>
 </template>
