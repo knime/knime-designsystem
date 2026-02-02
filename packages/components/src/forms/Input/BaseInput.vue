@@ -62,8 +62,6 @@ type BaseInputProps = {
   validating?: boolean;
   /**
    * Accessible label for the input (for aria-label).
-   *
-   * Prefer this when there is no visible label element.
    */
   ariaLabel?: string;
   /**
@@ -74,6 +72,38 @@ type BaseInputProps = {
    * ID of element that describes this input (for aria-describedby)
    */
   ariaDescribedby?: string;
+  /**
+   * Role of the input element (e.g. "combobox")
+   */
+  role?: string;
+  /**
+   * aria-haspopup value (e.g. "listbox")
+   */
+  ariaHaspopup?:
+    | "dialog"
+    | "menu"
+    | "listbox"
+    | "tree"
+    | "grid"
+    | boolean
+    | "true"
+    | "false";
+  /**
+   * aria-expanded state (e.g. for combobox)
+   */
+  ariaExpanded?: boolean;
+  /**
+   * aria-controls target ID (e.g. listbox ID)
+   */
+  ariaControls?: string;
+  /**
+   * aria-activedescendant target ID (e.g. active option ID)
+   */
+  ariaActivedescendant?: string;
+  /**
+   * aria-autocomplete value (e.g. "list")
+   */
+  ariaAutocomplete?: "none" | "inline" | "list" | "both";
   /**
    * Name attribute for the input element
    */
@@ -88,20 +118,42 @@ type BaseInputProps = {
   unit?: string;
   /**
    * Whether to show a clear button when the input has a value.
-   *
-   * When used, the clear button resets the v-model value to an empty string and emits `input("")`.
    */
   clearable?: boolean;
+  /**
+   * Text color for the input value.
+   */
+  textColor?: "neutral" | "subtle" | "danger";
 };
 
 const props = withDefaults(defineProps<BaseInputProps>(), {
   type: "text",
+  min: undefined,
+  max: undefined,
+  step: undefined,
+  placeholder: undefined,
+  id: undefined,
   disabled: false,
   readonly: false,
   required: false,
+  leadingIcon: undefined,
+  trailingIcon: undefined,
   error: false,
   validating: false,
+  ariaLabel: undefined,
+  ariaLabelledby: undefined,
+  ariaDescribedby: undefined,
+  role: undefined,
+  ariaHaspopup: undefined,
+  ariaExpanded: undefined,
+  ariaControls: undefined,
+  ariaActivedescendant: undefined,
+  ariaAutocomplete: undefined,
+  name: undefined,
+  autocomplete: undefined,
+  unit: undefined,
   clearable: false,
+  textColor: "neutral",
 });
 
 const emit = defineEmits<KdsBaseInputEmits>();
@@ -116,6 +168,18 @@ const hasValue = computed(() => modelValue.value.length > 0);
 const showUnitPlaceholder = computed(
   () => Boolean(props.unit) && modelValue.value.trim().length === 0,
 );
+
+const inputTextColor = computed(() => {
+  switch (props.textColor) {
+    case "danger":
+      return "var(--kds-color-text-and-icon-danger)";
+    case "subtle":
+      return "var(--kds-color-text-and-icon-subtle)";
+    case "neutral":
+    default:
+      return "var(--kds-color-text-and-icon-neutral)";
+  }
+});
 
 const inputRef = ref<HTMLInputElement | null>(null);
 
@@ -153,6 +217,7 @@ const clear = () => {
         :id="inputId"
         ref="inputRef"
         :value="modelValue"
+        :role="props.role"
         :type="props.type"
         :placeholder="props.placeholder"
         :disabled="props.disabled"
@@ -166,7 +231,13 @@ const clear = () => {
         :aria-label="props.ariaLabel"
         :aria-labelledby="props.ariaLabelledby"
         :aria-describedby="props.ariaDescribedby"
+        :aria-haspopup="props.ariaHaspopup"
+        :aria-expanded="props.ariaExpanded"
+        :aria-controls="props.ariaControls"
+        :aria-activedescendant="props.ariaActivedescendant"
+        :aria-autocomplete="props.ariaAutocomplete"
         :aria-invalid="props.error"
+        :style="{ '--kds-base-input-text-color': inputTextColor }"
         :class="{ 'input-field': true, 'has-value': hasValue }"
         @input="handleInput"
         @focus="emit('focus', $event)"
@@ -272,7 +343,10 @@ const clear = () => {
   overflow: hidden;
   text-overflow: ellipsis;
   font: var(--kds-font-base-interactive-small);
-  color: var(--kds-color-text-and-icon-neutral);
+  color: var(
+    --kds-base-input-text-color,
+    var(--kds-color-text-and-icon-neutral)
+  );
   white-space: nowrap;
   outline: none;
   background: transparent;

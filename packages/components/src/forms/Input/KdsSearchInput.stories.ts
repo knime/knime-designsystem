@@ -238,7 +238,6 @@ export const Interaction: Story = {
   args: {
     modelValue: "",
     placeholder: "Search",
-    ariaLabel: "Search",
     name: "",
     autocomplete: "",
     disabled: false,
@@ -248,7 +247,6 @@ export const Interaction: Story = {
     validating: false,
     subText: "",
     preserveSubTextSpace: false,
-    clearable: true,
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);

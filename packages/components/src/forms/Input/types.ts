@@ -99,3 +99,54 @@ export type KdsPatternInputEmits = KdsCommonInputEmits;
 export type KdsSearchInputProps = KdsInputLabelProps & KdsInputStateProps;
 
 export type KdsSearchInputEmits = KdsCommonInputEmits;
+
+export type KdsDropdownOption = {
+  value: string;
+  label: string;
+  /** Optional datatype icon shown before the label */
+  dataTypeIconName?: string;
+  /** Marks an option as missing (e.g. value no longer exists) */
+  missing?: boolean;
+  /** Disables the option in the list */
+  disabled?: boolean;
+};
+
+export type KdsDropdownProps = {
+  /** Label shown above the dropdown */
+  label?: string;
+  /** Helper text or error message shown below the dropdown */
+  subText?: string;
+  /** Reserve space for subtext to prevent layout shifts */
+  preserveSubTextSpace?: boolean;
+
+  /** Placeholder shown when no value is selected */
+  placeholder?: string;
+
+  /** Whether the dropdown is disabled */
+  disabled?: boolean;
+  /** Whether the dropdown is required */
+  required?: boolean;
+  /** Whether the dropdown has an error state */
+  error?: boolean;
+  /** Whether the dropdown is in a validating state (shows spinner in subtext) */
+  validating?: boolean;
+
+  /** Options shown in the dropdown list */
+  options: KdsDropdownOption[];
+
+  /** Enables search input inside the dropdown list */
+  searchable?: boolean;
+
+  /** Text shown when no entries match the search */
+  noEntriesText?: string;
+
+  /** Accessible label when no visible label is provided */
+  ariaLabel?: string;
+};
+
+export type KdsDropdownEmits = {
+  focus: [event: FocusEvent];
+  blur: [event: FocusEvent];
+  /** Fires when a selection is committed */
+  change: [value: string | null];
+};
