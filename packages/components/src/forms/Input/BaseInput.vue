@@ -37,12 +37,6 @@ const handleInput = (event: Event) => {
   emit("input", target.value);
 };
 
-const showClearButton = computed(
-  () => props.clearable && hasValue.value && !props.disabled && !props.readonly,
-);
-
-const clearButtonAriaLabel = "Clear";
-
 const clear = () => {
   modelValue.value = "";
   emit("input", "");
@@ -102,20 +96,18 @@ const clear = () => {
         {{ props.unit }}
       </span>
 
-      <slot name="trailing">
-        <KdsButton
-          v-if="showClearButton"
-          type="button"
-          size="xsmall"
-          variant="transparent"
-          leading-icon="x-close"
-          :aria-label="clearButtonAriaLabel"
-          :disabled="props.disabled || props.readonly"
-          @click="clear"
-        />
+      <KdsButton
+        v-if="props.clearable && hasValue && !props.disabled && !props.readonly"
+        type="button"
+        size="xsmall"
+        variant="transparent"
+        leading-icon="x-close"
+        aria-label="Clear"
+        title="Clear"
+        @click="clear"
+      />
 
-        <KdsIcon v-else-if="props.trailingIcon" :name="props.trailingIcon" />
-      </slot>
+      <slot name="trailing" />
 
       <div v-if="props.trailingIcon" class="icon-wrapper trailing" />
     </div>
