@@ -58,87 +58,6 @@ type KdsInputStateProps = {
   validating?: boolean;
 };
 
-export type KdsBaseInputProps = {
-  /**
-   * The type of input field
-   */
-  type?: "text" | "email" | "password" | "number" | "tel" | "url" | "search";
-  /**
-   * Minimum allowed value (relevant for type="number")
-   */
-  min?: number;
-  /**
-   * Maximum allowed value (relevant for type="number")
-   */
-  max?: number;
-  /**
-   * Step size (relevant for type="number")
-   */
-  step?: number;
-  /**
-   * Placeholder text when input is empty
-   */
-  placeholder?: string;
-  /**
-   * ID for the input element. If not provided, a unique ID will be generated.
-   */
-  id?: string;
-  /**
-   * Whether the input is disabled
-   */
-  disabled?: boolean;
-  /**
-   * Whether the input is readonly
-   */
-  readonly?: boolean;
-  /**
-   * Whether the input is required
-   */
-  required?: boolean;
-  /**
-   * Icon displayed at the start of the input
-   */
-  leadingIcon?: KdsIconName;
-  /**
-   * Icon displayed at the end of the input
-   */
-  trailingIcon?: KdsIconName;
-  /**
-   * Whether the input has an error state
-   */
-  error?: boolean;
-  /**
-   * Whether the input is in a validating state (shows loading indicator)
-   */
-  validating?: boolean;
-  /**
-   * ID of element that labels this input (for aria-labelledby)
-   */
-  ariaLabelledby?: string;
-  /**
-   * ID of element that describes this input (for aria-describedby)
-   */
-  ariaDescribedby?: string;
-  /**
-   * Name attribute for the input element
-   */
-  name?: string;
-  /**
-   * Autocomplete attribute for the input element
-   */
-  autocomplete?: string;
-  /**
-   * Unit shown next to the input value
-   */
-  unit?: string;
-  /**
-   * Whether to show a clear button when the input has a value.
-   *
-   * When used, the clear button resets the v-model value to an empty string and emits `input("")`.
-   */
-  clearable?: boolean;
-};
-
 type KdsCommonInputEmits = {
   focus: [event: FocusEvent];
   blur: [event: FocusEvent];
@@ -164,6 +83,12 @@ export type KdsNumberInputProps = KdsInputLabelProps & {
   /**
    * Maximum allowed value
    */
+  /**
+   * Accessible label for the input (for aria-label).
+   *
+   * Prefer this when there is no visible label element.
+   */
+  ariaLabel?: string;
   max?: number;
   /**
    * Step size used for +/- buttons and arrow key increments
