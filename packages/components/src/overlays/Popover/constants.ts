@@ -1,8 +1,8 @@
 export const kdsPopoverPlacements = [
   "top-start",
-  "top",
+  "top-center",
   "top-end",
   "bottom-start",
-  "bottom",
+  "bottom-center",
   "bottom-end",
 ] as const;

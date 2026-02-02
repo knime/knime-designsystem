@@ -6,7 +6,7 @@ import BasePopover from "./BasePopover.vue";
 import type { KdsPopoverProps } from "./types";
 
 const props = withDefaults(defineProps<KdsPopoverProps>(), {
-  placement: "top",
+  placement: "top-center",
   mainContainer: () => document.body,
   ignoredClickOutsideTarget: null,
 });

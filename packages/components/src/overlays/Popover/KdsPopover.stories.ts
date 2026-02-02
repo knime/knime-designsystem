@@ -46,7 +46,7 @@ const meta: Meta<typeof KdsPopover> = {
     },
   },
   args: {
-    placement: "top",
+    placement: "top-center",
     mainContainer: document.body,
     ignoredClickOutsideTarget: null,
   },
@@ -402,7 +402,7 @@ export const RestrictedMainContainer: Story = {
               v-model="open"
               v-bind="args"
               :mainContainer="container"
-              placement="top"
+              placement="top-center"
             >
               <template #activator>
                 <KdsToggleButton v-model="open" label="Toggle popover" />

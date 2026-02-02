@@ -10,16 +10,13 @@ import type { MaybeRef } from "@vueuse/core";
 
 type BasePopoverSide = "top" | "bottom";
 type BasePopoverAlign = "start" | "center" | "end";
-
-type BasePopoverPlacement =
-  | BasePopoverSide
-  | `${BasePopoverSide}-${Exclude<BasePopoverAlign, "center">}`;
+type BasePopoverPlacement = `${BasePopoverSide}-${BasePopoverAlign}`;
 
 type BasePopoverProps = {
   /**
    * Where the popover should be positioned relative to its anchor.
    */
-  placement: BasePopoverPlacement;
+  placement?: BasePopoverPlacement;
 
   /**
    * Anchor element used for CSS Anchor Positioning.
@@ -29,7 +26,9 @@ type BasePopoverProps = {
   anchor: MaybeRef<HTMLElement | null>;
 };
 
-const props = defineProps<BasePopoverProps>();
+const props = withDefaults(defineProps<BasePopoverProps>(), {
+  placement: "top-center",
+});
 
 const defaultGapPx = 8;
 const anchorName = `--kds-base-popover-${useId()}`;
@@ -45,13 +44,17 @@ watchEffect(() => {
 
 const popoverStyles = computed<CSSProperties>(() => {
   const gap = `${defaultGapPx}px`;
-  const [sideRaw, alignRaw] = props.placement.split("-") as [
+  const placement = props.placement ?? "top-center";
+
+  const placementParts = placement.split("-") as [
     BasePopoverSide,
-    BasePopoverAlign | undefined,
+    BasePopoverAlign | "center" | undefined,
   ];
+  const [sideRaw, alignRaw] = placementParts;
 
   const side: BasePopoverSide = sideRaw;
-  const align: BasePopoverAlign = (alignRaw ?? "center") as BasePopoverAlign;
+  const align: BasePopoverAlign =
+    alignRaw === "start" || alignRaw === "end" ? alignRaw : "center";
 
   const positionTryFallbacks = (() => {
     if (side === "top") {
