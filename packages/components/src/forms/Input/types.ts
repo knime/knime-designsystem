@@ -83,12 +83,6 @@ export type KdsNumberInputProps = KdsInputLabelProps & {
   /**
    * Maximum allowed value
    */
-  /**
-   * Accessible label for the input (for aria-label).
-   *
-   * Prefer this when there is no visible label element.
-   */
-  ariaLabel?: string;
   max?: number;
   /**
    * Step size used for +/- buttons and arrow key increments

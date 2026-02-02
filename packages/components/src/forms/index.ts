@@ -25,7 +25,6 @@ export type {
   KdsCheckboxGroupProps,
 } from "./Checkbox/types";
 export type {
-  KdsBaseInputProps,
   KdsBaseInputEmits,
   KdsTextInputProps,
   KdsTextInputEmits,
