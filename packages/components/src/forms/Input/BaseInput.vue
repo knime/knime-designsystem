@@ -157,14 +157,6 @@ const clear = () => {
   padding: 0 var(--kds-spacing-container-0-25x);
 }
 
-.field-wrapper {
-  display: flex;
-  flex: 1 0 0;
-  gap: var(--kds-spacing-container-0-12x);
-  align-items: center;
-  min-width: 0;
-}
-
 .icon-wrapper {
   display: flex;
   flex-shrink: 0;
