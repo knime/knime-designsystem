@@ -42,6 +42,6 @@ catalogs:
     storybook: ^10.2.1
     storybook-addon-pseudo-states: ^10.2.1
   vitest:
-    "@vitest/coverage-v8": ^4.0.17
+    "@vitest/coverage-v8": ^4.0.18
     "@vitest/ui": ^4.0.17
-    vitest: ^4.0.17
+    vitest: ^4.0.18
