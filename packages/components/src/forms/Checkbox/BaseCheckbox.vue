@@ -88,7 +88,10 @@ const handleClick = () => {
         </div>
       </div>
     </button>
-    <div class="subtext-wrapper">
+    <div
+      v-if="props.subText || props.preserveSubTextSpace"
+      class="subtext-wrapper"
+    >
       <KdsSubText
         :id="descriptionId"
         :sub-text="props.subText"
