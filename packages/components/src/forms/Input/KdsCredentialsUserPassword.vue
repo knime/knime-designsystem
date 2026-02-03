@@ -65,6 +65,7 @@ const groupAriaDescribedby = computed(() =>
         :id="usernameInputId"
         v-model="username"
         type="text"
+        inputmode="email"
         :placeholder="USERNAME_PLACEHOLDER"
         :disabled="props.disabled"
         :readonly="props.readonly"

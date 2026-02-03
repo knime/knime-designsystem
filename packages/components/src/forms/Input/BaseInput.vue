@@ -115,6 +115,19 @@ type BaseInputProps = {
    */
   unit?: string;
   /**
+   * Hints at the type of data that might be entered by the user.
+   * Useful for showing an appropriate on-screen keyboard on mobile.
+   */
+  inputmode?:
+    | "none"
+    | "text"
+    | "tel"
+    | "url"
+    | "email"
+    | "numeric"
+    | "decimal"
+    | "search";
+  /**
    * Whether to show a clear button when the input has a value.
    */
   clearable?: boolean;
@@ -146,6 +159,7 @@ const props = withDefaults(defineProps<BaseInputProps>(), {
   name: undefined,
   autocomplete: undefined,
   unit: undefined,
+  inputmode: undefined,
   clearable: false,
 });
 
@@ -198,6 +212,7 @@ const clear = () => {
         :value="modelValue"
         :role="props.role"
         :type="props.type"
+        :inputmode="props.inputmode"
         :placeholder="props.placeholder"
         :disabled="props.disabled"
         :readonly="props.readonly"
