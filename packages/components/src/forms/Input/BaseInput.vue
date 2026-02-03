@@ -120,10 +120,6 @@ type BaseInputProps = {
    * Whether to show a clear button when the input has a value.
    */
   clearable?: boolean;
-  /**
-   * Text color for the input value.
-   */
-  textColor?: "neutral" | "subtle" | "danger";
 };
 
 const props = withDefaults(defineProps<BaseInputProps>(), {
@@ -153,7 +149,6 @@ const props = withDefaults(defineProps<BaseInputProps>(), {
   autocomplete: undefined,
   unit: undefined,
   clearable: false,
-  textColor: "neutral",
 });
 
 const emit = defineEmits<KdsBaseInputEmits>();
@@ -168,18 +163,6 @@ const hasValue = computed(() => modelValue.value.length > 0);
 const showUnitPlaceholder = computed(
   () => Boolean(props.unit) && modelValue.value.trim().length === 0,
 );
-
-const inputTextColor = computed(() => {
-  switch (props.textColor) {
-    case "danger":
-      return "var(--kds-color-text-and-icon-danger)";
-    case "subtle":
-      return "var(--kds-color-text-and-icon-subtle)";
-    case "neutral":
-    default:
-      return "var(--kds-color-text-and-icon-neutral)";
-  }
-});
 
 const inputRef = ref<HTMLInputElement | null>(null);
 
@@ -237,7 +220,6 @@ const clear = () => {
         :aria-activedescendant="props.ariaActivedescendant"
         :aria-autocomplete="props.ariaAutocomplete"
         :aria-invalid="props.error"
-        :style="{ '--kds-base-input-text-color': inputTextColor }"
         :class="{ 'input-field': true, 'has-value': hasValue }"
         @input="handleInput"
         @focus="emit('focus', $event)"
@@ -343,10 +325,7 @@ const clear = () => {
   overflow: hidden;
   text-overflow: ellipsis;
   font: var(--kds-font-base-interactive-small);
-  color: var(
-    --kds-base-input-text-color,
-    var(--kds-color-text-and-icon-neutral)
-  );
+  color: var(--kds-color-text-and-icon-neutral);
   white-space: nowrap;
   outline: none;
   background: transparent;
