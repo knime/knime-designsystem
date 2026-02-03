@@ -105,14 +105,6 @@ const displayLabel = computed(() => {
   return draftOption.value?.missing ? `(Missing) ${label}`.trim() : label;
 });
 
-const onDisplayLabelUpdate = (value: string) => {
-  // BaseDropdown is a text-input based component and may emit updates (e.g. clearing).
-  // We don't allow free text input here though, so only treat setting to empty as clearing.
-  if (value === "") {
-    draftValue.value = null;
-  }
-};
-
 const setActiveIndexToSelected = () => {
   const selectedIndex = filteredOptions.value.findIndex(
     (o) => o.id === draftValue.value,
@@ -415,7 +407,6 @@ const ariaActiveDescendant = computed(() => {
       aria-autocomplete="list"
       aria-haspopup="listbox"
       @keydown="onTriggerKeydown"
-      @update:model-value="onDisplayLabelUpdate"
     >
       <template #stickyTop>
         <KdsSearchInput
