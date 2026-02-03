@@ -66,8 +66,11 @@ defineExpose<KdsDropdownContainerExposed>({
 <style scoped>
 .popover {
   flex-direction: column;
+  padding: 0;
   overflow: hidden;
+  outline: none;
   background: var(--kds-color-surface-default);
+  border: none;
   border-radius: var(--kds-border-radius-container-0-50x);
   box-shadow: var(--kds-elevation-level-3);
 
