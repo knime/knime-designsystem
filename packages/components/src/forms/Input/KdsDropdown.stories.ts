@@ -9,6 +9,7 @@ import {
 } from "../../test-utils/storybook";
 
 import KdsDropdown from "./KdsDropdown.vue";
+import type { KdsDropdownOption } from "./types";
 
 const KdsDropdownDesignWrapper = defineComponent({
   name: "KdsDropdownDesignWrapper",
@@ -47,11 +48,11 @@ const KdsDropdownDesignWrapper = defineComponent({
 type Story = StoryObj<typeof KdsDropdown>;
 
 const baseOptions = [
-  { value: "a", label: "Option A", dataTypeIconName: "string-datatype" },
-  { value: "b", label: "Option B", dataTypeIconName: "string-datatype" },
-  { value: "c", label: "Option C", dataTypeIconName: "string-datatype" },
-  { value: "d", label: "Option D", dataTypeIconName: "string-datatype" },
-];
+  { id: "a", text: "Option A", leadingIcon: "string-datatype" },
+  { id: "b", text: "Option B", leadingIcon: "string-datatype" },
+  { id: "c", text: "Option C", leadingIcon: "string-datatype" },
+  { id: "d", text: "Option D", leadingIcon: "string-datatype" },
+] satisfies KdsDropdownOption[];
 
 const meta: Meta<typeof KdsDropdown> = {
   title: "Components/forms/KdsDropdown",
@@ -289,10 +290,9 @@ export const TextOverflow: Story = {
     placeholder: "{text}",
     options: [
       {
-        value: "long",
-        label:
-          "A very very very very very long option label that should overflow",
-        dataTypeIconName: "string-datatype",
+        id: "long",
+        text: "A very very very very very long option label that should overflow",
+        leadingIcon: "string-datatype",
       },
       ...baseOptions,
     ],

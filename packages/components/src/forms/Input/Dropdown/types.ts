@@ -1,8 +1,8 @@
-import type { KdsIconName } from "../../../Icon/types";
+import type { KdsIconName, KdsTypeIconName } from "../../../Icon/types";
 
 type BaseListItemProps = {
   id: string;
-  label: string;
+  text: string;
   active: boolean;
   selected: boolean;
   disabled?: boolean;
@@ -30,7 +30,7 @@ export type KdsListContainerProps = {
 
 export type KdsListItemProps = BaseListItemProps & {
   missing?: boolean;
-  dataTypeIconName?: string;
+  leadingIcon?: KdsTypeIconName;
 };
 
 export type KdsListItemEmits = {

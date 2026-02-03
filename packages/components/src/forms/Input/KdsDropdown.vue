@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, useId, watch } from "vue";
 
+import KdsButton from "../../buttons/KdsButton.vue";
 import KdsLabel from "../KdsLabel.vue";
 import KdsSubText from "../KdsSubText.vue";
 
@@ -8,7 +9,6 @@ import KdsBaseInput from "./BaseInput.vue";
 import KdsDropdownContainer from "./Dropdown/KdsDropdownContainer.vue";
 import KdsListContainer from "./Dropdown/KdsListContainer.vue";
 import KdsListItem from "./Dropdown/KdsListItem.vue";
-import KdsListItemAction from "./Dropdown/KdsListItemAction.vue";
 import type { KdsDropdownContainerExposed } from "./Dropdown/types";
 import KdsSearchInput from "./KdsSearchInput.vue";
 import type {
@@ -80,15 +80,15 @@ const optionsWithSyntheticMissing = computed<DropdownOptionWithMissing[]>(
       return baseOptions;
     }
 
-    const hasSelected = props.options.some((o) => o.value === modelValue.value);
+    const hasSelected = props.options.some((o) => o.id === modelValue.value);
     if (hasSelected) {
       return baseOptions;
     }
 
     return [
       {
-        value: modelValue.value,
-        label: modelValue.value,
+        id: modelValue.value,
+        text: modelValue.value,
         missing: true,
       },
       ...baseOptions,
@@ -105,12 +105,12 @@ const filteredOptions = computed(() => {
   }
 
   return base.filter((option) =>
-    option.label.toLowerCase().includes(normalizedQuery),
+    option.text.toLowerCase().includes(normalizedQuery),
   );
 });
 
 const draftOption = computed(() =>
-  optionsWithSyntheticMissing.value.find((o) => o.value === draftValue.value),
+  optionsWithSyntheticMissing.value.find((o) => o.id === draftValue.value),
 );
 const isMissingDraft = computed(() => Boolean(draftOption.value?.missing));
 
@@ -122,7 +122,7 @@ const updateInputDisplayValue = () => {
     return;
   }
 
-  const label = draftOption.value?.label ?? "";
+  const label = draftOption.value?.text ?? "";
   inputDisplayValue.value = draftOption.value?.missing
     ? `(Missing) ${label}`.trim()
     : label;
@@ -130,7 +130,7 @@ const updateInputDisplayValue = () => {
 
 const setActiveIndexToSelected = () => {
   const selectedIndex = filteredOptions.value.findIndex(
-    (o) => o.value === draftValue.value,
+    (o) => o.id === draftValue.value,
   );
   activeIndex.value = selectedIndex >= 0 ? selectedIndex : 0;
 };
@@ -256,14 +256,14 @@ function selectActive() {
     return;
   }
 
-  draftValue.value = option.value;
+  draftValue.value = option.id;
   updateInputDisplayValue();
 }
 
 function commitActiveOrDraftAndClose() {
   const option = filteredOptions.value[activeIndex.value];
   if (option && !option.disabled) {
-    commitSelection(option.value);
+    commitSelection(option.id);
   } else {
     commitSelection(draftValue.value);
   }
@@ -402,7 +402,7 @@ const onOptionClick = (option: DropdownOptionWithMissing) => {
     return;
   }
 
-  commitSelection(option.value);
+  commitSelection(option.id);
   closeDropdown();
 };
 
@@ -501,24 +501,26 @@ const onPopoverToggle = (event: Event) => {
           <KdsListItem
             v-for="(option, index) in filteredOptions"
             :id="optionId(index)"
-            :key="option.value"
-            :label="option.label"
-            :data-type-icon-name="option.dataTypeIconName"
+            :key="option.id"
+            :text="option.text"
+            :leading-icon="option.leadingIcon"
             :missing="option.missing"
             :disabled="option.disabled"
             :active="index === activeIndex"
-            :selected="draftValue === option.value"
+            :selected="draftValue === option.id"
             @mouseenter="activeIndex = index"
             @click="onOptionClick(option)"
           >
             <template
-              v-if="option.missing && option.value === modelValue"
+              v-if="option.missing && option.id === modelValue"
               #trailing
             >
-              <KdsListItemAction
-                icon="trash"
+              <KdsButton
+                leading-icon="trash"
                 aria-label="Remove missing selection"
                 title="Remove"
+                variant="transparent"
+                destructive
                 @click="onDeleteMissing"
               />
             </template>

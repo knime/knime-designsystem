@@ -6,7 +6,7 @@ import type { KdsListItemEmits, KdsListItemProps } from "./types";
 const props = withDefaults(defineProps<KdsListItemProps>(), {
   disabled: false,
   missing: false,
-  dataTypeIconName: undefined,
+  leadingIcon: undefined,
 });
 
 const emit = defineEmits<KdsListItemEmits>();
@@ -30,13 +30,13 @@ const emit = defineEmits<KdsListItemEmits>();
   >
     <div class="content">
       <KdsDataType
-        v-if="props.dataTypeIconName"
+        v-if="props.leadingIcon"
         size="small"
-        :icon-name="props.dataTypeIconName"
+        :icon-name="props.leadingIcon"
       />
 
       <span v-if="props.missing" class="missing-label">(Missing)</span>
-      <span class="label">{{ props.label }}</span>
+      <span class="label">{{ props.text }}</span>
     </div>
 
     <div v-if="$slots.trailing" class="trailing">

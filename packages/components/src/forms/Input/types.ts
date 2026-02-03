@@ -1,4 +1,4 @@
-import type { KdsIconName } from "../../Icon/types";
+import type { KdsIconName, KdsTypeIconName } from "../../Icon/types";
 
 type KdsInputLabelProps = {
   /**
@@ -105,10 +105,10 @@ export type KdsSearchInputProps = KdsInputLabelProps &
 export type KdsSearchInputEmits = KdsCommonInputEmits;
 
 export type KdsDropdownOption = {
-  value: string;
-  label: string;
-  /** Optional datatype icon shown before the label */
-  dataTypeIconName?: string;
+  id: string;
+  text: string;
+  /** Optional data type icon shown before the text */
+  leadingIcon?: KdsTypeIconName;
   /** Disables the option in the list */
   disabled?: boolean;
 };
