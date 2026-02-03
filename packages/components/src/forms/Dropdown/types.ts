@@ -18,10 +18,3 @@ export type KdsDropdownProps = KdsInputLabelProps &
     /** Text shown when no entries match the search */
     noEntriesText?: string;
   };
-
-export type KdsDropdownEmits = {
-  focus: [event: FocusEvent];
-  blur: [event: FocusEvent];
-  /** Fires when a selection is committed */
-  change: [value: string | null];
-};

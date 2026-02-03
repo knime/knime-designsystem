@@ -48,18 +48,7 @@ export type KdsInputStateProps = {
   validating?: boolean;
 };
 
-type KdsCommonInputEmits = {
-  focus: [event: FocusEvent];
-  blur: [event: FocusEvent];
-  input: [value: string];
-  keydown: [event: KeyboardEvent];
-};
-
-export type KdsBaseInputEmits = KdsCommonInputEmits;
-
 export type KdsTextInputProps = KdsInputLabelProps & KdsInputStateProps;
-
-export type KdsTextInputEmits = KdsCommonInputEmits;
 
 export type KdsNumberInputProps = KdsInputLabelProps & {
   /**
@@ -80,19 +69,13 @@ export type KdsNumberInputProps = KdsInputLabelProps & {
   step?: number;
 } & KdsInputStateProps;
 
-export type KdsNumberInputEmits = KdsCommonInputEmits;
-
 export type KdsPatternInputProps = KdsInputLabelProps & KdsInputStateProps;
-
-export type KdsPatternInputEmits = KdsCommonInputEmits;
 
 export type KdsSearchInputProps = KdsInputLabelProps &
   KdsInputStateProps & {
     /** ID for the input element. If not provided, a unique ID will be generated. */
     id?: string;
   };
-
-export type KdsSearchInputEmits = KdsCommonInputEmits;
 
 export type KdsCredentialsUserPasswordProps = KdsInputLabelProps &
   KdsInputStateProps;

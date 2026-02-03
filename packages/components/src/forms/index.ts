@@ -31,21 +31,12 @@ export type {
 } from "./Checkbox/types";
 
 export type {
-  KdsBaseInputEmits,
   KdsTextInputProps,
-  KdsTextInputEmits,
   KdsNumberInputProps,
-  KdsNumberInputEmits,
   KdsPatternInputProps,
-  KdsPatternInputEmits,
   KdsSearchInputProps,
-  KdsSearchInputEmits,
   KdsCredentialsUserPasswordProps,
   KdsCredentialsApiKeyProps,
 } from "./Input/types";
 
-export type {
-  KdsDropdownEmits,
-  KdsDropdownOption,
-  KdsDropdownProps,
-} from "./Dropdown/types";
+export type { KdsDropdownOption, KdsDropdownProps } from "./Dropdown/types";

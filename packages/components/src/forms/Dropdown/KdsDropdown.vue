@@ -9,11 +9,7 @@ import KdsSubText from "../KdsSubText.vue";
 import BaseDropdown from "./BaseDropdown/BaseDropdown.vue";
 import KdsListContainer from "./Dropdown/KdsListContainer.vue";
 import KdsListItem from "./Dropdown/KdsListItem.vue";
-import type {
-  KdsDropdownEmits,
-  KdsDropdownOption,
-  KdsDropdownProps,
-} from "./types";
+import type { KdsDropdownOption, KdsDropdownProps } from "./types";
 
 const props = withDefaults(defineProps<KdsDropdownProps>(), {
   placeholder: "",
@@ -24,8 +20,6 @@ const props = withDefaults(defineProps<KdsDropdownProps>(), {
   preserveSubTextSpace: false,
   noEntriesText: "No entries found",
 });
-
-const emit = defineEmits<KdsDropdownEmits>();
 
 const modelValue = defineModel<string | null>({ default: null });
 const open = ref(false);
@@ -147,7 +141,6 @@ const closeDropdown = () => {
 
 const commitSelection = (value: string | null) => {
   modelValue.value = value;
-  emit("change", value);
 };
 
 const revertDraft = () => {
@@ -426,8 +419,6 @@ const ariaActiveDescendant = computed(() => {
       aria-haspopup="listbox"
       :aria-controls="listboxId"
       :aria-activedescendant="ariaActiveDescendant"
-      @focus="emit('focus', $event)"
-      @blur="emit('blur', $event)"
       @keydown="onTriggerKeydown"
     >
       <template #stickyTop>

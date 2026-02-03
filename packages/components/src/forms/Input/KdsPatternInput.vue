@@ -6,7 +6,7 @@ import KdsLabel from "../KdsLabel.vue";
 import KdsSubText from "../KdsSubText.vue";
 
 import KdsBaseInput from "./BaseInput.vue";
-import type { KdsPatternInputEmits, KdsPatternInputProps } from "./types";
+import type { KdsPatternInputProps } from "./types";
 
 const props = withDefaults(defineProps<KdsPatternInputProps>(), {
   disabled: false,
@@ -16,8 +16,6 @@ const props = withDefaults(defineProps<KdsPatternInputProps>(), {
   validating: false,
   preserveSubTextSpace: false,
 });
-
-const emit = defineEmits<KdsPatternInputEmits>();
 
 const modelValue = defineModel<string>({ default: "" });
 const caseSensitive = defineModel<boolean>("caseSensitive", { default: false });
@@ -74,10 +72,6 @@ const patternModeAriaLabel = computed(() =>
       clearable
       :aria-labelledby="ariaLabelledby"
       :aria-describedby="ariaDescribedby"
-      @focus="emit('focus', $event)"
-      @blur="emit('blur', $event)"
-      @input="emit('input', $event)"
-      @keydown="emit('keydown', $event)"
     >
       <template #trailing>
         <div class="button-wrapper">

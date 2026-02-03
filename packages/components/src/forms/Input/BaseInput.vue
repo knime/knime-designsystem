@@ -5,8 +5,6 @@ import KdsIcon from "../../Icon/KdsIcon.vue";
 import type { KdsIconName } from "../../Icon/types";
 import KdsButton from "../../buttons/KdsButton.vue";
 
-import type { KdsBaseInputEmits } from "./types";
-
 type BaseInputProps = {
   /**
    * The type of input field
@@ -151,7 +149,7 @@ const props = withDefaults(defineProps<BaseInputProps>(), {
   clearable: false,
 });
 
-const emit = defineEmits<KdsBaseInputEmits>();
+// removed emits: BaseInput is v-model only
 
 const modelValue = defineModel<string>({ default: "" });
 
@@ -169,12 +167,10 @@ const inputRef = ref<HTMLInputElement | null>(null);
 const handleInput = (event: Event) => {
   const target = event.target as HTMLInputElement;
   modelValue.value = target.value;
-  emit("input", target.value);
 };
 
 const clear = () => {
   modelValue.value = "";
-  emit("input", "");
 };
 </script>
 
@@ -222,9 +218,6 @@ const clear = () => {
         :aria-invalid="props.error"
         :class="{ 'input-field': true, 'has-value': hasValue }"
         @input="handleInput"
-        @focus="emit('focus', $event)"
-        @blur="emit('blur', $event)"
-        @keydown="emit('keydown', $event)"
       />
 
       <span

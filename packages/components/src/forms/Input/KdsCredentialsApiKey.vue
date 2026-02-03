@@ -21,13 +21,6 @@ const props = withDefaults(defineProps<KdsCredentialsApiKeyProps>(), {
   validating: false,
 });
 
-const emit = defineEmits<{
-  focus: [event: FocusEvent];
-  blur: [event: FocusEvent];
-  input: [value: string];
-  keydown: [event: KeyboardEvent];
-}>();
-
 const apiKey = defineModel<string>("apiKey", { default: "" });
 
 const baseId = useId();
@@ -74,10 +67,6 @@ const ariaLabel = computed(() => (props.label ? undefined : "API key"));
       :aria-label="ariaLabel"
       :aria-labelledby="ariaLabelledby"
       :aria-describedby="showSubText ? apiKeySubTextId : undefined"
-      @focus="emit('focus', $event)"
-      @blur="emit('blur', $event)"
-      @input="emit('input', $event)"
-      @keydown="emit('keydown', $event)"
     />
 
     <KdsSubText

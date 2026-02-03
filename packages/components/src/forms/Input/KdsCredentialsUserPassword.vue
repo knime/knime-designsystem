@@ -22,13 +22,6 @@ const props = withDefaults(defineProps<KdsCredentialsUserPasswordProps>(), {
   validating: false,
 });
 
-const emit = defineEmits<{
-  focus: [payload: { field: "username" | "password"; event: FocusEvent }];
-  blur: [payload: { field: "username" | "password"; event: FocusEvent }];
-  input: [payload: { field: "username" | "password"; value: string }];
-  keydown: [payload: { field: "username" | "password"; event: KeyboardEvent }];
-}>();
-
 const username = defineModel<string>("username", { default: "" });
 const password = defineModel<string>("password", { default: "" });
 
@@ -51,22 +44,6 @@ const groupAriaLabelledby = computed(() =>
 const groupAriaDescribedby = computed(() =>
   showSubText.value ? subTextId.value : undefined,
 );
-
-const onFocus = (field: "username" | "password", event: FocusEvent) => {
-  emit("focus", { field, event });
-};
-
-const onBlur = (field: "username" | "password", event: FocusEvent) => {
-  emit("blur", { field, event });
-};
-
-const onKeydown = (field: "username" | "password", event: KeyboardEvent) => {
-  emit("keydown", { field, event });
-};
-
-const onInput = (field: "username" | "password", value: string) => {
-  emit("input", { field, value });
-};
 </script>
 
 <template>
@@ -99,10 +76,6 @@ const onInput = (field: "username" | "password", value: string) => {
         autocomplete="username"
         aria-label="Username"
         :aria-describedby="showSubText ? subTextId : undefined"
-        @focus="onFocus('username', $event)"
-        @blur="onBlur('username', $event)"
-        @input="onInput('username', $event)"
-        @keydown="onKeydown('username', $event)"
       />
 
       <KdsBaseInput
@@ -120,10 +93,6 @@ const onInput = (field: "username" | "password", value: string) => {
         autocomplete="current-password"
         aria-label="Password"
         :aria-describedby="showSubText ? subTextId : undefined"
-        @focus="onFocus('password', $event)"
-        @blur="onBlur('password', $event)"
-        @input="onInput('password', $event)"
-        @keydown="onKeydown('password', $event)"
       />
     </div>
 

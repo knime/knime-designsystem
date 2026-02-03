@@ -6,7 +6,7 @@ import KdsLabel from "../KdsLabel.vue";
 import KdsSubText from "../KdsSubText.vue";
 
 import KdsBaseInput from "./BaseInput.vue";
-import type { KdsNumberInputEmits, KdsNumberInputProps } from "./types";
+import type { KdsNumberInputProps } from "./types";
 
 const props = withDefaults(defineProps<KdsNumberInputProps>(), {
   disabled: false,
@@ -18,8 +18,6 @@ const props = withDefaults(defineProps<KdsNumberInputProps>(), {
   unit: "",
   step: 1,
 });
-
-const emit = defineEmits<KdsNumberInputEmits>();
 
 const modelValue = defineModel<string>({ default: "" });
 
@@ -89,7 +87,6 @@ const getBaseValue = () => {
 const setValue = (value: number) => {
   const normalized = normalizeNumber(clamp(value));
   modelValue.value = normalized.toString();
-  emit("input", modelValue.value);
 };
 
 const canDecrease = computed(() => {
@@ -136,7 +133,6 @@ const handleKeydown = (event: KeyboardEvent) => {
       adjustByStep(-1);
     }
   }
-  emit("keydown", event);
 };
 </script>
 
@@ -167,9 +163,6 @@ const handleKeydown = (event: KeyboardEvent) => {
       :unit="props.unit"
       :aria-labelledby="ariaLabelledby"
       :aria-describedby="ariaDescribedby"
-      @focus="emit('focus', $event)"
-      @blur="emit('blur', $event)"
-      @input="emit('input', $event)"
       @keydown="handleKeydown"
     >
       <template #trailing>

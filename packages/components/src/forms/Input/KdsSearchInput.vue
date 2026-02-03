@@ -5,7 +5,7 @@ import KdsLabel from "../KdsLabel.vue";
 import KdsSubText from "../KdsSubText.vue";
 
 import KdsBaseInput from "./BaseInput.vue";
-import type { KdsSearchInputEmits, KdsSearchInputProps } from "./types";
+import type { KdsSearchInputProps } from "./types";
 
 const props = withDefaults(defineProps<KdsSearchInputProps>(), {
   placeholder: "Search",
@@ -16,8 +16,6 @@ const props = withDefaults(defineProps<KdsSearchInputProps>(), {
   validating: false,
   preserveSubTextSpace: false,
 });
-
-const emit = defineEmits<KdsSearchInputEmits>();
 
 const modelValue = defineModel<string>({ default: "" });
 
@@ -59,10 +57,6 @@ const ariaDescribedby = computed(() =>
       :aria-label="props.label ? undefined : 'Search'"
       :aria-labelledby="props.label ? labelId : undefined"
       :aria-describedby="ariaDescribedby"
-      @focus="emit('focus', $event)"
-      @blur="emit('blur', $event)"
-      @input="emit('input', $event)"
-      @keydown="emit('keydown', $event)"
     />
     <KdsSubText
       :id="subTextId"

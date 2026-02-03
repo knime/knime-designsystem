@@ -5,7 +5,7 @@ import KdsLabel from "../KdsLabel.vue";
 import KdsSubText from "../KdsSubText.vue";
 
 import KdsBaseInput from "./BaseInput.vue";
-import type { KdsTextInputEmits, KdsTextInputProps } from "./types";
+import type { KdsTextInputProps } from "./types";
 
 const props = withDefaults(defineProps<KdsTextInputProps>(), {
   disabled: false,
@@ -15,8 +15,6 @@ const props = withDefaults(defineProps<KdsTextInputProps>(), {
   validating: false,
   preserveSubTextSpace: false,
 });
-
-const emit = defineEmits<KdsTextInputEmits>();
 
 const modelValue = defineModel<string>({ default: "" });
 
@@ -55,10 +53,6 @@ const ariaDescribedby = computed(() =>
       :autocomplete="props.autocomplete"
       :aria-labelledby="ariaLabelledby"
       :aria-describedby="ariaDescribedby"
-      @focus="emit('focus', $event)"
-      @blur="emit('blur', $event)"
-      @input="emit('input', $event)"
-      @keydown="emit('keydown', $event)"
     />
     <KdsSubText
       :id="subTextId"
