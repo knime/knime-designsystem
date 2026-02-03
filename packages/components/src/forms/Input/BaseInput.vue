@@ -9,12 +9,6 @@ import type { KdsBaseInputEmits } from "./types";
 
 type BaseInputProps = {
   /**
-   * The interactive element used for the field.
-   * - "input": renders a native input element (default)
-   * - "button": renders a native button element (useful for readonly/select-like triggers)
-   */
-  as?: "input" | "button";
-  /**
    * The type of input field
    */
   type?: "text" | "email" | "password" | "number" | "tel" | "url" | "search";
@@ -133,7 +127,6 @@ type BaseInputProps = {
 };
 
 const props = withDefaults(defineProps<BaseInputProps>(), {
-  as: "input",
   type: "text",
   min: undefined,
   max: undefined,
@@ -188,7 +181,7 @@ const inputTextColor = computed(() => {
   }
 });
 
-const inputRef = ref<HTMLInputElement | HTMLButtonElement | null>(null);
+const inputRef = ref<HTMLInputElement | null>(null);
 
 const handleInput = (event: Event) => {
   const target = event.target as HTMLInputElement;
@@ -221,7 +214,6 @@ const clear = () => {
       </div>
 
       <input
-        v-if="props.as === 'input'"
         :id="inputId"
         ref="inputRef"
         :value="modelValue"
@@ -252,38 +244,6 @@ const clear = () => {
         @blur="emit('blur', $event)"
         @keydown="emit('keydown', $event)"
       />
-
-      <button
-        v-else
-        :id="inputId"
-        ref="inputRef"
-        type="button"
-        :disabled="props.disabled"
-        :role="props.role"
-        :name="props.name"
-        :aria-label="props.ariaLabel"
-        :aria-labelledby="props.ariaLabelledby"
-        :aria-describedby="props.ariaDescribedby"
-        :aria-haspopup="props.ariaHaspopup"
-        :aria-expanded="props.ariaExpanded"
-        :aria-controls="props.ariaControls"
-        :aria-activedescendant="props.ariaActivedescendant"
-        :aria-autocomplete="props.ariaAutocomplete"
-        :aria-invalid="props.error"
-        :style="{ '--kds-base-input-text-color': inputTextColor }"
-        :class="{
-          'input-field': true,
-          'has-value': hasValue,
-          'button-field': true,
-        }"
-        @focus="emit('focus', $event)"
-        @blur="emit('blur', $event)"
-        @keydown="emit('keydown', $event)"
-      >
-        <span :class="{ 'button-text': true, placeholder: !hasValue }">
-          {{ hasValue ? modelValue : props.placeholder }}
-        </span>
-      </button>
 
       <span
         v-if="props.unit"
@@ -328,8 +288,7 @@ const clear = () => {
   border: var(--kds-border-action-input);
   border-radius: var(--kds-border-radius-container-0-37x);
 
-  &:has(input:focus),
-  &:has(button:focus) {
+  &:has(input:focus) {
     outline: var(--kds-border-action-focused);
     outline-offset: var(--kds-spacing-offset-focus);
   }
@@ -415,31 +374,6 @@ const clear = () => {
     &::placeholder {
       color: var(--kds-color-text-and-icon-disabled);
     }
-  }
-}
-
-.button-field {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  text-align: left;
-  cursor: pointer;
-
-  &:disabled {
-    cursor: default;
-  }
-}
-
-.button-text {
-  display: block;
-  flex: 1 1 auto;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-  &.placeholder {
-    color: var(--kds-color-text-and-icon-subtle);
   }
 }
 
