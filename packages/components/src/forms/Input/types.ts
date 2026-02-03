@@ -1,5 +1,3 @@
-import type { KdsIconName } from "../../Icon/types";
-
 export type KdsInputLabelProps = {
   /**
    * Label text displayed above the input
@@ -25,14 +23,6 @@ export type KdsInputLabelProps = {
    * Autocomplete attribute for the input element
    */
   autocomplete?: string;
-  /**
-   * Icon displayed at the start of the input
-   */
-  leadingIcon?: KdsIconName;
-  /**
-   * Icon displayed at the end of the input
-   */
-  trailingIcon?: KdsIconName;
 };
 
 export type KdsInputStateProps = {

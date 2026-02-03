@@ -2,8 +2,6 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
 
-import { iconNames } from "@knime/kds-styles/img/icons/def";
-
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
@@ -23,7 +21,7 @@ const meta: Meta<typeof KdsTextInput> = {
       description: {
         component:
           "A text input field component with label and helper/error text support. " +
-          "Supports leading/trailing icons, validation states, and accessibility features.",
+          "Supports validation states and accessibility features.",
       },
     },
     design: {
@@ -85,16 +83,6 @@ const meta: Meta<typeof KdsTextInput> = {
       control: "boolean",
       table: { category: "Props" },
     },
-    leadingIcon: {
-      control: { type: "select" },
-      options: [undefined, ...iconNames],
-      table: { category: "Props" },
-    },
-    trailingIcon: {
-      control: { type: "select" },
-      options: [undefined, ...iconNames],
-      table: { category: "Props" },
-    },
   },
   args: {
     modelValue: "",
@@ -102,8 +90,6 @@ const meta: Meta<typeof KdsTextInput> = {
     placeholder: "",
     name: "",
     autocomplete: "",
-    leadingIcon: undefined,
-    trailingIcon: undefined,
     required: false,
     disabled: false,
     readonly: false,
@@ -141,22 +127,6 @@ export const Default: Story = {
 export const WithValue: Story = {
   args: {
     modelValue: "Some value",
-  },
-};
-
-export const WithLeadingIcon: Story = {
-  args: {
-    label: "Search",
-    placeholder: "Search...",
-    leadingIcon: "search",
-  },
-};
-
-export const WithTrailingIcon: Story = {
-  args: {
-    label: "Email",
-    placeholder: "your@email.com",
-    trailingIcon: "user",
   },
 };
 
@@ -224,11 +194,9 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       error: [false, true],
       validating: [false, true],
       subText: [undefined, "Helper text"],
-      leadingIcon: [undefined, "search"],
-      trailingIcon: [undefined, "user"],
     },
   ],
-  pseudoStates: ["hover", "active", "focus", "focus-visible"],
+  pseudoStates: ["hover", "active", "focus"],
 });
 
 export const DesignComparator: Story = buildDesignComparatorStory({
@@ -293,8 +261,6 @@ export const TextOverflow: Story = {
       "Very long value that should be truncated when the container is too small",
     subText:
       "Very long helper text that should wrap to multiple lines when needed",
-    leadingIcon: "search",
-    trailingIcon: "user",
   },
 };
 
@@ -310,8 +276,6 @@ export const Interaction: Story = {
     validating: false,
     subText: "",
     preserveSubTextSpace: false,
-    leadingIcon: undefined,
-    trailingIcon: undefined,
     name: "",
     autocomplete: "",
   },

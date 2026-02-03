@@ -49,8 +49,6 @@ const ariaDescribedby = computed(() =>
       :disabled="props.disabled"
       :readonly="props.readonly"
       :required="props.required"
-      :leading-icon="props.leadingIcon"
-      :trailing-icon="props.trailingIcon"
       :error="props.error"
       :validating="props.validating"
       :name="props.name"
