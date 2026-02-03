@@ -2,7 +2,7 @@
 import { computed, onMounted, ref, toRef, useId, watch } from "vue";
 import { useElementSize } from "@vueuse/core";
 
-import KdsIcon from "../Icon/KdsIcon.vue";
+import KdsIcon from "../accessories/Icon/KdsIcon.vue";
 
 import type { KdsTab, KdsTabBarProps } from "./types";
 import { useTabBarIconHiding } from "./useTabBarIconHiding";
@@ -49,6 +49,7 @@ const { width } = useElementSize(availableWidthContainer);
 const { shouldHideIcons, setItemEl } = useTabBarIconHiding({
   width,
   tabs: toRef(props, "tabs"),
+  containerEl: availableWidthContainer,
 });
 
 const isSelected = (tab: KdsTab) => localModelValue.value === tab.value;
@@ -116,13 +117,26 @@ onMounted(() => {
 <style scoped>
 .tab-bar {
   display: flex;
+  flex-wrap: nowrap;
+  overflow: auto visible;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   border-bottom: var(--kds-border-base-subtle);
   border-bottom-width: var(--kds-core-border-width-m);
+}
+
+.tab-bar::-webkit-scrollbar {
+  display: none;
 }
 
 .tab-wrapper {
   position: relative;
   min-width: 0;
+}
+
+.tab-bar:not(.full-width) .tab-wrapper {
+  flex: 0 1 auto;
+  min-width: var(--kds-dimension-component-width-4x);
 }
 
 .tab-wrapper input[type="radio"] {
@@ -194,6 +208,15 @@ onMounted(() => {
   }
 }
 
+.tab-bar.full-width .tab-wrapper {
+  flex: 1;
+}
+
+.tab-bar.full-width .tab {
+  justify-content: center;
+  width: 100%;
+}
+
 .tab-wrapper input:focus-visible + .tab {
   outline: var(--kds-border-action-focused);
   outline-offset: var(--kds-spacing-offset-focus);
@@ -221,10 +244,6 @@ onMounted(() => {
 
 .tab-bar.large .tab-wrapper.selected .tab .label {
   font: var(--kds-font-base-title-large);
-}
-
-.tab-bar.full-width .tab-wrapper {
-  flex: 1;
 }
 
 /* Small size icons */
