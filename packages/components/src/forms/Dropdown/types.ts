@@ -12,8 +12,8 @@ export type KdsDropdownOption = {
 
 export type KdsDropdownProps = KdsInputLabelProps &
   KdsInputStateProps & {
-    /** Options shown in the dropdown list */
-    options: KdsDropdownOption[];
+    /** Values shown in the dropdown list */
+    possibleValues: KdsDropdownOption[];
 
     /** Text shown when no entries match the search */
     noEntriesText?: string;

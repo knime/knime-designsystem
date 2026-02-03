@@ -57,7 +57,7 @@ type DropdownOptionWithMissing = KdsDropdownOption & { missing: boolean };
 
 const optionsWithSyntheticMissing = computed<DropdownOptionWithMissing[]>(
   () => {
-    const baseOptions = props.options.map((option) => ({
+    const baseOptions = props.possibleValues.map((option) => ({
       ...option,
       missing: false,
     }));
@@ -66,7 +66,9 @@ const optionsWithSyntheticMissing = computed<DropdownOptionWithMissing[]>(
       return baseOptions;
     }
 
-    const hasSelected = props.options.some((o) => o.id === modelValue.value);
+    const hasSelected = props.possibleValues.some(
+      (o) => o.id === modelValue.value,
+    );
     if (hasSelected) {
       return baseOptions;
     }

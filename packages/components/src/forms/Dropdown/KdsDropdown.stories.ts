@@ -85,7 +85,7 @@ const meta: Meta<typeof KdsDropdown> = {
       control: "text",
       table: { category: "Props" },
     },
-    options: {
+    possibleValues: {
       control: "object",
       table: { category: "Props" },
     },
@@ -122,7 +122,7 @@ const meta: Meta<typeof KdsDropdown> = {
     modelValue: null,
     label: "Label",
     placeholder: "Select an option",
-    options: baseOptions,
+    possibleValues: baseOptions,
     noEntriesText: "No entries found",
     disabled: false,
     required: false,
@@ -165,7 +165,7 @@ export const Open: Story = {
 
 export const NoEntriesFound: Story = {
   args: {
-    options: [],
+    possibleValues: [],
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -176,7 +176,7 @@ export const NoEntriesFound: Story = {
 export const MissingValue: Story = {
   args: {
     modelValue: "missing",
-    options: baseOptions,
+    possibleValues: baseOptions,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -230,7 +230,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       props: {
         label: undefined,
         ariaLabel: "Dropdown",
-        options: baseOptions,
+        possibleValues: baseOptions,
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3594-15392":
@@ -273,7 +273,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           {
             initiallyOpen: true,
             modelValue: "missing",
-            options: baseOptions,
+            possibleValues: baseOptions,
           },
       },
     },
@@ -288,7 +288,7 @@ export const TextOverflow: Story = {
   args: {
     label: "Label",
     placeholder: "{text}",
-    options: [
+    possibleValues: [
       {
         id: "long",
         text: "A very very very very very long option label that should overflow",
@@ -304,7 +304,7 @@ export const Interaction: Story = {
   args: {
     label: "Label",
     placeholder: "{text}",
-    options: baseOptions,
+    possibleValues: baseOptions,
     modelValue: null,
   },
   play: async ({ canvasElement }) => {
