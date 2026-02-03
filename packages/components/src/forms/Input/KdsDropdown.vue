@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, useId, watch } from "vue";
-import { onClickOutside } from "@vueuse/core";
 
 import KdsDataType from "../../Icon/KdsDataType.vue";
 import KdsButton from "../../buttons/KdsButton.vue";
@@ -49,7 +48,33 @@ const ariaDescribedby = computed(() =>
     : undefined,
 );
 
-const wrapperRef = ref<HTMLElement | null>(null);
+const popoverRef = ref<HTMLElement | null>(null);
+
+const anchorName = computed(() => `--kds-dropdown-${generatedId}`);
+
+const showNativePopover = () => {
+  if (!popoverRef.value) {
+    return;
+  }
+
+  try {
+    (popoverRef.value as unknown as { showPopover: () => void }).showPopover();
+  } catch {
+    // no-op
+  }
+};
+
+const hideNativePopover = () => {
+  if (!popoverRef.value) {
+    return;
+  }
+
+  try {
+    (popoverRef.value as unknown as { hidePopover: () => void }).hidePopover();
+  } catch {
+    // no-op
+  }
+};
 const searchInputId = computed(() => `${generatedId}-search`);
 
 const searchQuery = ref("");
@@ -137,6 +162,8 @@ const openDropdown = () => {
   updateInputDisplayValue();
   open.value = true;
 
+  showNativePopover();
+
   nextTick(() => {
     searchQuery.value = "";
     setActiveIndexToSelected();
@@ -160,6 +187,7 @@ const closeDropdown = () => {
   }
 
   open.value = false;
+  hideNativePopover();
   searchQuery.value = "";
   activeIndex.value = -1;
 };
@@ -187,10 +215,12 @@ watch(
   () => open.value,
   (isOpen) => {
     if (isOpen) {
+      showNativePopover();
       draftValue.value = modelValue.value;
       updateInputDisplayValue();
       setActiveIndexToSelected();
     } else {
+      hideNativePopover();
       draftValue.value = modelValue.value;
       updateInputDisplayValue();
     }
@@ -229,14 +259,6 @@ watch(
     }
   },
 );
-
-onClickOutside(wrapperRef, () => {
-  if (!open.value) {
-    return;
-  }
-  closeDropdown();
-  revertDraft();
-});
 
 const moveActive = (delta: number) => {
   if (filteredOptions.value.length === 0) {
@@ -356,10 +378,27 @@ const ariaActiveDescendant = computed(() => {
   }
   return optionId(activeIndex.value);
 });
+
+const onPopoverToggle = (event: Event) => {
+  const toggleEvent = event as Event & { newState?: "open" | "closed" };
+  if (toggleEvent.newState === "open") {
+    if (!open.value) {
+      open.value = true;
+    }
+    return;
+  }
+
+  if (toggleEvent.newState === "closed") {
+    open.value = false;
+    searchQuery.value = "";
+    activeIndex.value = -1;
+    revertDraft();
+  }
+};
 </script>
 
 <template>
-  <div ref="wrapperRef" class="dropdown">
+  <div class="dropdown">
     <KdsLabel
       v-if="props.label"
       :id="labelId"
@@ -367,7 +406,7 @@ const ariaActiveDescendant = computed(() => {
       :label="props.label"
     />
 
-    <div class="trigger">
+    <div class="trigger" :style="{ 'anchor-name': anchorName }">
       <KdsBaseInput
         :id="inputId"
         v-model="inputDisplayValue"
@@ -406,7 +445,13 @@ const ariaActiveDescendant = computed(() => {
         </template>
       </KdsBaseInput>
 
-      <div v-if="open" class="popover" :style="{ width: '100%' }">
+      <div
+        ref="popoverRef"
+        class="popover"
+        popover="auto"
+        :style="{ 'position-anchor': anchorName }"
+        @toggle="onPopoverToggle"
+      >
         <div v-if="props.searchable" class="sticky-top">
           <KdsBaseInput
             :id="searchInputId"
