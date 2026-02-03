@@ -66,6 +66,7 @@ const searchInputId = computed(() => `${generatedId}-search`);
 const searchQuery = ref("");
 const activeIndex = ref<number>(-1);
 const draftValue = ref<string | null>(null);
+const pendingSearchQuery = ref<string | null>(null);
 
 type DropdownOptionWithMissing = KdsDropdownOption & { missing: boolean };
 
@@ -135,7 +136,7 @@ const setActiveIndexToSelected = () => {
   activeIndex.value = selectedIndex >= 0 ? selectedIndex : 0;
 };
 
-const openDropdown = () => {
+const openDropdown = (initialSearchQuery?: string) => {
   if (props.disabled) {
     return;
   }
@@ -146,20 +147,12 @@ const openDropdown = () => {
 
   draftValue.value = modelValue.value;
   updateInputDisplayValue();
+  pendingSearchQuery.value = initialSearchQuery ?? null;
   open.value = true;
 
   showNativePopover();
 
   nextTick(() => {
-    searchQuery.value = "";
-    setActiveIndexToSelected();
-
-    const searchEl = document.getElementById(searchInputId.value);
-    if (searchEl) {
-      searchEl.focus();
-      return;
-    }
-
     const triggerEl = document.getElementById(inputId.value);
     triggerEl?.focus();
   });
@@ -202,7 +195,14 @@ watch(
       showNativePopover();
       draftValue.value = modelValue.value;
       updateInputDisplayValue();
-      setActiveIndexToSelected();
+      if (pendingSearchQuery.value === null) {
+        searchQuery.value = "";
+        setActiveIndexToSelected();
+      } else {
+        searchQuery.value = pendingSearchQuery.value;
+        activeIndex.value = 0;
+        pendingSearchQuery.value = null;
+      }
     } else {
       hideNativePopover();
       draftValue.value = modelValue.value;
@@ -226,7 +226,7 @@ watch(
 watch(
   () => filteredOptions.value,
   () => {
-    if (!open.value) {
+    if (open.value === false) {
       return;
     }
 
@@ -244,7 +244,7 @@ watch(
   },
 );
 
-const moveActive = (delta: number) => {
+function moveActive(delta: number) {
   if (filteredOptions.value.length === 0) {
     return;
   }
@@ -253,17 +253,17 @@ const moveActive = (delta: number) => {
   const max = filteredOptions.value.length - 1;
 
   activeIndex.value = Math.min(Math.max(nextIndex, 0), max);
-};
+}
 
-const setActiveToEdge = (edge: "start" | "end") => {
+function setActiveToEdge(edge: "start" | "end") {
   if (filteredOptions.value.length === 0) {
     return;
   }
 
   activeIndex.value = edge === "start" ? 0 : filteredOptions.value.length - 1;
-};
+}
 
-const selectActive = () => {
+function selectActive() {
   if (activeIndex.value < 0) {
     return;
   }
@@ -275,21 +275,79 @@ const selectActive = () => {
 
   draftValue.value = option.value;
   updateInputDisplayValue();
-};
+}
 
-const onTriggerKeydown = (event: KeyboardEvent) => {
-  if (props.disabled) {
+function commitActiveOrDraftAndClose() {
+  const option = filteredOptions.value[activeIndex.value];
+  if (option && !option.disabled) {
+    commitSelection(option.value);
+  } else {
+    commitSelection(draftValue.value);
+  }
+  closeDropdown();
+}
+
+function isPrintableKey(event: KeyboardEvent) {
+  if (event.ctrlKey || event.metaKey || event.altKey) {
+    return false;
+  }
+  return event.key.length === 1;
+}
+
+function handleClosedKeydown(event: KeyboardEvent) {
+  if (isPrintableKey(event)) {
+    event.preventDefault();
+    openDropdown(event.key);
     return;
   }
 
-  if (!open.value) {
-    if (
-      event.key === "ArrowDown" ||
-      event.key === "Enter" ||
-      event.key === " "
-    ) {
+  if (event.key === "ArrowDown" || event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    openDropdown();
+  }
+}
+
+function handleSearchFieldKeydown(event: KeyboardEvent) {
+  switch (event.key) {
+    case "ArrowDown":
       event.preventDefault();
-      openDropdown();
+      moveActive(1);
+      break;
+
+    case "ArrowUp":
+      event.preventDefault();
+      moveActive(-1);
+      break;
+
+    case "Enter":
+      event.preventDefault();
+      commitActiveOrDraftAndClose();
+      break;
+
+    case "Tab":
+      closeDropdown();
+      revertDraft();
+      break;
+
+    default:
+      break;
+  }
+}
+
+function handleOpenTriggerKeydown(event: KeyboardEvent) {
+  if (event.key === "Backspace") {
+    if (searchQuery.value.length > 0) {
+      event.preventDefault();
+      searchQuery.value = searchQuery.value.slice(0, -1);
+    }
+    return;
+  }
+
+  if (isPrintableKey(event)) {
+    event.preventDefault();
+    searchQuery.value += event.key;
+    if (activeIndex.value < 0) {
+      activeIndex.value = 0;
     }
     return;
   }
@@ -327,20 +385,33 @@ const onTriggerKeydown = (event: KeyboardEvent) => {
 
     case "Enter":
       event.preventDefault();
-      {
-        const option = filteredOptions.value[activeIndex.value];
-        if (option && !option.disabled) {
-          commitSelection(option.value);
-        } else {
-          commitSelection(draftValue.value);
-        }
-      }
-      closeDropdown();
+      commitActiveOrDraftAndClose();
       break;
 
     default:
       break;
   }
+}
+
+const onTriggerKeydown = (event: KeyboardEvent) => {
+  if (props.disabled) {
+    return;
+  }
+
+  const target = event.target as HTMLElement | null;
+  const isSearchField = target?.id === searchInputId.value;
+
+  if (open.value === false) {
+    handleClosedKeydown(event);
+    return;
+  }
+
+  if (isSearchField) {
+    handleSearchFieldKeydown(event);
+    return;
+  }
+
+  handleOpenTriggerKeydown(event);
 };
 
 const onOptionClick = (option: DropdownOptionWithMissing) => {
@@ -358,10 +429,9 @@ const onDeleteMissing = () => {
 };
 
 const ariaActiveDescendant = computed(() => {
-  if (!open.value || activeIndex.value < 0) {
-    return undefined;
-  }
-  return optionId(activeIndex.value);
+  return open.value && activeIndex.value >= 0
+    ? optionId(activeIndex.value)
+    : undefined;
 });
 
 const onPopoverToggle = (event: Event) => {
