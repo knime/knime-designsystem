@@ -93,3 +93,8 @@ export type KdsSearchInputProps = KdsInputLabelProps &
   };
 
 export type KdsSearchInputEmits = KdsCommonInputEmits;
+
+export type KdsCredentialsUserPasswordProps = KdsInputLabelProps &
+  KdsInputStateProps;
+
+export type KdsCredentialsApiKeyProps = KdsInputLabelProps & KdsInputStateProps;
