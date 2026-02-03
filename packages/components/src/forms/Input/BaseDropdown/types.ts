@@ -54,5 +54,4 @@ export type BaseDropdownEmits = {
   focus: [event: FocusEvent];
   blur: [event: FocusEvent];
   keydown: [event: KeyboardEvent];
-  click: [event: MouseEvent];
 };

@@ -124,7 +124,6 @@ const handlePopoverToggle = (event: Event) => {
           @focus="emit('focus', $event)"
           @blur="emit('blur', $event)"
           @keydown="emit('keydown', $event)"
-          @click="emit('click', $event)"
         >
           <span :class="{ 'button-text': true, placeholder: !hasValue }">
             {{ hasValue ? modelValue : props.placeholder }}
@@ -132,7 +131,7 @@ const handlePopoverToggle = (event: Event) => {
 
           <KdsIcon
             class="icon-wrapper trailing"
-            :name="open ? 'chevron-up' : 'chevron-down'"
+            :name="props.open ? 'chevron-up' : 'chevron-down'"
           />
         </button>
 
