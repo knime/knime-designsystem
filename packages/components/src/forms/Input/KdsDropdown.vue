@@ -296,12 +296,6 @@ const onTriggerKeydown = (event: KeyboardEvent) => {
   }
 
   switch (event.key) {
-    case "Escape":
-      event.preventDefault();
-      closeDropdown();
-      revertDraft();
-      break;
-
     case "Tab":
       closeDropdown();
       revertDraft();
@@ -334,7 +328,14 @@ const onTriggerKeydown = (event: KeyboardEvent) => {
 
     case "Enter":
       event.preventDefault();
-      commitSelection(draftValue.value);
+      {
+        const option = filteredOptions.value[activeIndex.value];
+        if (option && !option.disabled) {
+          commitSelection(option.value);
+        } else {
+          commitSelection(draftValue.value);
+        }
+      }
       closeDropdown();
       break;
 
