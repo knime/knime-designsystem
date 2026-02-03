@@ -93,7 +93,7 @@ defineExpose<KdsDropdownContainerExposed>({
 
 @position-try --kds-dropdown-above {
   top: auto;
-  bottom: calc(anchor(top) - var(--kds-spacing-container-0-25x));
+  bottom: calc(anchor(top) + var(--kds-spacing-container-0-25x));
   /* stylelint-disable-next-line at-rule-descriptor-value-no-unknown */
   left: anchor(left);
   /* stylelint-disable-next-line at-rule-descriptor-value-no-unknown */
