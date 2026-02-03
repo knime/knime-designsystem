@@ -43,10 +43,20 @@ const clamp = (value: number) => {
     next = Math.min(props.max, next);
   }
 
-  return next;
-};
+  // Avoid floating point artifacts when working with decimal steps.
+  const step = props.step;
+  const precision = Math.max(0, (step.toString().split(".")[1] ?? "").length);
+  const factor = Number(`1e${precision}`);
 
-const normalizeInteger = (value: number) => Math.trunc(value);
+  const scaledNext = Math.round(next * factor);
+  const scaledStep = Math.round(step * factor);
+  if (scaledStep === 0) {
+    return next;
+  }
+
+  const roundedScaled = Math.round(scaledNext / scaledStep) * scaledStep;
+  return roundedScaled / factor;
+};
 
 const canDecrease = computed(() => {
   if (props.disabled || props.readonly) {
@@ -73,26 +83,21 @@ const canIncrease = computed(() => {
 });
 
 const adjustByStep = (direction: -1 | 1) => {
-  const stepInt = normalizeInteger(props.step);
-  if (stepInt <= 0) {
+  if (props.step <= 0) {
     return;
   }
 
   if (!Number.isFinite(modelValue.value)) {
-    const next = clamp(0);
-    modelValue.value = next;
+    modelValue.value = clamp(0);
     return;
   }
 
-  const next = clamp(modelValue.value + direction * stepInt);
-  modelValue.value = next;
+  modelValue.value = clamp(modelValue.value + direction * props.step);
 };
 
 const updateModelValue = (value: string) => {
   const parsedValue = Number(value);
-  const normalized = normalizeInteger(parsedValue);
-  const next = clamp(normalized);
-  modelValue.value = next;
+  modelValue.value = clamp(parsedValue);
 };
 
 const inputMode = computed(() => "numeric" as const);
