@@ -56,7 +56,7 @@ const optionsWithSyntheticMissing = computed<DropdownOptionWithMissing[]>(
       missing: false,
     }));
 
-    if (modelValue.value === null) {
+    if (!modelValue.value) {
       return baseOptions;
     }
 
@@ -96,18 +96,21 @@ const draftOption = computed(() =>
 );
 const isMissingDraft = computed(() => Boolean(draftOption.value?.missing));
 
-const inputDisplayValue = ref("");
-
-const updateInputDisplayValue = () => {
+const displayLabel = computed(() => {
   if (draftValue.value === null) {
-    inputDisplayValue.value = "";
-    return;
+    return "";
   }
 
   const label = draftOption.value?.text ?? "";
-  inputDisplayValue.value = draftOption.value?.missing
-    ? `(Missing) ${label}`.trim()
-    : label;
+  return draftOption.value?.missing ? `(Missing) ${label}`.trim() : label;
+});
+
+const onDisplayLabelUpdate = (value: string) => {
+  // BaseDropdown is a text-input based component and may emit updates (e.g. clearing).
+  // We don't allow free text input here though, so only treat setting to empty as clearing.
+  if (value === "") {
+    draftValue.value = null;
+  }
 };
 
 const setActiveIndexToSelected = () => {
@@ -139,13 +142,8 @@ const closeDropdown = () => {
   open.value = false;
 };
 
-const commitSelection = (value: string | null) => {
-  modelValue.value = value;
-};
-
 const revertDraft = () => {
   draftValue.value = modelValue.value;
-  updateInputDisplayValue();
 };
 
 watch(
@@ -153,7 +151,6 @@ watch(
   (isOpen) => {
     if (isOpen) {
       draftValue.value = modelValue.value;
-      updateInputDisplayValue();
 
       if (searchQuery.value.length === 0) {
         setActiveIndexToSelected();
@@ -177,7 +174,6 @@ watch(
       return;
     }
     draftValue.value = modelValue.value;
-    updateInputDisplayValue();
   },
   { immediate: true },
 );
@@ -233,15 +229,14 @@ function selectActive() {
   }
 
   draftValue.value = option.id;
-  updateInputDisplayValue();
 }
 
 function commitActiveOrDraftAndClose() {
   const option = filteredOptions.value[activeIndex.value];
   if (option && !option.disabled) {
-    commitSelection(option.id);
+    modelValue.value = option.id;
   } else {
-    commitSelection(draftValue.value);
+    modelValue.value = draftValue.value;
   }
   closeDropdown();
 }
@@ -378,12 +373,12 @@ const onOptionClick = (option: DropdownOptionWithMissing) => {
     return;
   }
 
-  commitSelection(option.id);
+  modelValue.value = option.id;
   closeDropdown();
 };
 
 const onDeleteMissing = () => {
-  commitSelection(null);
+  modelValue.value = null;
   closeDropdown();
 };
 
@@ -405,8 +400,8 @@ const ariaActiveDescendant = computed(() => {
 
     <BaseDropdown
       :id="inputId"
-      v-model="inputDisplayValue"
       v-model:open="open"
+      :model-value="displayLabel"
       :placeholder="props.placeholder"
       :trailing-icon="open ? 'chevron-up' : 'chevron-down'"
       :disabled="props.disabled"
@@ -414,12 +409,13 @@ const ariaActiveDescendant = computed(() => {
       :text-color="isMissingDraft ? 'danger' : 'neutral'"
       :aria-labelledby="ariaLabelledby"
       :aria-describedby="ariaDescribedby"
+      :aria-controls="listboxId"
+      :aria-activedescendant="ariaActiveDescendant"
       role="combobox"
       aria-autocomplete="list"
       aria-haspopup="listbox"
-      :aria-controls="listboxId"
-      :aria-activedescendant="ariaActiveDescendant"
       @keydown="onTriggerKeydown"
+      @update:model-value="onDisplayLabelUpdate"
     >
       <template #stickyTop>
         <KdsSearchInput
