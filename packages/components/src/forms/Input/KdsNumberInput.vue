@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<KdsNumberInputProps>(), {
   step: 1,
 });
 
-const modelValue = defineModel<string>({ default: "" });
+const modelValue = defineModel<number>({ default: NaN });
 
 const generatedId = useId();
 const inputId = computed(() => `${generatedId}-input`);
@@ -32,14 +32,6 @@ const ariaLabelledby = computed(() =>
 const ariaDescribedby = computed(() =>
   props.subText ? subTextId.value : undefined,
 );
-
-const parseCurrent = () => {
-  if (modelValue.value.trim().length === 0) {
-    return undefined;
-  }
-  const parsed = Number(modelValue.value);
-  return Number.isFinite(parsed) ? parsed : undefined;
-};
 
 const clamp = (value: number) => {
   let next = value;
@@ -54,40 +46,7 @@ const clamp = (value: number) => {
   return next;
 };
 
-const stepDecimals = computed(() => {
-  const step = props.step;
-  if (!Number.isFinite(step)) {
-    return 0;
-  }
-  const [, decimals = ""] = step.toString().split(".");
-  return decimals.length;
-});
-
-const decimalBase = 10;
-
-const normalizeNumber = (value: number) => {
-  const decimals = stepDecimals.value;
-  const factor = decimalBase ** decimals;
-  return Math.round(value * factor) / factor;
-};
-
-const getBaseValue = () => {
-  const parsed = parseCurrent();
-  if (parsed !== undefined) {
-    return parsed;
-  }
-
-  if (props.min !== undefined && !Number.isNaN(props.min)) {
-    return props.min;
-  }
-
-  return 0;
-};
-
-const setValue = (value: number) => {
-  const normalized = normalizeNumber(clamp(value));
-  modelValue.value = normalized.toString();
-};
+const normalizeInteger = (value: number) => Math.trunc(value);
 
 const canDecrease = computed(() => {
   if (props.disabled || props.readonly) {
@@ -98,7 +57,7 @@ const canDecrease = computed(() => {
     return true;
   }
 
-  return getBaseValue() > props.min;
+  return !(modelValue.value <= props.min);
 });
 
 const canIncrease = computed(() => {
@@ -110,28 +69,47 @@ const canIncrease = computed(() => {
     return true;
   }
 
-  return getBaseValue() < props.max;
+  return !(modelValue.value >= props.max);
 });
 
 const adjustByStep = (direction: -1 | 1) => {
-  const step = props.step;
-  if (!Number.isFinite(step) || step <= 0) {
+  const stepInt = normalizeInteger(props.step);
+  if (stepInt <= 0) {
     return;
   }
 
-  const base = getBaseValue();
-  setValue(base + direction * step);
+  if (!Number.isFinite(modelValue.value)) {
+    const next = clamp(0);
+    modelValue.value = next;
+    return;
+  }
+
+  const next = clamp(modelValue.value + direction * stepInt);
+  modelValue.value = next;
 };
 
+const updateModelValue = (value: string) => {
+  const parsedValue = Number(value);
+  const normalized = normalizeInteger(parsedValue);
+  const next = clamp(normalized);
+  modelValue.value = next;
+};
+
+const inputMode = computed(() => "numeric" as const);
+
 const handleKeydown = (event: KeyboardEvent) => {
-  if (!props.disabled && !props.readonly) {
-    if (event.key === "ArrowUp") {
-      event.preventDefault();
-      adjustByStep(1);
-    } else if (event.key === "ArrowDown") {
-      event.preventDefault();
-      adjustByStep(-1);
-    }
+  if (props.disabled || props.readonly) {
+    return;
+  }
+
+  if (event.key === "ArrowUp") {
+    event.preventDefault();
+    adjustByStep(1);
+    return;
+  }
+  if (event.key === "ArrowDown") {
+    event.preventDefault();
+    adjustByStep(-1);
   }
 };
 </script>
@@ -147,8 +125,9 @@ const handleKeydown = (event: KeyboardEvent) => {
 
     <KdsBaseInput
       :id="inputId"
-      v-model="modelValue"
+      :model-value="Number.isFinite(modelValue) ? `${modelValue}` : ''"
       type="number"
+      :inputmode="inputMode"
       :placeholder="props.placeholder"
       :disabled="props.disabled"
       :readonly="props.readonly"
@@ -163,6 +142,7 @@ const handleKeydown = (event: KeyboardEvent) => {
       :unit="props.unit"
       :aria-labelledby="ariaLabelledby"
       :aria-describedby="ariaDescribedby"
+      @update:model-value="updateModelValue"
       @keydown="handleKeydown"
     >
       <template #trailing>

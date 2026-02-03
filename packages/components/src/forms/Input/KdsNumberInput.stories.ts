@@ -31,8 +31,8 @@ const meta: Meta<typeof KdsNumberInput> = {
   },
   argTypes: {
     modelValue: {
-      control: "text",
-      description: "v-model binding for the numeric value (string)",
+      control: "number",
+      description: "v-model binding for the numeric value (use NaN for empty)",
       table: { category: "Model" },
     },
     label: {
@@ -98,7 +98,7 @@ const meta: Meta<typeof KdsNumberInput> = {
     },
   },
   args: {
-    modelValue: "",
+    modelValue: NaN,
     label: "Label",
     placeholder: "",
     name: "",
@@ -144,14 +144,14 @@ export const Default: Story = {
 
 export const WithValue: Story = {
   args: {
-    modelValue: "42",
+    modelValue: 42,
     unit: "ms",
   },
 };
 
 export const WithMinMax: Story = {
   args: {
-    modelValue: "5",
+    modelValue: 5,
     min: 0,
     max: 10,
     step: 1,
@@ -161,7 +161,7 @@ export const WithMinMax: Story = {
 
 export const Disabled: Story = {
   args: {
-    modelValue: "42",
+    modelValue: 42,
     unit: "ms",
     disabled: true,
   },
@@ -169,7 +169,7 @@ export const Disabled: Story = {
 
 export const Readonly: Story = {
   args: {
-    modelValue: "42",
+    modelValue: 42,
     unit: "ms",
     readonly: true,
   },
@@ -177,7 +177,7 @@ export const Readonly: Story = {
 
 export const WithError: Story = {
   args: {
-    modelValue: "42",
+    modelValue: 42,
     unit: "ms",
     error: true,
     subText: "Error message",
@@ -186,7 +186,7 @@ export const WithError: Story = {
 
 export const Validating: Story = {
   args: {
-    modelValue: "42",
+    modelValue: 42,
     unit: "ms",
     validating: true,
     subText: "Validation message",
@@ -198,7 +198,8 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   combinationsProps: [
     {
       label: ["Label"],
-      modelValue: ["", "42"],
+      // eslint-disable-next-line no-magic-numbers
+      modelValue: [NaN, 42],
       unit: ["ms"],
       disabled: [false, true],
       readonly: [false, true],
@@ -230,7 +231,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3524-14839":
           {
-            modelValue: "",
+            modelValue: NaN,
             unit: "{unit}",
             parameters: {
               pseudo: { focus: true },
@@ -239,26 +240,26 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3524-14848":
           {
-            modelValue: "42",
+            modelValue: 42,
             unit: "{unit}",
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3524-14857":
           {
-            modelValue: "42",
+            modelValue: 42,
             unit: "{unit}",
             error: true,
             subText: "{Error message}",
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=5351-35547":
           {
-            modelValue: "42",
+            modelValue: 42,
             unit: "{unit}",
             validating: true,
             subText: "{Validation message}",
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3524-14866":
           {
-            modelValue: "42",
+            modelValue: 42,
             unit: "{unit}",
             disabled: true,
           },
@@ -274,7 +275,7 @@ export const TextOverflow: Story = {
   }),
   args: {
     label: "Very long label that should be truncated",
-    modelValue: "12345678901234567890",
+    modelValue: Number("12345678901234567890"),
     unit: "VeryLongUnitThatShouldBeTruncated",
     subText:
       "Very long helper text that should wrap to multiple lines when needed",
@@ -284,7 +285,7 @@ export const TextOverflow: Story = {
 export const Interaction: Story = {
   args: {
     label: "Label",
-    modelValue: "",
+    modelValue: NaN,
     placeholder: "Enter number",
     unit: "ms",
     min: 0,
@@ -332,6 +333,17 @@ export const Interaction: Story = {
 
       await userEvent.keyboard("{ArrowDown}");
       await expect(input).toHaveValue(0);
+    });
+
+    await step("Cleanup invalid input on blur", async () => {
+      await userEvent.click(input);
+      await userEvent.clear(input);
+      await userEvent.type(input, "1e3");
+
+      // move focus away to trigger blur cleanup and clamping to max=2
+      await userEvent.tab();
+
+      await expect(input).toHaveValue(2);
     });
   },
 };
