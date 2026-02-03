@@ -2,13 +2,13 @@
 import { computed, ref, useId, watch } from "vue";
 
 import KdsButton from "../../buttons/KdsButton.vue";
+import KdsSearchInput from "../Input/KdsSearchInput.vue";
 import KdsLabel from "../KdsLabel.vue";
 import KdsSubText from "../KdsSubText.vue";
 
 import BaseDropdown from "./BaseDropdown/BaseDropdown.vue";
 import KdsListContainer from "./Dropdown/KdsListContainer.vue";
 import KdsListItem from "./Dropdown/KdsListItem.vue";
-import KdsSearchInput from "./KdsSearchInput.vue";
 import type {
   KdsDropdownEmits,
   KdsDropdownOption,

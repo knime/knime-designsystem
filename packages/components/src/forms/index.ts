@@ -9,7 +9,7 @@ export { default as KdsTextInput } from "./Input/KdsTextInput.vue";
 export { default as KdsNumberInput } from "./Input/KdsNumberInput.vue";
 export { default as KdsPatternInput } from "./Input/KdsPatternInput.vue";
 export { default as KdsSearchInput } from "./Input/KdsSearchInput.vue";
-export { default as KdsDropdown } from "./Input/KdsDropdown.vue";
+export { default as KdsDropdown } from "./Dropdown/KdsDropdown.vue";
 
 // Export form component types
 export type {
@@ -20,12 +20,14 @@ export type {
   KdsValueSwitchProps,
   KdsValueSwitchSize,
 } from "./RadioButton/types";
+
 export type {
   KdsCheckboxValue,
   KdsCheckboxGroupAlignment,
   KdsCheckboxGroupOption,
   KdsCheckboxGroupProps,
 } from "./Checkbox/types";
+
 export type {
   KdsBaseInputEmits,
   KdsTextInputProps,
@@ -36,7 +38,10 @@ export type {
   KdsPatternInputEmits,
   KdsSearchInputProps,
   KdsSearchInputEmits,
+} from "./Input/types";
+
+export type {
   KdsDropdownEmits,
   KdsDropdownOption,
   KdsDropdownProps,
-} from "./Input/types";
+} from "./Dropdown/types";

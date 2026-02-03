@@ -1,6 +1,6 @@
-import type { KdsIconName, KdsTypeIconName } from "../../Icon/types";
+import type { KdsIconName } from "../../Icon/types";
 
-type KdsInputLabelProps = {
+export type KdsInputLabelProps = {
   /**
    * Label text displayed above the input
    */
@@ -35,7 +35,7 @@ type KdsInputLabelProps = {
   trailingIcon?: KdsIconName;
 };
 
-type KdsInputStateProps = {
+export type KdsInputStateProps = {
   /**
    * Whether the input is disabled
    */
@@ -103,28 +103,3 @@ export type KdsSearchInputProps = KdsInputLabelProps &
   };
 
 export type KdsSearchInputEmits = KdsCommonInputEmits;
-
-export type KdsDropdownOption = {
-  id: string;
-  text: string;
-  /** Optional data type icon shown before the text */
-  leadingIcon?: KdsTypeIconName;
-  /** Disables the option in the list */
-  disabled?: boolean;
-};
-
-export type KdsDropdownProps = KdsInputLabelProps &
-  KdsInputStateProps & {
-    /** Options shown in the dropdown list */
-    options: KdsDropdownOption[];
-
-    /** Text shown when no entries match the search */
-    noEntriesText?: string;
-  };
-
-export type KdsDropdownEmits = {
-  focus: [event: FocusEvent];
-  blur: [event: FocusEvent];
-  /** Fires when a selection is committed */
-  change: [value: string | null];
-};
