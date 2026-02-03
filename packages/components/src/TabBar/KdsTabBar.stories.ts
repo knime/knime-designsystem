@@ -155,6 +155,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       modelValue: ["localfilesystem", "myknimehub"],
     },
   ],
+  gridColumns: "auto",
 });
 
 export const DesignComparator: Story = buildDesignComparatorStory({
