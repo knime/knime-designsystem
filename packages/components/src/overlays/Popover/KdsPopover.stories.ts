@@ -46,7 +46,7 @@ const meta: Meta<typeof KdsPopover> = {
     },
   },
   args: {
-    placement: "top-right",
+    placement: "bottom-right",
     mainContainer: document.body,
     ignoredClickOutsideTarget: null,
   },
