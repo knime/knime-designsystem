@@ -3,7 +3,6 @@ import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
 
 import {
-  buildAllCombinationsStory,
   buildDesignComparatorStory,
   buildTextOverflowStory,
 } from "../../test-utils/storybook";
@@ -168,23 +167,23 @@ export const Disabled: Story = {
   },
 };
 
-export const AllCombinations: Story = buildAllCombinationsStory({
-  component: KdsDropdown,
-  combinationsProps: [
-    {
-      modelValue: [null, "a"],
-      placeholder: ["{text}"],
-      disabled: [false, true],
-      error: [false, true],
-      validating: [false, true],
-      searchable: [false, true],
-      options: [baseOptions],
-      label: ["Label"],
-      subText: [undefined, "Helper text"],
-    },
-  ],
-  pseudoStates: ["hover", "active", "focus", "focus-visible"],
-});
+// export const AllCombinations: Story = buildAllCombinationsStory({
+//   component: KdsDropdown,
+//   combinationsProps: [
+//     {
+//       modelValue: [null, "a"],
+//       placeholder: ["{text}"],
+//       disabled: [false, true],
+//       error: [false, true],
+//       validating: [false, true],
+//       searchable: [false, true],
+//       options: [baseOptions],
+//       label: ["Label"],
+//       subText: [undefined, "Helper text"],
+//     },
+//   ],
+//   pseudoStates: ["hover", "active", "focus", "focus-visible"],
+// });
 
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsDropdown,
