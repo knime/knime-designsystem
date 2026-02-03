@@ -30,7 +30,7 @@ const props = withDefaults(defineProps<KdsDropdownProps>(), {
 const emit = defineEmits<KdsDropdownEmits>();
 
 const modelValue = defineModel<string | null>({ default: null });
-const open = defineModel<boolean>("open", { default: false });
+const open = ref(false);
 
 const generatedId = useId();
 const inputId = computed(() => `${generatedId}-input`);
@@ -66,7 +66,6 @@ const searchInputId = computed(() => `${generatedId}-search`);
 const searchQuery = ref("");
 const activeIndex = ref<number>(-1);
 const draftValue = ref<string | null>(null);
-const pendingSearchQuery = ref<string | null>(null);
 
 type DropdownOptionWithMissing = KdsDropdownOption & { missing: boolean };
 
@@ -147,9 +146,16 @@ const openDropdown = (initialSearchQuery?: string) => {
 
   draftValue.value = modelValue.value;
   updateInputDisplayValue();
-  pendingSearchQuery.value = initialSearchQuery ?? null;
-  open.value = true;
 
+  if (initialSearchQuery === undefined) {
+    searchQuery.value = "";
+    setActiveIndexToSelected();
+  } else {
+    searchQuery.value = initialSearchQuery;
+    activeIndex.value = 0;
+  }
+
+  open.value = true;
   showNativePopover();
 
   nextTick(() => {
@@ -163,8 +169,8 @@ const closeDropdown = () => {
     return;
   }
 
-  open.value = false;
   hideNativePopover();
+  open.value = false;
   searchQuery.value = "";
   activeIndex.value = -1;
 };
@@ -187,29 +193,6 @@ const toggle = () => {
   }
   openDropdown();
 };
-
-watch(
-  () => open.value,
-  (isOpen) => {
-    if (isOpen) {
-      showNativePopover();
-      draftValue.value = modelValue.value;
-      updateInputDisplayValue();
-      if (pendingSearchQuery.value === null) {
-        searchQuery.value = "";
-        setActiveIndexToSelected();
-      } else {
-        searchQuery.value = pendingSearchQuery.value;
-        activeIndex.value = 0;
-        pendingSearchQuery.value = null;
-      }
-    } else {
-      hideNativePopover();
-      draftValue.value = modelValue.value;
-      updateInputDisplayValue();
-    }
-  },
-);
 
 watch(
   () => modelValue.value,
@@ -437,9 +420,15 @@ const ariaActiveDescendant = computed(() => {
 const onPopoverToggle = (event: Event) => {
   const toggleEvent = event as Event & { newState?: "open" | "closed" };
   if (toggleEvent.newState === "open") {
-    if (!open.value) {
-      open.value = true;
+    if (open.value) {
+      return;
     }
+
+    open.value = true;
+    draftValue.value = modelValue.value;
+    updateInputDisplayValue();
+    searchQuery.value = "";
+    setActiveIndexToSelected();
     return;
   }
 

@@ -1,3 +1,4 @@
+import { defineComponent, nextTick, onMounted, ref } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
@@ -8,6 +9,40 @@ import {
 } from "../../test-utils/storybook";
 
 import KdsDropdown from "./KdsDropdown.vue";
+
+const KdsDropdownDesignWrapper = defineComponent({
+  name: "KdsDropdownDesignWrapper",
+  components: { KdsDropdown },
+  inheritAttrs: false,
+  props: {
+    initiallyOpen: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  setup(props) {
+    const rootEl = ref<HTMLElement | null>(null);
+
+    onMounted(async () => {
+      if (!props.initiallyOpen) {
+        return;
+      }
+
+      await nextTick();
+      const combobox = rootEl.value?.querySelector(
+        '[role="combobox"]',
+      ) as HTMLElement | null;
+      combobox?.click();
+    });
+
+    return { rootEl };
+  },
+  template: `
+    <div ref="rootEl">
+      <KdsDropdown v-bind="$attrs" />
+    </div>
+  `,
+});
 
 type Story = StoryObj<typeof KdsDropdown>;
 
@@ -39,11 +74,6 @@ const meta: Meta<typeof KdsDropdown> = {
     modelValue: {
       control: "text",
       description: "v-model binding for the selected option value",
-      table: { category: "Model" },
-    },
-    open: {
-      control: "boolean",
-      description: "Controls the open state (v-model:open)",
       table: { category: "Model" },
     },
     label: {
@@ -89,7 +119,6 @@ const meta: Meta<typeof KdsDropdown> = {
   },
   args: {
     modelValue: null,
-    open: false,
     label: "Label",
     placeholder: "Select an option",
     options: baseOptions,
@@ -110,7 +139,7 @@ const meta: Meta<typeof KdsDropdown> = {
           return { args: currentArgs, updateArgs };
         },
         template:
-          '<story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" @update:open="(value) => updateArgs({ open: value })" />',
+          '<story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" />',
       };
     },
   ],
@@ -127,23 +156,30 @@ export const WithValue: Story = {
 };
 
 export const Open: Story = {
-  args: {
-    open: true,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole("combobox"));
   },
 };
 
 export const NoEntriesFound: Story = {
   args: {
-    open: true,
     options: [],
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole("combobox"));
   },
 };
 
 export const MissingValue: Story = {
   args: {
-    open: true,
     modelValue: "missing",
     options: baseOptions,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole("combobox"));
   },
 };
 
@@ -186,7 +222,7 @@ export const Disabled: Story = {
 // });
 
 export const DesignComparator: Story = buildDesignComparatorStory({
-  component: KdsDropdown,
+  component: KdsDropdownDesignWrapper,
   componentStyle: "width: 213px",
   designsToCompare: {
     ".Dropdown": {
@@ -225,7 +261,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3594-15389":
           {
-            open: true,
+            initiallyOpen: true,
             modelValue: "a",
             parameters: {
               pseudo: { focus: true },
@@ -234,7 +270,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7410-161699":
           {
-            open: true,
+            initiallyOpen: true,
             modelValue: "missing",
             options: baseOptions,
           },
