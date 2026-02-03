@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, useId, watch } from "vue";
 
-import KdsButton from "../../buttons/KdsButton.vue";
 import KdsLabel from "../KdsLabel.vue";
 import KdsSubText from "../KdsSubText.vue";
 
@@ -398,7 +397,9 @@ const onPopoverToggle = (event: Event) => {
         v-model="inputDisplayValue"
         type="text"
         :placeholder="props.placeholder"
+        :trailing-icon="open ? 'chevron-up' : 'chevron-down'"
         :disabled="props.disabled"
+        as="button"
         :readonly="true"
         :required="props.required"
         :error="props.error"
@@ -416,19 +417,7 @@ const onPopoverToggle = (event: Event) => {
         @blur="emit('blur', $event)"
         @keydown="onTriggerKeydown"
         @click="toggle"
-      >
-        <template #trailing>
-          <KdsButton
-            type="button"
-            size="xsmall"
-            variant="transparent"
-            :leading-icon="open ? 'chevron-up' : 'chevron-down'"
-            :aria-label="open ? 'Close' : 'Open'"
-            :title="open ? 'Close' : 'Open'"
-            @click.stop="toggle"
-          />
-        </template>
-      </KdsBaseInput>
+      />
 
       <KdsDropdownContainer
         ref="dropdownContainerRef"
