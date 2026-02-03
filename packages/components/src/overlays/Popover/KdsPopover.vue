@@ -126,22 +126,22 @@ const anchorId = `--${useId()}`;
 
 @position-try --kds-popover-try-top-left {
   inset: auto anchor(right) anchor(top) auto;
-  margin: 8px 0;
+  margin: var(--kds-spacing-container-0-5x) 0;
 }
 
 @position-try --kds-popover-try-top-right {
   inset: auto auto anchor(top) anchor(left);
-  margin: 8px 0;
+  margin: var(--kds-spacing-container-0-5x) 0;
 }
 
 @position-try --kds-popover-try-bottom-left {
   inset: anchor(bottom) anchor(right) auto auto;
-  margin: 8px 0;
+  margin: var(--kds-spacing-container-0-5x) 0;
 }
 
 @position-try --kds-popover-try-bottom-right {
   inset: anchor(bottom) auto auto anchor(left);
-  margin: 8px 0;
+  margin: var(--kds-spacing-container-0-5x) 0;
 }
 /* stylelint-enable declaration-property-value-no-unknown, at-rule-descriptor-value-no-unknown */
 </style>
