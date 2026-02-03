@@ -96,7 +96,11 @@ export type KdsPatternInputProps = KdsInputLabelProps & KdsInputStateProps;
 
 export type KdsPatternInputEmits = KdsCommonInputEmits;
 
-export type KdsSearchInputProps = KdsInputLabelProps & KdsInputStateProps;
+export type KdsSearchInputProps = KdsInputLabelProps &
+  KdsInputStateProps & {
+    /** ID for the input element. If not provided, a unique ID will be generated. */
+    id?: string;
+  };
 
 export type KdsSearchInputEmits = KdsCommonInputEmits;
 
@@ -109,38 +113,14 @@ export type KdsDropdownOption = {
   disabled?: boolean;
 };
 
-export type KdsDropdownProps = {
-  /** Label shown above the dropdown */
-  label?: string;
-  /** Helper text or error message shown below the dropdown */
-  subText?: string;
-  /** Reserve space for subtext to prevent layout shifts */
-  preserveSubTextSpace?: boolean;
+export type KdsDropdownProps = KdsInputLabelProps &
+  KdsInputStateProps & {
+    /** Options shown in the dropdown list */
+    options: KdsDropdownOption[];
 
-  /** Placeholder shown when no value is selected */
-  placeholder?: string;
-
-  /** Whether the dropdown is disabled */
-  disabled?: boolean;
-  /** Whether the dropdown is required */
-  required?: boolean;
-  /** Whether the dropdown has an error state */
-  error?: boolean;
-  /** Whether the dropdown is in a validating state (shows spinner in subtext) */
-  validating?: boolean;
-
-  /** Options shown in the dropdown list */
-  options: KdsDropdownOption[];
-
-  /** Enables search input inside the dropdown list */
-  searchable?: boolean;
-
-  /** Text shown when no entries match the search */
-  noEntriesText?: string;
-
-  /** Accessible label when no visible label is provided */
-  ariaLabel?: string;
-};
+    /** Text shown when no entries match the search */
+    noEntriesText?: string;
+  };
 
 export type KdsDropdownEmits = {
   focus: [event: FocusEvent];

@@ -22,9 +22,10 @@ const emit = defineEmits<KdsSearchInputEmits>();
 const modelValue = defineModel<string>({ default: "" });
 
 const generatedId = useId();
-const labelId = computed(() => `${generatedId}-label`);
-const inputId = computed(() => `${generatedId}-input`);
-const subTextId = computed(() => `${generatedId}-subtext`);
+const baseId = computed(() => props.id ?? generatedId);
+const labelId = computed(() => `${baseId.value}-label`);
+const inputId = computed(() => props.id ?? `${generatedId}-input`);
+const subTextId = computed(() => `${baseId.value}-subtext`);
 
 const ariaDescribedby = computed(() =>
   props.subText || props.validating || props.preserveSubTextSpace
@@ -56,7 +57,7 @@ const ariaDescribedby = computed(() =>
       :autocomplete="props.autocomplete"
       :clearable="true"
       :aria-label="props.label ? undefined : 'Search'"
-      :aria-labelledby="labelId"
+      :aria-labelledby="props.label ? labelId : undefined"
       :aria-describedby="ariaDescribedby"
       @focus="emit('focus', $event)"
       @blur="emit('blur', $event)"

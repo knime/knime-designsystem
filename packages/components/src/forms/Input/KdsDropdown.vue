@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, useId, watch } from "vue";
 
-import KdsDataType from "../../Icon/KdsDataType.vue";
 import KdsButton from "../../buttons/KdsButton.vue";
 import KdsLabel from "../KdsLabel.vue";
 import KdsSubText from "../KdsSubText.vue";
 
 import KdsBaseInput from "./BaseInput.vue";
+import KdsDropdownContainer from "./Dropdown/KdsDropdownContainer.vue";
+import KdsListContainer from "./Dropdown/KdsListContainer.vue";
+import KdsListItem from "./Dropdown/KdsListItem.vue";
+import KdsListItemAction from "./Dropdown/KdsListItemAction.vue";
+import type { KdsDropdownContainerExposed } from "./Dropdown/types";
+import KdsSearchInput from "./KdsSearchInput.vue";
 import type {
   KdsDropdownEmits,
   KdsDropdownOption,
@@ -20,9 +25,7 @@ const props = withDefaults(defineProps<KdsDropdownProps>(), {
   error: false,
   validating: false,
   preserveSubTextSpace: false,
-  searchable: true,
   noEntriesText: "No entries found",
-  ariaLabel: undefined,
 });
 
 const emit = defineEmits<KdsDropdownEmits>();
@@ -48,32 +51,16 @@ const ariaDescribedby = computed(() =>
     : undefined,
 );
 
-const popoverRef = ref<HTMLElement | null>(null);
+const dropdownContainerRef = ref<KdsDropdownContainerExposed | null>(null);
 
 const anchorName = computed(() => `--kds-dropdown-${generatedId}`);
 
 const showNativePopover = () => {
-  if (!popoverRef.value) {
-    return;
-  }
-
-  try {
-    (popoverRef.value as unknown as { showPopover: () => void }).showPopover();
-  } catch {
-    // no-op
-  }
+  dropdownContainerRef.value?.showPopover();
 };
 
 const hideNativePopover = () => {
-  if (!popoverRef.value) {
-    return;
-  }
-
-  try {
-    (popoverRef.value as unknown as { hidePopover: () => void }).hidePopover();
-  } catch {
-    // no-op
-  }
+  dropdownContainerRef.value?.hidePopover();
 };
 const searchInputId = computed(() => `${generatedId}-search`);
 
@@ -114,7 +101,7 @@ const filteredOptions = computed(() => {
   const normalizedQuery = searchQuery.value.trim().toLowerCase();
 
   const base = optionsWithSyntheticMissing.value;
-  if (!props.searchable || normalizedQuery.length === 0) {
+  if (normalizedQuery.length === 0) {
     return base;
   }
 
@@ -168,12 +155,10 @@ const openDropdown = () => {
     searchQuery.value = "";
     setActiveIndexToSelected();
 
-    if (props.searchable) {
-      const searchEl = document.getElementById(searchInputId.value);
-      if (searchEl) {
-        searchEl.focus();
-        return;
-      }
+    const searchEl = document.getElementById(searchInputId.value);
+    if (searchEl) {
+      searchEl.focus();
+      return;
     }
 
     const triggerEl = document.getElementById(inputId.value);
@@ -418,7 +403,6 @@ const onPopoverToggle = (event: Event) => {
         :error="props.error"
         :validating="props.validating"
         :text-color="isMissingDraft ? 'danger' : 'neutral'"
-        :aria-label="props.label ? undefined : props.ariaLabel"
         :aria-labelledby="ariaLabelledby"
         :aria-describedby="ariaDescribedby"
         role="combobox"
@@ -445,83 +429,53 @@ const onPopoverToggle = (event: Event) => {
         </template>
       </KdsBaseInput>
 
-      <div
-        ref="popoverRef"
-        class="popover"
-        popover="auto"
-        :style="{ 'position-anchor': anchorName }"
+      <KdsDropdownContainer
+        ref="dropdownContainerRef"
+        :anchor-name="anchorName"
         @toggle="onPopoverToggle"
       >
-        <div v-if="props.searchable" class="sticky-top">
-          <KdsBaseInput
+        <template #stickyTop>
+          <KdsSearchInput
             :id="searchInputId"
             v-model="searchQuery"
-            type="search"
             placeholder="Search"
-            leading-icon="search"
-            :clearable="true"
-            :aria-label="'Search'"
             @keydown="onTriggerKeydown"
-            @click.stop
           />
-        </div>
+        </template>
 
-        <ul
+        <KdsListContainer
           :id="listboxId"
-          class="list"
-          role="listbox"
           :aria-labelledby="ariaLabelledby"
-          @click.stop
+          :empty="filteredOptions.length === 0"
+          :empty-text="props.noEntriesText"
         >
-          <li
-            v-if="filteredOptions.length === 0"
-            class="empty"
-            aria-disabled="true"
-          >
-            {{ props.noEntriesText }}
-          </li>
-
-          <li
+          <KdsListItem
             v-for="(option, index) in filteredOptions"
             :id="optionId(index)"
             :key="option.value"
-            role="option"
-            :aria-selected="draftValue === option.value"
-            :aria-disabled="option.disabled"
-            :class="{
-              option: true,
-              active: index === activeIndex,
-              selected: draftValue === option.value,
-              disabled: option.disabled,
-              missing: option.missing,
-            }"
+            :label="option.label"
+            :data-type-icon-name="option.dataTypeIconName"
+            :missing="option.missing"
+            :disabled="option.disabled"
+            :active="index === activeIndex"
+            :selected="draftValue === option.value"
             @mouseenter="activeIndex = index"
             @click="onOptionClick(option)"
           >
-            <div class="option-content">
-              <KdsDataType
-                v-if="option.dataTypeIconName"
-                size="small"
-                :icon-name="option.dataTypeIconName"
-              />
-
-              <span v-if="option.missing" class="missing-label">(Missing)</span>
-              <span class="label">{{ option.label }}</span>
-            </div>
-
-            <KdsButton
+            <template
               v-if="option.missing && option.value === modelValue"
-              type="button"
-              size="xsmall"
-              variant="transparent"
-              leading-icon="trash"
-              aria-label="Remove missing selection"
-              title="Remove"
-              @click.stop="onDeleteMissing"
-            />
-          </li>
-        </ul>
-      </div>
+              #trailing
+            >
+              <KdsListItemAction
+                icon="trash"
+                aria-label="Remove missing selection"
+                title="Remove"
+                @click="onDeleteMissing"
+              />
+            </template>
+          </KdsListItem>
+        </KdsListContainer>
+      </KdsDropdownContainer>
     </div>
 
     <KdsSubText
@@ -534,4 +488,13 @@ const onPopoverToggle = (event: Event) => {
   </div>
 </template>
 
-<style scoped src="./KdsDropdown.css"></style>
+<style scoped>
+.dropdown {
+  display: flex;
+  flex-direction: column;
+}
+
+.trigger {
+  position: relative;
+}
+</style>

@@ -13,10 +13,10 @@ import KdsDropdown from "./KdsDropdown.vue";
 type Story = StoryObj<typeof KdsDropdown>;
 
 const baseOptions = [
-  { value: "a", label: "Label", dataTypeIconName: "string-datatype" },
-  { value: "b", label: "Label", dataTypeIconName: "string-datatype" },
-  { value: "c", label: "Label", dataTypeIconName: "string-datatype" },
-  { value: "d", label: "Label", dataTypeIconName: "string-datatype" },
+  { value: "a", label: "Option A", dataTypeIconName: "string-datatype" },
+  { value: "b", label: "Option B", dataTypeIconName: "string-datatype" },
+  { value: "c", label: "Option C", dataTypeIconName: "string-datatype" },
+  { value: "d", label: "Option D", dataTypeIconName: "string-datatype" },
 ];
 
 const meta: Meta<typeof KdsDropdown> = {
@@ -59,10 +59,6 @@ const meta: Meta<typeof KdsDropdown> = {
       control: "object",
       table: { category: "Props" },
     },
-    searchable: {
-      control: "boolean",
-      table: { category: "Props" },
-    },
     noEntriesText: {
       control: "text",
       table: { category: "Props" },
@@ -91,18 +87,13 @@ const meta: Meta<typeof KdsDropdown> = {
       control: "boolean",
       table: { category: "Props" },
     },
-    ariaLabel: {
-      control: "text",
-      table: { category: "Props" },
-    },
   },
   args: {
     modelValue: null,
     open: false,
     label: "Label",
-    placeholder: "{text}",
+    placeholder: "Select an option",
     options: baseOptions,
-    searchable: true,
     noEntriesText: "No entries found",
     disabled: false,
     required: false,
@@ -110,7 +101,6 @@ const meta: Meta<typeof KdsDropdown> = {
     validating: false,
     subText: "",
     preserveSubTextSpace: false,
-    ariaLabel: "Dropdown",
   },
   decorators: [
     (story) => {
