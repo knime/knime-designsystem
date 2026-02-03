@@ -1,15 +1,13 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, useId, watch } from "vue";
+import { computed, ref, useId, watch } from "vue";
 
 import KdsButton from "../../buttons/KdsButton.vue";
 import KdsLabel from "../KdsLabel.vue";
 import KdsSubText from "../KdsSubText.vue";
 
-import KdsBaseInput from "./BaseInput.vue";
-import KdsDropdownContainer from "./Dropdown/KdsDropdownContainer.vue";
+import BaseDropdown from "./BaseDropdown/BaseDropdown.vue";
 import KdsListContainer from "./Dropdown/KdsListContainer.vue";
 import KdsListItem from "./Dropdown/KdsListItem.vue";
-import type { KdsDropdownContainerExposed } from "./Dropdown/types";
 import KdsSearchInput from "./KdsSearchInput.vue";
 import type {
   KdsDropdownEmits,
@@ -49,18 +47,6 @@ const ariaDescribedby = computed(() =>
     ? subTextId.value
     : undefined,
 );
-
-const dropdownContainerRef = ref<KdsDropdownContainerExposed | null>(null);
-
-const anchorName = computed(() => `--kds-dropdown-${generatedId}`);
-
-const showNativePopover = () => {
-  dropdownContainerRef.value?.showPopover();
-};
-
-const hideNativePopover = () => {
-  dropdownContainerRef.value?.hidePopover();
-};
 const searchInputId = computed(() => `${generatedId}-search`);
 
 const searchQuery = ref("");
@@ -144,24 +130,9 @@ const openDropdown = (initialSearchQuery?: string) => {
     return;
   }
 
-  draftValue.value = modelValue.value;
-  updateInputDisplayValue();
-
-  if (initialSearchQuery === undefined) {
-    searchQuery.value = "";
-    setActiveIndexToSelected();
-  } else {
-    searchQuery.value = initialSearchQuery;
-    activeIndex.value = 0;
-  }
-
+  // Set search query before opening so the open watcher can derive active index
+  searchQuery.value = initialSearchQuery ?? "";
   open.value = true;
-  showNativePopover();
-
-  nextTick(() => {
-    const triggerEl = document.getElementById(inputId.value);
-    triggerEl?.focus();
-  });
 };
 
 const closeDropdown = () => {
@@ -169,10 +140,7 @@ const closeDropdown = () => {
     return;
   }
 
-  hideNativePopover();
   open.value = false;
-  searchQuery.value = "";
-  activeIndex.value = -1;
 };
 
 const commitSelection = (value: string | null) => {
@@ -185,14 +153,27 @@ const revertDraft = () => {
   updateInputDisplayValue();
 };
 
-const toggle = () => {
-  if (open.value) {
-    closeDropdown();
+watch(
+  () => open.value,
+  (isOpen) => {
+    if (isOpen) {
+      draftValue.value = modelValue.value;
+      updateInputDisplayValue();
+
+      if (searchQuery.value.length === 0) {
+        setActiveIndexToSelected();
+      } else {
+        activeIndex.value = 0;
+      }
+
+      return;
+    }
+
+    searchQuery.value = "";
+    activeIndex.value = -1;
     revertDraft();
-    return;
-  }
-  openDropdown();
-};
+  },
+);
 
 watch(
   () => modelValue.value,
@@ -416,29 +397,6 @@ const ariaActiveDescendant = computed(() => {
     ? optionId(activeIndex.value)
     : undefined;
 });
-
-const onPopoverToggle = (event: Event) => {
-  const toggleEvent = event as Event & { newState?: "open" | "closed" };
-  if (toggleEvent.newState === "open") {
-    if (open.value) {
-      return;
-    }
-
-    open.value = true;
-    draftValue.value = modelValue.value;
-    updateInputDisplayValue();
-    searchQuery.value = "";
-    setActiveIndexToSelected();
-    return;
-  }
-
-  if (toggleEvent.newState === "closed") {
-    open.value = false;
-    searchQuery.value = "";
-    activeIndex.value = -1;
-    revertDraft();
-  }
-};
 </script>
 
 <template>
@@ -450,84 +408,67 @@ const onPopoverToggle = (event: Event) => {
       :label="props.label"
     />
 
-    <div class="trigger" :style="{ 'anchor-name': anchorName }">
-      <KdsBaseInput
-        :id="inputId"
-        v-model="inputDisplayValue"
-        type="text"
-        :placeholder="props.placeholder"
-        :trailing-icon="open ? 'chevron-up' : 'chevron-down'"
-        :disabled="props.disabled"
-        as="button"
-        :readonly="true"
-        :required="props.required"
-        :error="props.error"
-        :validating="props.validating"
-        :text-color="isMissingDraft ? 'danger' : 'neutral'"
+    <BaseDropdown
+      :id="inputId"
+      v-model="inputDisplayValue"
+      v-model:open="open"
+      :placeholder="props.placeholder"
+      :trailing-icon="open ? 'chevron-up' : 'chevron-down'"
+      :disabled="props.disabled"
+      :error="props.error"
+      :text-color="isMissingDraft ? 'danger' : 'neutral'"
+      :aria-labelledby="ariaLabelledby"
+      :aria-describedby="ariaDescribedby"
+      role="combobox"
+      aria-autocomplete="list"
+      aria-haspopup="listbox"
+      :aria-controls="listboxId"
+      :aria-activedescendant="ariaActiveDescendant"
+      @focus="emit('focus', $event)"
+      @blur="emit('blur', $event)"
+      @keydown="onTriggerKeydown"
+    >
+      <template #stickyTop>
+        <KdsSearchInput
+          :id="searchInputId"
+          v-model="searchQuery"
+          placeholder="Search"
+          @keydown="onTriggerKeydown"
+        />
+      </template>
+
+      <KdsListContainer
+        :id="listboxId"
         :aria-labelledby="ariaLabelledby"
-        :aria-describedby="ariaDescribedby"
-        role="combobox"
-        aria-autocomplete="list"
-        aria-haspopup="listbox"
-        :aria-expanded="open"
-        :aria-controls="listboxId"
-        :aria-activedescendant="ariaActiveDescendant"
-        @focus="emit('focus', $event)"
-        @blur="emit('blur', $event)"
-        @keydown="onTriggerKeydown"
-        @click="toggle"
-      />
-
-      <KdsDropdownContainer
-        ref="dropdownContainerRef"
-        :anchor-name="anchorName"
-        @toggle="onPopoverToggle"
+        :empty="filteredOptions.length === 0"
+        :empty-text="props.noEntriesText"
       >
-        <template #stickyTop>
-          <KdsSearchInput
-            :id="searchInputId"
-            v-model="searchQuery"
-            placeholder="Search"
-            @keydown="onTriggerKeydown"
-          />
-        </template>
-
-        <KdsListContainer
-          :id="listboxId"
-          :aria-labelledby="ariaLabelledby"
-          :empty="filteredOptions.length === 0"
-          :empty-text="props.noEntriesText"
+        <KdsListItem
+          v-for="(option, index) in filteredOptions"
+          :id="optionId(index)"
+          :key="option.id"
+          :text="option.text"
+          :leading-icon="option.leadingIcon"
+          :missing="option.missing"
+          :disabled="option.disabled"
+          :active="index === activeIndex"
+          :selected="draftValue === option.id"
+          @mouseenter="activeIndex = index"
+          @click="onOptionClick(option)"
         >
-          <KdsListItem
-            v-for="(option, index) in filteredOptions"
-            :id="optionId(index)"
-            :key="option.id"
-            :text="option.text"
-            :leading-icon="option.leadingIcon"
-            :missing="option.missing"
-            :disabled="option.disabled"
-            :active="index === activeIndex"
-            :selected="draftValue === option.id"
-            @mouseenter="activeIndex = index"
-            @click="onOptionClick(option)"
-          >
-            <template
-              v-if="option.missing && option.id === modelValue"
-              #trailing
-            >
-              <KdsButton
-                leading-icon="trash"
-                aria-label="Remove missing selection"
-                title="Remove"
-                variant="transparent"
-                destructive
-                @click="onDeleteMissing"
-              />
-            </template>
-          </KdsListItem>
-        </KdsListContainer>
-      </KdsDropdownContainer>
-    </div>
+          <template v-if="option.missing && option.id === modelValue" #trailing>
+            <KdsButton
+              leading-icon="trash"
+              aria-label="Remove missing selection"
+              title="Remove"
+              variant="transparent"
+              destructive
+              @click="onDeleteMissing"
+            />
+          </template>
+        </KdsListItem>
+      </KdsListContainer>
+    </BaseDropdown>
 
     <KdsSubText
       :id="subTextId"
@@ -543,9 +484,5 @@ const onPopoverToggle = (event: Event) => {
 .dropdown {
   display: flex;
   flex-direction: column;
-}
-
-.trigger {
-  position: relative;
 }
 </style>
