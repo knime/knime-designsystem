@@ -94,7 +94,7 @@ const anchorId = `--${useId()}`;
   margin-right: 0;
   position-try-fallbacks:
     --kds-popover-try-top-right, --kds-popover-try-bottom-left,
-    --kds-popover-try-bottom-right;
+    --kds-popover-try-bottom-right, --kds-popover-try-top-left;
 }
 
 .floating.top-right {
@@ -102,7 +102,7 @@ const anchorId = `--${useId()}`;
   margin-left: 0;
   position-try-fallbacks:
     --kds-popover-try-top-left, --kds-popover-try-bottom-right,
-    --kds-popover-try-bottom-left;
+    --kds-popover-try-bottom-left, --kds-popover-try-top-right;
 }
 
 .floating.bottom-left {
@@ -110,7 +110,7 @@ const anchorId = `--${useId()}`;
   margin-right: 0;
   position-try-fallbacks:
     --kds-popover-try-bottom-right, --kds-popover-try-top-left,
-    --kds-popover-try-top-right;
+    --kds-popover-try-top-right, --kds-popover-try-bottom-left;
 }
 
 .floating.bottom-right {
@@ -118,7 +118,7 @@ const anchorId = `--${useId()}`;
   margin-left: 0;
   position-try-fallbacks:
     --kds-popover-try-bottom-left, --kds-popover-try-top-right,
-    --kds-popover-try-top-left;
+    --kds-popover-try-top-left, --kds-popover-try-bottom-right;
 }
 
 @position-try --kds-popover-try-top-left {
