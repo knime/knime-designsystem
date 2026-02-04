@@ -153,59 +153,41 @@ watch(activeIndex, async (index) => {
 </script>
 
 <template>
-  <div :class="{ 'menu-list-wrapper': true, empty: isEmpty }">
-    <ul
-      :id="listboxId"
-      class="menu-list"
-      role="listbox"
-      :aria-label="props.ariaLabel"
-      :aria-labelledby="props.ariaLabelledby"
-      :aria-activedescendant="ariaActiveDescendant"
-      tabindex="0"
-      @focus="ensureActiveIndexInitialized"
-      @click.stop
-      @keydown="onListboxKeydown"
-    >
-      <MenuItem
-        v-for="(item, index) in props.items"
-        :id="optionId(index)"
-        :key="item.id"
-        :item="item"
-        :selected="isSelected(item)"
-        :active="index === activeIndex"
-        @mouseenter="!item.disabled && (activeIndex = index)"
-        @click="
-          () => {
-            activeIndex = index;
-            handleSelect(item);
-          }
-        "
-      />
+  <ul
+    :id="listboxId"
+    role="listbox"
+    :aria-label="props.ariaLabel"
+    :aria-labelledby="props.ariaLabelledby"
+    :aria-activedescendant="ariaActiveDescendant"
+    tabindex="0"
+    @focus="ensureActiveIndexInitialized"
+    @click.stop
+    @keydown="onListboxKeydown"
+  >
+    <MenuItem
+      v-for="(item, index) in props.items"
+      :id="optionId(index)"
+      :key="item.id"
+      :item="item"
+      :selected="isSelected(item)"
+      :active="index === activeIndex"
+      @mouseenter="!item.disabled && (activeIndex = index)"
+      @click="
+        () => {
+          activeIndex = index;
+          handleSelect(item);
+        }
+      "
+    />
 
-      <div v-if="isEmpty" class="empty-state">
-        {{ props.emptyText }}
-      </div>
-    </ul>
-  </div>
+    <div v-if="isEmpty" class="empty-state">
+      {{ props.emptyText }}
+    </div>
+  </ul>
 </template>
 
 <style scoped>
-.menu-list-wrapper {
-  overflow: hidden;
-  border: var(--kds-border-base-subtle);
-  border-radius: var(--kds-border-radius-container-0-31x);
-
-  &:focus-within {
-    outline: var(--kds-border-action-focused);
-    outline-offset: var(--kds-spacing-offset-focus);
-  }
-
-  &.empty {
-    height: calc(var(--kds-dimension-component-height-1-5x) * 6);
-  }
-}
-
-.menu-list {
+ul {
   display: flex;
   flex-direction: column;
   gap: var(--kds-spacing-container-0-12x);
@@ -215,9 +197,12 @@ watch(activeIndex, async (index) => {
   overflow: auto;
   overscroll-behavior: contain;
   list-style: none;
+  border: var(--kds-border-base-subtle);
+  border-radius: var(--kds-border-radius-container-0-31x);
 
-  &:focus {
-    outline: none;
+  &:focus-visible {
+    outline: var(--kds-border-action-focused);
+    outline-offset: var(--kds-spacing-offset-focus);
   }
 }
 
