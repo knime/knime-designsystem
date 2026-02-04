@@ -3,6 +3,7 @@ import { computed, nextTick, ref, useId, watch } from "vue";
 
 import KdsIcon from "../../Icon/KdsIcon.vue";
 import KdsButton from "../../buttons/KdsButton.vue";
+import KdsPopover from "../../overlays/Popover/KdsPopover.vue";
 import KdsLabel from "../KdsLabel.vue";
 import KdsSubText from "../KdsSubText.vue";
 import KdsValueSwitch from "../RadioButton/KdsValueSwitch.vue";
@@ -28,7 +29,7 @@ const props = withDefaults(defineProps<KdsDateTimeFormatInputProps>(), {
 });
 
 const modelValue = defineModel<string>({ default: "" });
-const open = defineModel<boolean>("open", { default: false });
+const open = ref(false);
 
 const selectedMode = ref(props.modeOptions[0] ?? "Date");
 const selectedLocale = ref(props.localeOptions[0] ?? "Recent");
@@ -39,7 +40,6 @@ const labelId = computed(() => `${generatedId}-label`);
 const subTextId = computed(() => `${generatedId}-subtext`);
 
 const formatButtonId = computed(() => `${generatedId}-format-button`);
-const popoverId = computed(() => `${generatedId}-format-popover`);
 const listboxId = computed(() => `${generatedId}-format-listbox`);
 
 const ariaLabelledby = computed(() =>
@@ -51,62 +51,23 @@ const ariaDescribedby = computed(() =>
     : undefined,
 );
 
-const anchorName = computed(() => `--kds-date-time-format-${generatedId}`);
-
-const popoverEl = ref<HTMLElement | null>(null);
+const popoverContentEl = ref<HTMLElement | null>(null);
 const formatButtonWrapperEl = ref<HTMLElement | null>(null);
-
-const showPopover = () => {
-  if (!popoverEl.value) {
-    return;
-  }
-
-  try {
-    (popoverEl.value as unknown as { showPopover: () => void }).showPopover();
-  } catch {
-    // no-op
-  }
-};
-
-const hidePopover = () => {
-  if (!popoverEl.value) {
-    return;
-  }
-
-  try {
-    (popoverEl.value as unknown as { hidePopover: () => void }).hidePopover();
-  } catch {
-    // no-op
-  }
-};
 
 watch(
   () => open.value,
   (isOpen) => {
-    if (!popoverEl.value) {
-      return;
-    }
-
     if (isOpen) {
-      if (popoverEl.value.matches(":popover-open")) {
-        return;
-      }
-
-      showPopover();
       nextTick(() => {
-        const firstRadio = popoverEl.value?.querySelector<HTMLButtonElement>(
-          'button[role="radio"]:not(:disabled)',
-        );
+        const firstRadio =
+          popoverContentEl.value?.querySelector<HTMLButtonElement>(
+            'button[role="radio"]:not(:disabled)',
+          );
         firstRadio?.focus();
       });
       return;
     }
 
-    if (!popoverEl.value.matches(":popover-open")) {
-      return;
-    }
-
-    hidePopover();
     nextTick(() => {
       const button =
         formatButtonWrapperEl.value?.querySelector<HTMLButtonElement>(
@@ -117,16 +78,6 @@ watch(
   },
   { immediate: true },
 );
-
-const handlePopoverToggle = (event: Event) => {
-  const toggleEvent = event as Event & { newState?: "open" | "closed" };
-  if (toggleEvent.newState === "open") {
-    open.value = true;
-  }
-  if (toggleEvent.newState === "closed") {
-    open.value = false;
-  }
-};
 
 const formatOptions = computed(() => props.formatOptions);
 
@@ -153,7 +104,7 @@ const handleListKeydown = (event: KeyboardEvent) => {
   }
 
   const buttons = Array.from(
-    popoverEl.value?.querySelectorAll<HTMLButtonElement>(
+    popoverContentEl.value?.querySelectorAll<HTMLButtonElement>(
       '[data-format-item="true"]',
     ) ?? [],
   );
@@ -190,7 +141,7 @@ const handlePopoverKeydownCapture = (event: KeyboardEvent) => {
 </script>
 
 <template>
-  <div class="date-time-format-input" :style="{ 'anchor-name': anchorName }">
+  <div class="date-time-format-input">
     <KdsLabel
       v-if="props.label"
       :id="labelId"
@@ -198,60 +149,49 @@ const handlePopoverKeydownCapture = (event: KeyboardEvent) => {
       :label="props.label"
     />
 
-    <KdsBaseInput
-      :id="inputId"
-      v-model="modelValue"
-      type="text"
-      :placeholder="props.placeholder"
-      :disabled="props.disabled"
-      :readonly="props.readonly"
-      :required="props.required"
-      :error="props.error"
-      :validating="props.validating"
-      :name="props.name"
-      :autocomplete="props.autocomplete"
-      :aria-labelledby="ariaLabelledby"
-      :aria-describedby="ariaDescribedby"
-    >
-      <template #trailing>
-        <div ref="formatButtonWrapperEl" class="format-button-wrapper">
-          <KdsButton
-            :id="formatButtonId"
-            type="button"
-            size="xsmall"
-            variant="outlined"
-            leading-icon="date-time"
-            aria-label="Open date/time format picker"
-            title="Open date/time format picker"
-            :disabled="props.disabled || props.readonly"
-            :popovertarget="popoverId"
-            aria-haspopup="dialog"
-            :aria-expanded="open"
-            :aria-controls="popoverId"
-          />
-        </div>
+    <KdsPopover v-model="open" placement="bottom-left">
+      <template #activator>
+        <KdsBaseInput
+          :id="inputId"
+          v-model="modelValue"
+          type="text"
+          :placeholder="props.placeholder"
+          :disabled="props.disabled"
+          :readonly="props.readonly"
+          :required="props.required"
+          :error="props.error"
+          :validating="props.validating"
+          :name="props.name"
+          :autocomplete="props.autocomplete"
+          :aria-labelledby="ariaLabelledby"
+          :aria-describedby="ariaDescribedby"
+        >
+          <template #trailing>
+            <div ref="formatButtonWrapperEl" class="format-button-wrapper">
+              <KdsButton
+                :id="formatButtonId"
+                type="button"
+                size="xsmall"
+                variant="outlined"
+                leading-icon="date-time"
+                aria-label="Open date/time format picker"
+                title="Open date/time format picker"
+                :disabled="props.disabled || props.readonly"
+                :aria-haspopup="'dialog'"
+                :aria-expanded="open"
+                @click.stop="open = !open"
+              />
+            </div>
+          </template>
+        </KdsBaseInput>
       </template>
-    </KdsBaseInput>
 
-    <KdsSubText
-      :id="subTextId"
-      :sub-text="props.subText"
-      :error="props.error"
-      :validating="props.validating"
-      :preserve-sub-text-space="props.preserveSubTextSpace"
-    />
-
-    <div
-      :id="popoverId"
-      ref="popoverEl"
-      class="popover"
-      popover
-      :style="{ 'position-anchor': anchorName }"
-      @toggle="handlePopoverToggle"
-      @click.stop
-      @keydown.capture="handlePopoverKeydownCapture"
-    >
-      <div class="popover-content">
+      <div
+        ref="popoverContentEl"
+        class="popover-content"
+        @click.stop
+        @keydown.capture="handlePopoverKeydownCapture"
+      >
         <KdsValueSwitch
           v-model="selectedMode"
           size="small"
@@ -309,7 +249,15 @@ const handlePopoverKeydownCapture = (event: KeyboardEvent) => {
           </div>
         </div>
       </div>
-    </div>
+    </KdsPopover>
+
+    <KdsSubText
+      :id="subTextId"
+      :sub-text="props.subText"
+      :error="props.error"
+      :validating="props.validating"
+      :preserve-sub-text-space="props.preserveSubTextSpace"
+    />
   </div>
 </template>
 
@@ -323,36 +271,6 @@ const handlePopoverKeydownCapture = (event: KeyboardEvent) => {
   display: flex;
   flex-shrink: 0;
   align-items: center;
-}
-
-.popover {
-  flex-direction: column;
-  width: max-content;
-  padding: 0;
-  overflow: visible;
-  outline: none;
-  background: var(--kds-color-surface-default);
-  border: none;
-  border-radius: var(--kds-border-radius-container-0-50x);
-  box-shadow: var(--kds-elevation-level-3);
-
-  &:popover-open {
-    display: flex;
-  }
-}
-
-.popover[popover] {
-  position: fixed;
-  inset: calc(anchor(bottom) + var(--kds-spacing-container-0-25x)) anchor(right)
-    auto auto;
-  margin: 0;
-  position-try-fallbacks: --kds-date-time-format-popover-above;
-}
-
-@position-try --kds-date-time-format-popover-above {
-  /* stylelint-disable-next-line at-rule-descriptor-value-no-unknown */
-  inset: auto anchor(right)
-    calc(anchor(top) - var(--kds-spacing-container-0-25x)) auto;
 }
 
 .popover-content {

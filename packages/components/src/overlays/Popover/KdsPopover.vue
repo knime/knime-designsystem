@@ -81,7 +81,7 @@ const anchorId = `--${useId()}`;
 
 <style scoped>
 .activator {
-  display: inline-flex;
+  display: block;
 }
 
 .floating {

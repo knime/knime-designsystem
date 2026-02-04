@@ -44,11 +44,6 @@ const meta: Meta<typeof KdsDateTimeFormatInput> = {
       description: "v-model binding for the format string",
       table: { category: "Model" },
     },
-    open: {
-      control: "boolean",
-      description: "v-model binding for the popover open state",
-      table: { category: "Model" },
-    },
     label: {
       control: "text",
       table: { category: "Props" },
@@ -112,7 +107,6 @@ const meta: Meta<typeof KdsDateTimeFormatInput> = {
   },
   args: {
     modelValue: "",
-    open: false,
     label: "Label",
     placeholder: "{Formatted Value}",
     name: "",
@@ -141,7 +135,7 @@ const meta: Meta<typeof KdsDateTimeFormatInput> = {
           };
         },
         template:
-          '<story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" @update:open="(value) => updateArgs({ open: value })" />',
+          '<story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" />',
       };
     },
   ],
@@ -186,15 +180,37 @@ export const Validating: Story = {
 };
 
 export const PopoverOpen: Story = {
-  args: {
-    open: true,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Opens the popover via interaction (since the open state is internal-only).",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const formatButton = canvas.getByLabelText("Open date/time format picker");
+    await userEvent.click(formatButton);
   },
 };
 
 export const PopoverEmpty: Story = {
   args: {
-    open: true,
     formatOptions: [],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Opens the popover with an empty list via interaction (since the open state is internal-only).",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const formatButton = canvas.getByLabelText("Open date/time format picker");
+    await userEvent.click(formatButton);
   },
 };
 
@@ -264,14 +280,13 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6203-36487":
           {
             modelValue: "yyyy-MM-dd",
-            open: true,
+            // open is internal-only; popover variants are handled in `.DateTimeFormatPopover`
           },
       },
     },
     ".DateTimeFormatPopover": {
       props: {
         modelValue: "yyyy-MM-dd",
-        open: true,
         formatOptions: sampleOptions,
       },
       variants: {
