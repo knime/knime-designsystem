@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
-import { kdsButtonVariants } from "../Button/constants";
+import { kdsButtonVariants } from "../buttons/constants";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,

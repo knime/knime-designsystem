@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-import KdsButton from "../Button/KdsButton.vue";
-import KdsLinkButton from "../Button/KdsLinkButton.vue";
+import KdsButton from "../buttons/KdsButton.vue";
+import KdsLinkButton from "../buttons/KdsLinkButton.vue";
 import { isDefinedAndNotEmpty } from "../util/isDefinedAndNotEmpty";
 
 import type { KdsEmptyStateProps } from "./types";

@@ -4,7 +4,7 @@ import type {
   PrefixedKdsButtonProps,
   PrefixedKdsLinkButtonProps,
   PrefixedRouterNavigationAsNever,
-} from "../Button/types";
+} from "../buttons/types";
 
 type CommonProps = {
   headline: string;
