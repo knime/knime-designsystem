@@ -1,4 +1,5 @@
-import type { KdsDateTimeFormatEntry } from "./types";
+/* eslint-disable max-lines */
+import type { KdsDateTimeFormatEntry } from "../types.ts";
 
 export const dateFormats: KdsDateTimeFormatEntry[] = [
   {

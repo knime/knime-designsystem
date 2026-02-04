@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-import KdsIcon from "../../../Icon/KdsIcon.vue";
+import KdsIcon from "../../../../Icon/KdsIcon.vue";
 
-import type { MenuListItem, MenuListProps } from "./types";
+import type { MenuListItem, MenuListProps } from "./types.ts";
 
 const props = withDefaults(defineProps<MenuListProps>(), {
   emptyText: "No entries in this list",

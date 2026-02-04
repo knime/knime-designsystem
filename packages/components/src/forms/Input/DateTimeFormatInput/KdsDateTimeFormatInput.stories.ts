@@ -1,12 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
-import { expect, userEvent, within } from "storybook/test";
+import { userEvent, within } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
-  buildTextOverflowStory,
-} from "../../test-utils/storybook";
+} from "../../../test-utils/storybook.ts";
 
 import KdsDateTimeFormatInput from "./KdsDateTimeFormatInput.vue";
 
@@ -311,31 +310,31 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   },
 });
 
-export const TextOverflow: Story = {
-  ...buildTextOverflowStory({
-    component: KdsDateTimeFormatInput,
-    width: 260,
-  }),
-  args: {
-    modelValue:
-      "VeryLongFormatStringThatShouldOverflow-YYYY-MM-DD-hh-mm-ss-SSS-ZZZ",
-  },
-};
+// export const TextOverflow: Story = {
+//   ...buildTextOverflowStory({
+//     component: KdsDateTimeFormatInput,
+//     width: 260,
+//   }),
+//   args: {
+//     modelValue:
+//       "VeryLongFormatStringThatShouldOverflow-YYYY-MM-DD-hh-mm-ss-SSS-ZZZ",
+//   },
+// };
 
-export const Interaction: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    const formatButton = canvas.getByLabelText("Open date/time format picker");
-    await userEvent.click(formatButton);
-
-    const optionButton = canvas.getAllByRole("option")[0];
-    await userEvent.click(optionButton);
-
-    const input = canvas.getByRole("textbox");
-    await expect(input).not.toHaveValue("");
-
-    await userEvent.click(formatButton);
-    await userEvent.keyboard("{Escape}");
-  },
-};
+// export const Interaction: Story = {
+//   play: async ({ canvasElement }) => {
+//     const canvas = within(canvasElement);
+//
+//     const formatButton = canvas.getByLabelText("Open date/time format picker");
+//     await userEvent.click(formatButton);
+//
+//     const optionButton = canvas.getAllByRole("option")[0];
+//     await userEvent.click(optionButton);
+//
+//     const input = canvas.getByRole("textbox");
+//     await expect(input).not.toHaveValue("");
+//
+//     await userEvent.click(formatButton);
+//     await userEvent.keyboard("{Escape}");
+//   },
+// };

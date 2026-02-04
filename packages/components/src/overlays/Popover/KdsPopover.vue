@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, useId, watch } from "vue";
 
-import BasePopover from "./BasePopover.vue";
 import type { KdsPopoverProps } from "./types";
 
 const props = withDefaults(defineProps<KdsPopoverProps>(), {
@@ -70,10 +69,7 @@ const anchorId = `--${useId()}`;
       :style="'position-anchor: ' + anchorId"
       @toggle="onNativeToggle"
     >
-      <BasePopover>
-        <slot />
-      </BasePopover>
-
+      <slot />
       <div class="arrow" aria-hidden="true" />
     </div>
   </div>
