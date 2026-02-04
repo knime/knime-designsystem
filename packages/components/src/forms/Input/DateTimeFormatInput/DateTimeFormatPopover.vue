@@ -112,14 +112,16 @@ const effectiveSelectedMode = computed(() => {
     return "";
   }
 
-  const fromModel = selectedModeFromModel.value;
-  if (fromModel && modes.includes(fromModel)) {
-    return fromModel;
-  }
-
+  // If the user actively selected a mode, keep it (as long as it's valid).
   const manual = selectedMode.value;
   if (manual && modes.includes(manual)) {
     return manual;
+  }
+
+  // Otherwise, derive it from the current selected format if possible.
+  const fromModel = selectedModeFromModel.value;
+  if (fromModel && modes.includes(fromModel)) {
+    return fromModel;
   }
 
   return modes[0]!;
@@ -132,14 +134,16 @@ const effectiveSelectedLocale = computed(() => {
     return "";
   }
 
-  const fromModel = selectedLocaleFromModel.value;
-  if (fromModel && locales.includes(fromModel)) {
-    return fromModel;
-  }
-
+  // If the user actively selected a locale, keep it (as long as it's valid).
   const manual = selectedLocale.value;
   if (manual && locales.includes(manual)) {
     return manual;
+  }
+
+  // Otherwise, derive it from the current selected format if possible.
+  const fromModel = selectedLocaleFromModel.value;
+  if (fromModel && locales.includes(fromModel)) {
+    return fromModel;
   }
 
   return locales[0]!;
@@ -181,7 +185,7 @@ const menuItems = computed(() => {
 </script>
 
 <template>
-  <div class="popover-content" role="listbox">
+  <div class="popover-content">
     <KdsValueSwitch
       v-if="modeOptions.length > 1"
       :model-value="effectiveSelectedMode"

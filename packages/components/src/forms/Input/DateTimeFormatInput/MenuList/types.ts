@@ -12,3 +12,15 @@ export type MenuListProps = {
   items: MenuListItem[];
   emptyText?: string;
 };
+
+export type MenuItemProps = {
+  id: string;
+  item: MenuListItem;
+  selected: boolean;
+  active: boolean;
+};
+
+export type MenuItemEmits = {
+  click: [];
+  mouseenter: [];
+};

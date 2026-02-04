@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
-import { expect, userEvent, within } from "storybook/test";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
@@ -205,17 +205,54 @@ export const PopoverOpen: Story = {
   },
 };
 
-export const PopoverEmpty: Story = {
+export const PopoverKeyboardSelection: Story = {
   args: {
-    allDefaultFormats: [],
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Overrides `allDefaultFormats` with an empty list to demonstrate the empty state.",
+    modelValue: "",
+    allowedFormats: ["DATE"],
+    allDefaultFormats: [
+      {
+        format: "yyyy-MM-dd",
+        temporalType: "DATE",
+        category: "RECENT",
+        example: "2026-02-04",
       },
-    },
+      {
+        format: "MM/dd/yyyy",
+        temporalType: "DATE",
+        category: "RECENT",
+        example: "02/04/2026",
+      },
+    ],
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const formatButton = canvas.getByLabelText("Open date/time format picker");
+    await userEvent.click(formatButton);
+
+    const listbox = await canvas.findByRole("listbox");
+    listbox.focus();
+
+    const options = await canvas.findAllByRole("option");
+    await expect(options).toHaveLength(2);
+
+    await waitFor(() => {
+      expect(options[0]).toHaveClass("active");
+    });
+
+    await userEvent.keyboard("{ArrowDown}");
+
+    await waitFor(() => {
+      expect(options[1]).toHaveClass("active");
+    });
+
+    await userEvent.keyboard("{Enter}");
+
+    await waitFor(() => {
+      expect(canvas.queryByRole("listbox")).not.toBeInTheDocument();
+    });
+
+    const input = canvas.getByRole("textbox");
+    await expect(input).toHaveValue("MM/dd/yyyy");
   },
 };
 
