@@ -1,5 +1,12 @@
 # @knime/kds-components
 
+## 0.6.2
+
+### Patch Changes
+
+- 27f4733: Fix Checkbox taking unnecessary space when subtext is absent
+  - @knime/kds-styles@0.6.2
+
 ## 0.6.1
 
 ### Patch Changes
