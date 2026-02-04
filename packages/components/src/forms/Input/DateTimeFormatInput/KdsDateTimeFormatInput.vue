@@ -104,6 +104,7 @@ watch(modelValue, () => {
         v-model="modelValue"
         :empty-text="props.emptyText"
         :all-default-formats="props.allDefaultFormats"
+        :allowed-formats="props.allowedFormats"
         @close="open = false"
       />
     </KdsPopover>

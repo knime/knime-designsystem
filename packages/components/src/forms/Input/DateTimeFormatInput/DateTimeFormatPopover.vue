@@ -15,6 +15,7 @@ type DateTimeFormatPopoverProps = {
   id: string;
   emptyText: string;
   allDefaultFormats: KdsDateTimeFormatEntry[];
+  allowedFormats?: KdsTemporalType[];
 };
 
 const props = defineProps<DateTimeFormatPopoverProps>();
@@ -35,7 +36,16 @@ const categoryToLocaleLabel: Record<KdsDateFormatCategory, string> = {
   AMERICAN: "United States",
 };
 
-const typedDateFormats = computed(() => props.allDefaultFormats ?? []);
+const typedDateFormats = computed(() => {
+  const entries = props.allDefaultFormats ?? [];
+
+  if (!props.allowedFormats || props.allowedFormats.length === 0) {
+    return entries;
+  }
+
+  const allowed = new Set(props.allowedFormats);
+  return entries.filter((entry) => allowed.has(entry.temporalType));
+});
 
 const modeOptions = computed(() => {
   const seen = new Set<string>();

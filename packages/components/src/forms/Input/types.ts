@@ -110,6 +110,13 @@ export type KdsDateTimeFormatInputProps = KdsInputLabelProps &
   KdsInputStateProps & {
     /** Text shown when the list of format options is empty. */
     emptyText?: string;
+
+    /**
+     * Restricts the available date/time format options by their temporal type.
+     * If omitted, there are no restrictions.
+     */
+    allowedFormats?: KdsTemporalType[];
+
     /**
      * Full list of available date/time formats.
      * Defaults to the built-in formats from `./constants`.

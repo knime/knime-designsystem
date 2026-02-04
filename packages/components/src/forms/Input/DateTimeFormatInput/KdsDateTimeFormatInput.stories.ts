@@ -52,6 +52,12 @@ const meta: Meta<typeof KdsDateTimeFormatInput> = {
       control: "text",
       table: { category: "Props" },
     },
+    allowedFormats: {
+      control: "object",
+      table: { category: "Props" },
+      description:
+        "Optional list of allowed temporal types (DATE, TIME, DATE_TIME, ZONED_DATE_TIME). If omitted, there are no restrictions.",
+    },
     allDefaultFormats: {
       control: "object",
       table: { category: "Props" },
@@ -101,6 +107,7 @@ const meta: Meta<typeof KdsDateTimeFormatInput> = {
     modelValue: "",
     label: "Label",
     placeholder: "Format",
+    allowedFormats: undefined,
     allDefaultFormats: undefined,
     emptyText: "No entries in this list",
     name: "",
@@ -209,6 +216,39 @@ export const PopoverEmpty: Story = {
           "Overrides `allDefaultFormats` with an empty list to demonstrate the empty state.",
       },
     },
+  },
+};
+
+export const AllowedFormatsOnlyDate: Story = {
+  args: {
+    allowedFormats: ["DATE"],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Restricts the list to DATE formats only (no time/date-time options).",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const formatButton = canvas.getByLabelText("Open date/time format picker");
+    await userEvent.click(formatButton);
+
+    // Multiple locales are available for DATE formats, so the locale switch must be rendered.
+    const isoLocaleOption = await canvas.findByText("ISO");
+    await expect(isoLocaleOption).toBeInTheDocument();
+
+    // There is only one mode ("Date"), so the mode switch must not be rendered.
+    await expect(canvas.queryByText("Date & Time")).not.toBeInTheDocument();
+
+    // Ensure ISO is selected so the first option should be the built-in ISO date format.
+    await userEvent.click(isoLocaleOption);
+
+    const options = await canvas.findAllByRole("option");
+    await expect(options[0]).toHaveTextContent("yyyy-MM-dd");
   },
 };
 
