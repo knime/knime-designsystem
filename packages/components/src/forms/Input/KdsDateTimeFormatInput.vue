@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, useId, watch } from "vue";
 
-import KdsIcon from "../../Icon/KdsIcon.vue";
 import KdsButton from "../../buttons/KdsButton.vue";
 import KdsPopover from "../../overlays/Popover/KdsPopover.vue";
 import KdsLabel from "../KdsLabel.vue";
@@ -9,6 +8,7 @@ import KdsSubText from "../KdsSubText.vue";
 import KdsValueSwitch from "../RadioButton/KdsValueSwitch.vue";
 
 import KdsBaseInput from "./BaseInput.vue";
+import MenuList from "./MenuList/MenuList.vue";
 import { dateFormats } from "./constants";
 import type {
   KdsDateFormatCategory,
@@ -109,6 +109,14 @@ const formatOptions = computed(() => {
   return internalOptionsByModeAndLocale.value.get(key) ?? [];
 });
 
+const menuItems = computed(() =>
+  formatOptions.value.map((option) => ({
+    id: option.id,
+    text: option.label,
+    subtext: option.example,
+  })),
+);
+
 watch(modeOptions, (options) => {
   if (options.length === 0) {
     return;
@@ -174,16 +182,25 @@ watch(
   { immediate: true },
 );
 
-const selectedId = computed(() => modelValue.value);
+const isMenuItemActiveElement = () =>
+  document.activeElement instanceof HTMLElement &&
+  document.activeElement.getAttribute("data-menu-item") === "true";
 
-const selectFormat = (option: KdsDateTimeFormatOption) => {
+watch(modelValue, () => {
+  if (!open.value) {
+    return;
+  }
+
   if (props.disabled || props.readonly) {
     return;
   }
 
-  modelValue.value = option.id;
+  if (!isMenuItemActiveElement()) {
+    return;
+  }
+
   open.value = false;
-};
+});
 
 const handleListKeydown = (event: KeyboardEvent) => {
   if (event.key === "Escape") {
@@ -198,7 +215,7 @@ const handleListKeydown = (event: KeyboardEvent) => {
 
   const buttons = Array.from(
     popoverContentEl.value?.querySelectorAll<HTMLButtonElement>(
-      '[data-format-item="true"]',
+      '[data-menu-item="true"]',
     ) ?? [],
   );
 
@@ -297,50 +314,14 @@ const handlePopoverKeydownCapture = (event: KeyboardEvent) => {
           :possible-values="localeOptions"
         />
 
-        <div
-          class="list-wrapper"
-          :class="{ empty: formatOptions.length === 0 }"
-        >
-          <ul
-            v-if="formatOptions.length > 0"
-            :id="listboxId"
-            class="list"
-            role="listbox"
-            aria-label="Date/time formats"
-            @keydown="handleListKeydown"
-          >
-            <li v-for="option in formatOptions" :key="option.id" class="item">
-              <button
-                type="button"
-                data-format-item="true"
-                :class="{
-                  wrapper: true,
-                  selected: selectedId === option.id,
-                }"
-                role="option"
-                :aria-selected="selectedId === option.id"
-                @click="selectFormat(option)"
-              >
-                <span class="content">
-                  <span class="label">{{ option.label }}</span>
-                  <span v-if="option.example" class="subtext">
-                    {{ option.example }}
-                  </span>
-                </span>
-
-                <KdsIcon
-                  v-if="selectedId === option.id"
-                  name="checkmark"
-                  size="xsmall"
-                />
-              </button>
-            </li>
-          </ul>
-
-          <div v-else class="empty-state" aria-disabled="true">
-            {{ props.emptyText }}
-          </div>
-        </div>
+        <MenuList
+          :id="listboxId"
+          v-model="modelValue"
+          aria-label="Date/time formats"
+          :items="menuItems"
+          :empty-text="props.emptyText"
+          @keydown="handleListKeydown"
+        />
       </div>
     </KdsPopover>
 
@@ -371,109 +352,5 @@ const handlePopoverKeydownCapture = (event: KeyboardEvent) => {
   flex-direction: column;
   gap: var(--kds-spacing-container-0-5x);
   padding: var(--kds-spacing-container-0-75x);
-}
-
-.list-wrapper {
-  overflow: hidden;
-  border: var(--kds-border-base-subtle);
-  border-radius: var(--kds-border-radius-container-0-31x);
-
-  &.empty {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: calc(var(--kds-dimension-component-height-1-5x) * 4);
-  }
-}
-
-.list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--kds-spacing-container-0-10x);
-  padding: var(--kds-spacing-container-0-25x);
-  margin: 0;
-  list-style: none;
-}
-
-.item {
-  min-height: var(--kds-dimension-component-height-1-5x);
-}
-
-.wrapper {
-  display: flex;
-  gap: var(--kds-spacing-container-0-25x);
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  min-height: var(--kds-dimension-component-height-1-5x);
-  padding: var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-5x);
-  cursor: pointer;
-  background: var(--kds-color-background-neutral-initial);
-  border: none;
-  border-radius: var(--kds-border-radius-container-0-31x);
-
-  &:hover {
-    background: var(--kds-color-background-neutral-hover);
-  }
-
-  &:focus-visible {
-    outline: var(--kds-border-action-focused);
-    outline-offset: var(--kds-spacing-offset-focus);
-  }
-
-  &.selected {
-    background: var(--kds-color-background-selected-initial);
-
-    &:hover {
-      background: var(--kds-color-background-selected-hover);
-    }
-  }
-}
-
-.content {
-  display: flex;
-  flex: 1 1 auto;
-  flex-direction: column;
-  gap: var(--kds-spacing-container-0-12x);
-  align-items: flex-start;
-  min-width: 0;
-}
-
-.label {
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font: var(--kds-font-base-interactive-small);
-  color: var(--kds-color-text-and-icon-neutral);
-  text-align: left;
-  white-space: nowrap;
-
-  .wrapper.selected & {
-    color: var(--kds-color-text-and-icon-selected);
-  }
-}
-
-.subtext {
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font: var(--kds-font-base-subtext-small);
-  color: var(--kds-color-text-and-icon-muted);
-  text-align: left;
-  white-space: nowrap;
-
-  .wrapper.selected & {
-    color: var(--kds-color-text-and-icon-selected);
-  }
-}
-
-.empty-state {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: var(--kds-spacing-container-0-75x) var(--kds-spacing-container-0-25x);
-  font: var(--kds-font-base-interactive-small);
-  color: var(--kds-color-text-and-icon-muted);
 }
 </style>
