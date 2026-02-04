@@ -7,7 +7,7 @@ export { default as KdsLabel } from "./KdsLabel.vue";
 export { default as KdsSubText } from "./KdsSubText.vue";
 export { default as KdsTextInput } from "./Input/KdsTextInput.vue";
 export { default as KdsNumberInput } from "./Input/KdsNumberInput.vue";
-export { default as KdsPatternInput } from "./Input/KdsPatternInput.vue";
+export { default as KdsPatternInput } from "./Input/PatternInput/KdsPatternInput.vue";
 export { default as KdsSearchInput } from "./Input/KdsSearchInput.vue";
 export { default as KdsDateTimeFormatInput } from "./Input/DateTimeFormatInput/KdsDateTimeFormatInput.vue";
 export { default as KdsCredentialsUserPassword } from "./Input/KdsCredentialsUserPassword.vue";

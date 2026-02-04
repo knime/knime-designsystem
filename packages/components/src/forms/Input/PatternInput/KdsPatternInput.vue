@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { computed, useId } from "vue";
+import { computed, ref, useId, watch } from "vue";
 
-import KdsToggleButton from "../../buttons/KdsToggleButton.vue";
-import KdsLabel from "../KdsLabel.vue";
-import KdsSubText from "../KdsSubText.vue";
+import KdsToggleButton from "../../../buttons/KdsToggleButton.vue";
+import KdsLabel from "../../KdsLabel.vue";
+import KdsSubText from "../../KdsSubText.vue";
+import KdsBaseInput from "../BaseInput.vue";
+import type { KdsPatternInputProps } from "../types";
 
-import KdsBaseInput from "./BaseInput.vue";
-import type { KdsPatternInputProps } from "./types";
+import {
+  buildRegexFromPatternInput,
+  parseRegexToPatternInputValue,
+} from "./patternRegex";
 
 const props = withDefaults(defineProps<KdsPatternInputProps>(), {
   disabled: false,
@@ -17,12 +21,34 @@ const props = withDefaults(defineProps<KdsPatternInputProps>(), {
   preserveSubTextSpace: false,
 });
 
-const modelValue = defineModel<string>({ default: "" });
-const caseSensitive = defineModel<boolean>("caseSensitive", { default: false });
-const excludeMatches = defineModel<boolean>("excludeMatches", {
-  default: false,
-});
-const useRegex = defineModel<boolean>("useRegex", { default: false });
+// Public API: a single regex string (encoded with options when toggles are used).
+const regex = defineModel<string>({ default: "" });
+
+// Internal UI state. This is derived from the regex model on external updates.
+const uiValue = ref("");
+const caseSensitive = ref(false);
+const excludeMatches = ref(false);
+const useRegex = ref(false);
+
+const rebuildRegexFromUi = () => {
+  regex.value = buildRegexFromPatternInput(uiValue.value, {
+    caseSensitive: caseSensitive.value,
+    excludeMatches: excludeMatches.value,
+    useRegex: useRegex.value,
+  });
+};
+
+watch(
+  () => regex.value,
+  (newValue) => {
+    uiValue.value = parseRegexToPatternInputValue(newValue, {
+      useRegex: useRegex.value,
+      excludeMatches: excludeMatches.value,
+      caseSensitive: caseSensitive.value,
+    });
+  },
+  { immediate: true },
+);
 
 const generatedId = useId();
 const inputId = computed(() => `${generatedId}-input`);
@@ -45,6 +71,8 @@ const excludeMatchesAriaLabel = computed(() =>
 const patternModeAriaLabel = computed(() =>
   useRegex.value ? "Use regex pattern" : "Use wildcard pattern",
 );
+
+// (no additional computed needed; case sensitivity is applied by consumers when compiling)
 </script>
 
 <template>
@@ -58,7 +86,7 @@ const patternModeAriaLabel = computed(() =>
 
     <KdsBaseInput
       :id="inputId"
-      v-model="modelValue"
+      v-model="uiValue"
       type="text"
       :placeholder="props.placeholder"
       :disabled="props.disabled"
@@ -72,6 +100,7 @@ const patternModeAriaLabel = computed(() =>
       clearable
       :aria-labelledby="ariaLabelledby"
       :aria-describedby="ariaDescribedby"
+      @update:model-value="rebuildRegexFromUi"
     >
       <template #trailing>
         <div class="button-wrapper">
@@ -83,6 +112,7 @@ const patternModeAriaLabel = computed(() =>
             :title="caseSensitiveAriaLabel"
             :aria-label="caseSensitiveAriaLabel"
             :disabled="props.disabled || props.readonly"
+            @update:model-value="rebuildRegexFromUi"
           />
 
           <KdsToggleButton
@@ -93,6 +123,7 @@ const patternModeAriaLabel = computed(() =>
             :title="excludeMatchesAriaLabel"
             :aria-label="excludeMatchesAriaLabel"
             :disabled="props.disabled || props.readonly"
+            @update:model-value="rebuildRegexFromUi"
           />
 
           <KdsToggleButton
@@ -103,6 +134,7 @@ const patternModeAriaLabel = computed(() =>
             :title="patternModeAriaLabel"
             :aria-label="patternModeAriaLabel"
             :disabled="props.disabled || props.readonly"
+            @update:model-value="rebuildRegexFromUi"
           />
         </div>
       </template>

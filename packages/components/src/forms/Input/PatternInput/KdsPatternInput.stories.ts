@@ -6,9 +6,10 @@ import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
   buildTextOverflowStory,
-} from "../../test-utils/storybook";
+} from "../../../test-utils/storybook";
 
 import KdsPatternInput from "./KdsPatternInput.vue";
+import PatternDemo from "./PatternDemo.vue";
 
 type Story = StoryObj<typeof KdsPatternInput>;
 
@@ -20,8 +21,8 @@ const meta: Meta<typeof KdsPatternInput> = {
     docs: {
       description: {
         component:
-          "An input field for pattern-based filtering, with built-in toggles for case sensitivity, include/exclude matches, and wildcard/regex mode. " +
-          "Includes a conditional clear button and accessibility labels for all toggle states.",
+          "An input field for pattern-based filtering. It exposes a single regex v-model and provides built-in toggles for case sensitivity, include/exclude matches, and wildcard/regex mode. " +
+          "Toggle changes are encoded into the emitted regex so consumers don't need separate option bindings.",
       },
     },
     design: {
@@ -32,22 +33,7 @@ const meta: Meta<typeof KdsPatternInput> = {
   argTypes: {
     modelValue: {
       control: "text",
-      description: "v-model binding for the input value",
-      table: { category: "Model" },
-    },
-    caseSensitive: {
-      control: "boolean",
-      description: "v-model binding for case sensitivity toggle",
-      table: { category: "Model" },
-    },
-    excludeMatches: {
-      control: "boolean",
-      description: "v-model binding for include/exclude matches toggle",
-      table: { category: "Model" },
-    },
-    useRegex: {
-      control: "boolean",
-      description: "v-model binding for wildcard/regex mode toggle",
+      description: "Regex string (v-model)",
       table: { category: "Model" },
     },
     label: {
@@ -98,9 +84,6 @@ const meta: Meta<typeof KdsPatternInput> = {
   },
   args: {
     modelValue: "",
-    caseSensitive: false,
-    excludeMatches: false,
-    useRegex: false,
     label: "Pattern",
     placeholder: "",
     name: "",
@@ -117,20 +100,17 @@ const meta: Meta<typeof KdsPatternInput> = {
     (story) => {
       const [currentArgs, updateArgs] = useArgs();
       return {
-        components: { story },
+        components: { story, PatternDemo },
         setup() {
           return {
             args: currentArgs,
             updateArgs,
           };
         },
-        template:
-          '<story v-bind="args" ' +
-          '@update:modelValue="(value) => updateArgs({ modelValue: value })" ' +
-          '@update:caseSensitive="(value) => updateArgs({ caseSensitive: value })" ' +
-          '@update:excludeMatches="(value) => updateArgs({ excludeMatches: value })" ' +
-          '@update:useRegex="(value) => updateArgs({ useRegex: value })" ' +
-          "/>",
+        template: `
+          <story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" />
+          <PatternDemo :pattern="args.modelValue" />
+          `,
       };
     },
   ],
@@ -150,12 +130,9 @@ export const WithValue: Story = {
   },
 };
 
-export const WithTogglesEnabled: Story = {
+export const WithEncodedOptions: Story = {
   args: {
-    modelValue: "^column([1-9]|10)$",
-    caseSensitive: true,
-    excludeMatches: true,
-    useRegex: true,
+    modelValue: "^(?!.*^column([1-9]|10)$).*$",
   },
 };
 
@@ -201,9 +178,6 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       error: [false, true],
       validating: [false, true],
       subText: [undefined, "Message"],
-      caseSensitive: [false],
-      excludeMatches: [false],
-      useRegex: [false],
     },
   ],
   pseudoStates: ["hover", "active", "focus"],
@@ -254,9 +228,6 @@ export const Interaction: Story = {
     preserveSubTextSpace: false,
     name: "",
     autocomplete: "",
-    caseSensitive: false,
-    excludeMatches: false,
-    useRegex: false,
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
