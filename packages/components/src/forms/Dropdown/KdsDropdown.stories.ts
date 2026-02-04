@@ -3,7 +3,11 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
 
+import KdsButton from "../../buttons/KdsButton.vue";
+import KdsModal from "../../overlays/Modal/KdsModal.vue";
+import KdsModalLayout from "../../overlays/Modal/KdsModalLayout.vue";
 import {
+  buildAllCombinationsStory,
   buildDesignComparatorStory,
   buildTextOverflowStory,
 } from "../../test-utils/storybook";
@@ -40,7 +44,7 @@ const KdsDropdownDesignWrapper = defineComponent({
   },
   template: `
     <div ref="rootEl">
-      <KdsDropdown v-bind="$attrs" />
+      <KdsDropdown v-bind="$attrs" :possible-values="[]" />
     </div>
   `,
 });
@@ -204,23 +208,91 @@ export const Disabled: Story = {
   },
 };
 
-// export const AllCombinations: Story = buildAllCombinationsStory({
-//   component: KdsDropdown,
-//   combinationsProps: [
-//     {
-//       modelValue: [null, "a"],
-//       placeholder: ["{text}"],
-//       disabled: [false, true],
-//       error: [false, true],
-//       validating: [false, true],
-//       searchable: [false, true],
-//       options: [baseOptions],
-//       label: ["Label"],
-//       subText: [undefined, "Helper text"],
-//     },
-//   ],
-//   pseudoStates: ["hover", "active", "focus", "focus-visible"],
-// });
+export const InModal: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Example usage of `KdsDropdown` inside `KdsModal`. This is a common scenario that can reveal focus and overlay issues.",
+      },
+    },
+  },
+  render: (args) => ({
+    components: { KdsButton, KdsModal, KdsModalLayout, KdsDropdown },
+    setup() {
+      const isActive = ref(false);
+      const modelValue = ref<string | null>(args.modelValue ?? null);
+
+      const open = () => {
+        isActive.value = true;
+      };
+
+      const close = () => {
+        isActive.value = false;
+      };
+
+      return {
+        args,
+        isActive,
+        modelValue,
+        open,
+        close,
+      };
+    },
+    template: `
+      <div style="display: flex; align-items: start; gap: var(--kds-spacing-container-1x);">
+        <KdsButton label="Open modal" variant="filled" @click="open" />
+
+        <KdsModal :active="isActive" @close="close">
+          <KdsModalLayout title="Modal title" :on-close="close">
+            <template #body>
+              <KdsDropdown
+                v-bind="args"
+                label="Dropdown"
+                placeholder="Select an option"
+                :model-value="modelValue"
+                :possible-values="args.possibleValues"
+                @update:modelValue="(value) => (modelValue = value)"
+              />
+            </template>
+
+            <template #footer>
+              <KdsButton label="Close" variant="transparent" @click="close" />
+              <KdsButton label="Confirm" variant="filled" @click="close" />
+            </template>
+          </KdsModalLayout>
+        </KdsModal>
+      </div>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await userEvent.click(canvas.getByRole("button", { name: "Open modal" }));
+
+    const combobox = await canvas.findByRole("combobox");
+    await userEvent.click(combobox);
+
+    await expect(canvas.getByText("Option A")).toBeTruthy();
+  },
+};
+
+export const AllCombinations: Story = buildAllCombinationsStory({
+  component: KdsDropdown,
+  combinationsProps: [
+    {
+      label: ["Label"],
+      modelValue: [null, "a"],
+      placeholder: ["{text}"],
+      disabled: [false, true],
+      error: [false, true],
+      validating: [false, true],
+      subText: [undefined, "Helper text"],
+      possibleValues: [[]],
+    },
+  ],
+  pseudoStates: ["hover", "active", "focus"],
+});
 
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsDropdownDesignWrapper,
