@@ -191,7 +191,7 @@ ul {
   display: flex;
   flex-direction: column;
   gap: var(--kds-spacing-container-0-12x);
-  height: calc(var(--kds-dimension-component-height-1-5x) * 6);
+  height: calc(var(--kds-dimension-component-height-1-5x) * 8);
   padding: var(--kds-spacing-container-0-25x);
   margin: 0;
   overflow: auto;
@@ -211,9 +211,9 @@ ul {
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: calc(var(--kds-dimension-component-height-1-5x) * 6);
+  height: 100%;
   padding: var(--kds-spacing-container-0-75x) var(--kds-spacing-container-0-25x);
-  font: var(--kds-font-base-interactive-small);
+  font: var(--kds-font-base-title-small);
   color: var(--kds-color-text-and-icon-muted);
 }
 </style>

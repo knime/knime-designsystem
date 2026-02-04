@@ -8,6 +8,7 @@ import {
   buildTextOverflowStory,
 } from "../../../test-utils/storybook.ts";
 
+import DateTimeFormatPopover from "./DateTimeFormatPopover.vue";
 import KdsDateTimeFormatInput from "./KdsDateTimeFormatInput.vue";
 
 type Story = StoryObj<typeof KdsDateTimeFormatInput>;
@@ -307,43 +308,51 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6203-29531":
           {
-            modelValue: "yyyy-MM-dd",
+            modelValue: "{Formatted Value}",
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6203-29546":
           {
-            modelValue: "yyyy-MM-dd",
+            modelValue: "{Formatted Value}",
             error: true,
             subText: "{Error message}",
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6203-29573":
           {
-            modelValue: "yyyy-MM-dd",
+            modelValue: "{Formatted Value}",
             validating: true,
             subText: "{Validation message}",
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6203-29596":
           {
-            modelValue: "yyyy-MM-dd",
+            modelValue: "{Formatted Value}",
             disabled: true,
           },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6203-36487":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6203-36488":
           {
-            modelValue: "yyyy-MM-dd",
-            // open is internal-only; popover variants are handled in `.DateTimeFormatPopover`
+            modelValue: "{Formatted Value}",
+            parameters: { pseudo: { active: true } },
           },
       },
     },
-    ".DateTimeFormatPopover": {
+  },
+});
+
+export const DesignComparatorPopover: Story = buildDesignComparatorStory({
+  component: DateTimeFormatPopover,
+  designsToCompare: {
+    DateTimeFormatPopover: {
       props: {
-        modelValue: "yyyy-MM-dd",
         formatOptions: sampleOptions,
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6203-37302":
-          {},
+          {
+            modelValue: "yyyy-MM",
+            parameters: { figmaOffset: { x: -20, y: -20 } },
+          },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6203-37392":
           {
-            formatOptions: [],
+            parameters: { figmaOffset: { x: -20, y: -20 } },
           },
       },
     },
