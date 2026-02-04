@@ -77,7 +77,7 @@ const handleSelect = (item: MenuListItem) => {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: calc(var(--kds-dimension-component-height-1-5x) * 4);
+    height: calc(var(--kds-dimension-component-height-1-5x) * 6);
   }
 }
 
@@ -85,16 +85,12 @@ const handleSelect = (item: MenuListItem) => {
   display: flex;
   flex-direction: column;
   gap: var(--kds-spacing-container-0-10x);
-  max-height: calc(var(--kds-dimension-component-height-1-5x) * 8);
+  height: calc(var(--kds-dimension-component-height-1-5x) * 6);
   padding: var(--kds-spacing-container-0-25x);
   margin: 0;
   overflow: auto;
   overscroll-behavior: contain;
   list-style: none;
-}
-
-.item {
-  min-height: var(--kds-dimension-component-height-1-5x);
 }
 
 .item-button {
@@ -158,6 +154,7 @@ const handleSelect = (item: MenuListItem) => {
 }
 
 .subtext {
+  display: block;
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
