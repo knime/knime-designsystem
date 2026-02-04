@@ -9,9 +9,12 @@ import KdsSubText from "../KdsSubText.vue";
 import KdsValueSwitch from "../RadioButton/KdsValueSwitch.vue";
 
 import KdsBaseInput from "./BaseInput.vue";
+import { dateFormats } from "./constants";
 import type {
+  KdsDateFormatCategory,
   KdsDateTimeFormatInputProps,
   KdsDateTimeFormatOption,
+  KdsTemporalType,
 } from "./types";
 
 const props = withDefaults(defineProps<KdsDateTimeFormatInputProps>(), {
@@ -21,18 +24,110 @@ const props = withDefaults(defineProps<KdsDateTimeFormatInputProps>(), {
   error: false,
   validating: false,
   preserveSubTextSpace: false,
-  placeholder: "{Formatted Value}",
-  formatOptions: () => [],
+  placeholder: "Format",
   emptyText: "No entries in this list",
-  modeOptions: () => ["Date", "Date & Time", "Time", "Zoned Date & Time"],
-  localeOptions: () => ["Recent", "ISO", "European", "United States"],
+  allDefaultFormats: () => dateFormats,
 });
+
+const typedDateFormats = computed(() => props.allDefaultFormats ?? []);
+
+const temporalTypeToModeLabel: Record<KdsTemporalType, string> = {
+  DATE: "Date",
+  DATE_TIME: "Date & Time",
+  TIME: "Time",
+  ZONED_DATE_TIME: "Zoned Date & Time",
+};
+
+const categoryToLocaleLabel: Record<KdsDateFormatCategory, string> = {
+  RECENT: "Recent",
+  STANDARD: "ISO",
+  EUROPEAN: "European",
+  AMERICAN: "United States",
+};
 
 const modelValue = defineModel<string>({ default: "" });
 const open = ref(false);
 
-const selectedMode = ref(props.modeOptions[0] ?? "Date");
-const selectedLocale = ref(props.localeOptions[0] ?? "Recent");
+const modeOptions = computed(() => {
+  const seen = new Set<string>();
+  const options: string[] = [];
+
+  for (const entry of typedDateFormats.value) {
+    const label = temporalTypeToModeLabel[entry.temporalType];
+    if (!seen.has(label)) {
+      seen.add(label);
+      options.push(label);
+    }
+  }
+
+  return options;
+});
+
+const localeOptions = computed(() => {
+  const recent = categoryToLocaleLabel.RECENT;
+  const seen = new Set<string>(recent);
+  const options: string[] = [recent];
+
+  for (const entry of typedDateFormats.value) {
+    const label = categoryToLocaleLabel[entry.category];
+    if (!seen.has(label)) {
+      seen.add(label);
+      options.push(label);
+    }
+  }
+
+  return options;
+});
+
+const selectedMode = ref(modeOptions.value[0] ?? "Date");
+const selectedLocale = ref(localeOptions.value[0] ?? "ISO");
+
+type ModeLocaleKey = `${string}__${string}`;
+
+const internalOptionsByModeAndLocale = computed(() => {
+  const map = new Map<ModeLocaleKey, KdsDateTimeFormatOption[]>();
+
+  for (const entry of typedDateFormats.value) {
+    const modeLabel = temporalTypeToModeLabel[entry.temporalType];
+    const localeLabel = categoryToLocaleLabel[entry.category];
+    const key = `${modeLabel}__${localeLabel}` as const;
+
+    const options = map.get(key) ?? [];
+    options.push({
+      id: entry.format,
+      label: entry.format,
+      example: entry.example,
+    });
+    map.set(key, options);
+  }
+
+  return map;
+});
+
+const formatOptions = computed(() => {
+  const key = `${selectedMode.value}__${selectedLocale.value}` as ModeLocaleKey;
+  return internalOptionsByModeAndLocale.value.get(key) ?? [];
+});
+
+watch(modeOptions, (options) => {
+  if (options.length === 0) {
+    return;
+  }
+
+  if (!options.includes(selectedMode.value)) {
+    selectedMode.value = options[0]!;
+  }
+});
+
+watch(localeOptions, (options) => {
+  if (options.length === 0) {
+    return;
+  }
+
+  if (!options.includes(selectedLocale.value)) {
+    selectedLocale.value = options[0]!;
+  }
+});
 
 const generatedId = useId();
 const inputId = computed(() => `${generatedId}-input`);
@@ -78,8 +173,6 @@ watch(
   },
   { immediate: true },
 );
-
-const formatOptions = computed(() => props.formatOptions);
 
 const selectedId = computed(() => modelValue.value);
 
@@ -195,13 +288,13 @@ const handlePopoverKeydownCapture = (event: KeyboardEvent) => {
         <KdsValueSwitch
           v-model="selectedMode"
           size="small"
-          :possible-values="props.modeOptions"
+          :possible-values="modeOptions"
         />
 
         <KdsValueSwitch
           v-model="selectedLocale"
           size="small"
-          :possible-values="props.localeOptions"
+          :possible-values="localeOptions"
         />
 
         <div

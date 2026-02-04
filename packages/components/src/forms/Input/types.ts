@@ -91,17 +91,28 @@ export type KdsDateTimeFormatOption = {
   example?: string;
 };
 
+export type KdsTemporalType = "DATE" | "TIME" | "DATE_TIME" | "ZONED_DATE_TIME";
+
+export type KdsDateFormatCategory =
+  | "RECENT"
+  | "STANDARD"
+  | "EUROPEAN"
+  | "AMERICAN";
+
+export type KdsDateTimeFormatEntry = {
+  format: string;
+  temporalType: KdsTemporalType;
+  category: KdsDateFormatCategory;
+  example?: string;
+};
+
 export type KdsDateTimeFormatInputProps = KdsInputLabelProps &
   KdsInputStateProps & {
-    /**
-     * Format options shown in the popover list.
-     * When empty, an empty state is rendered.
-     */
-    formatOptions?: KdsDateTimeFormatOption[];
-    /** Empty state text shown when no options are available. */
+    /** Text shown when the list of format options is empty. */
     emptyText?: string;
-    /** Values shown in the first ValueSwitch (date/time mode). */
-    modeOptions?: string[];
-    /** Values shown in the second ValueSwitch (format family/locale). */
-    localeOptions?: string[];
+    /**
+     * Full list of available date/time formats.
+     * Defaults to the built-in formats from `./constants`.
+     */
+    allDefaultFormats?: KdsDateTimeFormatEntry[];
   };

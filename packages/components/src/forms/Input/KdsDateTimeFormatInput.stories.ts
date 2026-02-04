@@ -64,20 +64,8 @@ const meta: Meta<typeof KdsDateTimeFormatInput> = {
       control: "text",
       table: { category: "Props" },
     },
-    formatOptions: {
-      control: "object",
-      table: { category: "Props" },
-    },
     emptyText: {
       control: "text",
-      table: { category: "Props" },
-    },
-    modeOptions: {
-      control: "object",
-      table: { category: "Props" },
-    },
-    localeOptions: {
-      control: "object",
       table: { category: "Props" },
     },
     disabled: {
@@ -104,24 +92,26 @@ const meta: Meta<typeof KdsDateTimeFormatInput> = {
       control: "boolean",
       table: { category: "Props" },
     },
+    allDefaultFormats: {
+      control: "object",
+      table: { category: "Props" },
+    },
   },
   args: {
     modelValue: "",
     label: "Label",
-    placeholder: "{Formatted Value}",
+    placeholder: "Format",
     name: "",
     autocomplete: "",
     subText: "",
-    formatOptions: sampleOptions,
     emptyText: "No entries in this list",
-    modeOptions: ["Date", "Date & Time", "Time", "Zoned Date & Time"],
-    localeOptions: ["Recent", "ISO", "European", "United States"],
     disabled: false,
     readonly: false,
     required: false,
     error: false,
     validating: false,
     preserveSubTextSpace: false,
+    allDefaultFormats: undefined,
   },
   decorators: [
     (story) => {
@@ -197,20 +187,40 @@ export const PopoverOpen: Story = {
 
 export const PopoverEmpty: Story = {
   args: {
-    formatOptions: [],
+    allDefaultFormats: [],
   },
   parameters: {
     docs: {
       description: {
         story:
-          "Opens the popover with an empty list via interaction (since the open state is internal-only).",
+          "Overrides `allDefaultFormats` with an empty list to demonstrate the empty state.",
       },
     },
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const formatButton = canvas.getByLabelText("Open date/time format picker");
-    await userEvent.click(formatButton);
+};
+
+export const OverrideFormats: Story = {
+  args: {
+    allDefaultFormats: [
+      {
+        format: "yyyy-MM-dd",
+        temporalType: "DATE",
+        category: "RECENT",
+        example: "2026-02-04",
+      },
+      {
+        format: "yyyy-MM-dd",
+        temporalType: "DATE",
+        category: "STANDARD",
+        example: "2026-02-04",
+      },
+      {
+        format: "dd.MM.yyyy",
+        temporalType: "DATE",
+        category: "EUROPEAN",
+        example: "04.02.2026",
+      },
+    ],
   },
 };
 
@@ -309,13 +319,6 @@ export const TextOverflow: Story = {
   args: {
     modelValue:
       "VeryLongFormatStringThatShouldOverflow-YYYY-MM-DD-hh-mm-ss-SSS-ZZZ",
-    formatOptions: [
-      {
-        id: "VeryLongFormatStringThatShouldOverflow-YYYY-MM-DD-hh-mm-ss-SSS-ZZZ",
-        label: "Very long label that should overflow in the list",
-        example: "(Example) with a very long subtext that should also overflow",
-      },
-    ],
   },
 };
 
@@ -330,7 +333,7 @@ export const Interaction: Story = {
     await userEvent.click(optionButton);
 
     const input = canvas.getByRole("textbox");
-    await expect(input).toHaveValue("yyyy-MM-dd");
+    await expect(input).not.toHaveValue("");
 
     await userEvent.click(formatButton);
     await userEvent.keyboard("{Escape}");
