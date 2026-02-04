@@ -84,6 +84,7 @@ const anchorId = `--${useId()}`;
   padding: 0;
   margin: var(--kds-spacing-container-0-5x);
   overflow: visible;
+  background: transparent;
   border: 0;
 }
 

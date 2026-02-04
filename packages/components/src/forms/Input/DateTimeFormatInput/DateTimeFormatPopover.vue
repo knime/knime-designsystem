@@ -185,7 +185,7 @@ const menuItems = computed(() => {
 </script>
 
 <template>
-  <div class="popover-content">
+  <div class="popover-content" data-testid="date-time-format-popover">
     <KdsValueSwitch
       v-if="modeOptions.length > 1"
       :model-value="effectiveSelectedMode"

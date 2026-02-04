@@ -155,7 +155,6 @@ watch(activeIndex, async (index) => {
 <template>
   <div :class="{ 'menu-list-wrapper': true, empty: isEmpty }">
     <ul
-      v-if="!isEmpty"
       :id="listboxId"
       class="menu-list"
       role="listbox"
@@ -182,11 +181,11 @@ watch(activeIndex, async (index) => {
           }
         "
       />
-    </ul>
 
-    <div v-else class="empty-state" aria-disabled="true">
-      {{ props.emptyText }}
-    </div>
+      <div v-if="isEmpty" class="empty-state">
+        {{ props.emptyText }}
+      </div>
+    </ul>
   </div>
 </template>
 
@@ -202,9 +201,6 @@ watch(activeIndex, async (index) => {
   }
 
   &.empty {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     height: calc(var(--kds-dimension-component-height-1-5x) * 6);
   }
 }
@@ -230,6 +226,7 @@ watch(activeIndex, async (index) => {
   align-items: center;
   justify-content: center;
   width: 100%;
+  height: calc(var(--kds-dimension-component-height-1-5x) * 6);
   padding: var(--kds-spacing-container-0-75x) var(--kds-spacing-container-0-25x);
   font: var(--kds-font-base-interactive-small);
   color: var(--kds-color-text-and-icon-muted);
