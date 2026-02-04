@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useId } from "vue";
+import { computed, useId } from "vue";
 
 import KdsIcon from "../../Icon/KdsIcon.vue";
 import type { KdsIconName } from "../../Icon/types";
@@ -163,7 +163,20 @@ const props = withDefaults(defineProps<BaseInputProps>(), {
   clearable: false,
 });
 
-// removed emits: BaseInput is v-model only
+type BaseInputEmits = {
+  /** Native focus event forwarded from the input element. */
+  focus: [event: FocusEvent];
+  /** Native blur event forwarded from the input element. */
+  blur: [event: FocusEvent];
+  /** Native keydown event forwarded from the input element. */
+  keydown: [event: KeyboardEvent];
+  /** Native input event forwarded from the input element. */
+  input: [event: Event];
+  /** Native click event forwarded from the input element. */
+  click: [event: MouseEvent];
+};
+
+const emit = defineEmits<BaseInputEmits>();
 
 const modelValue = defineModel<string>({ default: "" });
 
@@ -176,9 +189,9 @@ const showUnitPlaceholder = computed(
   () => Boolean(props.unit) && modelValue.value.trim().length === 0,
 );
 
-const inputRef = ref<HTMLInputElement | null>(null);
-
 const handleInput = (event: Event) => {
+  emit("input", event);
+
   const target = event.target as HTMLInputElement;
   modelValue.value = target.value;
 };
@@ -208,7 +221,6 @@ const clear = () => {
 
       <input
         :id="inputId"
-        ref="inputRef"
         :value="modelValue"
         :role="props.role"
         :type="props.type"
@@ -233,6 +245,10 @@ const clear = () => {
         :aria-invalid="props.error"
         :class="{ 'input-field': true, 'has-value': hasValue }"
         @input="handleInput"
+        @focus="emit('focus', $event)"
+        @blur="emit('blur', $event)"
+        @keydown="emit('keydown', $event)"
+        @click="emit('click', $event)"
       />
 
       <span
