@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useId, watch } from "vue";
+import { computed, ref, useId } from "vue";
 
 import KdsButton from "../../../buttons/KdsButton.vue";
 import KdsPopover from "../../../overlays/Popover/KdsPopover.vue";
@@ -43,13 +43,6 @@ const ariaDescribedby = computed(() =>
 );
 
 const formatButtonWrapperEl = ref<HTMLElement | null>(null);
-
-watch(modelValue, () => {
-  // when the value changes on open popover, close it
-  if (open.value) {
-    open.value = false;
-  }
-});
 </script>
 
 <template>
@@ -100,10 +93,16 @@ watch(modelValue, () => {
 
       <DateTimeFormatPopover
         :id="listboxId"
-        v-model="modelValue"
+        :model-value="modelValue"
         :empty-text="props.emptyText"
         :all-default-formats="props.allDefaultFormats"
         :allowed-formats="props.allowedFormats"
+        @update:model-value="
+          (value) => {
+            modelValue = value;
+            open = false;
+          }
+        "
         @close="open = false"
       />
     </KdsPopover>

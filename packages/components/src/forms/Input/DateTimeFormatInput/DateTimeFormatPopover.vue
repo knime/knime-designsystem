@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
+import { computed, ref } from "vue";
 
 import KdsValueSwitch from "../../RadioButton/KdsValueSwitch.vue";
 import type {
   KdsDateFormatCategory,
   KdsDateTimeFormatEntry,
-  KdsDateTimeFormatOption,
   KdsTemporalType,
 } from "../types";
 
 import MenuList from "./MenuList/MenuList.vue";
+import type { MenuListItem } from "./MenuList/types.ts";
 import { dateFormats } from "./constants.ts";
 
 type DateTimeFormatPopoverProps = {
@@ -80,10 +80,6 @@ const localeOptions = computed(() => {
   return options;
 });
 
-const selectedMode = ref(modeOptions.value[0] ?? "Date");
-const selectedLocale = ref(localeOptions.value[0] ?? "ISO");
-
-// Keep the mode/locale switches in sync with the selected format.
 const selectedFormatEntry = computed(() => {
   if (!modelValue.value) {
     return null;
@@ -95,6 +91,10 @@ const selectedFormatEntry = computed(() => {
   );
 });
 
+// User-driven selections from the switches.
+const selectedMode = ref<string | undefined>(undefined);
+const selectedLocale = ref<string | undefined>(undefined);
+
 const selectedModeFromModel = computed(() => {
   const entry = selectedFormatEntry.value;
   return entry ? temporalTypeToModeLabel[entry.temporalType] : null;
@@ -105,10 +105,50 @@ const selectedLocaleFromModel = computed(() => {
   return entry ? categoryToLocaleLabel[entry.category] : null;
 });
 
+const effectiveSelectedMode = computed(() => {
+  const modes = modeOptions.value;
+
+  if (modes.length === 0) {
+    return "";
+  }
+
+  const fromModel = selectedModeFromModel.value;
+  if (fromModel && modes.includes(fromModel)) {
+    return fromModel;
+  }
+
+  const manual = selectedMode.value;
+  if (manual && modes.includes(manual)) {
+    return manual;
+  }
+
+  return modes[0]!;
+});
+
+const effectiveSelectedLocale = computed(() => {
+  const locales = localeOptions.value;
+
+  if (locales.length === 0) {
+    return "";
+  }
+
+  const fromModel = selectedLocaleFromModel.value;
+  if (fromModel && locales.includes(fromModel)) {
+    return fromModel;
+  }
+
+  const manual = selectedLocale.value;
+  if (manual && locales.includes(manual)) {
+    return manual;
+  }
+
+  return locales[0]!;
+});
+
 type ModeLocaleKey = `${string}__${string}`;
 
 const internalOptionsByModeAndLocale = computed(() => {
-  const map = new Map<ModeLocaleKey, KdsDateTimeFormatOption[]>();
+  const map = new Map<ModeLocaleKey, MenuListItem[]>();
 
   for (const entry of typedDateFormats.value) {
     const modeLabel = temporalTypeToModeLabel[entry.temporalType];
@@ -118,8 +158,8 @@ const internalOptionsByModeAndLocale = computed(() => {
     const options = map.get(key) ?? [];
     options.push({
       id: entry.format,
-      label: entry.format,
-      example: entry.example,
+      text: entry.format,
+      subtext: entry.example,
     });
     map.set(key, options);
   }
@@ -127,65 +167,16 @@ const internalOptionsByModeAndLocale = computed(() => {
   return map;
 });
 
-const formatOptions = computed(() => {
-  const key = `${selectedMode.value}__${selectedLocale.value}` as ModeLocaleKey;
+const menuItems = computed(() => {
+  const mode = effectiveSelectedMode.value;
+  const locale = effectiveSelectedLocale.value;
+
+  if (!mode || !locale) {
+    return [];
+  }
+
+  const key = `${mode}__${locale}` as ModeLocaleKey;
   return internalOptionsByModeAndLocale.value.get(key) ?? [];
-});
-
-const menuItems = computed(() =>
-  formatOptions.value.map((option) => ({
-    id: option.id,
-    text: option.label,
-    subtext: option.example,
-  })),
-);
-
-watch(
-  [selectedModeFromModel, selectedLocaleFromModel, modeOptions, localeOptions],
-  ([mode, locale, modes, locales]) => {
-    if (modes.length === 0 || locales.length === 0) {
-      return;
-    }
-
-    // If the current model value matches a known entry, prefer that.
-    if (mode && modes.includes(mode)) {
-      selectedMode.value = mode;
-    }
-
-    if (locale && locales.includes(locale)) {
-      selectedLocale.value = locale;
-    }
-
-    // Fallback: ensure selected values remain valid.
-    if (!modes.includes(selectedMode.value)) {
-      selectedMode.value = modes[0]!;
-    }
-
-    if (!locales.includes(selectedLocale.value)) {
-      selectedLocale.value = locales[0]!;
-    }
-  },
-  { immediate: true },
-);
-
-watch(modeOptions, (options) => {
-  if (options.length === 0) {
-    return;
-  }
-
-  if (!options.includes(selectedMode.value)) {
-    selectedMode.value = options[0]!;
-  }
-});
-
-watch(localeOptions, (options) => {
-  if (options.length === 0) {
-    return;
-  }
-
-  if (!options.includes(selectedLocale.value)) {
-    selectedLocale.value = options[0]!;
-  }
 });
 </script>
 
@@ -193,16 +184,26 @@ watch(localeOptions, (options) => {
   <div class="popover-content" role="listbox">
     <KdsValueSwitch
       v-if="modeOptions.length > 1"
-      v-model="selectedMode"
+      :model-value="effectiveSelectedMode"
       size="small"
       :possible-values="modeOptions"
+      @update:model-value="
+        (value) => {
+          selectedMode = value;
+        }
+      "
     />
 
     <KdsValueSwitch
       v-if="localeOptions.length > 1"
-      v-model="selectedLocale"
+      :model-value="effectiveSelectedLocale"
       size="small"
       :possible-values="localeOptions"
+      @update:model-value="
+        (value) => {
+          selectedLocale = value;
+        }
+      "
     />
 
     <MenuList

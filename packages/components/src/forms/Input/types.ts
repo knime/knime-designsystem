@@ -82,15 +82,6 @@ export type KdsCredentialsUserPasswordProps = KdsInputLabelProps &
 
 export type KdsCredentialsApiKeyProps = KdsInputLabelProps & KdsInputStateProps;
 
-export type KdsDateTimeFormatOption = {
-  /** Value written into the input when selected (e.g. "yyyy-MM-dd"). */
-  id: string;
-  /** Human-readable label shown in the list. */
-  label: string;
-  /** Optional secondary line shown below the label (e.g. an example). */
-  example?: string;
-};
-
 export type KdsTemporalType = "DATE" | "TIME" | "DATE_TIME" | "ZONED_DATE_TIME";
 
 export type KdsDateFormatCategory =

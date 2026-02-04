@@ -40,7 +40,6 @@ export type {
   KdsDateFormatCategory,
   KdsDateTimeFormatEntry,
   KdsDateTimeFormatInputProps,
-  KdsDateTimeFormatOption,
   KdsCredentialsUserPasswordProps,
   KdsCredentialsApiKeyProps,
 } from "./Input/types";
