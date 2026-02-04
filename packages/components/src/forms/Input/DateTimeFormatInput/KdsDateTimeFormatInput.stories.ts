@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
-import { userEvent, within } from "storybook/test";
+import { expect, userEvent, within } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
+  buildTextOverflowStory,
 } from "../../../test-utils/storybook.ts";
 
 import KdsDateTimeFormatInput from "./KdsDateTimeFormatInput.vue";
@@ -51,6 +52,14 @@ const meta: Meta<typeof KdsDateTimeFormatInput> = {
       control: "text",
       table: { category: "Props" },
     },
+    allDefaultFormats: {
+      control: "object",
+      table: { category: "Props" },
+    },
+    emptyText: {
+      control: "text",
+      table: { category: "Props" },
+    },
     name: {
       control: "text",
       table: { category: "Props" },
@@ -60,10 +69,6 @@ const meta: Meta<typeof KdsDateTimeFormatInput> = {
       table: { category: "Props" },
     },
     subText: {
-      control: "text",
-      table: { category: "Props" },
-    },
-    emptyText: {
       control: "text",
       table: { category: "Props" },
     },
@@ -91,26 +96,22 @@ const meta: Meta<typeof KdsDateTimeFormatInput> = {
       control: "boolean",
       table: { category: "Props" },
     },
-    allDefaultFormats: {
-      control: "object",
-      table: { category: "Props" },
-    },
   },
   args: {
     modelValue: "",
     label: "Label",
     placeholder: "Format",
+    allDefaultFormats: undefined,
+    emptyText: "No entries in this list",
     name: "",
     autocomplete: "",
     subText: "",
-    emptyText: "No entries in this list",
     disabled: false,
     readonly: false,
     required: false,
     error: false,
     validating: false,
     preserveSubTextSpace: false,
-    allDefaultFormats: undefined,
   },
   decorators: [
     (story) => {
@@ -145,6 +146,11 @@ export const Disabled: Story = {
     disabled: true,
     modelValue: "yyyy-MM-dd",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const formatButton = canvas.getByLabelText("Open date/time format picker");
+    await expect(formatButton).toBeDisabled();
+  },
 };
 
 export const Readonly: Story = {
@@ -152,10 +158,16 @@ export const Readonly: Story = {
     readonly: true,
     modelValue: "yyyy-MM-dd",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const formatButton = canvas.getByLabelText("Open date/time format picker");
+    await expect(formatButton).toBeDisabled();
+  },
 };
 
 export const WithError: Story = {
   args: {
+    modelValue: "yyyy-MM-dd",
     error: true,
     subText: "Error message",
   },
@@ -163,6 +175,7 @@ export const WithError: Story = {
 
 export const Validating: Story = {
   args: {
+    modelValue: "yyyy-MM-dd",
     validating: true,
     subText: "Validation message",
   },
@@ -181,6 +194,7 @@ export const PopoverOpen: Story = {
     const canvas = within(canvasElement);
     const formatButton = canvas.getByLabelText("Open date/time format picker");
     await userEvent.click(formatButton);
+    await expect(canvas.findAllByRole("listbox")).toHaveLength(1);
   },
 };
 
@@ -310,31 +324,13 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   },
 });
 
-// export const TextOverflow: Story = {
-//   ...buildTextOverflowStory({
-//     component: KdsDateTimeFormatInput,
-//     width: 260,
-//   }),
-//   args: {
-//     modelValue:
-//       "VeryLongFormatStringThatShouldOverflow-YYYY-MM-DD-hh-mm-ss-SSS-ZZZ",
-//   },
-// };
-
-// export const Interaction: Story = {
-//   play: async ({ canvasElement }) => {
-//     const canvas = within(canvasElement);
-//
-//     const formatButton = canvas.getByLabelText("Open date/time format picker");
-//     await userEvent.click(formatButton);
-//
-//     const optionButton = canvas.getAllByRole("option")[0];
-//     await userEvent.click(optionButton);
-//
-//     const input = canvas.getByRole("textbox");
-//     await expect(input).not.toHaveValue("");
-//
-//     await userEvent.click(formatButton);
-//     await userEvent.keyboard("{Escape}");
-//   },
-// };
+export const TextOverflow: Story = {
+  ...buildTextOverflowStory({
+    component: KdsDateTimeFormatInput,
+    width: 260,
+  }),
+  args: {
+    modelValue:
+      "VeryLongFormatStringThatShouldOverflow-YYYY-MM-DD-hh-mm-ss-SSS-ZZZ",
+  },
+};

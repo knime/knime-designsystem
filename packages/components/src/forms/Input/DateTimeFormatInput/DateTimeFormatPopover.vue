@@ -129,14 +129,16 @@ watch(localeOptions, (options) => {
 </script>
 
 <template>
-  <div class="popover-content">
+  <div class="popover-content" role="listbox">
     <KdsValueSwitch
+      v-if="modeOptions.length > 1"
       v-model="selectedMode"
       size="small"
       :possible-values="modeOptions"
     />
 
     <KdsValueSwitch
+      v-if="localeOptions.length > 1"
       v-model="selectedLocale"
       size="small"
       :possible-values="localeOptions"

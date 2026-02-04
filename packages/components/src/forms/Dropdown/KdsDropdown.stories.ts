@@ -282,13 +282,18 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   combinationsProps: [
     {
       label: ["Label"],
-      modelValue: [null, "a"],
+      modelValue: [null, "a", "c"],
       placeholder: ["{text}"],
       disabled: [false, true],
       error: [false, true],
       validating: [false, true],
       subText: [undefined, "Helper text"],
-      possibleValues: [[]],
+      possibleValues: [
+        [
+          { id: "a", text: "Option A" },
+          { id: "b", text: "Option B" },
+        ],
+      ],
     },
   ],
   pseudoStates: ["hover", "active", "focus"],
