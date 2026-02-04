@@ -9,7 +9,6 @@ import KdsBaseInput from "../BaseInput.vue";
 import type { KdsDateTimeFormatInputProps } from "../types.ts";
 
 import DateTimeFormatPopover from "./DateTimeFormatPopover.vue";
-import { dateFormats } from "./constants.ts";
 
 const props = withDefaults(defineProps<KdsDateTimeFormatInputProps>(), {
   disabled: false,
@@ -20,7 +19,7 @@ const props = withDefaults(defineProps<KdsDateTimeFormatInputProps>(), {
   preserveSubTextSpace: false,
   placeholder: "Format",
   emptyText: "No entries in this list",
-  allDefaultFormats: () => dateFormats,
+  allDefaultFormats: undefined,
 });
 
 const modelValue = defineModel<string>({ default: "" });

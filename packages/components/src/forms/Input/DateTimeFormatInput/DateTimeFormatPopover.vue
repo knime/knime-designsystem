@@ -10,11 +10,12 @@ import type {
 } from "../types";
 
 import MenuList from "./MenuList/MenuList.vue";
+import { dateFormats } from "./constants.ts";
 
 type DateTimeFormatPopoverProps = {
   id: string;
   emptyText: string;
-  allDefaultFormats: KdsDateTimeFormatEntry[];
+  allDefaultFormats?: KdsDateTimeFormatEntry[];
   allowedFormats?: KdsTemporalType[];
 };
 
@@ -37,7 +38,7 @@ const categoryToLocaleLabel: Record<KdsDateFormatCategory, string> = {
 };
 
 const typedDateFormats = computed(() => {
-  const entries = props.allDefaultFormats ?? [];
+  const entries = props.allDefaultFormats ?? dateFormats;
 
   if (!props.allowedFormats || props.allowedFormats.length === 0) {
     return entries;
@@ -82,6 +83,28 @@ const localeOptions = computed(() => {
 const selectedMode = ref(modeOptions.value[0] ?? "Date");
 const selectedLocale = ref(localeOptions.value[0] ?? "ISO");
 
+// Keep the mode/locale switches in sync with the selected format.
+const selectedFormatEntry = computed(() => {
+  if (!modelValue.value) {
+    return null;
+  }
+
+  return (
+    typedDateFormats.value.find((entry) => entry.format === modelValue.value) ??
+    null
+  );
+});
+
+const selectedModeFromModel = computed(() => {
+  const entry = selectedFormatEntry.value;
+  return entry ? temporalTypeToModeLabel[entry.temporalType] : null;
+});
+
+const selectedLocaleFromModel = computed(() => {
+  const entry = selectedFormatEntry.value;
+  return entry ? categoryToLocaleLabel[entry.category] : null;
+});
+
 type ModeLocaleKey = `${string}__${string}`;
 
 const internalOptionsByModeAndLocale = computed(() => {
@@ -115,6 +138,34 @@ const menuItems = computed(() =>
     text: option.label,
     subtext: option.example,
   })),
+);
+
+watch(
+  [selectedModeFromModel, selectedLocaleFromModel, modeOptions, localeOptions],
+  ([mode, locale, modes, locales]) => {
+    if (modes.length === 0 || locales.length === 0) {
+      return;
+    }
+
+    // If the current model value matches a known entry, prefer that.
+    if (mode && modes.includes(mode)) {
+      selectedMode.value = mode;
+    }
+
+    if (locale && locales.includes(locale)) {
+      selectedLocale.value = locale;
+    }
+
+    // Fallback: ensure selected values remain valid.
+    if (!modes.includes(selectedMode.value)) {
+      selectedMode.value = modes[0]!;
+    }
+
+    if (!locales.includes(selectedLocale.value)) {
+      selectedLocale.value = locales[0]!;
+    }
+  },
+  { immediate: true },
 );
 
 watch(modeOptions, (options) => {
