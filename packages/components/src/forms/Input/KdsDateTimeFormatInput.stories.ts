@@ -1,0 +1,323 @@
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { useArgs } from "storybook/preview-api";
+import { expect, userEvent, within } from "storybook/test";
+
+import {
+  buildAllCombinationsStory,
+  buildDesignComparatorStory,
+  buildTextOverflowStory,
+} from "../../test-utils/storybook";
+
+import KdsDateTimeFormatInput from "./KdsDateTimeFormatInput.vue";
+
+type Story = StoryObj<typeof KdsDateTimeFormatInput>;
+
+const sampleOptions = [
+  { id: "yyyy-MM-dd", label: "Label", example: "(Example)" },
+  { id: "dd.MM.yyyy", label: "Label", example: "(Example)" },
+  { id: "MM/dd/yyyy", label: "Label", example: "(Example)" },
+  { id: "yyyy-MM-dd HH:mm", label: "Label", example: "(Example)" },
+  { id: "dd.M.yyyy", label: "Label", example: "(Example)" },
+];
+
+const meta: Meta<typeof KdsDateTimeFormatInput> = {
+  title: "Components/forms/KdsDateTimeFormatInput",
+  component: KdsDateTimeFormatInput as Meta<
+    typeof KdsDateTimeFormatInput
+  >["component"],
+  tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "An input field for date/time format strings with an action button that opens a popover to pick a format.",
+      },
+    },
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6203-28594",
+    },
+  },
+  argTypes: {
+    modelValue: {
+      control: "text",
+      description: "v-model binding for the format string",
+      table: { category: "Model" },
+    },
+    open: {
+      control: "boolean",
+      description: "v-model binding for the popover open state",
+      table: { category: "Model" },
+    },
+    label: {
+      control: "text",
+      table: { category: "Props" },
+    },
+    placeholder: {
+      control: "text",
+      table: { category: "Props" },
+    },
+    name: {
+      control: "text",
+      table: { category: "Props" },
+    },
+    autocomplete: {
+      control: "text",
+      table: { category: "Props" },
+    },
+    subText: {
+      control: "text",
+      table: { category: "Props" },
+    },
+    formatOptions: {
+      control: "object",
+      table: { category: "Props" },
+    },
+    emptyText: {
+      control: "text",
+      table: { category: "Props" },
+    },
+    modeOptions: {
+      control: "object",
+      table: { category: "Props" },
+    },
+    localeOptions: {
+      control: "object",
+      table: { category: "Props" },
+    },
+    disabled: {
+      control: "boolean",
+      table: { category: "Props" },
+    },
+    readonly: {
+      control: "boolean",
+      table: { category: "Props" },
+    },
+    required: {
+      control: "boolean",
+      table: { category: "Props" },
+    },
+    error: {
+      control: "boolean",
+      table: { category: "Props" },
+    },
+    validating: {
+      control: "boolean",
+      table: { category: "Props" },
+    },
+    preserveSubTextSpace: {
+      control: "boolean",
+      table: { category: "Props" },
+    },
+  },
+  args: {
+    modelValue: "",
+    open: false,
+    label: "Label",
+    placeholder: "{Formatted Value}",
+    name: "",
+    autocomplete: "",
+    subText: "",
+    formatOptions: sampleOptions,
+    emptyText: "No entries in this list",
+    modeOptions: ["Date", "Date & Time", "Time", "Zoned Date & Time"],
+    localeOptions: ["Recent", "ISO", "European", "United States"],
+    disabled: false,
+    readonly: false,
+    required: false,
+    error: false,
+    validating: false,
+    preserveSubTextSpace: false,
+  },
+  decorators: [
+    (story) => {
+      const [currentArgs, updateArgs] = useArgs();
+      return {
+        components: { story },
+        setup() {
+          return {
+            args: currentArgs,
+            updateArgs,
+          };
+        },
+        template:
+          '<story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" @update:open="(value) => updateArgs({ open: value })" />',
+      };
+    },
+  ],
+};
+
+export default meta;
+
+export const Default: Story = {};
+
+export const WithValue: Story = {
+  args: {
+    modelValue: "yyyy-MM-dd",
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+    modelValue: "yyyy-MM-dd",
+  },
+};
+
+export const Readonly: Story = {
+  args: {
+    readonly: true,
+    modelValue: "yyyy-MM-dd",
+  },
+};
+
+export const WithError: Story = {
+  args: {
+    error: true,
+    subText: "Error message",
+  },
+};
+
+export const Validating: Story = {
+  args: {
+    validating: true,
+    subText: "Validation message",
+  },
+};
+
+export const PopoverOpen: Story = {
+  args: {
+    open: true,
+  },
+};
+
+export const PopoverEmpty: Story = {
+  args: {
+    open: true,
+    formatOptions: [],
+  },
+};
+
+export const AllCombinations: Story = buildAllCombinationsStory({
+  component: KdsDateTimeFormatInput,
+  combinationsProps: [
+    {
+      label: ["Label"],
+      modelValue: ["", "yyyy-MM-dd"],
+      disabled: [false, true],
+      readonly: [false, true],
+      error: [false, true],
+      validating: [false, true],
+      subText: [undefined, "Message"],
+    },
+  ],
+  pseudoStates: ["hover", "active", "focus", "focus-visible"],
+});
+
+export const DesignComparator: Story = buildDesignComparatorStory({
+  component: KdsDateTimeFormatInput,
+  componentStyle: "width: 218px",
+  designsToCompare: {
+    ".DateTimeFormatInput": {
+      props: {
+        placeholder: "{Formatted Value}",
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6203-29038":
+          {
+            modelValue: "",
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6203-29440":
+          {
+            modelValue: "",
+            parameters: { pseudo: { hover: true } },
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6203-29455":
+          {
+            modelValue: "",
+            parameters: {
+              pseudo: { focus: true },
+              figmaOffset: { x: -3, y: -3 },
+            },
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6203-29531":
+          {
+            modelValue: "yyyy-MM-dd",
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6203-29546":
+          {
+            modelValue: "yyyy-MM-dd",
+            error: true,
+            subText: "{Error message}",
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6203-29573":
+          {
+            modelValue: "yyyy-MM-dd",
+            validating: true,
+            subText: "{Validation message}",
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6203-29596":
+          {
+            modelValue: "yyyy-MM-dd",
+            disabled: true,
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6203-36487":
+          {
+            modelValue: "yyyy-MM-dd",
+            open: true,
+          },
+      },
+    },
+    ".DateTimeFormatPopover": {
+      props: {
+        modelValue: "yyyy-MM-dd",
+        open: true,
+        formatOptions: sampleOptions,
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6203-37302":
+          {},
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6203-37392":
+          {
+            formatOptions: [],
+          },
+      },
+    },
+  },
+});
+
+export const TextOverflow: Story = {
+  ...buildTextOverflowStory({
+    component: KdsDateTimeFormatInput,
+    width: 260,
+  }),
+  args: {
+    modelValue:
+      "VeryLongFormatStringThatShouldOverflow-YYYY-MM-DD-hh-mm-ss-SSS-ZZZ",
+    formatOptions: [
+      {
+        id: "VeryLongFormatStringThatShouldOverflow-YYYY-MM-DD-hh-mm-ss-SSS-ZZZ",
+        label: "Very long label that should overflow in the list",
+        example: "(Example) with a very long subtext that should also overflow",
+      },
+    ],
+  },
+};
+
+export const Interaction: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const formatButton = canvas.getByLabelText("Open date/time format picker");
+    await userEvent.click(formatButton);
+
+    const optionButton = canvas.getAllByRole("option")[0];
+    await userEvent.click(optionButton);
+
+    const input = canvas.getByRole("textbox");
+    await expect(input).toHaveValue("yyyy-MM-dd");
+
+    await userEvent.click(formatButton);
+    await userEvent.keyboard("{Escape}");
+  },
+};
