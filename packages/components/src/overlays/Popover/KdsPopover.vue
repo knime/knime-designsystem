@@ -94,6 +94,8 @@ const anchorId = `--${useId()}`;
 }
 
 /* stylelint-disable declaration-property-value-no-unknown, at-rule-descriptor-value-no-unknown */
+
+/* noinspection CssInvalidFunction,CssInvalidAtRule */
 .floating.top-left {
   inset: auto anchor(right) anchor(top) auto;
   margin-right: 0;
@@ -102,6 +104,7 @@ const anchorId = `--${useId()}`;
     --kds-popover-try-bottom-right, --kds-popover-try-top-left;
 }
 
+/* noinspection CssInvalidFunction,CssInvalidAtRule */
 .floating.top-right {
   inset: auto auto anchor(top) anchor(left);
   margin-left: 0;
@@ -110,6 +113,7 @@ const anchorId = `--${useId()}`;
     --kds-popover-try-bottom-left, --kds-popover-try-top-right;
 }
 
+/* noinspection CssInvalidFunction,CssInvalidAtRule */
 .floating.bottom-left {
   inset: anchor(bottom) anchor(right) auto auto;
   margin-right: 0;
@@ -118,6 +122,7 @@ const anchorId = `--${useId()}`;
     --kds-popover-try-top-right, --kds-popover-try-bottom-left;
 }
 
+/* noinspection CssInvalidFunction,CssInvalidAtRule */
 .floating.bottom-right {
   inset: anchor(bottom) auto auto anchor(left);
   margin-left: 0;
@@ -126,21 +131,25 @@ const anchorId = `--${useId()}`;
     --kds-popover-try-top-left, --kds-popover-try-bottom-right;
 }
 
+/* noinspection CssInvalidFunction,CssInvalidAtRule */
 @position-try --kds-popover-try-top-left {
   inset: auto anchor(right) anchor(top) auto;
   margin: 8px 0;
 }
 
+/* noinspection CssInvalidFunction,CssInvalidAtRule */
 @position-try --kds-popover-try-top-right {
   inset: auto auto anchor(top) anchor(left);
   margin: 8px 0;
 }
 
+/* noinspection CssInvalidFunction,CssInvalidAtRule */
 @position-try --kds-popover-try-bottom-left {
   inset: anchor(bottom) anchor(right) auto auto;
   margin: 8px 0;
 }
 
+/* noinspection CssInvalidFunction,CssInvalidAtRule */
 @position-try --kds-popover-try-bottom-right {
   inset: anchor(bottom) auto auto anchor(left);
   margin: 8px 0;
