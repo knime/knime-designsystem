@@ -1,4 +1,4 @@
-import { nextTick, useId, watch, watchEffect } from "vue";
+import { nextTick, onScopeDispose, useId, watch, watchEffect } from "vue";
 import type { ComponentPublicInstance, Ref } from "vue";
 
 import { kdsPopoverPlacements } from "./constants";
@@ -75,10 +75,25 @@ const placementMarginAdjustments: Record<
     "margin-right"?: string;
   }
 > = {
-  "top-left": { "margin-right": "0" },
-  "top-right": { "margin-left": "0" },
-  "bottom-left": { "margin-right": "0" },
-  "bottom-right": { "margin-left": "0" },
+  // When aligned to the right edge of the anchor, we remove the right margin.
+  // When aligned to the left edge, we remove the left margin.
+  // Keep the opposite side at 4px to maintain spacing.
+  "top-left": {
+    "margin-right": "0",
+    "margin-left": "var(--kds-spacing-container-0-25x)",
+  },
+  "top-right": {
+    "margin-left": "0",
+    "margin-right": "var(--kds-spacing-container-0-25x)",
+  },
+  "bottom-left": {
+    "margin-right": "0",
+    "margin-left": "var(--kds-spacing-container-0-25x)",
+  },
+  "bottom-right": {
+    "margin-left": "0",
+    "margin-right": "var(--kds-spacing-container-0-25x)",
+  },
 };
 
 const fallbackInsets: Record<KdsPopoverPlacement, string> = {
@@ -129,6 +144,7 @@ export const useKdsPopover = (params: {
       return;
     }
 
+    // Avoid throwing in browsers/environments without Popover API.
     if (params.open.value) {
       el.showPopover?.();
     } else {
@@ -156,6 +172,24 @@ export const useKdsPopover = (params: {
     params.open.value = Boolean(isOpen);
   };
 
+  const removeNativeToggleListener = (el: HTMLElement | null) => {
+    el?.removeEventListener("toggle", onNativeToggle as EventListener);
+  };
+
+  // Keep exactly one native toggle listener attached to the current popover element.
+  watch(
+    () => resolveElement(params.popoverEl.value),
+    (next, prev) => {
+      removeNativeToggleListener(prev ?? null);
+      next?.addEventListener("toggle", onNativeToggle as EventListener);
+    },
+    { immediate: true },
+  );
+
+  onScopeDispose(() => {
+    removeNativeToggleListener(resolveElement(params.popoverEl.value));
+  });
+
   watchEffect(() => {
     const placement = getPlacement();
     const anchorEl = params.anchorEl?.value ?? params.activatorEl.value;
@@ -176,7 +210,7 @@ export const useKdsPopover = (params: {
     setStyleProperty(popoverEl, "position-anchor", anchorName);
 
     // Shared floating reset styles
-    setStyleProperty(popoverEl, "margin", "var(--kds-spacing-container-0-5x)");
+    setStyleProperty(popoverEl, "margin", "var(--kds-spacing-container-0-25x)");
 
     // Placement styling (self-contained, no dependency on KdsPopover.vue CSS)
     setStyleProperty(popoverEl, "inset", placementInsets[placement]);
@@ -205,18 +239,9 @@ export const useKdsPopover = (params: {
       setStyleProperty(
         popoverEl,
         `--kds-popover-try-${p}`,
-        `inset: ${fallbackInsets[p]}; margin: 8px 0`,
+        `inset: ${fallbackInsets[p]}; margin: var(--kds-spacing-container-0-25x) 0`,
       );
     }
-
-    // Native toggle listener
-    const popoverElement = resolveElement(popoverEl);
-    popoverElement?.classList.add("floating");
-    popoverElement?.removeEventListener(
-      "toggle",
-      onNativeToggle as EventListener,
-    );
-    popoverElement?.addEventListener("toggle", onNativeToggle as EventListener);
   });
 
   return { popoverId };
