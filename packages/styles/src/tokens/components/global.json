@@ -152,7 +152,7 @@
         "text-and-icon": {
           "neutral": {
             "$type": "color",
-            "$value": "{kds.color.text-and-icon.neutral}",
+            "$value": "{kds.core.color.neutral.50}",
             "$description": "Neutral text and icon color for the Tooltip component."
           }
         }
