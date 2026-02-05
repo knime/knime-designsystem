@@ -8,6 +8,7 @@ const props = withDefaults(defineProps<KdsPopoverProps>(), {
   mainContainer: () => document.body,
   ignoredClickOutsideTarget: null,
 });
+
 const open = defineModel<boolean>({ default: false });
 const referenceEl = ref<HTMLElement | null>(null);
 const floatingEl = ref<HTMLElement | null>(null);
@@ -51,20 +52,24 @@ const anchorId = `--${useId()}`;
     <div
       ref="referenceEl"
       class="activator"
-      :data-open="open"
-      :aria-expanded="open"
-      :aria-controls="popoverId"
-      aria-haspopup="dialog"
       :style="'anchor-name: ' + anchorId"
     >
-      <slot name="activator" />
+      <slot
+        name="activator"
+        :props="{
+          popovertrigger: popoverId,
+          'aria-expanded': open,
+          'aria-controls': popoverId,
+          'aria-haspopup': 'dialog',
+        }"
+      />
     </div>
 
     <div
       v-if="$slots.default"
       :id="popoverId"
       ref="floatingEl"
-      :class="['floating', placement]"
+      :class="['floating', props.placement]"
       popover="auto"
       :style="'position-anchor: ' + anchorId"
       @toggle="onNativeToggle"

@@ -68,8 +68,8 @@ export const Default: Story = {
     template: `
       <div style="display: flex">
         <KdsPopover v-model="open" v-bind="args">
-          <template #activator>
-            <KdsToggleButton v-model="open" label="Toggle popover" />
+          <template #activator="{ props }">
+            <KdsToggleButton v-model="open" v-bind="props" label="Toggle popover" />
           </template>
           <div style="display: flex; flex-direction: column; gap: var(--kds-spacing-container-0-5x);">
             <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-subtle);">
@@ -118,8 +118,8 @@ export const IgnoredClickOutsideTarget: Story = {
       <div style="display: flex; gap: var(--kds-spacing-container-2x); align-items: flex-start;">
         <div>
           <KdsPopover v-model="open" v-bind="args" :ignoredClickOutsideTarget="ignoredPanel">
-            <template #activator>
-              <KdsToggleButton v-model="open" label="Toggle popover" />
+            <template #activator="{ props }">
+              <KdsToggleButton v-model="open" v-bind="props" label="Toggle popover" />
             </template>
 
             <div style="display: flex; flex-direction: column; gap: var(--kds-spacing-container-0-5x);">
@@ -167,8 +167,8 @@ export const InfoPopover: Story = {
     template: `
       <div style="display: flex">
         <KdsPopover v-model="open">
-          <template #activator>
-            <KdsInfoToggleButton v-model="open" visible />
+          <template #activator="{ props }">
+            <KdsInfoToggleButton v-model="open" v-bind="props" visible />
           </template>
 
           <div>
@@ -201,9 +201,10 @@ export const VariablePopover: Story = {
     template: `
       <div style="display: flex">
         <KdsPopover v-model="open">
-          <template #activator>
+          <template #activator="{ props }">
             <KdsVariableToggleButton
               v-model="open"
+              v-bind="props"
               :inSet="!!inValue"
               :outSet="!!outValue"
             />
@@ -219,21 +220,10 @@ export const VariablePopover: Story = {
             <div style="display: flex; flex-direction: column;">
               <KdsLabel id="variable-popover-select-label" label="{Label}" />
               <select
-                v-model="inValue"
                 aria-labelledby="variable-popover-select-label"
-                style="
-                  width: 100%;
-                  height: var(--kds-dimension-component-height-1-5x);
-                  padding: var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-5x);
-                  font: var(--kds-font-base-body-small);
-                  color: var(--kds-color-text-and-icon-subtle);
-                  background: var(--kds-color-background-input-initial);
-                  border: var(--kds-border-action-input);
-                  border-radius: var(--kds-border-radius-container-0-25x);
-                "
               >
-                <option value="">None</option>
-                <option value="selected">Selected</option>
+                <option value="">Select value</option>
+                <option value="flow-var-1">flowVar 1</option>
               </select>
             </div>
 
@@ -311,8 +301,8 @@ export const Interaction: Story = {
     template: `
       <div style="display: flex">
         <KdsPopover v-model="open" v-bind="args">
-          <template #activator>
-            <KdsToggleButton v-model="open" label="Toggle popover" />
+          <template #activator="{ props }">
+            <KdsToggleButton v-model="open" v-bind="props" label="Toggle popover" />
           </template>
 
           <div style="display: flex; flex-direction: column; gap: var(--kds-spacing-container-0-5x);">
@@ -417,8 +407,8 @@ export const RestrictedMainContainer: Story = {
               :mainContainer="container"
               placement="top-left"
             >
-              <template #activator>
-                <KdsToggleButton v-model="open" label="Toggle popover" />
+              <template #activator="{ props }">
+                <KdsToggleButton v-model="open" v-bind="props" label="Toggle popover" />
               </template>
 
               <div style="display: flex; flex-direction: column; gap: var(--kds-spacing-container-0-5x); width: 280px;">

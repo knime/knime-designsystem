@@ -55,7 +55,7 @@ const formatButtonWrapperEl = ref<HTMLElement | null>(null);
     />
 
     <KdsPopover v-model="open" placement="bottom-left">
-      <template #activator>
+      <template #activator="{ props: popoverActivatorProps }">
         <KdsBaseInput
           :id="inputId"
           v-model="modelValue"
@@ -75,6 +75,7 @@ const formatButtonWrapperEl = ref<HTMLElement | null>(null);
             <div ref="formatButtonWrapperEl" class="format-button-wrapper">
               <KdsButton
                 :id="formatButtonId"
+                v-bind="popoverActivatorProps"
                 type="button"
                 size="xsmall"
                 variant="outlined"
@@ -82,8 +83,6 @@ const formatButtonWrapperEl = ref<HTMLElement | null>(null);
                 aria-label="Open date/time format picker"
                 title="Open date/time format picker"
                 :disabled="props.disabled || props.readonly"
-                :aria-haspopup="'dialog'"
-                :aria-expanded="open"
                 @click.stop="open = !open"
               />
             </div>
