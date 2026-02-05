@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount, ref, unref, useId, watch } from "vue";
 import type { ComponentPublicInstance } from "vue";
+import { useElementSize } from "@vueuse/core";
 
 import type { KdsPopoverProps } from "./types";
 
@@ -90,6 +91,10 @@ onBeforeUnmount(() => {
     resolveElement(unref(props.activatorEl));
   setAnchorName(effective, null);
 });
+
+const { width: activatorWidth } = useElementSize(
+  () => resolveElement(unref(props.activatorEl)) ?? null,
+);
 </script>
 
 <template>
@@ -99,7 +104,13 @@ onBeforeUnmount(() => {
     class="kds-popover"
     :class="['floating', props.placement, { 'show-arrow': props.showArrow }]"
     popover="auto"
-    :style="'position-anchor: ' + anchorName"
+    :style="
+      'position-anchor: ' +
+      anchorName +
+      '; --kds-popover-activator-width: ' +
+      activatorWidth +
+      'px'
+    "
     @toggle="onNativeToggle"
   >
     <div
@@ -113,9 +124,10 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .kds-popover {
+  --kds-popover-activator-width: 50px;
   --kds-popover-arrow-size: var(--kds-spacing-container-0-37x);
   --kds-popover-arrow-inset: calc(var(--kds-popover-arrow-size) / -2) auto auto
-    var(--kds-spacing-container-0-25x);
+    var(--kds-popover-activator-width);
 
   padding: var(--kds-spacing-container-0-75x);
   overflow: visible;
@@ -153,7 +165,8 @@ onBeforeUnmount(() => {
     margin: var(--kds-spacing-container-0-25x) 0
       var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x);
     --kds-popover-arrow-inset: auto auto
-      calc(var(--kds-popover-arrow-size) / -2) var(--kds-spacing-container-0-5x);
+      calc(var(--kds-popover-arrow-size) / -2)
+      var(--kds-popover-activator-width);
 
     position-try-fallbacks:
       --kds-popover-try-top-right, --kds-popover-try-bottom-left,
@@ -166,7 +179,8 @@ onBeforeUnmount(() => {
     margin: var(--kds-spacing-container-0-25x)
       var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x) 0;
     --kds-popover-arrow-inset: auto auto
-      calc(var(--kds-popover-arrow-size) / -2) var(--kds-spacing-container-0-5x);
+      calc(var(--kds-popover-arrow-size) / -2)
+      var(--kds-popover-activator-width);
 
     position-try-fallbacks:
       --kds-popover-try-top-left, --kds-popover-try-bottom-right,
@@ -179,7 +193,7 @@ onBeforeUnmount(() => {
     margin: var(--kds-spacing-container-0-25x) 0
       var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x);
     --kds-popover-arrow-inset: calc(var(--kds-popover-arrow-size) / -2)
-      var(--kds-spacing-container-0-5x) auto auto;
+      var(--kds-popover-activator-width) auto auto;
 
     position-try-fallbacks:
       --kds-popover-try-bottom-right, --kds-popover-try-top-left,
@@ -192,7 +206,7 @@ onBeforeUnmount(() => {
     margin: var(--kds-spacing-container-0-25x)
       var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x) 0;
     --kds-popover-arrow-inset: calc(var(--kds-popover-arrow-size) / -2) auto
-      auto var(--kds-spacing-container-0-5x);
+      auto var(--kds-popover-activator-width);
 
     position-try-fallbacks:
       --kds-popover-try-bottom-left, --kds-popover-try-top-right,
@@ -206,7 +220,8 @@ onBeforeUnmount(() => {
       var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x);
     /* stylelint-disable-next-line at-rule-descriptor-no-unknown */
     --kds-popover-arrow-inset: auto auto
-      calc(var(--kds-popover-arrow-size) / -2) var(--kds-spacing-container-0-5x);
+      calc(var(--kds-popover-arrow-size) / -2)
+      var(--kds-popover-activator-width);
   }
 
   /* noinspection CssInvalidFunction,CssInvalidAtRule */
@@ -216,7 +231,8 @@ onBeforeUnmount(() => {
       var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x) 0;
     /* stylelint-disable-next-line at-rule-descriptor-no-unknown */
     --kds-popover-arrow-inset: auto auto
-      calc(var(--kds-popover-arrow-size) / -2) var(--kds-spacing-container-0-5x);
+      calc(var(--kds-popover-arrow-size) / -2)
+      var(--kds-popover-activator-width);
   }
 
   /* noinspection CssInvalidFunction,CssInvalidAtRule */
@@ -226,7 +242,7 @@ onBeforeUnmount(() => {
       var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x);
     /* stylelint-disable-next-line at-rule-descriptor-no-unknown */
     --kds-popover-arrow-inset: calc(var(--kds-popover-arrow-size) / -2)
-      var(--kds-spacing-container-0-5x) auto auto;
+      var(--kds-popover-activator-width) auto auto;
   }
 
   /* noinspection CssInvalidFunction,CssInvalidAtRule */
@@ -236,7 +252,7 @@ onBeforeUnmount(() => {
       var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x) 0;
     /* stylelint-disable-next-line at-rule-descriptor-no-unknown */
     --kds-popover-arrow-inset: calc(var(--kds-popover-arrow-size) / -2) auto
-      auto var(--kds-spacing-container-0-5x);
+      auto var(--kds-popover-activator-width);
   }
   /* stylelint-enable declaration-property-value-no-unknown, at-rule-descriptor-value-no-unknown */
 }
