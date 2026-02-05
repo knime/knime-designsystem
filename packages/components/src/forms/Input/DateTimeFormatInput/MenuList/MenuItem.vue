@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import KdsIcon from "../../../../Icon/KdsIcon.vue";
 
-import type { MenuItemEmits, MenuItemProps } from "./types.ts";
+import type { MenuItemEmits, MenuItemProps } from "./types";
 
 const props = withDefaults(defineProps<MenuItemProps>(), {
   selected: false,
