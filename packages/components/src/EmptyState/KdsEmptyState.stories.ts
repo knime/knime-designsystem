@@ -175,7 +175,7 @@ export const Default: Story = {
     docs: {
       description: {
         story:
-          " Use when the empty state is self-explanatory and requires no user action (e.g. list that is often empty).",
+          "Use when the empty state is self-explanatory and requires no user action (e.g. list that is often empty).",
       },
     },
   },
@@ -189,7 +189,7 @@ export const WithDescription: Story = {
     docs: {
       description: {
         story:
-          " Use when users may need context to understand why the list is empty or what kind of content will appear here.",
+          "Use when users may need context to understand why the list is empty or what kind of content will appear here.",
       },
     },
   },
@@ -204,7 +204,7 @@ export const WithActionButton: Story = {
     docs: {
       description: {
         story:
-          " Use when the empty state should guide the user toward a next step, such as creating, adding, or configuring something.",
+          "Use when the empty state should guide the user toward a next step, such as creating, adding, or configuring something.",
       },
     },
   },
