@@ -132,6 +132,10 @@ export const useKdsPopover = (params: {
   popoverEl: Ref<MaybeElement>;
   anchorEl?: Ref<MaybeElement>;
   placement?: KdsPopoverPlacement | Ref<KdsPopoverPlacement>;
+  /**
+   * Determines the accessible semantics exposed via `aria-haspopup` on the activator.
+   */
+  type: "menu" | "listbox" | "grid";
 }) => {
   registerPositionTryFallbackStyles();
 
@@ -169,13 +173,9 @@ export const useKdsPopover = (params: {
     }
   };
 
-  watch(
-    params.open,
-    () => {
-      syncToNativePopover().catch(() => undefined);
-    },
-    { immediate: true },
-  );
+  watch(params.open, () => {
+    syncToNativePopover().catch(() => undefined);
+  });
 
   const onNativeToggle = (e: Event) => {
     if (e.target !== resolveElement(params.popoverEl.value)) {
@@ -219,7 +219,7 @@ export const useKdsPopover = (params: {
     // Activator
     setOrRemoveAttr(activatorEl, "aria-expanded", params.open.value);
     setOrRemoveAttr(activatorEl, "aria-controls", popoverId);
-    setOrRemoveAttr(activatorEl, "aria-haspopup", "dialog");
+    setOrRemoveAttr(activatorEl, "aria-haspopup", params.type);
 
     // Popover
     setOrRemoveAttr(popoverEl, "id", popoverId);

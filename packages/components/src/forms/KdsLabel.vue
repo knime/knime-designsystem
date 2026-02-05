@@ -24,6 +24,7 @@ useKdsPopover({
   activatorEl,
   popoverEl,
   placement: "top-left",
+  type: "grid",
 });
 </script>
 

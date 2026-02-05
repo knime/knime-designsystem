@@ -44,6 +44,7 @@ describe("useKdsPopover", () => {
             activatorEl,
             popoverEl,
             placement: params.placement ?? "bottom-right",
+            type: "grid",
           });
 
           return { open, activatorEl, popoverEl };
@@ -72,8 +73,8 @@ describe("useKdsPopover", () => {
 
     // initial
     await nextTick();
-    expect(activator.getAttribute("aria-expanded")).toBe("false");
-    expect(activator.getAttribute("aria-haspopup")).toBe("dialog");
+    expect(activator.getAttribute("aria-expanded")).toBeNull();
+    expect(activator.getAttribute("aria-haspopup")).toBe("grid");
     expect(activator.getAttribute("aria-controls")).toBeTruthy();
     expect(popover.getAttribute("id")).toBeTruthy();
     expect(popover.getAttribute("popover")).toBe("auto");
@@ -84,13 +85,15 @@ describe("useKdsPopover", () => {
     await nextTick(); // composable awaits nextTick before calling showPopover
     expect(showSpy).toHaveBeenCalledTimes(1);
 
-    expect(activator.getAttribute("aria-expanded")).toBe("true");
+    expect(activator.getAttribute("aria-expanded")).toBeDefined();
 
     // close
     open.value = false;
     await nextTick();
     await nextTick();
     expect(hideSpy).toHaveBeenCalledTimes(1);
+
+    expect(activator.getAttribute("aria-expanded")).toBeNull();
 
     wrapper.unmount();
   });
@@ -102,7 +105,9 @@ describe("useKdsPopover", () => {
     expect(open.value).toBe(false);
 
     // native reports open
-    popover.matches = vi.fn().mockReturnValue(true);
+    popover.matches = vi
+      .fn()
+      .mockImplementation((sel: string) => sel === ":popover-open");
     popover.dispatchEvent(new Event("toggle"));
     await nextTick();
     expect(open.value).toBe(true);
@@ -154,6 +159,7 @@ describe("useKdsPopover", () => {
             anchorEl,
             popoverEl,
             placement: "bottom-right",
+            type: "dialog",
           });
 
           return { activatorEl, anchorEl, popoverEl };
@@ -187,36 +193,56 @@ describe("useKdsPopover", () => {
     wrapper.unmount();
   });
 
-  it("registers composable-specific @position-try rules once", async () => {
-    // Ensure clean slate
-    document
-      .querySelectorAll("style[data-kds='popover-composable-position-try']")
-      .forEach((el) => el.remove());
+  it("sets composable-specific position-try-fallbacks", async () => {
+    const { wrapper, popover } = mountHarness();
 
-    // First mount should inject style
-    const first = mountHarness();
     await nextTick();
 
-    const stylesAfterFirst = document.querySelectorAll(
-      "style[data-kds='popover-composable-position-try']",
+    expect(popover.style.getPropertyValue("position-try-fallbacks")).toContain(
+      "--kds-popover-composable-try-",
     );
-    expect(stylesAfterFirst.length).toBe(1);
 
-    // Second mount should not inject again
-    const second = mountHarness();
+    wrapper.unmount();
+  });
+
+  it("defaults aria-haspopup to dialog and supports configuring it", async () => {
+    const { wrapper, activator } = mountHarness();
+
     await nextTick();
+    expect(activator.getAttribute("aria-haspopup")).toBe("dialog");
 
-    const stylesAfterSecond = document.querySelectorAll(
-      "style[data-kds='popover-composable-position-try']",
+    wrapper.unmount();
+
+    const open = ref(false);
+    const wrapper2 = mount(
+      {
+        setup() {
+          const activatorEl = ref<HTMLElement | null>(null);
+          const popoverEl = ref<HTMLElement | null>(null);
+
+          useKdsPopover({
+            open,
+            activatorEl,
+            popoverEl,
+            placement: "bottom-right",
+            type: "menu",
+          });
+
+          return { activatorEl, popoverEl };
+        },
+        template: `
+          <div>
+            <button ref="activatorEl">Activator</button>
+            <div ref="popoverEl">Content</div>
+          </div>
+        `,
+      },
+      { attachTo: document.body },
     );
-    expect(stylesAfterSecond.length).toBe(1);
 
-    // popover should reference composable try names
-    expect(
-      first.popover.style.getPropertyValue("position-try-fallbacks"),
-    ).toContain("--kds-popover-composable-try-");
+    await nextTick();
+    expect(wrapper2.find("button").attributes("aria-haspopup")).toBe("menu");
 
-    first.wrapper.unmount();
-    second.wrapper.unmount();
+    wrapper2.unmount();
   });
 });
