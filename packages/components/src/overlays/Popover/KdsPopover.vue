@@ -57,7 +57,7 @@ const anchorId = `--${useId()}`;
       <slot
         name="activator"
         :props="{
-          popovertrigger: popoverId,
+          popovertarget: popoverId,
           'aria-expanded': open,
           'aria-controls': popoverId,
           'aria-haspopup': 'dialog',

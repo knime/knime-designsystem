@@ -83,7 +83,6 @@ const formatButtonWrapperEl = ref<HTMLElement | null>(null);
                 aria-label="Open date/time format picker"
                 title="Open date/time format picker"
                 :disabled="props.disabled || props.readonly"
-                @click.stop="open = !open"
               />
             </div>
           </template>
