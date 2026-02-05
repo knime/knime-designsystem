@@ -1,5 +1,11 @@
 # @knime/kds-styles
 
+## 0.6.4
+
+### Patch Changes
+
+- 73b16d3: KDS-715: Add version team and add user icon
+
 ## 0.6.3
 
 ## 0.6.2
