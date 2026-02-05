@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 
+import BasePopover from "../../../overlays/Popover/BasePopover.vue";
 import KdsValueSwitch from "../../RadioButton/KdsValueSwitch.vue";
 import type {
   KdsDateFormatCategory,
@@ -185,7 +186,7 @@ const menuItems = computed(() => {
 </script>
 
 <template>
-  <div class="popover-content" data-testid="date-time-format-popover">
+  <BasePopover data-testid="date-time-format-popover">
     <KdsValueSwitch
       v-if="modeOptions.length > 1"
       :model-value="effectiveSelectedMode"
@@ -217,17 +218,5 @@ const menuItems = computed(() => {
       :items="menuItems"
       :empty-text="props.emptyText"
     />
-  </div>
+  </BasePopover>
 </template>
-
-<style scoped>
-.popover-content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--kds-spacing-container-0-5x);
-  padding: var(--kds-spacing-container-0-75x);
-  background: var(--kds-color-surface-default);
-  border-radius: var(--kds-border-radius-container-0-37x);
-  box-shadow: var(--kds-elevation-level-3);
-}
-</style>

@@ -2,7 +2,7 @@
 import { computed, ref, useId } from "vue";
 
 import KdsButton from "../../../buttons/KdsButton.vue";
-import KdsPopover from "../../../overlays/Popover/KdsPopover.vue";
+import { useKdsPopover } from "../../../overlays/Popover/useKdsPopover";
 import KdsLabel from "../../KdsLabel.vue";
 import KdsSubText from "../../KdsSubText.vue";
 import KdsBaseInput from "../BaseInput.vue";
@@ -42,7 +42,18 @@ const ariaDescribedby = computed(() =>
     : undefined,
 );
 
-const formatButtonWrapperEl = ref<HTMLElement | null>(null);
+const anchorEl = ref<HTMLElement | null>(null);
+const activatorEl = ref<HTMLElement | null>(null);
+const popoverEl = ref<HTMLElement | null>(null);
+
+useKdsPopover({
+  open,
+  activatorEl,
+  anchorEl,
+  popoverEl,
+  placement: "bottom-left",
+  type: "listbox",
+});
 </script>
 
 <template>
@@ -54,56 +65,52 @@ const formatButtonWrapperEl = ref<HTMLElement | null>(null);
       :label="props.label"
     />
 
-    <KdsPopover v-model="open" placement="bottom-left">
-      <template #activator="{ props: popoverActivatorProps }">
-        <KdsBaseInput
-          :id="inputId"
-          v-model="modelValue"
-          type="text"
-          :placeholder="props.placeholder"
-          :disabled="props.disabled"
-          :readonly="props.readonly"
-          :required="props.required"
-          :error="props.error"
-          :validating="props.validating"
-          :name="props.name"
-          :autocomplete="props.autocomplete"
-          :aria-labelledby="ariaLabelledby"
-          :aria-describedby="ariaDescribedby"
-        >
-          <template #trailing>
-            <div ref="formatButtonWrapperEl" class="format-button-wrapper">
-              <KdsButton
-                :id="formatButtonId"
-                v-bind="popoverActivatorProps"
-                type="button"
-                size="xsmall"
-                variant="outlined"
-                leading-icon="date-time"
-                aria-label="Open date/time format picker"
-                title="Open date/time format picker"
-                :disabled="props.disabled || props.readonly"
-              />
-            </div>
-          </template>
-        </KdsBaseInput>
+    <KdsBaseInput
+      :id="inputId"
+      ref="anchorEl"
+      v-model="modelValue"
+      type="text"
+      :placeholder="props.placeholder"
+      :disabled="props.disabled"
+      :readonly="props.readonly"
+      :required="props.required"
+      :error="props.error"
+      :validating="props.validating"
+      :name="props.name"
+      :autocomplete="props.autocomplete"
+      :aria-labelledby="ariaLabelledby"
+      :aria-describedby="ariaDescribedby"
+    >
+      <template #trailing>
+        <KdsButton
+          :id="formatButtonId"
+          ref="activatorEl"
+          type="button"
+          size="xsmall"
+          variant="outlined"
+          leading-icon="date-time"
+          aria-label="Open date/time format picker"
+          title="Open date/time format picker"
+          :disabled="props.disabled || props.readonly"
+          @click="open = !open"
+        />
       </template>
+    </KdsBaseInput>
 
-      <DateTimeFormatPopover
-        :id="listboxId"
-        :model-value="modelValue"
-        :empty-text="props.emptyText"
-        :all-default-formats="props.allDefaultFormats"
-        :allowed-formats="props.allowedFormats"
-        @update:model-value="
-          (value) => {
-            modelValue = value;
-            open = false;
-          }
-        "
-        @close="open = false"
-      />
-    </KdsPopover>
+    <DateTimeFormatPopover
+      :id="listboxId"
+      ref="popoverEl"
+      :model-value="modelValue"
+      :empty-text="props.emptyText"
+      :all-default-formats="props.allDefaultFormats"
+      :allowed-formats="props.allowedFormats"
+      @update:model-value="
+        (value) => {
+          modelValue = value;
+          open = false;
+        }
+      "
+    />
 
     <KdsSubText
       :id="subTextId"
@@ -119,11 +126,5 @@ const formatButtonWrapperEl = ref<HTMLElement | null>(null);
 .date-time-format-input {
   display: flex;
   flex-direction: column;
-}
-
-.format-button-wrapper {
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
 }
 </style>

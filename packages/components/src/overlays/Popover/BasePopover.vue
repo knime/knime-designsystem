@@ -14,7 +14,7 @@
 
 <style scoped>
 .content {
-  padding: var(--kds-spacing-container-0-5x) var(--kds-spacing-container-0-75x);
+  padding: var(--kds-spacing-container-0-75x);
   font: var(--kds-font-base-body-small);
   color: var(--kds-color-text-and-icon-neutral);
   background: var(--kds-color-surface-default);
