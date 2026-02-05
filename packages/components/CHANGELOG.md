@@ -1,5 +1,12 @@
 # @knime/kds-components
 
+## 0.6.3
+
+### Patch Changes
+
+- d6f2baa: Add KdsEmptyState component
+  - @knime/kds-styles@0.6.3
+
 ## 0.6.2
 
 ### Patch Changes
