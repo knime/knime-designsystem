@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount, ref, unref, useId, watch } from "vue";
 import type { ComponentPublicInstance } from "vue";
-import { useElementSize } from "@vueuse/core";
+import { useResizeObserver } from "@vueuse/core";
 
 import type { KdsPopoverProps } from "./types";
 
@@ -92,8 +92,15 @@ onBeforeUnmount(() => {
   setAnchorName(effective, null);
 });
 
-const { width: activatorWidth } = useElementSize(
+const activatorWidth = ref(0);
+
+useResizeObserver(
   () => resolveElement(unref(props.activatorEl)) ?? null,
+  (entries) => {
+    const target = entries[0]?.target;
+    activatorWidth.value =
+      target instanceof HTMLElement ? target.getBoundingClientRect().width : 0;
+  },
 );
 </script>
 
@@ -104,19 +111,13 @@ const { width: activatorWidth } = useElementSize(
     class="kds-popover"
     :class="['floating', props.placement, { 'show-arrow': props.showArrow }]"
     popover="auto"
-    :style="
-      'position-anchor: ' +
-      anchorName +
-      '; --kds-popover-activator-width: ' +
-      activatorWidth +
-      'px'
-    "
+    :style="`position-anchor: ${anchorName}; --kds-popover-activator-width: ${activatorWidth}px`"
     @toggle="onNativeToggle"
   >
     <div
       v-if="props.showArrow"
       class="arrow"
-      :style="'position-anchor: ' + anchorName"
+      :style="`position-anchor: ${anchorName}`"
     />
     <slot />
   </div>
@@ -125,9 +126,10 @@ const { width: activatorWidth } = useElementSize(
 <style scoped>
 .kds-popover {
   --kds-popover-activator-width: 50px;
+  --kds-popover-activator-center: calc(var(--kds-popover-activator-width) / 2);
   --kds-popover-arrow-size: var(--kds-spacing-container-0-37x);
   --kds-popover-arrow-inset: calc(var(--kds-popover-arrow-size) / -2) auto auto
-    var(--kds-popover-activator-width);
+    var(--kds-popover-activator-center);
 
   padding: var(--kds-spacing-container-0-75x);
   overflow: visible;
@@ -160,13 +162,13 @@ const { width: activatorWidth } = useElementSize(
   /* stylelint-disable declaration-property-value-no-unknown, at-rule-descriptor-value-no-unknown */
 
   /* noinspection CssInvalidFunction,CssInvalidAtRule */
-  .floating.top-left {
+  &.floating.top-left {
     inset: auto anchor(right) anchor(top) auto;
     margin: var(--kds-spacing-container-0-25x) 0
       var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x);
     --kds-popover-arrow-inset: auto auto
       calc(var(--kds-popover-arrow-size) / -2)
-      var(--kds-popover-activator-width);
+      var(--kds-popover-activator-center);
 
     position-try-fallbacks:
       --kds-popover-try-top-right, --kds-popover-try-bottom-left,
@@ -174,13 +176,13 @@ const { width: activatorWidth } = useElementSize(
   }
 
   /* noinspection CssInvalidFunction,CssInvalidAtRule */
-  .floating.top-right {
+  &.floating.top-right {
     inset: auto auto anchor(top) anchor(left);
     margin: var(--kds-spacing-container-0-25x)
       var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x) 0;
     --kds-popover-arrow-inset: auto auto
       calc(var(--kds-popover-arrow-size) / -2)
-      var(--kds-popover-activator-width);
+      var(--kds-popover-activator-center);
 
     position-try-fallbacks:
       --kds-popover-try-top-left, --kds-popover-try-bottom-right,
@@ -188,12 +190,12 @@ const { width: activatorWidth } = useElementSize(
   }
 
   /* noinspection CssInvalidFunction,CssInvalidAtRule */
-  .floating.bottom-left {
+  &.floating.bottom-left {
     inset: anchor(bottom) anchor(right) auto auto;
     margin: var(--kds-spacing-container-0-25x) 0
       var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x);
     --kds-popover-arrow-inset: calc(var(--kds-popover-arrow-size) / -2)
-      var(--kds-popover-activator-width) auto auto;
+      var(--kds-popover-activator-center) auto auto;
 
     position-try-fallbacks:
       --kds-popover-try-bottom-right, --kds-popover-try-top-left,
@@ -201,12 +203,12 @@ const { width: activatorWidth } = useElementSize(
   }
 
   /* noinspection CssInvalidFunction,CssInvalidAtRule */
-  .floating.bottom-right {
+  &.floating.bottom-right {
     inset: anchor(bottom) auto auto anchor(left);
     margin: var(--kds-spacing-container-0-25x)
       var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x) 0;
     --kds-popover-arrow-inset: calc(var(--kds-popover-arrow-size) / -2) auto
-      auto var(--kds-popover-activator-width);
+      auto var(--kds-popover-activator-center);
 
     position-try-fallbacks:
       --kds-popover-try-bottom-left, --kds-popover-try-top-right,
@@ -221,7 +223,7 @@ const { width: activatorWidth } = useElementSize(
     /* stylelint-disable-next-line at-rule-descriptor-no-unknown */
     --kds-popover-arrow-inset: auto auto
       calc(var(--kds-popover-arrow-size) / -2)
-      var(--kds-popover-activator-width);
+      var(--kds-popover-activator-center);
   }
 
   /* noinspection CssInvalidFunction,CssInvalidAtRule */
@@ -232,7 +234,7 @@ const { width: activatorWidth } = useElementSize(
     /* stylelint-disable-next-line at-rule-descriptor-no-unknown */
     --kds-popover-arrow-inset: auto auto
       calc(var(--kds-popover-arrow-size) / -2)
-      var(--kds-popover-activator-width);
+      var(--kds-popover-activator-center);
   }
 
   /* noinspection CssInvalidFunction,CssInvalidAtRule */
@@ -242,7 +244,7 @@ const { width: activatorWidth } = useElementSize(
       var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x);
     /* stylelint-disable-next-line at-rule-descriptor-no-unknown */
     --kds-popover-arrow-inset: calc(var(--kds-popover-arrow-size) / -2)
-      var(--kds-popover-activator-width) auto auto;
+      var(--kds-popover-activator-center) auto auto;
   }
 
   /* noinspection CssInvalidFunction,CssInvalidAtRule */
@@ -252,7 +254,7 @@ const { width: activatorWidth } = useElementSize(
       var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x) 0;
     /* stylelint-disable-next-line at-rule-descriptor-no-unknown */
     --kds-popover-arrow-inset: calc(var(--kds-popover-arrow-size) / -2) auto
-      auto var(--kds-popover-activator-width);
+      auto var(--kds-popover-activator-center);
   }
   /* stylelint-enable declaration-property-value-no-unknown, at-rule-descriptor-value-no-unknown */
 }
