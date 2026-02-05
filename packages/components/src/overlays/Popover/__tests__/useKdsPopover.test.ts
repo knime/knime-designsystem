@@ -159,7 +159,7 @@ describe("useKdsPopover", () => {
             anchorEl,
             popoverEl,
             placement: "bottom-right",
-            type: "dialog",
+            type: "grid",
           });
 
           return { activatorEl, anchorEl, popoverEl };
@@ -209,7 +209,7 @@ describe("useKdsPopover", () => {
     const { wrapper, activator } = mountHarness();
 
     await nextTick();
-    expect(activator.getAttribute("aria-haspopup")).toBe("dialog");
+    expect(activator.getAttribute("aria-haspopup")).toBe("grid");
 
     wrapper.unmount();
 
