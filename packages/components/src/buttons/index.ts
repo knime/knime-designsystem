@@ -5,4 +5,14 @@ export { default as KdsLinkButton } from "./KdsLinkButton.vue";
 export { default as KdsProgressButton } from "./KdsProgressButton.vue";
 export { default as KdsToggleButton } from "./KdsToggleButton.vue";
 
-export type * from "./types";
+export type {
+  KdsButtonVariant,
+  KdsToggleButtonVariant,
+  KdsButtonProps,
+  KdsLinkButtonProps,
+  KdsToggleButtonProps,
+  KdsVariableToggleButtonProps,
+  KdsInfoToggleButtonProps,
+  KdsProgressButtonState,
+  KdsProgressButtonProps,
+} from "./types";

@@ -1,8 +1,10 @@
+import { type PropType, defineComponent, h } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
 import { kdsButtonVariants } from "../buttons/constants";
+import { kdsSizes } from "../constants";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
@@ -10,8 +12,60 @@ import {
 } from "../test-utils/storybook";
 
 import KdsEmptyState from "./KdsEmptyState.vue";
+import type { KdsEmptyStateProps } from "./types";
 
 type Story = StoryObj<typeof KdsEmptyState>;
+
+// Wrapper component to constrain width for Figma comparison
+const KdsEmptyStateWrapper = defineComponent({
+  name: "KdsEmptyStateWrapper",
+  props: {
+    headline: {
+      type: String as PropType<KdsEmptyStateProps["headline"]>,
+      required: true,
+    },
+    description: {
+      type: String as PropType<KdsEmptyStateProps["description"]>,
+      default: undefined,
+    },
+    buttonLabel: {
+      type: String as PropType<
+        Extract<KdsEmptyStateProps, { buttonLabel?: string }>["buttonLabel"]
+      >,
+      default: undefined,
+    },
+    buttonVariant: {
+      type: String as PropType<
+        Extract<KdsEmptyStateProps, { buttonVariant?: string }>["buttonVariant"]
+      >,
+      default: undefined,
+    },
+    buttonSize: {
+      type: String as PropType<
+        Extract<KdsEmptyStateProps, { buttonSize?: string }>["buttonSize"]
+      >,
+      default: undefined,
+    },
+  },
+  setup(props) {
+    return () =>
+      h(
+        "div",
+        {
+          style: { width: "205px", display: "flex", justifyContent: "center" },
+        },
+        [
+          h(KdsEmptyState, {
+            headline: props.headline,
+            description: props.description,
+            buttonLabel: props.buttonLabel,
+            buttonVariant: props.buttonVariant,
+            buttonSize: props.buttonSize,
+          } as KdsEmptyStateProps),
+        ],
+      );
+  },
+});
 
 const meta: Meta<typeof KdsEmptyState> = {
   component: KdsEmptyState,
@@ -67,6 +121,12 @@ const meta: Meta<typeof KdsEmptyState> = {
       control: "select",
       options: kdsButtonVariants,
       description: "Button variant style",
+      table: { category: "Button Props" },
+    },
+    buttonSize: {
+      control: "select",
+      options: kdsSizes,
+      description: "Button size",
       table: { category: "Button Props" },
     },
     buttonDestructive: {
@@ -230,34 +290,26 @@ export const TextOverflow: Story = {
 };
 
 export const DesignComparator: Story = buildDesignComparatorStory({
-  component: KdsEmptyState,
+  component: KdsEmptyStateWrapper,
   designsToCompare: {
-    Default: {
+    Variants: {
       props: {
-        headline: "No entries in this list.",
+        headline: "No {entries in this list}.",
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7118-357843&m=dev":
           {},
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7118-357664&m=dev":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7118-357848&m=dev":
           {
             description: "Here is a smaller description of the state.",
           },
-      },
-    },
-    WithAction: {
-      props: {
-        headline: "No entries in this list.",
-        buttonLabel: "Create Item",
-        buttonVariant: "outlined",
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7118-357942&m=dev":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7118-357853&m=dev":
           {
             description: "Here is a smaller description of the state.",
+            buttonLabel: "[Label]",
+            buttonVariant: "outlined",
+            buttonSize: "small",
           },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7118-358000&m=dev":
-          {},
       },
     },
   },

@@ -49,6 +49,9 @@ const buttonProps = computed(() => {
     ["ariaLabel", "buttonAriaLabel"],
     ["disabled", "buttonDisabled"],
     ["variant", "buttonVariant"],
+    ["size", "buttonSize"],
+    ["destructive", "buttonDestructive"],
+    ["title", "buttonTitle"],
   ]);
 
   if (buttonType.value !== KdsLinkButton) {
@@ -69,14 +72,13 @@ const buttonProps = computed(() => {
 
 <template>
   <div class="kds-empty-state">
-    <h2 class="kds-empty-state-headline">{{ props.headline }}</h2>
+    <p class="kds-empty-state-headline">{{ props.headline }}</p>
     <p v-if="props.description" class="kds-empty-state-description">
       {{ props.description }}
     </p>
-    <div class="kds-empty-state-action">
+    <div v-if="hasButton" class="kds-empty-state-action">
       <component
         :is="buttonType"
-        v-if="hasButton"
         v-bind="buttonProps"
         @click="emit('buttonClick', $event)"
       />
@@ -90,11 +92,11 @@ const buttonProps = computed(() => {
   flex-direction: column;
   gap: var(--kds-spacing-container-0-5x);
   align-items: center;
+  max-width: 280px;
   padding: var(--kds-spacing-container-0-5x);
 }
 
 .kds-empty-state-headline {
-  max-width: 280px;
   margin: 0;
   font: var(--kds-font-base-title-small);
   color: var(--kds-color-text-and-icon-muted);
@@ -102,7 +104,6 @@ const buttonProps = computed(() => {
 }
 
 .kds-empty-state-description {
-  max-width: 280px;
   margin: 0;
   font: var(--kds-font-base-body-small);
   color: var(--kds-color-text-and-icon-muted);
