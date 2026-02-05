@@ -413,6 +413,11 @@
           "$type": "color",
           "$value": "{kds.core.color.yellow.250}",
           "$description": "Vibrant brand yellow background for branding elements."
+        },
+        "overlay": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.725}",
+          "$description": "Background color for content overlay, like tooltip."
         }
       },
       "text-and-icon": {

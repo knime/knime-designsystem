@@ -140,6 +140,22 @@
             "$description": "Skeleton animation gradient for the SkeletonBar component."
           }
         }
+      },
+      "Tooltip": {
+        "background": {
+          "default": {
+            "$type": "color",
+            "$value": "{kds.color.background-static.overlay}",
+            "$description": "Default background color for the Tooltip component."
+          }
+        },
+        "text-and-icon": {
+          "default": {
+            "$type": "color",
+            "$value": "{kds.color.text-and-icon.neutral}",
+            "$description": "Neutral text and icon color for the Tooltip component."
+          }
+        }
       }
     },
     "spacing": {
