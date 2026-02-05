@@ -1,7 +1,6 @@
 import { nextTick, onScopeDispose, useId, watch, watchEffect } from "vue";
 import type { ComponentPublicInstance, Ref } from "vue";
 
-import { kdsPopoverPlacements } from "./constants";
 import type { KdsPopoverPlacement } from "./types";
 
 type MaybeElement = HTMLElement | ComponentPublicInstance | null;
@@ -54,53 +53,69 @@ const setStyleProperty = (
   element.style.setProperty(property, value);
 };
 
-const placementFallbacks: Record<KdsPopoverPlacement, KdsPopoverPlacement[]> = {
-  "top-left": ["top-right", "bottom-left", "bottom-right", "top-left"],
-  "top-right": ["top-left", "bottom-right", "bottom-left", "top-right"],
-  "bottom-left": ["bottom-right", "top-left", "top-right", "bottom-left"],
-  "bottom-right": ["bottom-left", "top-right", "top-left", "bottom-right"],
+const spacing4px = "var(--kds-spacing-container-0-25x)";
+
+type KdsPopoverPlacementConfig = {
+  inset: string;
+  margin: string;
+  fallbacks: KdsPopoverPlacement[];
 };
 
-const placementInsets: Record<KdsPopoverPlacement, string> = {
-  "top-left": "auto anchor(right) anchor(top) auto",
-  "top-right": "auto auto anchor(top) anchor(left)",
-  "bottom-left": "anchor(bottom) anchor(right) auto auto",
-  "bottom-right": "anchor(bottom) auto auto anchor(left)",
-};
-
-const placementMarginAdjustments: Record<
-  KdsPopoverPlacement,
-  {
-    "margin-left"?: string;
-    "margin-right"?: string;
-  }
-> = {
-  // When aligned to the right edge of the anchor, we remove the right margin.
-  // When aligned to the left edge, we remove the left margin.
-  // Keep the opposite side at 4px to maintain spacing.
+const placements: Record<KdsPopoverPlacement, KdsPopoverPlacementConfig> = {
   "top-left": {
-    "margin-right": "0",
-    "margin-left": "var(--kds-spacing-container-0-25x)",
+    inset: "auto anchor(right) anchor(top) auto",
+    // aligned to right edge => no right margin; keep 4px on the opposite side
+    margin: `${spacing4px} 0 ${spacing4px} ${spacing4px}`,
+    fallbacks: ["top-right", "bottom-left", "bottom-right", "top-left"],
   },
   "top-right": {
-    "margin-left": "0",
-    "margin-right": "var(--kds-spacing-container-0-25x)",
+    inset: "auto auto anchor(top) anchor(left)",
+    // aligned to left edge => no left margin; keep 4px on the opposite side
+    margin: `${spacing4px} ${spacing4px} ${spacing4px} 0`,
+    fallbacks: ["top-left", "bottom-right", "bottom-left", "top-right"],
   },
   "bottom-left": {
-    "margin-right": "0",
-    "margin-left": "var(--kds-spacing-container-0-25x)",
+    inset: "anchor(bottom) anchor(right) auto auto",
+    // aligned to right edge => no right margin; keep 4px on the opposite side
+    margin: `${spacing4px} 0 ${spacing4px} ${spacing4px}`,
+    fallbacks: ["bottom-right", "top-left", "top-right", "bottom-left"],
   },
   "bottom-right": {
-    "margin-left": "0",
-    "margin-right": "var(--kds-spacing-container-0-25x)",
+    inset: "anchor(bottom) auto auto anchor(left)",
+    // aligned to left edge => no left margin; keep 4px on the opposite side
+    margin: `${spacing4px} ${spacing4px} ${spacing4px} 0`,
+    fallbacks: ["bottom-left", "top-right", "top-left", "bottom-right"],
   },
 };
 
-const fallbackInsets: Record<KdsPopoverPlacement, string> = {
-  "top-left": "auto anchor(right) anchor(top) auto",
-  "top-right": "auto auto anchor(top) anchor(left)",
-  "bottom-left": "anchor(bottom) anchor(right) auto auto",
-  "bottom-right": "anchor(bottom) auto auto anchor(left)",
+// Register composable-specific @position-try rules on first use.
+// The native API doesn't support defining @position-try rules per element, only via CSS.
+const kdsPopoverTryNamePrefix = "--kds-popover-composable-try-";
+let didRegisterTryStyles = false;
+
+const registerPositionTryFallbackStyles = () => {
+  if (didRegisterTryStyles) {
+    return;
+  }
+  if (typeof document === "undefined") {
+    return;
+  }
+
+  const styleEl = document.createElement("style");
+  styleEl.setAttribute("data-kds", "popover-composable-position-try");
+
+  // @position-try rules are global CSS constructs and can't be defined via inline styles.
+  styleEl.textContent = (
+    [
+      ...Object.entries(placements).map(
+        ([placement, { inset, margin }]) =>
+          `@position-try ${kdsPopoverTryNamePrefix}${placement} { inset: ${inset}; margin: ${margin}; }`,
+      ),
+    ] as string[]
+  ).join("\n");
+
+  document.head.appendChild(styleEl);
+  didRegisterTryStyles = true;
 };
 
 /**
@@ -118,6 +133,8 @@ export const useKdsPopover = (params: {
   anchorEl?: Ref<MaybeElement>;
   placement?: KdsPopoverPlacement | Ref<KdsPopoverPlacement>;
 }) => {
+  registerPositionTryFallbackStyles();
+
   const popoverId = useId();
   const anchorId = useId();
   const anchorName = `--${anchorId}`;
@@ -209,39 +226,14 @@ export const useKdsPopover = (params: {
     setOrRemoveAttr(popoverEl, "popover", "auto");
     setStyleProperty(popoverEl, "position-anchor", anchorName);
 
-    // Shared floating reset styles
-    setStyleProperty(popoverEl, "margin", "var(--kds-spacing-container-0-25x)");
-
-    // Placement styling (self-contained, no dependency on KdsPopover.vue CSS)
-    setStyleProperty(popoverEl, "inset", placementInsets[placement]);
-
-    const marginAdjustment = placementMarginAdjustments[placement];
-    setStyleProperty(
-      popoverEl,
-      "margin-left",
-      marginAdjustment["margin-left"] ?? null,
-    );
-    setStyleProperty(
-      popoverEl,
-      "margin-right",
-      marginAdjustment["margin-right"] ?? null,
-    );
-
-    // Always configure fallbacks for *other* placements.
-    const fallbacks = placementFallbacks[placement];
+    const config = placements[placement];
+    setStyleProperty(popoverEl, "margin", config.margin);
+    setStyleProperty(popoverEl, "inset", config.inset);
     setStyleProperty(
       popoverEl,
       "position-try-fallbacks",
-      fallbacks.map((p) => `--kds-popover-try-${p}`).join(", "),
+      config.fallbacks.map((p) => `${kdsPopoverTryNamePrefix}${p}`).join(", "),
     );
-
-    for (const p of kdsPopoverPlacements) {
-      setStyleProperty(
-        popoverEl,
-        `--kds-popover-try-${p}`,
-        `inset: ${fallbackInsets[p]}; margin: var(--kds-spacing-container-0-25x) 0`,
-      );
-    }
   });
 
   return { popoverId };

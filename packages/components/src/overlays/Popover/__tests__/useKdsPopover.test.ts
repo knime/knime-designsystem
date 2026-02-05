@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it, vi } from "vitest";
-import { defineComponent, nextTick, ref } from "vue";
+import { nextTick, ref } from "vue";
 import type { Ref } from "vue";
 import { mount } from "@vue/test-utils";
 
@@ -33,29 +33,30 @@ describe("useKdsPopover", () => {
   ) => {
     const open = ref(false);
 
-    const Component = defineComponent({
-      setup() {
-        const activatorEl = ref<HTMLElement | null>(null);
-        const popoverEl = ref<HTMLElement | null>(null);
+    const wrapper = mount(
+      {
+        setup() {
+          const activatorEl = ref<HTMLElement | null>(null);
+          const popoverEl = ref<HTMLElement | null>(null);
 
-        useKdsPopover({
-          open,
-          activatorEl,
-          popoverEl,
-          placement: params.placement ?? "bottom-right",
-        });
+          useKdsPopover({
+            open,
+            activatorEl,
+            popoverEl,
+            placement: params.placement ?? "bottom-right",
+          });
 
-        return { open, activatorEl, popoverEl };
+          return { open, activatorEl, popoverEl };
+        },
+        template: `
+          <div>
+            <button ref="activatorEl">Activator</button>
+            <div ref="popoverEl">Content</div>
+          </div>
+        `,
       },
-      template: `
-        <div>
-          <button ref="activatorEl">Activator</button>
-          <div ref="popoverEl">Content</div>
-        </div>
-      `,
-    });
-
-    const wrapper = mount(Component, { attachTo: document.body });
+      { attachTo: document.body },
+    );
 
     const activator = wrapper.find("button").element as HTMLElement;
     const popover = wrapper.findAll("div")[1]!.element as HTMLElement;
@@ -140,32 +141,33 @@ describe("useKdsPopover", () => {
   it("supports an anchor element different from the activator", async () => {
     const open = ref(false);
 
-    const Component = defineComponent({
-      setup() {
-        const activatorEl = ref<HTMLElement | null>(null);
-        const anchorEl = ref<HTMLElement | null>(null);
-        const popoverEl = ref<HTMLElement | null>(null);
+    const wrapper = mount(
+      {
+        setup() {
+          const activatorEl = ref<HTMLElement | null>(null);
+          const anchorEl = ref<HTMLElement | null>(null);
+          const popoverEl = ref<HTMLElement | null>(null);
 
-        useKdsPopover({
-          open,
-          activatorEl,
-          anchorEl,
-          popoverEl,
-          placement: "bottom-right",
-        });
+          useKdsPopover({
+            open,
+            activatorEl,
+            anchorEl,
+            popoverEl,
+            placement: "bottom-right",
+          });
 
-        return { activatorEl, anchorEl, popoverEl };
+          return { activatorEl, anchorEl, popoverEl };
+        },
+        template: `
+          <div>
+            <div ref="anchorEl">Anchor</div>
+            <button ref="activatorEl">Activator</button>
+            <div ref="popoverEl">Content</div>
+          </div>
+        `,
       },
-      template: `
-        <div>
-          <div ref="anchorEl">Anchor</div>
-          <button ref="activatorEl">Activator</button>
-          <div ref="popoverEl">Content</div>
-        </div>
-      `,
-    });
-
-    const wrapper = mount(Component, { attachTo: document.body });
+      { attachTo: document.body },
+    );
 
     const anchor = wrapper.findAll("div")[1]!.element as HTMLElement;
     const activator = wrapper.find("button").element as HTMLElement;
@@ -183,5 +185,38 @@ describe("useKdsPopover", () => {
     );
 
     wrapper.unmount();
+  });
+
+  it("registers composable-specific @position-try rules once", async () => {
+    // Ensure clean slate
+    document
+      .querySelectorAll("style[data-kds='popover-composable-position-try']")
+      .forEach((el) => el.remove());
+
+    // First mount should inject style
+    const first = mountHarness();
+    await nextTick();
+
+    const stylesAfterFirst = document.querySelectorAll(
+      "style[data-kds='popover-composable-position-try']",
+    );
+    expect(stylesAfterFirst.length).toBe(1);
+
+    // Second mount should not inject again
+    const second = mountHarness();
+    await nextTick();
+
+    const stylesAfterSecond = document.querySelectorAll(
+      "style[data-kds='popover-composable-position-try']",
+    );
+    expect(stylesAfterSecond.length).toBe(1);
+
+    // popover should reference composable try names
+    expect(
+      first.popover.style.getPropertyValue("position-try-fallbacks"),
+    ).toContain("--kds-popover-composable-try-");
+
+    first.wrapper.unmount();
+    second.wrapper.unmount();
   });
 });
