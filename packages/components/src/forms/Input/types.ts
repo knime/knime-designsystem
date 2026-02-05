@@ -4,6 +4,10 @@ export type KdsInputLabelProps = {
    */
   label?: string;
   /**
+   * Optional description/help text for the label.
+   */
+  description?: string;
+  /**
    * Helper text or error message displayed below the input
    */
   subText?: string;

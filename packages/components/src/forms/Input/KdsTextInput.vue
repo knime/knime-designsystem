@@ -38,6 +38,7 @@ const ariaDescribedby = computed(() =>
       :id="labelId"
       :for="inputId"
       :label="props.label"
+      :description="props.description"
     />
     <KdsBaseInput
       :id="inputId"

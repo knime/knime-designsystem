@@ -8,6 +8,11 @@ export type KdsLabelProps = {
    * Id of the form control this label is for.
    */
   for?: string;
+  /**
+   * Optional description/help text for the label.
+   * When provided, an info toggle button is shown that opens a popover with this text.
+   */
+  description?: string;
 };
 
 export type KdsSubTextProps = {

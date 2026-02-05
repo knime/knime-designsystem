@@ -40,6 +40,12 @@ const meta: Meta<typeof KdsTextInput> = {
       description: "Label shown above the input",
       table: { category: "Props" },
     },
+    description: {
+      control: "text",
+      description:
+        "Optional help text shown in an info popover next to the label",
+      table: { category: "Props" },
+    },
     placeholder: {
       control: "text",
       description: "Placeholder shown when the input is empty",
@@ -87,6 +93,7 @@ const meta: Meta<typeof KdsTextInput> = {
   args: {
     modelValue: "",
     label: "Label",
+    description: "This is a short help text explaining the input.",
     placeholder: "",
     name: "",
     autocomplete: "",
@@ -183,11 +190,18 @@ export const NameAndAutocomplete: Story = {
   },
 };
 
+export const WithDescription: Story = {
+  args: {
+    description: "This is a short help text explaining the input.",
+  },
+};
+
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsTextInput,
   combinationsProps: [
     {
       label: ["Label"],
+      description: [undefined, "Help text"],
       modelValue: ["", "Value"],
       placeholder: ["", "Placeholder"],
       disabled: [false, true],

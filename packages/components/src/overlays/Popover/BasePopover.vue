@@ -18,6 +18,7 @@
   font: var(--kds-font-base-body-small);
   color: var(--kds-color-text-and-icon-neutral);
   background: var(--kds-color-surface-default);
+  border: none;
   border-radius: var(--kds-border-radius-container-0-37x);
   box-shadow: var(--kds-elevation-level-3);
 }
