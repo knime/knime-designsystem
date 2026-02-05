@@ -6,8 +6,8 @@ import { isDefined } from "@vueuse/core";
  * @returns true if the value is defined and not an empty string
  */
 export function isDefinedAndNotEmpty(
-  o: Record<string, unknown>,
+  obj: Record<string, unknown>,
   field: string,
 ): boolean {
-  return isDefined(o[field]) && o[field] !== "";
+  return isDefined(obj[field]) && obj[field] !== "";
 }
