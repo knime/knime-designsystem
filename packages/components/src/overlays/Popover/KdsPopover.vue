@@ -213,47 +213,46 @@ useResizeObserver(
       --kds-popover-try-bottom-left, --kds-popover-try-top-right,
       --kds-popover-try-top-left, --kds-popover-try-bottom-right;
   }
-
-  /* noinspection CssInvalidFunction,CssInvalidAtRule */
-  @position-try --kds-popover-try-top-left {
-    inset: auto anchor(right) anchor(top) auto;
-    margin: var(--kds-spacing-container-0-25x) 0
-      var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x);
-    /* stylelint-disable-next-line at-rule-descriptor-no-unknown */
-    --kds-popover-arrow-inset: auto var(--kds-popover-activator-center)
-      calc(var(--kds-popover-arrow-size) / -2) auto;
-  }
-
-  /* noinspection CssInvalidFunction,CssInvalidAtRule */
-  @position-try --kds-popover-try-top-right {
-    inset: auto auto anchor(top) anchor(left);
-    margin: var(--kds-spacing-container-0-25x)
-      var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x) 0;
-    /* stylelint-disable-next-line at-rule-descriptor-no-unknown */
-    --kds-popover-arrow-inset: auto auto
-      calc(var(--kds-popover-arrow-size) / -2)
-      var(--kds-popover-activator-center);
-  }
-
-  /* noinspection CssInvalidFunction,CssInvalidAtRule */
-  @position-try --kds-popover-try-bottom-left {
-    inset: anchor(bottom) anchor(right) auto auto;
-    margin: var(--kds-spacing-container-0-25x) 0
-      var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x);
-    /* stylelint-disable-next-line at-rule-descriptor-no-unknown */
-    --kds-popover-arrow-inset: calc(var(--kds-popover-arrow-size) / -2)
-      var(--kds-popover-activator-center) auto auto;
-  }
-
-  /* noinspection CssInvalidFunction,CssInvalidAtRule */
-  @position-try --kds-popover-try-bottom-right {
-    inset: anchor(bottom) auto auto anchor(left);
-    margin: var(--kds-spacing-container-0-25x)
-      var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x) 0;
-    /* stylelint-disable-next-line at-rule-descriptor-no-unknown */
-    --kds-popover-arrow-inset: calc(var(--kds-popover-arrow-size) / -2) auto
-      auto var(--kds-popover-activator-center);
-  }
-  /* stylelint-enable declaration-property-value-no-unknown, at-rule-descriptor-value-no-unknown */
 }
+
+/* noinspection CssInvalidFunction,CssInvalidAtRule */
+@position-try --kds-popover-try-top-left {
+  inset: auto anchor(right) anchor(top) auto;
+  margin: var(--kds-spacing-container-0-25x) 0
+    var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x);
+  /* stylelint-disable-next-line at-rule-descriptor-no-unknown */
+  --kds-popover-arrow-inset: auto var(--kds-popover-activator-center)
+    calc(var(--kds-popover-arrow-size) / -2) auto;
+}
+
+/* noinspection CssInvalidFunction,CssInvalidAtRule */
+@position-try --kds-popover-try-top-right {
+  inset: auto auto anchor(top) anchor(left);
+  margin: var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x)
+    var(--kds-spacing-container-0-25x) 0;
+  /* stylelint-disable-next-line at-rule-descriptor-no-unknown */
+  --kds-popover-arrow-inset: auto auto calc(var(--kds-popover-arrow-size) / -2)
+    var(--kds-popover-activator-center);
+}
+
+/* noinspection CssInvalidFunction,CssInvalidAtRule */
+@position-try --kds-popover-try-bottom-left {
+  inset: anchor(bottom) anchor(right) auto auto;
+  margin: var(--kds-spacing-container-0-25x) 0
+    var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x);
+  /* stylelint-disable-next-line at-rule-descriptor-no-unknown */
+  --kds-popover-arrow-inset: calc(var(--kds-popover-arrow-size) / -2)
+    var(--kds-popover-activator-center) auto auto;
+}
+
+/* noinspection CssInvalidFunction,CssInvalidAtRule */
+@position-try --kds-popover-try-bottom-right {
+  inset: anchor(bottom) auto auto anchor(left);
+  margin: var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x)
+    var(--kds-spacing-container-0-25x) 0;
+  /* stylelint-disable-next-line at-rule-descriptor-no-unknown */
+  --kds-popover-arrow-inset: calc(var(--kds-popover-arrow-size) / -2) auto auto
+    var(--kds-popover-activator-center);
+}
+/* stylelint-enable declaration-property-value-no-unknown, at-rule-descriptor-value-no-unknown */
 </style>
