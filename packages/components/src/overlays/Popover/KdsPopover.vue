@@ -171,13 +171,16 @@ useResizeObserver(
     class="kds-popover"
     :class="['floating', props.placement, { 'show-arrow': props.showArrow }]"
     :popover="props.activatorEl ? 'auto' : undefined"
-    :style="`position-anchor: ${anchorName}; --kds-popover-activator-width: ${activatorWidth}px`"
+    :style="{
+      'position-anchor': anchorName,
+      '--kds-popover-activator-width': `${activatorWidth}px`,
+    }"
     @toggle="onNativeToggle"
   >
     <div
       v-if="props.showArrow"
       class="arrow"
-      :style="`position-anchor: ${anchorName}`"
+      :style="{ 'position-anchor': anchorName }"
     />
     <slot />
   </div>
