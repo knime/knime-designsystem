@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import type { KdsCardProps } from "./types";
 
-const { variant = "filled", modelValue = false } = defineProps<KdsCardProps>();
+const {
+  variant = "filled",
+  modelValue = false,
+  ariaLabel = "A clickable card",
+} = defineProps<KdsCardProps>();
 
 const emit = defineEmits<{
-  click: [event: MouseEvent];
+  click: [event: MouseEvent | KeyboardEvent];
 }>();
 </script>
 
@@ -12,8 +16,11 @@ const emit = defineEmits<{
   <div
     class="kds-card"
     :class="[`variant-${variant}`, `value-${modelValue}`]"
+    :aria-label="ariaLabel"
     tabindex="0"
     @click="emit('click', $event)"
+    @keydown.enter="emit('click', $event)"
+    @keydown.space="emit('click', $event)"
   >
     <slot />
   </div>
@@ -119,7 +126,6 @@ const emit = defineEmits<{
   border: var(--kds-border-action-selected);
 
   &:hover {
-    background: var(--kds-color-background-selected-initial);
     box-shadow: var(--kds-elevation-level-3);
   }
 
