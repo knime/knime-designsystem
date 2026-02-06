@@ -67,7 +67,7 @@ type AllCombinationsStoryParams = {
         icon: ["ai-general"],
       },
     ],
-    minColumns: 4,
+    columns: 4,
   });
  */
 export function buildAllCombinationsStory(
