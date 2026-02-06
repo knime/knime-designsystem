@@ -44,6 +44,11 @@ type AllCombinationsStoryParams = {
   component: Component;
   combinationsProps: Record<string, readonly unknown[]>[]; // or can we infer the possible props from the component type?
   pseudoStates?: PseudoState[];
+  /**
+   * Target number of columns to display. Defaults to 4.
+   * The grid will attempt to fit this many columns, but may show fewer if content is too wide.
+   */
+  columns?: number;
 };
 
 /**
@@ -62,6 +67,7 @@ type AllCombinationsStoryParams = {
         icon: ["ai-general"],
       },
     ],
+    minColumns: 4,
   });
  */
 export function buildAllCombinationsStory(
@@ -71,6 +77,8 @@ export function buildAllCombinationsStory(
   config.combinationsProps.forEach((props) => {
     allCombinations.push(...generateCombinations(props));
   });
+
+  const columns = config.columns ?? 4;
 
   return {
     parameters: {
@@ -83,13 +91,14 @@ export function buildAllCombinationsStory(
           allCombinations,
           component: config.component,
           pseudoStates: ["", ...(config.pseudoStates ?? [])],
+          columns,
         };
       },
       template: `
       Hover to see the props of each instance:
-      <div style="display: grid; grid-template-columns: repeat(4, auto); gap: 1rem;">
+      <div style="display: grid; grid-template-columns: repeat(${columns}, auto); gap: 1rem;">
         <template v-for="(state, stateIndex) in pseudoStates" :key="state">
-          <div v-if="state" style="grid-column: span 4; font-weight: bold; margin-top: 1rem; text-transform: capitalize;">
+          <div v-if="state" style="grid-column: span ${columns}; font-weight: bold; margin-top: 1rem; text-transform: capitalize;">
             {{ state }}
           </div>
           <template v-for="(props, index) in allCombinations" :key="index">

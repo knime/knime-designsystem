@@ -3,6 +3,7 @@ import { fn } from "storybook/test";
 
 import KdsButton from "../buttons/KdsButton.vue";
 import {
+  buildAllCombinationsStory,
   buildDesignComparatorStory,
   buildTextOverflowStory,
 } from "../test-utils/storybook";
@@ -149,71 +150,10 @@ export const AllVariants: Story = {
   }),
 };
 
-export const AllCombinations: Story = {
-  parameters: {
-    controls: { disable: true },
-  },
-  render: () => ({
-    components: { KdsCard, KdsButton },
-    setup() {
-      const allCombinations: Array<{
-        variant: KdsCardVariant;
-        modelValue: boolean;
-      }> = [];
-      const variants: KdsCardVariant[] = ["filled", "outlined", "transparent"];
-      const values = [false, true];
-      variants.forEach((variant) => {
-        values.forEach((modelValue) => {
-          allCombinations.push({ variant, modelValue });
-        });
-      });
-      const pseudoStates = ["", "hover", "active"];
-      const onButtonClick = fn();
-      return {
-        allCombinations,
-        pseudoStates,
-        onButtonClick,
-      };
-    },
-    template: `
-      Hover to see the props of each instance:
-      <div style="display: grid; grid-template-columns: repeat(4, auto); gap: 1rem;">
-        <template v-for="(state, stateIndex) in pseudoStates" :key="state">
-          <div v-if="state" style="grid-column: span 4; font-weight: bold; margin-top: 1rem; text-transform: capitalize;">
-            {{ state }}
-          </div>
-          <template v-for="(props, index) in allCombinations" :key="index">
-            <div 
-              :title="state ? JSON.stringify({ ...props, _pseudo: state }, null, 2) : JSON.stringify(props, null, 2)" 
-              style="display: grid; gap: 0.5rem;"
-              :class="state ? \`pseudo-\${state}-all\` : undefined"
-            >
-              <div>
-                <div style="font-size: 10px; color: var(--kds-color-text-and-icon-subtle);">
-                  {{ index + stateIndex * allCombinations.length }}
-                </div>
-                <KdsCard v-bind="props">
-                  <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px; width: 413px;">
-                    <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-default);">Demo for Storybook</div>
-                    <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-default);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
-                    <div @mousedown.stop.prevent>
-                      <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click="onButtonClick"></KdsButton>
-                    </div>
-                  </div>
-                </KdsCard>
-              </div>
-            </div>
-          </template>
-        </template>
-      </div>
-    `,
-  }),
-};
-
-// Create a wrapper component for DesignComparator that includes demo content
+// Create a wrapper component for AllCombinations and DesignComparator that includes demo content
 const CardWithContent = {
   name: "CardWithContent",
-  props: ["variant", "value"],
+  props: ["variant", "modelValue"],
   components: { KdsCard, KdsButton },
   setup() {
     const onButtonClick = fn();
@@ -231,6 +171,18 @@ const CardWithContent = {
     </KdsCard>
   `,
 };
+
+export const AllCombinations: Story = buildAllCombinationsStory({
+  component: CardWithContent,
+  combinationsProps: [
+    {
+      variant: ["filled", "outlined", "transparent"] as KdsCardVariant[],
+      modelValue: [false, true],
+    },
+  ],
+  pseudoStates: ["hover", "active", "focus-visible"],
+  columns: 3,
+});
 
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: CardWithContent,
