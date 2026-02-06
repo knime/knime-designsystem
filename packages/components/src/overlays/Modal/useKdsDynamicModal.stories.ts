@@ -1,9 +1,9 @@
 import { h, markRaw } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
-import KdsButton from "../buttons/KdsButton.vue";
-import { convertImportsInSfc } from "../test-utils/convertImportsInSfc";
-import { convertStoryCodeToSfc } from "../test-utils/convertStoryCodeToSfc";
+import KdsButton from "../../buttons/KdsButton.vue";
+import { convertImportsInSfc } from "../../test-utils/convertImportsInSfc";
+import { convertStoryCodeToSfc } from "../../test-utils/convertStoryCodeToSfc";
 
 import DemoCustomComponent from "./DemoCustomComponent.vue";
 import DemoCustomComponentSource from "./DemoCustomComponent.vue?raw";
@@ -30,7 +30,7 @@ const templateExample = `
 `.trim();
 
 const meta: Meta<typeof KdsDynamicModalProvider> = {
-  title: "Components/Modal/useKdsDynamicModal",
+  title: "Components/overlays/useKdsDynamicModal",
   component: KdsDynamicModalProvider,
   parameters: {
     docs: {
