@@ -1,4 +1,4 @@
-import type { KdsFormFieldProps } from "../types.ts";
+import type { KdsFormFieldProps } from "../types";
 
 type KdsCommonInputProps = {
   /**
@@ -54,3 +54,10 @@ export type KdsNumberInputProps = KdsInputFieldProps & {
 export type KdsPatternInputProps = KdsInputFieldProps;
 
 export type KdsSearchInputProps = KdsInputFieldProps;
+
+export type KdsTextareaProps = KdsInputFieldProps & {
+  /**
+   * The number of visible text lines.
+   */
+  rows?: number;
+};
