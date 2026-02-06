@@ -19,7 +19,10 @@ const meta: Meta<typeof KdsCard> = {
     docs: {
       description: {
         component:
-          "A card component that provides a container with different visual styles (filled, outlined, transparent) to hold content.",
+          "A clickable card component that provides a container with different visual styles (filled, outlined, transparent) to hold content. " +
+          "The card can be selectable, allowing users to toggle between selected and unselected states, or it can emit click events when not selectable. " +
+          "The card supports hover, active, and focus-visible states to provide visual feedback to users. " +
+          "The component includes proper ARIA attributes (aria-pressed, aria-disabled) for accessibility.",
       },
     },
     design: {
@@ -37,17 +40,51 @@ const meta: Meta<typeof KdsCard> = {
         category: "Props",
       },
     },
-    modelValue: {
+    selectable: {
       description:
-        "Whether the card is in a selected/value state. When true, the card uses selected styling (teal background/borders).",
-      control: "boolean",
+        "Whether the card can be selected. When true, the card can be toggled between selected and unselected states. When false, the card will emit click events instead of toggling selected states.",
+      control: { type: "boolean" },
       table: {
         category: "Props",
+      },
+    },
+    disabled: {
+      description:
+        "Whether the card is disabled. When disabled, the card cannot be clicked or focused, and aria-disabled is set to true.",
+      control: { type: "boolean" },
+      table: {
+        category: "Props",
+      },
+    },
+    ariaLabel: {
+      description:
+        "Accessible label for the card. Either ariaLabel or ariaLabelledby must be provided. Use ariaLabel for simple text labels.",
+      control: { type: "text" },
+      table: {
+        category: "Props",
+      },
+    },
+    ariaLabelledby: {
+      description:
+        "ID of an element that labels the card. Either ariaLabel or ariaLabelledby must be provided. Use ariaLabelledby when the label already exists elsewhere in the DOM.",
+      control: { type: "text" },
+      table: {
+        category: "Props",
+      },
+    },
+    modelValue: {
+      control: { type: "select" },
+      options: [false, true],
+      table: {
+        category: "Model",
       },
     },
   },
   args: {
     variant: "filled",
+    selectable: true,
+    disabled: false,
+    ariaLabel: "Demo card for Storybook",
     modelValue: false,
     onClick: fn(),
   },
@@ -66,7 +103,7 @@ const meta: Meta<typeof KdsCard> = {
           <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-default);">Demo for Storybook</div>
           <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-default);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
           <div @mousedown.stop.prevent>
-            <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click="handleButtonClick"></KdsButton>
+            <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click.stop="handleButtonClick"></KdsButton>
           </div>
         </div>
       </KdsCard>
@@ -137,12 +174,12 @@ export const AllVariants: Story = {
     },
     template: `
       <div style="display: grid; gap: 16px;">
-        <KdsCard v-for="variant in variants" :key="variant" :variant="variant">
+        <KdsCard v-for="variant in variants" :key="variant" :variant="variant" aria-label="Demo card for Storybook">
           <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px; width: 413px;">
             <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-default);">Demo for Storybook</div>
             <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-default);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
             <div @mousedown.stop.prevent>
-              <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click="onButtonClick"></KdsButton>
+              <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click.stop="onButtonClick"></KdsButton>
             </div>
           </div>
         </KdsCard>
@@ -153,19 +190,19 @@ export const AllVariants: Story = {
 // Create a wrapper component for AllCombinations and DesignComparator that includes demo content
 const CardWithContent = {
   name: "CardWithContent",
-  props: ["variant", "modelValue"],
+  props: ["variant", "modelValue", "selectable", "disabled"],
   components: { KdsCard, KdsButton },
   setup() {
     const onButtonClick = fn();
     return { onButtonClick };
   },
   template: `
-    <KdsCard v-bind="$props">
+    <KdsCard v-bind="$props" aria-label="Demo card for Storybook">
       <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px; width: 413px">
         <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-default);">Demo for Storybook</div>
         <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-default);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
         <div @mousedown.stop.prevent>
-          <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click="onButtonClick"></KdsButton>
+          <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click.stop="onButtonClick"></KdsButton>
         </div>
       </div>
     </KdsCard>
@@ -178,6 +215,8 @@ export const AllCombinations: Story = buildAllCombinationsStory({
     {
       variant: ["filled", "outlined", "transparent"] as KdsCardVariant[],
       modelValue: [false, true],
+      selectable: [false, true],
+      disabled: [false, true],
     },
   ],
   pseudoStates: ["hover", "active", "focus-visible"],
@@ -338,6 +377,7 @@ export const TextOverflow: Story = {
   }),
   args: {
     variant: "filled",
+    ariaLabel: "Demo card for Storybook",
   },
   render: (args) => ({
     components: { KdsCard, KdsButton },
@@ -353,7 +393,7 @@ export const TextOverflow: Story = {
             <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-default);">Demo for Storybook</div>
             <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-default);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
             <div @mousedown.stop.prevent>
-              <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click="onButtonClick"></KdsButton>
+              <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click.stop="onButtonClick"></KdsButton>
             </div>
           </div>
         </KdsCard>
@@ -365,7 +405,7 @@ export const TextOverflow: Story = {
               <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-default);">Demo for Storybook</div>
               <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-default);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
               <div @mousedown.stop.prevent>
-                <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click="onButtonClick"></KdsButton>
+                <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click.stop="onButtonClick"></KdsButton>
               </div>
             </div>
           </KdsCard>
