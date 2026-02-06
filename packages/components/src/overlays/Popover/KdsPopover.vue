@@ -170,7 +170,7 @@ useResizeObserver(
     ref="popoverEl"
     class="kds-popover"
     :class="['floating', props.placement, { 'show-arrow': props.showArrow }]"
-    :popover="activatorEl ? 'auto' : undefined"
+    :popover="props.activatorEl ? 'auto' : undefined"
     :style="`position-anchor: ${anchorName}; --kds-popover-activator-width: ${activatorWidth}px`"
     @toggle="onNativeToggle"
   >
