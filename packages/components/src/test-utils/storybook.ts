@@ -112,7 +112,7 @@ const isArrayOfCombinations = <T>(
         icon: ["ai-general"],
       },
     ],
-    minColumns: 4,
+    columns: 4,
   });
  */
 export function buildAllCombinationsStory<C extends Component>(
