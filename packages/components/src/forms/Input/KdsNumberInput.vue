@@ -26,13 +26,6 @@ const inputId = computed(() => `${generatedId}-input`);
 const labelId = computed(() => `${generatedId}-label`);
 const subTextId = computed(() => `${generatedId}-subtext`);
 
-const ariaLabelledby = computed(() =>
-  props.label ? labelId.value : undefined,
-);
-const ariaDescribedby = computed(() =>
-  props.subText ? subTextId.value : undefined,
-);
-
 const clamp = (value: number) => {
   let next = value;
 
@@ -95,13 +88,6 @@ const adjustByStep = (direction: -1 | 1) => {
   modelValue.value = clamp(modelValue.value + direction * props.step);
 };
 
-const updateModelValue = (value: string) => {
-  const parsedValue = Number(value);
-  modelValue.value = clamp(parsedValue);
-};
-
-const inputMode = computed(() => "numeric" as const);
-
 const handleKeydown = (event: KeyboardEvent) => {
   if (props.disabled || props.readonly) {
     return;
@@ -132,7 +118,7 @@ const handleKeydown = (event: KeyboardEvent) => {
       :id="inputId"
       :model-value="Number.isFinite(modelValue) ? `${modelValue}` : ''"
       type="number"
-      :inputmode="inputMode"
+      :inputmode="step >= 1 ? 'numeric' : 'decimal'"
       :placeholder="props.placeholder"
       :disabled="props.disabled"
       :readonly="props.readonly"
@@ -145,9 +131,9 @@ const handleKeydown = (event: KeyboardEvent) => {
       :max="props.max"
       :step="props.step"
       :unit="props.unit"
-      :aria-labelledby="ariaLabelledby"
-      :aria-describedby="ariaDescribedby"
-      @update:model-value="updateModelValue"
+      :aria-labelledby="props.label ? labelId : undefined"
+      :aria-describedby="props.subText ? subTextId : undefined"
+      @update:model-value="modelValue = clamp(Number($event))"
       @keydown="handleKeydown"
     >
       <template #trailing>
