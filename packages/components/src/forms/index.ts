@@ -5,6 +5,10 @@ export { default as KdsRadioButtonGroup } from "./RadioButton/KdsRadioButtonGrou
 export { default as KdsValueSwitch } from "./RadioButton/KdsValueSwitch.vue";
 export { default as KdsLabel } from "./KdsLabel.vue";
 export { default as KdsSubText } from "./KdsSubText.vue";
+export { default as KdsTextInput } from "./Input/KdsTextInput.vue";
+export { default as KdsNumberInput } from "./Input/KdsNumberInput.vue";
+export { default as KdsPatternInput } from "./Input/PatternInput/KdsPatternInput.vue";
+export { default as KdsSearchInput } from "./Input/KdsSearchInput.vue";
 
 // Export form component types
 export type {
@@ -15,9 +19,23 @@ export type {
   KdsValueSwitchProps,
   KdsValueSwitchSize,
 } from "./RadioButton/types";
+
 export type {
   KdsCheckboxValue,
   KdsCheckboxGroupAlignment,
   KdsCheckboxGroupOption,
   KdsCheckboxGroupProps,
 } from "./Checkbox/types";
+
+export type {
+  KdsTextInputProps,
+  KdsNumberInputProps,
+  KdsPatternInputProps,
+  KdsSearchInputProps,
+  KdsTemporalType,
+  KdsDateFormatCategory,
+  KdsDateTimeFormatEntry,
+  KdsDateTimeFormatInputProps,
+  KdsCredentialsUserPasswordProps,
+  KdsCredentialsApiKeyProps,
+} from "./Input/types";
