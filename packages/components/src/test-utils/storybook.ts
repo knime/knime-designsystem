@@ -1,4 +1,4 @@
-import type { Component } from "vue";
+import type { Component, StyleValue } from "vue";
 import type { StoryObj } from "@storybook/vue3-vite";
 
 import DesignComparator, {
@@ -117,6 +117,7 @@ export function buildAllCombinationsStory(
 type DesignComparatorParams = {
   component: Component;
   designsToCompare: DesignsToCompare; // or can we infer the possible props from the component type?
+  wrapperStyle?: StyleValue;
 };
 
 /**
@@ -162,10 +163,15 @@ export function buildDesignComparatorStory(
         return {
           designsToCompare: config.designsToCompare,
           component: config.component,
+          wrapperStyle: config.wrapperStyle,
         };
       },
       template: `
-        <DesignComparator :designs-to-compare="designsToCompare" :component="component"></DesignComparator>`,
+        <DesignComparator 
+          :designs-to-compare="designsToCompare" 
+          :component="component"
+          :wrapper-style="wrapperStyle"
+        />`,
     }),
   };
 }
