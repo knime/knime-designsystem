@@ -166,9 +166,8 @@ useResizeObserver(
     inset: auto anchor(right) anchor(top) auto;
     margin: var(--kds-spacing-container-0-25x) 0
       var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x);
-    --kds-popover-arrow-inset: auto auto
-      calc(var(--kds-popover-arrow-size) / -2)
-      var(--kds-popover-activator-center);
+    --kds-popover-arrow-inset: auto var(--kds-popover-activator-center)
+      calc(var(--kds-popover-arrow-size) / -2) auto;
 
     position-try-fallbacks:
       --kds-popover-try-top-right, --kds-popover-try-bottom-left,
@@ -221,9 +220,8 @@ useResizeObserver(
     margin: var(--kds-spacing-container-0-25x) 0
       var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x);
     /* stylelint-disable-next-line at-rule-descriptor-no-unknown */
-    --kds-popover-arrow-inset: auto auto
-      calc(var(--kds-popover-arrow-size) / -2)
-      var(--kds-popover-activator-center);
+    --kds-popover-arrow-inset: auto var(--kds-popover-activator-center)
+      calc(var(--kds-popover-arrow-size) / -2) auto;
   }
 
   /* noinspection CssInvalidFunction,CssInvalidAtRule */
