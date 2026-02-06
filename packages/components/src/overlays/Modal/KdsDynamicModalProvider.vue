@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 
-import type { KdsButtonProps } from "../buttons";
-import KdsButton from "../buttons/KdsButton.vue";
-import KdsCheckbox from "../forms/Checkbox/KdsCheckbox.vue";
+import type { KdsButtonProps } from "../../buttons";
+import KdsButton from "../../buttons/KdsButton.vue";
+import KdsCheckbox from "../../forms/Checkbox/KdsCheckbox.vue";
 
 import KdsModal from "./KdsModal.vue";
 import {
