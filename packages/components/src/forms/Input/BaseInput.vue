@@ -111,10 +111,6 @@ type BaseInputProps = {
    */
   autocomplete?: string;
   /**
-   * Unit shown next to the input value
-   */
-  unit?: string;
-  /**
    * Hints at the type of data that might be entered by the user.
    * Useful for showing an appropriate on-screen keyboard on mobile.
    */
@@ -158,7 +154,6 @@ const props = withDefaults(defineProps<BaseInputProps>(), {
   ariaAutocomplete: undefined,
   name: undefined,
   autocomplete: undefined,
-  unit: undefined,
   inputmode: undefined,
   clearable: false,
 });
@@ -184,10 +179,6 @@ const generatedId = useId();
 const inputId = computed(() => props.id ?? generatedId);
 
 const hasValue = computed(() => modelValue.value.length > 0);
-
-const showUnitPlaceholder = computed(
-  () => Boolean(props.unit) && modelValue.value.trim().length === 0,
-);
 
 const handleInput = (event: Event) => {
   emit("input", event);
@@ -250,17 +241,6 @@ const clear = () => {
         @keydown="emit('keydown', $event)"
         @click="emit('click', $event)"
       />
-
-      <span
-        v-if="props.unit"
-        :class="{
-          unit: true,
-          placeholder: showUnitPlaceholder,
-          disabled: props.disabled,
-        }"
-      >
-        {{ props.unit }}
-      </span>
 
       <KdsButton
         v-if="props.clearable && hasValue && !props.disabled && !props.readonly"
@@ -378,28 +358,5 @@ const clear = () => {
       color: var(--kds-color-text-and-icon-disabled);
     }
   }
-}
-
-.unit {
-  flex-shrink: 0;
-  min-width: 0;
-  padding-right: var(--kds-spacing-container-0-25x);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font: var(--kds-font-base-interactive-small);
-  color: var(--kds-color-text-and-icon-neutral);
-  white-space: nowrap;
-
-  &.placeholder {
-    color: var(--kds-color-text-and-icon-subtle);
-  }
-
-  &.disabled {
-    color: var(--kds-color-text-and-icon-disabled);
-  }
-}
-
-.container:focus-within .unit {
-  color: var(--kds-color-text-and-icon-neutral);
 }
 </style>

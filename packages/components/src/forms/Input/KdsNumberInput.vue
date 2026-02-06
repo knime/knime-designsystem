@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useId } from "vue";
+import { computed, ref, useId } from "vue";
 
 import KdsButton from "../../buttons/KdsButton.vue";
 import KdsLabel from "../KdsLabel.vue";
@@ -26,12 +26,7 @@ const inputId = computed(() => `${generatedId}-input`);
 const labelId = computed(() => `${generatedId}-label`);
 const subTextId = computed(() => `${generatedId}-subtext`);
 
-const ariaLabelledby = computed(() =>
-  props.label ? labelId.value : undefined,
-);
-const ariaDescribedby = computed(() =>
-  props.subText ? subTextId.value : undefined,
-);
+const isFocused = ref(false);
 
 const clamp = (value: number) => {
   let next = value;
@@ -95,13 +90,6 @@ const adjustByStep = (direction: -1 | 1) => {
   modelValue.value = clamp(modelValue.value + direction * props.step);
 };
 
-const updateModelValue = (value: string) => {
-  const parsedValue = Number(value);
-  modelValue.value = clamp(parsedValue);
-};
-
-const inputMode = computed(() => "numeric" as const);
-
 const handleKeydown = (event: KeyboardEvent) => {
   if (props.disabled || props.readonly) {
     return;
@@ -116,6 +104,9 @@ const handleKeydown = (event: KeyboardEvent) => {
     event.preventDefault();
     adjustByStep(-1);
   }
+
+  // prevent non-numeric input
+  // TODO implement guard
 };
 </script>
 
@@ -130,10 +121,12 @@ const handleKeydown = (event: KeyboardEvent) => {
 
     <KdsBaseInput
       :id="inputId"
-      :model-value="Number.isFinite(modelValue) ? `${modelValue}` : ''"
-      type="number"
-      :inputmode="inputMode"
-      :placeholder="props.placeholder"
+      :model-value="
+        (Number.isFinite(modelValue) ? `${modelValue}` : '') +
+        (!isFocused && modelValue ? ` ${props.unit}` : '')
+      "
+      :inputmode="step >= 1 ? 'numeric' : 'decimal'"
+      :placeholder="props.placeholder + (props.unit ? ` (${props.unit})` : '')"
       :disabled="props.disabled"
       :readonly="props.readonly"
       :required="props.required"
@@ -144,11 +137,12 @@ const handleKeydown = (event: KeyboardEvent) => {
       :min="props.min"
       :max="props.max"
       :step="props.step"
-      :unit="props.unit"
-      :aria-labelledby="ariaLabelledby"
-      :aria-describedby="ariaDescribedby"
-      @update:model-value="updateModelValue"
+      :aria-labelledby="props.label ? labelId : undefined"
+      :aria-describedby="props.subText ? subTextId : undefined"
+      @update:model-value="modelValue = clamp(Number($event))"
       @keydown="handleKeydown"
+      @focus="isFocused = true"
+      @blur="isFocused = false"
     >
       <template #trailing>
         <div class="button-wrapper">
