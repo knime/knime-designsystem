@@ -6,9 +6,11 @@ export type KdsPopoverPlacement = (typeof kdsPopoverPlacements)[number];
 
 export type KdsPopoverProps = {
   /**
-   * Reference to the activator element (must be a button element).
+   * Reference to the activator element (typically a button element).
+   *
+   * Can be an HTMLElement or a Vue component instance.
    */
-  activatorEl: MaybeRef<HTMLButtonElement | null>;
+  activatorEl: MaybeRef<HTMLElement | ComponentPublicInstance | null>;
 
   /**
    * Optional reference to the anchor element used for positioning.
