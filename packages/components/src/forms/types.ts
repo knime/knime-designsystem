@@ -21,6 +21,10 @@ export type KdsSubTextProps = {
    */
   error?: boolean;
   /**
+   * When true, shows a loading spinner in the subtext area.
+   */
+  validating?: boolean;
+  /**
    * Reserve space for subtext to prevent layout shifts when helper text or errors appear
    */
   preserveSubTextSpace?: boolean;
