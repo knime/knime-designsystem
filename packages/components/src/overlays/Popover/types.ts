@@ -8,7 +8,7 @@ export type KdsPopoverProps = {
   /**
    * Reference to the activator element (must be a button element).
    */
-  activatorEl: MaybeRef<HTMLButtonElement | null> | null;
+  activatorEl: MaybeRef<HTMLButtonElement | null>;
 
   /**
    * Optional reference to the anchor element used for positioning.
