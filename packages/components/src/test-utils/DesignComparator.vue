@@ -34,9 +34,12 @@ export type DesignsToCompare = Record<
 type Props = {
   designsToCompare: DesignsToCompare;
   component: Component;
+  componentStyle?: string;
 };
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  componentStyle: undefined,
+});
 
 const defaultOpacity = 0.5;
 const opacity = ref(defaultOpacity);
@@ -185,6 +188,7 @@ function onPaste(event: ClipboardEvent) {
           />
           <div class="implementation" :style="{ opacity: opacity }">
             <div
+              :style="props.componentStyle"
               :class="{
                 'pseudo-hover-all': Boolean(
                   variantProps.parameters?.pseudo?.hover,
@@ -226,6 +230,9 @@ function onPaste(event: ClipboardEvent) {
 }
 
 .design-comparator {
+  --figma-offset-x: 0;
+  --figma-offset-y: 0;
+
   & .no-token-warning {
     padding: 10px;
     margin-bottom: 10px;
@@ -275,8 +282,8 @@ function onPaste(event: ClipboardEvent) {
       --scale: calc(1 / v-bind(figmaImageScale));
 
       position: absolute;
-      top: calc(var(--padding) + var(--figma-offset-y, 0px));
-      left: calc(var(--padding) + var(--figma-offset-x, 0px));
+      top: calc(var(--padding) + var(--figma-offset-y));
+      left: calc(var(--padding) + var(--figma-offset-x));
       pointer-events: none;
       opacity: v-bind(figmaOpacity);
       transform: scale(var(--scale));
