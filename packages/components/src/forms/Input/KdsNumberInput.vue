@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useId } from "vue";
+import { computed, ref, useId, watch } from "vue";
 
 import KdsButton from "../../buttons/KdsButton.vue";
 import KdsLabel from "../KdsLabel.vue";
@@ -26,7 +26,35 @@ const inputId = computed(() => `${generatedId}-input`);
 const labelId = computed(() => `${generatedId}-label`);
 const subTextId = computed(() => `${generatedId}-subtext`);
 
+const isFocused = ref(false);
+
+/**
+ * String representation of what's currently shown in the input.
+ *
+ * Important: we keep this separate from the numeric model to allow intermediate
+ * typing states and to avoid clamping away out-of-range values before external
+ * validation (e.g. JSONForms/builtin validations) can kick in.
+ */
+const localValue = ref<string>("");
+
+const formatForDisplay = (value: number) => {
+  return Number.isFinite(value) ? `${value}` : "";
+};
+
+const parseFromInput = (value: string) => {
+  const trimmed = value.trim();
+  if (trimmed.length === 0) {
+    return NaN;
+  }
+  const parsed = Number.parseFloat(trimmed);
+  return Number.isFinite(parsed) ? parsed : NaN;
+};
+
 const clamp = (value: number) => {
+  if (!Number.isFinite(value)) {
+    return NaN;
+  }
+
   let next = value;
 
   if (props.min !== undefined && !Number.isNaN(props.min)) {
@@ -36,20 +64,20 @@ const clamp = (value: number) => {
     next = Math.min(props.max, next);
   }
 
-  // Avoid floating point artifacts when working with decimal steps.
-  const step = props.step;
-  const precision = Math.max(0, (step.toString().split(".")[1] ?? "").length);
-  const factor = Number(`1e${precision}`);
-
-  const scaledNext = Math.round(next * factor);
-  const scaledStep = Math.round(step * factor);
-  if (scaledStep === 0) {
-    return next;
-  }
-
-  const roundedScaled = Math.round(scaledNext / scaledStep) * scaledStep;
-  return roundedScaled / factor;
+  return next;
 };
+
+watch(
+  () => modelValue.value,
+  (next) => {
+    // While focused, let the user keep typing without being overridden by external updates.
+    if (isFocused.value) {
+      return;
+    }
+    localValue.value = formatForDisplay(next);
+  },
+  { immediate: true },
+);
 
 const canDecrease = computed(() => {
   if (props.disabled || props.readonly) {
@@ -75,17 +103,41 @@ const canIncrease = computed(() => {
   return !(modelValue.value >= props.max);
 });
 
+const roundToStep = (value: number) => {
+  if (!Number.isFinite(value)) {
+    return NaN;
+  }
+
+  // Avoid floating point artifacts when working with decimal steps.
+  const step = props.step;
+  const precision = Math.max(0, (step.toString().split(".")[1] ?? "").length);
+  const factor = Number(`1e${precision}`);
+
+  const scaledNext = Math.round(value * factor);
+  const scaledStep = Math.round(step * factor);
+  if (scaledStep === 0) {
+    return value;
+  }
+
+  const roundedScaled = Math.round(scaledNext / scaledStep) * scaledStep;
+  return roundedScaled / factor;
+};
+
 const adjustByStep = (direction: -1 | 1) => {
   if (props.step <= 0) {
     return;
   }
 
-  if (!Number.isFinite(modelValue.value)) {
-    modelValue.value = clamp(0);
-    return;
-  }
+  const base = Number.isFinite(modelValue.value)
+    ? modelValue.value
+    : parseFromInput(localValue.value);
 
-  modelValue.value = clamp(modelValue.value + direction * props.step);
+  const nextRaw = Number.isFinite(base) ? base + direction * props.step : 0;
+  // Only round to step, don't clamp - clamping happens on blur
+  const next = roundToStep(nextRaw);
+
+  modelValue.value = next;
+  localValue.value = formatForDisplay(next);
 };
 
 const handleKeydown = (event: KeyboardEvent) => {
@@ -103,6 +155,30 @@ const handleKeydown = (event: KeyboardEvent) => {
     adjustByStep(-1);
   }
 };
+
+const handleUpdateModelValue = (value: string) => {
+  localValue.value = value;
+  modelValue.value = parseFromInput(value);
+};
+
+const handleBlur = (event: FocusEvent) => {
+  isFocused.value = false;
+
+  // Normalize, round to step, and clamp only when leaving the field.
+  const parsed = parseFromInput(localValue.value);
+  const base = Number.isFinite(parsed) ? parsed : 0;
+  const rounded = roundToStep(base);
+  const normalized = clamp(rounded);
+
+  modelValue.value = normalized;
+  localValue.value = formatForDisplay(normalized);
+
+  // Also force the native input to normalize its internal value.
+  const target = event.target as HTMLInputElement | null;
+  if (target && Number.isFinite(normalized)) {
+    target.valueAsNumber = normalized;
+  }
+};
 </script>
 
 <template>
@@ -116,7 +192,7 @@ const handleKeydown = (event: KeyboardEvent) => {
 
     <KdsBaseInput
       :id="inputId"
-      :model-value="Number.isFinite(modelValue) ? `${modelValue}` : ''"
+      :model-value="localValue"
       type="number"
       :inputmode="step >= 1 ? 'numeric' : 'decimal'"
       :placeholder="props.placeholder"
@@ -133,8 +209,10 @@ const handleKeydown = (event: KeyboardEvent) => {
       :unit="props.unit"
       :aria-labelledby="props.label ? labelId : undefined"
       :aria-describedby="props.subText ? subTextId : undefined"
-      @update:model-value="modelValue = clamp(Number($event))"
+      @update:model-value="handleUpdateModelValue"
       @keydown="handleKeydown"
+      @focus="isFocused = true"
+      @blur="handleBlur"
     >
       <template #trailing>
         <div class="button-wrapper">
