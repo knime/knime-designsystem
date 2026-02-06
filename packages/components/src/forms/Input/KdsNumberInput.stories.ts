@@ -106,7 +106,7 @@ const meta: Meta<typeof KdsNumberInput> = {
     unit: "",
     min: undefined,
     max: undefined,
-    step: 1,
+    step: 0.1,
     disabled: false,
     readonly: false,
     required: false,
