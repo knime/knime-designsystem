@@ -1,17 +1,19 @@
 <script setup lang="ts">
 import KdsIcon from "../Icon/KdsIcon.vue";
+import KdsLoadingSpinner from "../LoadingSpinner/KdsLoadingSpinner.vue";
 
 import type { KdsSubTextProps } from "./types";
 
 const props = withDefaults(defineProps<KdsSubTextProps>(), {
   error: false,
+  validating: false,
   preserveSubTextSpace: false,
 });
 </script>
 
 <template>
   <div
-    v-if="props.subText || props.preserveSubTextSpace"
+    v-if="props.subText || props.preserveSubTextSpace || props.validating"
     :id="props.id"
     :class="{
       subtext: true,
@@ -20,6 +22,13 @@ const props = withDefaults(defineProps<KdsSubTextProps>(), {
   >
     <template v-if="props.error && props.subText">
       <KdsIcon name="circle-error" size="small" aria-label="Error" />
+    </template>
+    <template v-else-if="props.validating">
+      <KdsLoadingSpinner
+        size="small"
+        :style="'onSurface'"
+        aria-label="Validating"
+      />
     </template>
     <span class="subtext-text">{{ props.subText }}</span>
   </div>
