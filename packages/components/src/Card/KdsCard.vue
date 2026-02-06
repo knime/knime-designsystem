@@ -1,26 +1,67 @@
 <script setup lang="ts">
+import { computed } from "vue";
+
 import type { KdsCardProps } from "./types";
 
 const {
   variant = "filled",
-  modelValue = false,
-  ariaLabel = "A clickable card",
+  selectable = false,
+  disabled = false,
+  ariaLabel,
+  ariaLabelledby,
 } = defineProps<KdsCardProps>();
 
+/**
+ * Controls the selected state of the card when `selectable` is true.
+ * When `selectable` is false, this model is ignored.
+ */
+const modelValue = defineModel<boolean>({ default: false });
+
 const emit = defineEmits<{
+  /**
+   * Fired when the card is clicked.
+   *
+   * This event is only emitted when `selectable` is false.
+   * Clicks while `selectable` is true toggle the card.
+   */
   click: [event: MouseEvent | KeyboardEvent];
 }>();
+
+const ariaPressed = computed(() => (selectable ? modelValue.value : undefined));
+const tabIndex = computed(() => (disabled ? -1 : 0));
+
+const selected = computed(() => modelValue.value && selectable);
+
+const handleClick = (event: MouseEvent | KeyboardEvent) => {
+  if (disabled) {
+    return;
+  }
+
+  if (selectable) {
+    modelValue.value = !modelValue.value;
+  } else {
+    emit("click", event);
+  }
+};
 </script>
 
 <template>
   <div
     class="kds-card"
-    :class="[`variant-${variant}`, `value-${modelValue}`]"
+    :class="[
+      `variant-${variant}`,
+      `selected-${selected}`,
+      { disabled: disabled },
+    ]"
+    role="button"
     :aria-label="ariaLabel"
-    tabindex="0"
-    @click="emit('click', $event)"
-    @keydown.enter="emit('click', $event)"
-    @keydown.space="emit('click', $event)"
+    :aria-labelledby="ariaLabelledby"
+    :aria-disabled="disabled"
+    :aria-pressed="ariaPressed"
+    :tabindex="tabIndex"
+    @click="handleClick"
+    @keydown.enter.prevent="handleClick"
+    @keydown.space.prevent="handleClick"
   >
     <slot />
   </div>
@@ -31,6 +72,7 @@ const emit = defineEmits<{
   position: relative;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
   outline: none;
   border-style: solid;
   border-radius: var(--kds-border-radius-container-0-50x);
@@ -43,93 +85,98 @@ const emit = defineEmits<{
     outline: var(--kds-border-action-focused);
     outline-offset: calc(var(--kds-core-border-width-l) * -1);
   }
+
+  &.disabled {
+    cursor: default;
+  }
 }
 
 /* Variant: Filled, Value: False */
-.variant-filled.value-false {
+.variant-filled.selected-false {
   background: var(--kds-color-surface-default);
   border: var(--kds-border-base-subtle);
 
-  &:hover {
+  &:hover:not(.disabled) {
     box-shadow: var(--kds-elevation-level-3);
   }
 
-  &:active {
+  &:active:not(.disabled) {
     background: var(--kds-color-background-neutral-active);
     box-shadow: var(--kds-elevation-level-1);
   }
 }
 
 /* Variant: Outlined, Value: False */
-.variant-outlined.value-false {
+.variant-outlined.selected-false {
   background: var(--kds-color-background-neutral-initial);
   border: var(--kds-border-base-muted);
 
-  &:hover {
+  &:hover:not(.disabled) {
     box-shadow: var(--kds-elevation-level-3);
   }
 
-  &:active {
+  &:active:not(.disabled) {
     background: var(--kds-color-background-neutral-active);
     box-shadow: var(--kds-elevation-level-1);
   }
 }
 
 /* Variant: Transparent, Value: False */
-.variant-transparent.value-false {
+.variant-transparent.selected-false {
   background: var(--kds-color-background-neutral-initial);
   border: var(--kds-border-action-transparent);
 
-  &:hover {
+  &:hover:not(.disabled) {
+    background: var(--kds-color-background-neutral-hover);
     box-shadow: var(--kds-elevation-level-3);
   }
 
-  &:active {
+  &:active:not(.disabled) {
     background: var(--kds-color-background-neutral-active);
     box-shadow: var(--kds-elevation-level-1);
   }
 }
 
 /* Variant: Filled, Value: True */
-.variant-filled.value-true {
+.variant-filled.selected-true {
   background: var(--kds-color-background-selected-initial);
   border: var(--kds-border-action-selected);
 
-  &:hover {
+  &:hover:not(.disabled) {
     box-shadow: var(--kds-elevation-level-3);
   }
 
-  &:active {
+  &:active:not(.disabled) {
     background: var(--kds-color-background-selected-active);
     box-shadow: var(--kds-elevation-level-1);
   }
 }
 
 /* Variant: Outlined, Value: True */
-.variant-outlined.value-true {
+.variant-outlined.selected-true {
   background: var(--kds-color-background-selected-initial);
   border: var(--kds-border-base-muted);
 
-  &:hover {
+  &:hover:not(.disabled) {
     box-shadow: var(--kds-elevation-level-3);
   }
 
-  &:active {
+  &:active:not(.disabled) {
     background: var(--kds-color-background-selected-active);
     box-shadow: var(--kds-elevation-level-1);
   }
 }
 
 /* Variant: Transparent, Value: True */
-.variant-transparent.value-true {
+.variant-transparent.selected-true {
   background: var(--kds-color-background-selected-initial);
   border: var(--kds-border-action-selected);
 
-  &:hover {
+  &:hover:not(.disabled) {
     box-shadow: var(--kds-elevation-level-3);
   }
 
-  &:active {
+  &:active:not(.disabled) {
     background: var(--kds-color-background-selected-active);
     box-shadow: var(--kds-elevation-level-1);
   }

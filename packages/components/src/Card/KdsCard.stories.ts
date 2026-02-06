@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { fn } from "storybook/test";
+import { useArgs } from "storybook/internal/preview-api";
+import { expect, fn, userEvent, within } from "storybook/test";
 
 import KdsButton from "../buttons/KdsButton.vue";
 import {
@@ -19,7 +20,15 @@ const meta: Meta<typeof KdsCard> = {
     docs: {
       description: {
         component:
-          "A card component that provides a container with different visual styles (filled, outlined, transparent) to hold content.",
+          "A clickable card component that provides a container with different visual styles (filled, outlined, transparent) to hold content. " +
+          "The card can be selectable, allowing users to toggle between selected and unselected states, or it can emit click events when not selectable. " +
+          "The card supports hover, active, and focus-visible states to provide visual feedback to users. " +
+          "The component includes proper ARIA attributes (aria-pressed, aria-disabled) for accessibility.\n\n" +
+          "**Handling Interactive Elements**: When placing interactive elements (like buttons) inside the card, add `@click.stop` to the interactive element to prevent the click event " +
+          "from bubbling up to the card (which would toggle the selected state or emit the click event).\n\n" +
+          "**Prop Usage in Wrapper Components**: Due to TypeScript limitations with discriminated unions in Vue templates, when creating wrapper components that forward props, " +
+          'you must use `v-bind` with a properly typed object. Direct prop binding (`:aria-label="..."`) will cause type errors. ' +
+          "See the type documentation for examples.",
       },
     },
     design: {
@@ -37,37 +46,68 @@ const meta: Meta<typeof KdsCard> = {
         category: "Props",
       },
     },
-    modelValue: {
+    selectable: {
       description:
-        "Whether the card is in a selected/value state. When true, the card uses selected styling (teal background/borders).",
-      control: "boolean",
+        "Whether the card can be selected. When true, the card can be toggled between selected and unselected states. When false, the card will emit click events instead of toggling selected states.",
+      control: { type: "boolean" },
       table: {
         category: "Props",
       },
     },
+    disabled: {
+      description:
+        "Whether the card is disabled. When disabled, the card cannot be clicked or focused, and aria-disabled is set to true.",
+      control: { type: "boolean" },
+      table: {
+        category: "Props",
+      },
+    },
+    ariaLabel: {
+      description:
+        "Accessible label for the card. Either ariaLabel or ariaLabelledby must be provided. Use ariaLabel for simple text labels.",
+      control: { type: "text" },
+      table: {
+        category: "Props",
+      },
+    },
+    ariaLabelledby: {
+      description:
+        "ID of an element that labels the card. Either ariaLabel or ariaLabelledby must be provided. Use ariaLabelledby when the label already exists elsewhere in the DOM.",
+      control: { type: "text" },
+      table: {
+        category: "Props",
+      },
+    },
+    modelValue: {
+      description:
+        "Controls the selected state of the card when `selectable` is true. When `selectable` is false, this model is ignored.",
+      control: { type: "select" },
+      options: [false, true],
+      table: {
+        category: "Model",
+      },
+    },
+    onClick: {
+      table: { disable: true },
+    },
   },
   args: {
     variant: "filled",
+    selectable: true,
+    disabled: false,
+    ariaLabel: "Demo card for Storybook",
     modelValue: false,
-    onClick: fn(),
   },
   render: (args) => ({
-    components: { KdsCard, KdsButton },
+    components: { KdsCard },
     setup() {
-      const onButtonClick = fn();
-      const handleButtonClick = (e: MouseEvent) => {
-        onButtonClick(e);
-      };
-      return { args, handleButtonClick };
+      return { args };
     },
     template: `
       <KdsCard v-bind="args">
         <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px;">
           <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-default);">Demo for Storybook</div>
           <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-default);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
-          <div @mousedown.stop.prevent>
-            <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click="handleButtonClick"></KdsButton>
-          </div>
         </div>
       </KdsCard>
     `,
@@ -77,9 +117,44 @@ export default meta;
 
 type Story = StoryObj<typeof KdsCard>;
 
-export const Filled: Story = {
+export const Default: Story = {
   args: {
-    variant: "filled",
+    onClick: fn(),
+  },
+  decorators: [
+    (story) => {
+      const [currentArgs, updateArgs] = useArgs();
+      return {
+        components: { story },
+        setup() {
+          return {
+            args: currentArgs,
+            updateArgs,
+          };
+        },
+        template:
+          '<story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" @click="args.onClick" />',
+      };
+    },
+  ],
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    const card = canvas.getByRole("button", {
+      name: args.ariaLabel ?? "Demo card for Storybook",
+    });
+
+    if (args.selectable) {
+      await expect(card).toHaveAttribute("aria-pressed", "false");
+
+      await userEvent.click(card);
+      await expect(card).toHaveAttribute("aria-pressed", "true");
+
+      await userEvent.click(card);
+      await expect(card).toHaveAttribute("aria-pressed", "false");
+    } else {
+      await userEvent.click(card);
+      await expect(args.onClick).toHaveBeenCalledTimes(1);
+    }
   },
 };
 
@@ -102,71 +177,49 @@ export const Selected: Story = {
   },
 };
 
-export const Focused: Story = {
+export const NestedInteractive: Story = {
   args: {
     variant: "filled",
   },
   parameters: {
-    pseudo: {
-      focusVisible: true,
+    a11y: {
+      config: {
+        rules: [{ id: "nested-interactive", enabled: false }],
+      },
     },
   },
   render: (args) => ({
-    components: { KdsCard },
+    components: { KdsCard, KdsButton },
     setup() {
-      return { args };
+      const onButtonClick = fn();
+
+      return { args, onButtonClick };
     },
     template: `
       <KdsCard v-bind="args">
         <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px;">
           <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-default);">Demo for Storybook</div>
           <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-default);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
+          <!-- Wrap interactive elements with @mousedown.stop.prevent to prevent card's :active state -->
+            <!-- Use @click.stop to prevent event bubbling to card (prevents selection toggle/click emit) -->
+            <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click.stop="onButtonClick" @mousedown.stop></KdsButton>
         </div>
       </KdsCard>
     `,
   }),
 };
 
-export const AllVariants: Story = {
-  render: () => ({
-    components: { KdsCard, KdsButton },
-    setup() {
-      const variants: KdsCardVariant[] = ["filled", "outlined", "transparent"];
-      const onButtonClick = fn();
-      return { variants, onButtonClick };
-    },
-    template: `
-      <div style="display: grid; gap: 16px;">
-        <KdsCard v-for="variant in variants" :key="variant" :variant="variant">
-          <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px; width: 413px;">
-            <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-default);">Demo for Storybook</div>
-            <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-default);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
-            <div @mousedown.stop.prevent>
-              <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click="onButtonClick"></KdsButton>
-            </div>
-          </div>
-        </KdsCard>
-      </div>`,
-  }),
-};
-
 // Create a wrapper component for AllCombinations and DesignComparator that includes demo content
 const CardWithContent = {
   name: "CardWithContent",
-  props: ["variant", "modelValue"],
+  props: ["variant", "modelValue", "selectable", "disabled"],
   components: { KdsCard, KdsButton },
-  setup() {
-    const onButtonClick = fn();
-    return { onButtonClick };
-  },
   template: `
-    <KdsCard v-bind="$props">
+    <KdsCard v-bind="$props" aria-label="Demo card for Storybook">
       <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px; width: 413px">
         <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-default);">Demo for Storybook</div>
         <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-default);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
-        <div @mousedown.stop.prevent>
-          <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click="onButtonClick"></KdsButton>
-        </div>
+        <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click.stop style="align-self: start;" @mousedown.stop.prevent></KdsButton>
       </div>
     </KdsCard>
   `,
@@ -178,6 +231,8 @@ export const AllCombinations: Story = buildAllCombinationsStory({
     {
       variant: ["filled", "outlined", "transparent"] as KdsCardVariant[],
       modelValue: [false, true],
+      selectable: [false, true],
+      disabled: [false, true],
     },
   ],
   pseudoStates: ["hover", "active", "focus-visible"],
@@ -215,10 +270,12 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=14767-33736":
           {
             modelValue: true,
+            selectable: true,
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=14767-33737":
           {
             modelValue: true,
+            selectable: true,
             parameters: {
               pseudo: { hover: true },
               figmaOffset: { x: -20, y: -20 },
@@ -227,6 +284,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=14931-96400":
           {
             modelValue: true,
+            selectable: true,
             parameters: {
               pseudo: { active: true },
               figmaOffset: { x: -8, y: -8 },
@@ -262,10 +320,12 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=15529-79543":
           {
             modelValue: true,
+            selectable: true,
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=15529-79544":
           {
             modelValue: true,
+            selectable: true,
             parameters: {
               pseudo: { hover: true },
               figmaOffset: { x: -20, y: -20 },
@@ -274,6 +334,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=15529-79545":
           {
             modelValue: true,
+            selectable: true,
             parameters: {
               pseudo: { active: true },
               figmaOffset: { x: -8, y: -8 },
@@ -309,10 +370,12 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=14767-37014":
           {
             modelValue: true,
+            selectable: true,
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=14767-37015":
           {
             modelValue: true,
+            selectable: true,
             parameters: {
               pseudo: { hover: true },
               figmaOffset: { x: -20, y: -20 },
@@ -321,6 +384,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=14931-96328":
           {
             modelValue: true,
+            selectable: true,
             parameters: {
               pseudo: { active: true },
               figmaOffset: { x: -8, y: -8 },
@@ -338,12 +402,12 @@ export const TextOverflow: Story = {
   }),
   args: {
     variant: "filled",
+    ariaLabel: "Demo card for Storybook",
   },
   render: (args) => ({
-    components: { KdsCard, KdsButton },
+    components: { KdsCard },
     setup() {
-      const onButtonClick = fn();
-      return { args, onButtonClick };
+      return { args };
     },
     template: `
       <div>
@@ -352,9 +416,6 @@ export const TextOverflow: Story = {
           <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px;">
             <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-default);">Demo for Storybook</div>
             <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-default);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
-            <div @mousedown.stop.prevent>
-              <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click="onButtonClick"></KdsButton>
-            </div>
           </div>
         </KdsCard>
         <br>
@@ -364,9 +425,6 @@ export const TextOverflow: Story = {
             <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px;">
               <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-default);">Demo for Storybook</div>
               <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-default);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
-              <div @mousedown.stop.prevent>
-                <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click="onButtonClick"></KdsButton>
-              </div>
             </div>
           </KdsCard>
         </div>

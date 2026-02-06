@@ -147,7 +147,6 @@ export function buildAllCombinationsStory<C extends Component>(
           allCombinations,
           component: config.component,
           pseudoStates: ["", ...(config.pseudoStates ?? [])],
-          columns,
         };
       },
       template: `
