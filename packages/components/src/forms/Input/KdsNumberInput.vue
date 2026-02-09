@@ -54,16 +54,16 @@ const clamp = (value: number) => {
     return NaN;
   }
 
-  let next = value;
+  let result = value;
 
   if (props.min !== undefined && !Number.isNaN(props.min)) {
-    next = Math.max(props.min, next);
+    result = Math.max(props.min, result);
   }
   if (props.max !== undefined && !Number.isNaN(props.max)) {
-    next = Math.min(props.max, next);
+    result = Math.min(props.max, result);
   }
 
-  return next;
+  return result;
 };
 
 watch(
