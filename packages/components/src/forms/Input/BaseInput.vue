@@ -208,6 +208,7 @@ const clear = () => {
 
     <KdsButton
       v-if="props.clearable && hasValue && !props.disabled && !props.readonly"
+      class="clear-button"
       type="button"
       size="xsmall"
       variant="transparent"
@@ -315,7 +316,7 @@ const clear = () => {
 .unit {
   flex-shrink: 0;
   min-width: 0;
-  padding-right: var(--kds-spacing-container-0-25x);
+  margin: 0 var(--kds-spacing-container-0-12x);
   overflow: hidden;
   text-overflow: ellipsis;
   font: var(--kds-font-base-interactive-small);
@@ -329,6 +330,10 @@ const clear = () => {
   &.disabled {
     color: var(--kds-color-text-and-icon-disabled);
   }
+}
+
+.clear-button {
+  margin-left: var(--kds-spacing-container-0-12x);
 }
 
 .container:focus-within .unit {
