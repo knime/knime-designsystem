@@ -260,6 +260,7 @@ const clear = () => {
   display: flex;
   flex-shrink: 0;
   align-items: center;
+  color: var(--kds-color-text-and-icon-subtle);
 
   &.leading {
     padding-left: var(--kds-spacing-container-0-12x);
@@ -271,6 +272,11 @@ const clear = () => {
 
   .container.disabled & {
     color: var(--kds-color-text-and-icon-disabled);
+  }
+
+  .container:focus-within &,
+  .container:has(.input-field.has-value) & {
+    color: var(--kds-color-text-and-icon-neutral);
   }
 }
 
