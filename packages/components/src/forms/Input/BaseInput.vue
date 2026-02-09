@@ -299,6 +299,11 @@ const clear = () => {
     }
   }
 
+  /* hide native search cancel button on Safari/WebKit, we provide our own clearable button */
+  &[type="search"]::-webkit-search-cancel-button {
+    appearance: none;
+  }
+
   &::placeholder {
     color: var(--kds-color-text-and-icon-subtle);
   }
