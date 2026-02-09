@@ -87,7 +87,7 @@ const canDecrease = computed(() => {
     return true;
   }
 
-  return !(modelValue.value <= props.min);
+  return modelValue.value > props.min;
 });
 
 const canIncrease = computed(() => {
@@ -99,7 +99,7 @@ const canIncrease = computed(() => {
     return true;
   }
 
-  return !(modelValue.value >= props.max);
+  return modelValue.value < props.max;
 });
 
 const roundToStep = (value: number) => {
@@ -132,8 +132,9 @@ const adjustByStep = (direction: -1 | 1) => {
     : parseFromInput(localValue.value);
 
   const nextRaw = Number.isFinite(base) ? base + direction * props.step : 0;
-  // Only round to step (number precision errors), don't clamp - clamping happens on blur
-  const next = roundToStep(nextRaw);
+  // Round due to precision issues that can arise when adding steps to certain numbers, e.g. 0.1 + 0.1 + 0.1.
+  const rounded = roundToStep(nextRaw);
+  const next = clamp(rounded);
 
   modelValue.value = next;
   localValue.value = formatForDisplay(next);
