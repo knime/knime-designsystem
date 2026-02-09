@@ -37,7 +37,7 @@ const isOptionDisabled = (index: number) =>
 
 const isHorizontal = computed(() => props.alignment === "horizontal");
 
-const anyOptionHasError = computed(
+const hasError = computed(
   () => props.error || possibleValues.value.some((o) => o.error),
 );
 
@@ -91,7 +91,7 @@ const handleCheckboxChange = (index: number, checked: KdsCheckboxValue) => {
       :id="descriptionId"
       :sub-text="props.subText"
       :preserve-sub-text-space="props.preserveSubTextSpace"
-      :error="anyOptionHasError"
+      :error="hasError"
     />
   </div>
 </template>
