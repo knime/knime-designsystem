@@ -1,5 +1,12 @@
 # @knime/kds-components
 
+## 0.6.5
+
+### Patch Changes
+
+- 2d2c5ec: KdsCheckboxGroup: Add error prop
+  - @knime/kds-styles@0.6.5
+
 ## 0.6.4
 
 ### Patch Changes
