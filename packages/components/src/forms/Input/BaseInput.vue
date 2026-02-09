@@ -51,10 +51,6 @@ type BaseInputProps = {
    */
   trailingIcon?: KdsIconName;
   /**
-   * Whether the input has an error state
-   */
-  error?: boolean;
-  /**
    * Name attribute for the input element
    */
   name?: string;
@@ -74,6 +70,10 @@ type BaseInputProps = {
    * ID of element that describes this input (for aria-describedby)
    */
   ariaDescribedby?: string;
+  /**
+   * Whether the current value of the input is invalid (for aria-invalid)
+   */
+  ariaInvalid?: boolean;
   /**
    * Unit shown next to the input value
    */
@@ -108,12 +108,12 @@ const props = withDefaults(defineProps<BaseInputProps>(), {
   required: false,
   leadingIcon: undefined,
   trailingIcon: undefined,
-  error: false,
   name: undefined,
   autocomplete: undefined,
   ariaLabel: undefined,
   ariaLabelledby: undefined,
   ariaDescribedby: undefined,
+  ariaInvalid: undefined,
   unit: undefined,
   inputmode: undefined,
   clearable: false,
