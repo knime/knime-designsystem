@@ -34,8 +34,7 @@ export type KdsPopoverProps = {
    * Can be HTMLElements or Vue component instances.
    */
   ignoredClickOutsideTarget?:
-    | HTMLElement
-    | ComponentPublicInstance
-    | (HTMLElement | ComponentPublicInstance)[]
+    | MaybeRef<HTMLElement | ComponentPublicInstance | null>
+    | MaybeRef<(HTMLElement | ComponentPublicInstance | null)[]>
     | null;
 };
