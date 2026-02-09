@@ -6,6 +6,7 @@ export { default as KdsValueSwitch } from "./RadioButton/KdsValueSwitch.vue";
 export { default as KdsLabel } from "./KdsLabel.vue";
 export { default as KdsSubText } from "./KdsSubText.vue";
 export { default as KdsTextInput } from "./Input/KdsTextInput.vue";
+export { default as KdsTextarea } from "./Input/KdsTextarea.vue";
 export { default as KdsNumberInput } from "./Input/KdsNumberInput.vue";
 export { default as KdsPatternInput } from "./Input/PatternInput/KdsPatternInput.vue";
 export { default as KdsSearchInput } from "./Input/KdsSearchInput.vue";
@@ -32,4 +33,5 @@ export type {
   KdsNumberInputProps,
   KdsPatternInputProps,
   KdsSearchInputProps,
+  KdsTextareaProps,
 } from "./Input/types";

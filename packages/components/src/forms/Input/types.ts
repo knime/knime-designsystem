@@ -25,3 +25,5 @@ export type KdsNumberInputProps = KdsFormFieldProps & {
 export type KdsPatternInputProps = KdsFormFieldProps;
 
 export type KdsSearchInputProps = KdsFormFieldProps;
+
+export type KdsTextareaProps = KdsFormFieldProps;

@@ -10,6 +10,12 @@ type BaseInputProps = {
    * ID for the input element
    */
   id: string;
+
+  /**
+   * Which native form element to render.
+   */
+  component?: "input" | "textarea";
+
   /**
    * The type of input field
    */
@@ -102,6 +108,7 @@ type BaseInputProps = {
 };
 
 const props = withDefaults(defineProps<BaseInputProps>(), {
+  component: "input",
   type: "text",
   min: undefined,
   max: undefined,
@@ -140,6 +147,8 @@ const emit = defineEmits<BaseInputEmits>();
 
 const modelValue = defineModel<string>({ default: "" });
 
+const isMultiline = computed(() => props.component === "textarea");
+
 const hasValue = computed(() => modelValue.value.length > 0);
 
 const showUnitPlaceholder = computed(
@@ -147,7 +156,7 @@ const showUnitPlaceholder = computed(
 );
 
 const handleInput = (event: Event) => {
-  const target = event.target as HTMLInputElement;
+  const target = event.target as HTMLInputElement | HTMLTextAreaElement;
   modelValue.value = target.value;
 
   emit("input", event);
@@ -164,16 +173,18 @@ const clear = () => {
       container: true,
       error: props.error,
       disabled: props.disabled,
+      multiline: isMultiline,
     }"
   >
     <div v-if="props.leadingIcon" class="icon-wrapper leading">
       <KdsIcon v-if="props.leadingIcon" :name="props.leadingIcon" />
     </div>
 
-    <input
+    <component
+      :is="props.component"
       :id="props.id"
       :value="modelValue"
-      :type="props.type"
+      :type="!isMultiline ? props.type : undefined"
       :inputmode="props.inputmode"
       :placeholder="props.placeholder"
       :disabled="props.disabled"
@@ -181,9 +192,9 @@ const clear = () => {
       :required="props.required"
       :name="props.name"
       :autocomplete="props.autocomplete"
-      :min="props.min"
-      :max="props.max"
-      :step="props.step"
+      :min="!isMultiline ? props.min : undefined"
+      :max="!isMultiline ? props.max : undefined"
+      :step="!isMultiline ? props.step : undefined"
       :aria-label="props.ariaLabel"
       :aria-labelledby="props.ariaLabelledby"
       :aria-describedby="props.ariaDescribedby"
@@ -231,6 +242,7 @@ const clear = () => {
 
 <style scoped>
 .container {
+  position: relative;
   display: flex;
   align-items: center;
   width: 100%;
@@ -240,7 +252,7 @@ const clear = () => {
   border: var(--kds-border-action-input);
   border-radius: var(--kds-border-radius-container-0-37x);
 
-  &:has(input:focus) {
+  &:has(.input-field:focus) {
     outline: var(--kds-border-action-focused);
     outline-offset: var(--kds-spacing-offset-focus);
   }
@@ -256,6 +268,11 @@ const clear = () => {
   &.disabled {
     border: var(--kds-border-action-disabled);
     border-color: var(--kds-color-border-disabled);
+  }
+
+  &.multiline {
+    height: auto;
+    padding: 0;
   }
 }
 
@@ -324,6 +341,15 @@ const clear = () => {
     &::placeholder {
       color: var(--kds-color-text-and-icon-disabled);
     }
+  }
+
+  .container.multiline & {
+    height: calc(
+      var(--kds-dimension-component-height-4x) +
+        var(--kds-spacing-container-0-5x)
+    );
+    padding: var(--kds-spacing-container-0-5x);
+    overflow: auto;
   }
 }
 
