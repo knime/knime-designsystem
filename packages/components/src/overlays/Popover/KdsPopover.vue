@@ -125,18 +125,18 @@ const setAnchorName = (el: HTMLElement | null, value: string | null) => {
 };
 
 watch(
-  () => [props.anchorEl, unref(props.activatorEl)],
+  () => [unref(props.anchorEl), unref(props.activatorEl)],
   ([nextAnchorEl, nextActivatorEl], prev) => {
     const [prevAnchorEl, prevActivatorEl] = prev ?? [null, null];
 
     const prevEffective =
-      resolveElement(unref(prevAnchorEl) ?? null) ??
-      resolveElement(unref(prevActivatorEl));
+      resolveElement(prevAnchorEl ?? null) ??
+      resolveElement(prevActivatorEl);
     setAnchorName(prevEffective, null);
 
     const nextEffective =
-      resolveElement(unref(nextAnchorEl) ?? null) ??
-      resolveElement(unref(nextActivatorEl));
+      resolveElement(nextAnchorEl ?? null) ??
+      resolveElement(nextActivatorEl);
     setAnchorName(nextEffective, anchorName);
   },
   { immediate: true },
