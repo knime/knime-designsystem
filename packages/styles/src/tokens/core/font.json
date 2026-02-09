@@ -217,7 +217,7 @@
       "line-height": {
         "singleline": {
           "$type": "lineHeights",
-          "$value": "100%",
+          "$value": "130%",
           "$description": "Primitive lineHeights token. Do not use to tokenize a component."
         },
         "multiline_narrow": {
