@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, ref, unref, useId, watch } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref, unref, useId, watch } from "vue";
 import type { ComponentPublicInstance } from "vue";
 import { useResizeObserver } from "@vueuse/core";
 
@@ -105,17 +105,42 @@ const onNativeToggle = (e: Event) => {
   open.value = isOpen;
 };
 
-// Always add document listener to track clicks for shadow DOM support
+// Track whether listener is currently attached
+let listenerAttached = false;
+
+// Helper to add document listener
+const addDocumentListener = () => {
+  if (!listenerAttached && typeof document !== "undefined") {
+    document.addEventListener("pointerdown", onDocumentPointerDown, true);
+    listenerAttached = true;
+  }
+};
+
+// Helper to remove document listener
+const removeDocumentListener = () => {
+  if (listenerAttached && typeof document !== "undefined") {
+    document.removeEventListener("pointerdown", onDocumentPointerDown, true);
+    listenerAttached = false;
+  }
+};
+
+// Set up document listener on mount if needed
+onMounted(() => {
+  if (props.ignoredClickOutsideTarget) {
+    addDocumentListener();
+  }
+});
+
+// Watch for changes to ignoredClickOutsideTarget prop after mount
 watch(
   () => props.ignoredClickOutsideTarget,
   (ignored) => {
     if (ignored) {
-      document.addEventListener("pointerdown", onDocumentPointerDown, true);
+      addDocumentListener();
     } else {
-      document.removeEventListener("pointerdown", onDocumentPointerDown, true);
+      removeDocumentListener();
     }
   },
-  { immediate: true },
 );
 
 const setAnchorName = (el: HTMLElement | null, value: string | null) => {
@@ -159,7 +184,7 @@ onBeforeUnmount(() => {
   setAnchorName(effective, null);
 
   // Clean up document listener
-  document.removeEventListener("pointerdown", onDocumentPointerDown, true);
+  removeDocumentListener();
 });
 
 const activatorWidth = ref(0);
