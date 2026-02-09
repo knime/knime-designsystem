@@ -4,7 +4,7 @@ import { computed, useId } from "vue";
 import KdsLabel from "../KdsLabel.vue";
 import KdsSubText from "../KdsSubText.vue";
 
-import KdsBaseInput from "./BaseInput.vue";
+import BaseInput from "./BaseInput.vue";
 import type { KdsTextInputProps } from "./types";
 
 const props = withDefaults(defineProps<KdsTextInputProps>(), {
@@ -39,7 +39,7 @@ const ariaDescribedby = computed(() =>
       :label="props.label"
       :description="props.description"
     />
-    <KdsBaseInput
+    <BaseInput
       :id="inputId"
       v-model="modelValue"
       type="text"

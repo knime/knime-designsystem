@@ -4,7 +4,7 @@ import { computed, ref, useId, watch } from "vue";
 import KdsToggleButton from "../../../buttons/KdsToggleButton.vue";
 import KdsLabel from "../../KdsLabel.vue";
 import KdsSubText from "../../KdsSubText.vue";
-import KdsBaseInput from "../BaseInput.vue";
+import BaseInput from "../BaseInput.vue";
 import type { KdsPatternInputProps } from "../types";
 
 import {
@@ -83,7 +83,7 @@ const patternModeAriaLabel = computed(() =>
       :label="props.label"
     />
 
-    <KdsBaseInput
+    <BaseInput
       :id="inputId"
       v-model="uiValue"
       type="text"
@@ -137,7 +137,7 @@ const patternModeAriaLabel = computed(() =>
           />
         </div>
       </template>
-    </KdsBaseInput>
+    </BaseInput>
 
     <KdsSubText
       :id="subTextId"

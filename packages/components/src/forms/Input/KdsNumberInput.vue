@@ -5,7 +5,7 @@ import KdsButton from "../../buttons/KdsButton.vue";
 import KdsLabel from "../KdsLabel.vue";
 import KdsSubText from "../KdsSubText.vue";
 
-import KdsBaseInput from "./BaseInput.vue";
+import BaseInput from "./BaseInput.vue";
 import type { KdsNumberInputProps } from "./types";
 
 const props = withDefaults(defineProps<KdsNumberInputProps>(), {
@@ -189,7 +189,7 @@ const handleBlur = (event: FocusEvent) => {
       :label="props.label"
     />
 
-    <KdsBaseInput
+    <BaseInput
       :id="inputId"
       :model-value="localValue"
       type="number"
@@ -235,7 +235,7 @@ const handleBlur = (event: FocusEvent) => {
           />
         </div>
       </template>
-    </KdsBaseInput>
+    </BaseInput>
 
     <KdsSubText
       :id="subTextId"
