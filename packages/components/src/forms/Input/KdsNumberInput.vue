@@ -144,12 +144,12 @@ const handleKeydown = (event: KeyboardEvent) => {
     return;
   }
 
-  if (event.key === "ArrowUp") {
+  if (event.key === "ArrowUp" && canIncrease.value) {
     event.preventDefault();
     adjustByStep(1);
     return;
   }
-  if (event.key === "ArrowDown") {
+  if (event.key === "ArrowDown" && canDecrease.value) {
     event.preventDefault();
     adjustByStep(-1);
   }
