@@ -4,7 +4,7 @@ import { computed, useId } from "vue";
 import KdsLabel from "../KdsLabel.vue";
 import KdsSubText from "../KdsSubText.vue";
 
-import KdsBaseInput from "./BaseInput.vue";
+import BaseInput from "./BaseInput.vue";
 import type { KdsSearchInputProps } from "./types";
 
 const props = withDefaults(defineProps<KdsSearchInputProps>(), {
@@ -38,7 +38,7 @@ const ariaDescribedby = computed(() =>
       :for="inputId"
       :label="props.label"
     />
-    <KdsBaseInput
+    <BaseInput
       :id="inputId"
       v-model="modelValue"
       type="search"
