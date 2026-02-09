@@ -24,7 +24,7 @@ catalog:
   vite-plugin-lib-inject-css: ^2.2.2
   vite-svg-loader: ^5.1.0
   vue: 3.5.22
-  vue-tsc: ^3.0.5
+  vue-tsc: ^3.2.4
 
 catalogs:
   peer:
