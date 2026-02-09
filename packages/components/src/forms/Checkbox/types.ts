@@ -60,10 +60,7 @@ export type KdsCheckboxGroupProps = {
   label?: string;
   possibleValues: Array<string | KdsCheckboxGroupOption>;
   alignment?: KdsCheckboxGroupAlignment;
-  disabled?: boolean;
-  subText?: string;
-  preserveSubTextSpace?: boolean;
-};
+} & BaseProps;
 
 // supports minimal props
 propTypeTester<KdsCheckboxGroupProps>({
