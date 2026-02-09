@@ -40,12 +40,6 @@ const meta: Meta<typeof KdsTextInput> = {
       description: "Label shown above the input",
       table: { category: "Props" },
     },
-    description: {
-      control: "text",
-      description:
-        "Optional help text shown in an info popover next to the label",
-      table: { category: "Props" },
-    },
     placeholder: {
       control: "text",
       description: "Placeholder shown when the input is empty",
@@ -93,7 +87,6 @@ const meta: Meta<typeof KdsTextInput> = {
   args: {
     modelValue: "",
     label: "Label",
-    description: "This is a short help text explaining the input.",
     placeholder: "",
     name: "",
     autocomplete: "",
