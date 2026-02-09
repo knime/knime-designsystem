@@ -34,7 +34,7 @@ const ariaDescribedby = computed(() =>
     />
     <slot
       :id="inputId"
-      :aria-invalid="props.error"
+      :error="props.error"
       :aria-labelledby="ariaLabelledby"
       :aria-describedby="ariaDescribedby"
     />

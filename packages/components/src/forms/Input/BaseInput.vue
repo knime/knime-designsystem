@@ -51,6 +51,10 @@ type BaseInputProps = {
    */
   trailingIcon?: KdsIconName;
   /**
+   * Whether the input has an error state
+   */
+  error?: boolean;
+  /**
    * Name attribute for the input element
    */
   name?: string;
@@ -108,12 +112,12 @@ const props = withDefaults(defineProps<BaseInputProps>(), {
   required: false,
   leadingIcon: undefined,
   trailingIcon: undefined,
+  error: false,
   name: undefined,
   autocomplete: undefined,
   ariaLabel: undefined,
   ariaLabelledby: undefined,
   ariaDescribedby: undefined,
-  ariaInvalid: undefined,
   unit: undefined,
   inputmode: undefined,
   clearable: false,
@@ -215,7 +219,9 @@ const clear = () => {
       @click="clear"
     />
 
-    <slot name="trailing" />
+    <div v-if="$slots.trailing" class="trailing-slot">
+      <slot name="trailing" />
+    </div>
 
     <div v-if="props.trailingIcon" class="icon-wrapper trailing">
       <KdsIcon :name="props.trailingIcon" />
@@ -341,6 +347,14 @@ const clear = () => {
 }
 
 .clear-button {
+  margin-left: var(--kds-spacing-container-0-12x);
+}
+
+.trailing-slot {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--kds-spacing-container-0-12x);
+  align-items: center;
   margin-left: var(--kds-spacing-container-0-12x);
 }
 

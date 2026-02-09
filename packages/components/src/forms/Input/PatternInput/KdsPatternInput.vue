@@ -85,52 +85,40 @@ const patternModeAriaLabel = computed(() =>
         @update:model-value="rebuildRegexFromUi"
       >
         <template #trailing>
-          <div class="button-wrapper">
-            <KdsToggleButton
-              v-model="caseSensitive"
-              size="xsmall"
-              variant="outlined"
-              leading-icon="case-sensitive"
-              :title="caseSensitiveAriaLabel"
-              :aria-label="caseSensitiveAriaLabel"
-              :disabled="props.disabled || props.readonly"
-              @update:model-value="rebuildRegexFromUi"
-            />
+          <KdsToggleButton
+            v-model="caseSensitive"
+            size="xsmall"
+            variant="outlined"
+            leading-icon="case-sensitive"
+            :title="caseSensitiveAriaLabel"
+            :aria-label="caseSensitiveAriaLabel"
+            :disabled="props.disabled || props.readonly"
+            @update:model-value="rebuildRegexFromUi"
+          />
 
-            <KdsToggleButton
-              v-model="excludeMatches"
-              size="xsmall"
-              variant="outlined"
-              leading-icon="arrows-order"
-              :title="excludeMatchesAriaLabel"
-              :aria-label="excludeMatchesAriaLabel"
-              :disabled="props.disabled || props.readonly"
-              @update:model-value="rebuildRegexFromUi"
-            />
+          <KdsToggleButton
+            v-model="excludeMatches"
+            size="xsmall"
+            variant="outlined"
+            leading-icon="arrows-order"
+            :title="excludeMatchesAriaLabel"
+            :aria-label="excludeMatchesAriaLabel"
+            :disabled="props.disabled || props.readonly"
+            @update:model-value="rebuildRegexFromUi"
+          />
 
-            <KdsToggleButton
-              v-model="useRegex"
-              size="xsmall"
-              variant="outlined"
-              leading-icon="regex"
-              :title="patternModeAriaLabel"
-              :aria-label="patternModeAriaLabel"
-              :disabled="props.disabled || props.readonly"
-              @update:model-value="rebuildRegexFromUi"
-            />
-          </div>
+          <KdsToggleButton
+            v-model="useRegex"
+            size="xsmall"
+            variant="outlined"
+            leading-icon="regex"
+            :title="patternModeAriaLabel"
+            :aria-label="patternModeAriaLabel"
+            :disabled="props.disabled || props.readonly"
+            @update:model-value="rebuildRegexFromUi"
+          />
         </template>
       </BaseInput>
     </template>
   </KdsFormField>
 </template>
-
-<style scoped>
-.button-wrapper {
-  display: flex;
-  flex-shrink: 0;
-  gap: var(--kds-spacing-container-0-12x);
-  align-items: center;
-  margin-left: var(--kds-spacing-container-0-12x);
-}
-</style>

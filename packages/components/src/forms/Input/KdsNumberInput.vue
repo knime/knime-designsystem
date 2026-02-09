@@ -206,38 +206,26 @@ const handleBlur = (event: FocusEvent) => {
         @blur="handleBlur"
       >
         <template #trailing>
-          <div class="button-wrapper">
-            <KdsButton
-              type="button"
-              size="xsmall"
-              variant="outlined"
-              leading-icon="minus"
-              :aria-label="`Decrease ${props.label ?? ''}`.trim()"
-              :disabled="!canDecrease"
-              @click="adjustByStep(-1)"
-            />
-            <KdsButton
-              type="button"
-              size="xsmall"
-              variant="outlined"
-              leading-icon="plus"
-              :aria-label="`Increase ${props.label ?? ''}`.trim()"
-              :disabled="!canIncrease"
-              @click="adjustByStep(1)"
-            />
-          </div>
+          <KdsButton
+            type="button"
+            size="xsmall"
+            variant="outlined"
+            leading-icon="minus"
+            :aria-label="`Decrease ${props.label ?? ''}`.trim()"
+            :disabled="!canDecrease"
+            @click="adjustByStep(-1)"
+          />
+          <KdsButton
+            type="button"
+            size="xsmall"
+            variant="outlined"
+            leading-icon="plus"
+            :aria-label="`Increase ${props.label ?? ''}`.trim()"
+            :disabled="!canIncrease"
+            @click="adjustByStep(1)"
+          />
         </template>
       </BaseInput>
     </template>
   </KdsFormField>
 </template>
-
-<style scoped>
-.button-wrapper {
-  display: flex;
-  flex-shrink: 0;
-  gap: var(--kds-spacing-container-0-12x);
-  align-items: center;
-  margin-left: var(--kds-spacing-container-0-12x);
-}
-</style>
