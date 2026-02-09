@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { computed, ref, useId, watch } from "vue";
+import { computed, ref, watch } from "vue";
 
 import KdsButton from "../../buttons/KdsButton.vue";
-import KdsLabel from "../KdsLabel.vue";
-import KdsSubText from "../KdsSubText.vue";
+import KdsFormField from "../KdsFormField.vue";
 
 import BaseInput from "./BaseInput.vue";
 import type { KdsNumberInputProps } from "./types";
@@ -20,10 +19,6 @@ const props = withDefaults(defineProps<KdsNumberInputProps>(), {
 });
 
 const modelValue = defineModel<number>({ default: NaN });
-
-const inputId = computed(() => props.id ?? useId());
-const labelId = computed(() => `${inputId.value}-label`);
-const subTextId = computed(() => `${inputId.value}-subtext`);
 
 const isFocused = ref(false);
 
@@ -181,78 +176,63 @@ const handleBlur = (event: FocusEvent) => {
 </script>
 
 <template>
-  <div class="number-input">
-    <KdsLabel
-      v-if="props.label"
-      :id="labelId"
-      :for="inputId"
-      :label="props.label"
-    />
-
-    <BaseInput
-      :id="inputId"
-      :model-value="localValue"
-      type="number"
-      :inputmode="props.step >= 1 ? 'numeric' : 'decimal'"
-      :placeholder="props.placeholder"
-      :disabled="props.disabled"
-      :readonly="props.readonly"
-      :required="props.required"
-      :error="props.error"
-      :validating="props.validating"
-      :name="props.name"
-      :autocomplete="props.autocomplete"
-      :min="props.min"
-      :max="props.max"
-      :step="props.step"
-      :unit="props.unit"
-      :aria-labelledby="props.label ? labelId : undefined"
-      :aria-describedby="props.subText ? subTextId : undefined"
-      @update:model-value="handleUpdateModelValue"
-      @keydown="handleKeydown"
-      @focus="isFocused = true"
-      @blur="handleBlur"
-    >
-      <template #trailing>
-        <div class="button-wrapper">
-          <KdsButton
-            type="button"
-            size="xsmall"
-            variant="outlined"
-            leading-icon="minus"
-            aria-label="Decrease"
-            :disabled="!canDecrease"
-            @click="adjustByStep(-1)"
-          />
-          <KdsButton
-            type="button"
-            size="xsmall"
-            variant="outlined"
-            leading-icon="plus"
-            aria-label="Increase"
-            :disabled="!canIncrease"
-            @click="adjustByStep(1)"
-          />
-        </div>
-      </template>
-    </BaseInput>
-
-    <KdsSubText
-      :id="subTextId"
-      :sub-text="props.subText"
-      :error="props.error"
-      :validating="props.validating"
-      :preserve-sub-text-space="props.preserveSubTextSpace"
-    />
-  </div>
+  <KdsFormField
+    :id="props.id"
+    :label="props.label"
+    :sub-text="props.subText"
+    :error="props.error"
+    :validating="props.validating"
+    :preserve-sub-text-space="props.preserveSubTextSpace"
+  >
+    <template #default="slotProps">
+      <BaseInput
+        v-bind="slotProps"
+        :model-value="localValue"
+        type="number"
+        :inputmode="props.step >= 1 ? 'numeric' : 'decimal'"
+        :placeholder="props.placeholder"
+        :disabled="props.disabled"
+        :readonly="props.readonly"
+        :required="props.required"
+        :name="props.name"
+        :autocomplete="props.autocomplete"
+        :min="props.min"
+        :max="props.max"
+        :step="props.step"
+        :unit="props.unit"
+        @update:model-value="handleUpdateModelValue"
+        @keydown="handleKeydown"
+        @focus="isFocused = true"
+        @blur="handleBlur"
+      >
+        <template #trailing>
+          <div class="button-wrapper">
+            <KdsButton
+              type="button"
+              size="xsmall"
+              variant="outlined"
+              leading-icon="minus"
+              aria-label="Decrease"
+              :disabled="!canDecrease"
+              @click="adjustByStep(-1)"
+            />
+            <KdsButton
+              type="button"
+              size="xsmall"
+              variant="outlined"
+              leading-icon="plus"
+              aria-label="Increase"
+              :disabled="!canIncrease"
+              @click="adjustByStep(1)"
+            />
+          </div>
+        </template>
+      </BaseInput>
+    </template>
+  </KdsFormField>
 </template>
 
 <style scoped>
-.number-input {
-  display: flex;
-  flex-direction: column;
-}
-
 .button-wrapper {
   display: flex;
   flex-shrink: 0;

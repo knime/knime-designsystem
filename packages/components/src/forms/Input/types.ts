@@ -1,64 +1,8 @@
-export type KdsInputLabelProps = {
-  /**
-   * ID for the input element. If not provided, a unique ID will be generated.
-   * */
-  id?: string;
-  /**
-   * Label text displayed above the input
-   */
-  label?: string;
-  /**
-   * Optional description/help text for the label.
-   */
-  description?: string;
-  /**
-   * Helper text or error message displayed below the input
-   */
-  subText?: string;
-  /**
-   * Reserve space for subtext to prevent layout shifts
-   */
-  preserveSubTextSpace?: boolean;
-  /**
-   * Placeholder text when input is empty
-   */
-  placeholder?: string;
-  /**
-   * Name attribute for the input element
-   */
-  name?: string;
-  /**
-   * Autocomplete attribute for the input element
-   */
-  autocomplete?: string;
-};
+import type { KdsFormFieldProps } from "../types.ts";
 
-export type KdsInputStateProps = {
-  /**
-   * Whether the input is disabled
-   */
-  disabled?: boolean;
-  /**
-   * Whether the input is readonly
-   */
-  readonly?: boolean;
-  /**
-   * Whether the input is required
-   */
-  required?: boolean;
-  /**
-   * Whether the input has an error state
-   */
-  error?: boolean;
-  /**
-   * Whether the input is in a validating state (shows loading indicator)
-   */
-  validating?: boolean;
-};
+export type KdsTextInputProps = KdsFormFieldProps;
 
-export type KdsTextInputProps = KdsInputLabelProps & KdsInputStateProps;
-
-export type KdsNumberInputProps = KdsInputLabelProps & {
+export type KdsNumberInputProps = KdsFormFieldProps & {
   /**
    * Unit shown next to the input value
    */
@@ -76,8 +20,8 @@ export type KdsNumberInputProps = KdsInputLabelProps & {
    * Must be a positive number greater than 0.
    */
   step?: number;
-} & KdsInputStateProps;
+};
 
-export type KdsPatternInputProps = KdsInputLabelProps & KdsInputStateProps;
+export type KdsPatternInputProps = KdsFormFieldProps;
 
-export type KdsSearchInputProps = KdsInputLabelProps & KdsInputStateProps;
+export type KdsSearchInputProps = KdsFormFieldProps;

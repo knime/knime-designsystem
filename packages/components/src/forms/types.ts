@@ -10,6 +10,33 @@ export type KdsLabelProps = {
   for?: string;
 };
 
+export type KdsInputProps = {
+  /**
+   * Placeholder text for the input element
+   */
+  placeholder?: string;
+  /**
+   * Whether the input is disabled
+   */
+  disabled?: boolean;
+  /**
+   * Whether the input is readonly
+   */
+  readonly?: boolean;
+  /**
+   * Whether the input is required
+   */
+  required?: boolean;
+  /**
+   * Name attribute for the input element
+   */
+  name?: string;
+  /**
+   * Autocomplete attribute for the input element
+   */
+  autocomplete?: string;
+};
+
 export type KdsSubTextProps = {
   /**
    * Id to link the subtext to form elements via `aria-describedby`.
@@ -29,3 +56,5 @@ export type KdsSubTextProps = {
    */
   preserveSubTextSpace?: boolean;
 };
+
+export type KdsFormFieldProps = KdsLabelProps & KdsInputProps & KdsSubTextProps;

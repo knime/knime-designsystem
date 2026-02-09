@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { computed, useId } from "vue";
-
-import KdsLabel from "../KdsLabel.vue";
-import KdsSubText from "../KdsSubText.vue";
+import KdsFormField from "../KdsFormField.vue";
 
 import BaseInput from "./BaseInput.vue";
 import type { KdsTextInputProps } from "./types";
@@ -17,56 +14,29 @@ const props = withDefaults(defineProps<KdsTextInputProps>(), {
 });
 
 const modelValue = defineModel<string>({ default: "" });
-
-const inputId = computed(() => props.id ?? useId());
-const labelId = computed(() => `${inputId.value}-label`);
-const subTextId = computed(() => `${inputId.value}-subtext`);
-
-const ariaLabelledby = computed(() =>
-  props.label ? labelId.value : undefined,
-);
-const ariaDescribedby = computed(() =>
-  props.subText ? subTextId.value : undefined,
-);
 </script>
 
 <template>
-  <div class="text-input">
-    <KdsLabel
-      v-if="props.label"
-      :id="labelId"
-      :for="inputId"
-      :label="props.label"
-      :description="props.description"
-    />
-    <BaseInput
-      :id="inputId"
-      v-model="modelValue"
-      type="text"
-      :placeholder="props.placeholder"
-      :disabled="props.disabled"
-      :readonly="props.readonly"
-      :required="props.required"
-      :error="props.error"
-      :validating="props.validating"
-      :name="props.name"
-      :autocomplete="props.autocomplete"
-      :aria-labelledby="ariaLabelledby"
-      :aria-describedby="ariaDescribedby"
-    />
-    <KdsSubText
-      :id="subTextId"
-      :sub-text="props.subText"
-      :error="props.error"
-      :validating="props.validating"
-      :preserve-sub-text-space="props.preserveSubTextSpace"
-    />
-  </div>
+  <KdsFormField
+    :id="props.id"
+    :label="props.label"
+    :sub-text="props.subText"
+    :error="props.error"
+    :validating="props.validating"
+    :preserve-sub-text-space="props.preserveSubTextSpace"
+  >
+    <template #default="slotProps">
+      <BaseInput
+        v-bind="slotProps"
+        v-model="modelValue"
+        type="text"
+        :placeholder="props.placeholder"
+        :disabled="props.disabled"
+        :readonly="props.readonly"
+        :required="props.required"
+        :name="props.name"
+        :autocomplete="props.autocomplete"
+      />
+    </template>
+  </KdsFormField>
 </template>
-
-<style scoped>
-.text-input {
-  display: flex;
-  flex-direction: column;
-}
-</style>

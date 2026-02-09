@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { computed, ref, useId, watch } from "vue";
+import { computed, ref, watch } from "vue";
 
 import KdsToggleButton from "../../../buttons/KdsToggleButton.vue";
-import KdsLabel from "../../KdsLabel.vue";
-import KdsSubText from "../../KdsSubText.vue";
+import KdsFormField from "../../KdsFormField.vue";
 import BaseInput from "../BaseInput.vue";
 import type { KdsPatternInputProps } from "../types";
 
@@ -50,17 +49,6 @@ watch(
   { immediate: true },
 );
 
-const inputId = computed(() => props.id ?? useId());
-const labelId = computed(() => `${inputId.value}-label`);
-const subTextId = computed(() => `${inputId.value}-subtext`);
-
-const ariaLabelledby = computed(() =>
-  props.label ? labelId.value : undefined,
-);
-const ariaDescribedby = computed(() =>
-  props.subText ? subTextId.value : undefined,
-);
-
 const caseSensitiveAriaLabel = computed(() =>
   caseSensitive.value ? "Case-sensitive" : "Case-insensitive",
 );
@@ -70,91 +58,74 @@ const excludeMatchesAriaLabel = computed(() =>
 const patternModeAriaLabel = computed(() =>
   useRegex.value ? "Use regex pattern" : "Use wildcard pattern",
 );
-
-// (no additional computed needed; case sensitivity is applied by consumers when compiling)
 </script>
 
 <template>
-  <div class="pattern-input">
-    <KdsLabel
-      v-if="props.label"
-      :id="labelId"
-      :for="inputId"
-      :label="props.label"
-    />
+  <KdsFormField
+    :id="props.id"
+    :label="props.label"
+    :sub-text="props.subText"
+    :error="props.error"
+    :validating="props.validating"
+    :preserve-sub-text-space="props.preserveSubTextSpace"
+  >
+    <template #default="slotProps">
+      <BaseInput
+        v-bind="slotProps"
+        v-model="uiValue"
+        type="text"
+        :placeholder="props.placeholder"
+        :disabled="props.disabled"
+        :readonly="props.readonly"
+        :required="props.required"
+        :name="props.name"
+        :autocomplete="props.autocomplete"
+        leading-icon="filter"
+        clearable
+        @update:model-value="rebuildRegexFromUi"
+      >
+        <template #trailing>
+          <div class="button-wrapper">
+            <KdsToggleButton
+              v-model="caseSensitive"
+              size="xsmall"
+              variant="outlined"
+              leading-icon="case-sensitive"
+              :title="caseSensitiveAriaLabel"
+              :aria-label="caseSensitiveAriaLabel"
+              :disabled="props.disabled || props.readonly"
+              @update:model-value="rebuildRegexFromUi"
+            />
 
-    <BaseInput
-      :id="inputId"
-      v-model="uiValue"
-      type="text"
-      :placeholder="props.placeholder"
-      :disabled="props.disabled"
-      :readonly="props.readonly"
-      :required="props.required"
-      :error="props.error"
-      :validating="props.validating"
-      :name="props.name"
-      :autocomplete="props.autocomplete"
-      leading-icon="filter"
-      clearable
-      :aria-labelledby="ariaLabelledby"
-      :aria-describedby="ariaDescribedby"
-      @update:model-value="rebuildRegexFromUi"
-    >
-      <template #trailing>
-        <div class="button-wrapper">
-          <KdsToggleButton
-            v-model="caseSensitive"
-            size="xsmall"
-            variant="outlined"
-            leading-icon="case-sensitive"
-            :title="caseSensitiveAriaLabel"
-            :aria-label="caseSensitiveAriaLabel"
-            :disabled="props.disabled || props.readonly"
-            @update:model-value="rebuildRegexFromUi"
-          />
+            <KdsToggleButton
+              v-model="excludeMatches"
+              size="xsmall"
+              variant="outlined"
+              leading-icon="arrows-order"
+              :title="excludeMatchesAriaLabel"
+              :aria-label="excludeMatchesAriaLabel"
+              :disabled="props.disabled || props.readonly"
+              @update:model-value="rebuildRegexFromUi"
+            />
 
-          <KdsToggleButton
-            v-model="excludeMatches"
-            size="xsmall"
-            variant="outlined"
-            leading-icon="arrows-order"
-            :title="excludeMatchesAriaLabel"
-            :aria-label="excludeMatchesAriaLabel"
-            :disabled="props.disabled || props.readonly"
-            @update:model-value="rebuildRegexFromUi"
-          />
-
-          <KdsToggleButton
-            v-model="useRegex"
-            size="xsmall"
-            variant="outlined"
-            leading-icon="regex"
-            :title="patternModeAriaLabel"
-            :aria-label="patternModeAriaLabel"
-            :disabled="props.disabled || props.readonly"
-            @update:model-value="rebuildRegexFromUi"
-          />
-        </div>
-      </template>
-    </BaseInput>
-
-    <KdsSubText
-      :id="subTextId"
-      :sub-text="props.subText"
-      :error="props.error"
-      :validating="props.validating"
-      :preserve-sub-text-space="props.preserveSubTextSpace"
-    />
-  </div>
+            <KdsToggleButton
+              v-model="useRegex"
+              size="xsmall"
+              variant="outlined"
+              leading-icon="regex"
+              :title="patternModeAriaLabel"
+              :aria-label="patternModeAriaLabel"
+              :disabled="props.disabled || props.readonly"
+              @update:model-value="rebuildRegexFromUi"
+            />
+          </div>
+        </template>
+      </BaseInput>
+    </template>
+  </KdsFormField>
 </template>
 
 <style scoped>
-.pattern-input {
-  display: flex;
-  flex-direction: column;
-}
-
 .button-wrapper {
   display: flex;
   flex-shrink: 0;
