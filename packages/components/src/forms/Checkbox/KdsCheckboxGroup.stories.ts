@@ -85,6 +85,12 @@ const meta: Meta<typeof KdsCheckboxGroup> = {
         "Disables the whole group (and therefore all possible values) and prevents interaction.",
       table: { category: "Props" },
     },
+    error: {
+      control: { type: "boolean" },
+      description:
+        "Whether the group is in an error state. Shows subText in error styling.",
+      table: { category: "Props" },
+    },
     subText: {
       control: { type: "text" },
       description:
@@ -180,6 +186,14 @@ export const Disabled: Story = {
 
 export const Error: Story = {
   args: {
+    error: true,
+    possibleValues: ["Option A", "Option B", "Option C", "Option D"],
+    subText: "Please select at least one option",
+  },
+};
+
+export const ErrorInOption: Story = {
+  args: {
     possibleValues: [
       {
         text: "Option A",
@@ -218,6 +232,14 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       subText: ["Error information"],
       possibleValues: [optionsWithError, optionsWithHelperTextAndError],
       modelValue: [[], ["Option A"], ["Option A", "Option B"]],
+    },
+    {
+      label: ["Label"],
+      error: [true],
+      alignment: ["vertical", "horizontal"],
+      subText: ["Please select at least one option"],
+      possibleValues: [twoOptions],
+      modelValue: [[]],
     },
   ],
 });
