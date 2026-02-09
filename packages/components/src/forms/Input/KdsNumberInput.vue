@@ -166,8 +166,7 @@ const handleBlur = (event: FocusEvent) => {
   // Normalize, round to step, and clamp only when leaving the field.
   const parsed = parseFromInput(localValue.value);
   const base = Number.isFinite(parsed) ? parsed : 0;
-  const rounded = roundToStep(base);
-  const normalized = clamp(rounded);
+  const normalized = clamp(base);
 
   modelValue.value = normalized;
   localValue.value = formatForDisplay(normalized);
