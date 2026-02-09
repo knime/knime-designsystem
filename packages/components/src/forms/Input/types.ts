@@ -72,7 +72,8 @@ export type KdsNumberInputProps = KdsInputLabelProps & {
    */
   max?: number;
   /**
-   * Step size used for +/- buttons and arrow key increments
+   * Step size used for +/- buttons and arrow key increments.
+   * Must be a positive number greater than 0.
    */
   step?: number;
 } & KdsInputStateProps;
