@@ -103,7 +103,6 @@ const props = withDefaults(defineProps<BaseInputProps>(), {
   max: undefined,
   step: undefined,
   placeholder: undefined,
-  id: undefined,
   disabled: false,
   readonly: false,
   required: false,
@@ -144,10 +143,10 @@ const showUnitPlaceholder = computed(
 );
 
 const handleInput = (event: Event) => {
-  emit("input", event);
-
   const target = event.target as HTMLInputElement;
   modelValue.value = target.value;
+
+  emit("input", event);
 };
 
 const clear = () => {
