@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeUnmount, ref, unref, useId, watch } from "vue";
+import { computed, onBeforeUnmount, ref, unref, useId, watch } from "vue";
 import type { ComponentPublicInstance } from "vue";
 import { useResizeObserver } from "@vueuse/core";
 
@@ -29,6 +29,13 @@ const resolveElement = (
 
   return candidate instanceof HTMLElement ? candidate : null;
 };
+
+const hasEffectiveAnchor = computed(() => {
+  const resolvedElement =
+    resolveElement(unref(props.anchorEl) ?? null) ??
+    resolveElement(unref(props.activatorEl));
+  return Boolean(resolvedElement);
+});
 
 // Track the composed path of the last click to properly handle shadow DOM boundaries
 let lastClickComposedPath: EventTarget[] = [];
@@ -64,7 +71,10 @@ const isIgnoredTarget = (): boolean => {
 
 // Sync the open state with the native popover element's open state
 watch(open, (isOpen) => {
-  if (!props.activatorEl) {
+  const resolvedElement =
+    resolveElement(unref(props.anchorEl) ?? null) ??
+    resolveElement(unref(props.activatorEl));
+  if (!resolvedElement) {
     return;
   }
   if (isOpen) {
@@ -170,7 +180,7 @@ useResizeObserver(
     ref="popoverEl"
     class="kds-popover"
     :class="['floating', props.placement, { 'show-arrow': props.showArrow }]"
-    :popover="props.activatorEl ? 'auto' : undefined"
+    :popover="hasEffectiveAnchor ? 'auto' : undefined"
     :style="{
       'position-anchor': anchorName,
       '--kds-popover-activator-width': `${activatorWidth}px`,
