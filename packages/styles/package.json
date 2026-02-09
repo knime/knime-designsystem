@@ -31,7 +31,7 @@
     "@types/node": "catalog:",
     "consola": "catalog:",
     "jsdom": "catalog:",
-    "style-dictionary": "^5.1.1",
+    "style-dictionary": "^5.2.0",
     "svgo": "^4.0.0",
     "typescript": "catalog:"
   },
