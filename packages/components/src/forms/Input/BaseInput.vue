@@ -162,69 +162,65 @@ const clear = () => {
       disabled: props.disabled,
     }"
   >
-    <div class="content">
-      <div
-        v-if="props.leadingIcon || $slots.leading"
-        class="icon-wrapper leading"
-      >
-        <slot name="leading">
-          <KdsIcon v-if="props.leadingIcon" :name="props.leadingIcon" />
-        </slot>
-      </div>
+    <div
+      v-if="props.leadingIcon || $slots.leading"
+      class="icon-wrapper leading"
+    >
+      <KdsIcon v-if="props.leadingIcon" :name="props.leadingIcon" />
+    </div>
 
-      <input
-        :id="props.id"
-        :value="modelValue"
-        :type="props.type"
-        :inputmode="props.inputmode"
-        :placeholder="props.placeholder"
-        :disabled="props.disabled"
-        :readonly="props.readonly"
-        :required="props.required"
-        :name="props.name"
-        :autocomplete="props.autocomplete"
-        :min="props.min"
-        :max="props.max"
-        :step="props.step"
-        :aria-label="props.ariaLabel"
-        :aria-labelledby="props.ariaLabelledby"
-        :aria-describedby="props.ariaDescribedby"
-        :aria-invalid="props.error"
-        :class="{ 'input-field': true, 'has-value': hasValue }"
-        @input="handleInput"
-        @focus="emit('focus', $event)"
-        @blur="emit('blur', $event)"
-        @keydown="emit('keydown', $event)"
-        @click="emit('click', $event)"
-      />
+    <input
+      :id="props.id"
+      :value="modelValue"
+      :type="props.type"
+      :inputmode="props.inputmode"
+      :placeholder="props.placeholder"
+      :disabled="props.disabled"
+      :readonly="props.readonly"
+      :required="props.required"
+      :name="props.name"
+      :autocomplete="props.autocomplete"
+      :min="props.min"
+      :max="props.max"
+      :step="props.step"
+      :aria-label="props.ariaLabel"
+      :aria-labelledby="props.ariaLabelledby"
+      :aria-describedby="props.ariaDescribedby"
+      :aria-invalid="props.error"
+      :class="{ 'input-field': true, 'has-value': hasValue }"
+      @input="handleInput"
+      @focus="emit('focus', $event)"
+      @blur="emit('blur', $event)"
+      @keydown="emit('keydown', $event)"
+      @click="emit('click', $event)"
+    />
 
-      <span
-        v-if="props.unit"
-        :class="{
-          unit: true,
-          placeholder: showUnitPlaceholder,
-          disabled: props.disabled,
-        }"
-      >
-        {{ props.unit }}
-      </span>
+    <span
+      v-if="props.unit"
+      :class="{
+        unit: true,
+        placeholder: showUnitPlaceholder,
+        disabled: props.disabled,
+      }"
+    >
+      {{ props.unit }}
+    </span>
 
-      <KdsButton
-        v-if="props.clearable && hasValue && !props.disabled && !props.readonly"
-        type="button"
-        size="xsmall"
-        variant="transparent"
-        leading-icon="x-close"
-        aria-label="Clear"
-        title="Clear"
-        @click="clear"
-      />
+    <KdsButton
+      v-if="props.clearable && hasValue && !props.disabled && !props.readonly"
+      type="button"
+      size="xsmall"
+      variant="transparent"
+      leading-icon="x-close"
+      aria-label="Clear"
+      title="Clear"
+      @click="clear"
+    />
 
-      <slot name="trailing" />
+    <slot name="trailing" />
 
-      <div v-if="props.trailingIcon" class="icon-wrapper trailing">
-        <KdsIcon :name="props.trailingIcon" />
-      </div>
+    <div v-if="props.trailingIcon" class="icon-wrapper trailing">
+      <KdsIcon :name="props.trailingIcon" />
     </div>
   </div>
 </template>
@@ -233,10 +229,9 @@ const clear = () => {
 .container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   width: 100%;
   height: var(--kds-dimension-component-height-1-75x);
-  padding: 0;
+  padding: 0 var(--kds-spacing-container-0-25x);
   background: var(--kds-color-background-input-initial);
   border: var(--kds-border-action-input);
   border-radius: var(--kds-border-radius-container-0-37x);
@@ -258,16 +253,6 @@ const clear = () => {
     border: var(--kds-border-action-disabled);
     border-color: var(--kds-color-border-disabled);
   }
-}
-
-.content {
-  display: flex;
-  flex: 1 0 0;
-  gap: 0;
-  align-items: center;
-  min-width: 0;
-  height: var(--kds-dimension-component-height-1-75x);
-  padding: 0 var(--kds-spacing-container-0-25x);
 }
 
 .icon-wrapper {
