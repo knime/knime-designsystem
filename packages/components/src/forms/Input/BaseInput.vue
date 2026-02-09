@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { computed, useId } from "vue";
+import { computed } from "vue";
 
 import KdsIcon from "../../Icon/KdsIcon.vue";
 import type { KdsIconName } from "../../Icon/types";
 import KdsButton from "../../buttons/KdsButton.vue";
 
 type BaseInputProps = {
+  /**
+   * ID for the input element. If not provided, a unique ID will be generated.
+   */
+  id: string;
   /**
    * The type of input field
    */
@@ -26,10 +30,6 @@ type BaseInputProps = {
    * Placeholder text when input is empty
    */
   placeholder?: string;
-  /**
-   * ID for the input element. If not provided, a unique ID will be generated.
-   */
-  id?: string;
   /**
    * Whether the input is disabled
    */
@@ -137,9 +137,6 @@ const emit = defineEmits<BaseInputEmits>();
 
 const modelValue = defineModel<string>({ default: "" });
 
-const generatedId = useId();
-const inputId = computed(() => props.id ?? generatedId);
-
 const hasValue = computed(() => modelValue.value.length > 0);
 
 const showUnitPlaceholder = computed(
@@ -177,7 +174,7 @@ const clear = () => {
       </div>
 
       <input
-        :id="inputId"
+        :id="props.id"
         :value="modelValue"
         :type="props.type"
         :inputmode="props.inputmode"

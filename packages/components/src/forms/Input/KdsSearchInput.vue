@@ -19,11 +19,9 @@ const props = withDefaults(defineProps<KdsSearchInputProps>(), {
 
 const modelValue = defineModel<string>({ default: "" });
 
-const generatedId = useId();
-const baseId = computed(() => props.id ?? generatedId);
-const labelId = computed(() => `${baseId.value}-label`);
-const inputId = computed(() => props.id ?? `${generatedId}-input`);
-const subTextId = computed(() => `${baseId.value}-subtext`);
+const inputId = computed(() => props.id ?? useId());
+const labelId = computed(() => `${inputId.value}-label`);
+const subTextId = computed(() => `${inputId.value}-subtext`);
 
 const ariaDescribedby = computed(() =>
   props.subText || props.validating || props.preserveSubTextSpace

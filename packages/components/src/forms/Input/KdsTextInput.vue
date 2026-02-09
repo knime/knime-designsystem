@@ -18,10 +18,9 @@ const props = withDefaults(defineProps<KdsTextInputProps>(), {
 
 const modelValue = defineModel<string>({ default: "" });
 
-const generatedId = useId();
-const inputId = computed(() => `${generatedId}-input`);
-const labelId = computed(() => `${generatedId}-label`);
-const subTextId = computed(() => `${generatedId}-subtext`);
+const inputId = computed(() => props.id ?? useId());
+const labelId = computed(() => `${inputId.value}-label`);
+const subTextId = computed(() => `${inputId.value}-subtext`);
 
 const ariaLabelledby = computed(() =>
   props.label ? labelId.value : undefined,

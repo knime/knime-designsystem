@@ -32,10 +32,4 @@ export type {
   KdsNumberInputProps,
   KdsPatternInputProps,
   KdsSearchInputProps,
-  KdsTemporalType,
-  KdsDateFormatCategory,
-  KdsDateTimeFormatEntry,
-  KdsDateTimeFormatInputProps,
-  KdsCredentialsUserPasswordProps,
-  KdsCredentialsApiKeyProps,
 } from "./Input/types";
