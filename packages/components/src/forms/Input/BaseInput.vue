@@ -7,7 +7,7 @@ import KdsButton from "../../buttons/KdsButton.vue";
 
 type BaseInputProps = {
   /**
-   * ID for the input element. If not provided, a unique ID will be generated.
+   * ID for the input element
    */
   id: string;
   /**
