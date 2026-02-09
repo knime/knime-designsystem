@@ -212,7 +212,7 @@ const handleBlur = (event: FocusEvent) => {
               size="xsmall"
               variant="outlined"
               leading-icon="minus"
-              aria-label="Decrease"
+              :aria-label="`Decrease ${props.label ?? ''}`.trim()"
               :disabled="!canDecrease"
               @click="adjustByStep(-1)"
             />
@@ -221,7 +221,7 @@ const handleBlur = (event: FocusEvent) => {
               size="xsmall"
               variant="outlined"
               leading-icon="plus"
-              aria-label="Increase"
+              :aria-label="`Increase ${props.label ?? ''}`.trim()"
               :disabled="!canIncrease"
               @click="adjustByStep(1)"
             />
