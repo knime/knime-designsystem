@@ -162,10 +162,7 @@ const clear = () => {
       disabled: props.disabled,
     }"
   >
-    <div
-      v-if="props.leadingIcon || $slots.leading"
-      class="icon-wrapper leading"
-    >
+    <div v-if="props.leadingIcon" class="icon-wrapper leading">
       <KdsIcon v-if="props.leadingIcon" :name="props.leadingIcon" />
     </div>
 
