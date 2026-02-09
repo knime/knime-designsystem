@@ -132,7 +132,7 @@ const adjustByStep = (direction: -1 | 1) => {
     : parseFromInput(localValue.value);
 
   const nextRaw = Number.isFinite(base) ? base + direction * props.step : 0;
-  // Only round to step, don't clamp - clamping happens on blur
+  // Only round to step (number precision errors), don't clamp - clamping happens on blur
   const next = roundToStep(nextRaw);
 
   modelValue.value = next;
