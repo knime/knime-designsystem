@@ -240,7 +240,7 @@ const clear = () => {
   border: var(--kds-border-action-input);
   border-radius: var(--kds-border-radius-container-0-37x);
 
-  &:has(input:focus) {
+  &:has(input:focus:not(:disabled)) {
     outline: var(--kds-border-action-focused);
     outline-offset: var(--kds-spacing-offset-focus);
   }
