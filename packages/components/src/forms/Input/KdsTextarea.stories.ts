@@ -37,11 +37,8 @@ const meta: Meta<typeof KdsTextarea> = {
     },
     label: {
       control: "text",
-      table: { category: "Props" },
-    },
-    ariaLabel: {
-      control: "text",
-      description: "Accessible label when no visible label is provided",
+      description:
+        "Visible label text, or { ariaLabel } when no visible label is rendered",
       table: { category: "Props" },
     },
     placeholder: {
@@ -88,7 +85,6 @@ const meta: Meta<typeof KdsTextarea> = {
   args: {
     modelValue: "",
     label: "Label",
-    ariaLabel: "",
     placeholder: "",
     name: "",
     autocomplete: "",
@@ -209,12 +205,10 @@ export const WithError: Story = {
   },
 };
 
-export const NameAndAutocomplete: Story = {
+export const WithAriaLabel: Story = {
   args: {
-    label: "Notes",
-    placeholder: "Enter notes",
-    name: "notes",
-    autocomplete: "off",
+    label: { ariaLabel: "Textarea" },
+    placeholder: "Enter text",
   },
 };
 
@@ -222,7 +216,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsTextarea,
   combinationsProps: [
     {
-      label: ["Label"],
+      label: ["Label", { ariaLabel: "Textarea" }],
       modelValue: ["", "Value\nSecond line"],
       placeholder: ["", "Placeholder"],
       disabled: [false, true],
@@ -241,8 +235,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   designsToCompare: {
     ".Textarea": {
       props: {
-        label: undefined,
-        ariaLabel: "Textarea",
+        label: { ariaLabel: "Textarea" },
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4961-8429":

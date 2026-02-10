@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { nextTick, onMounted, ref, watch } from "vue";
+import { ref, watch } from "vue";
 import { useResizeObserver } from "@vueuse/core";
 
 import KdsFormField from "../KdsFormField.vue";
@@ -20,46 +20,32 @@ const props = withDefaults(defineProps<KdsTextareaProps>(), {
 const modelValue = defineModel<string>({ default: "" });
 
 const textareaElement = ref<HTMLTextAreaElement | null>(null);
-const lastObservedWidth = ref<number | null>(null);
 
-const resizeTextarea = () => {
-  nextTick(() => {
-    const element = textareaElement.value;
-    if (!element) {
-      return;
-    }
-
-    element.style.height = "auto";
-    element.style.height = `${element.scrollHeight}px`;
-  });
-};
-
-const handleInput = (event: Event) => {
-  modelValue.value = (event.target as HTMLTextAreaElement).value;
-  resizeTextarea();
-};
-
-onMounted(() => {
-  resizeTextarea();
-});
-
-watch(modelValue, () => {
-  resizeTextarea();
-});
-
-useResizeObserver(textareaElement, (entries) => {
-  const width = entries[0]?.contentRect.width;
-  if (!width) {
+function resize() {
+  const element = textareaElement.value;
+  if (!element) {
     return;
   }
 
-  if (lastObservedWidth.value === width) {
+  // Reset height so scrollHeight reflects the full content height for shrinking.
+  element.style.height = "auto";
+
+  const scrollHeight = element.scrollHeight;
+  const offsetHeight = element.offsetHeight;
+  if (scrollHeight <= offsetHeight) {
     return;
   }
 
-  lastObservedWidth.value = width;
-  resizeTextarea();
-});
+  element.style.height = `${scrollHeight}px`;
+}
+
+const supportsFieldSizing =
+  typeof CSS !== "undefined" && CSS.supports?.("field-sizing", "content");
+
+if (!supportsFieldSizing) {
+  useResizeObserver(textareaElement, resize);
+  watch(modelValue, resize);
+}
 </script>
 
 <template>
@@ -68,19 +54,18 @@ useResizeObserver(textareaElement, (entries) => {
       <textarea
         v-bind="slotProps"
         ref="textareaElement"
+        v-model="modelValue"
         :class="{
           error: props.error,
           disabled: props.disabled,
         }"
-        rows="3"
-        :value="modelValue"
+        :rows="3"
         :placeholder="props.placeholder"
         :disabled="props.disabled"
         :readonly="props.readonly"
         :required="props.required"
         :name="props.name"
         :autocomplete="props.autocomplete"
-        @input="handleInput"
       />
     </template>
   </KdsFormField>
@@ -97,6 +82,7 @@ textarea {
   color: var(--kds-color-text-and-icon-neutral);
   resize: none;
   outline: none;
+  field-sizing: content;
   background: var(--kds-color-background-input-initial);
   border: var(--kds-border-action-input);
   border-radius: var(--kds-border-radius-container-0-37x);
