@@ -10,18 +10,64 @@ export type KdsLabelProps = {
   for?: string;
 };
 
+type KdsInputProps = {
+  /**
+   * Placeholder text for the input element
+   */
+  placeholder?: string;
+  /**
+   * Whether the input is disabled
+   */
+  disabled?: boolean;
+  /**
+   * Whether the input is readonly
+   */
+  readonly?: boolean;
+  /**
+   * Whether the input is required
+   */
+  required?: boolean;
+  /**
+   * Name attribute for the input element
+   */
+  name?: string;
+  /**
+   * Autocomplete attribute for the input element
+   */
+  autocomplete?: string;
+};
+
 export type KdsSubTextProps = {
   /**
    * Id to link the subtext to form elements via `aria-describedby`.
    */
   id: string;
+  /**
+   * Subtext to provide additional information about the form field, such as helper text or error messages.
+   */
   subText?: string;
   /**
    * When true, applies error styling to the subtext and shows the error icon.
    */
   error?: boolean;
   /**
+   * When true, shows a loading spinner in the subtext area.
+   */
+  validating?: boolean;
+  /**
    * Reserve space for subtext to prevent layout shifts when helper text or errors appear
    */
   preserveSubTextSpace?: boolean;
 };
+
+export type KdsFormFieldProps = {
+  /**
+   * Input id
+   */
+  id?: string;
+  /**
+   * Label text or an object with an aria-label for accessibility when a visible label is not desired.
+   */
+  label: string | { ariaLabel: string };
+} & KdsInputProps &
+  Omit<KdsSubTextProps, "id">;

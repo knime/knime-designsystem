@@ -15,6 +15,7 @@ export type {
   KdsValueSwitchProps,
   KdsValueSwitchSize,
 } from "./RadioButton/types";
+
 export type {
   KdsCheckboxValue,
   KdsCheckboxGroupAlignment,
