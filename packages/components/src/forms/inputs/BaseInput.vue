@@ -245,7 +245,7 @@ const clear = () => {
     outline-offset: var(--kds-spacing-offset-focus);
   }
 
-  &:has(.input-field:hover:not(:disabled, :read-only)) {
+  &:has(.input-field:hover:not(:disabled, :focus)) {
     background: var(--kds-color-background-input-hover);
   }
 
