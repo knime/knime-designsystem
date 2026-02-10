@@ -3,6 +3,7 @@ import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
 
 import {
+  buildAllCombinationsStory,
   buildDesignComparatorStory,
   buildTextOverflowStory,
 } from "../../test-utils/storybook.ts";
@@ -12,12 +13,10 @@ import type { KdsRadioButtonGroupProps } from "./types.ts";
 
 type Story = StoryObj<typeof KdsRadioButtonGroup>;
 
-/*
 const optionsWithError: KdsRadioButtonGroupProps["possibleValues"] = [
   { text: "Option A", id: "Option A", error: true, helperText: "Helper text" },
   { text: "Option B", id: "Option B" },
 ];
-*/
 
 const optionsWithHelperText: KdsRadioButtonGroupProps["possibleValues"] = [
   { text: "Option A", id: "Option A", helperText: "Helper text" },
@@ -255,7 +254,6 @@ export const WithCustomLabel: Story = {
   }),
 };
 
-/*
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsRadioButtonGroup,
   combinationsProps: [
@@ -271,9 +269,9 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       modelValue: [undefined, "Option A", "Option B"],
       alignment: ["vertical", "horizontal"],
       disabled: [false, true],
+    },
   ],
 });
-*/
 
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsRadioButtonGroup,
