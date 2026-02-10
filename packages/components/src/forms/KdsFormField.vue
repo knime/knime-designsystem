@@ -29,7 +29,7 @@ const ariaDescribedby = computed(() =>
 </script>
 
 <template>
-  <div class="input-wrapper">
+  <div class="kds-form-field">
     <KdsLabel v-if="label" :id="labelId" :for="inputId" :label="label" />
     <slot
       :id="inputId"
@@ -49,7 +49,7 @@ const ariaDescribedby = computed(() =>
 </template>
 
 <style scoped>
-.input-wrapper {
+.kds-form-field {
   display: flex;
   flex-direction: column;
 }
