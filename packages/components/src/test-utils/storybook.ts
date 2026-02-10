@@ -117,7 +117,6 @@ export function buildAllCombinationsStory(
 type DesignComparatorParams = {
   component: Component;
   designsToCompare: DesignsToCompare; // or can we infer the possible props from the component type?
-  componentStyle?: string;
 };
 
 /**
@@ -163,11 +162,10 @@ export function buildDesignComparatorStory(
         return {
           designsToCompare: config.designsToCompare,
           component: config.component,
-          componentStyle: config.componentStyle,
         };
       },
       template: `
-        <DesignComparator :designs-to-compare="designsToCompare" :component="component" :component-style="componentStyle"></DesignComparator>`,
+        <DesignComparator :designs-to-compare="designsToCompare" :component="component"></DesignComparator>`,
     }),
   };
 }
