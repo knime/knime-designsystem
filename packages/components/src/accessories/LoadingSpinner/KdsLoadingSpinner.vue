@@ -1,21 +1,16 @@
 <script lang="ts" setup>
-import type { KdsIconSize } from "../Icon/types";
+import type { KdsLoadingSpinnerProps } from "./types";
 
-type LoadingSpinnerStyle = "onPrimary" | "onSurface";
-
-withDefaults(
-  defineProps<{ size?: KdsIconSize; style?: LoadingSpinnerStyle }>(),
-  {
-    style: "onSurface",
-    size: "medium",
-  },
-);
+withDefaults(defineProps<KdsLoadingSpinnerProps>(), {
+  variant: "onSurface",
+  size: "medium",
+});
 </script>
 
 <template>
   <svg
     :class="['kds-loading-spinner', size]"
-    :data-style="style"
+    :data-style="variant"
     viewBox="0 0 120 120"
   >
     <circle class="track" cx="60" cy="60" r="50" />
@@ -23,7 +18,7 @@ withDefaults(
   </svg>
 </template>
 
-<style lang="postcss" scoped>
+<style scoped>
 .kds-loading-spinner {
   --icon-width: var(--kds-dimension-icon-1x);
   --icon-height: var(--kds-dimension-icon-1x);

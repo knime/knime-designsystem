@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-import KdsIcon from "../Icon/KdsIcon.vue";
-import type { KdsIconSize } from "../Icon/types.ts";
-import KdsLoadingSpinner from "../LoadingSpinner/KdsLoadingSpinner.vue";
+import KdsIcon from "../accessories/Icon/KdsIcon.vue";
+import type { KdsIconSize } from "../accessories/Icon/types";
+import KdsLoadingSpinner from "../accessories/LoadingSpinner/KdsLoadingSpinner.vue";
 
 import BaseButton from "./BaseButton.vue";
 import type {
@@ -76,7 +76,7 @@ const baseButtonProps = computed(() => ({
         <span class="spinner" :data-visible="state === 'progress'">
           <KdsLoadingSpinner
             :size="iconSize"
-            :style="props.variant === 'filled' ? 'onPrimary' : 'onSurface'"
+            :variant="props.variant === 'filled' ? 'onPrimary' : 'onSurface'"
           />
         </span>
       </span>

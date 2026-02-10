@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import KdsIcon from "../Icon/KdsIcon.vue";
-import KdsLoadingSpinner from "../LoadingSpinner/KdsLoadingSpinner.vue";
+import KdsIcon from "../accessories/Icon/KdsIcon.vue";
+import KdsLoadingSpinner from "../accessories/LoadingSpinner/KdsLoadingSpinner.vue";
 
 import type { KdsSubTextProps } from "./types";
 
@@ -24,7 +24,7 @@ const props = withDefaults(defineProps<KdsSubTextProps>(), {
       <KdsIcon name="circle-error" size="small" aria-label="Error" />
     </template>
     <template v-else-if="props.validating && props.subText">
-      <KdsLoadingSpinner size="small" :style="'onSurface'" aria-hidden="true" />
+      <KdsLoadingSpinner size="small" variant="onSurface" aria-hidden="true" />
     </template>
     <span class="subtext-text">{{ props.subText }}</span>
   </div>
