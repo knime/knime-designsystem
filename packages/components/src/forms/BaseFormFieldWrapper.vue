@@ -40,7 +40,7 @@ const subTextId = computed(() => `${inputId.value}-subtext`);
       :id="inputId"
       :aria-labelledby="props.label ? labelId : undefined"
       :aria-describedby="props.subText ? subTextId : undefined"
-      :aria-label="ariaLabel"
+      :aria-label="props.label ? undefined : props.ariaLabel"
       :aria-invalid="props.error"
     />
     <KdsSubText

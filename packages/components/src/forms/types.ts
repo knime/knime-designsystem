@@ -20,11 +20,11 @@ export type KdsSubTextProps = {
    */
   subText?: string;
   /**
-   * When true, applies error styling to the subtext and shows the error icon.
+   * When true, applies error styling to the subtext and shows the error icon when subtext is present.
    */
   error?: boolean;
   /**
-   * When true, shows a loading spinner in the subtext area.
+   * When true and subtext is present, shows a loading spinner in the subtext area.
    */
   validating?: boolean;
   /**
