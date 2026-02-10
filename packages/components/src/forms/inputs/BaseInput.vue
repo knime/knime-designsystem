@@ -187,7 +187,7 @@ const clear = () => {
       :aria-label="props.ariaLabel"
       :aria-labelledby="props.ariaLabelledby"
       :aria-describedby="props.ariaDescribedby"
-      :aria-invalid="props.error"
+      :aria-invalid="props.ariaInvalid"
       :class="{ 'input-field': true, 'has-value': hasValue }"
       @input="handleInput"
       @focus="emit('focus', $event)"
