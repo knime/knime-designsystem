@@ -3,7 +3,22 @@ import { computed, useId } from "vue";
 
 import KdsLabel from "./KdsLabel.vue";
 import KdsSubText from "./KdsSubText.vue";
-import type { KdsFormFieldProps } from "./types";
+import type { KdsSubTextProps } from "./types";
+
+type KdsFormFieldProps = {
+  /**
+   * Input id
+   */
+  id?: string;
+  /**
+   * Label text
+   */
+  label?: string;
+  /**
+   * Aria-label for accessibility when a visible label is not desired
+   */
+  ariaLabel?: string;
+} & Omit<KdsSubTextProps, "id">;
 
 const props = defineProps<KdsFormFieldProps>();
 
@@ -11,30 +26,20 @@ const fallbackId = useId();
 const inputId = computed(() => props.id ?? fallbackId);
 const labelId = computed(() => `${inputId.value}-label`);
 const subTextId = computed(() => `${inputId.value}-subtext`);
-
-const label = computed(() =>
-  typeof props.label === "string" ? props.label : undefined,
-);
-const ariaLabel = computed(() =>
-  typeof props.label === "object" ? props.label.ariaLabel : undefined,
-);
-const ariaLabelledby = computed(() =>
-  typeof props.label === "string" ? labelId.value : undefined,
-);
-const ariaDescribedby = computed(() =>
-  props.subText || props.validating || props.error
-    ? subTextId.value
-    : undefined,
-);
 </script>
 
 <template>
   <div class="kds-form-field">
-    <KdsLabel v-if="label" :id="labelId" :for="inputId" :label="label" />
+    <KdsLabel
+      v-if="props.label"
+      :id="labelId"
+      :for="inputId"
+      :label="props.label"
+    />
     <slot
       :id="inputId"
-      :aria-labelledby="ariaLabelledby"
-      :aria-describedby="ariaDescribedby"
+      :aria-labelledby="props.label ? labelId : undefined"
+      :aria-describedby="props.subText ? subTextId : undefined"
       :aria-label="ariaLabel"
       :aria-invalid="props.error"
     />

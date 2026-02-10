@@ -32,14 +32,3 @@ export type KdsSubTextProps = {
    */
   preserveSubTextSpace?: boolean;
 };
-
-export type KdsFormFieldProps = {
-  /**
-   * Input id
-   */
-  id?: string;
-  /**
-   * Label text or an object with an aria-label for accessibility when a visible label is not desired.
-   */
-  label: string | { ariaLabel: string };
-} & Omit<KdsSubTextProps, "id">;
