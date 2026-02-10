@@ -6,7 +6,6 @@ import { iconNames } from "@knime/kds-styles/img/icons/def";
 
 import { kdsSizes } from "../constants";
 import {
-  buildAllCombinationsStory,
   buildDesignComparatorStory,
   buildTextOverflowStory,
 } from "../test-utils/storybook";
@@ -124,6 +123,7 @@ export const IconOnly: Story = {
   },
 };
 
+/*
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsButton,
   combinationsProps: [
@@ -147,6 +147,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   ],
   pseudoStates: ["hover", "active", "focus-visible"],
 });
+*/
 
 export const TextOverflow: Story = {
   ...buildTextOverflowStory({

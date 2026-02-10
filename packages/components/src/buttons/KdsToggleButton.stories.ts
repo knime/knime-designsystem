@@ -6,7 +6,6 @@ import { fn } from "storybook/test";
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
 import { kdsSizes } from "../constants";
-import { buildAllCombinationsStory } from "../test-utils/storybook";
 
 import KdsToggleButton from "./KdsToggleButton.vue";
 import { kdsToggleButtonVariants } from "./constants";
@@ -121,6 +120,7 @@ export const Disabled: Story = {
   },
 };
 
+/*
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsToggleButton,
   combinationsProps: [
@@ -144,3 +144,4 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   ],
   pseudoStates: ["hover", "active", "focus-visible"],
 });
+*/

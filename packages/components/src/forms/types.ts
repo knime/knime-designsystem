@@ -15,11 +15,18 @@ export type KdsSubTextProps = {
    * Id to link the subtext to form elements via `aria-describedby`.
    */
   id: string;
+  /**
+   * Subtext to provide additional information about the form field, such as helper text or error messages.
+   */
   subText?: string;
   /**
-   * When true, applies error styling to the subtext and shows the error icon.
+   * When true, applies error styling to the subtext and shows the error icon when subtext is present.
    */
   error?: boolean;
+  /**
+   * When true and subtext is present, shows a loading spinner in the subtext area.
+   */
+  validating?: boolean;
   /**
    * Reserve space for subtext to prevent layout shifts when helper text or errors appear
    */
