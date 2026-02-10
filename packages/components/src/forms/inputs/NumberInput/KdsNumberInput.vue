@@ -194,6 +194,7 @@ const handleBlur = (event: FocusEvent) => {
         :disabled="props.disabled"
         :readonly="props.readonly"
         :required="props.required"
+        :error="props.error"
         :name="props.name"
         :autocomplete="props.autocomplete"
         :min="props.min"

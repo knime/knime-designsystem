@@ -290,7 +290,7 @@ const clear = () => {
   padding: var(--kds-spacing-container-0-25x);
   overflow: hidden;
   text-overflow: ellipsis;
-  font: var(--kds-font-base-interactive-small);
+  font: var(--kds-font-base-body-small);
   color: var(--kds-color-text-and-icon-neutral);
   white-space: nowrap;
   outline: none;
@@ -333,7 +333,7 @@ const clear = () => {
   margin: 0 var(--kds-spacing-container-0-12x);
   overflow: hidden;
   text-overflow: ellipsis;
-  font: var(--kds-font-base-interactive-small);
+  font: var(--kds-font-base-body-small);
   color: var(--kds-color-text-and-icon-neutral);
   white-space: nowrap;
 

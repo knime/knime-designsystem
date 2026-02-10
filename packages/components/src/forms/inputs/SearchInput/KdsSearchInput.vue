@@ -27,6 +27,7 @@ const modelValue = defineModel<string>({ default: "" });
         :disabled="props.disabled"
         :readonly="props.readonly"
         :required="props.required"
+        :error="props.error"
         :name="props.name"
         :autocomplete="props.autocomplete"
         leading-icon="search"
