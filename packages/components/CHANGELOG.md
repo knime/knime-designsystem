@@ -1,5 +1,12 @@
 # @knime/kds-components
 
+## 0.6.6
+
+### Patch Changes
+
+- Updated dependencies [0454c56]
+  - @knime/kds-styles@0.6.6
+
 ## 0.6.5
 
 ### Patch Changes
