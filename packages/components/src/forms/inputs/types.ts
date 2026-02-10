@@ -1,26 +1,6 @@
-import type { KdsSubTextProps } from "../types.ts";
+import type { KdsFormFieldProps } from "../types.ts";
 
-type KdsInputLabelProps =
-  | {
-      /**
-       * Visible label text for the input.
-       */
-      label: string;
-      ariaLabel?: never;
-    }
-  | {
-      label?: never;
-      /**
-       * Accessible label used when no visible label is rendered.
-       */
-      ariaLabel: string;
-    };
-
-type KdsInputProps = {
-  /**
-   * Id for associating labels and hint/error text.
-   */
-  id?: string;
+type KdsCommonInputProps = {
   /**
    * Placeholder text for the input element
    */
@@ -47,15 +27,11 @@ type KdsInputProps = {
   autocomplete?: string;
 };
 
-type KdsInputSubTextProps = Omit<KdsSubTextProps, "id">;
+type KdsInputFieldProps = KdsFormFieldProps & KdsCommonInputProps;
 
-type KdsFormFieldProps = KdsInputLabelProps &
-  KdsInputProps &
-  KdsInputSubTextProps;
+export type KdsTextInputProps = KdsInputFieldProps;
 
-export type KdsTextInputProps = KdsFormFieldProps;
-
-export type KdsNumberInputProps = KdsFormFieldProps & {
+export type KdsNumberInputProps = KdsInputFieldProps & {
   /**
    * Unit shown next to the input value
    */
@@ -75,6 +51,6 @@ export type KdsNumberInputProps = KdsFormFieldProps & {
   step?: number;
 };
 
-export type KdsPatternInputProps = KdsFormFieldProps;
+export type KdsPatternInputProps = KdsInputFieldProps;
 
-export type KdsSearchInputProps = KdsFormFieldProps;
+export type KdsSearchInputProps = KdsInputFieldProps;

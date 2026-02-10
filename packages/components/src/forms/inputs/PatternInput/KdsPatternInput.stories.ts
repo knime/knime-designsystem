@@ -258,7 +258,7 @@ export const Interaction: Story = {
 
       await userEvent.tab();
       const caseToggle = canvas.getByRole("button", {
-        name: "Case-insensitive",
+        name: "Match case-insensitive",
       });
       await expect(caseToggle).toHaveFocus();
     });
@@ -277,13 +277,13 @@ export const Interaction: Story = {
 
       await userEvent.tab();
       const caseToggle = canvas.getByRole("button", {
-        name: "Case-insensitive",
+        name: "Match case-insensitive",
       });
       await userEvent.keyboard("{Space}");
       await expect(caseToggle).toHaveAttribute("aria-pressed", "true");
 
       const caseToggleActive = canvas.getByRole("button", {
-        name: "Case-sensitive",
+        name: "Match case-sensitive",
       });
       await expect(caseToggleActive).toHaveAttribute("aria-pressed", "true");
     });
