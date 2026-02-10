@@ -3,17 +3,21 @@ import { computed, useId } from "vue";
 
 import KdsLabel from "./KdsLabel.vue";
 import KdsSubText from "./KdsSubText.vue";
-import type { KdsLabelProps, KdsSubTextProps } from "./types";
+import type { KdsFormFieldProps } from "./types";
 
-type InputWrapperProps = KdsLabelProps & KdsSubTextProps;
-
-const props = defineProps<InputWrapperProps>();
+const props = defineProps<KdsFormFieldProps>();
 
 const fallbackId = useId();
 const inputId = computed(() => props.id ?? fallbackId);
 const labelId = computed(() => `${inputId.value}-label`);
 const subTextId = computed(() => `${inputId.value}-subtext`);
 
+const label = computed(() =>
+  typeof props.label === "string" ? props.label : undefined,
+);
+const ariaLabel = computed(() =>
+  typeof props.label === "object" ? props.label.ariaLabel : undefined,
+);
 const ariaLabelledby = computed(() =>
   props.label ? labelId.value : undefined,
 );
@@ -26,17 +30,13 @@ const ariaDescribedby = computed(() =>
 
 <template>
   <div class="input-wrapper">
-    <KdsLabel
-      v-if="props.label"
-      :id="labelId"
-      :for="inputId"
-      :label="props.label"
-    />
+    <KdsLabel v-if="label" :id="labelId" :for="inputId" :label="label" />
     <slot
       :id="inputId"
-      :error="props.error"
       :aria-labelledby="ariaLabelledby"
       :aria-describedby="ariaDescribedby"
+      :aria-label="ariaLabel"
+      :aria-invalid="props.error"
     />
     <KdsSubText
       :id="subTextId"

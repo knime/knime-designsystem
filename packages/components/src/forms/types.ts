@@ -10,7 +10,7 @@ export type KdsLabelProps = {
   for?: string;
 };
 
-export type KdsInputProps = {
+type KdsInputProps = {
   /**
    * Placeholder text for the input element
    */
@@ -42,6 +42,9 @@ export type KdsSubTextProps = {
    * Id to link the subtext to form elements via `aria-describedby`.
    */
   id: string;
+  /**
+   * Subtext to provide additional information about the form field, such as helper text or error messages.
+   */
   subText?: string;
   /**
    * When true, applies error styling to the subtext and shows the error icon.
@@ -57,4 +60,11 @@ export type KdsSubTextProps = {
   preserveSubTextSpace?: boolean;
 };
 
-export type KdsFormFieldProps = KdsLabelProps & KdsInputProps & KdsSubTextProps;
+export type KdsFormFieldProps = {
+  /**
+   * Input id
+   */
+  id?: string;
+  label: string | { ariaLabel: string };
+} & KdsInputProps &
+  Omit<KdsSubTextProps, "id">;

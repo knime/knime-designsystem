@@ -20,7 +20,8 @@ const meta: Meta<typeof KdsTextarea> = {
     docs: {
       description: {
         component:
-          "A textarea component for multi-line text input with optional label and helper/error text.",
+          "A textarea component for multi-line text input with optional label and helper/error text. " +
+          "Grows automatically with content (no internal scrolling).",
       },
     },
     design: {
@@ -36,6 +37,11 @@ const meta: Meta<typeof KdsTextarea> = {
     },
     label: {
       control: "text",
+      table: { category: "Props" },
+    },
+    ariaLabel: {
+      control: "text",
+      description: "Accessible label when no visible label is provided",
       table: { category: "Props" },
     },
     placeholder: {
@@ -82,6 +88,7 @@ const meta: Meta<typeof KdsTextarea> = {
   args: {
     modelValue: "",
     label: "Label",
+    ariaLabel: "",
     placeholder: "",
     name: "",
     autocomplete: "",
@@ -133,6 +140,13 @@ export const Default: Story = {
 export const WithValue: Story = {
   args: {
     modelValue: "First line\nSecond line",
+  },
+};
+
+export const Required: Story = {
+  args: {
+    placeholder: "Enter text",
+    required: true,
   },
 };
 
@@ -195,6 +209,15 @@ export const WithError: Story = {
   },
 };
 
+export const NameAndAutocomplete: Story = {
+  args: {
+    label: "Notes",
+    placeholder: "Enter notes",
+    name: "notes",
+    autocomplete: "off",
+  },
+};
+
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsTextarea,
   combinationsProps: [
@@ -209,7 +232,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       subText: [undefined, "Message"],
     },
   ],
-  pseudoStates: ["hover", "active", "focus"],
+  pseudoStates: ["hover", "focus"],
 });
 
 export const DesignComparator: Story = buildDesignComparatorStory({

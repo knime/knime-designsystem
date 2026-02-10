@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, watch } from "vue";
+import { computed, ref } from "vue";
 
 import KdsIcon from "../../Icon/KdsIcon.vue";
 import type { KdsIconName } from "../../Icon/types";
@@ -10,11 +10,6 @@ type BaseInputProps = {
    * ID for the input element
    */
   id: string;
-
-  /**
-   * Which native form element to render.
-   */
-  component?: "input" | "textarea";
 
   /**
    * The type of input field
@@ -108,7 +103,6 @@ type BaseInputProps = {
 };
 
 const props = withDefaults(defineProps<BaseInputProps>(), {
-  component: "input",
   type: "text",
   min: undefined,
   max: undefined,
@@ -147,9 +141,7 @@ const emit = defineEmits<BaseInputEmits>();
 
 const modelValue = defineModel<string>({ default: "" });
 
-const isMultiline = computed(() => props.component === "textarea");
-
-const inputElement = ref<HTMLInputElement | HTMLTextAreaElement | null>(null);
+const inputElement = ref<HTMLInputElement | null>(null);
 
 const hasValue = computed(() => modelValue.value.length > 0);
 
@@ -158,7 +150,7 @@ const showUnitPlaceholder = computed(
 );
 
 const handleInput = (event: Event) => {
-  const target = event.target as HTMLInputElement | HTMLTextAreaElement;
+  const target = event.target as HTMLInputElement;
   modelValue.value = target.value;
 
   emit("input", event);
@@ -167,29 +159,6 @@ const handleInput = (event: Event) => {
 const clear = () => {
   modelValue.value = "";
 };
-
-const resizeTextarea = () => {
-  if (!isMultiline.value) {
-    return;
-  }
-
-  const element = inputElement.value;
-  if (!element || element.tagName !== "TEXTAREA") {
-    return;
-  }
-
-  element.style.height = "auto";
-  element.style.height = `${element.scrollHeight}px`;
-};
-
-onMounted(() => {
-  resizeTextarea();
-});
-
-watch([modelValue, isMultiline], async () => {
-  await nextTick();
-  resizeTextarea();
-});
 </script>
 
 <template>
@@ -198,19 +167,17 @@ watch([modelValue, isMultiline], async () => {
       container: true,
       error: props.error,
       disabled: props.disabled,
-      multiline: isMultiline,
     }"
   >
     <div v-if="props.leadingIcon" class="icon-wrapper leading">
       <KdsIcon v-if="props.leadingIcon" :name="props.leadingIcon" />
     </div>
 
-    <component
-      :is="props.component"
+    <input
       :id="props.id"
       ref="inputElement"
       :value="modelValue"
-      :type="!isMultiline ? props.type : undefined"
+      :type="props.type"
       :inputmode="props.inputmode"
       :placeholder="props.placeholder"
       :disabled="props.disabled"
@@ -218,9 +185,9 @@ watch([modelValue, isMultiline], async () => {
       :required="props.required"
       :name="props.name"
       :autocomplete="props.autocomplete"
-      :min="!isMultiline ? props.min : undefined"
-      :max="!isMultiline ? props.max : undefined"
-      :step="!isMultiline ? props.step : undefined"
+      :min="props.min"
+      :max="props.max"
+      :step="props.step"
       :aria-label="props.ariaLabel"
       :aria-labelledby="props.ariaLabelledby"
       :aria-describedby="props.ariaDescribedby"
@@ -295,10 +262,6 @@ watch([modelValue, isMultiline], async () => {
     border: var(--kds-border-action-disabled);
     border-color: var(--kds-color-border-disabled);
   }
-
-  &.multiline {
-    height: auto;
-  }
 }
 
 .icon-wrapper {
@@ -331,24 +294,13 @@ watch([modelValue, isMultiline], async () => {
   height: var(--kds-dimension-component-height-1-75x);
   padding: var(--kds-spacing-container-0-25x);
   overflow: hidden;
+  text-overflow: ellipsis;
   font: var(--kds-font-base-body-small);
   color: var(--kds-color-text-and-icon-neutral);
+  white-space: nowrap;
   outline: none;
   background: transparent;
   border: none;
-
-  &:is(input) {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  &:is(textarea) {
-    min-height: calc(
-      var(--kds-dimension-component-height-4x) +
-        var(--kds-spacing-container-0-37x)
-    );
-    resize: none;
-  }
 
   /* hide native steppers, we provide our own in NumberInput */
   &[type="number"] {

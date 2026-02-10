@@ -13,7 +13,12 @@ const props = withDefaults(defineProps<KdsSubTextProps>(), {
 
 <template>
   <div
-    v-if="props.subText || props.preserveSubTextSpace || props.validating"
+    v-if="
+      props.subText ||
+      props.preserveSubTextSpace ||
+      props.validating ||
+      props.error
+    "
     :id="props.id"
     :class="{
       subtext: true,
