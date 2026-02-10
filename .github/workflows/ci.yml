@@ -30,7 +30,7 @@ jobs:
         run: pnpm run ci:build
 
       - name: Chromatic
-        if: github.actor != 'dependabot[bot]'
+        if: github.event_name != 'pull_request' && github.actor != 'dependabot[bot]'
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
