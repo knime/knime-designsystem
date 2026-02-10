@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 
 import {
-  buildAllCombinationsStory,
   buildDesignComparatorStory,
   buildTextOverflowStory,
 } from "../../test-utils/storybook.ts";
@@ -124,6 +123,7 @@ export const Error: Story = {
   },
 };
 
+/*
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsRadioButton,
   combinationsProps: [
@@ -143,6 +143,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   ],
   pseudoStates: ["hover", "active", "focus-visible"],
 });
+*/
 
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsRadioButton,

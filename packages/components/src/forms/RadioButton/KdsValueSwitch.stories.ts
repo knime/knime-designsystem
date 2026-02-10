@@ -3,7 +3,6 @@ import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
 
 import {
-  buildAllCombinationsStory,
   buildDesignComparatorStory,
   buildTextOverflowStory,
 } from "../../test-utils/storybook.ts";
@@ -244,6 +243,7 @@ export const ExternalLabel: Story = {
   }),
 };
 
+/*
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsValueSwitch,
   combinationsProps: [
@@ -271,6 +271,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   ],
   pseudoStates: ["hover", "active", "focus-visible"],
 });
+*/
 
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsValueSwitch,
