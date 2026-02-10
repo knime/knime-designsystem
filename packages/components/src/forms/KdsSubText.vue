@@ -13,22 +13,17 @@ const props = withDefaults(defineProps<KdsSubTextProps>(), {
 
 <template>
   <div
-    v-if="
-      props.subText ||
-      props.preserveSubTextSpace ||
-      props.validating ||
-      props.error
-    "
+    v-if="props.subText || props.preserveSubTextSpace"
     :id="props.id"
     :class="{
       subtext: true,
       error: props.error,
     }"
   >
-    <template v-if="props.error">
+    <template v-if="props.error && props.subText">
       <KdsIcon name="circle-error" size="small" aria-label="Error" />
     </template>
-    <template v-else-if="props.validating">
+    <template v-else-if="props.validating && props.subText">
       <KdsLoadingSpinner
         size="small"
         :style="'onSurface'"
