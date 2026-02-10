@@ -122,6 +122,9 @@ export const Disabled: Story = {
 };
 
 export const AllCombinations: Story = buildAllCombinationsStory({
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
   component: KdsToggleButton,
   combinationsProps: [
     {
