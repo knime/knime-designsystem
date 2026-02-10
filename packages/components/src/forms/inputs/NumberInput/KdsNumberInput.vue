@@ -81,6 +81,10 @@ const canDecrease = computed(() => {
     return true;
   }
 
+  if (Number.isNaN(modelValue.value)) {
+    return true;
+  }
+
   return modelValue.value > props.min;
 });
 
@@ -90,6 +94,10 @@ const canIncrease = computed(() => {
   }
 
   if (props.max === undefined || Number.isNaN(props.max)) {
+    return true;
+  }
+
+  if (Number.isNaN(modelValue.value)) {
     return true;
   }
 
