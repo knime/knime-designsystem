@@ -344,6 +344,10 @@ const clear = () => {
   &.disabled {
     color: var(--kds-color-text-and-icon-disabled);
   }
+
+  .container:focus-within & {
+    color: var(--kds-color-text-and-icon-neutral);
+  }
 }
 
 .clear-button {
@@ -356,9 +360,5 @@ const clear = () => {
   gap: var(--kds-spacing-container-0-12x);
   align-items: center;
   margin-left: var(--kds-spacing-container-0-12x);
-}
-
-.container:focus-within .unit {
-  color: var(--kds-color-text-and-icon-neutral);
 }
 </style>
