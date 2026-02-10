@@ -24,11 +24,7 @@ const props = withDefaults(defineProps<KdsSubTextProps>(), {
       <KdsIcon name="circle-error" size="small" aria-label="Error" />
     </template>
     <template v-else-if="props.validating && props.subText">
-      <KdsLoadingSpinner
-        size="small"
-        :style="'onSurface'"
-        aria-label="Validating"
-      />
+      <KdsLoadingSpinner size="small" :style="'onSurface'" aria-hidden="true" />
     </template>
     <span class="subtext-text">{{ props.subText }}</span>
   </div>
