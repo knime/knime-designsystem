@@ -32,3 +32,32 @@ export type KdsSubTextProps = {
    */
   preserveSubTextSpace?: boolean;
 };
+
+type KdsInputLabelProps =
+  | {
+      /**
+       * Visible label text for the input.
+       */
+      label: string;
+      ariaLabel?: never;
+    }
+  | {
+      label?: never;
+      /**
+       * Accessible label used when no visible label is rendered.
+       */
+      ariaLabel: string;
+    };
+
+type KdsInputSubTextProps = Omit<KdsSubTextProps, "id">;
+
+type KdsInputElementProps = {
+  /**
+   * Id for associating labels and hint/error text.
+   */
+  id?: string;
+};
+
+export type KdsFormFieldProps = KdsInputLabelProps &
+  KdsInputElementProps &
+  KdsInputSubTextProps;

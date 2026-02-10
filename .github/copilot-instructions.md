@@ -23,6 +23,11 @@ The KNIME Design System is a Vue3 TypeScript monorepo providing design tokens, i
 - It's OK to pass these as **inline string literals** in templates.
 - If an invalid literal is used, `vue-tsc` will report it and the CI checks will fail (typically via `pnpm type-check` and often also `pnpm build`).
 
+### Template event naming note
+
+- Vue SFC templates accept both `@update:modelValue` and `@update:model-value` for the same event.
+- Our formatter may rewrite camelCase to kebab-case; this is expected and valid.
+
 **Common Build Issues & Solutions:**
 
 - Stylelint can't find CSS custom properties → Run `pnpm install` to build @knime/kds-styles first
