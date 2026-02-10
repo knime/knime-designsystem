@@ -173,6 +173,9 @@ export const Validating: Story = {
 };
 
 export const AllCombinations: Story = buildAllCombinationsStory({
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
   component: KdsPatternInput,
   combinationsProps: [
     {

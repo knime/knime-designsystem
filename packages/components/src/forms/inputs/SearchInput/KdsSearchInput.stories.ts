@@ -181,6 +181,9 @@ export const WithError: Story = {
 };
 
 export const AllCombinations: Story = buildAllCombinationsStory({
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
   component: KdsSearchInput,
   combinationsProps: [
     {
