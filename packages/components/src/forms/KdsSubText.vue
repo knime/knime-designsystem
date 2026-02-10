@@ -9,8 +9,6 @@ const props = withDefaults(defineProps<KdsSubTextProps>(), {
   validating: false,
   preserveSubTextSpace: false,
 });
-
-const spinnerStyle = "onSurface" as const;
 </script>
 
 <template>
@@ -33,7 +31,7 @@ const spinnerStyle = "onSurface" as const;
     <template v-else-if="props.validating">
       <KdsLoadingSpinner
         size="small"
-        :style="spinnerStyle"
+        :style="'onSurface'"
         aria-label="Validating"
       />
     </template>
