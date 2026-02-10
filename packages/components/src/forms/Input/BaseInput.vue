@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, nextTick, onMounted, ref, watch } from "vue";
 
 import KdsIcon from "../../Icon/KdsIcon.vue";
 import type { KdsIconName } from "../../Icon/types";
@@ -149,6 +149,8 @@ const modelValue = defineModel<string>({ default: "" });
 
 const isMultiline = computed(() => props.component === "textarea");
 
+const inputElement = ref<HTMLInputElement | HTMLTextAreaElement | null>(null);
+
 const hasValue = computed(() => modelValue.value.length > 0);
 
 const showUnitPlaceholder = computed(
@@ -165,6 +167,29 @@ const handleInput = (event: Event) => {
 const clear = () => {
   modelValue.value = "";
 };
+
+const resizeTextarea = () => {
+  if (!isMultiline.value) {
+    return;
+  }
+
+  const element = inputElement.value;
+  if (!element || element.tagName !== "TEXTAREA") {
+    return;
+  }
+
+  element.style.height = "auto";
+  element.style.height = `${element.scrollHeight}px`;
+};
+
+onMounted(() => {
+  resizeTextarea();
+});
+
+watch([modelValue, isMultiline], async () => {
+  await nextTick();
+  resizeTextarea();
+});
 </script>
 
 <template>
@@ -183,6 +208,7 @@ const clear = () => {
     <component
       :is="props.component"
       :id="props.id"
+      ref="inputElement"
       :value="modelValue"
       :type="!isMultiline ? props.type : undefined"
       :inputmode="props.inputmode"
@@ -272,7 +298,6 @@ const clear = () => {
 
   &.multiline {
     height: auto;
-    padding: 0;
   }
 }
 
@@ -306,13 +331,24 @@ const clear = () => {
   height: var(--kds-dimension-component-height-1-75x);
   padding: var(--kds-spacing-container-0-25x);
   overflow: hidden;
-  text-overflow: ellipsis;
-  font: var(--kds-font-base-interactive-small);
+  font: var(--kds-font-base-body-small);
   color: var(--kds-color-text-and-icon-neutral);
-  white-space: nowrap;
   outline: none;
   background: transparent;
   border: none;
+
+  &:is(input) {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &:is(textarea) {
+    min-height: calc(
+      var(--kds-dimension-component-height-4x) +
+        var(--kds-spacing-container-0-37x)
+    );
+    resize: none;
+  }
 
   /* hide native steppers, we provide our own in NumberInput */
   &[type="number"] {
@@ -341,15 +377,6 @@ const clear = () => {
     &::placeholder {
       color: var(--kds-color-text-and-icon-disabled);
     }
-  }
-
-  .container.multiline & {
-    height: calc(
-      var(--kds-dimension-component-height-4x) +
-        var(--kds-spacing-container-0-5x)
-    );
-    padding: var(--kds-spacing-container-0-5x);
-    overflow: auto;
   }
 }
 
