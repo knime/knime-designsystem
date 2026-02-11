@@ -58,14 +58,12 @@ const preview: Preview = {
     docs: {
       codePanel: true,
     },
-
     controls: {
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
     },
-
     backgrounds: {
       default: "light",
       options: {
@@ -76,7 +74,6 @@ const preview: Preview = {
         dark: { name: "Dark", value: "hsl(0 0% 16%)" },
       },
     },
-
     options: {
       storySort: {
         order: [
@@ -90,7 +87,6 @@ const preview: Preview = {
         ],
       },
     },
-
     a11y: {
       // 'todo' - show accessibility violations in the test UI only
       // 'error' - fail CI on accessibility violations

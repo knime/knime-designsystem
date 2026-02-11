@@ -160,6 +160,14 @@ play: async ({ canvasElement }) => {
 
 - Follow [Figma MCP Integration Rules](./instructions/figma.md).
 
+### Testing
+
+- Vitest for unit tests
+- Test files in `src/**/__tests__/*.test.ts`
+- We want to test as much as possible with Story book tests
+  - story book can cover visual changes for props
+  - unit tests should only cover logic that is internally hidden
+
 ### Migration documentation
 
 - When creating a new component, ask the user if it has an equivalent one in `@knime/components`. If it does, add migration instructions to `.github/agents/wac-to-kds-migrator.md`.
