@@ -87,6 +87,12 @@ const preview: Preview = {
         ],
       },
     },
+    a11y: {
+      // 'todo' - show accessibility violations in the test UI only
+      // 'error' - fail CI on accessibility violations
+      // 'off' - skip accessibility checks entirely
+      test: "todo",
+    },
   },
   decorators: [
     (story, context) => {

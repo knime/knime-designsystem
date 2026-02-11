@@ -1,6 +1,6 @@
-import type { FunctionalComponent } from "vue";
+import { type FunctionalComponent } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { useArgs } from "storybook/internal/preview-api";
+import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
 
 import {
@@ -43,18 +43,13 @@ const meta = {
       return {
         components: { story },
         setup() {
-          const onUpdateModelValue = (value: boolean) => {
-            currentArgs["onUpdate:modelValue"]?.(value);
-            updateArgs({ modelValue: value });
-          };
-
           return {
             args: currentArgs,
-            onUpdateModelValue,
+            updateArgs,
           };
         },
         template:
-          '<story :disabled="args.disabled" :hidden="args.hidden" :title="args.title" :icon="args.icon" :model-value="args.modelValue" v-on="{ \'update:modelValue\': onUpdateModelValue }" />',
+          '<story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" />',
       };
     },
   ],
@@ -70,6 +65,21 @@ export const Default: Story = {
   },
   args: {
     modelValue: false,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button", {
+      name: "Click for more information",
+    });
+
+    // Deterministic start state
+    await expect(button).toHaveAttribute("aria-pressed", "false");
+
+    await userEvent.click(button);
+    await expect(button).toHaveAttribute("aria-pressed", "true");
+
+    await userEvent.click(button);
+    await expect(button).toHaveAttribute("aria-pressed", "false");
   },
 };
 
@@ -168,27 +178,3 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     },
   },
 });
-
-export const Interaction: Story = {
-  parameters: {
-    docs: false,
-  },
-  args: {
-    modelValue: false,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", {
-      name: "Click for more information",
-    });
-
-    // Deterministic start state
-    await expect(button).toHaveAttribute("aria-pressed", "false");
-
-    await userEvent.click(button);
-    await expect(button).toHaveAttribute("aria-pressed", "true");
-
-    await userEvent.click(button);
-    await expect(button).toHaveAttribute("aria-pressed", "false");
-  },
-};

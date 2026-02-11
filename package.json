@@ -18,6 +18,7 @@
     "ci:build": "pnpm run build:components",
     "dev": "pnpm run --filter @knime/kds-documentation storybook",
     "test:unit": "vitest run",
+    "test:storybook": "pnpm run --filter @knime/kds-documentation test:storybook",
     "coverage": "vitest run --coverage",
     "changeset": "pnpm exec changeset",
     "changeset:version": "pnpm exec changeset version",
@@ -37,6 +38,8 @@
     "@tsconfig/node24": "catalog:",
     "@types/jsdom": "catalog:",
     "@types/node": "catalog:",
+    "@storybook/addon-vitest": "catalog:storybook",
+    "@vitest/browser-playwright": "4.0.18",
     "@vitest/coverage-v8": "catalog:vitest",
     "@vue/tsconfig": "catalog:",
     "eslint": "catalog:",
@@ -58,13 +61,16 @@
   "packageManager": "pnpm@10.20.0",
   "pnpm": {
     "overrides": {
+      "esbuild": "0.25.0",
       "lodash@<=4.17.22": "4.17.23",
+      "rollup": "4.46.2",
       "js-yaml@<3.14.2": "3.14.2",
       "js-yaml@>=4.0.0 <4.1.1": "4.1.1",
       "glob@>=10.2.0 <10.5.0": "10.5.0",
       "glob@>=11.0.0 <11.1.0": "11.1.0",
       "expr-eval-fork@<=3.0.0": "3.0.1",
-      "qs@<6.14.1": "6.14.1"
+      "qs@<6.14.1": "6.14.1",
+      "vite": "7.1.11"
     },
     "auditConfig": {
       "ignoreGhsas": [
