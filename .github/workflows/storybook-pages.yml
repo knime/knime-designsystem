@@ -39,7 +39,7 @@ jobs:
       - name: Build Storybook
         env:
           STORYBOOK_BASE_PATH: ${{ github.event_name == 'pull_request' && format('/{0}/pr/{1}/', github.event.repository.name, github.event.pull_request.number) || format('/{0}/', github.event.repository.name) }}
-        run: pnpm --dir documentation build-storybook -- --output-dir storybook-static
+        run: pnpm --dir documentation build-storybook
 
       - name: Deploy PR preview to gh-pages
         if: github.event_name == 'pull_request'
