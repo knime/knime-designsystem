@@ -86,7 +86,6 @@ jobs:
 
             const botComment = comments.find(comment =>
               comment.user.type === 'Bot' &&
-              comment.user.type === 'Bot' && 
               comment.body.includes('Available PR Commands')
             );
 
