@@ -1,7 +1,7 @@
 import type { FunctionalComponent } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/internal/preview-api";
-import { expect, userEvent, within } from "storybook/test";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
@@ -186,9 +186,11 @@ export const Interaction: Story = {
     await expect(button).toHaveAttribute("aria-pressed", "false");
 
     await userEvent.click(button);
-    await expect(button).toHaveAttribute("aria-pressed", "true");
+    await waitFor(() => expect(button).toHaveAttribute("aria-pressed", "true"));
 
     await userEvent.click(button);
-    await expect(button).toHaveAttribute("aria-pressed", "false");
+    await waitFor(() =>
+      expect(button).toHaveAttribute("aria-pressed", "false"),
+    );
   },
 };

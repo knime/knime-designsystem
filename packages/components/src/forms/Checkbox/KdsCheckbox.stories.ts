@@ -433,10 +433,10 @@ export const Interaction: Story = {
 
     await step("Toggle with mouse click", async () => {
       await userEvent.click(checkbox);
-      await waitFor(expect(checkbox).toBeChecked);
+      await waitFor(() => expect(checkbox).toBeChecked());
 
       await userEvent.click(checkbox);
-      await waitFor(expect(checkbox).not.toBeChecked);
+      await waitFor(() => expect(checkbox).not.toBeChecked());
     });
 
     await step("Toggle with keyboard (Space) while focused", async () => {
@@ -444,10 +444,10 @@ export const Interaction: Story = {
       await expect(checkbox).toHaveFocus();
 
       await userEvent.keyboard(" ");
-      await waitFor(expect(checkbox).toBeChecked);
+      await waitFor(() => expect(checkbox).toBeChecked());
 
       await userEvent.keyboard(" ");
-      await waitFor(expect(checkbox).not.toBeChecked);
+      await waitFor(() => expect(checkbox).not.toBeChecked());
     });
   },
 };
