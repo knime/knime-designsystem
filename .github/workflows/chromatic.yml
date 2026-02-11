@@ -13,6 +13,9 @@ jobs:
       issues: write # to react to comments and post comments on the PR
       pull-requests: read # to read PR metadata with pulls.get
     runs-on: ubuntu-latest
+    # Security: This workflow checks out PR code with secrets access.
+    # Mitigations: (1) Rejects forked PRs, (2) Requires trusted commenter (OWNER/MEMBER/COLLABORATOR).
+    # Manual trigger (/chromatic command) provides additional safety vs automatic execution.
     steps:
       - name: Security check
         id: security
