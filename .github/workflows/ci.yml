@@ -90,10 +90,12 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: context.issue.number,
-                body: `## Available PR Commands
-
-            You can trigger additional CI tasks by commenting on this PR:
-
-            - \`/chromatic\` - Run visual regression testing with Chromatic`
+                body: [
+                  '## Available PR Commands',
+                  '',
+                  'You can trigger additional CI tasks by commenting on this PR:',
+                  '',
+                  '- `/chromatic` - Run visual regression testing with Chromatic'
+                ].join('\n')
               });
             }
