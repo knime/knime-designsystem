@@ -1,6 +1,6 @@
 import { type FunctionalComponent, ref } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { useArgs } from "storybook/preview-api";
+import { useArgs } from "@storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
 
 import {

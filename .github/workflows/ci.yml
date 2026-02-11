@@ -47,8 +47,7 @@ jobs:
         run: pnpm run coverage
 
       - name: Install Playwright
-        run: npx playwright install --with-deps
-        working-directory: documentation
+        run: pnpm -C documentation exec playwright install --with-deps
 
       - name: Run storybook tests
         run: pnpm run test:storybook
