@@ -33,7 +33,7 @@ jobs:
       # Chromatic runs automatically on master branch only
       # For PRs, you can trigger it manually by commenting: /chromatic
       - name: Chromatic
-        if: github.event_name != 'pull_request' && github.actor != 'dependabot[bot]'
+        if: github.event_name != 'pull_request' && github.actor != 'dependabot[bot]' && github.actor != 'github-actions[bot]'
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
