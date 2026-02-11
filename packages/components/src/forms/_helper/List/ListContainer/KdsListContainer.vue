@@ -6,7 +6,7 @@ import { KdsListItem } from "../KdsListItem";
 import type { KdsListContainerExpose, KdsListContainerProps } from "./types";
 
 const props = withDefaults(defineProps<KdsListContainerProps>(), {
-  noEntriesText: "",
+  emptyText: "",
 });
 
 const emit = defineEmits<{
@@ -206,7 +206,7 @@ defineExpose<KdsListContainerExpose>({
       aria-selected="false"
       class="kds-list-container-empty"
     >
-      {{ props.noEntriesText }}
+      {{ props.emptyText }}
     </div>
   </div>
 </template>
