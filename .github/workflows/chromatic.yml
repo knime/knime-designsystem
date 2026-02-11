@@ -14,7 +14,48 @@ jobs:
       pull-requests: read # to read PR metadata with pulls.get
     runs-on: ubuntu-latest
     steps:
+      - name: Security check
+        id: security
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Get PR details
+            const pr = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+
+            // Check if PR is from a fork
+            const isFromFork = pr.data.head.repo.full_name !== context.repo.full_name;
+
+            // Check if commenter is trusted (OWNER, MEMBER, or COLLABORATOR)
+            const commenter = context.payload.comment.user.login;
+            const association = context.payload.comment.author_association;
+            const trustedAssociations = ['OWNER', 'MEMBER', 'COLLABORATOR'];
+            const isTrusted = trustedAssociations.includes(association);
+
+            // Deny if from fork or untrusted user
+            if (isFromFork || !isTrusted) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: `❌ Chromatic cannot run for this PR.\n\n` +
+                      `Reason: ${isFromFork ? 'PR is from a forked repository' : 'Insufficient permissions'}.\n\n` +
+                      `For security reasons, Chromatic runs are only allowed for PRs from this repository by trusted collaborators.`
+              });
+              core.setFailed('Security check failed');
+              return;
+            }
+
+            // Store PR details for later steps
+            core.setOutput('ref', pr.data.head.ref);
+            core.setOutput('sha', pr.data.head.sha);
+            core.setOutput('allowed', 'true');
+
       - name: React to comment
+        if: steps.security.outputs.allowed == 'true'
         uses: actions/github-script@v7
         with:
           script: |
@@ -25,38 +66,31 @@ jobs:
               content: 'rocket'
             });
 
-      - name: Get PR branch
-        id: pr
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const pr = await github.rest.pulls.get({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.issue.number
-            });
-            core.setOutput('ref', pr.data.head.ref);
-            core.setOutput('sha', pr.data.head.sha);
-
       - uses: actions/checkout@v6
+        if: steps.security.outputs.allowed == 'true'
         with:
-          ref: ${{ steps.pr.outputs.sha }}
+          ref: ${{ steps.security.outputs.sha }}
           fetch-depth: 0
 
       - uses: pnpm/action-setup@v4
+        if: steps.security.outputs.allowed == 'true'
       - name: Install Node.js
+        if: steps.security.outputs.allowed == 'true'
         uses: actions/setup-node@v6
         with:
           node-version-file: "package.json"
           cache: "pnpm"
 
       - name: Install dependencies
+        if: steps.security.outputs.allowed == 'true'
         run: pnpm install
 
       - name: Build packages
+        if: steps.security.outputs.allowed == 'true'
         run: pnpm run ci:build
 
       - name: Run Chromatic
+        if: steps.security.outputs.allowed == 'true'
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
@@ -67,7 +101,7 @@ jobs:
           externals: "packages/styles/src/(tokens|css)/**"
 
       - name: Comment result
-        if: always()
+        if: steps.security.outputs.allowed == 'true' && always()
         uses: actions/github-script@v7
         with:
           script: |
