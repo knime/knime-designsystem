@@ -48,6 +48,7 @@ jobs:
 
       - name: Install Playwright
         run: npx playwright install --with-deps
+        working-directory: documentation
 
       - name: Run storybook tests
         run: pnpm run test:storybook
