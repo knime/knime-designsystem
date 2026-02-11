@@ -1,5 +1,17 @@
 import type { StorybookConfig } from "@storybook/vue3-vite";
 
+const resolveStorybookBasePath = () => {
+  const proc = (
+    globalThis as unknown as {
+      process?: { env?: Record<string, string | undefined> };
+    }
+  ).process;
+
+  return proc?.env?.STORYBOOK_BASE_PATH ?? "/";
+};
+
+const storybookBasePath = resolveStorybookBasePath();
+
 const config: StorybookConfig = {
   stories: [
     "../stories/**/*.mdx",
@@ -20,5 +32,10 @@ const config: StorybookConfig = {
     name: "@storybook/vue3-vite",
     options: {},
   },
+  managerHead: (head) =>
+    head.replaceAll("%STORYBOOK_BASE_PATH%", storybookBasePath),
+  previewHead: (head) =>
+    head.replaceAll("%STORYBOOK_BASE_PATH%", storybookBasePath),
 };
+
 export default config;
