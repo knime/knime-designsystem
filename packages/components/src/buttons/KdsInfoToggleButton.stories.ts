@@ -1,4 +1,4 @@
-import { type FunctionalComponent, ref } from "vue";
+import { type FunctionalComponent } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
@@ -65,6 +65,21 @@ export const Default: Story = {
   },
   args: {
     modelValue: false,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button", {
+      name: "Click for more information",
+    });
+
+    // Deterministic start state
+    await expect(button).toHaveAttribute("aria-pressed", "false");
+
+    await userEvent.click(button);
+    await expect(button).toHaveAttribute("aria-pressed", "true");
+
+    await userEvent.click(button);
+    await expect(button).toHaveAttribute("aria-pressed", "false");
   },
 };
 
@@ -163,40 +178,3 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     },
   },
 });
-
-export const Interaction: Story = {
-  parameters: {
-    docs: false,
-  },
-  args: {
-    modelValue: false,
-  },
-  render: (args) => ({
-    components: { KdsInfoToggleButton },
-    setup() {
-      const modelValue = ref(args.modelValue ?? false);
-      const { modelValue: _modelValue, ...rest } = args;
-
-      return {
-        modelValue,
-        rest,
-      };
-    },
-    template: '<KdsInfoToggleButton v-bind="rest" v-model="modelValue" />',
-  }),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", {
-      name: "Click for more information",
-    });
-
-    // Deterministic start state
-    await expect(button).toHaveAttribute("aria-pressed", "false");
-
-    await userEvent.click(button);
-    await expect(button).toHaveAttribute("aria-pressed", "true");
-
-    await userEvent.click(button);
-    await expect(button).toHaveAttribute("aria-pressed", "false");
-  },
-};
