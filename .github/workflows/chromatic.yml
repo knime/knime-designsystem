@@ -29,7 +29,8 @@ jobs:
             });
 
             // Check if PR is from a fork
-            const isFromFork = pr.data.head.repo?.full_name !== context.repo.full_name || !pr.data.head.repo;
+            const baseRepoFullName = context.payload.repository?.full_name ?? `${context.repo.owner}/${context.repo.repo}`;
+            const isFromFork = pr.data.head.repo?.full_name !== baseRepoFullName || !pr.data.head.repo;
 
             // Check if commenter is trusted (OWNER, MEMBER, or COLLABORATOR)
             const commenter = context.payload.comment.user.login;
