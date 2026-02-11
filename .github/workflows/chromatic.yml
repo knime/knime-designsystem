@@ -103,6 +103,8 @@ jobs:
           autoAcceptChanges: true # can be changed to false later when run manually on PRs
           onlyChanged: true
           externals: "packages/styles/src/(tokens|css)/**"
+          branchName: ${{ steps.security.outputs.ref }}
+          forceRebuild: true # Force rebuild even if commit was already built
 
       - name: Comment result
         if: steps.security.outputs.allowed == 'true' && always()
