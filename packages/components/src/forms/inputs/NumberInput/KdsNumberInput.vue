@@ -6,6 +6,8 @@ import BaseFormFieldWrapper from "../../BaseFormFieldWrapper.vue";
 import BaseInput from "../BaseInput.vue";
 import type { KdsNumberInputProps } from "../types";
 
+import { createKdsNumberParser } from "./numberParser";
+
 const props = withDefaults(defineProps<KdsNumberInputProps>(), {
   disabled: false,
   readonly: false,
@@ -30,18 +32,24 @@ const isFocused = ref(false);
  */
 const localValue = ref<string>("");
 
-const formatForDisplay = (value: number) => {
-  return Number.isFinite(value) ? `${value}` : "";
-};
+const locale = computed(() => globalThis.navigator?.language || "en-US");
 
-const parseFromInput = (value: string) => {
-  const trimmed = value.trim();
-  if (trimmed.length === 0) {
-    return NaN;
+const numberParser = computed(() =>
+  createKdsNumberParser({ locale: locale.value, step: props.step }),
+);
+
+const ariaValuenow = computed(() =>
+  Number.isFinite(modelValue.value) ? modelValue.value : undefined,
+);
+
+const ariaValuetext = computed(() => {
+  if (!Number.isFinite(modelValue.value)) {
+    return undefined;
   }
-  const parsed = Number.parseFloat(trimmed);
-  return Number.isFinite(parsed) ? parsed : NaN;
-};
+
+  // Keep the spoken feedback localized (decimal separator etc.).
+  return numberParser.value.formatForDisplay(modelValue.value);
+});
 
 const clamp = (value: number) => {
   if (!Number.isFinite(value)) {
@@ -67,7 +75,7 @@ watch(
     if (isFocused.value) {
       return;
     }
-    localValue.value = formatForDisplay(next);
+    localValue.value = numberParser.value.formatForDisplay(next);
   },
   { immediate: true },
 );
@@ -104,26 +112,6 @@ const canIncrease = computed(() => {
   return modelValue.value < props.max;
 });
 
-const roundToStep = (value: number) => {
-  if (!Number.isFinite(value)) {
-    return NaN;
-  }
-
-  // Avoid floating point artifacts when working with decimal steps.
-  const step = props.step;
-  const precision = Math.max(0, (step.toString().split(".")[1] ?? "").length);
-  const factor = Number(`1e${precision}`);
-
-  const scaledNext = Math.round(value * factor);
-  const scaledStep = Math.round(step * factor);
-  if (scaledStep === 0) {
-    return value;
-  }
-
-  const roundedScaled = Math.round(scaledNext / scaledStep) * scaledStep;
-  return roundedScaled / factor;
-};
-
 const adjustByStep = (direction: -1 | 1) => {
   if (props.step <= 0) {
     return;
@@ -131,15 +119,15 @@ const adjustByStep = (direction: -1 | 1) => {
 
   const base = Number.isFinite(modelValue.value)
     ? modelValue.value
-    : parseFromInput(localValue.value);
+    : numberParser.value.parseFromInput(localValue.value);
 
   const nextRaw = Number.isFinite(base) ? base + direction * props.step : 0;
   // Round due to precision issues that can arise when adding steps to certain numbers, e.g. 0.1 + 0.1 + 0.1.
-  const rounded = roundToStep(nextRaw);
+  const rounded = numberParser.value.roundToStep(nextRaw);
   const next = clamp(rounded);
 
   modelValue.value = next;
-  localValue.value = formatForDisplay(next);
+  localValue.value = numberParser.value.formatForDisplay(next);
 };
 
 const handleKeydown = (event: KeyboardEvent) => {
@@ -160,24 +148,18 @@ const handleKeydown = (event: KeyboardEvent) => {
 
 const handleUpdateModelValue = (value: string) => {
   localValue.value = value;
-  modelValue.value = parseFromInput(value);
+  modelValue.value = numberParser.value.parseFromInput(value);
 };
 
-const handleBlur = (event: FocusEvent) => {
+const handleBlur = () => {
   isFocused.value = false;
 
   // Normalize, round to step, and clamp only when leaving the field.
-  const parsed = parseFromInput(localValue.value);
+  const parsed = numberParser.value.parseFromInput(localValue.value);
   const normalized = clamp(parsed);
 
   modelValue.value = normalized;
-  localValue.value = formatForDisplay(normalized);
-
-  // Also force the native input to normalize its internal value.
-  const target = event.target as HTMLInputElement | null;
-  if (target) {
-    target.valueAsNumber = normalized;
-  }
+  localValue.value = numberParser.value.formatForDisplay(normalized);
 };
 </script>
 
@@ -187,7 +169,7 @@ const handleBlur = (event: FocusEvent) => {
       <BaseInput
         v-bind="slotProps"
         :model-value="localValue"
-        type="number"
+        type="text"
         :inputmode="props.step >= 1 ? 'numeric' : 'decimal'"
         :placeholder="props.placeholder"
         :disabled="props.disabled"
@@ -196,10 +178,12 @@ const handleBlur = (event: FocusEvent) => {
         :error="props.error"
         :name="props.name"
         :autocomplete="props.autocomplete"
-        :min="props.min"
-        :max="props.max"
-        :step="props.step"
         :unit="props.unit"
+        role="spinbutton"
+        :aria-valuenow="ariaValuenow"
+        :aria-valuemin="props.min"
+        :aria-valuemax="props.max"
+        :aria-valuetext="ariaValuetext"
         @update:model-value="handleUpdateModelValue"
         @keydown="handleKeydown"
         @focus="isFocused = true"

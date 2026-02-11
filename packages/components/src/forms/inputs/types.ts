@@ -47,6 +47,8 @@ export type KdsNumberInputProps = KdsInputFieldProps & {
   /**
    * Step size used for +/- buttons and arrow key increments.
    * Must be a positive number greater than 0.
+   *
+   * Scientific notation (e.g. `1e-3`) is supported.
    */
   step?: number;
 };
