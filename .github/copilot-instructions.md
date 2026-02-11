@@ -117,6 +117,44 @@ packages/
 - ALWAYS add a story **DesignComparator**: Use `buildDesignComparatorStory()` from `test-utils/storybook` with Figma URLs + node IDs. Make sure to include all variants shown in Figma. Do use the node id of the exact component usage (without potential wrapping explanations). Also include variants for different states (hover, focus, disabled) if applicable via `parameters: { pseudo: { hover: true } }`. Exclude DesignComparator story from visual regression tests via `parameters: { chromatic: { disableSnapshot: true } }`.
 - ALWAYS add a story **TextOverflow**: Use `buildTextOverflowStory()` from `test-utils/storybook` and provide long text to test text overflow behavior
 
+#### Storybook Play Test Auto-Waiting
+
+Use proper auto-waiting in Storybook play tests. **Never** use manual `setTimeout`, polling loops, or `waitFor` unless absolutely necessary.
+
+**Imports**: Use `import { expect, userEvent, within } from "storybook/test";`
+
+**Key rules**:
+
+- Always `await userEvent.*()` for interactions - it waits for events to complete
+- `await expect(...).toBeInTheDocument()` auto-retries until the assertion passes or times out
+- Use `findBy*` (async) for elements that appear **after** a state change (e.g., after a click triggers re-render)
+- Use `getBy*` (sync) for elements that are **already present** in the DOM
+- Always use `within(canvasElement)` to scope queries to the story canvas
+
+**Example**:
+
+```typescript
+play: async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  // Element already exists - use getBy*
+  const input = canvas.getByRole("textbox", { name: "Email" });
+  await userEvent.type(input, "test@example.com");
+
+  await userEvent.click(canvas.getByRole("button", { name: "Submit" }));
+
+  // Element appears after submit - use findBy* (auto-waits)
+  const success = await canvas.findByText(/success/i);
+  await expect(success).toBeInTheDocument();
+};
+```
+
+**Common patterns**:
+
+- After clicking a toggle: `await canvas.findByRole("button", { name: "New Label" })` to wait for label change
+- After clearing input (clear button disappears): click the next element directly instead of relying on tab order
+- To reset focus for tab navigation tests: `element.blur()` then `await userEvent.tab()`
+
 ### Figma Integration (when implementing from Figma)
 
 - Follow [Figma MCP Integration Rules](./instructions/figma.md).

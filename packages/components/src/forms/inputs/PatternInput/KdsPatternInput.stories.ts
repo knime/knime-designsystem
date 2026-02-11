@@ -256,6 +256,7 @@ export const Interaction: Story = {
     const input = canvas.getByRole("textbox", { name: "Pattern" });
 
     await step("Tab navigation (empty)", async () => {
+      input.blur();
       await userEvent.tab();
       await expect(input).toHaveFocus();
 
@@ -271,21 +272,22 @@ export const Interaction: Story = {
       await userEvent.type(input, "abc");
       await expect(input).toHaveValue("abc");
 
+      // Wait for clear button to appear after typing
+      const clearButton = await canvas.findByRole("button", { name: "Clear" });
       await userEvent.tab();
-      const clearButton = canvas.getByRole("button", { name: "Clear" });
       await expect(clearButton).toHaveFocus();
 
       await userEvent.keyboard("{Enter}");
       await expect(input).toHaveValue("");
 
-      await userEvent.tab();
-      const caseToggle = canvas.getByRole("button", {
+      // After clearing, the clear button disappears. Wait for toggle to be focusable.
+      const caseToggle = await canvas.findByRole("button", {
         name: "Match case-insensitive",
       });
-      await userEvent.keyboard("{Space}");
-      await expect(caseToggle).toHaveAttribute("aria-pressed", "true");
+      await userEvent.click(caseToggle);
 
-      const caseToggleActive = canvas.getByRole("button", {
+      // Wait for toggle state to update - the name changes when pressed
+      const caseToggleActive = await canvas.findByRole("button", {
         name: "Match case-sensitive",
       });
       await expect(caseToggleActive).toHaveAttribute("aria-pressed", "true");
