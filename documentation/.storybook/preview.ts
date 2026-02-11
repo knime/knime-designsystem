@@ -58,12 +58,14 @@ const preview: Preview = {
     docs: {
       codePanel: true,
     },
+
     controls: {
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
     },
+
     backgrounds: {
       default: "light",
       options: {
@@ -74,6 +76,7 @@ const preview: Preview = {
         dark: { name: "Dark", value: "hsl(0 0% 16%)" },
       },
     },
+
     options: {
       storySort: {
         order: [
@@ -86,6 +89,13 @@ const preview: Preview = {
           "Styling and Theming",
         ],
       },
+    },
+
+    a11y: {
+      // 'todo' - show a11y violations in the test UI only
+      // 'error' - fail CI on a11y violations
+      // 'off' - skip a11y checks entirely
+      test: "todo",
     },
   },
   decorators: [
