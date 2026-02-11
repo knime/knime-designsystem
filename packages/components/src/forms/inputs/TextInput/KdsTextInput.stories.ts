@@ -317,6 +317,7 @@ export const Interaction: Story = {
     });
 
     await step("Tab focus", async () => {
+      input.blur();
       await userEvent.tab();
       await expect(input).toHaveFocus();
     });

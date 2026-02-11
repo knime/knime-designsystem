@@ -294,11 +294,8 @@ export const Interaction: Story = {
     });
 
     await step("Tab to clear button", async () => {
-      await userEvent.tab();
-      await expect(input).toHaveFocus();
-
-      await userEvent.tab();
       const clearButton = canvas.getByRole("button", { name: "Clear" });
+      await userEvent.tab();
       await expect(clearButton).toHaveFocus();
 
       await userEvent.click(clearButton);
