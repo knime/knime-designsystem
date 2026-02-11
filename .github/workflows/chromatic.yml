@@ -93,6 +93,7 @@ jobs:
         run: pnpm run ci:build
 
       - name: Run Chromatic
+        id: chromatic
         if: steps.security.outputs.allowed == 'true'
         uses: chromaui/action@latest
         with:
@@ -110,7 +111,12 @@ jobs:
           script: |
             const status = '${{ job.status }}';
             const emoji = status === 'success' ? '✅' : '❌';
-            const message = `${emoji} Chromatic run ${status}`;
+            const storybookUrl = '${{ steps.chromatic.outputs.storybookUrl }}';
+
+            let message = `${emoji} Chromatic run ${status}`;
+            if (status === 'success' && storybookUrl) {
+              message += `\n\n📚 [View Storybook](${storybookUrl})`;
+            }
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,
