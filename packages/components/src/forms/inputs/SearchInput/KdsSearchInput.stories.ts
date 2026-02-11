@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
@@ -118,13 +118,29 @@ const meta: Meta<typeof KdsSearchInput> = {
       return {
         components: { story },
         setup() {
+          const localModelValue = ref(currentArgs.modelValue);
+
+          watch(
+            () => currentArgs.modelValue,
+            (newValue) => {
+              localModelValue.value = newValue;
+            },
+          );
+
+          const onModelValueUpdate = (value: string) => {
+            localModelValue.value = value;
+            updateArgs({ modelValue: value });
+          };
+
           return {
             args: currentArgs,
             updateArgs,
+            localModelValue,
+            onModelValueUpdate,
           };
         },
         template:
-          '<story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" />',
+          '<story v-bind="args" :model-value="localModelValue" @update:model-value="onModelValueUpdate" />',
       };
     },
   ],
@@ -326,11 +342,31 @@ export const Interaction: Story = {
     subText: "",
     preserveSubTextSpace: false,
   },
+  render: (args) => ({
+    components: { KdsSearchInput },
+    setup() {
+      const { modelValue: initialModelValue, ...rest } = args;
+      const localModelValue = ref(initialModelValue);
+
+      watch(
+        () => args.modelValue,
+        (newValue) => {
+          localModelValue.value = newValue;
+        },
+      );
+
+      return {
+        rest,
+        localModelValue,
+      };
+    },
+    template: '<KdsSearchInput v-bind="rest" v-model="localModelValue" />',
+  }),
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByRole("searchbox", { name: "Search" });
 
-    await step("Type into the input", async () => {
+    await step("Clear via the clear button", async () => {
       await userEvent.click(input);
       await userEvent.type(input, "Searchterm");
       await expect(input).toHaveValue("Searchterm");
@@ -339,7 +375,9 @@ export const Interaction: Story = {
     await step(
       "Tab to clear button and clear while keeping focus on the input",
       async () => {
-        const clearButton = canvas.getByRole("button", { name: "Clear" });
+        const clearButton = await canvas.findByRole("button", {
+          name: "Clear",
+        });
         await userEvent.tab();
         await expect(clearButton).toHaveFocus();
 

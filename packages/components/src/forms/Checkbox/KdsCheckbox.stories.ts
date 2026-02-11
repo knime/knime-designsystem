@@ -1,6 +1,7 @@
+import { ref } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
-import { expect, userEvent, waitFor, within } from "storybook/test";
+import { expect, userEvent, within } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
@@ -425,18 +426,31 @@ export const Interaction: Story = {
     error: false,
     preserveSubTextSpace: false,
   },
+  render: (args) => ({
+    components: { KdsCheckbox },
+    setup() {
+      const { modelValue: _modelValue, ...rest } = args;
+      const modelValue = ref(_modelValue ?? false);
+
+      return {
+        modelValue,
+        rest,
+      };
+    },
+    template: '<KdsCheckbox v-bind="rest" v-model="modelValue" />',
+  }),
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
     const checkbox = canvas.getByRole("checkbox", { name: "Label" });
 
-    expect(checkbox).not.toBeChecked();
+    await expect(checkbox).not.toBeChecked();
 
     await step("Toggle with mouse click", async () => {
       await userEvent.click(checkbox);
-      await waitFor(expect(checkbox).toBeChecked);
+      await expect(checkbox).toBeChecked();
 
       await userEvent.click(checkbox);
-      await waitFor(expect(checkbox).not.toBeChecked);
+      await expect(checkbox).not.toBeChecked();
     });
 
     await step("Toggle with keyboard (Space) while focused", async () => {
@@ -444,10 +458,10 @@ export const Interaction: Story = {
       await expect(checkbox).toHaveFocus();
 
       await userEvent.keyboard(" ");
-      await waitFor(expect(checkbox).toBeChecked);
+      await expect(checkbox).toBeChecked();
 
       await userEvent.keyboard(" ");
-      await waitFor(expect(checkbox).not.toBeChecked);
+      await expect(checkbox).not.toBeChecked();
     });
   },
 };

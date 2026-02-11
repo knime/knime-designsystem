@@ -13,6 +13,7 @@ const config: StorybookConfig = {
     "@storybook/addon-links",
     "@storybook/addon-themes",
     "@storybook/addon-docs",
+    "@storybook/addon-vitest",
     "@storybook-community/storybook-dark-mode",
     "storybook-addon-pseudo-states",
   ],
