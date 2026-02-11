@@ -1,7 +1,7 @@
-import type { FunctionalComponent } from "vue";
+import { type FunctionalComponent, ref } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { useArgs } from "storybook/internal/preview-api";
-import { expect, userEvent, waitFor, within } from "storybook/test";
+import { useArgs } from "storybook/preview-api";
+import { expect, userEvent, within } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
@@ -43,18 +43,13 @@ const meta = {
       return {
         components: { story },
         setup() {
-          const onUpdateModelValue = (value: boolean) => {
-            currentArgs["onUpdate:modelValue"]?.(value);
-            updateArgs({ modelValue: value });
-          };
-
           return {
             args: currentArgs,
-            onUpdateModelValue,
+            updateArgs,
           };
         },
         template:
-          '<story :disabled="args.disabled" :hidden="args.hidden" :title="args.title" :icon="args.icon" :model-value="args.modelValue" v-on="{ \'update:modelValue\': onUpdateModelValue }" />',
+          '<story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" />',
       };
     },
   ],
@@ -176,6 +171,19 @@ export const Interaction: Story = {
   args: {
     modelValue: false,
   },
+  render: (args) => ({
+    components: { KdsInfoToggleButton },
+    setup() {
+      const modelValue = ref(args.modelValue ?? false);
+      const { modelValue: _modelValue, ...rest } = args;
+
+      return {
+        modelValue,
+        rest,
+      };
+    },
+    template: '<KdsInfoToggleButton v-bind="rest" v-model="modelValue" />',
+  }),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const button = canvas.getByRole("button", {
@@ -186,11 +194,9 @@ export const Interaction: Story = {
     await expect(button).toHaveAttribute("aria-pressed", "false");
 
     await userEvent.click(button);
-    await waitFor(() => expect(button).toHaveAttribute("aria-pressed", "true"));
+    await expect(button).toHaveAttribute("aria-pressed", "true");
 
     await userEvent.click(button);
-    await waitFor(() =>
-      expect(button).toHaveAttribute("aria-pressed", "false"),
-    );
+    await expect(button).toHaveAttribute("aria-pressed", "false");
   },
 };

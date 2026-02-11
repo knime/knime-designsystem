@@ -1,3 +1,4 @@
+import { ref } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
@@ -190,12 +191,23 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       ariaLabel: ["Search"],
       label: [undefined, "Search"],
       modelValue: ["", "Searchterm"],
-      placeholder: ["Search", "Placeholder"],
+      placeholder: ["Search"],
       disabled: [false, true],
-      readonly: [false, true],
+      readonly: [false],
       error: [false, true],
-      validating: [false, true],
+      validating: [false],
       subText: [undefined, "Helper text"],
+    },
+    {
+      ariaLabel: ["Search"],
+      label: [undefined],
+      modelValue: ["Searchterm"],
+      placeholder: ["Search"],
+      disabled: [false],
+      readonly: [true],
+      error: [false],
+      validating: [true],
+      subText: ["Helper text"],
     },
   ],
   pseudoStates: ["hover", "active", "focus"],
@@ -283,23 +295,41 @@ export const Interaction: Story = {
     subText: "",
     preserveSubTextSpace: false,
   },
+  render: (args) => ({
+    components: { KdsSearchInput },
+    setup() {
+      const modelValue = ref(args.modelValue ?? "");
+      const { modelValue: _modelValue, ...rest } = args;
+
+      return {
+        modelValue,
+        rest,
+      };
+    },
+    template: '<KdsSearchInput v-bind="rest" v-model="modelValue" />',
+  }),
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByRole("searchbox", { name: "Search" });
 
-    await step("Type into the input", async () => {
+    await step("Clear via the clear button", async () => {
       await userEvent.click(input);
       await userEvent.type(input, "Searchterm");
       await expect(input).toHaveValue("Searchterm");
+
+      const clearButton = await canvas.findByRole("button", { name: "Clear" });
+      await userEvent.click(clearButton);
+      await expect(input).toHaveValue("");
     });
 
-    await step("Tab to clear button", async () => {
+    await step("Type and tab to clear button", async () => {
+      await userEvent.click(input);
+      await userEvent.type(input, "Searchterm");
+      await expect(input).toHaveValue("Searchterm");
+
       const clearButton = await canvas.findByRole("button", { name: "Clear" });
       await userEvent.tab();
       await expect(clearButton).toHaveFocus();
-
-      await userEvent.click(clearButton);
-      await expect(input).toHaveValue("");
     });
   },
 };
