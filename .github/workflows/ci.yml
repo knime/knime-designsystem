@@ -46,6 +46,9 @@ jobs:
       - name: Run coverage
         run: pnpm run coverage
 
+      - name: Run storybook tests
+        run: pnpm run test:storybook
+
       - name: Check if audit and sonar scans are needed (can be skipped for only tokens/icons changes)
         id: check-changes
         run: |
