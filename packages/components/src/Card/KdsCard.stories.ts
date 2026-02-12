@@ -22,7 +22,10 @@ const meta: Meta<typeof KdsCard> = {
           "A clickable card component that provides a container with different visual styles (filled, outlined, transparent) to hold content. " +
           "The card can be selectable, allowing users to toggle between selected and unselected states, or it can emit click events when not selectable. " +
           "The card supports hover, active, and focus-visible states to provide visual feedback to users. " +
-          "The component includes proper ARIA attributes (aria-pressed, aria-disabled) for accessibility.",
+          "The component includes proper ARIA attributes (aria-pressed, aria-disabled) for accessibility.\n\n" +
+          "**Handling Interactive Elements**: When placing interactive elements (like buttons) inside the card, wrap them in a div with `@mousedown.stop.prevent` " +
+          "to prevent the card's `:active` CSS state from being triggered. Additionally, add `@click.stop` to the interactive element itself to prevent the click event " +
+          "from bubbling up to the card (which would toggle the selected state or emit the click event).",
       },
     },
     design: {
@@ -102,7 +105,9 @@ const meta: Meta<typeof KdsCard> = {
         <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px;">
           <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-default);">Demo for Storybook</div>
           <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-default);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
+          <!-- Wrap interactive elements with @mousedown.stop.prevent to prevent card's :active state -->
           <div @mousedown.stop.prevent>
+            <!-- Use @click.stop to prevent event bubbling to card (prevents selection toggle/click emit) -->
             <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click.stop="handleButtonClick"></KdsButton>
           </div>
         </div>
@@ -178,7 +183,9 @@ export const AllVariants: Story = {
           <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px; width: 413px;">
             <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-default);">Demo for Storybook</div>
             <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-default);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
+            <!-- Wrap interactive elements with @mousedown.stop.prevent to prevent card's :active state -->
             <div @mousedown.stop.prevent>
+              <!-- Use @click.stop to prevent event bubbling to card (prevents selection toggle/click emit) -->
               <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click.stop="onButtonClick"></KdsButton>
             </div>
           </div>
@@ -201,7 +208,9 @@ const CardWithContent = {
       <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px; width: 413px">
         <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-default);">Demo for Storybook</div>
         <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-default);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
+        <!-- Wrap interactive elements with @mousedown.stop.prevent to prevent card's :active state -->
         <div @mousedown.stop.prevent>
+          <!-- Use @click.stop to prevent event bubbling to card (prevents selection toggle/click emit) -->
           <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click.stop="onButtonClick"></KdsButton>
         </div>
       </div>
@@ -392,7 +401,9 @@ export const TextOverflow: Story = {
           <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px;">
             <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-default);">Demo for Storybook</div>
             <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-default);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
+            <!-- Wrap interactive elements with @mousedown.stop.prevent to prevent card's :active state -->
             <div @mousedown.stop.prevent>
+              <!-- Use @click.stop to prevent event bubbling to card (prevents selection toggle/click emit) -->
               <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click.stop="onButtonClick"></KdsButton>
             </div>
           </div>
@@ -404,7 +415,9 @@ export const TextOverflow: Story = {
             <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px;">
               <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-default);">Demo for Storybook</div>
               <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-default);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
+              <!-- Wrap interactive elements with @mousedown.stop.prevent to prevent card's :active state -->
               <div @mousedown.stop.prevent>
+                <!-- Use @click.stop to prevent event bubbling to card (prevents selection toggle/click emit) -->
                 <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click.stop="onButtonClick"></KdsButton>
               </div>
             </div>
