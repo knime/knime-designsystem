@@ -155,21 +155,17 @@ const handleInput = (event: Event) => {
   emit("input", event);
 };
 
-const clear = () => {
-  modelValue.value = "";
-};
-
 const focusInput = () => {
   inputRef.value?.focus();
 };
 
 const clearAndFocusInput = () => {
-  clear();
+  modelValue.value = "";
   focusInput();
 };
 
 const handleContainerClick = (event: MouseEvent) => {
-  if (event.detail === 0) {
+  if (event.clientX === 0 && event.clientY === 0) {
     // Keyboard-initiated click (e.g. Enter/Space on a focused button)
     return;
   }
