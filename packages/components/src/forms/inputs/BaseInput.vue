@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 
 import KdsIcon from "../../accessories/Icon/KdsIcon.vue";
 import type { KdsIconName } from "../../accessories/Icon/types";
@@ -140,6 +140,8 @@ const emit = defineEmits<BaseInputEmits>();
 
 const modelValue = defineModel<string>({ default: "" });
 
+const inputRef = ref<HTMLInputElement | null>(null);
+
 const hasValue = computed(() => modelValue.value.length > 0);
 
 const showUnitPlaceholder = computed(
@@ -153,8 +155,22 @@ const handleInput = (event: Event) => {
   emit("input", event);
 };
 
-const clear = () => {
+const focusInput = () => {
+  inputRef.value?.focus();
+};
+
+const clearAndFocusInput = () => {
   modelValue.value = "";
+  focusInput();
+};
+
+const handleContainerClick = (event: MouseEvent) => {
+  if (event.clientX === 0 && event.clientY === 0) {
+    // Keyboard-initiated click (e.g. Enter/Space on a focused button)
+    return;
+  }
+
+  focusInput();
 };
 </script>
 
@@ -165,6 +181,7 @@ const clear = () => {
       error: props.error,
       disabled: props.disabled,
     }"
+    @click="handleContainerClick"
   >
     <div v-if="props.leadingIcon" class="icon-wrapper leading">
       <KdsIcon v-if="props.leadingIcon" :name="props.leadingIcon" />
@@ -172,6 +189,7 @@ const clear = () => {
 
     <input
       :id="props.id"
+      ref="inputRef"
       :value="modelValue"
       :type="props.type"
       :inputmode="props.inputmode"
@@ -216,7 +234,7 @@ const clear = () => {
       leading-icon="x-close"
       aria-label="Clear"
       title="Clear"
-      @click="clear"
+      @click.stop="clearAndFocusInput"
     />
 
     <div v-if="$slots.trailing" class="trailing-slot">
@@ -236,6 +254,7 @@ const clear = () => {
   width: 100%;
   height: var(--kds-dimension-component-height-1-75x);
   padding: 0 var(--kds-spacing-container-0-25x);
+  cursor: text;
   background: var(--kds-color-background-input-initial);
   border: var(--kds-border-action-input);
   border-radius: var(--kds-border-radius-container-0-37x);
@@ -254,6 +273,7 @@ const clear = () => {
   }
 
   &.disabled {
+    cursor: default;
     border: var(--kds-border-action-disabled);
     border-color: var(--kds-color-border-disabled);
   }
@@ -275,6 +295,7 @@ const clear = () => {
 
   .container.disabled & {
     color: var(--kds-color-text-and-icon-disabled);
+    cursor: default;
   }
 
   .container:focus-within &,

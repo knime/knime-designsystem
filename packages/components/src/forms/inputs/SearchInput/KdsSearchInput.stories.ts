@@ -20,7 +20,7 @@ const meta: Meta<typeof KdsSearchInput> = {
     docs: {
       description: {
         component:
-          "A search input field component with built-in search icon and optional clear button. " +
+          "A search input field component with built-in search icon and a clear button that appears when the input has a value. " +
           "Supports validation states, helper/error text, and keyboard accessible clearing.",
       },
     },
@@ -293,13 +293,17 @@ export const Interaction: Story = {
       await expect(input).toHaveValue("Searchterm");
     });
 
-    await step("Tab to clear button", async () => {
-      const clearButton = canvas.getByRole("button", { name: "Clear" });
-      await userEvent.tab();
-      await expect(clearButton).toHaveFocus();
+    await step(
+      "Tab to clear button and clear while keeping focus on the input",
+      async () => {
+        const clearButton = canvas.getByRole("button", { name: "Clear" });
+        await userEvent.tab();
+        await expect(clearButton).toHaveFocus();
 
-      await userEvent.click(clearButton);
-      await expect(input).toHaveValue("");
-    });
+        await userEvent.click(clearButton);
+        await expect(input).toHaveValue("");
+        await expect(input).toHaveFocus();
+      },
+    );
   },
 };
