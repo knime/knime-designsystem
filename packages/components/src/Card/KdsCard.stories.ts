@@ -25,7 +25,10 @@ const meta: Meta<typeof KdsCard> = {
           "The component includes proper ARIA attributes (aria-pressed, aria-disabled) for accessibility.\n\n" +
           "**Handling Interactive Elements**: When placing interactive elements (like buttons) inside the card, wrap them in a div with `@mousedown.stop.prevent` " +
           "to prevent the card's `:active` CSS state from being triggered. Additionally, add `@click.stop` to the interactive element itself to prevent the click event " +
-          "from bubbling up to the card (which would toggle the selected state or emit the click event).",
+          "from bubbling up to the card (which would toggle the selected state or emit the click event).\n\n" +
+          "**Prop Usage in Wrapper Components**: Due to TypeScript limitations with discriminated unions in Vue templates, when creating wrapper components that forward props, " +
+          'you must use `v-bind` with a properly typed object. Direct prop binding (`:aria-label="..."`) will cause type errors. ' +
+          "See the type documentation for examples.",
       },
     },
     design: {
