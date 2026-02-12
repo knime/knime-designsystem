@@ -23,4 +23,16 @@ export type KdsPopoverProps = {
    * Where the popover should be positioned relative to its anchor.
    */
   placement?: KdsPopoverPlacement;
+
+  /**
+   * Role of the popover element (for accessibility).
+   *
+   * Defaults to "dialog".
+   */
+  role?: "dialog" | "menu" | "listbox" | "tooltip";
+
+  /**
+   * When true, enforces the popover's minimum width to match the anchor element's width.
+   */
+  fullWidth?: boolean;
 };
