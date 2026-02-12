@@ -140,7 +140,7 @@ const emit = defineEmits<BaseInputEmits>();
 
 const modelValue = defineModel<string>({ default: "" });
 
-const inputRef = ref<HTMLInputElement>();
+const inputRef = ref<HTMLInputElement | null>(null);
 
 const hasValue = computed(() => modelValue.value.length > 0);
 
@@ -234,7 +234,7 @@ const handleContainerClick = (event: MouseEvent) => {
       leading-icon="x-close"
       aria-label="Clear"
       title="Clear"
-      @click="clearAndFocusInput"
+      @click.stop="clearAndFocusInput"
     />
 
     <div v-if="$slots.trailing" class="trailing-slot">
