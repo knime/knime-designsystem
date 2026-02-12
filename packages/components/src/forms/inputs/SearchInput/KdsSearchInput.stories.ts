@@ -308,7 +308,19 @@ export const Interaction: Story = {
 
     await step("Click the search icon focuses the input", async () => {
       input.blur();
-      await userEvent.click(canvas.getByRole("img", { hidden: true }));
+
+      // Click on the leading icon area (search icon) - it should focus the input.
+      const container = input.closest(".container");
+      if (!container) {
+        throw new Error("Expected input to be wrapped in .container");
+      }
+
+      const iconWrapper = container.querySelector(".icon-wrapper.leading");
+      if (!(iconWrapper instanceof HTMLElement)) {
+        throw new Error("Expected a leading icon wrapper");
+      }
+
+      await userEvent.click(iconWrapper);
       await expect(input).toHaveFocus();
     });
   },
