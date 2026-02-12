@@ -3,9 +3,11 @@ export { default as KdsIcon } from "./Icon/KdsIcon.vue";
 export { default as KdsDataType } from "./Icon/KdsDataType.vue";
 export { default as KdsEmptyState } from "./EmptyState/KdsEmptyState.vue";
 export { default as KdsLoadingSpinner } from "./LoadingSpinner/KdsLoadingSpinner.vue";
+export { default as KdsCard } from "./Card/KdsCard.vue";
 
 // Export component types
 export type * from "./Icon/types";
+export type * from "./Card/types";
 export type { KdsEmptyStateProps } from "./EmptyState/types";
 
 // Export button components
