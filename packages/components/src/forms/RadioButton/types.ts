@@ -1,4 +1,4 @@
-import type { KdsIconName } from "../../Icon/types";
+import type { KdsIconName } from "../../accessories/Icon/types";
 
 export type KdsRadioButtonProps = {
   text: string;

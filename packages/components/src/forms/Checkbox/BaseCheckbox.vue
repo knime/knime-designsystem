@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, useId } from "vue";
 
-import Icon from "../../Icon/KdsIcon.vue";
+import Icon from "../../accessories/Icon/KdsIcon.vue";
 import KdsSubText from "../KdsSubText.vue";
 
 import type { BaseCheckboxProps, KdsCheckboxValue } from "./types";

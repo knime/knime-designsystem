@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-import KdsIcon from "../../Icon/KdsIcon.vue";
-import type { KdsIconName } from "../../Icon/types.ts";
+import KdsIcon from "../../accessories/Icon/KdsIcon.vue";
+import type { KdsIconName } from "../../accessories/Icon/types";
 import KdsButton from "../../buttons/KdsButton.vue";
 
 type BaseInputProps = {

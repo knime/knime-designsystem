@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import KdsIcon from "../../Icon/KdsIcon.vue";
+import KdsIcon from "../../accessories/Icon/KdsIcon.vue";
 import KdsButton from "../../buttons/KdsButton.vue";
 
 import { modalLayoutPropsDefault } from "./constants";

@@ -21,7 +21,7 @@ export default ({
 
       try {
         const module = await import(
-          `../../node_modules/@knime/kds-styles/dist/img/${folder}/${newName}.svg`
+          `../../../node_modules/@knime/kds-styles/dist/img/${folder}/${newName}.svg`
         );
         iconCache.set(newName, module.default);
         iconComponent.value = module.default;
