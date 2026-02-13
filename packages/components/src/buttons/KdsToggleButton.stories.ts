@@ -121,15 +121,12 @@ export const Disabled: Story = {
   },
 };
 
-export const AllCombinations: Story = buildAllCombinationsStory({
-  parameters: {
-    chromatic: { disableSnapshot: true },
-  },
+export const AllCombinationsOutlined: Story = buildAllCombinationsStory({
   component: KdsToggleButton,
   combinationsProps: [
     {
       size: kdsSizes,
-      variant: kdsToggleButtonVariants,
+      variant: ["outlined"],
       disabled: [false, true],
       label: ["Button"],
       leadingIcon: [undefined, "ai-general"],
@@ -138,7 +135,31 @@ export const AllCombinations: Story = buildAllCombinationsStory({
     },
     {
       size: kdsSizes,
-      variant: kdsToggleButtonVariants,
+      variant: ["outlined"],
+      disabled: [false, true],
+      leadingIcon: ["ai-general"],
+      ariaLabel: ["Icon only button"],
+      modelValue: [false, true],
+    },
+  ],
+  pseudoStates: ["hover", "active", "focus-visible"],
+});
+
+export const AllCombinationsTransparent: Story = buildAllCombinationsStory({
+  component: KdsToggleButton,
+  combinationsProps: [
+    {
+      size: kdsSizes,
+      variant: ["transparent"],
+      disabled: [false, true],
+      label: ["Button"],
+      leadingIcon: [undefined, "ai-general"],
+      trailingIcon: [undefined, "ai-general"],
+      modelValue: [false, true],
+    },
+    {
+      size: kdsSizes,
+      variant: ["transparent"],
       disabled: [false, true],
       leadingIcon: ["ai-general"],
       ariaLabel: ["Icon only button"],

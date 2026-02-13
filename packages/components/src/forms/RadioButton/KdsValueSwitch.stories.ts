@@ -245,13 +245,12 @@ export const ExternalLabel: Story = {
 };
 
 export const AllCombinations: Story = buildAllCombinationsStory({
-  parameters: {
-    chromatic: { disableSnapshot: true },
-  },
   component: KdsValueSwitch,
-  combinationsProps: [
-    {
+  combinationsProps: {
+    default: {
       id: ["value-switch-id"],
+      label: ["Label"],
+      modelValue: ["Option A"],
       possibleValues: [
         ["Option A", "Option B"],
         [
@@ -263,15 +262,17 @@ export const AllCombinations: Story = buildAllCombinationsStory({
           { id: "Option B", leadingIcon: "list", title: "List" },
         ],
       ],
-      modelValue: ["Option A"],
       size: ["medium", "small"],
       variant: ["default", "muted"],
-      label: ["Label"],
-      disabled: [false, true],
-      subText: [undefined, "Additional information"],
-      error: [false, true],
+      disabled: [false],
+      error: [false],
+      subText: [undefined, "Message"],
     },
-  ],
+    combinations: [
+      { error: [true], subText: ["Error message"] },
+      { disabled: [true] },
+    ],
+  },
   pseudoStates: ["hover", "active", "focus-visible"],
 });
 

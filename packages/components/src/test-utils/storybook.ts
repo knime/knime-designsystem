@@ -1,4 +1,4 @@
-import type { Component, StyleValue } from "vue";
+import type { Component, DefineComponent, StyleValue } from "vue";
 import type { StoryObj } from "@storybook/vue3-vite";
 
 import DesignComparator, {
@@ -15,39 +15,77 @@ import DesignComparator, {
  *   label: ["Button", undefined]
  * })
  */
+function generateCombinations<T extends Record<string, readonly unknown[]>>(
+  props: T,
+): { [K in keyof T]: T[K][number] }[] {
+  const entries = Object.entries(props);
 
-export function generateCombinations(
-  props: Record<string, readonly unknown[]>,
-): Record<string, unknown>[] {
-  const keys = Object.keys(props);
+  type Result = { [K in keyof T]: T[K][number] };
+  const initial: Result[] = [Object.create(null)];
 
-  function helper(
-    index: number,
-    acc: Record<string, unknown>,
-  ): Record<string, unknown>[] {
-    if (index === keys.length) {
-      return [acc];
-    }
-    const key = keys[index];
-    return props[key].flatMap((value) =>
-      helper(index + 1, { ...acc, [key]: value }),
-    );
-  }
-
-  return helper(0, {});
+  return entries.reduce<Result[]>(
+    (results, [key, values]) =>
+      results.flatMap((acc) =>
+        values.map((value) => ({ ...acc, [key]: value })),
+      ),
+    initial,
+  );
 }
 
 type PseudoState = "hover" | "active" | "focus" | "focus-visible";
 
-type AllCombinationsStoryParams = {
-  parameters?: Record<string, unknown>;
-  component: Component;
-  combinationsProps: Record<string, readonly unknown[]>[]; // or can we infer the possible props from the component type?
+/**
+ * Extracts the props type from a Vue component.
+ */
+type ExtractComponentProps<C> =
+  C extends DefineComponent<infer P, any, any>
+    ? P
+    : C extends Component<infer P>
+      ? P
+      : Record<string, unknown>;
+
+/**
+ * Maps component props to arrays of possible values for each prop.
+ * Each key is optional since different combination objects may specify different subsets of props.
+ */
+type PropsCombinations<Props> = {
+  [K in keyof Props]?: readonly (Props[K] | undefined)[];
+};
+
+type AllCombinationsStoryParams<C extends Component> = {
+  parameters?: StoryObj["parameters"];
+  component: C;
+  combinationsProps:
+    | readonly PropsCombinations<ExtractComponentProps<C>>[]
+    | {
+        default: PropsCombinations<ExtractComponentProps<C>>;
+        combinations: readonly PropsCombinations<ExtractComponentProps<C>>[];
+      };
   pseudoStates?: PseudoState[];
 };
 
+const isArrayOfCombinations = <T>(
+  value: readonly T[] | { default: T; combinations: readonly T[] },
+): value is readonly T[] => Array.isArray(value);
+
 /**
- * 
+ * @example
+ *   export const AllCombinations: Story = buildAllCombinationsStory({
+ *     component: Button,
+ *     combinationsProps: {
+ *       default: {
+ *         label: ["Button"],
+ *         leadingIcon: [undefined, "ai-general"],
+ *         readonly: [false],
+ *         disabled: [false],
+ *       },
+ *       {
+ *         readonly: [false, true],
+ *         disabled: [false, true],
+ *       },
+ *     },
+ *   });
+ *
  * @example
   export const AllCombinations: Story = buildAllCombinationsStory({
     component: Button,
@@ -64,17 +102,38 @@ type AllCombinationsStoryParams = {
     ],
   });
  */
-export function buildAllCombinationsStory(
-  config: AllCombinationsStoryParams,
+export function buildAllCombinationsStory<C extends Component>(
+  config: AllCombinationsStoryParams<C>,
 ): StoryObj {
   const allCombinations: Record<string, unknown>[] = [];
-  config.combinationsProps.forEach((props) => {
-    allCombinations.push(...generateCombinations(props));
-  });
+  const { combinationsProps } = config;
+
+  if (isArrayOfCombinations(combinationsProps)) {
+    for (const props of combinationsProps) {
+      allCombinations.push(
+        ...generateCombinations(props as Record<string, readonly unknown[]>),
+      );
+    }
+  } else {
+    const defaultProps = combinationsProps.default as Record<
+      string,
+      readonly unknown[]
+    >;
+    allCombinations.push(...generateCombinations(defaultProps));
+    for (const combination of combinationsProps.combinations) {
+      allCombinations.push(
+        ...generateCombinations({
+          ...defaultProps,
+          ...(combination as Record<string, readonly unknown[]>),
+        }),
+      );
+    }
+  }
 
   return {
     parameters: {
       controls: { disable: true },
+      chromatic: { disableSnapshot: false },
       ...config.parameters,
     },
     render: () => ({

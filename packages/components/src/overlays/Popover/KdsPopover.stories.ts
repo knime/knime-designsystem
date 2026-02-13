@@ -346,9 +346,6 @@ export const AllCombinations: DemoStory = buildAllCombinationsStory({
 });
 
 export const DesignComparator: DemoStory = {
-  parameters: {
-    chromatic: { disableSnapshot: true },
-  },
   ...buildDesignComparatorStory({
     component: PopoverDemo,
     designsToCompare: {

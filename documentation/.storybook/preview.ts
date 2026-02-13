@@ -55,6 +55,9 @@ const preview: Preview = {
     },
   },
   parameters: {
+    chromatic: {
+      disableSnapshot: true,
+    },
     docs: {
       codePanel: true,
     },
