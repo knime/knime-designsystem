@@ -44,6 +44,7 @@ type AllCombinationsStoryParams = {
   component: Component;
   combinationsProps: Record<string, readonly unknown[]>[]; // or can we infer the possible props from the component type?
   pseudoStates?: PseudoState[];
+  gridColumns?: string;
 };
 
 /**
@@ -83,11 +84,12 @@ export function buildAllCombinationsStory(
           allCombinations,
           component: config.component,
           pseudoStates: ["", ...(config.pseudoStates ?? [])],
+          gridColumns: config.gridColumns ?? "repeat(4, auto)",
         };
       },
       template: `
       Hover to see the props of each instance:
-      <div style="display: grid; grid-template-columns: repeat(4, auto); gap: 1rem;">
+      <div :style="\`display: grid; grid-template-columns: \${gridColumns}; gap: 1rem;\`">
         <template v-for="(state, stateIndex) in pseudoStates" :key="state">
           <div v-if="state" style="grid-column: span 4; font-weight: bold; margin-top: 1rem; text-transform: capitalize;">
             {{ state }}
