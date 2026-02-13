@@ -1,5 +1,17 @@
 # @knime/kds-components
 
+## 0.7.0
+
+### Minor Changes
+
+- dd3ec59: KdsLoadingSpinner: rename style prop to variant
+
+### Patch Changes
+
+- edd5591: Add KdsPopover component
+- 28d3e52: Add KdsTextarea component
+  - @knime/kds-styles@0.7.0
+
 ## 0.6.7
 
 ### Patch Changes
