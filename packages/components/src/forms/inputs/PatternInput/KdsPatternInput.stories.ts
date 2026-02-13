@@ -173,35 +173,27 @@ export const Validating: Story = {
 };
 
 export const AllCombinations: Story = buildAllCombinationsStory({
-  parameters: {
-    chromatic: { disableSnapshot: true },
-  },
   component: KdsPatternInput,
-  combinationsProps: [
-    {
+  combinationsProps: {
+    default: {
       label: ["Pattern"],
       ariaLabel: [undefined],
       modelValue: ["", "^column([1-9]|10)$"],
       placeholder: ["", "{pattern}"],
-      disabled: [false, true],
-      readonly: [false, true],
-      error: [false, true],
-      validating: [false, true],
+      readonly: [false],
+      disabled: [false],
+      error: [false],
+      validating: [false],
       subText: [undefined, "Message"],
     },
-    {
-      label: [undefined],
-      ariaLabel: ["Pattern"],
-      modelValue: ["", "^column([1-9]|10)$"],
-      placeholder: ["", "{pattern}"],
-      disabled: [false, true],
-      readonly: [false, true],
-      error: [false, true],
-      validating: [false, true],
-      subText: [undefined, "Message"],
-    },
-  ],
-  pseudoStates: ["hover", "active", "focus"],
+    combinations: [
+      { readonly: [true] },
+      { validating: [true], subText: ["Validation message"] },
+      { error: [true], subText: ["Error message"] },
+      { disabled: [true] },
+    ],
+  },
+  pseudoStates: ["hover", "focus"],
 });
 
 export const DesignComparator: Story = buildDesignComparatorStory({
