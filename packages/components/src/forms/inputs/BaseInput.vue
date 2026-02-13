@@ -78,6 +78,28 @@ type BaseInputProps = {
    * Whether the current value of the input is invalid (for aria-invalid)
    */
   ariaInvalid?: boolean;
+
+  /**
+   * ARIA role override applied to the input element.
+   * Useful to preserve semantics for custom controls.
+   */
+  role?: string;
+  /**
+   * Current value for widgets like role="spinbutton".
+   */
+  ariaValuenow?: number;
+  /**
+   * Minimum value for widgets like role="spinbutton".
+   */
+  ariaValuemin?: number;
+  /**
+   * Maximum value for widgets like role="spinbutton".
+   */
+  ariaValuemax?: number;
+  /**
+   * Human-readable value text (e.g. localized) for widgets like role="spinbutton".
+   */
+  ariaValuetext?: string;
   /**
    * Unit shown next to the input value
    */
@@ -118,6 +140,12 @@ const props = withDefaults(defineProps<BaseInputProps>(), {
   ariaLabel: undefined,
   ariaLabelledby: undefined,
   ariaDescribedby: undefined,
+  ariaInvalid: undefined,
+  role: undefined,
+  ariaValuenow: undefined,
+  ariaValuemin: undefined,
+  ariaValuemax: undefined,
+  ariaValuetext: undefined,
   unit: undefined,
   inputmode: undefined,
   clearable: false,
@@ -206,6 +234,11 @@ const handleContainerClick = (event: MouseEvent) => {
       :aria-labelledby="props.ariaLabelledby"
       :aria-describedby="props.ariaDescribedby"
       :aria-invalid="props.ariaInvalid"
+      :role="props.role"
+      :aria-valuenow="props.ariaValuenow"
+      :aria-valuemin="props.ariaValuemin"
+      :aria-valuemax="props.ariaValuemax"
+      :aria-valuetext="props.ariaValuetext"
       :class="{ 'input-field': true, 'has-value': hasValue }"
       @input="handleInput"
       @focus="emit('focus', $event)"

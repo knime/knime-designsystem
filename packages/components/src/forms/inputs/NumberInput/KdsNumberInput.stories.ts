@@ -21,7 +21,8 @@ const meta: Meta<typeof KdsNumberInput> = {
       description: {
         component:
           "A number input field component with unit display and +/- step buttons. " +
-          "Supports min/max constraints, validation states, and accessibility features.",
+          "Supports min/max constraints, validation states, and accessibility features. " +
+          "User input supports localized decimals/grouping and scientific notation (e.g. 1e-3).",
       },
     },
     design: {
@@ -70,6 +71,9 @@ const meta: Meta<typeof KdsNumberInput> = {
     },
     step: {
       control: "number",
+      description:
+        "Step size used for +/- buttons and arrow key increments. " +
+        "Use a regular decimal number (e.g. 0.001) or scientific notation (e.g. 1e-3).",
       table: { category: "Props" },
     },
     subText: {
