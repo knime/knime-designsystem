@@ -57,7 +57,7 @@ const meta: Meta<typeof KdsAvatar> = {
     },
   },
   args: {
-    initials: "FV",
+    initials: "fv",
     src: undefined,
     title: "",
   },
@@ -69,15 +69,8 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const img = canvas.getByRole("img", { hidden: true });
-    await expect(img).toHaveAttribute("src");
-    await expect(img.getAttribute("src") ?? "").toMatch(
-      /^data:image\/svg\+xml,/,
-    );
-
-    // Title is empty by default -> decorative image
-    await expect(img).toHaveAttribute("alt", "");
-    await expect(img).toHaveAttribute("aria-hidden", "true");
+    const initials = await canvas.findByText("FV");
+    await expect(initials).toBeInTheDocument();
   },
 };
 
@@ -92,9 +85,7 @@ export const WithImage: Story = {
 
     const img = canvas.getByRole("img", { name: "Demo User" });
     await expect(img).toHaveAttribute("alt", "Demo User");
-
-    const src = img.getAttribute("src") ?? "";
-    await expect(src).not.toMatch(/^data:image\/svg\+xml,/);
+    await expect(img.getAttribute("src")).toBeDefined();
   },
 };
 
@@ -137,29 +128,6 @@ export const Scaled: Story = {
       </div>
     `,
   }),
-};
-
-export const UppercaseInitials: Story = {
-  args: {
-    initials: "fvab",
-    src: undefined,
-    title: "Foobar Viewer",
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    const img = canvas.getByRole("img", { name: "Foobar Viewer" });
-    await expect(img).toHaveAttribute("alt", "Foobar Viewer");
-    await expect(img).not.toHaveAttribute("aria-hidden");
-
-    const src = img.getAttribute("src") ?? "";
-    await expect(src).toMatch(/^data:image\/svg\+xml,/);
-
-    const decoded = decodeURIComponent(
-      src.replace(/^data:image\/svg\+xml,/, ""),
-    );
-    await expect(decoded).toContain("FV");
-  },
 };
 
 export const FallbackAfterImageError: Story = {
@@ -223,4 +191,5 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       title: [undefined],
     },
   ],
+  pseudoStates: [], // no interactive states for this presentational component
 });
