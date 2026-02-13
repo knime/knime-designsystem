@@ -17,6 +17,8 @@ The KNIME Design System is a Vue3 TypeScript monorepo providing design tokens, i
 
 **ALWAYS UPDATE DOCUMENTATION AND RUN TYPE CHECKS, LINTING, UNIT TESTS AND FORMATTING AFTER EACH CHANGE!**
 
+In case you cannot see the terminal output, stop and ask the user to clear the terminal buffer (e.g. by closing the copilot terminal and opening a new one) and run the command again.
+
 ### Type safety note (Vue SFC templates)
 
 - Many component props are intentionally typed as string unions (e.g. `KdsLoadingSpinner` `style` = `"onPrimary" | "onSurface"`).
@@ -114,8 +116,9 @@ packages/
 - Test the desired behavior (e.g. disabled state) via storybook play function.
 - Do not allow stories witch violate accessibility rules. Rewrite the story accordingly (e.g. no label story -> use a custom label story).
 - ALWAYS add a story **AllCombinations**: Use `buildAllCombinationsStory()` from `test-utils/storybook`. Also pseudo states via `pseudoStates: ('hover' | 'active' | 'focus' | 'focus-visible')[]` as variants if applicable. `hover` should be applicable to all components. `active` can only be applied to elements that perform actions like buttons. Always add some kind of focus pseudo class to test outline visibility - use `focus` instead of `focus-visible` if the component shows focus for mouse interactions (e.g. inputs).
-- ALWAYS add a story **DesignComparator**: Use `buildDesignComparatorStory()` from `test-utils/storybook` with Figma URLs + node IDs. Make sure to include all variants shown in Figma. Do use the node id of the exact component usage (without potential wrapping explanations). Also include variants for different states (hover, focus, disabled) if applicable via `parameters: { pseudo: { hover: true } }`. Exclude DesignComparator story from visual regression tests via `parameters: { chromatic: { disableSnapshot: true } }`.
+- ALWAYS add a story **DesignComparator**: Use `buildDesignComparatorStory()` from `test-utils/storybook` with Figma URLs + node IDs. Make sure to include all variants shown in Figma. Use the node id of the exact component usage (without potential wrapping explanations). Also include variants for different states (hover, focus, disabled) if applicable via `parameters: { pseudo: { hover: true } }`.
 - ALWAYS add a story **TextOverflow**: Use `buildTextOverflowStory()` from `test-utils/storybook` and provide long text to test text overflow behavior
+- Remove `&m=dev` from all Figma URLs
 
 #### Storybook Play Test Auto-Waiting
 

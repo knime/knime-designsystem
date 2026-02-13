@@ -188,7 +188,10 @@ function onPaste(event: ClipboardEvent) {
           />
           <div class="implementation" :style="{ opacity: opacity }">
             <div
-              :style="props.wrapperStyle"
+              :style="[
+                { width: 'fit-content', height: 'fit-content', lineHeight: 0 },
+                props.wrapperStyle,
+              ]"
               :class="{
                 'pseudo-hover-all': Boolean(
                   variantProps.parameters?.pseudo?.hover,
