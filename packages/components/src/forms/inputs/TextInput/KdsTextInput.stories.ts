@@ -190,35 +190,27 @@ export const NameAndAutocomplete: Story = {
 };
 
 export const AllCombinations: Story = buildAllCombinationsStory({
-  parameters: {
-    chromatic: { disableSnapshot: true },
-  },
   component: KdsTextInput,
-  combinationsProps: [
-    {
+  combinationsProps: {
+    default: {
       label: ["Label"],
       ariaLabel: [undefined],
       modelValue: ["", "Value"],
       placeholder: ["", "Placeholder"],
-      disabled: [false, true],
-      readonly: [false, true],
-      error: [false, true],
-      validating: [false, true],
-      subText: [undefined, "Helper text"],
+      readonly: [false],
+      disabled: [false],
+      error: [false],
+      validating: [false],
+      subText: [undefined, "Message"],
     },
-    {
-      label: [undefined],
-      ariaLabel: ["Text input"],
-      modelValue: ["", "Value"],
-      placeholder: ["", "Placeholder"],
-      disabled: [false, true],
-      readonly: [false, true],
-      error: [false, true],
-      validating: [false, true],
-      subText: [undefined, "Helper text"],
-    },
-  ],
-  pseudoStates: ["hover", "active", "focus"],
+    combinations: [
+      { readonly: [true] },
+      { validating: [true], subText: ["Validation message"] },
+      { error: [true], subText: ["Error message"] },
+      { disabled: [true] },
+    ],
+  },
+  pseudoStates: ["hover", "focus"],
 });
 
 export const DesignComparator: Story = buildDesignComparatorStory({
