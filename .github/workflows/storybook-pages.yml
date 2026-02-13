@@ -4,7 +4,6 @@ on:
   pull_request:
   push:
     branches: [master]
-  workflow_dispatch:
 
 permissions:
   contents: write
@@ -22,33 +21,13 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: pnpm/action-setup@v4
-
-      - name: Install Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: "package.json"
-          cache: "pnpm"
-
-      - name: Install dependencies
-        run: pnpm install
-
-      # Requirement: deploy should run after build (but this workflow is a separate check)
-      - name: Build packages
-        run: pnpm run ci:build
-
-      - name: Build Storybook
-        env:
-          STORYBOOK_BASE_PATH: ${{ github.event_name == 'pull_request' && format('/{0}/pr/{1}/', github.event.repository.name, github.event.pull_request.number) || format('/{0}/', github.event.repository.name) }}
-        run: pnpm --dir documentation build-storybook
-
       - name: Deploy PR preview to gh-pages
         if: github.event_name == 'pull_request'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: documentation/storybook-static
+          publish_dir: documentation/test
           destination_dir: pr/${{ github.event.pull_request.number }}
           keep_files: true
 
@@ -58,7 +37,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: documentation/storybook-static
+          publish_dir: documentation/test
           keep_files: true
 
       # Make the link show up in the PR UI (Deployments/Environments)
@@ -81,7 +60,7 @@ jobs:
               ref: context.payload.pull_request.head.sha,
               required_contexts: [],
               environment: `storybook-pr-${pr}`,
-              description: "Storybook preview",
+              description: "Pages test preview",
               auto_merge: false,
               transient_environment: true,
               production_environment: false,
@@ -116,5 +95,5 @@ jobs:
               state: "success",
               environment_url,
               log_url: `https://github.com/${owner}/${repo}/actions/runs/${context.runId}`,
-              description: "Storybook preview is ready",
+              description: "Pages test preview is ready",
             });
