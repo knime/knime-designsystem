@@ -26,7 +26,7 @@
     "modern-normalize": "3.0.1"
   },
   "devDependencies": {
-    "@tokens-studio/sd-transforms": "^2.0.1",
+    "@tokens-studio/sd-transforms": "^2.0.3",
     "@types/jsdom": "catalog:",
     "@types/node": "catalog:",
     "consola": "catalog:",
