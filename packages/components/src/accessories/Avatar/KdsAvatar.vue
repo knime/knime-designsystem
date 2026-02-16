@@ -34,50 +34,65 @@ const displayedInitials = computed(() =>
 </script>
 
 <template>
-  <img
-    v-if="shouldShowImage"
-    class="kds-avatar kds-avatar-image"
-    :src="props.src"
-    :alt="hasTitle ? accessibleTitle : ''"
-    :title="hasTitle ? accessibleTitle : undefined"
-    :aria-hidden="!hasTitle"
-    @error="onImageError"
-  />
   <div
-    v-else
-    class="kds-avatar kds-avatar-initials"
+    class="kds-avatar"
     :role="hasTitle ? 'img' : 'presentation'"
     :title="hasTitle ? accessibleTitle : undefined"
-    :aria-hidden="!hasTitle"
+    :aria-hidden="!hasTitle ? 'true' : undefined"
     :aria-label="hasTitle ? accessibleTitle : undefined"
   >
-    <span>
-      {{ displayedInitials }}
-    </span>
+    <img
+      v-if="shouldShowImage"
+      class="kds-avatar-image"
+      :src="props.src"
+      alt=""
+      aria-hidden="true"
+      @error="onImageError"
+    />
+    <div v-else class="kds-avatar-initials" aria-hidden="true">
+      <span>
+        {{ displayedInitials }}
+      </span>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .kds-avatar {
+  position: relative;
   display: inline-block;
   inline-size: var(--kds-dimension-component-width-1-5x);
   block-size: var(--kds-dimension-component-width-1-5x);
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  border: var(--kds-border-base-muted);
+  vertical-align: middle;
   border-radius: var(--kds-border-radius-container-pill);
+
+  &::after {
+    position: absolute;
+    inset: 0;
+    box-sizing: border-box;
+    pointer-events: none;
+    content: "";
+    border: var(--kds-border-base-muted);
+    border-radius: inherit;
+  }
 }
 
 .kds-avatar-image {
-  vertical-align: middle;
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
   object-fit: cover;
   object-position: center;
 }
 
 .kds-avatar-initials {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
+  inline-size: 100%;
+  block-size: 100%;
   container-type: inline-size;
   font: var(--kds-font-base-body-small-strong);
   color: var(--kds-color-text-and-icon-primary-inverted);
@@ -85,7 +100,7 @@ const displayedInitials = computed(() =>
   background: var(--kds-color-background-primary-bold-initial);
 
   span {
-    font-size: calc(1em + calc(100cqi + 2px - 2em) / 2);
+    font-size: calc(1em + calc(100cqi - 2em) / 2);
   }
 }
 </style>

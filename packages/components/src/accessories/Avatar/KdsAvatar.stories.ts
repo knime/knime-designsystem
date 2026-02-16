@@ -83,9 +83,14 @@ export const WithImage: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const img = canvas.getByRole("img", { name: "Demo User" });
-    await expect(img).toHaveAttribute("alt", "Demo User");
-    await expect(img.getAttribute("src")).toBeDefined();
+    const avatar = canvas.getByRole("img", { name: "Demo User" });
+    await expect(avatar).toHaveAttribute("aria-label", "Demo User");
+    await expect(avatar).toHaveAttribute("title", "Demo User");
+
+    const img = canvasElement.querySelector("img.kds-avatar-image");
+    await expect(img).toBeInTheDocument();
+    await expect(img).toHaveAttribute("alt", "");
+    await expect(img?.getAttribute("src")).toBeTruthy();
   },
 };
 
@@ -128,6 +133,21 @@ export const Scaled: Story = {
       </div>
     `,
   }),
+  play: async ({ canvasElement }) => {
+    // eslint-disable-next-line no-magic-numbers
+    const expectedFontSizes = [8, 12, 16, 32, 64];
+
+    const initialsSpans = canvasElement.querySelectorAll(
+      ".kds-avatar-initials > span",
+    );
+
+    await expect(initialsSpans.length).toBe(expectedFontSizes.length);
+
+    initialsSpans.forEach((span, index) => {
+      const computedFontSize = parseFloat(getComputedStyle(span).fontSize);
+      expect(computedFontSize).toBe(expectedFontSizes[index]);
+    });
+  },
 };
 
 export const FallbackAfterImageError: Story = {
@@ -139,16 +159,25 @@ export const FallbackAfterImageError: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const img = canvas.getByRole("img", { name: "Broken User" });
-    await expect(img).toHaveAttribute("alt", "Broken User");
+    const avatar = canvas.getByRole("img", { name: "Broken User" });
+    await expect(avatar).toHaveAttribute("aria-label", "Broken User");
+    await expect(avatar).toHaveAttribute("title", "Broken User");
+
+    const img = canvasElement.querySelector(
+      "img.kds-avatar-image",
+    ) as HTMLImageElement | null;
+    await expect(img).toBeInTheDocument();
+    await expect(img).toHaveAttribute("alt", "");
     await expect(img).toHaveAttribute("src", "/broken");
 
     // Trigger an error event manually. This should flip the component to the SVG fallback.
-    img.dispatchEvent(new Event("error"));
+    img?.dispatchEvent(new Event("error"));
 
     const imgFallback = await canvas.findByText("BU");
     await expect(imgFallback).toBeInTheDocument();
-    await expect(img).not.toBeInTheDocument();
+    await expect(
+      canvasElement.querySelector("img.kds-avatar-image"),
+    ).toBeNull();
   },
 };
 
