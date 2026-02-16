@@ -130,6 +130,11 @@
     "dimension": {
       "component": {
         "height": {
+          "0_125x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 0.125",
+            "$description": "Extra small component height (4px). Use for thin dividers and minimal height elements."
+          },
           "0_25x": {
             "$type": "dimension",
             "$value": "{kds.core.size.scale} * 0.25",
@@ -182,6 +187,11 @@
           }
         },
         "width": {
+          "0_125x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 0.125",
+            "$description": "Extra small component width (4px). Use for thin dividers and minimal width elements."
+          },
           "0_25x": {
             "$type": "dimension",
             "$value": "{kds.core.size.scale} * 0.25",
