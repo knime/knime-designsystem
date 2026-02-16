@@ -220,11 +220,6 @@
           "$value": "130%",
           "$description": "Primitive lineHeights token. Do not use to tokenize a component."
         },
-        "multiline_narrow": {
-          "$type": "lineHeights",
-          "$value": "130%",
-          "$description": "Primitive lineHeights token. Do not use to tokenize a component."
-        },
         "multiline_wide": {
           "$type": "lineHeights",
           "$value": "150%",
