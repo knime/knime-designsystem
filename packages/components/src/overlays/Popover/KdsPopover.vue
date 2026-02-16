@@ -128,8 +128,6 @@ onBeforeUnmount(() => {
     padding: var(--kds-spacing-container-0-25x);
   }
 
-  /* stylelint-disable declaration-property-value-no-unknown, at-rule-descriptor-value-no-unknown */
-
   /* noinspection CssInvalidFunction,CssInvalidAtRule */
   &.floating.top-left {
     inset: auto anchor(right) anchor(top) auto;
@@ -198,5 +196,4 @@ onBeforeUnmount(() => {
   margin: var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x)
     var(--kds-spacing-container-0-25x) 0;
 }
-/* stylelint-enable declaration-property-value-no-unknown, at-rule-descriptor-value-no-unknown */
 </style>
