@@ -23,7 +23,7 @@ type KdsFormFieldProps = {
 const props = defineProps<KdsFormFieldProps>();
 
 const fallbackId = useId();
-const inputId = computed(() => props.id ?? fallbackId);
+const inputId = computed(() => props.id?.trim() || fallbackId);
 const labelId = computed(() => `${inputId.value}-label`);
 const subTextId = computed(() => `${inputId.value}-subtext`);
 </script>
