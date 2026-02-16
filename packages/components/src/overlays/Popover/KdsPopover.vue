@@ -6,7 +6,6 @@ import type { KdsPopoverProps } from "./types";
 
 const props = withDefaults(defineProps<KdsPopoverProps>(), {
   placement: "bottom-right",
-  paddingSize: "medium",
 });
 
 const open = defineModel<boolean>({ default: false });
@@ -100,7 +99,7 @@ onBeforeUnmount(() => {
     :id="popoverId"
     ref="popoverEl"
     class="kds-popover"
-    :class="['floating', props.placement, props.paddingSize]"
+    :class="['floating', props.placement]"
     :popover="unref(props.activatorEl) ? 'auto' : undefined"
     :style="{ 'position-anchor': anchorName }"
     role="dialog"
@@ -119,14 +118,6 @@ onBeforeUnmount(() => {
   border: none;
   border-radius: var(--kds-border-radius-container-0-37x);
   box-shadow: var(--kds-elevation-level-3);
-
-  &.medium {
-    padding: var(--kds-spacing-container-0-75x);
-  }
-
-  &.small {
-    padding: var(--kds-spacing-container-0-25x);
-  }
 
   /* noinspection CssInvalidFunction,CssInvalidAtRule */
   &.floating.top-left {

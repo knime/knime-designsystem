@@ -4,5 +4,3 @@ export const kdsPopoverPlacements = [
   "bottom-left",
   "bottom-right",
 ] as const;
-
-export const kdsPopoverPaddingSizes = ["small", "medium"] as const;

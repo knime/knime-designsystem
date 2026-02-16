@@ -4,14 +4,13 @@ import { expect, userEvent, within } from "storybook/test";
 
 import { KdsToggleButton } from "../../buttons";
 import {
-  buildAllCombinationsStory,
   buildDesignComparatorStory,
   buildTextOverflowStory,
 } from "../../test-utils/storybook";
 
 import KdsPopover from "./KdsPopover.vue";
 import PopoverDemo from "./PopoverDemo.vue";
-import { kdsPopoverPaddingSizes, kdsPopoverPlacements } from "./constants";
+import { kdsPopoverPlacements } from "./constants";
 
 const meta: Meta<typeof KdsPopover> = {
   title: "Components/overlays/KdsPopover",
@@ -33,11 +32,6 @@ const meta: Meta<typeof KdsPopover> = {
       options: kdsPopoverPlacements,
       table: { category: "Props" },
     },
-    paddingSize: {
-      control: { type: "select" },
-      options: kdsPopoverPaddingSizes,
-      table: { category: "Props" },
-    },
     default: {
       control: { type: "text" },
       description: "Default slot content rendered inside the popover.",
@@ -49,13 +43,14 @@ const meta: Meta<typeof KdsPopover> = {
     activatorEl: null,
     anchorEl: null,
     placement: "bottom-right",
-    paddingSize: "medium",
     default: "This is a basic popover example.",
   },
   parameters: {
     docs: {
       description: {
         component: `Positioned popover container based on the native Popover API and CSS anchor positioning.
+
+**Note:** The popover does not include any padding. Padding must be set by the embedded container.
 
 Automatically sets the following a11y attributes on the activatorEl:
 - \`aria-expanded\` – synced with the open state
@@ -124,7 +119,7 @@ export const Default: Story = {
         v-model="args.modelValue"
         :activator-el="activatorEl"
         :placement="args.placement"
-        :padding-size="args.paddingSize"
+        style="padding: var(--kds-spacing-container-0-75x)"
         data-testid="popover"
       >
         {{ args.default }}
@@ -187,37 +182,7 @@ export const DifferentPopoverPosition: Story = {
         v-model="args.modelValue"
         :activator-el="activatorEl"
         :placement="args.placement"
-      >
-        {{ args.default }}
-      </KdsPopover>
-    `,
-  }),
-};
-
-export const SmallPadding: Story = {
-  args: {
-    paddingSize: "small",
-    default: "This popover has small padding (4px).",
-  },
-  render: (args) => ({
-    components: { KdsToggleButton, KdsPopover },
-    setup() {
-      const activatorEl = ref<HTMLButtonElement | null>(null);
-      return { args, activatorEl };
-    },
-    template: `
-      <KdsToggleButton
-        ref="activatorEl"
-        label="Toggle popover"
-        variant="outlined"
-        v-model="args.modelValue"
-      />
-
-      <KdsPopover
-        v-model="args.modelValue"
-        :activator-el="activatorEl"
-        :placement="args.placement"
-        :padding-size="args.paddingSize"
+        style="padding: var(--kds-spacing-container-0-75x)"
       >
         {{ args.default }}
       </KdsPopover>
@@ -262,6 +227,7 @@ export const SeparateAnchorEl: Story = {
         :anchor-el="anchorEl"
         placement="bottom-right"
         data-testid="popover"
+        style="padding: var(--kds-spacing-container-0-75x)"
       >
         This popover is anchored to a separate element.
       </KdsPopover>
@@ -327,6 +293,7 @@ export const Inline: DemoStory = {
         <KdsPopover
           :activator-el="activatorEl"
           placement="bottom-right"
+          style="padding: var(--kds-spacing-container-0-75x)"
         >
           This popover is rendered inline because the activator ref is null.
         </KdsPopover>
@@ -335,15 +302,7 @@ export const Inline: DemoStory = {
   }),
 };
 
-export const AllCombinations: DemoStory = buildAllCombinationsStory({
-  component: PopoverDemo,
-  combinationsProps: [
-    {
-      paddingSize: [...kdsPopoverPaddingSizes],
-      content: ["Sample popover content"],
-    },
-  ],
-});
+// AllCombination story does not apply here
 
 export const DesignComparator: DemoStory = {
   parameters: {

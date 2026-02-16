@@ -14,7 +14,6 @@ type PopoverDemoProps = {
 withDefaults(defineProps<PopoverDemoProps>(), {
   content: "Sample popover content",
   placement: "bottom-right",
-  paddingSize: "medium",
 });
 
 const activatorEl = ref<HTMLButtonElement | null>(null);
@@ -25,7 +24,7 @@ const activatorEl = ref<HTMLButtonElement | null>(null);
     :activator-el="activatorEl"
     :anchor-el="anchorEl"
     :placement="placement"
-    :padding-size="paddingSize"
+    style="padding: var(--kds-spacing-container-0-75x)"
   >
     {{ content }}
   </KdsPopover>

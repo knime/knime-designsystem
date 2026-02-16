@@ -1,10 +1,8 @@
 import type { ComponentPublicInstance, MaybeRef } from "vue";
 
-import { kdsPopoverPaddingSizes, kdsPopoverPlacements } from "./constants";
+import { kdsPopoverPlacements } from "./constants";
 
 export type KdsPopoverPlacement = (typeof kdsPopoverPlacements)[number];
-
-export type KdsPopoverPaddingSize = (typeof kdsPopoverPaddingSizes)[number];
 
 export type KdsPopoverProps = {
   /**
@@ -25,12 +23,4 @@ export type KdsPopoverProps = {
    * Where the popover should be positioned relative to its anchor.
    */
   placement?: KdsPopoverPlacement;
-
-  /**
-   * The padding size of the popover.
-   *
-   * - "medium": 12px padding (default)
-   * - "small": 4px padding
-   */
-  paddingSize?: KdsPopoverPaddingSize;
 };
