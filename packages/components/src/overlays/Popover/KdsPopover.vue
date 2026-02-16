@@ -111,6 +111,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .kds-popover {
+  padding: 0;
   overflow: visible;
   font: var(--kds-font-base-body-small);
   color: var(--kds-color-text-and-icon-neutral);
