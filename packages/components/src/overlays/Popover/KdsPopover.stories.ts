@@ -308,7 +308,7 @@ export const Inline: DemoStory = {
   }),
 };
 
-// AllCombination story does not apply here
+// AllCombinations story is not applicable for KdsPopover as it has no visual prop variants and requires an activator element
 
 export const DesignComparator: DemoStory = {
   parameters: {
