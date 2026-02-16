@@ -23,6 +23,11 @@ The KNIME Design System is a Vue3 TypeScript monorepo providing design tokens, i
 - It's OK to pass these as **inline string literals** in templates.
 - If an invalid literal is used, `vue-tsc` will report it and the CI checks will fail (typically via `pnpm type-check` and often also `pnpm build`).
 
+### Template event naming note
+
+- Vue SFC templates accept both `@update:modelValue` and `@update:model-value` for the same event.
+- Our formatter may rewrite camelCase to kebab-case; this is expected and valid.
+
 **Common Build Issues & Solutions:**
 
 - Stylelint can't find CSS custom properties → Run `pnpm install` to build @knime/kds-styles first
@@ -80,6 +85,15 @@ packages/
 - Export components and types in `packages/components/src/index.ts`
 - Follow WCAG accessibility requirements
 - Write all comments in English
+- Prefer **derived state** (`computed`) over syncing state via `watch()`.
+  - If a value can be calculated from props/model/other state, make it a `computed`.
+  - Avoid bidirectional "mirror" refs that need watchers to stay in sync.
+  - Use `watch()` only when you need a **side effect** (DOM/IO, focusing, timers, analytics, imperative API calls) or when you must bridge to a non-reactive API.
+  - For components that need both:
+    - keep a small _user-driven_ ref for input (e.g. a manual selection),
+    - and a `computed` "effective" value that prefers the model/props and falls back to the manual value.
+- Inline single-line `computed` properties in the template for better readability.
+- Inline one-line functions in the template for better readability.
 
 ### Icons & Components
 
@@ -97,11 +111,49 @@ packages/
 - Define all props in stories as category "Props" ordered by importance for users and similar to other stories.
 - Provide arg values for all props, e.g. false for boolean and "" for string props in the same order.
 - Provide stories for important prop combinations in the same order (if possible).
+- Test the desired behavior (e.g. disabled state) via storybook play function.
 - Do not allow stories witch violate accessibility rules. Rewrite the story accordingly (e.g. no label story -> use a custom label story).
-- ALWAYS add a story **AllCombinations**: Use `buildAllCombinationsStory()` from `test-utils/storybook`. Also add hover, active, focus and focus-visible states via `pseudoStates: ['hover', 'active', 'focus', 'focus-visible']` as variants if applicable.
+- ALWAYS add a story **AllCombinations**: Use `buildAllCombinationsStory()` from `test-utils/storybook`. Also pseudo states via `pseudoStates: ('hover' | 'active' | 'focus' | 'focus-visible')[]` as variants if applicable. `hover` should be applicable to all components. `active` can only be applied to elements that perform actions like buttons. Always add some kind of focus pseudo class to test outline visibility - use `focus` instead of `focus-visible` if the component shows focus for mouse interactions (e.g. inputs).
 - ALWAYS add a story **DesignComparator**: Use `buildDesignComparatorStory()` from `test-utils/storybook` with Figma URLs + node IDs. Make sure to include all variants shown in Figma. Do use the node id of the exact component usage (without potential wrapping explanations). Also include variants for different states (hover, focus, disabled) if applicable via `parameters: { pseudo: { hover: true } }`. Exclude DesignComparator story from visual regression tests via `parameters: { chromatic: { disableSnapshot: true } }`.
 - ALWAYS add a story **TextOverflow**: Use `buildTextOverflowStory()` from `test-utils/storybook` and provide long text to test text overflow behavior
-- ALWAYS add a story **Interaction**: Use build in play function to test important interactions (e.g., clicks, keyboard navigation). Make sure to reset the state end the end of the test to allow re-running the test in Storybook.
+
+#### Storybook Play Test Auto-Waiting
+
+Use proper auto-waiting in Storybook play tests. **Never** use manual `setTimeout`, polling loops, or `waitFor` unless absolutely necessary.
+
+**Imports**: Use `import { expect, userEvent, within } from "storybook/test";`
+
+**Key rules**:
+
+- Always `await userEvent.*()` for interactions - it waits for events to complete
+- `await expect(...).toBeInTheDocument()` auto-retries until the assertion passes or times out
+- Use `findBy*` (async) for elements that appear **after** a state change (e.g., after a click triggers re-render)
+- Use `getBy*` (sync) for elements that are **already present** in the DOM
+- Always use `within(canvasElement)` to scope queries to the story canvas
+
+**Example**:
+
+```typescript
+play: async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  // Element already exists - use getBy*
+  const input = canvas.getByRole("textbox", { name: "Email" });
+  await userEvent.type(input, "test@example.com");
+
+  await userEvent.click(canvas.getByRole("button", { name: "Submit" }));
+
+  // Element appears after submit - use findBy* (auto-waits)
+  const success = await canvas.findByText(/success/i);
+  await expect(success).toBeInTheDocument();
+};
+```
+
+**Common patterns**:
+
+- After clicking a toggle: `await canvas.findByRole("button", { name: "New Label" })` to wait for label change
+- After clearing input (clear button disappears): click the next element directly instead of relying on tab order
+- To reset focus for tab navigation tests: `element.blur()` then `await userEvent.tab()`
 
 ### Figma Integration (when implementing from Figma)
 

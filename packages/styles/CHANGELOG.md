@@ -1,5 +1,17 @@
 # @knime/kds-styles
 
+## 0.6.7
+
+### Patch Changes
+
+- 22a6cad: KDS-721: Update deploy, cloud sync and cloud pending changes icon
+
+## 0.6.6
+
+### Patch Changes
+
+- 0454c56: KDS-719: Add service icon and update cloud pending changes
+
 ## 0.6.5
 
 ## 0.6.4

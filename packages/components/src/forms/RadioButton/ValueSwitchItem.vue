@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-import KdsIcon from "../../Icon/KdsIcon.vue";
+import KdsIcon from "../../accessories/Icon/KdsIcon.vue";
 import { useKdsIsTruncated } from "../../util";
 
 import type { KdsValueSwitchItemProps } from "./types";

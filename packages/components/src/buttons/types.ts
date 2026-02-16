@@ -1,4 +1,4 @@
-import type { KdsIconName } from "../Icon/types";
+import type { KdsIconName } from "../accessories/Icon/types";
 import type { KdsSize } from "../types";
 
 import type { kdsButtonVariants, kdsToggleButtonVariants } from "./constants";

@@ -71,6 +71,12 @@ Here are some of the most important scripts defined in the top-level [`package.j
 
 See [copilot-instructions.md](.github/copilot-instructions.md).
 
+## Pull Request Commands
+
+You can trigger certain CI tasks on-demand by commenting on a pull request:
+
+- **`/chromatic`**: Runs visual regression testing with Chromatic. Useful when you want to verify visual changes before merging.
+
 ## AI assistance
 
 ### Setup

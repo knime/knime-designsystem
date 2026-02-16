@@ -4,7 +4,7 @@ import KdsDataType from "./KdsDataType.vue";
 import { kdsTypeIconNames } from "./constants";
 
 const meta: Meta<typeof KdsDataType> = {
-  title: "Components/KdsDataType",
+  title: "Components/accessories/KdsDataType",
   component: KdsDataType,
   tags: ["autodocs"],
   argTypes: {

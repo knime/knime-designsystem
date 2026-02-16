@@ -124,30 +124,6 @@ export const IconOnly: Story = {
   },
 };
 
-export const AllCombinations: Story = buildAllCombinationsStory({
-  component: KdsButton,
-  combinationsProps: [
-    {
-      size: kdsSizes,
-      variant: kdsButtonVariants,
-      disabled: [false, true],
-      destructive: [false, true],
-      label: ["Button"],
-      leadingIcon: [undefined, "ai-general"],
-      trailingIcon: [undefined, "ai-general"],
-    },
-    {
-      size: kdsSizes,
-      variant: kdsButtonVariants,
-      disabled: [false, true],
-      destructive: [false, true],
-      leadingIcon: ["ai-general"],
-      ariaLabel: ["Icon only button"],
-    },
-  ],
-  pseudoStates: ["hover", "active", "focus-visible"],
-});
-
 export const TextOverflow: Story = {
   ...buildTextOverflowStory({
     component: KdsButton,
@@ -341,4 +317,100 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       },
     },
   },
+});
+
+export const AllCombinationsXsmall: Story = buildAllCombinationsStory({
+  component: KdsButton,
+  combinationsProps: [
+    {
+      size: ["xsmall"],
+      variant: kdsButtonVariants,
+      disabled: [false, true],
+      destructive: [false, true],
+      label: ["Button"],
+      leadingIcon: [undefined, "ai-general"],
+      trailingIcon: [undefined, "ai-general"],
+    },
+    {
+      size: ["xsmall"],
+      variant: kdsButtonVariants,
+      disabled: [false, true],
+      destructive: [false, true],
+      leadingIcon: ["ai-general"],
+      ariaLabel: ["Icon only button"],
+    },
+  ],
+  pseudoStates: ["hover", "active", "focus-visible"],
+});
+
+export const AllCombinationsSmall: Story = buildAllCombinationsStory({
+  component: KdsButton,
+  combinationsProps: [
+    {
+      size: ["small"],
+      variant: kdsButtonVariants,
+      disabled: [false, true],
+      destructive: [false, true],
+      label: ["Button"],
+      leadingIcon: [undefined, "ai-general"],
+      trailingIcon: [undefined, "ai-general"],
+    },
+    {
+      size: ["small"],
+      variant: kdsButtonVariants,
+      disabled: [false, true],
+      destructive: [false, true],
+      leadingIcon: ["ai-general"],
+      ariaLabel: ["Icon only button"],
+    },
+  ],
+  pseudoStates: ["hover", "active", "focus-visible"],
+});
+
+export const AllCombinationsMedium: Story = buildAllCombinationsStory({
+  component: KdsButton,
+  combinationsProps: [
+    {
+      size: ["medium"],
+      variant: kdsButtonVariants,
+      disabled: [false, true],
+      destructive: [false, true],
+      label: ["Button"],
+      leadingIcon: [undefined, "ai-general"],
+      trailingIcon: [undefined, "ai-general"],
+    },
+    {
+      size: ["medium"],
+      variant: kdsButtonVariants,
+      disabled: [false, true],
+      destructive: [false, true],
+      leadingIcon: ["ai-general"],
+      ariaLabel: ["Icon only button"],
+    },
+  ],
+  pseudoStates: ["hover", "active", "focus-visible"],
+});
+
+export const AllCombinationsLarge: Story = buildAllCombinationsStory({
+  component: KdsButton,
+  combinationsProps: [
+    {
+      size: ["large"],
+      variant: kdsButtonVariants,
+      disabled: [false, true],
+      destructive: [false, true],
+      label: ["Button"],
+      leadingIcon: [undefined, "ai-general"],
+      trailingIcon: [undefined, "ai-general"],
+    },
+    {
+      size: ["large"],
+      variant: kdsButtonVariants,
+      disabled: [false, true],
+      destructive: [false, true],
+      leadingIcon: ["ai-general"],
+      ariaLabel: ["Icon only button"],
+    },
+  ],
+  pseudoStates: ["hover", "active", "focus-visible"],
 });

@@ -245,6 +245,9 @@ export const ExternalLabel: Story = {
 };
 
 export const AllCombinations: Story = buildAllCombinationsStory({
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
   component: KdsValueSwitch,
   combinationsProps: [
     {

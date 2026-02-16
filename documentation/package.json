@@ -1,6 +1,6 @@
 {
   "name": "@knime/kds-documentation",
-  "version": "0.6.5",
+  "version": "0.6.7",
   "description": "Package containing the documentation for the KNIME Design System utilizing storybook",
   "license": "GPL 3 and Additional Permissions according to Sec. 7 (SEE the file LICENSE)",
   "author": "KNIME AG, Zurich, Switzerland",
@@ -40,7 +40,7 @@
     "@vitest/coverage-v8": "catalog:vitest",
     "@vitest/ui": "catalog:vitest",
     "@vue/tsconfig": "catalog:",
-    "chromatic": "^13.3.4",
+    "chromatic": "^15.1.0",
     "color": "^5.0.0",
     "storybook-addon-pseudo-states": "catalog:storybook",
     "typescript": "catalog:",
