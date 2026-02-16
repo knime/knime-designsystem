@@ -237,15 +237,15 @@
             "$value": "{kds.core.size.scale} * 4",
             "$description": "Extra large component width (64px). Use for large interactive elements."
           },
-          "25x": {
-            "$type": "dimension",
-            "$value": "{kds.core.size.scale} * 25",
-            "$description": "Container width (400px). Use for narrow sidepanels and modal widths."
-          },
           "16x": {
             "$type": "dimension",
             "$value": "{kds.core.size.scale} * 16",
             "$description": "Container width (256px). Use for narrow tooltips or popovers to prevent text stretching."
+          },
+          "25x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 25",
+            "$description": "Container width (400px). Use for narrow sidepanels and modal widths."
           },
           "32x": {
             "$type": "dimension",
