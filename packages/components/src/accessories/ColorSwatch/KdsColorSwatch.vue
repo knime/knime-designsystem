@@ -37,7 +37,7 @@ const hasTitle = computed(() => accessibleTitle.value.length > 0);
     class="kds-color-swatch"
     :title="hasTitle ? accessibleTitle : undefined"
     :style="{ backgroundColor }"
-    :aria-hidden="!hasTitle"
+    :aria-hidden="hasTitle ? undefined : 'true'"
     :aria-label="hasTitle ? accessibleTitle : undefined"
   />
 </template>

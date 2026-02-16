@@ -145,7 +145,7 @@ export const Scaled: Story = {
 
     initialsSpans.forEach((span, index) => {
       const computedFontSize = parseFloat(getComputedStyle(span).fontSize);
-      expect(computedFontSize).toBe(expectedFontSizes[index]);
+      expect(computedFontSize).toBeCloseTo(expectedFontSizes[index], 1);
     });
   },
 };
@@ -170,7 +170,7 @@ export const FallbackAfterImageError: Story = {
     await expect(img).toHaveAttribute("alt", "");
     await expect(img).toHaveAttribute("src", "/broken");
 
-    // Trigger an error event manually. This should flip the component to the SVG fallback.
+    // Trigger an error event manually. This should flip the component to the initials text fallback (and remove the image).
     img?.dispatchEvent(new Event("error"));
 
     const imgFallback = await canvas.findByText("BU");

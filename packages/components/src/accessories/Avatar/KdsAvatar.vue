@@ -67,16 +67,16 @@ const displayedInitials = computed(() =>
   overflow: hidden;
   vertical-align: middle;
   border-radius: var(--kds-border-radius-container-pill);
+}
 
-  &::after {
-    position: absolute;
-    inset: 0;
-    box-sizing: border-box;
-    pointer-events: none;
-    content: "";
-    border: var(--kds-border-base-muted);
-    border-radius: inherit;
-  }
+.kds-avatar::after {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  pointer-events: none;
+  content: "";
+  border: var(--kds-border-base-muted);
+  border-radius: inherit;
 }
 
 .kds-avatar-image {
@@ -98,9 +98,9 @@ const displayedInitials = computed(() =>
   color: var(--kds-color-text-and-icon-primary-inverted);
   user-select: none;
   background: var(--kds-color-background-primary-bold-initial);
+}
 
-  span {
-    font-size: calc(1em + calc(100cqi - 2em) / 2);
-  }
+.kds-avatar-initials > span {
+  font-size: calc(1em + calc(100cqi - 2em) / 2);
 }
 </style>
