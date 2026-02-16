@@ -217,12 +217,12 @@
           },
           "hover": {
             "$type": "color",
-            "$value": "{kds.core.color.red.175}",
+            "$value": "{kds.core.color.red.100}",
             "$description": "Darker red background on hover for error or destructive states."
           },
           "active": {
             "$type": "color",
-            "$value": "{kds.core.color.red.250}",
+            "$value": "{kds.core.color.red.175}",
             "$description": "Darkest red background on pressed for error or destructive states."
           }
         },

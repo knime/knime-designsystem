@@ -203,6 +203,17 @@
           },
           "$description": "Border style for the ResizeHandle component when active."
         }
+      },
+      "ColorPickerHandle": {
+        "initial": {
+          "$type": "border",
+          "$value": {
+            "color": "{kds.core.color.neutral.25}",
+            "width": "{kds.core.border-width.l}",
+            "style": "solid"
+          },
+          "$description": "Default border style for the ColorPickerHandle in colorspace."
+        }
       }
     },
     "box-shadow": {
