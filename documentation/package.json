@@ -40,7 +40,7 @@
     "@vitest/coverage-v8": "catalog:vitest",
     "@vitest/ui": "catalog:vitest",
     "@vue/tsconfig": "catalog:",
-    "chromatic": "^13.3.4",
+    "chromatic": "^15.1.0",
     "color": "^5.0.0",
     "storybook-addon-pseudo-states": "catalog:storybook",
     "typescript": "catalog:",

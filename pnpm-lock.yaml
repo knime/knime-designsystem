@@ -249,8 +249,8 @@ importers:
         specifier: 'catalog:'
         version: 0.7.0(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3))
       chromatic:
-        specifier: ^13.3.4
-        version: 13.3.4
+        specifier: ^15.1.0
+        version: 15.1.0
       color:
         specifier: ^5.0.0
         version: 5.0.0
@@ -2729,8 +2729,20 @@ packages:
     resolution: {integrity: sha512-OAlb+T7V4Op9OwdkjmguYRqncdlx5JiofwOAUkmTF+jNdHwzTaTs4sRAGpzLF3oOz5xAyDGrPgeIDFQmDOTiJw==}
     engines: {node: '>= 16'}
 
-  chromatic@13.3.4:
-    resolution: {integrity: sha512-TR5rvyH0ESXobBB3bV8jc87AEAFQC7/n+Eb4XWhJz6hW3YNxIQPVjcbgLv+a4oKHEl1dUBueWSoIQsOVGTd+RQ==}
+  chromatic@13.3.5:
+    resolution: {integrity: sha512-MzPhxpl838qJUo0A55osCF2ifwPbjcIPeElr1d4SHcjnHoIcg7l1syJDrAYK/a+PcCBrOGi06jPNpQAln5hWgw==}
+    hasBin: true
+    peerDependencies:
+      '@chromatic-com/cypress': ^0.*.* || ^1.0.0
+      '@chromatic-com/playwright': ^0.*.* || ^1.0.0
+    peerDependenciesMeta:
+      '@chromatic-com/cypress':
+        optional: true
+      '@chromatic-com/playwright':
+        optional: true
+
+  chromatic@15.1.0:
+    resolution: {integrity: sha512-XODNgiczeX5SpaWsCQLEwGpXrF2QVPb9bka7nHa8NQssyRRTt9EI8jVH8BRDUPcrQKqQqmXmxOy2Cq4IK1ydFQ==}
     hasBin: true
     peerDependencies:
       '@chromatic-com/cypress': ^0.*.* || ^1.0.0
@@ -6225,7 +6237,7 @@ snapshots:
   '@chromatic-com/storybook@5.0.0(storybook@10.2.7(@testing-library/dom@10.4.0)(prettier@3.8.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))':
     dependencies:
       '@neoconfetti/react': 1.0.0
-      chromatic: 13.3.4
+      chromatic: 13.3.5
       filesize: 10.1.6
       jsonfile: 6.2.0
       storybook: 10.2.7(@testing-library/dom@10.4.0)(prettier@3.8.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -8445,7 +8457,9 @@ snapshots:
 
   check-error@2.1.1: {}
 
-  chromatic@13.3.4: {}
+  chromatic@13.3.5: {}
+
+  chromatic@15.1.0: {}
 
   ci-info@3.9.0: {}
 
