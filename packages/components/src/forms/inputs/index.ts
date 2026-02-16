@@ -1,3 +1,4 @@
+export * from "./ColorInput";
 export * from "./NumberInput";
 export * from "./PatternInput";
 export * from "./SearchInput";

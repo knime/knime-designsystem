@@ -31,6 +31,11 @@ type KdsInputFieldProps = KdsFormFieldProps & KdsCommonInputProps;
 
 export type KdsTextInputProps = KdsInputFieldProps;
 
+export type KdsColorInputProps = Omit<
+  KdsInputFieldProps,
+  "required" | "readonly"
+>;
+
 export type KdsNumberInputProps = KdsInputFieldProps & {
   /**
    * Unit shown next to the input value
