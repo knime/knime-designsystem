@@ -8,7 +8,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.core.line-height.multiline_narrow}",
+              "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.1_13x}"
             },
             "$description": "Can be used for large headlines in components that require a multi-line setup (xsmall)."
@@ -18,7 +18,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.core.line-height.multiline_narrow}",
+              "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.1_25x}"
             },
             "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels (small)."
@@ -28,7 +28,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.core.line-height.multiline_narrow}",
+              "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.1_5x}"
             },
             "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels (medium)."
@@ -38,7 +38,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.core.line-height.multiline_narrow}",
+              "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.2x}"
             },
             "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels (large)."
@@ -48,7 +48,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.strong}",
-              "lineHeight": "{kds.core.line-height.multiline_narrow}",
+              "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.2_5x}"
             },
             "$description": "Main Headlines on Hub and Website. Only used on fullscreen, not used inside Sidepanels (xlarge)."
@@ -182,7 +182,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.regular}",
-              "lineHeight": "{kds.core.line-height.multiline_narrow}",
+              "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.1x}"
             },
             "$description": "Multiline text, used for paragraphs inside components, pages or panels (large)."
@@ -214,7 +214,7 @@
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.regular}",
               "fontSize": "{kds.core.font-size.0_62x}",
-              "lineHeight": "{kds.core.line-height.multiline_narrow}"
+              "lineHeight": "{kds.core.line-height.singleline}"
             },
             "$description": "Caption is used for disclosing extra information or smaller items in hierarchical relationships of text. Examples: Input helping Text, Character Count, # Columns in Twinlist, Datatypes (small)."
           },
@@ -223,7 +223,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.regular}",
-              "lineHeight": "{kds.core.line-height.multiline_narrow}",
+              "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.0_75x}"
             },
             "$description": "Singleline text, used for button labels, breadcrumbs, chips and everything that is clickable (medium)."
@@ -327,7 +327,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto-mono}",
               "fontWeight": "{kds.core.font-weight.regular}",
-              "lineHeight": "{kds.core.line-height.multiline_narrow}",
+              "lineHeight": "{kds.core.line-height.singleline}",
               "fontSize": "{kds.core.font-size.0_68x}"
             },
             "$description": "Code blocks (small)."
