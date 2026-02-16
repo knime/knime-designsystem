@@ -20,12 +20,15 @@ const activatorEl = ref<HTMLButtonElement | null>(null);
 </script>
 
 <template>
-  <KdsPopover
-    :activator-el="activatorEl"
-    :anchor-el="anchorEl"
-    :placement="placement"
-    style="padding: var(--kds-spacing-container-0-75x)"
-  >
-    {{ content }}
-  </KdsPopover>
+  <div>
+    <KdsPopover
+      :activator-el="activatorEl"
+      :anchor-el="anchorEl"
+      :placement="placement"
+    >
+      <div style="padding: var(--kds-spacing-container-0-75x)">
+        {{ content }}
+      </div>
+    </KdsPopover>
+  </div>
 </template>

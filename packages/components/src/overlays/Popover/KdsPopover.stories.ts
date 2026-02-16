@@ -80,7 +80,9 @@ const activatorEl = ref<HTMLButtonElement | null>(null);
     :activator-el="activatorEl"
     placement="bottom-right"
   >
-    Popover content goes here.
+    <div style="padding: var(--kds-spacing-container-0-75x)">
+      Popover content goes here.
+    </div>
   </KdsPopover>
 </template>
 \`\`\`
@@ -119,10 +121,11 @@ export const Default: Story = {
         v-model="args.modelValue"
         :activator-el="activatorEl"
         :placement="args.placement"
-        style="padding: var(--kds-spacing-container-0-75x)"
         data-testid="popover"
       >
-        {{ args.default }}
+        <div style="padding: var(--kds-spacing-container-0-75x)">
+          {{ args.default }}
+        </div>
       </KdsPopover>
     `,
   }),
@@ -182,9 +185,10 @@ export const DifferentPopoverPosition: Story = {
         v-model="args.modelValue"
         :activator-el="activatorEl"
         :placement="args.placement"
-        style="padding: var(--kds-spacing-container-0-75x)"
       >
-        {{ args.default }}
+        <div style="padding: var(--kds-spacing-container-0-75x)">
+          {{ args.default }}
+        </div>
       </KdsPopover>
     `,
   }),
@@ -227,9 +231,10 @@ export const SeparateAnchorEl: Story = {
         :anchor-el="anchorEl"
         placement="bottom-right"
         data-testid="popover"
-        style="padding: var(--kds-spacing-container-0-75x)"
       >
-        This popover is anchored to a separate element.
+        <div style="padding: var(--kds-spacing-container-0-75x)">
+          This popover is anchored to a separate element.
+        </div>
       </KdsPopover>
     `,
   }),
@@ -293,9 +298,10 @@ export const Inline: DemoStory = {
         <KdsPopover
           :activator-el="activatorEl"
           placement="bottom-right"
-          style="padding: var(--kds-spacing-container-0-75x)"
         >
-          This popover is rendered inline because the activator ref is null.
+          <div style="padding: var(--kds-spacing-container-0-75x)">
+            This popover is rendered inline because the activator ref is null.
+          </div>
         </KdsPopover>
       </div>
     `,
