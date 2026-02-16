@@ -182,7 +182,7 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.regular}",
-              "lineHeight": "{kds.core.line-height.singleline}",
+              "lineHeight": "{kds.core.line-height.multiline_wide}",
               "fontSize": "{kds.core.font-size.1x}"
             },
             "$description": "Multiline text, used for paragraphs inside components, pages or panels (large)."
@@ -204,7 +204,8 @@
             "$value": {
               "fontFamily": "{kds.core.font-family.roboto}",
               "fontWeight": "{kds.core.font-weight.regular}",
-              "fontSize": "{kds.core.font-size.0_56x}"
+              "fontSize": "{kds.core.font-size.0_56x}",
+              "lineHeight": "{kds.core.line-height.singleline}"
             },
             "$description": "Caption is used for disclosing extra information or smaller items in hierarchical relationships of text. Examples: Input helping Text, Character Count, # Columns in Twinlist, Datatypes (xsmall)."
           },
