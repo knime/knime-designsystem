@@ -266,36 +266,27 @@ export const ExternalLabel: Story = {
 };
 
 export const AllCombinations: Story = buildAllCombinationsStory({
-  parameters: {
-    chromatic: { disableSnapshot: true },
-  },
   component: KdsTextarea,
-  combinationsProps: [
-    {
+  combinationsProps: {
+    default: {
       label: ["Label"],
       ariaLabel: [undefined],
-      modelValue: ["", "Value\nSecond line"],
+      modelValue: ["", "Value", "Value\nSecond line"],
       rows: [defaultRows, fourRows],
       placeholder: ["", "Placeholder"],
-      disabled: [false, true],
-      readonly: [false, true],
-      error: [false, true],
-      validating: [false, true],
+      readonly: [false],
+      disabled: [false],
+      error: [false],
+      validating: [false],
       subText: [undefined, "Message"],
     },
-    {
-      label: [undefined],
-      ariaLabel: ["Textarea"],
-      modelValue: ["", "Value\nSecond line"],
-      rows: [defaultRows, fourRows],
-      placeholder: ["", "Placeholder"],
-      disabled: [false, true],
-      readonly: [false, true],
-      error: [false, true],
-      validating: [false, true],
-      subText: [undefined, "Message"],
-    },
-  ],
+    combinations: [
+      { readonly: [true] },
+      { validating: [true], subText: ["Validation message"] },
+      { error: [true], subText: ["Error message"] },
+      { disabled: [true] },
+    ],
+  },
   pseudoStates: ["hover", "focus"],
 });
 

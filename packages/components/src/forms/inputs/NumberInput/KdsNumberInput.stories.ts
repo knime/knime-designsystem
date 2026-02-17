@@ -204,37 +204,29 @@ export const Validating: Story = {
 };
 
 export const AllCombinations: Story = buildAllCombinationsStory({
-  parameters: {
-    chromatic: { disableSnapshot: true },
-  },
   component: KdsNumberInput,
-  combinationsProps: [
-    {
+  combinationsProps: {
+    default: {
       label: ["Label"],
       ariaLabel: [undefined],
       // eslint-disable-next-line no-magic-numbers
       modelValue: [NaN, 42],
-      unit: ["ms"],
-      disabled: [false, true],
-      readonly: [false, true],
-      error: [false, true],
-      validating: [false, true],
+      placeholder: ["", "Enter number"],
+      unit: [undefined, "ms"],
+      readonly: [false],
+      disabled: [false],
+      error: [false],
+      validating: [false],
       subText: [undefined, "Message"],
     },
-    {
-      label: [undefined],
-      ariaLabel: ["Number input"],
-      // eslint-disable-next-line no-magic-numbers
-      modelValue: [NaN, 42],
-      unit: ["ms"],
-      disabled: [false, true],
-      readonly: [false, true],
-      error: [false, true],
-      validating: [false, true],
-      subText: [undefined, "Message"],
-    },
-  ],
-  pseudoStates: ["hover", "active", "focus", "focus-visible"],
+    combinations: [
+      { readonly: [true] },
+      { validating: [true], subText: ["Validation message"] },
+      { error: [true], subText: ["Error message"] },
+      { disabled: [true] },
+    ],
+  },
+  pseudoStates: ["hover", "focus"],
 });
 
 export const DesignComparator: Story = buildDesignComparatorStory({

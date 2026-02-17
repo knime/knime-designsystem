@@ -311,9 +311,6 @@ export const Inline: DemoStory = {
 // AllCombinations story is not applicable for KdsPopover as it has no visual prop variants and requires an activator element
 
 export const DesignComparator: DemoStory = {
-  parameters: {
-    chromatic: { disableSnapshot: true },
-  },
   ...buildDesignComparatorStory({
     component: PopoverDemo,
     designsToCompare: {

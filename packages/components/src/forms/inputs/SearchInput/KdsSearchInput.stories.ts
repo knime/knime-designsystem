@@ -221,24 +221,27 @@ export const ProgrammaticFocus: Story = {
 };
 
 export const AllCombinations: Story = buildAllCombinationsStory({
-  parameters: {
-    chromatic: { disableSnapshot: true },
-  },
   component: KdsSearchInput,
-  combinationsProps: [
-    {
-      ariaLabel: ["Search"],
-      label: [undefined, "Search"],
+  combinationsProps: {
+    default: {
+      label: ["Label"],
+      ariaLabel: [undefined],
       modelValue: ["", "Searchterm"],
-      placeholder: ["Search", "Placeholder"],
-      disabled: [false, true],
-      readonly: [false, true],
-      error: [false, true],
-      validating: [false, true],
-      subText: [undefined, "Helper text"],
+      placeholder: ["", "Search"],
+      readonly: [false],
+      disabled: [false],
+      error: [false],
+      validating: [false],
+      subText: [undefined, "Message"],
     },
-  ],
-  pseudoStates: ["hover", "active", "focus"],
+    combinations: [
+      { readonly: [true] },
+      { validating: [true], subText: ["Validation message"] },
+      { error: [true], subText: ["Error message"] },
+      { disabled: [true] },
+    ],
+  },
+  pseudoStates: ["hover", "focus"],
 });
 
 export const DesignComparator: Story = buildDesignComparatorStory({
