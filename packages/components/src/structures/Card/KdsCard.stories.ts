@@ -2,12 +2,11 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/internal/preview-api";
 import { expect, fn, userEvent, within } from "storybook/test";
 
-import KdsButton from "../buttons/KdsButton.vue";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
   buildTextOverflowStory,
-} from "../test-utils/storybook";
+} from "../../test-utils/storybook";
 
 import KdsCard from "./KdsCard.vue";
 import type { KdsCardVariant } from "./types";
@@ -24,11 +23,10 @@ const meta: Meta<typeof KdsCard> = {
           "The card can be selectable, allowing users to toggle between selected and unselected states, or it can emit click events when not selectable. " +
           "The card supports hover, active, and focus-visible states to provide visual feedback to users. " +
           "The component includes proper ARIA attributes (aria-pressed, aria-disabled) for accessibility.\n\n" +
-          "**Handling Interactive Elements**: When placing interactive elements (like buttons) inside the card, add `@click.stop` to the interactive element to prevent the click event " +
-          "from bubbling up to the card (which would toggle the selected state or emit the click event).\n\n" +
-          "**Prop Usage in Wrapper Components**: Due to TypeScript limitations with discriminated unions in Vue templates, when creating wrapper components that forward props, " +
+          "**Prop Usage in Wrapper Components**: Due to TypeScript limitations with discriminated unions in Vue templates, " +
           'you must use `v-bind` with a properly typed object. Direct prop binding (`:aria-label="..."`) will cause type errors. ' +
-          "See the type documentation for examples.",
+          "See the type documentation for examples.\n\n" +
+          "**Avoid nesting interactive elements inside the card, as this creates accessibility issues and conflicts with the card's own click behavior.**",
       },
     },
     design: {
@@ -177,49 +175,16 @@ export const Selected: Story = {
   },
 };
 
-export const NestedInteractive: Story = {
-  args: {
-    variant: "filled",
-  },
-  parameters: {
-    a11y: {
-      config: {
-        rules: [{ id: "nested-interactive", enabled: false }],
-      },
-    },
-  },
-  render: (args) => ({
-    components: { KdsCard, KdsButton },
-    setup() {
-      const onButtonClick = fn();
-
-      return { args, onButtonClick };
-    },
-    template: `
-      <KdsCard v-bind="args">
-        <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px;">
-          <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-default);">Demo for Storybook</div>
-          <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-default);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
-          <!-- Wrap interactive elements with @mousedown.stop.prevent to prevent card's :active state -->
-            <!-- Use @click.stop to prevent event bubbling to card (prevents selection toggle/click emit) -->
-            <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click.stop="onButtonClick" @mousedown.stop></KdsButton>
-        </div>
-      </KdsCard>
-    `,
-  }),
-};
-
 // Create a wrapper component for AllCombinations and DesignComparator that includes demo content
 const CardWithContent = {
   name: "CardWithContent",
   props: ["variant", "modelValue", "selectable", "disabled"],
-  components: { KdsCard, KdsButton },
+  components: { KdsCard },
   template: `
     <KdsCard v-bind="$props" aria-label="Demo card for Storybook">
       <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px; width: 413px">
         <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-default);">Demo for Storybook</div>
         <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-default);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
-        <KdsButton label="Generate a new version" size="xsmall" variant="filled" @click.stop style="align-self: start;" @mousedown.stop.prevent></KdsButton>
       </div>
     </KdsCard>
   `,

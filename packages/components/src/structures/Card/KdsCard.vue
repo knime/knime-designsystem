@@ -50,7 +50,7 @@ const handleClick = (event: MouseEvent | KeyboardEvent) => {
     class="kds-card"
     :class="[
       `variant-${variant}`,
-      `selected-${selected}`,
+      { selected: selected },
       { disabled: disabled },
     ]"
     role="button"

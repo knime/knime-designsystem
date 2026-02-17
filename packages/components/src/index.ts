@@ -1,9 +1,7 @@
 // Export all components
 export { default as KdsEmptyState } from "./EmptyState/KdsEmptyState.vue";
-export { default as KdsCard } from "./Card/KdsCard.vue";
 
 // Export component types
-export type * from "./Card/types";
 export type { KdsEmptyStateProps } from "./EmptyState/types";
 
 // Export accessory components
@@ -21,6 +19,10 @@ export type * from "./forms";
 // Export overlay components
 export * from "./overlays";
 export type * from "./overlays";
+
+// Export structure components
+export * from "./structures";
+export type * from "./structures";
 
 // Export utils
 export * from "./util";
