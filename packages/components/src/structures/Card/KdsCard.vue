@@ -92,7 +92,7 @@ const handleClick = (event: MouseEvent | KeyboardEvent) => {
 }
 
 /* Variant: Filled, Value: False */
-.variant-filled.selected-false {
+.variant-filled {
   background: var(--kds-color-surface-default);
   border: var(--kds-border-base-subtle);
 
@@ -107,7 +107,7 @@ const handleClick = (event: MouseEvent | KeyboardEvent) => {
 }
 
 /* Variant: Outlined, Value: False */
-.variant-outlined.selected-false {
+.variant-outlined {
   background: var(--kds-color-background-neutral-initial);
   border: var(--kds-border-base-muted);
 
@@ -122,7 +122,7 @@ const handleClick = (event: MouseEvent | KeyboardEvent) => {
 }
 
 /* Variant: Transparent, Value: False */
-.variant-transparent.selected-false {
+.variant-transparent {
   background: var(--kds-color-background-neutral-initial);
   border: var(--kds-border-action-transparent);
 
@@ -138,7 +138,7 @@ const handleClick = (event: MouseEvent | KeyboardEvent) => {
 }
 
 /* Variant: Filled, Value: True */
-.variant-filled.selected-true {
+.variant-filled.selected {
   background: var(--kds-color-background-selected-initial);
   border: var(--kds-border-action-selected);
 
@@ -153,7 +153,7 @@ const handleClick = (event: MouseEvent | KeyboardEvent) => {
 }
 
 /* Variant: Outlined, Value: True */
-.variant-outlined.selected-true {
+.variant-outlined.selected {
   background: var(--kds-color-background-selected-initial);
   border: var(--kds-border-base-muted);
 
@@ -168,11 +168,12 @@ const handleClick = (event: MouseEvent | KeyboardEvent) => {
 }
 
 /* Variant: Transparent, Value: True */
-.variant-transparent.selected-true {
+.variant-transparent.selected {
   background: var(--kds-color-background-selected-initial);
   border: var(--kds-border-action-selected);
 
   &:hover:not(.disabled) {
+    background: var(--kds-color-background-selected-initial);
     box-shadow: var(--kds-elevation-level-3);
   }
 

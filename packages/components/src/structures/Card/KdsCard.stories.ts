@@ -12,7 +12,7 @@ import KdsCard from "./KdsCard.vue";
 import type { KdsCardVariant } from "./types";
 
 const meta: Meta<typeof KdsCard> = {
-  title: "Components/KdsCard",
+  title: "Components/structures/KdsCard",
   component: KdsCard,
   tags: ["autodocs"],
   parameters: {
@@ -91,7 +91,7 @@ const meta: Meta<typeof KdsCard> = {
   },
   args: {
     variant: "filled",
-    selectable: true,
+    selectable: false,
     disabled: false,
     ariaLabel: "Demo card for Storybook",
     modelValue: false,
@@ -178,7 +178,12 @@ export const Selected: Story = {
 // Create a wrapper component for AllCombinations and DesignComparator that includes demo content
 const CardWithContent = {
   name: "CardWithContent",
-  props: ["variant", "modelValue", "selectable", "disabled"],
+  props: {
+    variant: { type: String as () => KdsCardVariant },
+    modelValue: { type: Boolean },
+    selectable: { type: Boolean },
+    disabled: { type: Boolean },
+  },
   components: { KdsCard },
   template: `
     <KdsCard v-bind="$props" aria-label="Demo card for Storybook">
