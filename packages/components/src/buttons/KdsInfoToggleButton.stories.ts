@@ -1,6 +1,5 @@
-import type { FunctionalComponent } from "vue";
+import { ref, watch } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { useArgs } from "storybook/internal/preview-api";
 import { expect, userEvent, within } from "storybook/test";
 
 import {
@@ -12,7 +11,7 @@ import KdsInfoToggleButton from "./KdsInfoToggleButton.vue";
 
 const meta = {
   title: "Components/buttons/KdsInfoToggleButton",
-  component: KdsInfoToggleButton as unknown as FunctionalComponent,
+  component: KdsInfoToggleButton,
   tags: ["autodocs"],
   parameters: {
     docs: {
@@ -36,28 +35,6 @@ const meta = {
     modelValue: false,
     hidden: false,
   },
-  decorators: [
-    (story) => {
-      const [currentArgs, updateArgs] = useArgs();
-
-      return {
-        components: { story },
-        setup() {
-          const onUpdateModelValue = (value: boolean) => {
-            currentArgs["onUpdate:modelValue"]?.(value);
-            updateArgs({ modelValue: value });
-          };
-
-          return {
-            args: currentArgs,
-            onUpdateModelValue,
-          };
-        },
-        template:
-          '<story :disabled="args.disabled" :hidden="args.hidden" :title="args.title" :icon="args.icon" :model-value="args.modelValue" v-on="{ \'update:modelValue\': onUpdateModelValue }" />',
-      };
-    },
-  ],
 } satisfies Meta<typeof KdsInfoToggleButton>;
 
 export default meta;
@@ -70,6 +47,42 @@ export const Default: Story = {
   },
   args: {
     modelValue: false,
+  },
+  render: (args) => ({
+    components: { KdsInfoToggleButton },
+    setup() {
+      const { modelValue: initialModelValue, ...rest } = args;
+      const localModelValue = ref(initialModelValue);
+
+      watch(
+        () => args.modelValue,
+        (newValue) => {
+          localModelValue.value = newValue;
+        },
+      );
+
+      return {
+        rest,
+        localModelValue,
+      };
+    },
+    template: '<KdsInfoToggleButton v-bind="rest" v-model="localModelValue" />',
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const getButton = () =>
+      canvas.getByRole("button", {
+        name: "Click for more information",
+      });
+
+    // Deterministic start state
+    await expect(getButton()).toHaveAttribute("aria-pressed", "false");
+
+    await userEvent.click(getButton());
+    await expect(getButton()).toHaveAttribute("aria-pressed", "true");
+
+    await userEvent.click(getButton());
+    await expect(getButton()).toHaveAttribute("aria-pressed", "false");
   },
 };
 
@@ -168,27 +181,3 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     },
   },
 });
-
-export const Interaction: Story = {
-  parameters: {
-    docs: false,
-  },
-  args: {
-    modelValue: false,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", {
-      name: "Click for more information",
-    });
-
-    // Deterministic start state
-    await expect(button).toHaveAttribute("aria-pressed", "false");
-
-    await userEvent.click(button);
-    await expect(button).toHaveAttribute("aria-pressed", "true");
-
-    await userEvent.click(button);
-    await expect(button).toHaveAttribute("aria-pressed", "false");
-  },
-};

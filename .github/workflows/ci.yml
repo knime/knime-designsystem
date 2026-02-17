@@ -49,6 +49,22 @@ jobs:
       - name: Run coverage
         run: pnpm run coverage
 
+      - name: Install Playwright
+        run: pnpm -C documentation exec playwright install --with-deps
+
+      - name: Run storybook tests
+        run: pnpm run test:storybook
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          if-no-files-found: warn
+          path: |
+            test-results/**
+            documentation/test-results/**
+
       - name: Check if audit and sonar scans are needed (can be skipped for only tokens/icons changes)
         id: check-changes
         run: |

@@ -329,28 +329,28 @@ export const Interaction: Story = {
       const increase = buttons[1];
 
       await userEvent.click(increase);
-      await expect(input).toHaveValue(0);
+      await expect(input).toHaveValue("0");
 
       await userEvent.click(increase);
-      await expect(input).toHaveValue(1);
+      await expect(input).toHaveValue("1");
 
       await userEvent.click(increase);
-      await expect(input).toHaveValue(2);
+      await expect(input).toHaveValue("2");
 
       await userEvent.click(increase);
-      await expect(input).toHaveValue(2);
+      await expect(input).toHaveValue("2");
 
       await userEvent.click(decrease);
-      await expect(input).toHaveValue(1);
+      await expect(input).toHaveValue("1");
     });
 
     await step("Arrow key stepping", async () => {
       await userEvent.click(input);
       await userEvent.keyboard("{ArrowDown}");
-      await expect(input).toHaveValue(0);
+      await expect(input).toHaveValue("0");
 
       await userEvent.keyboard("{ArrowDown}");
-      await expect(input).toHaveValue(0);
+      await expect(input).toHaveValue("0");
     });
 
     await step("Cleanup invalid input on blur", async () => {
@@ -361,7 +361,7 @@ export const Interaction: Story = {
       // move focus away to trigger blur cleanup and clamping to max=2
       await userEvent.tab();
 
-      await expect(input).toHaveValue(2);
+      await expect(input).toHaveValue("2");
     });
   },
 };

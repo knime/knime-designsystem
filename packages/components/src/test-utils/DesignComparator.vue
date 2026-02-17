@@ -61,7 +61,6 @@ function getIdFromFigmaUrl(url: string): string | null {
 
 async function fetchFigmaImages() {
   if (!figmaToken.value) {
-    console.error("No Figma token provided."); // eslint-disable-line no-console
     return;
   }
 
