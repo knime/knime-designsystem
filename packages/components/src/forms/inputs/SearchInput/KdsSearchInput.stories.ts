@@ -1,7 +1,9 @@
+import { ref } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
 
+import KdsButton from "../../../buttons/KdsButton.vue";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
@@ -177,6 +179,44 @@ export const WithError: Story = {
     modelValue: "Searchterm",
     error: true,
     subText: "Error message",
+  },
+};
+
+export const ProgrammaticFocus: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates how to programmatically focus the search input using the exposed `focus()` method via a template ref.",
+      },
+    },
+  },
+  render: () => ({
+    components: { KdsSearchInput, KdsButton },
+    setup() {
+      const searchInputRef = ref<InstanceType<typeof KdsSearchInput> | null>(
+        null,
+      );
+      const handleFocusClick = () => {
+        searchInputRef.value?.focus();
+      };
+      return { searchInputRef, handleFocusClick };
+    },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 16px; max-width: 300px;">
+        <KdsSearchInput ref="searchInputRef" aria-label="Search" />
+        <KdsButton @click="handleFocusClick" label="Focus Search Input" />
+      </div>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button", { name: "Focus Search Input" });
+    const input = canvas.getByRole("searchbox", { name: "Search" });
+
+    await expect(input).not.toHaveFocus();
+    await userEvent.click(button);
+    await expect(input).toHaveFocus();
   },
 };
 

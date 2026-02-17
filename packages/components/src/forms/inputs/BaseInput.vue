@@ -200,6 +200,13 @@ const handleContainerClick = (event: MouseEvent) => {
 
   focusInput();
 };
+
+defineExpose({
+  /**
+   * Focuses the input element
+   */
+  focus: focusInput,
+});
 </script>
 
 <template>
