@@ -1,5 +1,20 @@
 # @knime/kds-components
 
+## 0.7.0
+
+### Minor Changes
+
+- 17173f0: Remove the KdsPopover built-in padding and the `paddingSize` prop (including its padding variants). KdsPopover now renders without padding by default; add any required padding via your own content or wrapper element.
+- dd3ec59: KdsLoadingSpinner: rename style prop to variant
+
+### Patch Changes
+
+- edd5591: Add KdsPopover component
+- 28d3e52: Add KdsTextarea component
+- 4e8626e: KdsSearchInput: expose focus method
+- d91ed13: Add KdsColorSwatch and KdsAvatar components
+  - @knime/kds-styles@0.7.0
+
 ## 0.6.7
 
 ### Patch Changes
