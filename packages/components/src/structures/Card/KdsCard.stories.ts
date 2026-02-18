@@ -152,9 +152,25 @@ export const Default: Story = {
 
       await userEvent.click(card);
       await expect(card).toHaveAttribute("aria-pressed", "false");
+
+      // Test keyboard interaction
+      card.focus();
+      await userEvent.keyboard("{Enter}");
+      await expect(card).toHaveAttribute("aria-pressed", "true");
+
+      await userEvent.keyboard(" ");
+      await expect(card).toHaveAttribute("aria-pressed", "false");
     } else {
       await userEvent.click(card);
       await expect(args.onClick).toHaveBeenCalledTimes(1);
+
+      // Test keyboard interaction
+      card.focus();
+      await userEvent.keyboard("{Enter}");
+      await expect(args.onClick).toHaveBeenCalledTimes(2);
+
+      await userEvent.keyboard(" ");
+      await expect(args.onClick).toHaveBeenCalledTimes(3);
     }
   },
 };
