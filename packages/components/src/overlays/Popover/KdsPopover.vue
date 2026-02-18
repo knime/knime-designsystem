@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { ComponentPublicInstance } from "vue";
-import { onBeforeUnmount, ref, unref, useId, watch } from "vue";
+import { onBeforeUnmount, unref, useId, useTemplateRef, watch } from "vue";
 
 import type { KdsPopoverProps } from "./types";
 
@@ -9,7 +9,7 @@ const props = withDefaults(defineProps<KdsPopoverProps>(), {
 });
 
 const open = defineModel<boolean>({ default: false });
-const popoverEl = ref<HTMLElement | null>(null);
+const popoverEl = useTemplateRef("popoverEl");
 
 const popoverId = useId();
 const anchorName = `--anchor-${popoverId}`;
