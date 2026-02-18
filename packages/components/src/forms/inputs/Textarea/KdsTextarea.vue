@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
+import { computed, useTemplateRef, watch } from "vue";
 import { useResizeObserver } from "@vueuse/core";
 
 import BaseFormFieldWrapper from "../../BaseFormFieldWrapper.vue";
@@ -20,7 +20,7 @@ const normalizedRows = computed(() => Math.max(1, props.rows));
 
 const modelValue = defineModel<string>({ default: "" });
 
-const textareaElement = ref<HTMLTextAreaElement | null>(null);
+const textareaElement = useTemplateRef("textareaElement");
 
 function resize() {
   const element = textareaElement.value;

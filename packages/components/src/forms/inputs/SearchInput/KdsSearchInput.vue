@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { useTemplateRef } from "vue";
 
 import BaseFormFieldWrapper from "../../BaseFormFieldWrapper.vue";
 import BaseInput from "../BaseInput.vue";
@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<KdsSearchInputProps>(), {
 
 const modelValue = defineModel<string>({ default: "" });
 
-const baseInputRef = ref<InstanceType<typeof BaseInput> | null>(null);
+const baseInputRef = useTemplateRef("baseInput");
 
 defineExpose({
   /**
@@ -31,7 +31,7 @@ defineExpose({
   <BaseFormFieldWrapper v-bind="props">
     <template #default="slotProps">
       <BaseInput
-        ref="baseInputRef"
+        ref="baseInput"
         v-bind="slotProps"
         v-model="modelValue"
         type="search"

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref, useId } from "vue";
+import { computed, useId, useTemplateRef } from "vue";
 import { useElementSize } from "@vueuse/core";
 
 import KdsLabel from "../KdsLabel.vue";
@@ -31,14 +31,16 @@ const options = computed(
 const labelId = useId();
 const descriptionId = useId();
 
-const availableWidthContainer = ref<HTMLElement | null>(null);
+const availableWidthContainer = useTemplateRef<HTMLElement>(
+  "availableWidthContainer",
+);
 const { width } = useElementSize(availableWidthContainer);
 const { shouldHideIcons, setItemEl } = useValueSwitchIconHiding({
   width,
   options,
 });
 
-const optionContainer = ref<HTMLElement | null>(null);
+const optionContainer = useTemplateRef("optionContainer");
 const { tabIndexForOption, handleClick, handleKeyDown } = useRadioSelection({
   selectedId: modelValue,
   options,

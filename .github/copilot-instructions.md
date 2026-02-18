@@ -98,6 +98,7 @@ packages/
     - and a `computed` "effective" value that prefers the model/props and falls back to the manual value.
 - Inline single-line `computed` properties in the template for better readability.
 - Inline one-line functions in the template for better readability.
+- Use composable `useTemplateRef` for type safety when accessing template refs in the script. Then types will be inferred automatically.
 
 ### Icons & Components
 

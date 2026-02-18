@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, useTemplateRef } from "vue";
 
 import KdsIcon from "../../accessories/Icon/KdsIcon.vue";
 import type { KdsIconName } from "../../accessories/Icon/types";
@@ -168,7 +168,7 @@ const emit = defineEmits<BaseInputEmits>();
 
 const modelValue = defineModel<string>({ default: "" });
 
-const inputRef = ref<HTMLInputElement | null>(null);
+const inputRef = useTemplateRef("input");
 
 const hasValue = computed(() => modelValue.value.length > 0);
 
@@ -224,7 +224,7 @@ defineExpose({
 
     <input
       :id="props.id"
-      ref="inputRef"
+      ref="input"
       :value="modelValue"
       :type="props.type"
       :inputmode="props.inputmode"

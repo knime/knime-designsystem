@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref, useId } from "vue";
+import { computed, useId, useTemplateRef } from "vue";
 
 import KdsLabel from "../KdsLabel.vue";
 import KdsSubText from "../KdsSubText.vue";
@@ -32,7 +32,7 @@ const labelId = useId();
 const descriptionId = useId();
 const groupName = useId();
 
-const optionContainer = ref<HTMLElement | null>(null);
+const optionContainer = useTemplateRef("optionContainer");
 
 const { tabIndexForOption, handleClick, handleKeyDown, hasError } =
   useRadioSelection({
