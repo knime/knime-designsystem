@@ -200,8 +200,14 @@ export const AllCombinations: DemoStory = buildAllCombinationsStory({
   combinationsProps: [
     {
       variant: ["filled", "outlined", "transparent"] as KdsCardVariant[],
+      modelValue: [false],
+      selectable: [false],
+      disabled: [false, true],
+    },
+    {
+      variant: ["filled", "outlined", "transparent"] as KdsCardVariant[],
       modelValue: [false, true],
-      selectable: [false, true],
+      selectable: [true],
       disabled: [false, true],
     },
   ],
