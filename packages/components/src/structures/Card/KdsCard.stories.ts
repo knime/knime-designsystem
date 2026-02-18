@@ -80,8 +80,7 @@ const meta: Meta<typeof KdsCard> = {
     modelValue: {
       description:
         "Controls the selected state of the card when `selectable` is true. When `selectable` is false, this model is ignored.",
-      control: { type: "select" },
-      options: [false, true],
+      control: { type: "boolean" },
       table: {
         category: "Model",
       },
