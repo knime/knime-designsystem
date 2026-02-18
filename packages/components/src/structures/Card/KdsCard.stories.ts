@@ -171,6 +171,7 @@ export const Transparent: Story = {
 export const Selected: Story = {
   args: {
     variant: "filled",
+    selectable: true,
     modelValue: true,
   },
 };
