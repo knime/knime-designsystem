@@ -1,16 +1,19 @@
 import type { FunctionalComponent } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { expect, within } from "storybook/test";
+import { expect, userEvent, within } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
-} from "../../test-utils/storybook";
+} from "../../../test-utils/storybook.ts";
 
 import KdsVariableToggleButton from "./KdsVariableToggleButton.vue";
 
+const SAMPLE_CONTENT =
+  "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.";
+
 const meta: Meta<typeof KdsVariableToggleButton> = {
-  title: "Buttons/KdsVariableToggleButton",
+  title: "Form Fields/_Helper/KdsVariableToggleButton",
   component: KdsVariableToggleButton as unknown as FunctionalComponent,
   tags: ["autodocs"],
   parameters: {
@@ -28,15 +31,23 @@ const meta: Meta<typeof KdsVariableToggleButton> = {
     },
   },
   argTypes: {
-    modelValue: { control: "boolean" },
-    inSet: { control: "boolean" },
-    outSet: { control: "boolean" },
-    error: { control: "boolean" },
-    disabled: { control: "boolean" },
-    hidden: { control: "boolean" },
+    modelValue: { control: { type: "boolean" }, table: { category: "Model" } },
+    content: { control: { type: "text" }, table: { category: "Props" } },
+    inSet: { control: "boolean", table: { category: "Props" } },
+    outSet: { control: "boolean", table: { category: "Props" } },
+    error: { control: "boolean", table: { category: "Props" } },
+    disabled: { control: "boolean", table: { category: "Props" } },
+    hidden: { control: "boolean", table: { category: "Props" } },
+    default: {
+      control: false,
+      description:
+        "Custom content for the popover. When provided, overrides the `content` prop.",
+      table: { category: "Slots" },
+    },
   },
   args: {
     modelValue: false,
+    content: SAMPLE_CONTENT,
     inSet: false,
     outSet: false,
     error: false,
@@ -47,32 +58,41 @@ const meta: Meta<typeof KdsVariableToggleButton> = {
 
 export default meta;
 
-type Story = StoryObj<typeof KdsVariableToggleButton>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  parameters: {
-    docs: false,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const getButton = () =>
+      canvas.getByRole("button", {
+        name: /flow variable/i,
+      });
+
+    await expect(getButton()).toHaveAttribute("aria-pressed", "false");
+
+    await userEvent.click(getButton());
+    await expect(getButton()).toHaveAttribute("aria-pressed", "true");
+
+    await userEvent.click(getButton());
+    await expect(getButton()).toHaveAttribute("aria-pressed", "false");
   },
 };
 
 export const Disabled: Story = {
-  parameters: {
-    docs: false,
+  args: {
+    disabled: true,
   },
-  render: () => ({
-    components: { KdsVariableToggleButton },
-    template: `
-      <div style="display: inline-flex; gap: 12px; align-items: center;">
-        <KdsVariableToggleButton :disabled="true" />
-        <KdsVariableToggleButton :disabled="true" :model-value="true" />
-      </div>
-    `,
-  }),
 };
 
 export const OnlyVisibleOnHover: Story = {
   parameters: {
-    docs: false,
+    docs: {
+      description: {
+        story:
+          "When `hidden` is true, the button is invisible until hovered or focused. " +
+          "Once toggled open, it remains visible.",
+      },
+    },
   },
   args: {
     hidden: true,
@@ -84,14 +104,12 @@ export const OnlyVisibleOnHover: Story = {
     },
     template: `
       <div
-        class="hover-wrapper"
-        @mouseover="args.hidden = false"
+        style="padding: 16px; border: 1px dashed var(--kds-color-border-neutral);"
+        @mouseenter="args.hidden = false"
         @mouseleave="args.hidden = true"
       >
-        <div class="hint">Hover this area to show the button, toggle it to keep it visible</div>
-        <div class="anchor">
-          <KdsVariableToggleButton v-bind="args" />
-        </div>
+        <span>Hover this area to show the button</span>
+        <KdsVariableToggleButton v-bind="args" />
       </div>
     `,
   }),
@@ -163,16 +181,12 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     "No Variable": {
       props: { inSet: false, outSet: false },
       variants: {
-        // Enabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2635-14399":
           {},
-        // Enabled :hover
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-260751":
           { parameters: { pseudo: { hover: true } } },
-        // Enabled :active
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261536":
           { parameters: { pseudo: { active: true } } },
-        // Disabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261608":
           { disabled: true },
       },
@@ -180,16 +194,12 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     "In Variable": {
       props: { inSet: true, outSet: false },
       variants: {
-        // Enabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2648-14565":
           {},
-        // Enabled :hover
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-260749":
           { parameters: { pseudo: { hover: true } } },
-        // Enabled :active
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261538":
           { parameters: { pseudo: { active: true } } },
-        // Disabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261606":
           { disabled: true },
       },
@@ -197,16 +207,12 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     "Out Variable": {
       props: { inSet: false, outSet: true },
       variants: {
-        // Enabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2990-23734":
           {},
-        // Enabled :hover
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-260747":
           { parameters: { pseudo: { hover: true } } },
-        // Enabled :active
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261540":
           { parameters: { pseudo: { active: true } } },
-        // Disabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261604":
           { disabled: true },
       },
@@ -214,16 +220,12 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     "In + Out Variable": {
       props: { inSet: true, outSet: true },
       variants: {
-        // Enabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2990-23830":
           {},
-        // Enabled :hover
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-260745":
           { parameters: { pseudo: { hover: true } } },
-        // Enabled :active
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261542":
           { parameters: { pseudo: { active: true } } },
-        // Disabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261602":
           { disabled: true },
       },
@@ -231,16 +233,12 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     "Error (In)": {
       props: { inSet: true, outSet: false, error: true },
       variants: {
-        // Enabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-260717":
           {},
-        // Enabled :hover
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-260836":
           { parameters: { pseudo: { hover: true } } },
-        // Enabled :active
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261678":
           { parameters: { pseudo: { active: true } } },
-        // Disabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261696":
           { disabled: true },
       },
@@ -248,34 +246,13 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     "Error (Out)": {
       props: { inSet: false, outSet: true, error: true },
       variants: {
-        // Enabled
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-260719":
           {},
-        // Enabled :hover
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-260841":
           { parameters: { pseudo: { hover: true } } },
-        // Enabled :active
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261673":
           { parameters: { pseudo: { active: true } } },
-        // Disabled
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261701":
-          { disabled: true },
-      },
-    },
-    "Error (In + Out)": {
-      props: { inSet: true, outSet: true, error: true },
-      variants: {
-        // Enabled
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-260721":
-          {},
-        // Enabled :hover
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-260846":
-          { parameters: { pseudo: { hover: true } } },
-        // Enabled :active
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261668":
-          { parameters: { pseudo: { active: true } } },
-        // Disabled
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261706":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261694":
           { disabled: true },
       },
     },

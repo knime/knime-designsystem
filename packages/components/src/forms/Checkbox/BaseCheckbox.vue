@@ -2,7 +2,7 @@
 import { computed, useId } from "vue";
 
 import Icon from "../../accessories/Icon/KdsIcon.vue";
-import KdsSubText from "../KdsSubText.vue";
+import KdsSubText from "../_helper/KdsSubText.vue";
 
 import type { BaseCheckboxProps, KdsCheckboxValue } from "./types";
 

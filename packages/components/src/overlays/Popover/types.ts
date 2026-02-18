@@ -21,7 +21,30 @@ export type KdsPopoverProps = {
   anchorEl?: MaybeRef<HTMLElement | ComponentPublicInstance | null>;
 
   /**
-   * Where the popover should be positioned relative to its anchor.
+   * Placement of the popover relative to the anchor element.
+   *
+   * Format: `{side}-{edge}` where:
+   * - `side`: which side of the anchor the popover appears on (`top`, `bottom`)
+   * - `edge`: which edge of the popover aligns with the anchor's edge (`left`, `right`)
+   *
+   * @default "bottom-left"
    */
   placement?: KdsPopoverPlacement;
+
+  /**
+   * Role of the popover element (for accessibility).
+   *
+   * Defaults to "dialog".
+   */
+  role?: "dialog" | "menu" | "listbox";
+
+  /**
+   * When true, enforces the popover's minimum width to match the anchor element's width.
+   */
+  fullWidth?: boolean;
+
+  /**
+   * Optional content rendered when no default slot is provided.
+   */
+  content?: string;
 };

@@ -10,12 +10,6 @@ export type * from "./KdsToggleButton";
 export * from "./KdsProgressButton";
 export type * from "./KdsProgressButton";
 
-export * from "./KdsInfoToggleButton";
-export type * from "./KdsInfoToggleButton";
-
-export * from "./KdsVariableToggleButton";
-export type * from "./KdsVariableToggleButton";
-
 // Shared enums
 export {
   kdsButtonSize,

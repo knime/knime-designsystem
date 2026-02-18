@@ -1,16 +1,18 @@
-import { ref, watch } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { expect, userEvent, within } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
-} from "../../test-utils/storybook";
+} from "../../../test-utils/storybook.ts";
 
 import KdsInfoToggleButton from "./KdsInfoToggleButton.vue";
 
+const SAMPLE_CONTENT =
+  "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.";
+
 const meta = {
-  title: "Buttons/KdsInfoToggleButton",
+  title: "Form Fields/_Helper/KdsInfoToggleButton",
   component: KdsInfoToggleButton,
   tags: ["autodocs"],
   parameters: {
@@ -28,11 +30,20 @@ const meta = {
   },
   argTypes: {
     modelValue: { control: { type: "boolean" }, table: { category: "Model" } },
-    disabled: { control: "boolean" },
-    hidden: { control: "boolean" },
+    content: { control: { type: "text" }, table: { category: "Props" } },
+    disabled: { control: "boolean", table: { category: "Props" } },
+    hidden: { control: "boolean", table: { category: "Props" } },
+    default: {
+      control: false,
+      description:
+        "Custom content for the popover. When provided, overrides the `content` prop.",
+      table: { category: "Slots" },
+    },
   },
   args: {
     modelValue: false,
+    content: SAMPLE_CONTENT,
+    disabled: false,
     hidden: false,
   },
 } satisfies Meta<typeof KdsInfoToggleButton>;
@@ -42,32 +53,6 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  parameters: {
-    docs: false,
-  },
-  args: {
-    modelValue: false,
-  },
-  render: (args) => ({
-    components: { KdsInfoToggleButton },
-    setup() {
-      const { modelValue: initialModelValue, ...rest } = args;
-      const localModelValue = ref(initialModelValue);
-
-      watch(
-        () => args.modelValue,
-        (newValue) => {
-          localModelValue.value = newValue;
-        },
-      );
-
-      return {
-        rest,
-        localModelValue,
-      };
-    },
-    template: '<KdsInfoToggleButton v-bind="rest" v-model="localModelValue" />',
-  }),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const getButton = () =>
@@ -75,7 +60,6 @@ export const Default: Story = {
         name: "Click for more information",
       });
 
-    // Deterministic start state
     await expect(getButton()).toHaveAttribute("aria-pressed", "false");
 
     await userEvent.click(getButton());
@@ -86,19 +70,7 @@ export const Default: Story = {
   },
 };
 
-export const Selected: Story = {
-  parameters: {
-    docs: false,
-  },
-  args: {
-    modelValue: true,
-  },
-};
-
 export const Disabled: Story = {
-  parameters: {
-    docs: false,
-  },
   args: {
     disabled: true,
   },
@@ -106,7 +78,13 @@ export const Disabled: Story = {
 
 export const OnlyVisibleOnHover: Story = {
   parameters: {
-    docs: false,
+    docs: {
+      description: {
+        story:
+          "When `hidden` is true, the button is invisible until hovered or focused. " +
+          "Once toggled open, it remains visible.",
+      },
+    },
   },
   args: {
     hidden: true,
@@ -117,15 +95,53 @@ export const OnlyVisibleOnHover: Story = {
       return { args };
     },
     template: `
-      <div class="hover-wrapper" @mouseover="args.hidden = false" @mouseleave="args.hidden = true">
-        <div class="hint">Hover this area to show the button, toggle it to keep it visible</div>
-        <div class="anchor">
-          <KdsInfoToggleButton v-bind="args" />
-        </div>
+      <div
+        style="padding: 16px; border: 1px dashed var(--kds-color-border-neutral);"
+        @mouseenter="args.hidden = false"
+        @mouseleave="args.hidden = true"
+      >
+        <span>Hover this area to show the button</span>
+        <KdsInfoToggleButton v-bind="args" />
       </div>
     `,
   }),
 };
+
+export const DesignComparator: Story = buildDesignComparatorStory({
+  component: KdsInfoToggleButton,
+  designsToCompare: {
+    Default: {
+      props: {
+        modelValue: false,
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219224":
+          {},
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219228":
+          { parameters: { pseudo: { hover: true } } },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219244":
+          { parameters: { pseudo: { active: true } } },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219248":
+          { disabled: true },
+      },
+    },
+    Selected: {
+      props: {
+        modelValue: true,
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219252":
+          {},
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219232":
+          { parameters: { pseudo: { hover: true } } },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219236":
+          { parameters: { pseudo: { active: true } } },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219240":
+          { disabled: true },
+      },
+    },
+  },
+});
 
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsInfoToggleButton,
@@ -136,48 +152,4 @@ export const AllCombinations: Story = buildAllCombinationsStory({
     },
   ],
   pseudoStates: ["hover", "active", "focus-visible"],
-});
-
-export const DesignComparator: Story = buildDesignComparatorStory({
-  component: KdsInfoToggleButton,
-  designsToCompare: {
-    Default: {
-      props: {
-        modelValue: false,
-      },
-      variants: {
-        // Enabled
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219224":
-          {},
-        // Enabled :hover
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219228":
-          { parameters: { pseudo: { hover: true } } },
-        // Enabled :active
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219244":
-          { parameters: { pseudo: { active: true } } },
-        // Disabled
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219248":
-          { disabled: true },
-      },
-    },
-    Selected: {
-      props: {
-        modelValue: true,
-      },
-      variants: {
-        // Enabled
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219252":
-          {},
-        // Enabled :hover
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219232":
-          { parameters: { pseudo: { hover: true } } },
-        // Enabled :active
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219236":
-          { parameters: { pseudo: { active: true } } },
-        // Disabled
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219240":
-          { disabled: true },
-      },
-    },
-  },
 });

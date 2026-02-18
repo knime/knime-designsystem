@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BaseFormFieldWrapper from "../../BaseFormFieldWrapper.vue";
+import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
 import BaseInput from "../BaseInput.vue";
 import type { KdsTextInputProps } from "../types";
 

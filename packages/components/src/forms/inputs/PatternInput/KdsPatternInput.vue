@@ -2,7 +2,7 @@
 import { computed, ref, watch } from "vue";
 
 import KdsToggleButton from "../../../buttons/KdsToggleButton/KdsToggleButton.vue";
-import BaseFormFieldWrapper from "../../BaseFormFieldWrapper.vue";
+import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
 import BaseInput from "../BaseInput.vue";
 import type { KdsPatternInputProps } from "../types.ts";
 

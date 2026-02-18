@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { computed, useId } from "vue";
 
-import KdsLabel from "../KdsLabel.vue";
-import KdsSubText from "../KdsSubText.vue";
+import KdsLabel from "../_helper/KdsLabel.vue";
+import KdsSubText from "../_helper/KdsSubText.vue";
 
 import BaseCheckbox from "./BaseCheckbox.vue";
 import type {

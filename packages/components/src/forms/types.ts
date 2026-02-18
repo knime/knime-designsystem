@@ -8,6 +8,14 @@ export type KdsLabelProps = {
    * Id of the form control this label is for.
    */
   for?: string;
+  /**
+   * Optional description displayed in an info popover next to the label.
+   */
+  description?: string;
+  /**
+   * When true, shows the info toggle button (used when hovering the form field).
+   */
+  isHovered?: boolean;
 };
 
 export type KdsSubTextProps = {
@@ -33,21 +41,31 @@ export type KdsSubTextProps = {
   preserveSubTextSpace?: boolean;
 };
 
-type KdsInputLabelProps =
-  | {
-      /**
-       * Visible label text for the input.
-       */
-      label: string;
-      ariaLabel?: never;
-    }
-  | {
-      label?: never;
-      /**
-       * Accessible label used when no visible label is rendered.
-       */
-      ariaLabel: string;
-    };
+type KdsInputDescriptionProps = {
+  /**
+   * Optional description displayed in an info popover next to the label.
+   * The info toggle button is only visible when hovering the input field.
+   */
+  description?: string;
+};
+
+type KdsInputLabelProps = KdsInputDescriptionProps &
+  (
+    | {
+        /**
+         * Visible label text for the input.
+         */
+        label: string;
+        ariaLabel?: never;
+      }
+    | {
+        label?: never;
+        /**
+         * Accessible label used when no visible label is rendered.
+         */
+        ariaLabel: string;
+      }
+  );
 
 type KdsInputSubTextProps = Omit<KdsSubTextProps, "id">;
 

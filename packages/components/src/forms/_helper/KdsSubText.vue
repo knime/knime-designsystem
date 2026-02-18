@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import KdsIcon from "../accessories/Icon/KdsIcon.vue";
-import KdsLoadingSpinner from "../accessories/LoadingSpinner/KdsLoadingSpinner.vue";
-
-import type { KdsSubTextProps } from "./types";
+import KdsIcon from "../../accessories/Icon/KdsIcon.vue";
+import KdsLoadingSpinner from "../../accessories/LoadingSpinner/KdsLoadingSpinner.vue";
+import type { KdsSubTextProps } from "../types.ts";
 
 const props = withDefaults(defineProps<KdsSubTextProps>(), {
   error: false,

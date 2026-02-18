@@ -1,7 +1,15 @@
 <script setup lang="ts">
-import KdsIcon from "../../accessories/Icon/KdsIcon.vue";
+import { ref } from "vue";
 
-import type { KdsInfoToggleButtonProps } from "./types";
+import KdsIcon from "../../../accessories/Icon/KdsIcon.vue";
+import KdsPopover from "../../../overlays/Popover/KdsPopover.vue";
+
+import InfoPopover from "./InfoPopover.vue";
+import type { KdsInfoToggleButtonProps } from "./types.ts";
+
+/**
+ * @slot default - Custom content for the popover. When provided, overrides the `content` prop.
+ */
 
 const props = withDefaults(defineProps<KdsInfoToggleButtonProps>(), {
   disabled: false,
@@ -11,10 +19,13 @@ const props = withDefaults(defineProps<KdsInfoToggleButtonProps>(), {
 const TITLE = "Click for more information";
 
 const modelValue = defineModel<boolean>({ default: false });
+const buttonEl = ref<HTMLButtonElement | null>(null);
 </script>
 
 <template>
   <button
+    ref="buttonEl"
+    v-bind="$attrs"
     :class="{
       'info-toggle-button': true,
       selected: modelValue,
@@ -30,6 +41,16 @@ const modelValue = defineModel<boolean>({ default: false });
   >
     <KdsIcon name="circle-question" size="xsmall" />
   </button>
+
+  <KdsPopover
+    v-model="modelValue"
+    :activator-el="buttonEl"
+    placement="top-right"
+  >
+    <InfoPopover :content="props.content">
+      <slot />
+    </InfoPopover>
+  </KdsPopover>
 </template>
 
 <style scoped>
@@ -54,7 +75,7 @@ const modelValue = defineModel<boolean>({ default: false });
   border-radius: var(--kds-border-radius-container-0-12x);
   opacity: 1;
 
-  &.hidden:not(:focus-visible, :hover, .disabled) {
+  &.hidden:not(:focus, :focus-visible, :hover, .disabled) {
     opacity: 0;
   }
 
