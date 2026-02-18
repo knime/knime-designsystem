@@ -185,6 +185,16 @@
             "$value": "{kds.core.size.scale} * 4",
             "$description": "Extra large component height (64px). Use for large interactive elements and cards."
           },
+          "12x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 12",
+            "$description": "Intended for max-height on elements"
+          },
+          "20x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 20",
+            "$description": "Intended for max-height on elements"
+          },
           "45x": {
             "$type": "dimension",
             "$value": "{kds.core.size.scale} * 45",
