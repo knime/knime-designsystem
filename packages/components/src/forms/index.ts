@@ -10,6 +10,7 @@ export { default as KdsNumberInput } from "./inputs/NumberInput/KdsNumberInput.v
 export { default as KdsPatternInput } from "./inputs/PatternInput/KdsPatternInput.vue";
 export { default as KdsSearchInput } from "./inputs/SearchInput/KdsSearchInput.vue";
 export { default as KdsDropdown } from "./inputs/Dropdown/KdsDropdown.vue";
+export { default as KdsMultiSelectDropdown } from "./inputs/Dropdown/KdsMultiSelectDropdown.vue";
 export { default as KdsTextarea } from "./inputs/Textarea/KdsTextarea.vue";
 
 // Export form component types
@@ -36,5 +37,6 @@ export type {
   KdsSearchInputProps,
   KdsDropdownOption,
   KdsDropdownProps,
+  KdsMultiSelectDropdownProps,
   KdsTextareaProps,
 } from "./inputs/types";

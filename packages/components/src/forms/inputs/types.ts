@@ -30,6 +30,7 @@ export type KdsPatternInputProps = KdsInputFieldProps;
 
 export type KdsSearchInputProps = KdsInputFieldProps;
 
+export type { KdsMultiSelectDropdownProps } from "./Dropdown/multiSelectTypes";
 export type KdsTextareaProps = KdsInputFieldProps & {
   /**
    * The number of visible text lines.
