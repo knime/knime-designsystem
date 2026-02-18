@@ -1,4 +1,3 @@
-import type { PropType } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/internal/preview-api";
 import { expect, fn, userEvent, within } from "storybook/test";
@@ -11,7 +10,6 @@ import {
 
 import DemoCard from "./DemoCard.vue";
 import KdsCard from "./KdsCard.vue";
-import type { KdsCardVariant } from "./types";
 
 const meta: Meta<typeof KdsCard> = {
   title: "Components/structures/KdsCard",
@@ -40,7 +38,7 @@ const meta: Meta<typeof KdsCard> = {
       description:
         "The visual style of the card container. Filled provides a surface background, Outlined has a border with transparent background, and Transparent has no visible container styling.",
       control: { type: "select" },
-      options: ["filled", "outlined", "transparent"] as KdsCardVariant[],
+      options: ["filled", "outlined", "transparent"],
       table: {
         category: "Props",
       },
@@ -197,13 +195,13 @@ export const AllCombinations: DemoStory = buildAllCombinationsStory({
   component: DemoCard,
   combinationsProps: [
     {
-      variant: ["filled", "outlined", "transparent"] as KdsCardVariant[],
+      variant: ["filled", "outlined", "transparent"],
       modelValue: [false],
       selectable: [false],
       ariaLabel: ["Demo card for Storybook"],
     },
     {
-      variant: ["filled", "outlined", "transparent"] as KdsCardVariant[],
+      variant: ["filled", "outlined", "transparent"],
       modelValue: [false, true],
       selectable: [true],
       ariaLabel: ["Demo card for Storybook"],
@@ -213,33 +211,12 @@ export const AllCombinations: DemoStory = buildAllCombinationsStory({
   columns: 3,
 });
 
-// Create a wrapper component for AllCombinations and DesignComparator that includes demo content
-const CardWithContent = {
-  name: "CardWithContent",
-  props: {
-    variant: { type: String as PropType<KdsCardVariant> },
-    modelValue: { type: Boolean },
-    selectable: { type: Boolean },
-    disabled: { type: Boolean },
-    ariaLabel: { type: String },
-  },
-  components: { KdsCard },
-  template: `
-    <KdsCard v-bind="$props">
-      <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px; width: 413px">
-        <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-default);">Demo for Storybook</div>
-        <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-default);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
-      </div>
-    </KdsCard>
-  `,
-};
-
-export const DesignComparator: Story = buildDesignComparatorStory({
-  component: CardWithContent,
+export const DesignComparator: DemoStory = buildDesignComparatorStory({
+  component: DemoCard,
   designsToCompare: {
     filled: {
       props: {
-        variant: "filled" as KdsCardVariant,
+        variant: "filled",
         ariaLabel: "Demo card for Storybook",
       },
       variants: {
@@ -290,7 +267,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     },
     outlined: {
       props: {
-        variant: "outlined" as KdsCardVariant,
+        variant: "outlined",
         ariaLabel: "Demo card for Storybook",
       },
       variants: {
@@ -341,7 +318,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     },
     transparent: {
       props: {
-        variant: "transparent" as KdsCardVariant,
+        variant: "transparent",
         ariaLabel: "Demo card for Storybook",
       },
       variants: {
@@ -390,6 +367,9 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           },
       },
     },
+  },
+  wrapperStyle: {
+    width: "413px",
   },
 });
 
