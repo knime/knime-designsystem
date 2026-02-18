@@ -21,10 +21,9 @@ const meta: Meta<typeof KdsCard> = {
     docs: {
       description: {
         component:
-          "A clickable card component that provides a container with different visual styles (filled, outlined, transparent) to hold content. " +
-          "The card can be selectable, allowing users to toggle between selected and unselected states, or it can emit click events when not selectable. " +
-          "The card supports hover, active, and focus-visible states to provide visual feedback to users. " +
-          "The component includes proper ARIA attributes (aria-pressed, aria-disabled) for accessibility.\n\n" +
+          "A clickable card component that provides a container with different visual styles (filled, outlined, transparent) to hold non-interactive content. The card can …" +
+          " <ul><li> be selectable, allowing users to toggle between selected and unselected states, or </li>" +
+          " <li> emit click events when it is not selectable. </li></ul>" +
           "**Prop Usage in Wrapper Components**: Due to TypeScript limitations with discriminated unions in Vue templates, " +
           'you must use `v-bind` with a properly typed object. Direct prop binding (`:aria-label="..."`) will cause type errors. ' +
           "See the type documentation for examples.\n\n" +
@@ -202,11 +201,13 @@ export const AllCombinations: DemoStory = buildAllCombinationsStory({
       variant: ["filled", "outlined", "transparent"] as KdsCardVariant[],
       modelValue: [false],
       selectable: [false],
+      ariaLabel: ["Demo card for Storybook"],
     },
     {
       variant: ["filled", "outlined", "transparent"] as KdsCardVariant[],
       modelValue: [false, true],
       selectable: [true],
+      ariaLabel: ["Demo card for Storybook"],
     },
   ],
   pseudoStates: ["hover", "active", "focus-visible"],
@@ -221,10 +222,11 @@ const CardWithContent = {
     modelValue: { type: Boolean },
     selectable: { type: Boolean },
     disabled: { type: Boolean },
+    ariaLabel: { type: String },
   },
   components: { KdsCard },
   template: `
-    <KdsCard v-bind="$props" aria-label="Demo card for Storybook">
+    <KdsCard v-bind="$props">
       <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px; width: 413px">
         <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-default);">Demo for Storybook</div>
         <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-default);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
@@ -239,6 +241,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     filled: {
       props: {
         variant: "filled" as KdsCardVariant,
+        ariaLabel: "Demo card for Storybook",
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=14767-33734":
@@ -289,6 +292,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     outlined: {
       props: {
         variant: "outlined" as KdsCardVariant,
+        ariaLabel: "Demo card for Storybook",
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=15529-79540":
@@ -339,6 +343,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     transparent: {
       props: {
         variant: "transparent" as KdsCardVariant,
+        ariaLabel: "Demo card for Storybook",
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=14767-37012":
