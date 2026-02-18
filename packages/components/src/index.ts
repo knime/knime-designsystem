@@ -20,6 +20,10 @@ export type * from "./forms";
 export * from "./overlays";
 export type * from "./overlays";
 
+// Export structure components
+export * from "./structures";
+export type * from "./structures";
+
 // Export utils
 export * from "./util";
 export type * from "./util";
