@@ -92,11 +92,11 @@ const meta: Meta<typeof KdsCard> = {
     },
   },
   args: {
+    modelValue: false,
     variant: "filled",
     selectable: false,
     disabled: false,
     ariaLabel: "Demo card for Storybook",
-    modelValue: false,
   },
   render: (args) => ({
     components: { KdsCard },
@@ -202,16 +202,15 @@ export const AllCombinations: DemoStory = buildAllCombinationsStory({
       variant: ["filled", "outlined", "transparent"] as KdsCardVariant[],
       modelValue: [false],
       selectable: [false],
-      disabled: [false, true],
     },
     {
       variant: ["filled", "outlined", "transparent"] as KdsCardVariant[],
       modelValue: [false, true],
       selectable: [true],
-      disabled: [false, true],
     },
   ],
   pseudoStates: ["hover", "active", "focus-visible"],
+  columns: 3,
 });
 
 // Create a wrapper component for AllCombinations and DesignComparator that includes demo content

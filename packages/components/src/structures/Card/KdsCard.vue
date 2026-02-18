@@ -80,7 +80,8 @@ const handleClick = (event: MouseEvent | KeyboardEvent) => {
 
   &:focus-visible {
     outline: var(--kds-border-action-focused);
-    outline-offset: calc(var(--kds-core-border-width-l) * -1);
+    outline-offset: var(--kds-spacing-offset-focus);
+    border-radius: var(--kds-border-radius-container-0-56x);
   }
 
   &.disabled {
@@ -152,7 +153,7 @@ const handleClick = (event: MouseEvent | KeyboardEvent) => {
 /* Variant: Outlined, Value: True */
 .variant-outlined.selected {
   background: var(--kds-color-background-selected-initial);
-  border: var(--kds-border-base-muted);
+  border: var(--kds-border-action-selected);
 
   &:hover:not(.disabled) {
     box-shadow: var(--kds-elevation-level-3);
