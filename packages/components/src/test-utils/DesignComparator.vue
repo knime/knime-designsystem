@@ -54,6 +54,13 @@ const figmaToken = import.meta.env.STORYBOOK_FIGMA_TOKEN
   ? ref(import.meta.env.STORYBOOK_FIGMA_TOKEN)
   : useLocalStorage("storybook-figma-token", "");
 
+function omitParameters<T extends Record<string, unknown>>(
+  value: T,
+): Omit<T, "parameters"> {
+  const { parameters: _parameters, ...rest } = value;
+  return rest;
+}
+
 function getIdFromFigmaUrl(url: string): string | null {
   const match = url.match(/node-id=([\d-]+)/);
   return match ? match[1] : null;
@@ -209,7 +216,7 @@ function onPaste(event: ClipboardEvent) {
               <component
                 :is="props.component"
                 v-if="props.component"
-                v-bind="{ ...set.props, ...variantProps }"
+                v-bind="{ ...set.props, ...omitParameters(variantProps) }"
               />
             </div>
           </div>
