@@ -168,7 +168,7 @@ const emit = defineEmits<BaseInputEmits>();
 
 const modelValue = defineModel<string>({ default: "" });
 
-const inputRef = useTemplateRef("inputRef");
+const inputRef = useTemplateRef("input");
 
 const hasValue = computed(() => modelValue.value.length > 0);
 
@@ -224,7 +224,7 @@ defineExpose({
 
     <input
       :id="props.id"
-      ref="inputRef"
+      ref="input"
       :value="modelValue"
       :type="props.type"
       :inputmode="props.inputmode"

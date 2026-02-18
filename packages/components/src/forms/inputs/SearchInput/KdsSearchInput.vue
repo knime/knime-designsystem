@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<KdsSearchInputProps>(), {
 
 const modelValue = defineModel<string>({ default: "" });
 
-const baseInputRef = useTemplateRef("baseInputRef");
+const baseInputRef = useTemplateRef("baseInput");
 
 defineExpose({
   /**
@@ -31,7 +31,7 @@ defineExpose({
   <BaseFormFieldWrapper v-bind="props">
     <template #default="slotProps">
       <BaseInput
-        ref="baseInputRef"
+        ref="baseInput"
         v-bind="slotProps"
         v-model="modelValue"
         type="search"
