@@ -1,9 +1,7 @@
 import type { Component, DefineComponent, StyleValue } from "vue";
 import type { StoryObj } from "@storybook/vue3-vite";
 
-import DesignComparator, {
-  type DesignsToCompare,
-} from "./DesignComparator.vue";
+import DesignComparator from "./DesignComparator.vue";
 
 type PropsCombinations<Props> = {
   [K in keyof Props]?: readonly (Props[K] | undefined)[];
@@ -172,9 +170,36 @@ export function buildAllCombinationsStory<C extends Component>(
   };
 }
 
-type DesignComparatorParams = {
-  component: Component;
-  designsToCompare: DesignsToCompare; // or can we infer the possible props from the component type?
+type FigmaDesignURL =
+  `https://www.figma.com/design/${string}/${string}?node-id=${string}`;
+
+type DesignsToCompare<Props> = Record<
+  string,
+  {
+    props: Partial<Props>;
+    variants: Record<
+      FigmaDesignURL,
+      Partial<Props> & {
+        parameters?: {
+          pseudo?: {
+            hover?: boolean;
+            active?: boolean;
+            focus?: boolean;
+            focusVisible?: boolean;
+          };
+          figmaOffset?: {
+            x?: number;
+            y?: number;
+          };
+        };
+      }
+    >;
+  }
+>;
+
+type DesignComparatorParams<C extends Component> = {
+  component: C;
+  designsToCompare: DesignsToCompare<ExtractComponentProps<C>>;
   wrapperStyle?: StyleValue;
 };
 
@@ -203,8 +228,8 @@ type DesignComparatorParams = {
     },
   });
  */
-export function buildDesignComparatorStory(
-  config: DesignComparatorParams,
+export function buildDesignComparatorStory<C extends Component>(
+  config: DesignComparatorParams<C>,
 ): StoryObj {
   return {
     parameters: {
