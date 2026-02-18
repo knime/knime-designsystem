@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { ref, useTemplateRef } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { expect, userEvent, within } from "storybook/test";
 
@@ -60,11 +60,11 @@ Automatically sets the following a11y attributes on the activatorEl:
 Sample usage:
 \`\`\`vue
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, useTemplateRef } from "vue";
 import { KdsPopover, KdsToggleButton } from "@knime/kds-components";
 
 const isOpen = ref(false);
-const activatorEl = ref<HTMLButtonElement | null>(null);
+const activatorEl = useTemplateRef("activatorEl");
 </script>
 
 <template>
@@ -105,7 +105,7 @@ export const Default: Story = {
   render: (args) => ({
     components: { KdsToggleButton, KdsPopover },
     setup() {
-      const activatorEl = ref<HTMLButtonElement | null>(null);
+      const activatorEl = useTemplateRef("activatorEl");
       return { args, activatorEl };
     },
     template: `
@@ -170,7 +170,7 @@ export const DifferentPopoverPosition: Story = {
   render: (args) => ({
     components: { KdsToggleButton, KdsPopover },
     setup() {
-      const activatorEl = ref<HTMLButtonElement | null>(null);
+      const activatorEl = useTemplateRef("activatorEl");
       return { args, activatorEl };
     },
     template: `
@@ -199,8 +199,8 @@ export const SeparateAnchorEl: Story = {
     components: { KdsToggleButton, KdsPopover },
     setup() {
       const open = ref(false);
-      const activatorEl = ref<HTMLButtonElement | null>(null);
-      const anchorEl = ref<HTMLElement | null>(null);
+      const activatorEl = useTemplateRef("activatorEl");
+      const anchorEl = useTemplateRef("anchorEl");
 
       return { args, open, activatorEl, anchorEl };
     },
@@ -290,7 +290,7 @@ export const Inline: DemoStory = {
   render: () => ({
     components: { KdsPopover },
     setup() {
-      const activatorEl = ref<HTMLButtonElement | null>(null);
+      const activatorEl = useTemplateRef("activatorEl");
       return { activatorEl };
     },
     template: `

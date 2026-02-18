@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { useTemplateRef } from "vue";
 
 import KdsIcon from "../../accessories/Icon/KdsIcon.vue";
 import { useKdsIsTruncated } from "../../util";
@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
   tabIndex: undefined,
 });
 
-const optionTextEl = ref<HTMLElement | null>(null);
+const optionTextEl = useTemplateRef("optionTextEl");
 const { isTruncated } = useKdsIsTruncated(optionTextEl);
 </script>
 

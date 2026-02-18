@@ -1,4 +1,4 @@
-import { ref, watch } from "vue";
+import { ref, useTemplateRef, watch } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
@@ -210,13 +210,12 @@ export const ProgrammaticFocus: Story = {
   render: () => ({
     components: { KdsSearchInput, KdsButton },
     setup() {
-      const searchInputRef = ref<InstanceType<typeof KdsSearchInput> | null>(
-        null,
-      );
+      const searchInputRef =
+        useTemplateRef<InstanceType<typeof KdsSearchInput>>("searchInputRef");
       const handleFocusClick = () => {
         searchInputRef.value?.focus();
       };
-      return { searchInputRef, handleFocusClick };
+      return { handleFocusClick };
     },
     template: `
       <div style="display: flex; flex-direction: column; gap: 16px; max-width: 300px;">
