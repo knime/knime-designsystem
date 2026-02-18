@@ -27,9 +27,6 @@ const emit = defineEmits<{
   click: [event: MouseEvent | KeyboardEvent];
 }>();
 
-const ariaPressed = computed(() => (selectable ? modelValue.value : undefined));
-const tabIndex = computed(() => (disabled ? -1 : 0));
-
 const selected = computed(() => modelValue.value && selectable);
 
 const handleClick = (event: MouseEvent | KeyboardEvent) => {
@@ -57,8 +54,8 @@ const handleClick = (event: MouseEvent | KeyboardEvent) => {
     :aria-label="ariaLabel"
     :aria-labelledby="ariaLabelledby"
     :aria-disabled="disabled"
-    :aria-pressed="ariaPressed"
-    :tabindex="tabIndex"
+    :aria-pressed="selectable ? modelValue : undefined"
+    :tabindex="disabled ? -1 : 0"
     @click="handleClick"
     @keydown.enter.prevent="handleClick"
     @keydown.space.prevent="handleClick"

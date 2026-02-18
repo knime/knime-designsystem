@@ -1,3 +1,4 @@
+import type { PropType } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/internal/preview-api";
 import { expect, fn, userEvent, within } from "storybook/test";
@@ -8,6 +9,7 @@ import {
   buildTextOverflowStory,
 } from "../../test-utils/storybook";
 
+import DemoCard from "./DemoCard.vue";
 import KdsCard from "./KdsCard.vue";
 import type { KdsCardVariant } from "./types";
 
@@ -114,6 +116,7 @@ const meta: Meta<typeof KdsCard> = {
 export default meta;
 
 type Story = StoryObj<typeof KdsCard>;
+type DemoStory = StoryObj<typeof DemoCard>;
 
 export const Default: Story = {
   args: {
@@ -131,7 +134,7 @@ export const Default: Story = {
           };
         },
         template:
-          '<story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" @click="args.onClick" />',
+          '<story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" />',
       };
     },
   ],
@@ -176,11 +179,24 @@ export const Selected: Story = {
   },
 };
 
+export const AllCombinations: DemoStory = buildAllCombinationsStory({
+  component: DemoCard,
+  combinationsProps: [
+    {
+      variant: ["filled", "outlined", "transparent"] as KdsCardVariant[],
+      modelValue: [false, true],
+      selectable: [false, true],
+      disabled: [false, true],
+    },
+  ],
+  pseudoStates: ["hover", "active", "focus-visible"],
+});
+
 // Create a wrapper component for AllCombinations and DesignComparator that includes demo content
 const CardWithContent = {
   name: "CardWithContent",
   props: {
-    variant: { type: String as () => KdsCardVariant },
+    variant: { type: String as PropType<KdsCardVariant> },
     modelValue: { type: Boolean },
     selectable: { type: Boolean },
     disabled: { type: Boolean },
@@ -195,20 +211,6 @@ const CardWithContent = {
     </KdsCard>
   `,
 };
-
-export const AllCombinations: Story = buildAllCombinationsStory({
-  component: CardWithContent,
-  combinationsProps: [
-    {
-      variant: ["filled", "outlined", "transparent"] as KdsCardVariant[],
-      modelValue: [false, true],
-      selectable: [false, true],
-      disabled: [false, true],
-    },
-  ],
-  pseudoStates: ["hover", "active", "focus-visible"],
-  columns: 3,
-});
 
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: CardWithContent,
@@ -366,39 +368,15 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   },
 });
 
-export const TextOverflow: Story = {
+export const TextOverflow: DemoStory = {
   ...buildTextOverflowStory({
-    component: KdsCard,
+    component: DemoCard,
     width: 300,
   }),
   args: {
     variant: "filled",
     ariaLabel: "Demo card for Storybook",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   },
-  render: (args) => ({
-    components: { KdsCard },
-    setup() {
-      return { args };
-    },
-    template: `
-      <div>
-        <div>Component without size restrictions to check if it has a max size itself<br></div>
-        <KdsCard v-bind="args">
-          <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px;">
-            <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-default);">Demo for Storybook</div>
-            <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-default);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
-          </div>
-        </KdsCard>
-        <br>
-        <div>Component with size restrictions. Try by resizing the box!</div>
-        <div style="padding: 10px; background: lightgray; resize: both; overflow: auto;">
-          <KdsCard v-bind="args">
-            <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px;">
-              <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-default);">Demo for Storybook</div>
-              <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-default);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
-            </div>
-          </KdsCard>
-        </div>
-      </div>`,
-  }),
 };
