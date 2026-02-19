@@ -1,14 +1,7 @@
-export const kdsColorSwatchTypes = [
-  "learner",
-  "manipulator",
-  "predictor",
-  "sink",
-  "source",
-  "visualizer",
-  "other",
-] as const;
+import { kdsColorSwatchType } from "./enums";
 
-export type KdsColorSwatchType = (typeof kdsColorSwatchTypes)[number];
+export type KdsColorSwatchType =
+  (typeof kdsColorSwatchType)[keyof typeof kdsColorSwatchType];
 
 /**
  * A CSS color string starting with `#` (for example `#fff` or `#ff0000`).

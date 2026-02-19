@@ -1,12 +1,15 @@
 import { computed, watch } from "vue";
 import { useDark, useLocalStorage, usePreferredDark } from "@vueuse/core";
 
+import { kdsDarkModeType } from "./enums";
+
 export const KDS_DARK_MODE_STORAGE_KEY = "KNIME_DARK_MODE";
 
-export type KdsDarkModeType = "light" | "dark" | "system";
+export type KdsDarkModeType =
+  (typeof kdsDarkModeType)[keyof typeof kdsDarkModeType];
 
 // could also be system, but the previous behaviour forced it to light, so we use that
-const defaultMode: KdsDarkModeType = "light";
+const defaultMode: KdsDarkModeType = kdsDarkModeType.LIGHT;
 
 export const useKdsDarkMode = () => {
   // to also save a 'system' option we need to store the preference separately from the effective dark mode
@@ -21,11 +24,13 @@ export const useKdsDarkMode = () => {
     onChanged: (isDarkValue) => {
       let cssMode: string, themeValue: string;
 
-      if (userPreference.value === "system") {
+      if (userPreference.value === kdsDarkModeType.SYSTEM) {
         cssMode = "light dark";
-        themeValue = "system";
+        themeValue = kdsDarkModeType.SYSTEM;
       } else {
-        cssMode = themeValue = isDarkValue ? "dark" : "light";
+        cssMode = themeValue = isDarkValue
+          ? kdsDarkModeType.DARK
+          : kdsDarkModeType.LIGHT;
       }
 
       document.documentElement.style.setProperty("color-scheme", cssMode);
@@ -38,10 +43,10 @@ export const useKdsDarkMode = () => {
   watch(
     [userPreference, systemPrefersDark],
     ([preference, systemDark]) => {
-      if (preference === "system") {
+      if (preference === kdsDarkModeType.SYSTEM) {
         isDark.value = systemDark;
       } else {
-        isDark.value = preference === "dark";
+        isDark.value = preference === kdsDarkModeType.DARK;
       }
     },
     { immediate: true },
@@ -57,14 +62,16 @@ export const useKdsDarkMode = () => {
   });
 
   const isDarkMode = computed(() => {
-    return userPreference.value === "dark";
+    return userPreference.value === kdsDarkModeType.DARK;
   });
 
   const isLightMode = computed(() => {
-    return userPreference.value === "light";
+    return userPreference.value === kdsDarkModeType.LIGHT;
   });
 
-  const isSystemMode = computed(() => userPreference.value === "system");
+  const isSystemMode = computed(
+    () => userPreference.value === kdsDarkModeType.SYSTEM,
+  );
 
   return {
     /** Exposes a writable computed ref to get the current dark mode but also use it in e.g. a v-model to set it */

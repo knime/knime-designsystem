@@ -2,7 +2,7 @@
 import { computed } from "vue";
 
 import { ID_TO_ICON_MAP, type TypeId } from "./IdToIconNameMapping";
-import { kdsTypeIconNames } from "./constants";
+import { kdsTypeIconNames } from "./enums";
 import type { KdsDataTypeSize, KdsIconSize, KdsTypeIconName } from "./types";
 import useIcon from "./useIcon";
 

@@ -1,15 +1,14 @@
 import type { FunctionalComponent } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
-import { kdsSizes } from "../../constants";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
 } from "../../test-utils/storybook";
+import { kdsIconSizes } from "../Icon";
 
 import KdsLoadingSpinner from "./KdsLoadingSpinner.vue";
-
-const kdsLoadingSpinnerVariants = ["onSurface", "onPrimary"] as const;
+import { kdsLoadingSpinnerVariants } from "./enums";
 
 const meta: Meta<typeof KdsLoadingSpinner> = {
   title: "Accessories/KdsLoadingSpinner",
@@ -27,7 +26,7 @@ const meta: Meta<typeof KdsLoadingSpinner> = {
     // Props
     size: {
       control: { type: "select" },
-      options: kdsSizes,
+      options: kdsIconSizes,
       description: "The size of the loading spinner",
       table: {
         category: "Props",
@@ -83,11 +82,11 @@ export const Sizes: Story = {
   render: (args) => ({
     components: { KdsLoadingSpinner },
     setup() {
-      return { args, kdsSizes };
+      return { args, kdsIconSizes };
     },
     template: `
       <div style="display: flex; gap: 20px; align-items: center;">
-        <div v-for="size in kdsSizes" :key="size" style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
+        <div v-for="size in kdsIconSizes" :key="size" style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
           <KdsLoadingSpinner v-bind="args" :size="size" />
           <span style="font-size: 12px; color: var(--kds-color-text-and-icon-subtle);">{{ size }}</span>
         </div>
@@ -100,7 +99,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsLoadingSpinner,
   combinationsProps: [
     {
-      size: kdsSizes,
+      size: kdsIconSizes,
       variant: kdsLoadingSpinnerVariants,
     },
   ],

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
 import KdsDataType from "./KdsDataType.vue";
-import { kdsTypeIconNames } from "./constants";
+import { kdsDataTypeSizes, kdsTypeIconNames } from "./enums";
 
 const meta: Meta<typeof KdsDataType> = {
   title: "Accessories/KdsDataType",
@@ -17,7 +17,7 @@ const meta: Meta<typeof KdsDataType> = {
     },
     size: {
       control: { type: "select" },
-      options: ["small", "medium", "large"],
+      options: kdsDataTypeSizes,
     },
   },
 };

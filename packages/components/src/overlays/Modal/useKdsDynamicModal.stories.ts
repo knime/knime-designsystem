@@ -1,7 +1,7 @@
 import { h, markRaw } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
-import KdsButton from "../../buttons/KdsButton.vue";
+import KdsButton from "../../buttons/KdsButton/KdsButton.vue";
 import { convertImportsInSfc } from "../../test-utils/convertImportsInSfc";
 import { convertStoryCodeToSfc } from "../../test-utils/convertStoryCodeToSfc";
 

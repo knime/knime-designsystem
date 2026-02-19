@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 
-import KdsButton from "../../buttons/KdsButton.vue";
+import KdsButton from "../../buttons/KdsButton/KdsButton.vue";
 import KdsCheckbox from "../../forms/Checkbox/KdsCheckbox.vue";
 
 import KdsModalLayout from "./KdsModalLayout.vue";

@@ -22,7 +22,7 @@ const modelValue = defineModel<boolean>({ default: false });
   </KdsCard>
 </template>
 
-<style scoped lang="postcss">
+<style scoped>
 .wrapper {
   display: flex;
   flex-direction: column;

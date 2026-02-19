@@ -10,6 +10,7 @@ import {
 } from "../../test-utils/storybook";
 
 import KdsCheckbox from "./KdsCheckbox.vue";
+import { kdsCheckboxValues } from "./enums";
 
 type Story = StoryObj<typeof KdsCheckbox>;
 
@@ -20,7 +21,7 @@ const meta: Meta<typeof KdsCheckbox> = {
   argTypes: {
     modelValue: {
       control: { type: "select" },
-      options: [false, true, "indeterminate"],
+      options: kdsCheckboxValues,
       description: "v-model binding for the checkbox state",
       table: { category: "Model" },
     },
@@ -147,7 +148,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsCheckbox,
   combinationsProps: [
     {
-      modelValue: [false, true, "indeterminate"],
+      modelValue: kdsCheckboxValues,
       label: ["Label"],
       disabled: [false, true],
       error: [false, true],

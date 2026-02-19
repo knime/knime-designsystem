@@ -1,10 +1,11 @@
-export { default as KdsColorSwatch } from "./ColorSwatch/KdsColorSwatch.vue";
-export { default as KdsAvatar } from "./Avatar/KdsAvatar.vue";
-export { default as KdsIcon } from "./Icon/KdsIcon.vue";
-export { default as KdsDataType } from "./Icon/KdsDataType.vue";
-export { default as KdsLoadingSpinner } from "./LoadingSpinner/KdsLoadingSpinner.vue";
+export * from "./Avatar";
+export type * from "./Avatar";
 
-export type * from "./ColorSwatch/types";
-export type * from "./Avatar/types";
-export type * from "./Icon/types";
-export type * from "./LoadingSpinner/types";
+export * from "./ColorSwatch";
+export type * from "./ColorSwatch";
+
+export * from "./Icon";
+export type * from "./Icon";
+
+export * from "./LoadingSpinner";
+export type * from "./LoadingSpinner";

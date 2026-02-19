@@ -1,5 +1,11 @@
 import type { KdsIconName } from "../../accessories/Icon/types";
 
+import {
+  kdsRadioButtonGroupAlignment,
+  kdsValueSwitchSize,
+  kdsValueSwitchVariant,
+} from "./enums";
+
 export type KdsRadioButtonProps = {
   text: string;
   helperText?: string;
@@ -7,7 +13,8 @@ export type KdsRadioButtonProps = {
   error?: boolean;
 };
 
-export type KdsRadioButtonGroupAlignment = "vertical" | "horizontal";
+export type KdsRadioButtonGroupAlignment =
+  (typeof kdsRadioButtonGroupAlignment)[keyof typeof kdsRadioButtonGroupAlignment];
 
 export type KdsRadioButtonGroupOption = {
   text: string;
@@ -27,8 +34,10 @@ export type KdsRadioButtonGroupProps = {
   preserveSubTextSpace?: boolean;
 };
 
-export type KdsValueSwitchSize = "small" | "medium";
-export type KdsValueSwitchVariant = "default" | "muted";
+export type KdsValueSwitchSize =
+  (typeof kdsValueSwitchSize)[keyof typeof kdsValueSwitchSize];
+export type KdsValueSwitchVariant =
+  (typeof kdsValueSwitchVariant)[keyof typeof kdsValueSwitchVariant];
 
 export type KdsValueSwitchItemProps = {
   selected: boolean;

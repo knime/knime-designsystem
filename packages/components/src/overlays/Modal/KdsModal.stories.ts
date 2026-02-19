@@ -4,16 +4,16 @@ import { fn } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
-import KdsButton from "../../buttons/KdsButton.vue";
+import KdsButton from "../../buttons/KdsButton/KdsButton.vue";
 import { veryLongText } from "../../test-utils/veryLongText";
 
 import KdsModal from "./KdsModal.vue";
 import {
-  closedByOptions,
-  heightSizes,
-  modalVariants,
-  widthSizes,
-} from "./constants";
+  kdsModalClosedByOptions,
+  kdsModalHeightSizes,
+  kdsModalVariants,
+  kdsModalWidthSizes,
+} from "./enums";
 
 const meta: Meta<typeof KdsModal> = {
   title: "Overlays/KdsModal",
@@ -37,16 +37,16 @@ const meta: Meta<typeof KdsModal> = {
       options: [undefined, ...iconNames],
     },
     closedby: {
-      options: closedByOptions,
+      options: kdsModalClosedByOptions,
     },
     variant: {
-      options: modalVariants,
+      options: kdsModalVariants,
     },
     width: {
-      options: widthSizes,
+      options: kdsModalWidthSizes,
     },
     height: {
-      options: heightSizes,
+      options: kdsModalHeightSizes,
     },
   },
   args: {

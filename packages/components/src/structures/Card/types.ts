@@ -1,4 +1,7 @@
-export type KdsCardVariant = "filled" | "outlined" | "transparent";
+import { kdsCardVariant } from "./enums";
+
+export type KdsCardVariant =
+  (typeof kdsCardVariant)[keyof typeof kdsCardVariant];
 
 export type KdsCardAriaProps =
   | {

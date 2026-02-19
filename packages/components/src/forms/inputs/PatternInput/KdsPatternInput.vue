@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
 
-import KdsToggleButton from "../../../buttons/KdsToggleButton.vue";
+import KdsToggleButton from "../../../buttons/KdsToggleButton/KdsToggleButton.vue";
 import BaseFormFieldWrapper from "../../BaseFormFieldWrapper.vue";
 import BaseInput from "../BaseInput.vue";
 import type { KdsPatternInputProps } from "../types.ts";

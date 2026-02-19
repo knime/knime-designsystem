@@ -1,23 +1,19 @@
 import type { KdsIconName } from "../../accessories/Icon/types";
 
-import type {
-  closedByOptions,
-  heightSizes,
-  modalVariants,
-  widthSizes,
-} from "./constants";
+import {
+  kdsModalClosedBy,
+  kdsModalHeight,
+  kdsModalVariant,
+  kdsModalWidth,
+} from "./enums";
 
-/**
- * - small:  25 × 16 = 400px
- * - medium: 32 × 16 = 512px
- * - large:  45 × 16 = 720px
- * - xlarge: 61 × 16 = 976px
- * - full:   all available space (with some spacing)
- */
-type WidthSizes = (typeof widthSizes)[number];
-type HeightSizes = (typeof heightSizes)[number];
-type ModalVariants = (typeof modalVariants)[number];
-type ClosedByOptionsType = (typeof closedByOptions)[number];
+export type KdsModalClosedBy =
+  (typeof kdsModalClosedBy)[keyof typeof kdsModalClosedBy];
+export type KdsModalHeight =
+  (typeof kdsModalHeight)[keyof typeof kdsModalHeight];
+export type KdsModalVariant =
+  (typeof kdsModalVariant)[keyof typeof kdsModalVariant];
+export type KdsModalWidth = (typeof kdsModalWidth)[keyof typeof kdsModalWidth];
 
 export type KdsModalProps = {
   /** Icon for the header of the modal.
@@ -33,7 +29,7 @@ export type KdsModalProps = {
    *
    * @default padded
    */
-  variant?: ModalVariants;
+  variant?: KdsModalVariant;
   /**
    * - small:  25 × 16 = 400px
    * - medium: 32 × 16 = 512px
@@ -43,7 +39,7 @@ export type KdsModalProps = {
    *
    * @default medium
    */
-  width?: WidthSizes;
+  width?: KdsModalWidth;
   /**
    * `full` take all space
    *
@@ -51,11 +47,11 @@ export type KdsModalProps = {
    *
    * @default auto
    */
-  height?: HeightSizes;
+  height?: KdsModalHeight;
   /** Whether the modal is visible or not */
   active?: boolean;
   /** https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog#closedby */
-  closedby?: ClosedByOptionsType;
+  closedby?: KdsModalClosedBy;
   /**
    * Overflow of the dialog and the body.
    *

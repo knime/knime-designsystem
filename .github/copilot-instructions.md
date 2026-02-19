@@ -53,10 +53,18 @@ packages/
 │   ├── dist/tokens/css/_variables.css  # Generated CSS variables (output)
 │   └── dist/img/icons/ # SVG icons + def.ts manifest
 └── components/       # Vue 3 components with TypeScript
-    ├── src/ComponentName/ComponentName.vue # Component files
-    ├── src/ComponentName/ComponentName.stories.ts # Storybook stories
-    └── src/index.ts  # Component exports
-
+    ├── src/
+    │   ├── ComponentCategory/           # Category folder (e.g., buttons/, overlays/)
+    │   │   ├── KdsComponent/            # Component subfolder
+    │   │   │   ├── KdsComponent.vue     # Component file
+    │   │   │   ├── KdsComponent.stories.ts  # Storybook story
+    │   │   │   ├── enums.ts             # Component enums (if applicable)
+    │   │   │   ├── types.ts             # Component props types
+    │   │   │   └── index.ts             # Component exports
+    │   │   ├── enums.ts                 # Shared enums (if used by multiple components in category)
+    │   │   ├── types.ts                 # Shared types (if used by multiple components in category)
+    │   │   └── index.ts                 # Category exports
+    │   └── index.ts                     # Component exports
 ```
 
 ### Design Token System
@@ -67,8 +75,10 @@ packages/
 
 ## Example implementations
 
-- Component: see `packages/components/src/Button/KdsButton.vue`
-- Storybook story: see `packages/components/src/Button/KdsButton.stories.ts`
+- Component: see `packages/components/src/buttons/KdsButton/KdsButton.vue`
+- Storybook story: see `packages/components/src/buttons/KdsButton/KdsButton.stories.ts`
+- Component-specific enums: see `packages/components/src/buttons/KdsToggleButton/enums.ts`
+- Shared enums (category-level): see `packages/components/src/buttons/enums.ts`
 
 ## Development Rules & Conventions
 
@@ -87,7 +97,7 @@ packages/
 - Keep TypeScript types out of `.vue` files: put prop/emits/helper types into a `types.ts` (preferably next to the component), even if they are only used by that component. If types are public, export them from `packages/components/src/index.ts`. Don't export types from `.vue` files. Use globally defined [propTypeTester](../packages/components/globals.d.ts) for static type checks.
 - IMPORTANT: Define component prop types in the co-located `types.ts` and reference them directly from the `.vue` file (no local/"internal" `*InternalProps` types in `.vue`). If a component needs additional values, model them as real props in `types.ts` or compute them inside the component.
 - Prefix style classes with `kds-` (e.g. `kds-list-item`)
-- Use `<style scoped>`
+- Use `<style scoped>` - do NOT use `lang="postcss"`
 - IMPORTANT: Don't use BEM! Use CSS nesting to NOT duplicate selectors.
 - IMPORTANT: Don't use `:deep()` selectors. Prefer styling via dedicated wrapper elements, component props, or slots.
 - Style ONLY with CSS custom properties from design tokens - never hardcode colors/spacing/typography!
@@ -104,6 +114,68 @@ packages/
 - Inline single-line `computed` properties in the template for better readability.
 - Inline one-line functions in the template for better readability.
 - Use composable `useTemplateRef` for type safety when accessing template refs in the script. Then types will be inferred automatically.
+
+### Enums & Constants
+
+For constant values that represent a fixed set of options, use the enum pattern with exports split between `enums.ts` and `types.ts`:
+
+**In `enums.ts`:**
+
+1. **Enum object** (`kdsXxx`): A const object with uppercase keys mapping to string values
+2. **Values array** (`kdsXxxs`): An array of all values via `Object.values()`
+
+**In `types.ts`:** 3. **Type** (`KdsXxx`): A union type derived from the enum (import enum, define type)
+
+**Example** (`enums.ts`):
+
+```typescript
+export const kdsButtonVariant = {
+  FILLED: "filled",
+  OUTLINED: "outlined",
+  TRANSPARENT: "transparent",
+} as const;
+
+export const kdsButtonVariants = Object.values(kdsButtonVariant);
+```
+
+**Example** (`types.ts`):
+
+```typescript
+import { kdsButtonVariant } from "./enums";
+
+export type KdsButtonVariant =
+  (typeof kdsButtonVariant)[keyof typeof kdsButtonVariant];
+```
+
+### Component Folder Structure
+
+- Each component should be in its own subfolder: `ComponentCategory/KdsComponent/`
+- The subfolder contains: `KdsComponent.vue`, `KdsComponent.stories.ts`, `types.ts`, and `index.ts`
+- Component-specific `enums.ts` lives in the component subfolder (if the component has enums)
+- Shared types/enums used by multiple components in a category stay in the category folder (e.g., `buttons/types.ts`, `buttons/enums.ts`)
+
+**Index file pattern:**
+
+- Each component folder must have an `index.ts` that exports the component and types
+- Parent folders re-export from subfolder index files using `export * from "./Subfolder"`
+
+**Example** (`KdsButton/index.ts`):
+
+```typescript
+export { default as KdsButton } from "./KdsButton.vue";
+export type * from "./types";
+```
+
+**Example** (`buttons/index.ts`):
+
+```typescript
+export * from "./KdsButton";
+export * from "./KdsToggleButton";
+// ... other button components
+
+export { kdsButtonVariant, kdsButtonVariants } from "./enums";
+export type { KdsButtonVariant } from "./types";
+```
 
 ### Icons & Components
 

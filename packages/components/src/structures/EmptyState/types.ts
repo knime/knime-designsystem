@@ -1,22 +1,22 @@
 import type {
-  PrefixedAnchorAttributesAsNever,
-  PrefixedButtonPropsAsNever,
   PrefixedKdsButtonProps,
+  PrefixedKdsButtonPropsAsNever,
   PrefixedKdsLinkButtonProps,
-  PrefixedRouterNavigationAsNever,
-} from "../../buttons/types";
+  PrefixedKdsLinkButtonPropsAsNever,
+} from "../../buttons";
 
 type CommonProps = {
   headline: string;
   description?: string;
 };
 
-type BaseEmptyStateProps = CommonProps & PrefixedButtonPropsAsNever;
+type BaseEmptyStateProps = CommonProps &
+  PrefixedKdsButtonPropsAsNever &
+  PrefixedKdsLinkButtonPropsAsNever;
 
 type EmptyStateWithButtonProps = CommonProps &
   PrefixedKdsButtonProps &
-  PrefixedRouterNavigationAsNever &
-  PrefixedAnchorAttributesAsNever;
+  PrefixedKdsLinkButtonPropsAsNever;
 
 type EmptyStateWithLinkButtonProps = CommonProps & PrefixedKdsLinkButtonProps;
 

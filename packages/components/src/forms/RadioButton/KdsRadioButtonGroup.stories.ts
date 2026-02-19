@@ -9,6 +9,7 @@ import {
 } from "../../test-utils/storybook.ts";
 
 import KdsRadioButtonGroup from "./KdsRadioButtonGroup.vue";
+import { kdsRadioButtonGroupAlignments } from "./enums";
 import type { KdsRadioButtonGroupProps } from "./types.ts";
 
 type Story = StoryObj<typeof KdsRadioButtonGroup>;
@@ -66,7 +67,7 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
     },
     alignment: {
       control: { type: "select" },
-      options: ["vertical", "horizontal"],
+      options: kdsRadioButtonGroupAlignments,
       description:
         "Layout of the radio buttons: vertical (column) or horizontal (row, wrapping).",
       table: { category: "Props" },
@@ -267,7 +268,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
         optionsWithHelperText,
       ],
       modelValue: [undefined, "Option A", "Option B"],
-      alignment: ["vertical", "horizontal"],
+      alignment: kdsRadioButtonGroupAlignments,
       disabled: [false, true],
     },
   ],

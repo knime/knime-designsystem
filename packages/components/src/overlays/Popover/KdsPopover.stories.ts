@@ -10,7 +10,7 @@ import {
 
 import KdsPopover from "./KdsPopover.vue";
 import PopoverDemo from "./PopoverDemo.vue";
-import { kdsPopoverPlacements } from "./constants";
+import { kdsPopoverPlacements } from "./enums";
 
 const meta: Meta<typeof KdsPopover> = {
   title: "Overlays/KdsPopover",
