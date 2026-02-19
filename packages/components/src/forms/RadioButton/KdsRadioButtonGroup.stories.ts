@@ -24,7 +24,7 @@ const optionsWithHelperText: KdsRadioButtonGroupProps["possibleValues"] = [
 ];
 
 const meta: Meta<typeof KdsRadioButtonGroup> = {
-  title: "Forms/KdsRadioButtonGroup",
+  title: "Form Fields/KdsRadioButtonGroup",
   component: KdsRadioButtonGroup as Meta<
     typeof KdsRadioButtonGroup
   >["component"],
