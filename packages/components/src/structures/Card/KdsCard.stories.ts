@@ -157,7 +157,7 @@ export const Default: Story = {
       await userEvent.keyboard(" ");
       await expect(card).toHaveAttribute("aria-pressed", "false");
     } else {
-      const clicks = 0;
+      let clicks = 0;
       await userEvent.click(card);
       await expect(args.onClick).toHaveBeenCalledTimes(++clicks);
 
