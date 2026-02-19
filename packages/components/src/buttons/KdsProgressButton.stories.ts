@@ -13,7 +13,7 @@ import {
 } from "../test-utils/storybook.ts";
 
 import KdsProgressButton from "./KdsProgressButton.vue";
-import { kdsButtonVariants } from "./constants.ts";
+import { kdsButtonVariants, kdsProgressButtonStates } from "./constants.ts";
 
 const ACTION_TIMEOUT = 900;
 const FEEDBACK_TIMEOUT = 900;
@@ -59,7 +59,7 @@ const meta: Meta<typeof KdsProgressButton> = {
       description:
         "Visual state of the progress button (controlled model; see state model in the component docs).",
       control: { type: "select" },
-      options: ["default", "progress", "success", "error"],
+      options: kdsProgressButtonStates,
       table: {
         category: "Model",
         type: { summary: "KdsProgressButtonState" },

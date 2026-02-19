@@ -54,9 +54,9 @@ const figmaToken = import.meta.env.STORYBOOK_FIGMA_TOKEN
   ? ref(import.meta.env.STORYBOOK_FIGMA_TOKEN)
   : useLocalStorage("storybook-figma-token", "");
 
-function omitParameters<T extends Record<string, unknown>>(
-  value: T,
-): Omit<T, "parameters"> {
+function omitParameters<
+  T extends Record<string, unknown> & { parameters?: unknown },
+>(value: T): Omit<T, "parameters"> {
   const { parameters: _parameters, ...rest } = value;
   return rest;
 }
