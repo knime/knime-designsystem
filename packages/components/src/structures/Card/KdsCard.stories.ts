@@ -12,7 +12,7 @@ import DemoCard from "./DemoCard.vue";
 import KdsCard from "./KdsCard.vue";
 
 const meta: Meta<typeof KdsCard> = {
-  title: "Components/structures/KdsCard",
+  title: "Structures/KdsCard",
   component: KdsCard,
   tags: ["autodocs"],
   parameters: {
@@ -157,16 +157,17 @@ export const Default: Story = {
       await userEvent.keyboard(" ");
       await expect(card).toHaveAttribute("aria-pressed", "false");
     } else {
+      let clicks = 0;
       await userEvent.click(card);
-      await expect(args.onClick).toHaveBeenCalledTimes(1);
+      await expect(args.onClick).toHaveBeenCalledTimes(++clicks);
 
       // Test keyboard interaction
       card.focus();
       await userEvent.keyboard("{Enter}");
-      await expect(args.onClick).toHaveBeenCalledTimes(2);
+      await expect(args.onClick).toHaveBeenCalledTimes(++clicks);
 
       await userEvent.keyboard(" ");
-      await expect(args.onClick).toHaveBeenCalledTimes(3);
+      await expect(args.onClick).toHaveBeenCalledTimes(++clicks);
     }
   },
 };

@@ -10,7 +10,7 @@ import {
 import KdsInfoToggleButton from "./KdsInfoToggleButton.vue";
 
 const meta = {
-  title: "Components/buttons/KdsInfoToggleButton",
+  title: "Buttons/KdsInfoToggleButton",
   component: KdsInfoToggleButton,
   tags: ["autodocs"],
   parameters: {

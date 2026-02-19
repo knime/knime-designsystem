@@ -14,7 +14,7 @@ import KdsCheckbox from "./KdsCheckbox.vue";
 type Story = StoryObj<typeof KdsCheckbox>;
 
 const meta: Meta<typeof KdsCheckbox> = {
-  title: "Components/forms/KdsCheckbox",
+  title: "Form Fields/KdsCheckbox",
   component: KdsCheckbox as Meta<typeof KdsCheckbox>["component"],
   tags: ["autodocs"],
   argTypes: {

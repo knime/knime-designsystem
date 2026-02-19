@@ -13,7 +13,7 @@ import KdsNumberInput from "./KdsNumberInput.vue";
 type Story = StoryObj<typeof KdsNumberInput>;
 
 const meta: Meta<typeof KdsNumberInput> = {
-  title: "Components/forms/KdsNumberInput",
+  title: "Form Fields/KdsNumberInput",
   component: KdsNumberInput as Meta<typeof KdsNumberInput>["component"],
   tags: ["autodocs"],
   parameters: {

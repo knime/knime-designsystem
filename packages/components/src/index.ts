@@ -1,9 +1,3 @@
-// Export all components
-export { default as KdsEmptyState } from "./EmptyState/KdsEmptyState.vue";
-
-// Export component types
-export type { KdsEmptyStateProps } from "./EmptyState/types";
-
 // Export accessory components
 export * from "./accessories";
 export type * from "./accessories";

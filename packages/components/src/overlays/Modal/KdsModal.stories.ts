@@ -16,7 +16,7 @@ import {
 } from "./constants";
 
 const meta: Meta<typeof KdsModal> = {
-  title: "Components/overlays/KdsModal",
+  title: "Overlays/KdsModal",
   component: KdsModal,
   tags: ["autodocs"],
   parameters: {

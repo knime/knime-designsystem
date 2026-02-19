@@ -13,7 +13,7 @@ The KNIME Design System is a Vue3 TypeScript monorepo providing design tokens, i
 5. **Linting JS**: `pnpm lint:js --fix` (runs only ESLint with --fix)
 6. **Linting CSS**: `pnpm lint:css --fix` (runs only Stylelint with --fix)
 7. **Testing**: `pnpm test:unit` (runs Vitest unit tests)
-8. **Storybook play tests**: `pnpm test:storybook` (runs Storybook interaction tests via Vitest)
+8. **Storybook play tests**: `pnpm test:storybook` (runs Storybook interaction tests via Vitest, takes several minutes)
 9. **Formatting**: `pnpm format` (runs Prettier with --write)
 
 **ALWAYS UPDATE DOCUMENTATION AND RUN TYPE CHECKS, LINTING, UNIT TESTS AND FORMATTING AFTER EACH CHANGE!**
@@ -34,6 +34,11 @@ In case you cannot see the terminal output, stop and ask the user to clear the t
 **Common Build Issues & Solutions:**
 
 - Stylelint can't find CSS custom properties → Run `pnpm install` to build @knime/kds-styles first
+
+### Versioning & Changesets
+
+- Use Changesets for user-facing changes.
+- While the major version is `0.x.y`, we use **minor** changesets even for breaking changes.
 
 ## Project Architecture & Key Locations
 
@@ -118,9 +123,9 @@ packages/
 - Provide stories for important prop combinations in the same order (if possible).
 - Test the desired behavior (e.g. disabled state) via storybook play function.
 - Do not allow stories witch violate accessibility rules. Rewrite the story accordingly (e.g. no label story -> use a custom label story).
-- ALWAYS add a story **AllCombinations**: Use `buildAllCombinationsStory()` from `test-utils/storybook`. Also pseudo states via `pseudoStates: ('hover' | 'active' | 'focus' | 'focus-visible')[]` as variants if applicable. `hover` should be applicable to all components. `active` can only be applied to elements that perform actions like buttons. Always add some kind of focus pseudo class to test outline visibility - use `focus` instead of `focus-visible` if the component shows focus for mouse interactions (e.g. inputs). If the total number of combinations becomes too large (e.g. it would create too many Chromatic snapshots), split it into multiple stories (for example `AllCombinationsPart1` / `AllCombinationsPart2`) with smaller combination sets.
-- ALWAYS add a story **DesignComparator**: Use `buildDesignComparatorStory()` from `test-utils/storybook` with Figma URLs + node IDs. Make sure to include all variants shown in Figma. Use the node id of the exact component usage (without potential wrapping explanations). Also include variants for different states (hover, focus, disabled) if applicable via `parameters: { pseudo: { hover: true } }`.
-- ALWAYS add a story **TextOverflow**: Use `buildTextOverflowStory()` from `test-utils/storybook` and provide long text to test text overflow behavior
+- Always add a story **TextOverflow**: Use `buildTextOverflowStory()` from `test-utils/storybook` and provide long text to test text overflow behavior.
+- Always add a story **DesignComparator**: Use `buildDesignComparatorStory()` from `test-utils/storybook` with Figma URLs + node IDs. Make sure to include all variants shown in Figma. Use the node id of the exact component usage (without potential wrapping explanations). Also include variants for different states (hover, focus, disabled) if applicable via `parameters: { pseudo: { hover: true } }`.
+- Always add a story **AllCombinations**: Use `buildAllCombinationsStory()` from `test-utils/storybook`. Also pseudo states via `pseudoStates: ('hover' | 'active' | 'focus' | 'focus-visible')[]` as variants if applicable. `hover` should be applicable to all components. `active` can only be applied to elements that perform actions like buttons. Always add some kind of focus pseudo class to test outline visibility - use `focus` instead of `focus-visible` if the component shows focus for mouse interactions (e.g. inputs). If the total number of combinations becomes too large (e.g. it would create too many Chromatic snapshots), split it into multiple stories (for example `AllCombinationsPart1` / `AllCombinationsPart2`) with smaller combination sets.
 - Remove `&m=dev` from all Figma URLs
 
 #### Storybook Play Test Auto-Waiting

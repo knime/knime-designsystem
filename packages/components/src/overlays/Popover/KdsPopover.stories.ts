@@ -13,7 +13,7 @@ import PopoverDemo from "./PopoverDemo.vue";
 import { kdsPopoverPlacements } from "./constants";
 
 const meta: Meta<typeof KdsPopover> = {
-  title: "Components/overlays/KdsPopover",
+  title: "Overlays/KdsPopover",
   component: KdsPopover,
   tags: ["autodocs"],
   argTypes: {
