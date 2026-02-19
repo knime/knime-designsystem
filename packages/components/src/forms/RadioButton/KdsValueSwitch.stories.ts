@@ -13,7 +13,7 @@ import KdsValueSwitch from "./KdsValueSwitch.vue";
 type Story = StoryObj<typeof KdsValueSwitch>;
 
 const meta: Meta<typeof KdsValueSwitch> = {
-  title: "Components/forms/KdsValueSwitch",
+  title: "Forms/KdsValueSwitch",
   component: KdsValueSwitch as Meta<typeof KdsValueSwitch>["component"],
   tags: ["autodocs"],
   parameters: {

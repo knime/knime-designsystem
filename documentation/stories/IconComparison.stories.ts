@@ -2,9 +2,11 @@ import { computed, ref } from "vue";
 import type { Meta } from "@storybook/vue3-vite";
 
 // Import all SVG icons from the src/icons and dist/icons folders
+// @ts-expect-error - import.meta.glob is a Vite-specific feature
 const srcIcons = import.meta.glob("../../packages/styles/src/img/icons/*.svg", {
   eager: true,
 });
+// @ts-expect-error - import.meta.glob is a Vite-specific feature
 const distIcons = import.meta.glob(
   "../../packages/styles/dist/img/icons/*.svg",
   {
@@ -13,7 +15,7 @@ const distIcons = import.meta.glob(
 );
 
 export default {
-  title: "Core Concepts/Icons",
+  title: "Icons",
   tags: ["!autodocs"],
 } as Meta;
 

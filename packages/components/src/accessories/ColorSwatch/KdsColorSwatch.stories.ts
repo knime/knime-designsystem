@@ -16,7 +16,7 @@ const figmaBaseUrl =
 
 const meta: Meta<typeof KdsColorSwatch> = {
   component: KdsColorSwatch,
-  title: "Components/accessories/KdsColorSwatch",
+  title: "Accessories/KdsColorSwatch",
   tags: ["autodocs"],
   parameters: {
     docs: {

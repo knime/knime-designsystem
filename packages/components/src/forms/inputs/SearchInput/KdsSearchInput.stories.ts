@@ -15,7 +15,7 @@ import KdsSearchInput from "./KdsSearchInput.vue";
 type Story = StoryObj<typeof KdsSearchInput>;
 
 const meta: Meta<typeof KdsSearchInput> = {
-  title: "Components/forms/KdsSearchInput",
+  title: "Forms/KdsSearchInput",
   component: KdsSearchInput as Meta<typeof KdsSearchInput>["component"],
   tags: ["autodocs"],
   parameters: {

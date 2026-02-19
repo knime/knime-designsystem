@@ -1,75 +1,22 @@
-import { type PropType, defineComponent, h } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
-import { kdsButtonVariants } from "../buttons/constants";
-import { kdsSizes } from "../constants";
+import { kdsButtonVariants } from "../../buttons/constants";
+import { kdsSizes } from "../../constants";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
   buildTextOverflowStory,
-} from "../test-utils/storybook";
+} from "../../test-utils/storybook";
 
 import KdsEmptyState from "./KdsEmptyState.vue";
-import type { KdsEmptyStateProps } from "./types";
 
 type Story = StoryObj<typeof KdsEmptyState>;
 
-// Wrapper component to constrain width for Figma comparison
-const KdsEmptyStateWrapper = defineComponent({
-  name: "KdsEmptyStateWrapper",
-  props: {
-    headline: {
-      type: String as PropType<KdsEmptyStateProps["headline"]>,
-      required: true,
-    },
-    description: {
-      type: String as PropType<KdsEmptyStateProps["description"]>,
-      default: undefined,
-    },
-    buttonLabel: {
-      type: String as PropType<
-        Extract<KdsEmptyStateProps, { buttonLabel?: string }>["buttonLabel"]
-      >,
-      default: undefined,
-    },
-    buttonVariant: {
-      type: String as PropType<
-        Extract<KdsEmptyStateProps, { buttonVariant?: string }>["buttonVariant"]
-      >,
-      default: undefined,
-    },
-    buttonSize: {
-      type: String as PropType<
-        Extract<KdsEmptyStateProps, { buttonSize?: string }>["buttonSize"]
-      >,
-      default: undefined,
-    },
-  },
-  setup(props) {
-    return () =>
-      h(
-        "div",
-        {
-          style: { width: "205px", display: "flex", justifyContent: "center" },
-        },
-        [
-          h(KdsEmptyState, {
-            headline: props.headline,
-            description: props.description,
-            buttonLabel: props.buttonLabel,
-            buttonVariant: props.buttonVariant,
-            buttonSize: props.buttonSize,
-          } as KdsEmptyStateProps),
-        ],
-      );
-  },
-});
-
 const meta: Meta<typeof KdsEmptyState> = {
   component: KdsEmptyState,
-  title: "Components/KdsEmptyState",
+  title: "Structures/KdsEmptyState",
   tags: ["autodocs"],
   parameters: {
     docs: {
@@ -290,7 +237,8 @@ export const TextOverflow: Story = {
 };
 
 export const DesignComparator: Story = buildDesignComparatorStory({
-  component: KdsEmptyStateWrapper,
+  component: KdsEmptyState,
+  wrapperStyle: { width: "205px", display: "flex", justifyContent: "center" },
   designsToCompare: {
     Variants: {
       props: {

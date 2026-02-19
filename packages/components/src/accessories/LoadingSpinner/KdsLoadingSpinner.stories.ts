@@ -12,7 +12,7 @@ import KdsLoadingSpinner from "./KdsLoadingSpinner.vue";
 const kdsLoadingSpinnerVariants = ["onSurface", "onPrimary"] as const;
 
 const meta: Meta<typeof KdsLoadingSpinner> = {
-  title: "Components/accessories/KdsLoadingSpinner",
+  title: "Accessories/KdsLoadingSpinner",
   component: KdsLoadingSpinner as unknown as FunctionalComponent,
   tags: ["autodocs"],
   parameters: {
