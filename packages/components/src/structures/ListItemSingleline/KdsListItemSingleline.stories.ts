@@ -33,7 +33,7 @@ const avatarAccessory: KdsAccessory = {
 
 const meta: Meta<typeof KdsListItemSingleline> = {
   component: KdsListItemSingleline,
-  title: "Components/structures/KdsListItemSingleline",
+  title: "Structures/KdsListItemSingleline",
   tags: ["autodocs"],
   parameters: {
     docs: {

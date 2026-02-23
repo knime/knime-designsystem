@@ -46,7 +46,7 @@ const baseOptions = [
 ] satisfies KdsDropdownOption[];
 
 const meta: Meta = {
-  title: "Components/forms/KdsDropdown",
+  title: "Form fields/KdsDropdown",
   component: KdsDropdown as unknown as Meta["component"],
   tags: ["autodocs"],
   parameters: {

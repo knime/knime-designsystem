@@ -47,8 +47,6 @@ const hasTitle = computed(() => accessibleTitle.value.length > 0);
 <style scoped>
 .kds-color-swatch {
   display: inline-block;
-  width: var(--kds-dimension-icon-1x);
-  height: var(--kds-dimension-icon-1x);
   overflow: hidden;
   line-height: 0;
   border: var(--kds-border-base-muted);
@@ -57,6 +55,11 @@ const hasTitle = computed(() => accessibleTitle.value.length > 0);
   &.small {
     width: var(--kds-dimension-icon-0-75x);
     height: var(--kds-dimension-icon-0-75x);
+  }
+
+  &.medium {
+    width: var(--kds-dimension-icon-1x);
+    height: var(--kds-dimension-icon-1x);
   }
 
   &.large {

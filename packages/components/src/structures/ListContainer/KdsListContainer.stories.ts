@@ -26,7 +26,7 @@ function items(options?: { count?: number; dataType?: boolean }) {
 
 const meta: Meta<typeof KdsListContainer> = {
   component: KdsListContainer,
-  title: "Components/structures/KdsListContainer",
+  title: "Structures/KdsListContainer",
   tags: ["autodocs"],
   parameters: {
     docs: {

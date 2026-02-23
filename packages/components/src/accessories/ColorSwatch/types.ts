@@ -21,7 +21,7 @@ export type KdsHexColor = `#${string}`;
 
 export type KdsColorSwatchColor = KdsColorSwatchType | KdsHexColor;
 
-export type KdsColorSwatchSize = "small" | "large";
+export type KdsColorSwatchSize = "small" | "medium" | "large";
 
 export type KdsColorSwatchProps = {
   /**
@@ -30,7 +30,7 @@ export type KdsColorSwatchProps = {
    */
   color: KdsColorSwatchColor;
 
-  /** Size of the color swatch. Defaults to "small". */
+  /** Size of the color swatch. Defaults to "medium". */
   size?: KdsColorSwatchSize;
 
   /** Tooltip text shown on hover and aria label. */

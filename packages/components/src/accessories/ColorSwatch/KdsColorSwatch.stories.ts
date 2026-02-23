@@ -42,7 +42,7 @@ const meta: Meta<typeof KdsColorSwatch> = {
     },
     size: {
       control: "select",
-      options: ["small", "large"],
+      options: ["small", "medium", "large"],
       description: "Size of the color swatch.",
       table: { category: "Props" },
     },
@@ -54,7 +54,7 @@ const meta: Meta<typeof KdsColorSwatch> = {
   },
   args: {
     color: "learner",
-    size: "small",
+    size: "medium",
     title: "Learner color",
   },
 };
