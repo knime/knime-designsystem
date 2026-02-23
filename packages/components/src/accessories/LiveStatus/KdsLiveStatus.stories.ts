@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { expect, within } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
@@ -77,13 +78,29 @@ const meta: Meta<typeof KdsLiveStatus> = {
 
 export default meta;
 
-export const Default: Story = {};
+export const Default: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const indicator = canvas.getByRole("img");
+    await expect(indicator).toHaveAttribute("aria-label", "Red");
+    await expect(indicator).toHaveAttribute("title", "Red");
+  },
+};
 
 export const WithLabel: Story = {
   args: {
     status: "green",
     label: "state",
     title: "Green state",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const indicator = canvas.getByRole("img");
+    await expect(indicator).toHaveAttribute("aria-label", "Green state");
+    const dot = indicator.querySelector(".dot");
+    await expect(dot).toBeInTheDocument();
+    const label = canvas.getByText("state");
+    await expect(label).toBeInTheDocument();
   },
 };
 
@@ -115,7 +132,7 @@ export const Sizes: Story = {
 
         <div style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
           <KdsLiveStatus v-bind="args" size="large" />
-          <span>Large (default)</span>
+          <span>Large</span>
         </div>
       </div>
     `,
@@ -177,4 +194,5 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       label: ["state"],
     },
   ],
+  pseudoStates: [],
 });

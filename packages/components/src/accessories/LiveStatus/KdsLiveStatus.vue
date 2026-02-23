@@ -7,21 +7,20 @@ const props = withDefaults(defineProps<KdsLiveStatusProps>(), {
   status: "red",
   size: "medium",
   label: "",
-  title: "",
+  title: undefined,
 });
 
-const accessibleTitle = computed(() => props.title.trim());
-const effectiveTitle = computed(
-  () => accessibleTitle.value || `Status is ${props.status}`,
+const accessibleTitle = computed(
+  () => props.title?.trim() || `Status is ${props.status}`,
 );
 </script>
 
 <template>
   <span
     :class="['kds-live-status', props.status, `size-${props.size}`]"
-    role="img"
-    :title="effectiveTitle"
-    :aria-label="effectiveTitle"
+    :role="accessibleTitle ? 'img' : undefined"
+    :title="accessibleTitle"
+    :aria-label="accessibleTitle"
   >
     <span class="dot" />
     <span v-if="props.label" class="label">{{ props.label }}</span>
