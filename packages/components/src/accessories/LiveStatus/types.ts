@@ -18,11 +18,6 @@ export type KdsLiveStatusProps = {
   status?: KdsLiveStatusStatus;
 
   /**
-   * Tooltip text shown on hover. Also used as aria label.
-   */
-  title: string;
-
-  /**
    * Size of the indicator.
    */
   size?: KdsLiveStatusSize;
@@ -31,4 +26,9 @@ export type KdsLiveStatusProps = {
    * Optional label displayed next to the indicator dot.
    */
   label?: string;
+
+  /**
+   * Tooltip text shown on hover. Also used as aria label.
+   */
+  title?: string;
 };
