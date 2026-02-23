@@ -43,7 +43,7 @@ const meta: Meta<typeof KdsLiveStatus> = {
       table: {
         category: "Props",
         defaultValue: { summary: "red" },
-        type: { summary: "'red' | 'yellow' | 'green' | 'disabled'" },
+        type: { summary: "'red' | 'orange' | 'green' | 'disabled'" },
       },
     },
     size: {
@@ -162,7 +162,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       props: { size: "large", label: "state" },
       variants: {
         [`${figmaBaseUrl}?node-id=16664-78343`]: { status: "green" },
-        [`${figmaBaseUrl}?node-id=16542-98009`]: { status: "yellow" },
+        [`${figmaBaseUrl}?node-id=16542-98009`]: { status: "orange" },
         [`${figmaBaseUrl}?node-id=16542-98004`]: { status: "red" },
         [`${figmaBaseUrl}?node-id=16664-78400`]: { status: "disabled" },
       },
@@ -171,7 +171,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       props: { size: "medium", label: "state" },
       variants: {
         [`${figmaBaseUrl}?node-id=16664-78409`]: { status: "green" },
-        [`${figmaBaseUrl}?node-id=16664-78406`]: { status: "yellow" },
+        [`${figmaBaseUrl}?node-id=16664-78406`]: { status: "orange" },
         [`${figmaBaseUrl}?node-id=16664-78415`]: { status: "red" },
         [`${figmaBaseUrl}?node-id=16664-78412`]: { status: "disabled" },
       },
@@ -180,7 +180,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       props: { size: "small", label: "state" },
       variants: {
         [`${figmaBaseUrl}?node-id=16664-79197`]: { status: "green" },
-        [`${figmaBaseUrl}?node-id=16664-79194`]: { status: "yellow" },
+        [`${figmaBaseUrl}?node-id=16664-79194`]: { status: "orange" },
         [`${figmaBaseUrl}?node-id=16664-79203`]: { status: "red" },
         [`${figmaBaseUrl}?node-id=16664-79200`]: { status: "disabled" },
       },

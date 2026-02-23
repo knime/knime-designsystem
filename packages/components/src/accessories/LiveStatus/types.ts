@@ -1,6 +1,6 @@
 export const kdsLiveStatusStatuses = [
   "red",
-  "yellow",
+  "orange",
   "green",
   "disabled",
 ] as const;

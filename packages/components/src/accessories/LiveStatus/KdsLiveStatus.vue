@@ -41,7 +41,7 @@ const accessibleTitle = computed(
     --dot-color: var(--kds-color-text-and-icon-danger);
   }
 
-  &.yellow {
+  &.orange {
     --dot-color: var(--kds-color-text-and-icon-warning);
   }
 
