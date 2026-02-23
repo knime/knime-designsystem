@@ -67,6 +67,8 @@ packages/
     │   └── index.ts                     # Component exports
 ```
 
+**Note:** The package enforces exports from the root `index.ts` - only publicly exported components, types, enums, and composables can be imported by consumers. All internal/helper components (e.g., components in `_helper/` folders, `Base*` components) are hidden and cannot be imported externally.
+
 ### Design Token System
 
 - Generated CSS variables in `packages/styles/dist/tokens/css/_variables.css` (= `@knime/kds-styles/kds-variables.css`)
