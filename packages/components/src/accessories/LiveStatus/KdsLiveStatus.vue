@@ -18,7 +18,7 @@ const accessibleTitle = computed(
 <template>
   <span
     :class="['kds-live-status', props.status, `size-${props.size}`]"
-    :role="accessibleTitle ? 'img' : undefined"
+    role="img"
     :title="accessibleTitle"
     :aria-label="accessibleTitle"
   >
