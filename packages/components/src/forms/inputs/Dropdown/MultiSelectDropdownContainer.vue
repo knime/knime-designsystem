@@ -432,7 +432,7 @@ watch(open, (isOpen) => {
 
 <template>
   <div class="kds-multi-select-dropdown-container" @keydown.capture="onKeydown">
-    <div class="kds-multi-select-dropdown-container-sticky-top">
+    <div class="kds-multi-select-dropdown-container-top">
       <BaseInput
         :id="`${containerId}-search`"
         ref="searchEl"
@@ -483,7 +483,7 @@ watch(open, (isOpen) => {
       </div>
     </div>
 
-    <div class="kds-multi-select-dropdown-container-sticky-bottom">
+    <div class="kds-multi-select-dropdown-container-bottom">
       <KdsListItemSingleline
         :id="actionRow.id"
         :label="actionRow.label"
@@ -506,12 +506,8 @@ watch(open, (isOpen) => {
   box-shadow: var(--kds-elevation-level-3);
 }
 
-.kds-multi-select-dropdown-container-sticky-top {
-  position: sticky;
-  top: 0;
-  z-index: 1;
+.kds-multi-select-dropdown-container-top {
   padding: var(--kds-spacing-container-0-25x);
-  background-color: var(--kds-color-surface-default);
   border-bottom: var(--kds-border-base-subtle);
 }
 
@@ -522,12 +518,8 @@ watch(open, (isOpen) => {
   padding: var(--kds-spacing-container-0-25x);
 }
 
-.kds-multi-select-dropdown-container-sticky-bottom {
-  position: sticky;
-  bottom: 0;
-  z-index: 1;
+.kds-multi-select-dropdown-container-bottom {
   padding: var(--kds-spacing-container-0-25x);
-  background-color: var(--kds-color-surface-default);
   border-top: var(--kds-border-base-subtle);
 }
 
