@@ -29,7 +29,6 @@ const meta = {
     },
   },
   argTypes: {
-    modelValue: { control: { type: "boolean" }, table: { category: "Model" } },
     content: { control: { type: "text" }, table: { category: "Props" } },
     disabled: { control: "boolean", table: { category: "Props" } },
     hidden: { control: "boolean", table: { category: "Props" } },
@@ -41,7 +40,6 @@ const meta = {
     },
   },
   args: {
-    modelValue: false,
     content: SAMPLE_CONTENT,
     disabled: false,
     hidden: false,
@@ -111,9 +109,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsInfoToggleButton,
   designsToCompare: {
     Default: {
-      props: {
-        modelValue: false,
-      },
+      props: {},
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219224":
           {},
@@ -125,21 +121,6 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           { disabled: true },
       },
     },
-    Selected: {
-      props: {
-        modelValue: true,
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219252":
-          {},
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219232":
-          { parameters: { pseudo: { hover: true } } },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219236":
-          { parameters: { pseudo: { active: true } } },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219240":
-          { disabled: true },
-      },
-    },
   },
 });
 
@@ -147,7 +128,6 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsInfoToggleButton,
   combinationsProps: [
     {
-      modelValue: [false, true],
       disabled: [false, true],
     },
   ],
