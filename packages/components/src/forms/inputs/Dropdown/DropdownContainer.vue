@@ -70,7 +70,6 @@ const filteredOptions = computed(() => {
 const listItems = computed(() =>
   filteredOptions.value.map((option) => ({
     id: `${containerId}-${option.id}`,
-    optionId: option.id,
     label: option.text,
     accessory: option.accessory,
     disabled: Boolean(option.disabled) || option.missing,

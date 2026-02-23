@@ -73,7 +73,7 @@ const isPlaceholder = computed(() => !modelValue.value);
         :activator-el="activatorEl"
         placement="bottom-left"
         full-width
-        role="listbox"
+        aria-haspopup="listbox"
       >
         <DropdownContainer
           v-model="modelValue"

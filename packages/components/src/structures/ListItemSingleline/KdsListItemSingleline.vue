@@ -32,7 +32,7 @@ const emit = defineEmits<{
       'special-content': props.specialContent,
       disabled: props.disabled,
     }"
-    @click="emit('click', $event)"
+    @click="!props.disabled && emit('click', $event)"
   >
     <span class="content">
       <span class="label">

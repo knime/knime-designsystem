@@ -179,7 +179,7 @@ export function buildAllCombinationsStory<C extends Component>(
 }
 
 type FigmaDesignURL =
-  `https://www.figma.com/design/${string}/${string}?node-id=${string}`;
+  `https://www.figma.com/design/${string}/${string}?node-id=${string}${string}`;
 
 type DesignsToCompare<Props> = Record<
   string,

@@ -12,6 +12,10 @@ const props = withDefaults(defineProps<KdsListItemMultilineProps>(), {
   missing: false,
   disabled: false,
 });
+
+const emit = defineEmits<{
+  click: [event: MouseEvent];
+}>();
 </script>
 
 <template>
@@ -25,6 +29,7 @@ const props = withDefaults(defineProps<KdsListItemMultilineProps>(), {
     role="option"
     :aria-selected="props.selected"
     :aria-disabled="props.disabled"
+    @click="!props.disabled && emit('click', $event)"
   >
     <KdsAvatar
       v-if="props.accessory?.type === 'avatar'"

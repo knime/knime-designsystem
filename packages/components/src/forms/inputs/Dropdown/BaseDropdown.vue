@@ -86,7 +86,7 @@ const onTriggerKeydown = (event: KeyboardEvent) => {
       readonly: props.readonly,
       missing: props.missing,
     }"
-    @click="emit('click')"
+    @click="!props.disabled && !props.readonly && emit('click')"
     @keydown="(event) => (emit('keydown', event), onTriggerKeydown(event))"
   >
     <span v-if="props.accessory" class="leading" aria-hidden="true">

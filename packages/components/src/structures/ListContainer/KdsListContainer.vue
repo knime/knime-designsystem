@@ -6,8 +6,6 @@ import type { KdsListContainerProps } from "./types";
 const props = withDefaults(defineProps<KdsListContainerProps>(), {
   id: undefined,
   ariaLabelledby: undefined,
-  optionIdPrefix: undefined,
-  showLeadingAccessory: true,
   emptyText: "No entries in this list",
 });
 
@@ -29,7 +27,7 @@ const emit = defineEmits<{
         v-for="item in props.items"
         v-bind="item"
         :key="item.id"
-        @click="emit('itemClick', item.id)"
+        @click="!item.disabled && emit('itemClick', item.id)"
       />
     </template>
 

@@ -101,8 +101,7 @@ const isPlaceholder = computed(() => modelValue.value.length === 0);
         :activator-el="activatorEl"
         placement="bottom-left"
         full-width
-        role="listbox"
-        aria-multiselectable="true"
+        aria-haspopup="listbox"
       >
         <MultiSelectDropdownContainer
           v-model="modelValue"

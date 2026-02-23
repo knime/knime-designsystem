@@ -32,23 +32,18 @@ const meta: Meta<typeof KdsListContainer> = {
     docs: {
       description: {
         component:
-          "Use `KdsListContainer` as a lightweight wrapper for lists. It can render provided items with `KdsListItemSingleline` or accept custom slot content.",
+          "Use `KdsListContainer` as a lightweight wrapper for lists. It can render provided items with `KdsListItemSingleline`.",
       },
     },
     design: {
       type: "figma",
-      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=608-29916&p=f&m=dev",
+      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=608-29916",
     },
   },
   argTypes: {
     items: {
       control: "object",
       description: "Items to render inside the list container.",
-      table: { category: "Props" },
-    },
-    showLeadingAccessory: {
-      control: "boolean",
-      description: "Shows the default leading datatype icon for each item.",
       table: { category: "Props" },
     },
     emptyText: {
@@ -66,7 +61,6 @@ type Story = StoryObj<typeof KdsListContainer>;
 export const Default: Story = {
   args: {
     items: items(),
-    showLeadingAccessory: true,
     emptyText: "No entries in this list",
   },
 };
@@ -74,7 +68,6 @@ export const Default: Story = {
 export const Empty: Story = {
   args: {
     items: [],
-    showLeadingAccessory: true,
     emptyText: "No entries in this list",
   },
 };
@@ -82,7 +75,6 @@ export const Empty: Story = {
 export const WithLeadingAccessory: Story = {
   args: {
     items: items({ dataType: true }),
-    showLeadingAccessory: false,
     emptyText: "No entries in this list",
   },
 };
@@ -105,7 +97,6 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     "Content=Default": {
       props: {
         items: items({ count: 13, dataType: true }),
-        showLeadingAccessory: true,
         emptyText: "No entries in this list",
       },
       variants: {
@@ -116,7 +107,6 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     "Content=Empty": {
       props: {
         items: [],
-        showLeadingAccessory: true,
         emptyText: "No entries in this list",
       },
       variants: {
@@ -141,7 +131,6 @@ export const TextOverflow: Story = {
       },
       { id: "short-item", label: "Label" },
     ],
-    showLeadingAccessory: true,
     emptyText: "No entries in this list",
   },
 };

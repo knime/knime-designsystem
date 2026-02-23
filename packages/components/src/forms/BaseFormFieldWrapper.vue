@@ -55,9 +55,7 @@ const subTextId = computed(() => `${inputId.value}-subtext`);
 
 <style scoped>
 .kds-form-field {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
-  inline-size: 256px;
-  max-width: 100%;
 }
 </style>

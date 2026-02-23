@@ -185,7 +185,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           { disabled: true },
       },
     },
-    "TODO: Text/Columns, Unselected (Special Content)": {
+    "Text/Columns, Unselected (Special Content)": {
       props: {
         label: "Label",
         selected: false,
@@ -258,7 +258,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           { parameters: { pseudo: { active: true } } },
       },
     },
-    "TODO: Text/Columns, Missing": {
+    "Text/Columns, Missing": {
       props: {
         label: "Label",
         accessory: { type: "dataType", name: "unknown-datatype" },

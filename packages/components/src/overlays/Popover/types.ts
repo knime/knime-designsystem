@@ -29,7 +29,7 @@ export type KdsPopoverProps = {
    *
    * Defaults to "dialog".
    */
-  role?: "dialog" | "menu" | "listbox" | "tooltip";
+  role?: "dialog" | "menu" | "listbox";
 
   /**
    * When true, enforces the popover's minimum width to match the anchor element's width.
