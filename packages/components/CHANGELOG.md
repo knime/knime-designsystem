@@ -1,5 +1,18 @@
 # @knime/kds-components
 
+## 0.8.0
+
+### Minor Changes
+
+- 8c5a7a8: KdsNumberInput: Hardcode en-US as locale to avoid localization problems
+- 521d7f6: add KdsCard component
+
+### Patch Changes
+
+- c47c4fb: Add KdsLiveStatus component
+- 9fd5725: Export enums
+  - @knime/kds-styles@0.8.0
+
 ## 0.7.0
 
 ### Minor Changes
