@@ -1,6 +1,9 @@
-import type { KdsIconSize } from "../Icon/types";
+import type { KdsIconSize } from "../Icon";
 
-export type KdsLoadingSpinnerVariant = "onPrimary" | "onSurface";
+import { kdsLoadingSpinnerVariant } from "./enums";
+
+export type KdsLoadingSpinnerVariant =
+  (typeof kdsLoadingSpinnerVariant)[keyof typeof kdsLoadingSpinnerVariant];
 
 export type KdsLoadingSpinnerProps = {
   size?: KdsIconSize;

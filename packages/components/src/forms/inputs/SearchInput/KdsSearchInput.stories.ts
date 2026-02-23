@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
 
-import KdsButton from "../../../buttons/KdsButton.vue";
+import KdsButton from "../../../buttons/KdsButton/KdsButton.vue";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,

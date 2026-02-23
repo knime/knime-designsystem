@@ -2,8 +2,7 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
-import { kdsButtonVariants } from "../../buttons/constants";
-import { kdsSizes } from "../../constants";
+import { kdsButtonSizes, kdsButtonVariants } from "../../buttons";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
@@ -72,7 +71,7 @@ const meta: Meta<typeof KdsEmptyState> = {
     },
     buttonSize: {
       control: "select",
-      options: kdsSizes,
+      options: kdsButtonSizes,
       description: "Button size",
       table: { category: "Button Props" },
     },

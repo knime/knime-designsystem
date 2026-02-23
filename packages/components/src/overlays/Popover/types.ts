@@ -1,8 +1,9 @@
 import type { ComponentPublicInstance, MaybeRef } from "vue";
 
-import { kdsPopoverPlacements } from "./constants";
+import { kdsPopoverPlacement } from "./enums";
 
-export type KdsPopoverPlacement = (typeof kdsPopoverPlacements)[number];
+export type KdsPopoverPlacement =
+  (typeof kdsPopoverPlacement)[keyof typeof kdsPopoverPlacement];
 
 export type KdsPopoverProps = {
   /**

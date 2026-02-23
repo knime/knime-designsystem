@@ -3,7 +3,7 @@ import { computed, useTemplateRef } from "vue";
 
 import KdsIcon from "../../accessories/Icon/KdsIcon.vue";
 import type { KdsIconName } from "../../accessories/Icon/types";
-import KdsButton from "../../buttons/KdsButton.vue";
+import KdsButton from "../../buttons/KdsButton/KdsButton.vue";
 
 type BaseInputProps = {
   /**

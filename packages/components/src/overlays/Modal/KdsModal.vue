@@ -2,10 +2,10 @@
 import { nextTick, ref, useTemplateRef, watch } from "vue";
 
 import KdsModalLayout from "./KdsModalLayout.vue";
-import { modalPropsDefault } from "./constants";
+import { kdsModalPropsDefault } from "./enums";
 import type { KdsModalProps } from "./types";
 
-const props = withDefaults(defineProps<KdsModalProps>(), modalPropsDefault);
+const props = withDefaults(defineProps<KdsModalProps>(), kdsModalPropsDefault);
 
 const emit = defineEmits<{
   /** request to close of the dialog */
@@ -108,7 +108,7 @@ body:has(dialog.modal[open]) {
 }
 </style>
 
-<style lang="postcss" scoped>
+<style scoped>
 .kds-modal {
   /* rule is broken it complains about local variables for no reason */
   /* stylelint-disable csstools/value-no-unknown-custom-properties */

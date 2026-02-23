@@ -1,4 +1,7 @@
-export type KdsCheckboxValue = boolean | "indeterminate";
+import { kdsCheckboxGroupAlignment, kdsCheckboxValue } from "./enums";
+
+export type KdsCheckboxValue =
+  (typeof kdsCheckboxValue)[keyof typeof kdsCheckboxValue];
 
 type BaseProps = {
   /**
@@ -53,7 +56,8 @@ export type KdsCheckboxGroupOption = {
   error?: boolean;
 };
 
-export type KdsCheckboxGroupAlignment = "vertical" | "horizontal";
+export type KdsCheckboxGroupAlignment =
+  (typeof kdsCheckboxGroupAlignment)[keyof typeof kdsCheckboxGroupAlignment];
 
 export type KdsCheckboxGroupProps = {
   id?: string;

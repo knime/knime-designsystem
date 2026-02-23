@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
 import KdsIcon from "./KdsIcon.vue";
-import { kdsIconNames, kdsIconSizes } from "./constants";
+import { kdsIconNames, kdsIconSizes } from "./enums";
 
 const meta: Meta<typeof KdsIcon> = {
   title: "Accessories/KdsIcon",

@@ -1,9 +1,9 @@
-import type { IconName as KdsIconName } from "@knime/kds-styles/img/icons/def";
-import type { TypeIconName as KdsTypeIconName } from "@knime/kds-styles/img/type-icons/def";
+import { kdsDataTypeSize, kdsIconSize } from "./enums";
 
-import type { kdsDataTypeSizes, kdsIconSizes } from "./constants";
+export type KdsIconSize = (typeof kdsIconSize)[keyof typeof kdsIconSize];
 
-type KdsIconSize = (typeof kdsIconSizes)[number];
-type KdsDataTypeSize = (typeof kdsDataTypeSizes)[number];
+export type KdsDataTypeSize =
+  (typeof kdsDataTypeSize)[keyof typeof kdsDataTypeSize];
 
-export type { KdsIconSize, KdsIconName, KdsDataTypeSize, KdsTypeIconName };
+export type { IconName as KdsIconName } from "@knime/kds-styles/img/icons/def";
+export type { TypeIconName as KdsTypeIconName } from "@knime/kds-styles/img/type-icons/def";

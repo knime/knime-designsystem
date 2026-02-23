@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import KdsIcon from "../../accessories/Icon/KdsIcon.vue";
-import KdsButton from "../../buttons/KdsButton.vue";
+import KdsButton from "../../buttons/KdsButton/KdsButton.vue";
 
-import { modalLayoutPropsDefault } from "./constants";
+import { kdsModalLayoutPropsDefault } from "./enums";
 import type { KdsModalLayoutProps } from "./types";
 
 const props = withDefaults(
   defineProps<KdsModalLayoutProps>(),
-  modalLayoutPropsDefault,
+  kdsModalLayoutPropsDefault,
 );
 defineOptions({ inheritAttrs: false });
 </script>
@@ -34,7 +34,7 @@ defineOptions({ inheritAttrs: false });
   </footer>
 </template>
 
-<style lang="postcss" scoped>
+<style scoped>
 .modal-header {
   display: flex;
   gap: var(--kds-spacing-container-0-5x);

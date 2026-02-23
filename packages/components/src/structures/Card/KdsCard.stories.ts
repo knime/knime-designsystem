@@ -10,6 +10,7 @@ import {
 
 import DemoCard from "./DemoCard.vue";
 import KdsCard from "./KdsCard.vue";
+import { kdsCardVariants } from "./enums";
 
 const meta: Meta<typeof KdsCard> = {
   title: "Structures/KdsCard",
@@ -38,7 +39,7 @@ const meta: Meta<typeof KdsCard> = {
       description:
         "The visual style of the card container. Filled provides a surface background, Outlined has a border with transparent background, and Transparent has no visible container styling.",
       control: { type: "select" },
-      options: ["filled", "outlined", "transparent"],
+      options: kdsCardVariants,
       table: {
         category: "Props",
       },
@@ -196,13 +197,13 @@ export const AllCombinations: DemoStory = buildAllCombinationsStory({
   component: DemoCard,
   combinationsProps: [
     {
-      variant: ["filled", "outlined", "transparent"],
+      variant: kdsCardVariants,
       modelValue: [false],
       selectable: [false],
       ariaLabel: ["Demo card for Storybook"],
     },
     {
-      variant: ["filled", "outlined", "transparent"],
+      variant: kdsCardVariants,
       modelValue: [false, true],
       selectable: [true],
       ariaLabel: ["Demo card for Storybook"],

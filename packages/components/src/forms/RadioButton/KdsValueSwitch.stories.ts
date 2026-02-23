@@ -9,6 +9,7 @@ import {
 } from "../../test-utils/storybook.ts";
 
 import KdsValueSwitch from "./KdsValueSwitch.vue";
+import { kdsValueSwitchSizes, kdsValueSwitchVariants } from "./enums";
 
 type Story = StoryObj<typeof KdsValueSwitch>;
 
@@ -55,14 +56,14 @@ const meta: Meta<typeof KdsValueSwitch> = {
     },
     variant: {
       control: { type: "select" },
-      options: ["default", "muted"],
+      options: kdsValueSwitchVariants,
       description:
         "Visual variant of the value switch. Use `muted` for less prominent use cases (e.g. node dialogs).",
       table: { category: "Props" },
     },
     size: {
       control: { type: "select" },
-      options: ["medium", "small"],
+      options: kdsValueSwitchSizes,
       description:
         "Size of the value switch (affects height, padding and typography).",
       table: { category: "Props" },
@@ -262,8 +263,8 @@ export const AllCombinations: Story = buildAllCombinationsStory({
           { id: "Option B", leadingIcon: "list", title: "List" },
         ],
       ],
-      size: ["medium", "small"],
-      variant: ["default", "muted"],
+      size: kdsValueSwitchSizes,
+      variant: kdsValueSwitchVariants,
       disabled: [false],
       error: [false],
       subText: [undefined, "Message"],

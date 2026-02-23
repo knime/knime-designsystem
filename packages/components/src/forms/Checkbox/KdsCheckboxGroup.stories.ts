@@ -9,6 +9,7 @@ import {
 } from "../../test-utils/storybook.ts";
 
 import KdsCheckboxGroup from "./KdsCheckboxGroup.vue";
+import { kdsCheckboxGroupAlignments } from "./enums";
 import type { KdsCheckboxGroupProps } from "./types";
 
 type Story = StoryObj<typeof KdsCheckboxGroup>;
@@ -74,7 +75,7 @@ const meta: Meta<typeof KdsCheckboxGroup> = {
     },
     alignment: {
       control: { type: "select" },
-      options: ["vertical", "horizontal"],
+      options: kdsCheckboxGroupAlignments,
       description:
         "Layout of the checkboxes: vertical (column) or horizontal (row, wrapping).",
       table: { category: "Props" },
@@ -221,14 +222,14 @@ export const AllCombinations: Story = buildAllCombinationsStory({
     {
       label: ["Label"],
       disabled: [false, true],
-      alignment: ["vertical", "horizontal"],
+      alignment: kdsCheckboxGroupAlignments,
       subText: [undefined, "Additional information"],
       possibleValues: [twoOptions, optionsWithHelperText],
       modelValue: [[], ["Option A"], ["Option A", "Option B"]],
     },
     {
       label: ["Label"],
-      alignment: ["vertical", "horizontal"],
+      alignment: kdsCheckboxGroupAlignments,
       subText: ["Error information"],
       possibleValues: [optionsWithError, optionsWithHelperTextAndError],
       modelValue: [[], ["Option A"], ["Option A", "Option B"]],
@@ -236,7 +237,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
     {
       label: ["Label"],
       error: [true],
-      alignment: ["vertical", "horizontal"],
+      alignment: kdsCheckboxGroupAlignments,
       subText: ["Please select at least one option"],
       possibleValues: [twoOptions],
       modelValue: [[]],

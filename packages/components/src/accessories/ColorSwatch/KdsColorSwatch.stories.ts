@@ -7,7 +7,7 @@ import {
 } from "../../test-utils/storybook";
 
 import KdsColorSwatch from "./KdsColorSwatch.vue";
-import { kdsColorSwatchTypes } from "./types";
+import { kdsColorSwatchTypes } from "./enums";
 
 type Story = StoryObj<typeof KdsColorSwatch>;
 
