@@ -4,7 +4,10 @@ import { defineAsyncComponent, useTemplateRef } from "vue";
 import { useKdsIsTruncated } from "../../util";
 import type { KdsLabelProps } from "../types";
 
-const props = defineProps<KdsLabelProps>();
+const props = withDefaults(defineProps<KdsLabelProps>(), {
+  description: undefined,
+  isHovered: false,
+});
 
 const KdsInfoToggleButton = defineAsyncComponent(
   () => import("./InfoPopover/KdsInfoToggleButton.vue"),
