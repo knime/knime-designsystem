@@ -4,7 +4,7 @@ packages:
 
 catalog:
   "@tsconfig/node24": ^24.0.4
-  "@types/jsdom": ^21.1.7
+  "@types/jsdom": ^27.0.0
   "@types/node": ^25.0.10
   "@vitejs/plugin-vue": ^6.0.1
   "@vue/test-utils": ^2.4.6
