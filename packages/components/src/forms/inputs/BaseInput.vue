@@ -80,6 +80,40 @@ type BaseInputProps = {
   ariaInvalid?: boolean;
 
   /**
+   * Whether the associated popup is currently expanded (for aria-expanded).
+   */
+  ariaExpanded?: boolean;
+
+  /**
+   * Indicates the availability and type of an interactive popup element.
+   * Useful for combobox/listbox patterns.
+   */
+  ariaHaspopup?:
+    | "dialog"
+    | "menu"
+    | "listbox"
+    | "tree"
+    | "grid"
+    | boolean
+    | "true"
+    | "false";
+
+  /**
+   * ID of the element controlled by this input (for aria-controls).
+   */
+  ariaControls?: string;
+
+  /**
+   * ID of the currently active descendant (for aria-activedescendant).
+   */
+  ariaActivedescendant?: string;
+
+  /**
+   * Current autocomplete behavior (for aria-autocomplete).
+   */
+  ariaAutocomplete?: "none" | "inline" | "list" | "both";
+
+  /**
    * ARIA role override applied to the input element.
    * Useful to preserve semantics for custom controls.
    */
@@ -141,6 +175,11 @@ const props = withDefaults(defineProps<BaseInputProps>(), {
   ariaLabelledby: undefined,
   ariaDescribedby: undefined,
   ariaInvalid: undefined,
+  ariaExpanded: undefined,
+  ariaHaspopup: undefined,
+  ariaControls: undefined,
+  ariaActivedescendant: undefined,
+  ariaAutocomplete: undefined,
   role: undefined,
   ariaValuenow: undefined,
   ariaValuemin: undefined,
@@ -222,6 +261,10 @@ defineExpose({
       <KdsIcon v-if="props.leadingIcon" :name="props.leadingIcon" />
     </div>
 
+    <div v-if="$slots.leading" class="leading-slot">
+      <slot name="leading" />
+    </div>
+
     <input
       :id="props.id"
       ref="input"
@@ -241,6 +284,11 @@ defineExpose({
       :aria-labelledby="props.ariaLabelledby"
       :aria-describedby="props.ariaDescribedby"
       :aria-invalid="props.ariaInvalid"
+      :aria-expanded="props.ariaExpanded"
+      :aria-haspopup="props.ariaHaspopup"
+      :aria-controls="props.ariaControls"
+      :aria-activedescendant="props.ariaActivedescendant"
+      :aria-autocomplete="props.ariaAutocomplete"
       :role="props.role"
       :aria-valuenow="props.ariaValuenow"
       :aria-valuemin="props.ariaValuemin"
@@ -352,7 +400,10 @@ defineExpose({
   overflow: hidden;
   text-overflow: ellipsis;
   font: var(--kds-font-base-body-small);
-  color: var(--kds-color-text-and-icon-neutral);
+  color: var(
+    --kds-base-input-text-color,
+    var(--kds-color-text-and-icon-neutral)
+  );
   white-space: nowrap;
   outline: none;
   background: transparent;
@@ -413,6 +464,18 @@ defineExpose({
 
 .clear-button {
   margin-left: var(--kds-spacing-container-0-12x);
+}
+
+.leading-slot {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--kds-spacing-container-0-12x);
+  align-items: center;
+  padding-left: var(--kds-spacing-container-0-12x);
+
+  .container.disabled & {
+    cursor: default;
+  }
 }
 
 .trailing-slot {

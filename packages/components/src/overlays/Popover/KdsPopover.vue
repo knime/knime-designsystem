@@ -6,6 +6,8 @@ import type { KdsPopoverProps } from "./types";
 
 const props = withDefaults(defineProps<KdsPopoverProps>(), {
   placement: "bottom-right",
+  role: "dialog",
+  fullWidth: false,
 });
 
 const open = defineModel<boolean>({ default: false });
@@ -44,7 +46,7 @@ const setA11yAttributes = (
 
   el.setAttribute("aria-expanded", String(options.expanded));
   el.setAttribute("aria-controls", options.popoverId);
-  el.setAttribute("aria-haspopup", "dialog");
+  el.setAttribute("aria-haspopup", props.role);
 };
 
 // Sync the open state with the native popover element's open state
@@ -99,10 +101,10 @@ onBeforeUnmount(() => {
     :id="popoverId"
     ref="popoverEl"
     class="kds-popover"
-    :class="['floating', props.placement]"
+    :class="['floating', props.placement, { 'full-width': props.fullWidth }]"
     :popover="unref(props.activatorEl) ? 'auto' : undefined"
     :style="{ 'position-anchor': anchorName }"
-    role="dialog"
+    :role="props.role"
     @toggle="open = $event.newState === 'open'"
   >
     <slot />
@@ -115,10 +117,12 @@ onBeforeUnmount(() => {
   overflow: visible;
   font: var(--kds-font-base-body-small);
   color: var(--kds-color-text-and-icon-neutral);
-  background: var(--kds-color-surface-default);
   border: none;
-  border-radius: var(--kds-border-radius-container-0-37x);
-  box-shadow: var(--kds-elevation-level-3);
+
+  /* noinspection CssInvalidFunction */
+  &.full-width {
+    min-inline-size: anchor-size(width);
+  }
 
   /* noinspection CssInvalidFunction,CssInvalidAtRule */
   &.floating.top-left {
