@@ -20,11 +20,11 @@ type KdsMultiSelectDropdownStoryArgs = KdsMultiSelectDropdownProps & {
 };
 
 const baseOptions = [
-  { id: "a", text: "Label" },
-  { id: "b", text: "Label" },
-  { id: "c", text: "Label" },
-  { id: "d", text: "Label" },
-  { id: "e", text: "Label" },
+  { id: "a", text: "Option A" },
+  { id: "b", text: "Option B" },
+  { id: "c", text: "Option C" },
+  { id: "d", text: "Option D" },
+  { id: "e", text: "Option E" },
 ] satisfies KdsDropdownOption[];
 
 const meta: Meta = {
@@ -144,9 +144,7 @@ export const MissingValues: Story = {
     await expect(combobox).toHaveTextContent(/\(Missing\)\s*missing/i);
 
     await userEvent.click(combobox);
-    await userEvent.click(
-      canvas.getByRole("button", { name: /remove missing value missing/i }),
-    );
+    await userEvent.click(canvas.getByRole("option", { name: /missing/i }));
 
     await expect(combobox).not.toHaveTextContent(/\(Missing\)/i);
   },

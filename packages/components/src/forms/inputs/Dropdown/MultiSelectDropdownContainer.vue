@@ -169,7 +169,7 @@ const optionRows = computed<OptionRow[]>(() => {
       id: `${containerId}-missing-${missingId}`,
       optionId: missingId,
       label: missingId,
-      disabled: true,
+      disabled: false,
       selected: true,
       active: `${containerId}-missing-${missingId}` === activeId.value,
       missing: true,
@@ -367,6 +367,12 @@ const applyByPrefixedId = (prefixedId: string | null) => {
   if (!row || row.disabled) {
     return;
   }
+
+  if (row.type === "missing") {
+    deleteMissingValue(row.optionId);
+    return;
+  }
+
   toggleOption(row.optionId);
 };
 
@@ -465,14 +471,7 @@ watch(open, (isOpen) => {
           @click="applyByPrefixedId(row.id)"
         >
           <template v-if="row.type === 'missing'" #trailing>
-            <button
-              class="kds-multi-select-dropdown-delete"
-              type="button"
-              :aria-label="`Remove missing value ${row.label}`"
-              @click.stop="deleteMissingValue(row.optionId)"
-            >
-              <KdsIcon name="trash" size="xsmall" />
-            </button>
+            <KdsIcon name="trash" size="small" />
           </template>
         </KdsListItemSingleline>
       </template>
@@ -550,26 +549,6 @@ watch(open, (isOpen) => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--kds-dimension-component-width-0-75x);
-  height: var(--kds-dimension-component-height-0-75x);
-  padding: 0;
   color: inherit;
-  cursor: pointer;
-  background: transparent;
-  border: var(--kds-border-action-transparent);
-  border-radius: var(--kds-border-radius-container-0-12x);
-
-  &:hover {
-    background: var(--kds-color-background-neutral-hover);
-  }
-
-  &:active {
-    background: var(--kds-color-background-neutral-active);
-  }
-
-  &:focus-visible {
-    outline: var(--kds-border-action-focused);
-    outline-offset: var(--kds-spacing-offset-focus);
-  }
 }
 </style>
