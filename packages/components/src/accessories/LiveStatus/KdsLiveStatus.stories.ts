@@ -8,7 +8,7 @@ import {
 } from "../../test-utils/storybook";
 
 import KdsLiveStatus from "./KdsLiveStatus.vue";
-import { kdsLiveStatusSizes, kdsLiveStatusStatuses } from "./types";
+import { kdsLiveStatusSizes, kdsLiveStatusStatuses } from "./enums";
 
 type Story = StoryObj<typeof KdsLiveStatus>;
 
@@ -49,8 +49,7 @@ const meta: Meta<typeof KdsLiveStatus> = {
     size: {
       control: "select",
       options: kdsLiveStatusSizes,
-      description:
-        "Size of the indicator. Large: 20px, Medium: 16px, Small: 12px.",
+      description: "Size of the indicator.",
       table: {
         category: "Props",
         defaultValue: { summary: "medium" },

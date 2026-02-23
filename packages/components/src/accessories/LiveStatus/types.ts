@@ -1,15 +1,10 @@
-export const kdsLiveStatusStatuses = [
-  "red",
-  "orange",
-  "green",
-  "disabled",
-] as const;
+import { kdsLiveStatusSize, kdsLiveStatusStatus } from "./enums";
 
-export type KdsLiveStatusStatus = (typeof kdsLiveStatusStatuses)[number];
+export type KdsLiveStatusStatus =
+  (typeof kdsLiveStatusStatus)[keyof typeof kdsLiveStatusStatus];
 
-export const kdsLiveStatusSizes = ["large", "medium", "small"] as const;
-
-export type KdsLiveStatusSize = (typeof kdsLiveStatusSizes)[number];
+export type KdsLiveStatusSize =
+  (typeof kdsLiveStatusSize)[keyof typeof kdsLiveStatusSize];
 
 export type KdsLiveStatusProps = {
   /**
