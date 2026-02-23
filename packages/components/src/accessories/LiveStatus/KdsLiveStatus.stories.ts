@@ -40,7 +40,11 @@ const meta: Meta<typeof KdsLiveStatus> = {
       options: kdsLiveStatusStatuses,
       description:
         "Traffic light status. Use 'disabled' for a greyed-out indicator.",
-      table: { category: "Props" },
+      table: {
+        category: "Props",
+        defaultValue: { summary: "red" },
+        type: { summary: "'red' | 'yellow' | 'green' | 'disabled'" },
+      },
     },
     size: {
       control: "select",
@@ -155,7 +159,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsLiveStatus,
   designsToCompare: {
     "Large size": {
-      props: { title: "", size: "large", label: "state" },
+      props: { size: "large", label: "state" },
       variants: {
         [`${figmaBaseUrl}?node-id=16664-78343`]: { status: "green" },
         [`${figmaBaseUrl}?node-id=16542-98009`]: { status: "yellow" },
@@ -164,7 +168,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       },
     },
     "Medium size": {
-      props: { title: "", size: "medium", label: "state" },
+      props: { size: "medium", label: "state" },
       variants: {
         [`${figmaBaseUrl}?node-id=16664-78409`]: { status: "green" },
         [`${figmaBaseUrl}?node-id=16664-78406`]: { status: "yellow" },
@@ -173,7 +177,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       },
     },
     "Small size": {
-      props: { title: "", size: "small", label: "state" },
+      props: { size: "small", label: "state" },
       variants: {
         [`${figmaBaseUrl}?node-id=16664-79197`]: { status: "green" },
         [`${figmaBaseUrl}?node-id=16664-79194`]: { status: "yellow" },
@@ -190,9 +194,9 @@ export const AllCombinations: Story = buildAllCombinationsStory({
     {
       status: kdsLiveStatusStatuses,
       size: kdsLiveStatusSizes,
-      title: ["Traffic light status"],
-      label: ["state"],
+      title: [undefined, "Traffic light status"],
+      label: [undefined, "state"],
     },
   ],
-  pseudoStates: [],
+  pseudoStates: [], // no interactive states for this presentational component
 });

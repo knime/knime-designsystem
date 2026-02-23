@@ -33,6 +33,7 @@ const accessibleTitle = computed(
 
   display: inline-flex;
   flex-shrink: 0;
+  gap: 0; /* gap already included in dot */
   align-items: center;
   line-height: 0;
 
