@@ -42,7 +42,7 @@
     "@vue/tsconfig": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-storybook": "catalog:storybook",
-    "globals": "16.4.0",
+    "globals": "17.3.0",
     "husky": "catalog:",
     "jsdom": "catalog:",
     "lint-staged": "catalog:",
