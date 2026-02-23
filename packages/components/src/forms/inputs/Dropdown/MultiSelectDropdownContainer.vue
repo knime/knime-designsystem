@@ -513,6 +513,7 @@ watch(open, (isOpen) => {
 
 .kds-multi-select-dropdown-container-list {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
   gap: var(--kds-spacing-container-0-10x);
   padding: var(--kds-spacing-container-0-25x);

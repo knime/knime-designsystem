@@ -26,7 +26,7 @@ const baseOptions = [
   {
     id: "a",
     text: "Option A",
-    accessory: { type: "dataType", name: "string-datatype" },
+    accessory: { type: "icon", name: "placeholder" },
   },
   {
     id: "b",
@@ -36,12 +36,16 @@ const baseOptions = [
   {
     id: "c",
     text: "Option C",
-    accessory: { type: "dataType", name: "string-datatype" },
+    accessory: { type: "colorSwatch", color: "#C7DA3E" },
   },
   {
     id: "d",
     text: "Option D",
-    accessory: { type: "dataType", name: "string-datatype" },
+    accessory: { type: "avatar", initials: "AB" },
+  },
+  {
+    id: "e",
+    text: "Option E",
   },
 ] satisfies KdsDropdownOption[];
 
@@ -72,6 +76,10 @@ const meta: Meta = {
       control: "text",
       table: { category: "Props" },
     },
+    ariaLabel: {
+      control: "text",
+      table: { category: "Props" },
+    },
     placeholder: {
       control: "text",
       table: { category: "Props" },
@@ -92,6 +100,10 @@ const meta: Meta = {
       control: "boolean",
       table: { category: "Props" },
     },
+    readonly: {
+      control: "boolean",
+      table: { category: "Props" },
+    },
     required: {
       control: "boolean",
       table: { category: "Props" },
@@ -108,19 +120,36 @@ const meta: Meta = {
       control: "boolean",
       table: { category: "Props" },
     },
+    id: {
+      control: "text",
+      table: { category: "Props" },
+    },
+    name: {
+      control: "text",
+      table: { category: "Props" },
+    },
+    autocomplete: {
+      control: "text",
+      table: { category: "Props" },
+    },
   },
   args: {
     modelValue: null,
     label: "Label",
+    ariaLabel: "",
     placeholder: "Select an option",
     possibleValues: baseOptions,
     noEntriesText: "No entries found",
+    subText: "",
     disabled: false,
+    readonly: false,
     required: false,
     error: false,
     validating: false,
-    subText: "",
     preserveSubTextSpace: false,
+    id: "",
+    name: "",
+    autocomplete: "",
   },
   decorators: [
     (story) => {

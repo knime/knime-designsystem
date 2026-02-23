@@ -51,6 +51,7 @@ const emit = defineEmits<{
             v-else-if="props.accessory.type === 'colorSwatch'"
             :color="props.accessory.color"
             :title="props.accessory.title"
+            size="small"
           />
           <KdsAvatar
             v-else-if="props.accessory.type === 'avatar'"

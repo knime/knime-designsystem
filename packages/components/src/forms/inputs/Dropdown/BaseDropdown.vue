@@ -2,6 +2,7 @@
 import { computed, useId } from "vue";
 
 import { type KdsAccessory, KdsColorSwatch } from "../../../accessories";
+import KdsAvatar from "../../../accessories/Avatar/KdsAvatar.vue";
 import KdsDataType from "../../../accessories/Icon/KdsDataType.vue";
 import KdsIcon from "../../../accessories/Icon/KdsIcon.vue";
 
@@ -100,6 +101,13 @@ const onTriggerKeydown = (event: KeyboardEvent) => {
       <KdsColorSwatch
         v-else-if="props.accessory.type === 'colorSwatch'"
         :color="props.accessory.color"
+        :title="props.accessory.title"
+      />
+      <KdsAvatar
+        v-else-if="props.accessory.type === 'avatar'"
+        class="avatar"
+        :initials="props.accessory.initials"
+        :src="props.accessory.imageSrc"
         :title="props.accessory.title"
       />
     </span>
