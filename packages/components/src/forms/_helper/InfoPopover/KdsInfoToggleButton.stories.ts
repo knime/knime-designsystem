@@ -4,7 +4,7 @@ import { expect, userEvent, within } from "storybook/test";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
-} from "../../../test-utils/storybook.ts";
+} from "../../../test-utils/storybook";
 
 import KdsInfoToggleButton from "./KdsInfoToggleButton.vue";
 

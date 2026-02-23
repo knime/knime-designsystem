@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, useTemplateRef } from "vue";
 
 import KdsIcon from "../../../accessories/Icon/KdsIcon.vue";
 import KdsPopover from "../../../overlays/Popover/KdsPopover.vue";
@@ -20,7 +20,7 @@ const props = withDefaults(defineProps<KdsVariableToggleButtonProps>(), {
 });
 
 const modelValue = defineModel<boolean>({ default: false });
-const buttonEl = ref<HTMLButtonElement | null>(null);
+const buttonEl = useTemplateRef("buttonEl");
 
 const iconState = computed(() => {
   if (props.inSet && props.outSet) {

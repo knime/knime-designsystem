@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { useTemplateRef } from "vue";
 
 import KdsIcon from "../../../accessories/Icon/KdsIcon.vue";
 import KdsPopover from "../../../overlays/Popover/KdsPopover.vue";
 
 import InfoPopover from "./InfoPopover.vue";
-import type { KdsInfoToggleButtonProps } from "./types.ts";
+import type { KdsInfoToggleButtonProps } from "./types";
 
 /**
  * @slot default - Custom content for the popover. When provided, overrides the `content` prop.
@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<KdsInfoToggleButtonProps>(), {
 const TITLE = "Click for more information";
 
 const modelValue = defineModel<boolean>({ default: false });
-const buttonEl = ref<HTMLButtonElement | null>(null);
+const buttonEl = useTemplateRef("buttonEl");
 </script>
 
 <template>

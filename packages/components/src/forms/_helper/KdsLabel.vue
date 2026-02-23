@@ -2,7 +2,7 @@
 import { defineAsyncComponent, useTemplateRef } from "vue";
 
 import { useKdsIsTruncated } from "../../util";
-import type { KdsLabelProps } from "../types.ts";
+import type { KdsLabelProps } from "../types";
 
 const props = defineProps<KdsLabelProps>();
 

@@ -1,4 +1,4 @@
-import type { KdsInfoToggleButtonProps } from "../InfoPopover/types.ts";
+import type { KdsInfoToggleButtonProps } from "../InfoPopover";
 
 export type KdsVariableToggleButtonProps = KdsInfoToggleButtonProps & {
   /**

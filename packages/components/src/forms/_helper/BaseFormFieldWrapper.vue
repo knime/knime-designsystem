@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, useId } from "vue";
 
-import type { KdsSubTextProps } from "../types.ts";
+import type { KdsSubTextProps } from "../types";
 
 import KdsLabel from "./KdsLabel.vue";
 import KdsSubText from "./KdsSubText.vue";
