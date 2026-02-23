@@ -44,7 +44,6 @@
     "@vitest/ui": "catalog:vitest",
     "@vue/tsconfig": "catalog:",
     "chromatic": "^15.1.0",
-    "color": "^5.0.0",
     "playwright": "^1.58.2",
     "storybook-addon-pseudo-states": "catalog:storybook",
     "typescript": "catalog:",
