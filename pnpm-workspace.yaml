@@ -9,7 +9,7 @@ catalog:
   "@vitejs/plugin-vue": ^6.0.1
   "@vue/test-utils": ^2.4.6
   "@vue/tsconfig": ^0.7.0
-  "@vueuse/core": ^13.8.0
+  "@vueuse/core": ^14.2.1
   consola: ^3.4.2
   eslint: ^9.39.2
   husky: ^9.1.7
