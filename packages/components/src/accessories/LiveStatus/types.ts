@@ -29,6 +29,7 @@ export type KdsLiveStatusProps = {
 
   /**
    * Tooltip text shown on hover. Also used as aria label.
+   * If omitted, a default text like "Status is ${status}" is used.
    */
   title?: string;
 };
