@@ -40,6 +40,12 @@ const meta: Meta<typeof KdsColorSwatch> = {
         "Semantic swatch type (maps to `kds.color.nodes-and-variables.*` tokens) or a hex color.",
       table: { category: "Props" },
     },
+    size: {
+      control: "select",
+      options: ["small", "large"],
+      description: "Size of the color swatch.",
+      table: { category: "Props" },
+    },
     title: {
       control: "text",
       description: "Tooltip text shown on hover. Also used as aria label.",
@@ -48,6 +54,7 @@ const meta: Meta<typeof KdsColorSwatch> = {
   },
   args: {
     color: "learner",
+    size: "small",
     title: "Learner color",
   },
 };

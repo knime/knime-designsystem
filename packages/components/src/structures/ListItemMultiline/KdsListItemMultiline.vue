@@ -28,30 +28,32 @@ const props = withDefaults(defineProps<KdsListItemMultilineProps>(), {
   >
     <KdsAvatar
       v-if="props.accessory?.type === 'avatar'"
-      class="accessory accessory-avatar"
+      class="accessory accessory-large"
       :title="props.accessory.title"
       :src="props.accessory.imageSrc"
       :initials="props.accessory.initials"
     />
+    <KdsColorSwatch
+      v-else-if="props.accessory?.type === 'colorSwatch'"
+      class="accessory"
+      :color="props.accessory.color"
+      :title="props.accessory.title"
+      size="large"
+    />
     <span
       v-else-if="props.accessory"
-      class="accessory accessory-small"
+      class="accessory accessory-large"
       aria-hidden="true"
     >
       <KdsIcon
         v-if="props.accessory.type === 'icon'"
         :name="props.accessory.name"
-        size="small"
+        size="large"
       />
       <KdsDataType
         v-else-if="props.accessory.type === 'dataType'"
         :icon-name="props.accessory.name"
-        size="small"
-      />
-      <KdsColorSwatch
-        v-else-if="props.accessory.type === 'colorSwatch'"
-        :color="props.accessory.color"
-        :title="props.accessory.title"
+        size="large"
       />
     </span>
 
@@ -80,7 +82,7 @@ const props = withDefaults(defineProps<KdsListItemMultilineProps>(), {
   align-items: center;
   width: 100%;
   min-height: var(--kds-dimension-component-height-2-5x);
-  padding: var(--kds-spacing-container-0-5x);
+  padding: var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-5x);
   cursor: pointer;
   background: var(--kds-color-background-neutral-initial);
   border: none;
@@ -127,15 +129,12 @@ const props = withDefaults(defineProps<KdsListItemMultilineProps>(), {
   flex-shrink: 0;
 }
 
-.accessory-avatar {
-  width: var(--kds-dimension-component-width-1-25x);
-  height: var(--kds-dimension-component-height-1-25x);
-}
-
-.accessory-small {
+.accessory-large {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: var(--kds-dimension-component-width-1-25x);
+  height: var(--kds-dimension-component-height-1-25x);
 }
 
 .content {

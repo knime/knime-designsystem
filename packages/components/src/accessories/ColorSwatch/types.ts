@@ -21,12 +21,17 @@ export type KdsHexColor = `#${string}`;
 
 export type KdsColorSwatchColor = KdsColorSwatchType | KdsHexColor;
 
+export type KdsColorSwatchSize = "small" | "large";
+
 export type KdsColorSwatchProps = {
   /**
    * Semantic swatch type (maps to `kds.color.nodes-and-variables.*` tokens),
    * or a custom CSS color string starting with `#` (typically a short or long hex value).
    */
   color: KdsColorSwatchColor;
+
+  /** Size of the color swatch. Defaults to "small". */
+  size?: KdsColorSwatchSize;
 
   /** Tooltip text shown on hover and aria label. */
   title?: string;

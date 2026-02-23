@@ -9,12 +9,6 @@ import {
 
 import KdsListItemMultiline from "./KdsListItemMultiline.vue";
 
-const avatarAccessory: KdsAccessory = {
-  type: "avatar",
-  initials: "AB",
-  title: "Avatar",
-};
-
 const iconAccessory: KdsAccessory = {
   type: "icon",
   name: "text",
@@ -29,6 +23,12 @@ const colorSwatchAccessory: KdsAccessory = {
   type: "colorSwatch",
   color: "#dc3545",
   title: "Danger",
+};
+
+const avatarAccessory: KdsAccessory = {
+  type: "avatar",
+  initials: "AB",
+  title: "Avatar",
 };
 
 const meta: Meta<typeof KdsListItemMultiline> = {
@@ -236,7 +236,13 @@ export const AllCombinations: Story = buildAllCombinationsStory({
         "Subtitle",
         "Subtitle that is long enough to overflow and should be clamped to two lines in the UI to prevent the row height from expanding.",
       ],
-      accessory: [undefined, avatarAccessory],
+      accessory: [
+        undefined,
+        iconAccessory,
+        dataTypeAccessory,
+        colorSwatchAccessory,
+        avatarAccessory,
+      ],
       selected: [false, true],
       missing: [false],
       disabled: [false, true],
@@ -247,7 +253,13 @@ export const AllCombinations: Story = buildAllCombinationsStory({
         "Subtitle",
         "Subtitle that is long enough to overflow and should be clamped to two lines in the UI to prevent the row height from expanding.",
       ],
-      accessory: [undefined, avatarAccessory],
+      accessory: [
+        undefined,
+        iconAccessory,
+        dataTypeAccessory,
+        colorSwatchAccessory,
+        avatarAccessory,
+      ],
       selected: [false],
       missing: [true],
       disabled: [false, true],
