@@ -2,7 +2,10 @@
 import { computed, nextTick, ref, useId, watch } from "vue";
 
 import KdsIcon from "../../../accessories/Icon/KdsIcon.vue";
-import { KdsListItemSingleline } from "../../../structures";
+import {
+  type KdsListItemAccessory,
+  KdsListItemSingleline,
+} from "../../../structures";
 import BaseInput from "../BaseInput.vue";
 
 import type { KdsDropdownOption } from "./types";
@@ -48,6 +51,10 @@ const possibleValueIds = computed(
 );
 const createdValueIds = computed(() => new Set(createdValues.value));
 
+const hasAnyAccessory = computed(() =>
+  props.possibleValues.some((o) => o.accessory),
+);
+
 const missingSelectedIds = computed(() =>
   modelValue.value.filter(
     (id) => !possibleValueIds.value.has(id) && !createdValueIds.value.has(id),
@@ -90,7 +97,7 @@ const hasSelection = computed(() => modelValue.value.length > 0);
 const canClearAll = computed(() => effectiveMin.value === 0);
 
 const actionRow = computed(() => {
-  if (hasSelection.value === false) {
+  if (!hasSelection.value) {
     return {
       id: `${containerId}-action`,
       label: props.selectAllText,
@@ -110,7 +117,7 @@ const actionRow = computed(() => {
 });
 
 const showAddNewRow = computed(() => {
-  if (props.allowNewValues === false) {
+  if (!props.allowNewValues) {
     return false;
   }
 
@@ -135,7 +142,7 @@ const showAddNewRow = computed(() => {
 });
 
 const addNewRow = computed(() => {
-  if (showAddNewRow.value === false) {
+  if (!showAddNewRow.value) {
     return null;
   }
 
@@ -156,13 +163,14 @@ type OptionRow = {
   active: boolean;
   missing: boolean;
   specialContent: boolean;
-  accessory?: KdsDropdownOption["accessory"];
+  accessory?: KdsListItemAccessory;
   type: "missing" | "option" | "created";
 };
 
 const optionRows = computed<OptionRow[]>(() => {
   const selectedIds = new Set(modelValue.value);
   const rows: OptionRow[] = [];
+  const reserveSpaceAccessory = { type: "reserveSpace" } as const;
 
   for (const missingId of missingSelectedIds.value) {
     rows.push({
@@ -174,6 +182,7 @@ const optionRows = computed<OptionRow[]>(() => {
       active: `${containerId}-missing-${missingId}` === activeId.value,
       missing: true,
       specialContent: false,
+      accessory: hasAnyAccessory.value ? reserveSpaceAccessory : undefined,
       type: "missing",
     });
   }
@@ -193,7 +202,9 @@ const optionRows = computed<OptionRow[]>(() => {
       id: `${containerId}-${option.id}`,
       optionId: option.id,
       label: option.text,
-      accessory: option.accessory,
+      accessory:
+        option.accessory ??
+        (hasAnyAccessory.value ? reserveSpaceAccessory : undefined),
       disabled: selectionLimitedDisabled,
       selected,
       active: `${containerId}-${option.id}` === activeId.value,
@@ -221,7 +232,7 @@ const moveActive = (delta: number) => {
     navigable.push(row.id);
   }
 
-  if (actionRow.value.disabled === false) {
+  if (!actionRow.value.disabled) {
     navigable.push(actionRow.value.id);
   }
 
@@ -262,7 +273,7 @@ const ensureActiveId = () => {
     return;
   }
 
-  if (actionRow.value.disabled === false) {
+  if (!actionRow.value.disabled) {
     activeId.value = actionRow.value.id;
   }
 };
@@ -320,7 +331,7 @@ const clearAll = () => {
 };
 
 const addNewValue = (value: string) => {
-  if (props.allowNewValues === false) {
+  if (!props.allowNewValues) {
     return;
   }
 

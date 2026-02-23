@@ -4,10 +4,10 @@ import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
   buildTextOverflowStory,
-} from "../../test-utils/storybook";
-import type { KdsListItemSinglelineProps } from "../ListItemSingleline/types";
+} from "../../test-utils/storybook.ts";
 
 import KdsListContainer from "./KdsListContainer.vue";
+import type { KdsListItemSinglelineProps } from "./types";
 
 function items(options?: { count?: number; dataType?: boolean }) {
   return Array.from(

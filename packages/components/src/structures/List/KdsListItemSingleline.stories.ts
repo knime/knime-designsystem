@@ -5,7 +5,7 @@ import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
   buildTextOverflowStory,
-} from "../../test-utils/storybook";
+} from "../../test-utils/storybook.ts";
 
 import KdsListItemSingleline from "./KdsListItemSingleline.vue";
 

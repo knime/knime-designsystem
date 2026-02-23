@@ -67,17 +67,24 @@ const filteredOptions = computed(() => {
   );
 });
 
-const listItems = computed(() =>
-  filteredOptions.value.map((option) => ({
+const hasAnyAccessory = computed(() =>
+  props.possibleValues.some((o) => o.accessory),
+);
+
+const listItems = computed(() => {
+  const reserveSpaceAccessory = { type: "reserveSpace" } as const;
+  return filteredOptions.value.map((option) => ({
     id: `${containerId}-${option.id}`,
     label: option.text,
-    accessory: option.accessory,
+    accessory:
+      option.accessory ??
+      (hasAnyAccessory.value ? reserveSpaceAccessory : undefined),
     disabled: Boolean(option.disabled) || option.missing,
     missing: option.missing,
     selected: option.id === modelValue.value,
     active: `${containerId}-${option.id}` === activeId.value,
-  })),
-);
+  }));
+});
 
 const enabledItems = computed(() =>
   listItems.value.filter((item) => !item.disabled),

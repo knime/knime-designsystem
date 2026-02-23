@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import KdsListItemSingleline from "../ListItemSingleline/KdsListItemSingleline.vue";
-
-import type { KdsListContainerProps } from "./types";
+import KdsListItemSingleline from "./KdsListItemSingleline.vue";
+import type { KdsListContainerProps } from "./types.ts";
 
 const props = withDefaults(defineProps<KdsListContainerProps>(), {
   id: undefined,

@@ -60,6 +60,7 @@ const emit = defineEmits<{
             :src="props.accessory.imageSrc"
             :title="props.accessory.title"
           />
+          <!-- reserveSpace: renders empty placeholder for alignment -->
         </span>
         <span class="text" :title="props.label">
           <span v-if="props.missing" class="missing-prefix">(Missing)</span>
@@ -166,6 +167,8 @@ div[role="option"] {
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
+  width: var(--kds-dimension-component-width-0-75x);
+  height: var(--kds-dimension-component-width-0-75x);
 }
 
 .avatar {
