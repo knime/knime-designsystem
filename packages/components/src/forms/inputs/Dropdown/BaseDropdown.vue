@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { computed, useId } from "vue";
 
-import { KdsColorSwatch } from "../../../accessories";
+import { type KdsAccessory, KdsColorSwatch } from "../../../accessories";
 import KdsDataType from "../../../accessories/Icon/KdsDataType.vue";
 import KdsIcon from "../../../accessories/Icon/KdsIcon.vue";
-import type { KdsListItemSinglelineAccessory } from "../../../structures";
 
 type BaseDropdownProps = {
   open: boolean;
@@ -14,7 +13,7 @@ type BaseDropdownProps = {
   readonly?: boolean;
   error?: boolean;
   missing?: boolean;
-  accessory?: KdsListItemSinglelineAccessory;
+  accessory?: KdsAccessory;
 
   /** Forwarded a11y/field attributes from BaseFormFieldWrapper */
   id?: string;

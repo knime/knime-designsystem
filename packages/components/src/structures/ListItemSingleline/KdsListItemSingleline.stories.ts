@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
+import type { KdsAccessory } from "../../accessories";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
@@ -7,22 +8,27 @@ import {
 } from "../../test-utils/storybook";
 
 import KdsListItemSingleline from "./KdsListItemSingleline.vue";
-import type { KdsListItemSinglelineAccessory } from "./types";
 
-const iconAccessory: KdsListItemSinglelineAccessory = {
+const iconAccessory: KdsAccessory = {
   type: "icon",
   name: "text",
 };
 
-const dataTypeAccessory: KdsListItemSinglelineAccessory = {
+const dataTypeAccessory: KdsAccessory = {
   type: "dataType",
   name: "string-datatype",
 };
 
-const colorSwatchAccessory: KdsListItemSinglelineAccessory = {
+const colorSwatchAccessory: KdsAccessory = {
   type: "colorSwatch",
   color: "#dc3545",
   title: "Danger",
+};
+
+const avatarAccessory: KdsAccessory = {
+  type: "avatar",
+  initials: "AB",
+  title: "Alice Brown",
 };
 
 const meta: Meta<typeof KdsListItemSingleline> = {
@@ -50,7 +56,7 @@ const meta: Meta<typeof KdsListItemSingleline> = {
     accessory: {
       control: "object",
       description:
-        "Optional leading accessory (icon, data type, or color swatch).",
+        "Optional leading accessory (icon, data type, color swatch, or avatar).",
       table: { category: "Props" },
     },
     specialContent: {
@@ -130,6 +136,12 @@ export const AccessoryDataType: Story = {
 export const AccessoryColorSwatch: Story = {
   args: {
     accessory: colorSwatchAccessory,
+  },
+};
+
+export const AccessoryAvatar: Story = {
+  args: {
+    accessory: avatarAccessory,
   },
 };
 
@@ -294,6 +306,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
         iconAccessory,
         dataTypeAccessory,
         colorSwatchAccessory,
+        avatarAccessory,
       ],
       specialContent: [false, true],
       selected: [false, true],
@@ -307,6 +320,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
         iconAccessory,
         dataTypeAccessory,
         colorSwatchAccessory,
+        avatarAccessory,
       ],
       specialContent: [false, true],
       selected: [false],

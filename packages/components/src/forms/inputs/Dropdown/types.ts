@@ -1,11 +1,11 @@
-import type { KdsListItemSinglelineAccessory } from "../../../structures";
+import type { KdsAccessory } from "../../../accessories";
 import type { KdsInputFieldProps } from "../baseTypes";
 
 export type KdsDropdownOption = {
   id: string;
   text: string;
   /** Optional leading accessory (icon, data type, or color swatch) shown before the text */
-  accessory?: KdsListItemSinglelineAccessory;
+  accessory?: KdsAccessory;
   /** Disables the option in the list */
   disabled?: boolean;
 };

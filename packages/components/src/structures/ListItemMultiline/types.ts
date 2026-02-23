@@ -1,9 +1,4 @@
-export type KdsListItemMultilineAvatarAccessory = {
-  type: "avatar";
-  initials: string;
-  imageSrc?: string;
-  title?: string;
-};
+import type { KdsAccessory } from "../../accessories";
 
 export type KdsListItemMultilineProps = {
   /** Single-line title shown in the list item. */
@@ -12,8 +7,8 @@ export type KdsListItemMultilineProps = {
   /** Two-line subtitle shown below the title. */
   subtitle: string;
 
-  /** Optional leading avatar accessory. */
-  accessory?: KdsListItemMultilineAvatarAccessory;
+  /** Optional leading accessory (icon, data type, color swatch, or avatar). */
+  accessory?: KdsAccessory;
 
   /** Applies selected styling and shows a checkmark. */
   selected?: boolean;

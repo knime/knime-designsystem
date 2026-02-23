@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import KdsAvatar from "../../accessories/Avatar/KdsAvatar.vue";
+import KdsColorSwatch from "../../accessories/ColorSwatch/KdsColorSwatch.vue";
 import KdsDataType from "../../accessories/Icon/KdsDataType.vue";
 import KdsIcon from "../../accessories/Icon/KdsIcon.vue";
 
@@ -45,11 +47,17 @@ const emit = defineEmits<{
             :icon-name="props.accessory.name"
             size="small"
           />
-          <span
-            v-else
-            class="color-swatch"
+          <KdsColorSwatch
+            v-else-if="props.accessory.type === 'colorSwatch'"
+            :color="props.accessory.color"
             :title="props.accessory.title"
-            :style="{ background: props.accessory.color }"
+          />
+          <KdsAvatar
+            v-else-if="props.accessory.type === 'avatar'"
+            class="avatar"
+            :initials="props.accessory.initials"
+            :src="props.accessory.imageSrc"
+            :title="props.accessory.title"
           />
         </span>
         <span class="text" :title="props.label">
@@ -159,11 +167,9 @@ div[role="option"] {
   justify-content: center;
 }
 
-.color-swatch {
-  width: var(--kds-dimension-icon-0-75x);
-  height: var(--kds-dimension-icon-0-75x);
-  border: var(--kds-border-base-muted);
-  border-radius: var(--kds-border-radius-container-0-12x);
+.avatar {
+  width: var(--kds-dimension-component-width-0-75x);
+  height: var(--kds-dimension-component-width-0-75x);
 }
 
 .text {

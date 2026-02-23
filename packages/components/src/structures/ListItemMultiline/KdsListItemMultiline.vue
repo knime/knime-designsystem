@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import KdsAvatar from "../../accessories/Avatar/KdsAvatar.vue";
+import KdsColorSwatch from "../../accessories/ColorSwatch/KdsColorSwatch.vue";
+import KdsDataType from "../../accessories/Icon/KdsDataType.vue";
 import KdsIcon from "../../accessories/Icon/KdsIcon.vue";
 
 import type { KdsListItemMultilineProps } from "./types";
@@ -26,11 +28,32 @@ const props = withDefaults(defineProps<KdsListItemMultilineProps>(), {
   >
     <KdsAvatar
       v-if="props.accessory?.type === 'avatar'"
-      class="avatar"
+      class="accessory accessory-avatar"
       :title="props.accessory.title"
       :src="props.accessory.imageSrc"
-      :initials="props.accessory.initials ?? '?'"
+      :initials="props.accessory.initials"
     />
+    <span
+      v-else-if="props.accessory"
+      class="accessory accessory-small"
+      aria-hidden="true"
+    >
+      <KdsIcon
+        v-if="props.accessory.type === 'icon'"
+        :name="props.accessory.name"
+        size="small"
+      />
+      <KdsDataType
+        v-else-if="props.accessory.type === 'dataType'"
+        :icon-name="props.accessory.name"
+        size="small"
+      />
+      <KdsColorSwatch
+        v-else-if="props.accessory.type === 'colorSwatch'"
+        :color="props.accessory.color"
+        :title="props.accessory.title"
+      />
+    </span>
 
     <span class="content">
       <span
@@ -100,10 +123,19 @@ const props = withDefaults(defineProps<KdsListItemMultilineProps>(), {
   background: var(--kds-color-background-danger-active);
 }
 
-.avatar {
+.accessory {
   flex-shrink: 0;
+}
+
+.accessory-avatar {
   width: var(--kds-dimension-component-width-1-25x);
   height: var(--kds-dimension-component-height-1-25x);
+}
+
+.accessory-small {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .content {

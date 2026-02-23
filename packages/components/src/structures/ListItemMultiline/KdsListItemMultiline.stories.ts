@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
+import type { KdsAccessory } from "../../accessories";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
@@ -7,12 +8,27 @@ import {
 } from "../../test-utils/storybook";
 
 import KdsListItemMultiline from "./KdsListItemMultiline.vue";
-import type { KdsListItemMultilineAvatarAccessory } from "./types";
 
-const avatarAccessory: KdsListItemMultilineAvatarAccessory = {
+const avatarAccessory: KdsAccessory = {
   type: "avatar",
   initials: "AB",
   title: "Avatar",
+};
+
+const iconAccessory: KdsAccessory = {
+  type: "icon",
+  name: "text",
+};
+
+const dataTypeAccessory: KdsAccessory = {
+  type: "dataType",
+  name: "string-datatype",
+};
+
+const colorSwatchAccessory: KdsAccessory = {
+  type: "colorSwatch",
+  color: "#dc3545",
+  title: "Danger",
 };
 
 const meta: Meta<typeof KdsListItemMultiline> = {
@@ -44,7 +60,8 @@ const meta: Meta<typeof KdsListItemMultiline> = {
     },
     accessory: {
       control: "object",
-      description: "Optional leading avatar accessory.",
+      description:
+        "Optional leading accessory (icon, data type, color swatch, or avatar).",
       table: { category: "Props" },
     },
     selected: {
@@ -79,9 +96,33 @@ type Story = StoryObj<typeof KdsListItemMultiline>;
 
 export const Default: Story = {};
 
-export const WithoutAvatar: Story = {
+export const WithoutAccessory: Story = {
   args: {
     accessory: undefined,
+  },
+};
+
+export const AccessoryAvatar: Story = {
+  args: {
+    accessory: avatarAccessory,
+  },
+};
+
+export const AccessoryIcon: Story = {
+  args: {
+    accessory: iconAccessory,
+  },
+};
+
+export const AccessoryDataType: Story = {
+  args: {
+    accessory: dataTypeAccessory,
+  },
+};
+
+export const AccessoryColorSwatch: Story = {
+  args: {
+    accessory: colorSwatchAccessory,
   },
 };
 

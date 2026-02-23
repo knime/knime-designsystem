@@ -1,24 +1,4 @@
-import type { KdsColorSwatchColor } from "../../accessories";
-import type {
-  KdsIconName,
-  KdsTypeIconName,
-} from "../../accessories/Icon/types";
-
-export type KdsListItemSinglelineAccessory =
-  | {
-      type: "icon";
-      name: KdsIconName;
-    }
-  | {
-      type: "dataType";
-      name: KdsTypeIconName;
-    }
-  | {
-      type: "colorSwatch";
-      /** Any valid CSS color value (prefer CSS vars from kds tokens). */
-      color: KdsColorSwatchColor;
-      title?: string;
-    };
+import type { KdsAccessory } from "../../accessories";
 
 export type KdsListItemSinglelineProps = {
   /** Unique identifier for the list item (also used as DOM id for aria-activedescendant patterns). */
@@ -27,8 +7,8 @@ export type KdsListItemSinglelineProps = {
   /** Text shown in the list item. */
   label: string;
 
-  /** Optional leading accessory (icon, data type, or color swatch). */
-  accessory?: KdsListItemSinglelineAccessory;
+  /** Optional leading accessory (icon, data type, color swatch, or avatar). */
+  accessory?: KdsAccessory;
 
   /** Applies "special content" styling (used when the content is not a standard data field). */
   specialContent?: boolean;
