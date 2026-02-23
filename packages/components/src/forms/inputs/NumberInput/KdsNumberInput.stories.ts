@@ -22,7 +22,8 @@ const meta: Meta<typeof KdsNumberInput> = {
         component:
           "A number input field component with unit display and +/- step buttons. " +
           "Supports min/max constraints, validation states, and accessibility features. " +
-          "User input supports localized decimals/grouping and scientific notation (e.g. 1e-3).",
+          "Currently uses en-US locale for number formatting. " +
+          "User input supports grouping (comma separators) and scientific notation (e.g. 1e-3).",
       },
     },
     design: {

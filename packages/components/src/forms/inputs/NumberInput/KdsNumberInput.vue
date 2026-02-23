@@ -32,10 +32,8 @@ const isFocused = ref(false);
  */
 const localValue = ref<string>("");
 
-const locale = computed(() => globalThis.navigator?.language || "en-US");
-
 const numberParser = computed(() =>
-  createKdsNumberParser({ locale: locale.value, step: props.step }),
+  createKdsNumberParser({ locale: "en-US", step: props.step }),
 );
 
 const ariaValuenow = computed(() =>
@@ -47,7 +45,7 @@ const ariaValuetext = computed(() => {
     return undefined;
   }
 
-  // Keep the spoken feedback localized (decimal separator etc.).
+  // Format the spoken feedback using en-US locale (decimal separator, etc.).
   return numberParser.value.formatForDisplay(modelValue.value);
 });
 
