@@ -71,7 +71,7 @@ jobs:
     if: always() && needs.build.outputs.run-full-checks == 'true' && github.actor != 'dependabot[bot]' && github.actor != 'github-actions[bot]'
     permissions:
       contents: read
-      pull-requests: read
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
