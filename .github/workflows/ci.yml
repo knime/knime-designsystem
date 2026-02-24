@@ -119,7 +119,6 @@ jobs:
           autoAcceptChanges: true # for now we don't need manual approval of visual changes, set this to false when Design System is in a mature state
           onlyChanged: true # this enables Chromatic's TurboSnap to only test changed stories
           externals: "packages/styles/src/(tokens|css)/**" # changes in these folders will trigger a full test on Chromatic
-          skip: true # skip visual snapshots completely, reenable this when we want to start testing visual changes
 
   storybook-tests:
     needs: build
