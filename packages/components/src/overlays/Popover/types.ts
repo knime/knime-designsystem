@@ -1,9 +1,12 @@
 import type { ComponentPublicInstance, MaybeRef } from "vue";
 
-import { kdsPopoverPlacement } from "./enums";
+import { kdsPopoverPlacement, kdsPopoverRole } from "./enums";
 
 export type KdsPopoverPlacement =
   (typeof kdsPopoverPlacement)[keyof typeof kdsPopoverPlacement];
+
+export type KdsPopoverRole =
+  (typeof kdsPopoverRole)[keyof typeof kdsPopoverRole];
 
 export type KdsPopoverProps = {
   /**
@@ -36,7 +39,7 @@ export type KdsPopoverProps = {
    *
    * Defaults to "dialog".
    */
-  role?: "dialog" | "menu" | "listbox";
+  role?: KdsPopoverRole;
 
   /**
    * When true, enforces the popover's minimum width to match the anchor element's width.

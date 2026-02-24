@@ -6,3 +6,11 @@ export const kdsPopoverPlacement = {
 } as const;
 
 export const kdsPopoverPlacements = Object.values(kdsPopoverPlacement);
+
+export const kdsPopoverRole = {
+  DIALOG: "dialog",
+  MENU: "menu",
+  LISTBOX: "listbox",
+} as const;
+
+export const kdsPopoverRoles = Object.values(kdsPopoverRole);
