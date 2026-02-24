@@ -97,10 +97,8 @@ const title = computed(() => {
     :activator-el="buttonEl"
     placement="bottom-right"
   >
-    <VariablePopover>
-      <slot>
-        {{ props.content }}
-      </slot>
+    <VariablePopover :content="props.content">
+      <slot />
     </VariablePopover>
   </KdsPopover>
 </template>
