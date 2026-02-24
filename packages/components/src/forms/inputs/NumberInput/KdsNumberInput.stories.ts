@@ -235,7 +235,7 @@ export const ProgrammaticFocus: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const button = canvas.getByRole("button", { name: "Focus Number Input" });
-    const input = canvas.getByRole("textbox", { name: "Number Input" });
+    const input = canvas.getByRole("spinbutton", { name: "Number Input" });
 
     await expect(input).not.toHaveFocus();
     await userEvent.click(button);
