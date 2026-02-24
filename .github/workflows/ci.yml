@@ -81,6 +81,7 @@ jobs:
         uses: actions/download-artifact@v6
         with:
           name: build-output
+          path: .
 
       - name: Chromatic
         uses: chromaui/action@latest
@@ -109,6 +110,7 @@ jobs:
         uses: actions/download-artifact@v6
         with:
           name: build-output
+          path: .
 
       - name: Get Playwright version
         id: playwright-version
@@ -121,12 +123,24 @@ jobs:
           path: ~/.cache/ms-playwright
           key: playwright-chromium-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
 
+      - name: Validate cached Playwright installation
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        id: validate-cache
+        continue-on-error: true
+        run: |
+          if pnpm -C documentation exec playwright install --dry-run chromium 2>&1 | grep -q "is already installed"; then
+            echo "valid=true" >> $GITHUB_OUTPUT
+          else
+            echo "valid=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
       - name: Install Playwright Chromium
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        if: steps.playwright-cache.outputs.cache-hit != 'true' || steps.validate-cache.outputs.valid == 'false'
         run: pnpm -C documentation exec playwright install --with-deps chromium
 
       - name: Install Playwright system dependencies
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        if: steps.playwright-cache.outputs.cache-hit == 'true' && steps.validate-cache.outputs.valid != 'false'
         run: pnpm -C documentation exec playwright install-deps chromium
 
       - name: Run storybook tests
