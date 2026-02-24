@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import KdsIcon from "../../Icon/KdsIcon.vue";
+import { KdsIcon } from "../../accessories";
 import { KdsSubText } from "../../forms";
 
 import type { KdsMenuItemProps } from "./types";
