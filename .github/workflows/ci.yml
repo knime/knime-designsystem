@@ -6,10 +6,7 @@ on:
     branches: [master]
 
 jobs:
-  lint-test-build:
-    permissions:
-      contents: read
-      pull-requests: write
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -30,54 +27,23 @@ jobs:
       - name: Build packages
         run: pnpm run ci:build
 
-      - name: Chromatic
-        if: github.actor != 'dependabot[bot]' && github.actor != 'github-actions[bot]'
-        uses: chromaui/action@latest
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v6
         with:
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          workingDir: documentation
-          exitOnceUploaded: true # CI can finish once build is uploaded
-          autoAcceptChanges: true # for now we don't need manual approval of visual changes, set this to false when Design System is in a mature state
-          onlyChanged: true # this enables Chromatic's TurboSnap to only test changed stories
-          externals: "packages/styles/src/(tokens|css)/**" # changes in these folders will trigger a full test on Chromatic
+          name: build-output
+          path: |
+            packages/*/dist
+            documentation/.storybook
+            node_modules
+            packages/*/node_modules
+            documentation/node_modules
+          retention-days: 1
 
       - name: Type check
         run: pnpm run type-check
 
       - name: Run coverage
         run: pnpm run coverage
-
-      - name: Get Playwright version
-        id: playwright-version
-        run: echo "version=$(pnpm -C documentation exec playwright --version | sed 's/Version //')" >> $GITHUB_OUTPUT
-
-      - name: Cache Playwright browsers
-        uses: actions/cache@v4
-        id: playwright-cache
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
-
-      - name: Install Playwright browsers
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: pnpm -C documentation exec playwright install --with-deps
-
-      - name: Install Playwright system dependencies
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: pnpm -C documentation exec playwright install-deps
-
-      - name: Run storybook tests
-        run: pnpm run test:storybook
-
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v6
-        with:
-          name: test-results
-          if-no-files-found: warn
-          path: |
-            test-results/**
-            documentation/test-results/**
 
       - name: Check if audit and sonar scans are needed (can be skipped for only tokens/icons changes)
         id: check-changes
@@ -99,37 +65,77 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-      - name: Add PR comment about available commands
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@v8
+  chromatic:
+    needs: build
+    if: github.actor != 'dependabot[bot]' && github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
         with:
-          script: |
-            const comments = await github.paginate(
-              github.rest.issues.listComments,
-              {
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                per_page: 100
-              }
-            );
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: "package.json"
+      - name: Download build artifacts
+        uses: actions/download-artifact@v6
+        with:
+          name: build-output
 
-            const botComment = comments.find(comment =>
-              comment.user.type === 'Bot' &&
-              comment.body.includes('Available PR Commands')
-            );
+      - name: Chromatic
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          workingDir: documentation
+          exitOnceUploaded: true # CI can finish once build is uploaded
+          autoAcceptChanges: true # for now we don't need manual approval of visual changes, set this to false when Design System is in a mature state
+          onlyChanged: true # this enables Chromatic's TurboSnap to only test changed stories
+          externals: "packages/styles/src/(tokens|css)/**" # changes in these folders will trigger a full test on Chromatic
 
-            if (!botComment) {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                body: [
-                  '## Available PR Commands',
-                  '',
-                  'You can trigger additional CI tasks by commenting on this PR:',
-                  '',
-                  '- `/chromatic` - Run visual regression testing with Chromatic'
-                ].join('\n')
-              });
-            }
+  storybook-tests:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: "package.json"
+      - name: Download build artifacts
+        uses: actions/download-artifact@v6
+        with:
+          name: build-output
+
+      - name: Get Playwright version
+        id: playwright-version
+        run: echo "version=$(pnpm -C documentation exec playwright --version | sed 's/Version //')" >> $GITHUB_OUTPUT
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
+
+      - name: Install Playwright Chromium
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm -C documentation exec playwright install --with-deps chromium
+
+      - name: Install Playwright system dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: pnpm -C documentation exec playwright install-deps chromium
+
+      - name: Run storybook tests
+        run: pnpm run test:storybook
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: test-results
+          if-no-files-found: warn
+          path: |
+            test-results/**
+            documentation/test-results/**
