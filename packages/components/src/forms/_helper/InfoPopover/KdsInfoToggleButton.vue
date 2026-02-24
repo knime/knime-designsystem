@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useTemplateRef } from "vue";
+import { ref, useTemplateRef } from "vue";
 
 import KdsIcon from "../../../accessories/Icon/KdsIcon.vue";
 import KdsPopover from "../../../overlays/Popover/KdsPopover.vue";
@@ -19,6 +19,8 @@ const TITLE = "Click for more information";
 
 const modelValue = defineModel<boolean>({ default: false });
 const buttonEl = useTemplateRef("buttonEl");
+const isHovered = ref(false);
+const isFocused = ref(false);
 </script>
 
 <template>
@@ -28,13 +30,17 @@ const buttonEl = useTemplateRef("buttonEl");
     :class="{
       'info-toggle-button': true,
       selected: modelValue,
-      hidden: props.hidden && !modelValue,
+      hidden: props.hidden && !modelValue && !isHovered && !isFocused,
     }"
     :title="TITLE"
     :aria-label="TITLE"
     :aria-pressed="modelValue"
     type="button"
     @click="modelValue = !modelValue"
+    @mouseenter="isHovered = true"
+    @mouseleave="isHovered = false"
+    @focus="isFocused = true"
+    @blur="isFocused = false"
   >
     <KdsIcon name="circle-question" size="small" />
   </button>
@@ -72,7 +78,7 @@ const buttonEl = useTemplateRef("buttonEl");
   border-radius: var(--kds-border-radius-container-0-12x);
   opacity: 1;
 
-  &.hidden:not(:focus, :focus-visible, :hover) {
+  &.hidden {
     opacity: 0;
   }
 

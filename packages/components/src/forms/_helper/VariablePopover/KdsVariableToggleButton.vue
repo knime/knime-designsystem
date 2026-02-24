@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useTemplateRef } from "vue";
+import { computed, ref, useTemplateRef } from "vue";
 
 import KdsIcon from "../../../accessories/Icon/KdsIcon.vue";
 import KdsPopover from "../../../overlays/Popover/KdsPopover.vue";
@@ -20,6 +20,8 @@ const props = withDefaults(defineProps<KdsVariableToggleButtonProps>(), {
 
 const modelValue = defineModel<boolean>({ default: false });
 const buttonEl = useTemplateRef("buttonEl");
+const isHovered = ref(false);
+const isFocused = ref(false);
 
 const iconState = computed(() => {
   if (props.inSet && props.outSet) {
@@ -81,13 +83,17 @@ const title = computed(() => {
       'variable-toggle-button': true,
       error: props.error,
       'pressed-or-set': modelValue || props.inSet || props.outSet,
-      hidden: props.hidden && !modelValue,
+      hidden: props.hidden && !modelValue && !isHovered && !isFocused,
     }"
     :title="title"
     :aria-label="title"
     :aria-pressed="modelValue"
     type="button"
     @click="modelValue = !modelValue"
+    @mouseenter="isHovered = true"
+    @mouseleave="isHovered = false"
+    @focus="isFocused = true"
+    @blur="isFocused = false"
   >
     <KdsIcon :name="iconName" size="small" />
   </button>
@@ -125,7 +131,7 @@ const title = computed(() => {
   border-radius: var(--kds-border-radius-container-0-12x);
   opacity: 1;
 
-  &.hidden:not(:focus-visible, :hover) {
+  &.hidden {
     opacity: 0;
   }
 
