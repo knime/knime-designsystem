@@ -132,11 +132,16 @@ jobs:
         continue-on-error: true
         run: |
           PLAYWRIGHT_BROWSERS_PATH="${HOME}/.cache/ms-playwright"
-          CHROMIUM_PATH="${PLAYWRIGHT_BROWSERS_PATH}/chromium-"*/chrome-linux/chrome
-          if ls ${CHROMIUM_PATH} 1> /dev/null 2>&1; then
+          echo "Checking for Chromium in: ${PLAYWRIGHT_BROWSERS_PATH}"
+          ls -la "${PLAYWRIGHT_BROWSERS_PATH}" || echo "Browser cache directory not found or empty"
+
+          # Use find to locate the chrome binary more reliably
+          if find "${PLAYWRIGHT_BROWSERS_PATH}" -type f -path "*/chromium-*/chrome-linux/chrome" -o -path "*/chromium-*/chrome" | grep -q .; then
             echo "valid=true" >> $GITHUB_OUTPUT
+            echo "Chromium binary found"
           else
             echo "valid=false" >> $GITHUB_OUTPUT
+            echo "Chromium binary not found"
             exit 1
           fi
 
