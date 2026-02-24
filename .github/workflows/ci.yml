@@ -33,10 +33,6 @@ jobs:
           name: build-output
           path: |
             packages/*/dist
-            documentation/.storybook
-            node_modules
-            packages/*/node_modules
-            documentation/node_modules
           retention-days: 1
 
       - name: Type check
@@ -78,6 +74,9 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version-file: "package.json"
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
       - name: Download build artifacts
         uses: actions/download-artifact@v6
         with:
@@ -103,6 +102,9 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version-file: "package.json"
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
       - name: Download build artifacts
         uses: actions/download-artifact@v6
         with:
