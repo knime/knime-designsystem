@@ -15,7 +15,7 @@ export type KdsLabelProps = {
   /**
    * When true, shows the info toggle button (used when hovering the form field).
    */
-  isHovered?: boolean;
+  showDescriptionButton?: boolean;
 };
 
 export type KdsSubTextProps = {

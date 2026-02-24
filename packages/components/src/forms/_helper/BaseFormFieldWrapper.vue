@@ -48,7 +48,7 @@ const isHovered = ref(false);
       :for="inputId"
       :label="props.label"
       :description="props.description"
-      :is-hovered="isHovered"
+      :show-description-button="isHovered"
     />
     <slot
       :id="inputId"

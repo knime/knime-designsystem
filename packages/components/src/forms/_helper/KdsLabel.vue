@@ -6,7 +6,7 @@ import type { KdsLabelProps } from "../types";
 
 const props = withDefaults(defineProps<KdsLabelProps>(), {
   description: undefined,
-  isHovered: false,
+  showDescriptionButton: false,
 });
 
 const KdsInfoToggleButton = defineAsyncComponent(
@@ -31,7 +31,7 @@ const { isTruncated } = useKdsIsTruncated(labelEl);
     <KdsInfoToggleButton
       v-if="props.description"
       :content="props.description"
-      :hidden="!props.isHovered"
+      :hidden="!props.showDescriptionButton"
     />
   </div>
 </template>
