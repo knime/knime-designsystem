@@ -2,6 +2,8 @@
 
 The KNIME Design System is a Vue3 TypeScript monorepo providing design tokens, icons, and reusable components for KNIME applications. It includes 3 packages: @knime/kds-styles (tokens/icons), @knime/kds-components (Vue components), and @knime/kds-documentation (Storybook docs).
 
+A **primary goal** of this repo is the **migration of components from `@knime/components`** (in `webapps-common/packages/components`) **to `@knime/kds-components`**. This includes migrating Vue components, replacing SVG icon imports with `KdsIcon`, replacing `--knime-*` CSS custom properties with `--kds-*` tokens, and making them accessible. See [Migration from @knime/components](#migration-from-knimecomponents) for details and the [wac-to-kds-migrator agent](./agents/wac-to-kds-migrator.md) for the full component/icon/CSS mapping.
+
 **Trust these instructions** - only search/explore if information is incomplete or contradicts your findings.
 
 ## Important commands
@@ -191,8 +193,8 @@ export type { KdsButtonVariant } from "./types";
 - Add a story file for each exported KdsComponent in the same folder as the component, named `KdsComponent.stories.ts`
 - Describe the behavior of the component with important key details. Often in Figma key aspects are described in notes.
 - Include Figma design URL in story parameters
-- Define modelValues for all v-model bindings in stories as category "Model". Do not add model update emit function since this is already covered by the term model.
-- Define all props in stories as category "Props" ordered by importance for users and similar to other stories.
+- Define modelValues for all v-model bindings in stories as category "model". Do not add model update emit function since this is already covered by the term model.
+- Define all props in stories as category "props" ordered by importance for users and similar to other stories.
 - Provide arg values for all props, e.g. false for boolean and "" for string props in the same order.
 - Provide stories for important prop combinations in the same order (if possible).
 - Test the desired behavior (e.g. disabled state) via storybook play function.
@@ -252,6 +254,29 @@ play: async ({ canvasElement }) => {
   - story book can cover visual changes for props
   - unit tests should only cover logic that is internally hidden
 
-### Migration documentation
+### Migration from @knime/components
 
-- When creating a new component, ask the user if it has an equivalent one in `@knime/components`. If it does, add migration instructions to `.github/agents/wac-to-kds-migrator.md`.
+The design system replaces the legacy `@knime/components` and `@knime/styles` packages (from `webapps-common`). The migration covers three areas:
+
+1. **Components** – Replace `@knime/components` Vue components with `@knime/kds-components` equivalents (e.g. `Button` → `KdsButton`, `Checkbox` → `KdsCheckbox`). Props and slots differ; see the mapping table in the [wac-to-kds-migrator agent](./agents/wac-to-kds-migrator.md#components).
+2. **Icons** – Replace SVG icon imports from `@knime/styles/img/icons/*.svg` with the `KdsIcon` component using an icon name string. Available icon names are defined in `@knime/kds-styles/img/icons/def.ts`. See [icon migration instructions](./agents/wac-to-kds-migrator.md#icons).
+3. **CSS custom properties** – Replace `--knime-*` variables with `--kds-*` tokens from `@knime/kds-styles/kds-variables.css`. See the [CSS property mapping](./agents/wac-to-kds-migrator.md#--knime--css-custom-properties).
+
+#### Migration order across repos
+
+When migrating a component, follow this order (upstream → downstream):
+
+| Step | Repo                 | Action                                                                  |
+| ---- | -------------------- | ----------------------------------------------------------------------- |
+| 1    | `knime-designsystem` | Implement/migrate the KDS component                                     |
+| 2    | `webapps-common`     | Update JSONForms renderers and shared packages to use new KDS component |
+| 3    | `knime-core-ui`      | Update node dialog components                                           |
+| 4    | `knime-ui`           | Update app-level components                                             |
+
+#### When creating new KDS components
+
+- Ask the user if the component has an equivalent in `@knime/components`. If it does, add migration instructions (component mapping, prop/slot differences) to [`.github/agents/wac-to-kds-migrator.md`](./agents/wac-to-kds-migrator.md).
+
+#### Full migration reference
+
+The complete mapping tables and detailed examples live in the **[wac-to-kds-migrator agent](./agents/wac-to-kds-migrator.md)** – consult it for component, icon, and CSS property mappings.
