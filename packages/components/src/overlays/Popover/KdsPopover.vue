@@ -107,7 +107,7 @@ onBeforeUnmount(() => {
     :role="props.role"
     @toggle="open = $event.newState === 'open'"
   >
-    <slot>
+    <slot v-if="open">
       <div
         v-if="props.content?.trim().length"
         class="kds-popover-default-content"
