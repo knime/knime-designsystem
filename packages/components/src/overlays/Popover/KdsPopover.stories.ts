@@ -5,7 +5,7 @@ import { expect, userEvent, within } from "storybook/test";
 import { KdsToggleButton } from "../../buttons";
 
 import KdsPopover from "./KdsPopover.vue";
-import { kdsPopoverPlacements } from "./enums";
+import { kdsPopoverPlacements, kdsPopoverRoles } from "./enums";
 
 const meta: Meta<typeof KdsPopover> = {
   title: "Overlays/KdsPopover",
@@ -25,6 +25,21 @@ const meta: Meta<typeof KdsPopover> = {
     placement: {
       control: { type: "select" },
       options: kdsPopoverPlacements,
+    },
+    role: {
+      control: { type: "select" },
+      options: kdsPopoverRoles,
+      description: "ARIA role of the popover element.",
+    },
+    content: {
+      control: { type: "text" },
+      description:
+        "Optional text content rendered inside the popover. Overridden by the default slot.",
+    },
+    fullWidth: {
+      control: { type: "boolean" },
+      description:
+        "When true, the popover's minimum width matches the anchor element's width.",
     },
     default: {
       control: false,
@@ -142,6 +157,7 @@ export const Default: Story = {
     // Click to open
     await userEvent.click(toggleButton);
     await expect(popover).toBeVisible();
+    await expect(popover).toHaveAttribute("role", "dialog");
     await expect(toggleButton).toHaveAttribute("aria-haspopup", "dialog");
     await expect(toggleButton).toHaveAttribute("aria-controls", popover.id);
     await expect(toggleButton).toHaveAttribute("aria-expanded", "true");
