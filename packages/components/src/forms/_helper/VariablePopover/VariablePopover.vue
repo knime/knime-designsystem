@@ -18,7 +18,7 @@ const props = defineProps<{
 
 <style scoped>
 .kds-variable-popover {
-  max-width: var(--kds-dimension-component-width-25x);
+  width: var(--kds-dimension-component-width-25x);
   padding: var(--kds-spacing-container-0-75x);
   font: var(--kds-font-base-body-small);
   color: var(--kds-color-text-and-icon-neutral);
