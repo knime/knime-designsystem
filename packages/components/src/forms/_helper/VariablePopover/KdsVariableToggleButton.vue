@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useTemplateRef } from "vue";
+import { computed, useTemplateRef } from "vue";
 
 import KdsIcon from "../../../accessories/Icon/KdsIcon.vue";
 import KdsPopover from "../../../overlays/Popover/KdsPopover.vue";
@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<KdsVariableToggleButtonProps>(), {
   hidden: false,
 });
 
-const isOpen = ref(false);
+const modelValue = defineModel<boolean>({ default: false });
 const buttonEl = useTemplateRef("buttonEl");
 
 const iconState = computed(() => {
@@ -82,21 +82,21 @@ const title = computed(() => {
       'variable-toggle-button': true,
       disabled: props.disabled,
       error: props.error,
-      'pressed-or-set': isOpen || props.inSet || props.outSet,
-      hidden: props.hidden && !isOpen,
+      'pressed-or-set': modelValue || props.inSet || props.outSet,
+      hidden: props.hidden && !modelValue,
     }"
     :disabled="props.disabled"
     :title="title"
     :aria-label="title"
-    :aria-pressed="isOpen"
+    :aria-pressed="modelValue"
     type="button"
-    @click="isOpen = !isOpen"
+    @click="modelValue = !modelValue"
   >
     <KdsIcon :name="iconName" size="xsmall" />
   </button>
 
   <KdsPopover
-    v-model="isOpen"
+    v-model="modelValue"
     :activator-el="buttonEl"
     placement="bottom-right"
   >

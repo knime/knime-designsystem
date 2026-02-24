@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, useTemplateRef } from "vue";
+import { useTemplateRef } from "vue";
 
 import KdsIcon from "../../../accessories/Icon/KdsIcon.vue";
 import KdsPopover from "../../../overlays/Popover/KdsPopover.vue";
@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<KdsInfoToggleButtonProps>(), {
 
 const TITLE = "Click for more information";
 
-const isOpen = ref(false);
+const modelValue = defineModel<boolean>({ default: false });
 const buttonEl = useTemplateRef("buttonEl");
 </script>
 
@@ -28,21 +28,25 @@ const buttonEl = useTemplateRef("buttonEl");
     v-bind="$attrs"
     :class="{
       'info-toggle-button': true,
-      selected: isOpen,
+      selected: modelValue,
       disabled: props.disabled,
-      hidden: props.hidden && !isOpen,
+      hidden: props.hidden && !modelValue,
     }"
     :disabled="props.disabled"
     :title="TITLE"
     :aria-label="TITLE"
-    :aria-pressed="isOpen"
+    :aria-pressed="modelValue"
     type="button"
-    @click="isOpen = !isOpen"
+    @click="modelValue = !modelValue"
   >
     <KdsIcon name="circle-question" size="xsmall" />
   </button>
 
-  <KdsPopover v-model="isOpen" :activator-el="buttonEl" placement="top-right">
+  <KdsPopover
+    v-model="modelValue"
+    :activator-el="buttonEl"
+    placement="top-right"
+  >
     <InfoPopover :content="props.content">
       <slot />
     </InfoPopover>
