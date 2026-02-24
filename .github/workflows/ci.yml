@@ -29,12 +29,6 @@ jobs:
       - name: Build packages
         run: pnpm run ci:build
 
-      - name: Type check
-        run: pnpm run type-check
-
-      - name: Run coverage
-        run: pnpm run coverage
-
       - name: Check if audit is needed (can be skipped for only tokens/icons changes)
         id: check-changes
         run: |
@@ -56,15 +50,45 @@ jobs:
             packages/*/dist
           retention-days: 1
 
-      - name: Upload lint and coverage results
+      - name: Upload lint results
         if: always()
         uses: actions/upload-artifact@v6
         with:
           name: sonar-results
           path: |
             test-results/
-            coverage/
           retention-days: 1
+
+  test-and-coverage:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: "package.json"
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
+      - name: Download build artifacts
+        uses: actions/download-artifact@v6
+        with:
+          name: build-output
+          path: .
+
+      - name: Type check
+        run: pnpm run type-check
+
+      - name: Run unit tests with coverage
+        run: pnpm run coverage
+
+      - name: Upload unit coverage
+        uses: actions/upload-artifact@v6
+        with:
+          name: coverage-unit
+          path: coverage/unit/
 
   chromatic:
     needs: build
@@ -173,7 +197,7 @@ jobs:
           path: documentation/coverage/storybook/
 
   sonar:
-    needs: [build, storybook-tests]
+    needs: [build, test-and-coverage, storybook-tests]
     if: always() && needs.build.outputs.run-full-checks == 'true' && github.actor != 'dependabot[bot]' && github.actor != 'github-actions[bot]'
     permissions:
       contents: read
@@ -192,12 +216,18 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Download lint and unit coverage results
+      - name: Download lint results
         uses: actions/download-artifact@v6
         with:
           name: sonar-results
           path: .
         continue-on-error: true
+
+      - name: Download unit coverage
+        uses: actions/download-artifact@v6
+        with:
+          name: coverage-unit
+          path: coverage/unit
 
       - name: Download storybook coverage
         uses: actions/download-artifact@v6
