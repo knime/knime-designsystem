@@ -17,7 +17,7 @@
     "_preBuild": "pnpm run --filter @knime/kds-styles build",
     "build-storybook": "pnpm _preBuild && storybook build",
     "storybook": "pnpm _preBuild && storybook dev -p 6006",
-    "test:storybook": "pnpm _preBuild && vitest run"
+    "test:storybook": "pnpm _preBuild && vitest run --coverage"
   },
   "dependencies": {
     "@knime/kds-styles": "workspace:*",

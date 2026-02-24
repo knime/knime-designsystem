@@ -33,6 +33,13 @@ export default defineConfig({
         },
       ],
     },
+    coverage: {
+      enabled: true,
+      provider: "v8",
+      reporter: ["lcov", "text"],
+      reportsDirectory: "./coverage-storybook",
+      include: ["../packages/components/src/**/*.{vue,ts}"],
+    },
     setupFiles: [".storybook/vitest.setup.ts"],
     reporters: ["default", "junit"],
     outputFile: {
