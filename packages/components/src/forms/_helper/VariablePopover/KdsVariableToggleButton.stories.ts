@@ -31,6 +31,7 @@ const meta: Meta<typeof KdsVariableToggleButton> = {
     },
   },
   argTypes: {
+    modelValue: { control: { type: "boolean" }, table: { category: "Model" } },
     content: { control: { type: "text" }, table: { category: "Props" } },
     inSet: { control: "boolean", table: { category: "Props" } },
     outSet: { control: "boolean", table: { category: "Props" } },
@@ -44,6 +45,7 @@ const meta: Meta<typeof KdsVariableToggleButton> = {
     },
   },
   args: {
+    modelValue: false,
     content: SAMPLE_CONTENT,
     inSet: false,
     outSet: false,
@@ -158,6 +160,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       inSet: [false, true],
       outSet: [false, true],
       error: [false, true],
+      modelValue: [false, true],
     },
   ],
   pseudoStates: ["hover", "active", "focus-visible"],
