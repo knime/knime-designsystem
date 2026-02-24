@@ -92,7 +92,7 @@ const title = computed(() => {
     type="button"
     @click="modelValue = !modelValue"
   >
-    <KdsIcon :name="iconName" size="xsmall" />
+    <KdsIcon :name="iconName" size="small" />
   </button>
 
   <KdsPopover
@@ -120,8 +120,8 @@ const title = computed(() => {
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  width: var(--kds-dimension-component-width-0-75x);
-  height: var(--kds-dimension-component-height-0-75x);
+  width: var(--kds-dimension-component-width-1x);
+  height: var(--kds-dimension-component-height-1x);
   padding: 0;
   color: var(--icon-color);
   cursor: pointer;

@@ -39,7 +39,7 @@ const buttonEl = useTemplateRef("buttonEl");
     type="button"
     @click="modelValue = !modelValue"
   >
-    <KdsIcon name="circle-question" size="xsmall" />
+    <KdsIcon name="circle-question" size="small" />
   </button>
 
   <KdsPopover
@@ -65,8 +65,8 @@ const buttonEl = useTemplateRef("buttonEl");
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  width: var(--kds-dimension-component-width-0-75x);
-  height: var(--kds-dimension-component-height-0-75x);
+  width: var(--kds-dimension-component-width-1x);
+  height: var(--kds-dimension-component-height-1x);
   padding: 0;
   color: var(--icon-color);
   cursor: pointer;
