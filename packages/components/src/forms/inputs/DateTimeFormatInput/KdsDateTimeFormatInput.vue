@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-import KdsButton from "../../../buttons/KdsButton.vue";
+import { KdsButton } from "../../../buttons";
+import { KdsPopover } from "../../../overlays";
 import BaseFormFieldWrapper from "../../BaseFormFieldWrapper.vue";
 import KdsBaseInput from "../BaseInput.vue";
 import type { KdsDateTimeFormatInputProps } from "../types.ts";
@@ -59,19 +60,23 @@ const activatorEl = ref<HTMLElement | null>(null);
         </template>
       </KdsBaseInput>
 
-      <DateTimeFormatPopover
+      <KdsPopover
         v-model="open"
-        :selection="modelValue"
         :activator-el="activatorEl"
         :anchor-el="anchorEl"
-        :empty-text="props.emptyText"
-        :all-default-formats="props.allDefaultFormats"
-        :allowed-formats="props.allowedFormats"
-        @update:selection="
-          modelValue = $event;
-          open = false;
-        "
-      />
+        placement="bottom-left"
+      >
+        <DateTimeFormatPopover
+          :selection="modelValue"
+          :empty-text="props.emptyText"
+          :all-default-formats="props.allDefaultFormats"
+          :allowed-formats="props.allowedFormats"
+          @update:selection="
+            modelValue = $event;
+            open = false;
+          "
+        />
+      </KdsPopover>
     </template>
   </BaseFormFieldWrapper>
 </template>

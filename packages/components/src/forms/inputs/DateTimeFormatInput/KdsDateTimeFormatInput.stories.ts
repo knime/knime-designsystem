@@ -8,21 +8,12 @@ import {
   buildTextOverflowStory,
 } from "../../../test-utils/storybook.ts";
 
-import DateTimeFormatPopover from "./DateTimeFormatPopover.vue";
 import KdsDateTimeFormatInput from "./KdsDateTimeFormatInput.vue";
 
 type Story = StoryObj<typeof KdsDateTimeFormatInput>;
 
-const sampleOptions = [
-  { id: "yyyy-MM-dd", label: "Label", example: "(Example)" },
-  { id: "dd.MM.yyyy", label: "Label", example: "(Example)" },
-  { id: "MM/dd/yyyy", label: "Label", example: "(Example)" },
-  { id: "yyyy-MM-dd HH:mm", label: "Label", example: "(Example)" },
-  { id: "dd.M.yyyy", label: "Label", example: "(Example)" },
-];
-
 const meta: Meta<typeof KdsDateTimeFormatInput> = {
-  title: "Components/forms/KdsDateTimeFormatInput",
+  title: "Form fields/KdsDateTimeFormatInput",
   component: KdsDateTimeFormatInput as Meta<
     typeof KdsDateTimeFormatInput
   >["component"],
@@ -314,29 +305,6 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     },
   },
 });
-
-export const DesignComparatorPopover: StoryObj<typeof DateTimeFormatPopover> =
-  buildDesignComparatorStory({
-    component: DateTimeFormatPopover,
-    designsToCompare: {
-      DateTimeFormatPopover: {
-        props: {
-          formatOptions: sampleOptions,
-        },
-        variants: {
-          "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6203-37302":
-            {
-              selection: "yyyy-MM",
-              parameters: { figmaOffset: { x: -16, y: -16 } },
-            },
-          "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6203-37392":
-            {
-              parameters: { figmaOffset: { x: -16, y: -16 } },
-            },
-        },
-      },
-    },
-  });
 
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsDateTimeFormatInput,

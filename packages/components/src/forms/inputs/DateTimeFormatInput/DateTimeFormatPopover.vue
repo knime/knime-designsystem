@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 
-import { KdsPopover, type KdsPopoverProps } from "../../../overlays";
 import MenuList from "../../../structures/MenuList/MenuList.vue";
 import type { MenuListItem } from "../../../structures/MenuList/types.ts";
 import KdsValueSwitch from "../../RadioButton/KdsValueSwitch.vue";
@@ -19,9 +18,8 @@ type DateTimeFormatPopoverProps = {
   allowedFormats?: KdsTemporalType[];
 };
 
-const props = defineProps<DateTimeFormatPopoverProps & KdsPopoverProps>();
+const props = defineProps<DateTimeFormatPopoverProps>();
 
-const open = defineModel<boolean>({ default: false });
 const selection = defineModel<string>("selection", { default: "" });
 
 const temporalTypeToModeLabel: Record<KdsTemporalType, string> = {
@@ -186,41 +184,34 @@ const menuItems = computed(() => {
 </script>
 
 <template>
-  <KdsPopover
-    v-model="open"
-    :activator-el="props.activatorEl"
-    :anchor-el="props.anchorEl"
-    placement="bottom-left"
-  >
-    <KdsValueSwitch
-      v-if="modeOptions.length > 1"
-      :model-value="effectiveSelectedMode"
-      size="small"
-      :possible-values="modeOptions"
-      @update:model-value="
-        (value) => {
-          selectedMode = value;
-        }
-      "
-    />
+  <KdsValueSwitch
+    v-if="modeOptions.length > 1"
+    :model-value="effectiveSelectedMode"
+    size="small"
+    :possible-values="modeOptions"
+    @update:model-value="
+      (value) => {
+        selectedMode = value;
+      }
+    "
+  />
 
-    <KdsValueSwitch
-      v-if="localeOptions.length > 1"
-      :model-value="effectiveSelectedLocale"
-      size="small"
-      :possible-values="localeOptions"
-      @update:model-value="
-        (value) => {
-          selectedLocale = value;
-        }
-      "
-    />
+  <KdsValueSwitch
+    v-if="localeOptions.length > 1"
+    :model-value="effectiveSelectedLocale"
+    size="small"
+    :possible-values="localeOptions"
+    @update:model-value="
+      (value) => {
+        selectedLocale = value;
+      }
+    "
+  />
 
-    <MenuList
-      v-model="selection"
-      aria-label="Date/time formats"
-      :items="menuItems"
-      :empty-text="props.emptyText"
-    />
-  </KdsPopover>
+  <MenuList
+    v-model="selection"
+    aria-label="Date/time formats"
+    :items="menuItems"
+    :empty-text="props.emptyText"
+  />
 </template>
