@@ -13,7 +13,7 @@ import KdsColorInput from "./KdsColorInput.vue";
 type Story = StoryObj<typeof KdsColorInput>;
 
 const meta: Meta<typeof KdsColorInput> = {
-  title: "Form fields/KdsColorInput",
+  title: "Form Fields/KdsColorInput",
   component: KdsColorInput as Meta<typeof KdsColorInput>["component"],
   tags: ["autodocs"],
   parameters: {
