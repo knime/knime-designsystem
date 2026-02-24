@@ -1,7 +1,9 @@
+import { useTemplateRef } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
 
+import KdsButton from "../../../buttons/KdsButton/KdsButton.vue";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
@@ -263,6 +265,43 @@ export const ExternalLabel: Story = {
       </div>
     `,
   }),
+};
+
+export const ProgrammaticFocus: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates how to programmatically focus the textarea using the exposed `focus()` method via a template ref.",
+      },
+    },
+  },
+  render: () => ({
+    components: { KdsTextarea, KdsButton },
+    setup() {
+      const textareaRef =
+        useTemplateRef<InstanceType<typeof KdsTextarea>>("textareaRef");
+      const handleFocusClick = () => {
+        textareaRef.value?.focus();
+      };
+      return { handleFocusClick };
+    },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 16px; max-width: 300px;">
+        <KdsTextarea ref="textareaRef" label="Textarea" />
+        <KdsButton @click="handleFocusClick" label="Focus Textarea" />
+      </div>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button", { name: "Focus Textarea" });
+    const input = canvas.getByRole("textbox", { name: "Textarea" });
+
+    await expect(input).not.toHaveFocus();
+    await userEvent.click(button);
+    await expect(input).toHaveFocus();
+  },
 };
 
 export const AllCombinations: Story = buildAllCombinationsStory({

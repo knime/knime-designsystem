@@ -1,7 +1,9 @@
+import { useTemplateRef } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
 
+import KdsButton from "../../../buttons/KdsButton/KdsButton.vue";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
@@ -169,6 +171,43 @@ export const Validating: Story = {
     modelValue: "^column([1-9]|10)$",
     validating: true,
     subText: "Validating pattern",
+  },
+};
+
+export const ProgrammaticFocus: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates how to programmatically focus the pattern input using the exposed `focus()` method via a template ref.",
+      },
+    },
+  },
+  render: () => ({
+    components: { KdsPatternInput, KdsButton },
+    setup() {
+      const patternInputRef =
+        useTemplateRef<InstanceType<typeof KdsPatternInput>>("patternInputRef");
+      const handleFocusClick = () => {
+        patternInputRef.value?.focus();
+      };
+      return { handleFocusClick };
+    },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 16px; max-width: 300px;">
+        <KdsPatternInput ref="patternInputRef" aria-label="Pattern" />
+        <KdsButton @click="handleFocusClick" label="Focus Pattern Input" />
+      </div>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button", { name: "Focus Pattern Input" });
+    const input = canvas.getByRole("textbox", { name: "Pattern" });
+
+    await expect(input).not.toHaveFocus();
+    await userEvent.click(button);
+    await expect(input).toHaveFocus();
   },
 };
 
