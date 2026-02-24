@@ -131,7 +131,9 @@ jobs:
         id: validate-cache
         continue-on-error: true
         run: |
-          if pnpm -C documentation exec playwright install --dry-run chromium 2>&1 | grep -q "is already installed"; then
+          PLAYWRIGHT_BROWSERS_PATH="${HOME}/.cache/ms-playwright"
+          CHROMIUM_PATH="${PLAYWRIGHT_BROWSERS_PATH}/chromium-"*/chrome-linux/chrome
+          if ls ${CHROMIUM_PATH} 1> /dev/null 2>&1; then
             echo "valid=true" >> $GITHUB_OUTPUT
           else
             echo "valid=false" >> $GITHUB_OUTPUT
