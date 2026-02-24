@@ -3,7 +3,8 @@ import { computed, useTemplateRef, watch } from "vue";
 import { useResizeObserver } from "@vueuse/core";
 
 import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
-import type { FormFieldExpose, KdsTextareaProps } from "../types";
+import type { KdsFormFieldExpose } from "../../types.ts";
+import type { KdsTextareaProps } from "../types";
 
 const props = withDefaults(defineProps<KdsTextareaProps>(), {
   placeholder: "",
@@ -43,7 +44,7 @@ function resize() {
 useResizeObserver(textareaElement, resize);
 watch(modelValue, resize, { immediate: true });
 
-defineExpose<FormFieldExpose>({
+defineExpose<KdsFormFieldExpose>({
   focus: () => {
     textareaElement.value?.focus();
   },

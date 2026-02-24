@@ -3,8 +3,9 @@ import { computed, ref, useTemplateRef, watch } from "vue";
 
 import KdsButton from "../../../buttons/KdsButton/KdsButton.vue";
 import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
+import type { KdsFormFieldExpose } from "../../types.ts";
 import BaseInput from "../BaseInput.vue";
-import type { FormFieldExpose, KdsNumberInputProps } from "../types";
+import type { KdsNumberInputProps } from "../types";
 
 import { createKdsNumberParser } from "./numberParser";
 
@@ -162,7 +163,7 @@ const handleBlur = () => {
 
 const baseInput = useTemplateRef("baseInput");
 
-defineExpose<FormFieldExpose>({
+defineExpose<KdsFormFieldExpose>({
   focus: () => baseInput.value?.focus(),
 });
 </script>

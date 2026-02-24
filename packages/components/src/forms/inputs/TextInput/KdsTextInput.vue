@@ -2,8 +2,9 @@
 import { useTemplateRef } from "vue";
 
 import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
+import type { KdsFormFieldExpose } from "../../types.ts";
 import BaseInput from "../BaseInput.vue";
-import type { FormFieldExpose, KdsTextInputProps } from "../types";
+import type { KdsTextInputProps } from "../types";
 
 const props = withDefaults(defineProps<KdsTextInputProps>(), {
   disabled: false,
@@ -18,7 +19,7 @@ const modelValue = defineModel<string>({ default: "" });
 
 const baseInput = useTemplateRef("baseInput");
 
-defineExpose<FormFieldExpose>({
+defineExpose<KdsFormFieldExpose>({
   focus: () => baseInput.value?.focus(),
 });
 </script>

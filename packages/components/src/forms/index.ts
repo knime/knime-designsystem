@@ -3,7 +3,11 @@ export { default as KdsLabel } from "./_helper/KdsLabel.vue";
 export { default as KdsSubText } from "./_helper/KdsSubText.vue";
 
 // Export types for form primitives
-export type { KdsLabelProps, KdsSubTextProps } from "./types";
+export type {
+  KdsLabelProps,
+  KdsSubTextProps,
+  KdsFormFieldExpose,
+} from "./types";
 
 export * from "./Checkbox";
 export type * from "./Checkbox";

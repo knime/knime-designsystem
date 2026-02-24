@@ -3,8 +3,9 @@ import { computed, ref, useTemplateRef, watch } from "vue";
 
 import KdsToggleButton from "../../../buttons/KdsToggleButton/KdsToggleButton.vue";
 import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
+import type { KdsFormFieldExpose } from "../../types.ts";
 import BaseInput from "../BaseInput.vue";
-import type { FormFieldExpose, KdsPatternInputProps } from "../types.ts";
+import type { KdsPatternInputProps } from "../types.ts";
 
 import {
   buildRegexFromPatternInput,
@@ -61,7 +62,7 @@ const patternModeAriaLabel = computed(() =>
 
 const baseInput = useTemplateRef("baseInput");
 
-defineExpose<FormFieldExpose>({
+defineExpose<KdsFormFieldExpose>({
   focus: () => baseInput.value?.focus(),
 });
 </script>

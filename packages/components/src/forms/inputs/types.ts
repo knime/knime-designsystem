@@ -63,10 +63,3 @@ export type KdsTextareaProps = KdsInputFieldProps & {
    */
   rows?: number;
 };
-
-export type FormFieldExpose = {
-  /**
-   * Focuses the input element
-   */
-  focus: () => void;
-};
