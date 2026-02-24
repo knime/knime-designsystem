@@ -2,13 +2,12 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
 import { buildDesignComparatorStory } from "../../../test-utils/storybook.ts";
 
-import type ColorPicker from "./ColorPicker.vue";
 import DemoColorPicker from "./DemoColorPicker.vue";
 
-type Story = StoryObj<typeof ColorPicker>;
+type Story = StoryObj<typeof DemoColorPicker>;
 
 const meta: Meta<typeof DemoColorPicker> = {
-  title: "Form fields/KdsColorInput/ColorPicker",
+  title: "Form Fields/KdsColorInput/ColorPicker",
   component: DemoColorPicker,
   tags: ["autodocs"],
 };

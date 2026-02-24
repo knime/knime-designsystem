@@ -19,6 +19,11 @@ const HUE_MAX_DEG = 360;
 const HUE_MAX_EXCLUSIVE_DEG = 359.999;
 const PERCENT = 100;
 
+const KEYBOARD_STEP = 0.01;
+const KEYBOARD_LARGE_STEP = 0.1;
+const HUE_KEYBOARD_STEP_DEG = 1;
+const HUE_KEYBOARD_LARGE_STEP_DEG = 10;
+
 const modelValue = defineModel<string>({ default: "" });
 
 const colorspaceEl = ref<HTMLElement | null>(null);
@@ -170,6 +175,66 @@ const updateFromTextValue = (next: string) => {
     syncFromModelValue(normalized);
   }
 };
+
+const clamp = (val: number, min: number, max: number) =>
+  Math.min(max, Math.max(min, val));
+
+const colorspaceValueText = computed(
+  () =>
+    `Saturation ${Math.round(saturation.value * PERCENT)}%, Brightness ${Math.round(value.value * PERCENT)}%`,
+);
+
+const hueValueText = computed(() => `${Math.round(hue.value)}°`);
+
+const onColorspaceKeyDown = (event: KeyboardEvent) => {
+  const step = event.shiftKey ? KEYBOARD_LARGE_STEP : KEYBOARD_STEP;
+  let handled = true;
+
+  switch (event.key) {
+    case "ArrowLeft":
+      saturation.value = clamp(saturation.value - step, 0, 1);
+      break;
+    case "ArrowRight":
+      saturation.value = clamp(saturation.value + step, 0, 1);
+      break;
+    case "ArrowUp":
+      value.value = clamp(value.value + step, 0, 1);
+      break;
+    case "ArrowDown":
+      value.value = clamp(value.value - step, 0, 1);
+      break;
+    default:
+      handled = false;
+  }
+
+  if (handled) {
+    event.preventDefault();
+    setModelValueFromHsv();
+  }
+};
+
+const onHueKeyDown = (event: KeyboardEvent) => {
+  const step = event.shiftKey
+    ? HUE_KEYBOARD_LARGE_STEP_DEG
+    : HUE_KEYBOARD_STEP_DEG;
+  let handled = true;
+
+  switch (event.key) {
+    case "ArrowLeft":
+      hue.value = clamp(hue.value - step, 0, HUE_MAX_EXCLUSIVE_DEG);
+      break;
+    case "ArrowRight":
+      hue.value = clamp(hue.value + step, 0, HUE_MAX_EXCLUSIVE_DEG);
+      break;
+    default:
+      handled = false;
+  }
+
+  if (handled) {
+    event.preventDefault();
+    setModelValueFromHsv();
+  }
+};
 </script>
 
 <template>
@@ -177,14 +242,17 @@ const updateFromTextValue = (next: string) => {
     <div
       ref="colorspaceEl"
       class="colorspace"
-      role="application"
+      role="slider"
       aria-label="Color selection"
+      aria-roledescription="2D color slider"
+      :aria-valuetext="colorspaceValueText"
       tabindex="0"
       :style="colorspaceBackground"
       @pointerdown.prevent="onColorspacePointerDown"
       @pointermove.prevent="onColorspacePointerMove"
       @pointerup="onColorspacePointerUp"
       @pointercancel="onColorspacePointerUp"
+      @keydown="onColorspaceKeyDown"
     >
       <div class="colorspace-handle" :style="colorspaceHandleStyle" />
     </div>
@@ -192,13 +260,18 @@ const updateFromTextValue = (next: string) => {
     <div
       ref="hueEl"
       class="hue"
-      role="application"
-      aria-label="Hue selection"
+      role="slider"
+      aria-label="Hue"
+      :aria-valuenow="Math.round(hue)"
+      aria-valuemin="0"
+      :aria-valuemax="HUE_MAX_DEG"
+      :aria-valuetext="hueValueText"
       tabindex="0"
       @pointerdown.prevent="onHuePointerDown"
       @pointermove.prevent="onHuePointerMove"
       @pointerup="onHuePointerUp"
       @pointercancel="onHuePointerUp"
+      @keydown="onHueKeyDown"
     >
       <div class="hue-handle" :style="hueHandleStyle" />
     </div>

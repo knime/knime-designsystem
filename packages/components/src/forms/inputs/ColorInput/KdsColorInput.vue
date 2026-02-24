@@ -65,12 +65,11 @@ const swatchColor = computed<KdsHexColor>(
           <KdsToggleButton
             ref="toggleButtonEl"
             v-model="open"
-            class="picker-button"
             size="xsmall"
             variant="outlined"
             leading-icon="color-picker"
             aria-label="Open color picker"
-            :disabled="props.disabled"
+            :disabled="props.disabled || props.readonly"
             :title="open ? 'Close color picker' : 'Open color picker'"
           />
         </template>
