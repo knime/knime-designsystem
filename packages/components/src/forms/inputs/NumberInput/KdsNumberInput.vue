@@ -2,7 +2,7 @@
 import { computed, ref, watch } from "vue";
 
 import KdsButton from "../../../buttons/KdsButton/KdsButton.vue";
-import BaseFormFieldWrapper from "../../BaseFormFieldWrapper.vue";
+import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
 import BaseInput from "../BaseInput.vue";
 import type { KdsNumberInputProps } from "../types";
 

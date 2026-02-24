@@ -1,35 +1,59 @@
 <script setup lang="ts">
-import KdsIcon from "../../accessories/Icon/KdsIcon.vue";
+import { ref, useTemplateRef } from "vue";
 
+import KdsIcon from "../../../accessories/Icon/KdsIcon.vue";
+import KdsPopover from "../../../overlays/Popover/KdsPopover.vue";
+
+import InfoPopover from "./InfoPopover.vue";
 import type { KdsInfoToggleButtonProps } from "./types";
 
+/**
+ * @slot default - Custom content for the popover. When provided, overrides the `content` prop.
+ */
+
 const props = withDefaults(defineProps<KdsInfoToggleButtonProps>(), {
-  disabled: false,
   hidden: false,
 });
 
 const TITLE = "Click for more information";
 
 const modelValue = defineModel<boolean>({ default: false });
+const buttonEl = useTemplateRef("buttonEl");
+const isHovered = ref(false);
+const isFocused = ref(false);
 </script>
 
 <template>
   <button
+    ref="buttonEl"
+    v-bind="$attrs"
     :class="{
       'info-toggle-button': true,
       selected: modelValue,
-      disabled: props.disabled,
-      hidden: props.hidden && !modelValue,
+      hidden: props.hidden && !modelValue && !isHovered && !isFocused,
     }"
-    :disabled="props.disabled"
     :title="TITLE"
     :aria-label="TITLE"
     :aria-pressed="modelValue"
     type="button"
     @click="modelValue = !modelValue"
+    @mouseenter="isHovered = true"
+    @mouseleave="isHovered = false"
+    @focus="isFocused = true"
+    @blur="isFocused = false"
   >
-    <KdsIcon name="circle-question" size="xsmall" />
+    <KdsIcon name="circle-question" size="small" />
   </button>
+
+  <KdsPopover
+    v-model="modelValue"
+    :activator-el="buttonEl"
+    placement="top-right"
+  >
+    <InfoPopover :content="props.content">
+      <slot />
+    </InfoPopover>
+  </KdsPopover>
 </template>
 
 <style scoped>
@@ -44,8 +68,8 @@ const modelValue = defineModel<boolean>({ default: false });
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  width: var(--kds-dimension-component-width-0-75x);
-  height: var(--kds-dimension-component-height-0-75x);
+  width: var(--kds-dimension-component-width-1x);
+  height: var(--kds-dimension-component-height-1x);
   padding: 0;
   color: var(--icon-color);
   cursor: pointer;
@@ -54,7 +78,7 @@ const modelValue = defineModel<boolean>({ default: false });
   border-radius: var(--kds-border-radius-container-0-12x);
   opacity: 1;
 
-  &.hidden:not(:focus-visible, :hover, .disabled) {
+  &.hidden {
     opacity: 0;
   }
 
@@ -63,11 +87,11 @@ const modelValue = defineModel<boolean>({ default: false });
     outline-offset: var(--kds-spacing-offset-focus);
   }
 
-  &:hover:not(.disabled) {
+  &:hover {
     background-color: var(--bg-hover);
   }
 
-  &:active:not(.disabled) {
+  &:active {
     background-color: var(--bg-active);
   }
 
@@ -77,16 +101,6 @@ const modelValue = defineModel<boolean>({ default: false });
     --bg-active: var(--kds-color-background-selected-active);
     --border: var(--kds-border-action-selected);
     --icon-color: var(--kds-color-text-and-icon-selected);
-  }
-
-  &.disabled {
-    --icon-color: var(--kds-color-text-and-icon-disabled);
-
-    cursor: default;
-  }
-
-  &.selected.disabled {
-    --border: var(--kds-border-action-disabled);
   }
 }
 </style>

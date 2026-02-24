@@ -3,14 +3,9 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { expect, userEvent, within } from "storybook/test";
 
 import { KdsToggleButton } from "../../buttons";
-import {
-  buildDesignComparatorStory,
-  buildTextOverflowStory,
-} from "../../test-utils/storybook";
 
 import KdsPopover from "./KdsPopover.vue";
-import PopoverDemo from "./PopoverDemo.vue";
-import { kdsPopoverPlacements } from "./enums";
+import { kdsPopoverPlacements, kdsPopoverRoles } from "./enums";
 
 const meta: Meta<typeof KdsPopover> = {
   title: "Overlays/KdsPopover",
@@ -22,19 +17,34 @@ const meta: Meta<typeof KdsPopover> = {
       table: { category: "Model" },
     },
     activatorEl: {
-      table: { category: "Props" },
+      control: false,
     },
     anchorEl: {
-      table: { category: "Props" },
+      control: false,
     },
     placement: {
       control: { type: "select" },
       options: kdsPopoverPlacements,
-      table: { category: "Props" },
+    },
+    role: {
+      control: { type: "select" },
+      options: kdsPopoverRoles,
+      description: "ARIA role of the popover element.",
+    },
+    content: {
+      control: { type: "text" },
+      description:
+        "Optional text content rendered inside the popover. Overridden by the default slot.",
+    },
+    fullWidth: {
+      control: { type: "boolean" },
+      description:
+        "When true, the popover's minimum width matches the anchor element's width.",
     },
     default: {
-      control: { type: "text" },
-      description: "Default slot content rendered inside the popover.",
+      control: false,
+      description:
+        "Default slot content rendered inside the popover. When provided, overrides the `content` prop.",
       table: { category: "Slots" },
     },
   },
@@ -42,20 +52,23 @@ const meta: Meta<typeof KdsPopover> = {
     modelValue: false,
     activatorEl: null,
     anchorEl: null,
-    placement: "bottom-right",
-    default: "This is a basic popover example.",
+    content: "This is a basic popover example.",
+    placement: "bottom-left",
+    role: "dialog",
+    fullWidth: false,
   },
   parameters: {
     docs: {
       description: {
         component: `Positioned popover container based on the native Popover API and CSS anchor positioning.
 
-**Note:** The popover does not include any padding. Padding must be set by the embedded container.
+KdsPopover provides default KDS surface styling when using the \`content\` prop.
+For custom content, use the default slot.
 
 Automatically sets the following a11y attributes on the activatorEl:
 - \`aria-expanded\` – synced with the open state
 - \`aria-controls\` – points to the popover's ID
-- \`aria-haspopup="dialog"\` – indicates the element controls a dialog
+- \`aria-haspopup\` – indicates the element controls a popup
 
 Sample usage:
 \`\`\`vue
@@ -72,17 +85,13 @@ const activatorEl = useTemplateRef("activatorEl");
     ref="activatorEl"
     v-model="isOpen"
     label="Toggle popover"
-    variant="outlined"
   />
 
   <KdsPopover
     v-model="isOpen"
     :activator-el="activatorEl"
-    placement="bottom-right"
   >
-    <div style="padding: var(--kds-spacing-container-0-75x)">
-      Popover content goes here.
-    </div>
+    ...custom popover content here...
   </KdsPopover>
 </template>
 \`\`\`
@@ -99,7 +108,6 @@ const activatorEl = useTemplateRef("activatorEl");
 export default meta;
 
 type Story = StoryObj<typeof KdsPopover>;
-type DemoStory = StoryObj<typeof PopoverDemo>;
 
 export const Default: Story = {
   render: (args) => ({
@@ -121,12 +129,11 @@ export const Default: Story = {
         v-model="args.modelValue"
         :activator-el="activatorEl"
         :placement="args.placement"
+        :content="args.content"
+        :role="args.role"
+        :full-width="args.fullWidth"
         data-testid="popover"
-      >
-        <div style="padding: var(--kds-spacing-container-0-75x)">
-          {{ args.default }}
-        </div>
-      </KdsPopover>
+      />
     `,
   }),
   play: async ({ canvasElement }) => {
@@ -135,7 +142,7 @@ export const Default: Story = {
     const popover = canvas.getByTestId("popover");
 
     // Initially popover should not be visible
-    expect(popover).not.toBeVisible();
+    await expect(popover).not.toBeVisible();
 
     // Activator (which is also the anchor) should have correct a11y attributes
     expect(toggleButton).toHaveAttribute("aria-haspopup", "dialog");
@@ -149,23 +156,24 @@ export const Default: Story = {
 
     // Click to open
     await userEvent.click(toggleButton);
-    expect(popover).toBeVisible();
-    expect(toggleButton).toHaveAttribute("aria-haspopup", "dialog");
-    expect(toggleButton).toHaveAttribute("aria-controls", popover.id);
-    expect(toggleButton).toHaveAttribute("aria-expanded", "true");
+    await expect(popover).toBeVisible();
+    await expect(popover).toHaveAttribute("role", "dialog");
+    await expect(toggleButton).toHaveAttribute("aria-haspopup", "dialog");
+    await expect(toggleButton).toHaveAttribute("aria-controls", popover.id);
+    await expect(toggleButton).toHaveAttribute("aria-expanded", "true");
 
     // Click to close
     await userEvent.click(toggleButton);
-    expect(popover).not.toBeVisible();
-    expect(toggleButton).toHaveAttribute("aria-haspopup", "dialog");
-    expect(toggleButton).toHaveAttribute("aria-controls", popover.id);
-    expect(toggleButton).toHaveAttribute("aria-expanded", "false");
+    await expect(popover).not.toBeVisible();
+    await expect(toggleButton).toHaveAttribute("aria-haspopup", "dialog");
+    await expect(toggleButton).toHaveAttribute("aria-controls", popover.id);
+    await expect(toggleButton).toHaveAttribute("aria-expanded", "false");
   },
 };
 
-export const DifferentPopoverPosition: Story = {
+export const DifferentPlacement: Story = {
   args: {
-    placement: "top-left",
+    placement: "top-right",
   },
   render: (args) => ({
     components: { KdsToggleButton, KdsPopover },
@@ -185,11 +193,10 @@ export const DifferentPopoverPosition: Story = {
         v-model="args.modelValue"
         :activator-el="activatorEl"
         :placement="args.placement"
-      >
-        <div style="padding: var(--kds-spacing-container-0-75x)">
-          {{ args.default }}
-        </div>
-      </KdsPopover>
+        :content="args.content"
+        :role="args.role"
+        :full-width="args.fullWidth"
+      />
     `,
   }),
 };
@@ -229,13 +236,10 @@ export const SeparateAnchorEl: Story = {
         v-model="open"
         :activator-el="activatorEl"
         :anchor-el="anchorEl"
-        placement="bottom-right"
+        placement="bottom-left"
+        content="This popover is anchored to a separate element."
         data-testid="popover"
-      >
-        <div style="padding: var(--kds-spacing-container-0-75x)">
-          This popover is anchored to a separate element.
-        </div>
-      </KdsPopover>
+      />
     `,
   }),
   play: async ({ canvasElement }) => {
@@ -245,7 +249,7 @@ export const SeparateAnchorEl: Story = {
     const popover = canvas.getByTestId("popover");
 
     // Initially popover should not be visible
-    expect(popover).not.toBeVisible();
+    await expect(popover).not.toBeVisible();
 
     // A11y attributes should be on the activator, NOT the anchor
     expect(toggleButton).toHaveAttribute("aria-haspopup", "dialog");
@@ -265,20 +269,20 @@ export const SeparateAnchorEl: Story = {
 
     // Click to open
     await userEvent.click(toggleButton);
-    expect(popover).toBeVisible();
-    expect(toggleButton).toHaveAttribute("aria-expanded", "true");
+    await expect(popover).toBeVisible();
+    await expect(toggleButton).toHaveAttribute("aria-expanded", "true");
 
     // Anchor should still not have a11y attributes after open
     expect(anchorElement).not.toHaveAttribute("aria-expanded");
 
     // Click to close
     await userEvent.click(toggleButton);
-    expect(popover).not.toBeVisible();
-    expect(toggleButton).toHaveAttribute("aria-expanded", "false");
+    await expect(popover).not.toBeVisible();
+    await expect(toggleButton).toHaveAttribute("aria-expanded", "false");
   },
 };
 
-export const Inline: DemoStory = {
+export const Inline: Story = {
   parameters: {
     docs: {
       description: {
@@ -297,45 +301,70 @@ export const Inline: DemoStory = {
       <div style="display: flex">
         <KdsPopover
           :activator-el="activatorEl"
-          placement="bottom-right"
-        >
-          <div style="padding: var(--kds-spacing-container-0-75x)">
-            This popover is rendered inline because the activator ref is null.
-          </div>
-        </KdsPopover>
+          content="This popover is rendered inline because the activator ref is null."
+        />
       </div>
     `,
   }),
 };
 
-// AllCombinations story is not applicable for KdsPopover as it has no visual prop variants and requires an activator element
-
-export const DesignComparator: DemoStory = {
-  ...buildDesignComparatorStory({
-    component: PopoverDemo,
-    designsToCompare: {
-      Default: {
-        props: {
-          content:
-            "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large.",
-          style: "max-width: 353px",
-        },
-        variants: {
-          "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=8522-305454":
-            { parameters: { figmaOffset: { x: -20, y: -16 } } },
-        },
+export const FullWidth: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "When `fullWidth` is true, the popover's minimum width matches the anchor element's width. This is useful for dropdown menus or autocomplete popovers.",
       },
     },
-  }),
-};
-
-export const TextOverflow: DemoStory = {
-  ...buildTextOverflowStory({
-    component: PopoverDemo,
-    width: 240,
-  }),
+  },
   args: {
-    content:
-      "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large.",
+    fullWidth: true,
+    content: "This popover matches the anchor width.",
+  },
+  render: (args) => ({
+    components: { KdsToggleButton, KdsPopover },
+    setup() {
+      const activatorEl = ref<HTMLButtonElement | null>(null);
+      return { args, activatorEl };
+    },
+    template: `
+      <KdsToggleButton
+        ref="activatorEl"
+        v-model="args.modelValue"
+        label="Wide toggle button as anchor"
+        variant="outlined"
+        style="min-width: 400px;"
+        data-testid="toggle-button"
+      />
+
+      <KdsPopover
+        v-model="args.modelValue"
+        :activator-el="activatorEl"
+        :placement="args.placement"
+        :content="args.content"
+        :full-width="args.fullWidth"
+        data-testid="popover"
+      />
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const toggleButton = canvas.getByTestId("toggle-button");
+    const popover = canvas.getByTestId("popover");
+
+    // Click to open
+    await userEvent.click(toggleButton);
+    await expect(popover).toBeVisible();
+
+    // The popover should have the same width as the anchor
+    const anchorWidth = toggleButton.getBoundingClientRect().width;
+    const popoverWidth = popover.getBoundingClientRect().width;
+    expect(popoverWidth).toBeGreaterThanOrEqual(anchorWidth);
   },
 };
+
+// TextOverflow story is not applicable for KdsPopover as it has no text content or visual prop variants
+
+// DesignComparator story is not applicable for KdsPopover as it has no visual prop variants and requires an activator element
+
+// AllCombinations story is not applicable for KdsPopover as it has no visual prop variants and requires an activator element

@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref, useTemplateRef } from "vue";
 
-import KdsIcon from "../../accessories/Icon/KdsIcon.vue";
+import KdsIcon from "../../../accessories/Icon/KdsIcon.vue";
+import KdsPopover from "../../../overlays/Popover/KdsPopover.vue";
 
-import type { KdsVariableToggleButtonProps } from "./types";
+import VariablePopover from "./VariablePopover.vue";
+import type { KdsVariableToggleButtonProps } from "./types.ts";
+
+/**
+ * @slot default - Custom content for the popover. When provided, overrides the `content` prop.
+ */
 
 const props = withDefaults(defineProps<KdsVariableToggleButtonProps>(), {
-  disabled: false,
   inSet: false,
   outSet: false,
   error: false,
@@ -14,6 +19,9 @@ const props = withDefaults(defineProps<KdsVariableToggleButtonProps>(), {
 });
 
 const modelValue = defineModel<boolean>({ default: false });
+const buttonEl = useTemplateRef("buttonEl");
+const isHovered = ref(false);
+const isFocused = ref(false);
 
 const iconState = computed(() => {
   if (props.inSet && props.outSet) {
@@ -69,22 +77,36 @@ const title = computed(() => {
 
 <template>
   <button
+    ref="buttonEl"
+    v-bind="$attrs"
     :class="{
       'variable-toggle-button': true,
-      disabled: props.disabled,
       error: props.error,
       'pressed-or-set': modelValue || props.inSet || props.outSet,
-      hidden: props.hidden && !modelValue,
+      hidden: props.hidden && !modelValue && !isHovered && !isFocused,
     }"
-    :disabled="props.disabled"
     :title="title"
     :aria-label="title"
     :aria-pressed="modelValue"
     type="button"
     @click="modelValue = !modelValue"
+    @mouseenter="isHovered = true"
+    @mouseleave="isHovered = false"
+    @focus="isFocused = true"
+    @blur="isFocused = false"
   >
-    <KdsIcon :name="iconName" size="xsmall" />
+    <KdsIcon :name="iconName" size="small" />
   </button>
+
+  <KdsPopover
+    v-model="modelValue"
+    :activator-el="buttonEl"
+    placement="bottom-right"
+  >
+    <VariablePopover :content="props.content">
+      <slot />
+    </VariablePopover>
+  </KdsPopover>
 </template>
 
 <style scoped>
@@ -99,8 +121,8 @@ const title = computed(() => {
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  width: var(--kds-dimension-component-width-0-75x);
-  height: var(--kds-dimension-component-height-0-75x);
+  width: var(--kds-dimension-component-width-1x);
+  height: var(--kds-dimension-component-height-1x);
   padding: 0;
   color: var(--icon-color);
   cursor: pointer;
@@ -109,7 +131,7 @@ const title = computed(() => {
   border-radius: var(--kds-border-radius-container-0-12x);
   opacity: 1;
 
-  &.hidden:not(:focus-visible, :hover, .disabled) {
+  &.hidden {
     opacity: 0;
   }
 
@@ -118,11 +140,11 @@ const title = computed(() => {
     outline-offset: var(--kds-spacing-offset-focus);
   }
 
-  &:hover:not(.disabled) {
+  &:hover {
     background-color: var(--bg-hover);
   }
 
-  &:active:not(.disabled) {
+  &:active {
     background-color: var(--bg-active);
   }
 
@@ -140,16 +162,6 @@ const title = computed(() => {
     --bg-active: var(--kds-color-background-danger-active);
     --border: var(--kds-border-action-error);
     --icon-color: var(--kds-color-text-and-icon-danger);
-  }
-
-  &.disabled {
-    --icon-color: var(--kds-color-text-and-icon-disabled);
-
-    cursor: default;
-
-    &.pressed-or-set {
-      --border: var(--kds-border-action-disabled);
-    }
   }
 }
 </style>

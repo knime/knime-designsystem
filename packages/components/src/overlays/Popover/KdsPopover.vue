@@ -5,7 +5,9 @@ import { onBeforeUnmount, unref, useId, useTemplateRef, watch } from "vue";
 import type { KdsPopoverProps } from "./types";
 
 const props = withDefaults(defineProps<KdsPopoverProps>(), {
-  placement: "bottom-right",
+  placement: "bottom-left",
+  role: "dialog",
+  fullWidth: false,
 });
 
 const open = defineModel<boolean>({ default: false });
@@ -44,7 +46,7 @@ const setA11yAttributes = (
 
   el.setAttribute("aria-expanded", String(options.expanded));
   el.setAttribute("aria-controls", options.popoverId);
-  el.setAttribute("aria-haspopup", "dialog");
+  el.setAttribute("aria-haspopup", props.role);
 };
 
 // Sync the open state with the native popover element's open state
@@ -99,93 +101,115 @@ onBeforeUnmount(() => {
     :id="popoverId"
     ref="popoverEl"
     class="kds-popover"
-    :class="['floating', props.placement]"
+    :class="['floating', props.placement, { 'full-width': props.fullWidth }]"
     :popover="unref(props.activatorEl) ? 'auto' : undefined"
     :style="{ 'position-anchor': anchorName }"
-    role="dialog"
+    :role="props.role"
     @toggle="open = $event.newState === 'open'"
   >
-    <slot />
+    <slot v-if="open">
+      <div
+        v-if="props.content?.trim().length"
+        class="kds-popover-default-content"
+      >
+        {{ props.content }}
+      </div>
+    </slot>
   </div>
 </template>
 
 <style scoped>
 .kds-popover {
   padding: 0;
+  margin: 0;
   overflow: visible;
-  font: var(--kds-font-base-body-small);
-  color: var(--kds-color-text-and-icon-neutral);
-  background: var(--kds-color-surface-default);
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
   border: none;
-  border-radius: var(--kds-border-radius-container-0-37x);
-  box-shadow: var(--kds-elevation-level-3);
+  border-radius: 0;
+  box-shadow: none;
 
-  /* noinspection CssInvalidFunction,CssInvalidAtRule */
-  &.floating.top-left {
-    inset: auto anchor(right) anchor(top) auto;
-    margin: var(--kds-spacing-container-0-25x) 0
-      var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x);
-    position-try-fallbacks:
-      --kds-popover-try-top-right, --kds-popover-try-bottom-left,
-      --kds-popover-try-bottom-right, --kds-popover-try-top-left;
+  /* noinspection CssInvalidFunction */
+  &.full-width {
+    min-inline-size: anchor-size(width);
   }
 
   /* noinspection CssInvalidFunction,CssInvalidAtRule */
   &.floating.top-right {
-    inset: auto auto anchor(top) anchor(left);
-    margin: var(--kds-spacing-container-0-25x)
-      var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x) 0;
+    inset: auto anchor(right) anchor(top) auto;
+    margin: var(--kds-spacing-container-0-25x) 0
+      var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x);
     position-try-fallbacks:
       --kds-popover-try-top-left, --kds-popover-try-bottom-right,
       --kds-popover-try-bottom-left, --kds-popover-try-top-right;
   }
 
   /* noinspection CssInvalidFunction,CssInvalidAtRule */
-  &.floating.bottom-left {
-    inset: anchor(bottom) anchor(right) auto auto;
-    margin: var(--kds-spacing-container-0-25x) 0
-      var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x);
+  &.floating.top-left {
+    inset: auto auto anchor(top) anchor(left);
+    margin: var(--kds-spacing-container-0-25x)
+      var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x) 0;
     position-try-fallbacks:
-      --kds-popover-try-bottom-right, --kds-popover-try-top-left,
-      --kds-popover-try-top-right, --kds-popover-try-bottom-left;
+      --kds-popover-try-top-right, --kds-popover-try-bottom-left,
+      --kds-popover-try-bottom-right, --kds-popover-try-top-left;
   }
 
   /* noinspection CssInvalidFunction,CssInvalidAtRule */
   &.floating.bottom-right {
-    inset: anchor(bottom) auto auto anchor(left);
-    margin: var(--kds-spacing-container-0-25x)
-      var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x) 0;
+    inset: anchor(bottom) anchor(right) auto auto;
+    margin: var(--kds-spacing-container-0-25x) 0
+      var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x);
     position-try-fallbacks:
       --kds-popover-try-bottom-left, --kds-popover-try-top-right,
       --kds-popover-try-top-left, --kds-popover-try-bottom-right;
   }
+
+  /* noinspection CssInvalidFunction,CssInvalidAtRule */
+  &.floating.bottom-left {
+    inset: anchor(bottom) auto auto anchor(left);
+    margin: var(--kds-spacing-container-0-25x)
+      var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x) 0;
+    position-try-fallbacks:
+      --kds-popover-try-bottom-right, --kds-popover-try-top-left,
+      --kds-popover-try-top-right, --kds-popover-try-bottom-left;
+  }
 }
 
 /* noinspection CssInvalidFunction,CssInvalidAtRule */
-@position-try --kds-popover-try-top-left {
+@position-try --kds-popover-try-top-right {
   inset: auto anchor(right) anchor(top) auto;
   margin: var(--kds-spacing-container-0-25x) 0
     var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x);
 }
 
 /* noinspection CssInvalidFunction,CssInvalidAtRule */
-@position-try --kds-popover-try-top-right {
+@position-try --kds-popover-try-top-left {
   inset: auto auto anchor(top) anchor(left);
   margin: var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x)
     var(--kds-spacing-container-0-25x) 0;
 }
 
 /* noinspection CssInvalidFunction,CssInvalidAtRule */
-@position-try --kds-popover-try-bottom-left {
+@position-try --kds-popover-try-bottom-right {
   inset: anchor(bottom) anchor(right) auto auto;
   margin: var(--kds-spacing-container-0-25x) 0
     var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x);
 }
 
 /* noinspection CssInvalidFunction,CssInvalidAtRule */
-@position-try --kds-popover-try-bottom-right {
+@position-try --kds-popover-try-bottom-left {
   inset: anchor(bottom) auto auto anchor(left);
   margin: var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x)
     var(--kds-spacing-container-0-25x) 0;
+}
+
+.kds-popover-default-content {
+  padding: var(--kds-spacing-container-0-75x);
+  font: var(--kds-font-base-body-small);
+  color: var(--kds-color-text-and-icon-neutral);
+  background-color: var(--kds-color-surface-default);
+  border-radius: var(--kds-border-radius-container-0-37x);
+  box-shadow: var(--kds-elevation-level-3);
 }
 </style>

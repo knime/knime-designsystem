@@ -2,7 +2,7 @@
 import { computed, useTemplateRef, watch } from "vue";
 import { useResizeObserver } from "@vueuse/core";
 
-import BaseFormFieldWrapper from "../../BaseFormFieldWrapper.vue";
+import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
 import type { KdsTextareaProps } from "../types";
 
 const props = withDefaults(defineProps<KdsTextareaProps>(), {

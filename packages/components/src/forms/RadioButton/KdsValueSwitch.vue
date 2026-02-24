@@ -2,8 +2,8 @@
 import { computed, useId, useTemplateRef } from "vue";
 import { useElementSize } from "@vueuse/core";
 
-import KdsLabel from "../KdsLabel.vue";
-import KdsSubText from "../KdsSubText.vue";
+import KdsLabel from "../_helper/KdsLabel.vue";
+import KdsSubText from "../_helper/KdsSubText.vue";
 
 import ValueSwitchItem from "./ValueSwitchItem.vue";
 import type { KdsValueSwitchOption, KdsValueSwitchProps } from "./types";
