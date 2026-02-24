@@ -12,7 +12,6 @@ import type { KdsInfoToggleButtonProps } from "./types";
  */
 
 const props = withDefaults(defineProps<KdsInfoToggleButtonProps>(), {
-  disabled: false,
   hidden: false,
 });
 
@@ -29,10 +28,8 @@ const buttonEl = useTemplateRef("buttonEl");
     :class="{
       'info-toggle-button': true,
       selected: modelValue,
-      disabled: props.disabled,
       hidden: props.hidden && !modelValue,
     }"
-    :disabled="props.disabled"
     :title="TITLE"
     :aria-label="TITLE"
     :aria-pressed="modelValue"
@@ -75,7 +72,7 @@ const buttonEl = useTemplateRef("buttonEl");
   border-radius: var(--kds-border-radius-container-0-12x);
   opacity: 1;
 
-  &.hidden:not(:focus, :focus-visible, :hover, .disabled) {
+  &.hidden:not(:focus, :focus-visible, :hover) {
     opacity: 0;
   }
 
@@ -84,11 +81,11 @@ const buttonEl = useTemplateRef("buttonEl");
     outline-offset: var(--kds-spacing-offset-focus);
   }
 
-  &:hover:not(.disabled) {
+  &:hover {
     background-color: var(--bg-hover);
   }
 
-  &:active:not(.disabled) {
+  &:active {
     background-color: var(--bg-active);
   }
 
@@ -98,16 +95,6 @@ const buttonEl = useTemplateRef("buttonEl");
     --bg-active: var(--kds-color-background-selected-active);
     --border: var(--kds-border-action-selected);
     --icon-color: var(--kds-color-text-and-icon-selected);
-  }
-
-  &.disabled {
-    --icon-color: var(--kds-color-text-and-icon-disabled);
-
-    cursor: default;
-  }
-
-  &.selected.disabled {
-    --border: var(--kds-border-action-disabled);
   }
 }
 </style>

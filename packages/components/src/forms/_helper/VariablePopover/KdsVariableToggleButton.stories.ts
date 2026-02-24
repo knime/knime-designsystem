@@ -36,7 +36,6 @@ const meta: Meta<typeof KdsVariableToggleButton> = {
     inSet: { control: "boolean", table: { category: "Props" } },
     outSet: { control: "boolean", table: { category: "Props" } },
     error: { control: "boolean", table: { category: "Props" } },
-    disabled: { control: "boolean", table: { category: "Props" } },
     hidden: { control: "boolean", table: { category: "Props" } },
     default: {
       control: false,
@@ -51,7 +50,6 @@ const meta: Meta<typeof KdsVariableToggleButton> = {
     inSet: false,
     outSet: false,
     error: false,
-    disabled: false,
     hidden: false,
   },
 };
@@ -75,12 +73,6 @@ export const Default: Story = {
 
     await userEvent.click(getButton());
     await expect(getButton()).toHaveAttribute("aria-pressed", "false");
-  },
-};
-
-export const Disabled: Story = {
-  args: {
-    disabled: true,
   },
 };
 
@@ -168,7 +160,6 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       inSet: [false, true],
       outSet: [false, true],
       error: [false, true],
-      disabled: [false, true],
       modelValue: [false, true],
     },
   ],
@@ -187,8 +178,6 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           { parameters: { pseudo: { hover: true } } },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261536":
           { parameters: { pseudo: { active: true } } },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261608":
-          { disabled: true },
       },
     },
     "In Variable": {
@@ -200,8 +189,6 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           { parameters: { pseudo: { hover: true } } },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261538":
           { parameters: { pseudo: { active: true } } },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261606":
-          { disabled: true },
       },
     },
     "Out Variable": {
@@ -213,8 +200,6 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           { parameters: { pseudo: { hover: true } } },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261540":
           { parameters: { pseudo: { active: true } } },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261604":
-          { disabled: true },
       },
     },
     "In + Out Variable": {
@@ -226,8 +211,6 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           { parameters: { pseudo: { hover: true } } },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261542":
           { parameters: { pseudo: { active: true } } },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261602":
-          { disabled: true },
       },
     },
     "Error (In)": {
@@ -239,8 +222,6 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           { parameters: { pseudo: { hover: true } } },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261678":
           { parameters: { pseudo: { active: true } } },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261696":
-          { disabled: true },
       },
     },
     "Error (Out)": {
@@ -252,8 +233,6 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           { parameters: { pseudo: { hover: true } } },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261673":
           { parameters: { pseudo: { active: true } } },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-261694":
-          { disabled: true },
       },
     },
   },

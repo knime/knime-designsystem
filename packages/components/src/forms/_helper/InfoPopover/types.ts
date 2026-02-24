@@ -4,15 +4,10 @@ export type KdsInfoToggleButtonProps = {
    */
   content?: string;
   /**
-   * If set to true, the button is disabled and cannot be interacted with.
-   */
-  disabled?: boolean;
-  /**
    * If set to true, the button is hidden when not focused or hovered.
    */
   hidden?: boolean;
 };
 
-// KdsInfoToggleButton supports disabled and hidden
-propTypeTester<KdsInfoToggleButtonProps>({ disabled: true });
+// KdsInfoToggleButton supports hidden
 propTypeTester<KdsInfoToggleButtonProps>({ hidden: true });

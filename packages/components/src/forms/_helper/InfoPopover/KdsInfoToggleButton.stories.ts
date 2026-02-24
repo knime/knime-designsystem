@@ -31,7 +31,6 @@ const meta = {
   argTypes: {
     modelValue: { control: { type: "boolean" }, table: { category: "Model" } },
     content: { control: { type: "text" }, table: { category: "Props" } },
-    disabled: { control: "boolean", table: { category: "Props" } },
     hidden: { control: "boolean", table: { category: "Props" } },
     default: {
       control: false,
@@ -43,7 +42,6 @@ const meta = {
   args: {
     modelValue: false,
     content: SAMPLE_CONTENT,
-    disabled: false,
     hidden: false,
   },
 } satisfies Meta<typeof KdsInfoToggleButton>;
@@ -67,12 +65,6 @@ export const Default: Story = {
 
     await userEvent.click(getButton());
     await expect(getButton()).toHaveAttribute("aria-pressed", "false");
-  },
-};
-
-export const Disabled: Story = {
-  args: {
-    disabled: true,
   },
 };
 
@@ -121,8 +113,6 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           { parameters: { pseudo: { hover: true } } },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219244":
           { parameters: { pseudo: { active: true } } },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219248":
-          { disabled: true },
       },
     },
     Selected: {
@@ -136,8 +126,6 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           { parameters: { pseudo: { hover: true } } },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219236":
           { parameters: { pseudo: { active: true } } },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6837-219240":
-          { disabled: true },
       },
     },
   },
@@ -148,7 +136,6 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   combinationsProps: [
     {
       modelValue: [false, true],
-      disabled: [false, true],
     },
   ],
   pseudoStates: ["hover", "active", "focus-visible"],
