@@ -1,7 +1,9 @@
+import { useTemplateRef } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
 
+import KdsButton from "../../../buttons/KdsButton/KdsButton.vue";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
@@ -44,6 +46,13 @@ const meta: Meta<typeof KdsNumberInput> = {
     },
     label: {
       control: "text",
+      table: { category: "Props" },
+    },
+    description: {
+      control: "text",
+      description:
+        "Optional description displayed in an info popover next to the label. " +
+        "The info toggle button is only visible when hovering the input field.",
       table: { category: "Props" },
     },
     placeholder: {
@@ -110,6 +119,7 @@ const meta: Meta<typeof KdsNumberInput> = {
   args: {
     modelValue: NaN,
     label: "Label",
+    description: "",
     ariaLabel: undefined,
     placeholder: "",
     name: "",
@@ -186,6 +196,34 @@ export const Readonly: Story = {
   },
 };
 
+export const WithDescription: Story = {
+  args: {
+    placeholder: "Enter number",
+    unit: "ms",
+    description:
+      "This is a helpful description that explains what this field is for. " +
+      "It appears in a popover when clicking the info button.",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const input = canvas.getByRole("spinbutton", { name: /label/i });
+    await userEvent.hover(input);
+
+    const infoButton = await canvas.findByRole("button", {
+      name: "Click for more information",
+    });
+    await expect(infoButton).toBeInTheDocument();
+
+    await userEvent.click(infoButton);
+
+    const description = await canvas.findByText(
+      /This is a helpful description that explains what this field is for\./i,
+    );
+    await expect(description).toBeInTheDocument();
+  },
+};
+
 export const WithError: Story = {
   args: {
     modelValue: 42,
@@ -201,6 +239,43 @@ export const Validating: Story = {
     unit: "ms",
     validating: true,
     subText: "Validation message",
+  },
+};
+
+export const ProgrammaticFocus: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates how to programmatically focus the number input using the exposed `focus()` method via a template ref.",
+      },
+    },
+  },
+  render: () => ({
+    components: { KdsNumberInput, KdsButton },
+    setup() {
+      const numberInputRef =
+        useTemplateRef<InstanceType<typeof KdsNumberInput>>("numberInputRef");
+      const handleFocusClick = () => {
+        numberInputRef.value?.focus();
+      };
+      return { handleFocusClick };
+    },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 16px; max-width: 300px;">
+        <KdsNumberInput ref="numberInputRef" label="Number Input" />
+        <KdsButton @click="handleFocusClick" label="Focus Number Input" />
+      </div>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button", { name: "Focus Number Input" });
+    const input = canvas.getByRole("spinbutton", { name: "Number Input" });
+
+    await expect(input).not.toHaveFocus();
+    await userEvent.click(button);
+    await expect(input).toHaveFocus();
   },
 };
 

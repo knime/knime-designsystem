@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
+import { computed, ref, useTemplateRef, watch } from "vue";
 
 import KdsButton from "../../../buttons/KdsButton/KdsButton.vue";
 import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
+import type { KdsFormFieldExpose } from "../../types.ts";
 import BaseInput from "../BaseInput.vue";
 import type { KdsNumberInputProps } from "../types";
 
@@ -159,12 +160,19 @@ const handleBlur = () => {
   modelValue.value = normalized;
   localValue.value = numberParser.value.formatForDisplay(normalized);
 };
+
+const baseInput = useTemplateRef("baseInput");
+
+defineExpose<KdsFormFieldExpose>({
+  focus: () => baseInput.value?.focus(),
+});
 </script>
 
 <template>
   <BaseFormFieldWrapper v-bind="props">
     <template #default="slotProps">
       <BaseInput
+        ref="baseInput"
         v-bind="slotProps"
         :model-value="localValue"
         type="text"

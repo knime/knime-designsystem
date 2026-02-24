@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
+import { computed, ref, useTemplateRef, watch } from "vue";
 
 import KdsToggleButton from "../../../buttons/KdsToggleButton/KdsToggleButton.vue";
 import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
+import type { KdsFormFieldExpose } from "../../types.ts";
 import BaseInput from "../BaseInput.vue";
 import type { KdsPatternInputProps } from "../types.ts";
 
@@ -58,12 +59,19 @@ const excludeMatchesAriaLabel = computed(() =>
 const patternModeAriaLabel = computed(() =>
   useRegex.value ? "Use regex pattern" : "Use wildcard pattern",
 );
+
+const baseInput = useTemplateRef("baseInput");
+
+defineExpose<KdsFormFieldExpose>({
+  focus: () => baseInput.value?.focus(),
+});
 </script>
 
 <template>
   <BaseFormFieldWrapper v-bind="props">
     <template #default="slotProps">
       <BaseInput
+        ref="baseInput"
         v-bind="slotProps"
         v-model="uiValue"
         type="text"

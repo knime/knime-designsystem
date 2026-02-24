@@ -2,6 +2,7 @@
 import { useTemplateRef } from "vue";
 
 import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
+import type { KdsFormFieldExpose } from "../../types.ts";
 import BaseInput from "../BaseInput.vue";
 import type { KdsSearchInputProps } from "../types";
 
@@ -17,13 +18,10 @@ const props = withDefaults(defineProps<KdsSearchInputProps>(), {
 
 const modelValue = defineModel<string>({ default: "" });
 
-const baseInputRef = useTemplateRef("baseInput");
+const baseInput = useTemplateRef("baseInput");
 
-defineExpose({
-  /**
-   * Focuses the input element
-   */
-  focus: () => baseInputRef.value?.focus(),
+defineExpose<KdsFormFieldExpose>({
+  focus: () => baseInput.value?.focus(),
 });
 </script>
 

@@ -1,7 +1,9 @@
+import { useTemplateRef } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
 
+import KdsButton from "../../../buttons/KdsButton/KdsButton.vue";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
@@ -221,6 +223,43 @@ export const NameAndAutocomplete: Story = {
     placeholder: "your@email.com",
     name: "email",
     autocomplete: "email",
+  },
+};
+
+export const ProgrammaticFocus: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates how to programmatically focus the text input using the exposed `focus()` method via a template ref.",
+      },
+    },
+  },
+  render: () => ({
+    components: { KdsTextInput, KdsButton },
+    setup() {
+      const textInputRef =
+        useTemplateRef<InstanceType<typeof KdsTextInput>>("textInputRef");
+      const handleFocusClick = () => {
+        textInputRef.value?.focus();
+      };
+      return { handleFocusClick };
+    },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 16px; max-width: 300px;">
+        <KdsTextInput ref="textInputRef" label="Text Input" />
+        <KdsButton @click="handleFocusClick" label="Focus Text Input" />
+      </div>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button", { name: "Focus Text Input" });
+    const input = canvas.getByRole("textbox", { name: "Text Input" });
+
+    await expect(input).not.toHaveFocus();
+    await userEvent.click(button);
+    await expect(input).toHaveFocus();
   },
 };
 

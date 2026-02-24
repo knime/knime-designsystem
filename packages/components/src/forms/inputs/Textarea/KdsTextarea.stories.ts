@@ -1,7 +1,9 @@
+import { useTemplateRef } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
 
+import KdsButton from "../../../buttons/KdsButton/KdsButton.vue";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
@@ -54,6 +56,13 @@ const meta: Meta<typeof KdsTextarea> = {
       description: "Id for associating labels and hint/error text",
       table: { category: "Props" },
     },
+    description: {
+      control: "text",
+      description:
+        "Optional description displayed in an info popover next to the label. " +
+        "The info toggle button is only visible when hovering the input field.",
+      table: { category: "Props" },
+    },
     placeholder: {
       control: "text",
       table: { category: "Props" },
@@ -104,6 +113,7 @@ const meta: Meta<typeof KdsTextarea> = {
     label: "Label",
     ariaLabel: undefined,
     id: "",
+    description: "",
     placeholder: "",
     rows: defaultRows,
     name: "",
@@ -194,6 +204,33 @@ export const Readonly: Story = {
   },
 };
 
+export const WithDescription: Story = {
+  args: {
+    placeholder: "Enter text",
+    description:
+      "This is a helpful description that explains what this field is for. " +
+      "It appears in a popover when clicking the info button.",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const textarea = canvas.getByRole("textbox", { name: /label/i });
+    await userEvent.hover(textarea);
+
+    const infoButton = await canvas.findByRole("button", {
+      name: "Click for more information",
+    });
+    await expect(infoButton).toBeInTheDocument();
+
+    await userEvent.click(infoButton);
+
+    const description = await canvas.findByText(
+      /This is a helpful description that explains what this field is for\./i,
+    );
+    await expect(description).toBeInTheDocument();
+  },
+};
+
 export const Disabled: Story = {
   args: {
     disabled: true,
@@ -263,6 +300,43 @@ export const ExternalLabel: Story = {
       </div>
     `,
   }),
+};
+
+export const ProgrammaticFocus: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates how to programmatically focus the textarea using the exposed `focus()` method via a template ref.",
+      },
+    },
+  },
+  render: () => ({
+    components: { KdsTextarea, KdsButton },
+    setup() {
+      const textareaRef =
+        useTemplateRef<InstanceType<typeof KdsTextarea>>("textareaRef");
+      const handleFocusClick = () => {
+        textareaRef.value?.focus();
+      };
+      return { handleFocusClick };
+    },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 16px; max-width: 300px;">
+        <KdsTextarea ref="textareaRef" label="Textarea" />
+        <KdsButton @click="handleFocusClick" label="Focus Textarea" />
+      </div>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button", { name: "Focus Textarea" });
+    const input = canvas.getByRole("textbox", { name: "Textarea" });
+
+    await expect(input).not.toHaveFocus();
+    await userEvent.click(button);
+    await expect(input).toHaveFocus();
+  },
 };
 
 export const AllCombinations: Story = buildAllCombinationsStory({

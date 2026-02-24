@@ -1,7 +1,9 @@
+import { useTemplateRef } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
 
+import KdsButton from "../../../buttons/KdsButton/KdsButton.vue";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
@@ -43,6 +45,13 @@ const meta: Meta<typeof KdsPatternInput> = {
     },
     label: {
       control: "text",
+      table: { category: "Props" },
+    },
+    description: {
+      control: "text",
+      description:
+        "Optional description displayed in an info popover next to the label. " +
+        "The info toggle button is only visible when hovering the input field.",
       table: { category: "Props" },
     },
     placeholder: {
@@ -90,6 +99,7 @@ const meta: Meta<typeof KdsPatternInput> = {
   args: {
     modelValue: "",
     label: "Pattern",
+    description: "",
     ariaLabel: undefined,
     placeholder: "",
     name: "",
@@ -156,6 +166,33 @@ export const Readonly: Story = {
   },
 };
 
+export const WithDescription: Story = {
+  args: {
+    placeholder: "^column([1-9]|10)$",
+    description:
+      "This is a helpful description that explains what this field is for. " +
+      "It appears in a popover when clicking the info button.",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const input = canvas.getByRole("textbox", { name: /pattern/i });
+    await userEvent.hover(input);
+
+    const infoButton = await canvas.findByRole("button", {
+      name: "Click for more information",
+    });
+    await expect(infoButton).toBeInTheDocument();
+
+    await userEvent.click(infoButton);
+
+    const description = await canvas.findByText(
+      /This is a helpful description that explains what this field is for\./i,
+    );
+    await expect(description).toBeInTheDocument();
+  },
+};
+
 export const WithError: Story = {
   args: {
     modelValue: "(",
@@ -169,6 +206,43 @@ export const Validating: Story = {
     modelValue: "^column([1-9]|10)$",
     validating: true,
     subText: "Validating pattern",
+  },
+};
+
+export const ProgrammaticFocus: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates how to programmatically focus the pattern input using the exposed `focus()` method via a template ref.",
+      },
+    },
+  },
+  render: () => ({
+    components: { KdsPatternInput, KdsButton },
+    setup() {
+      const patternInputRef =
+        useTemplateRef<InstanceType<typeof KdsPatternInput>>("patternInputRef");
+      const handleFocusClick = () => {
+        patternInputRef.value?.focus();
+      };
+      return { handleFocusClick };
+    },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 16px; max-width: 300px;">
+        <KdsPatternInput ref="patternInputRef" aria-label="Pattern" />
+        <KdsButton @click="handleFocusClick" label="Focus Pattern Input" />
+      </div>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button", { name: "Focus Pattern Input" });
+    const input = canvas.getByRole("textbox", { name: "Pattern" });
+
+    await expect(input).not.toHaveFocus();
+    await userEvent.click(button);
+    await expect(input).toHaveFocus();
   },
 };
 

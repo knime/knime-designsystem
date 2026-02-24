@@ -52,6 +52,13 @@ const meta: Meta<typeof KdsSearchInput> = {
       description: "Label shown above the input",
       table: { category: "Props" },
     },
+    description: {
+      control: "text",
+      description:
+        "Optional description displayed in an info popover next to the label. " +
+        "The info toggle button is only visible when hovering the input field.",
+      table: { category: "Props" },
+    },
     placeholder: {
       control: "text",
       description: "Placeholder shown when the input is empty",
@@ -100,6 +107,7 @@ const meta: Meta<typeof KdsSearchInput> = {
     modelValue: "",
     id: "",
     label: undefined,
+    description: "",
     ariaLabel: "Search",
     placeholder: "Search",
     name: "",
@@ -167,6 +175,35 @@ export const Readonly: Story = {
   args: {
     readonly: true,
     modelValue: "Searchterm",
+  },
+};
+
+export const WithDescription: Story = {
+  args: {
+    label: "Search",
+    ariaLabel: undefined,
+    placeholder: "Search",
+    description:
+      "This is a helpful description that explains what this field is for. " +
+      "It appears in a popover when clicking the info button.",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const input = canvas.getByRole("searchbox", { name: /search/i });
+    await userEvent.hover(input);
+
+    const infoButton = await canvas.findByRole("button", {
+      name: "Click for more information",
+    });
+    await expect(infoButton).toBeInTheDocument();
+
+    await userEvent.click(infoButton);
+
+    const description = await canvas.findByText(
+      /This is a helpful description that explains what this field is for\./i,
+    );
+    await expect(description).toBeInTheDocument();
   },
 };
 

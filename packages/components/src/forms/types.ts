@@ -79,3 +79,10 @@ type KdsInputElementProps = {
 export type KdsFormFieldProps = KdsInputLabelProps &
   KdsInputElementProps &
   KdsInputSubTextProps;
+
+export type KdsFormFieldExpose = {
+  /**
+   * Focuses the input element
+   */
+  focus: () => void;
+};
