@@ -291,6 +291,9 @@ const onHueKeyDown = (event: KeyboardEvent) => {
   flex-direction: column;
   gap: var(--kds-spacing-container-1x);
   padding: var(--kds-spacing-container-0-75x);
+  background: var(--kds-color-surface-default);
+  border-radius: var(--kds-border-radius-container-0-50x);
+  box-shadow: var(--kds-elevation-level-3);
 }
 
 .colorspace {

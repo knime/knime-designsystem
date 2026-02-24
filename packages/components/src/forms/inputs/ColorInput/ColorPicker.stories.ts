@@ -2,20 +2,20 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
 import { buildDesignComparatorStory } from "../../../test-utils/storybook.ts";
 
-import DemoColorPicker from "./DemoColorPicker.vue";
+import ColorPicker from "./ColorPicker.vue";
 
-type Story = StoryObj<typeof DemoColorPicker>;
+type Story = StoryObj<typeof ColorPicker>;
 
-const meta: Meta<typeof DemoColorPicker> = {
+const meta: Meta<typeof ColorPicker> = {
   title: "Form Fields/KdsColorInput/ColorPicker",
-  component: DemoColorPicker,
+  component: ColorPicker,
   tags: ["autodocs"],
 };
 
 export default meta;
 
 export const DesignComparator: Story = buildDesignComparatorStory({
-  component: DemoColorPicker,
+  component: ColorPicker,
   wrapperStyle: "width: 234px",
   designsToCompare: {
     ".ColorPicker": {
@@ -25,7 +25,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           {
             modelValue: "#5148E5",
             parameters: {
-              figmaOffset: { x: -20, y: -16 },
+              figmaOffset: { x: -20, y: -20 },
             },
           },
       },

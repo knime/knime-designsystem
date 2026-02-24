@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type { ComponentPublicInstance } from "vue";
-import { computed, ref } from "vue";
+import { computed, ref, useTemplateRef } from "vue";
 
 import type { KdsHexColor } from "../../../accessories";
 import KdsColorSwatch from "../../../accessories/ColorSwatch/KdsColorSwatch.vue";
@@ -28,8 +27,8 @@ const props = withDefaults(defineProps<KdsColorInputProps>(), {
 const modelValue = defineModel<string>({ default: "" });
 const open = ref(false);
 
-const containerEl = ref<HTMLElement | null>(null);
-const toggleButtonEl = ref<ComponentPublicInstance | null>(null);
+const containerEl = useTemplateRef("containerEl");
+const toggleButtonEl = useTemplateRef("toggleButtonEl");
 
 const swatchColor = computed<KdsHexColor>(
   () => (normalizeHexColor(modelValue.value) ?? "#FFFFFF") as KdsHexColor,
@@ -79,7 +78,7 @@ const swatchColor = computed<KdsHexColor>(
         v-model="open"
         :activator-el="toggleButtonEl"
         :anchor-el="containerEl"
-        placement="bottom-left"
+        placement="bottom-right"
       >
         <ColorPicker v-model="modelValue" />
       </KdsPopover>
