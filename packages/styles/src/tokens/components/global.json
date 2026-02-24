@@ -156,6 +156,24 @@
             "$description": "Neutral text and icon color for the Tooltip component."
           }
         }
+      },
+      "TextHighlight": {
+        "background": {
+          "default": {
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.6",
+                  "space": "lch"
+                }
+              }
+            },
+            "$type": "color",
+            "$value": "{kds.core.color.blue.325}",
+            "$description": "Text background color for mark text or highlighting searchterms"
+          }
+        }
       }
     },
     "spacing": {
