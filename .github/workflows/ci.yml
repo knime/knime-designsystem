@@ -160,13 +160,12 @@ jobs:
           PLAYWRIGHT_BROWSERS_PATH="${HOME}/.cache/ms-playwright"
           echo "Checking for Chromium in: ${PLAYWRIGHT_BROWSERS_PATH}"
           ls -la "${PLAYWRIGHT_BROWSERS_PATH}" || echo "Browser cache directory not found or empty"
-          if find "${PLAYWRIGHT_BROWSERS_PATH}" -type f -path "*/chromium-*/chrome-linux/chrome" -o -path "*/chromium-*/chrome" | grep -q .; then
+          if [ -d "${PLAYWRIGHT_BROWSERS_PATH}" ] && find "${PLAYWRIGHT_BROWSERS_PATH}" \( -path "*/chromium-*/chrome-linux/chrome" -o -path "*/chromium-*/chrome" \) -type f | grep -q .; then
             echo "valid=true" >> $GITHUB_OUTPUT
             echo "Chromium binary found"
           else
             echo "valid=false" >> $GITHUB_OUTPUT
             echo "Chromium binary not found"
-            exit 1
           fi
 
       - name: Install Playwright Chromium

@@ -42,7 +42,7 @@ export default defineConfig({
       provider: "v8",
       reporter: ["html", "text", "lcov"],
       reportsDirectory: "coverage/storybook",
-      include: ["*.{vue,ts}"],
+      include: ["**/*.{vue,ts}"],
       allowExternal: true,
       exclude: [
         ...coverageConfigDefaults.exclude,
