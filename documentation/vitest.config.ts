@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 
 import vue from "@vitejs/plugin-vue";
 import { playwright } from "@vitest/browser-playwright";
-import { defineConfig } from "vitest/config";
+import { coverageConfigDefaults, defineConfig } from "vitest/config";
 import { storybookTest } from "@storybook/addon-vitest/vitest-plugin";
 import svgLoader from "vite-svg-loader";
 
@@ -37,6 +37,22 @@ export default defineConfig({
     reporters: ["default", "junit"],
     outputFile: {
       junit: "test-results/junit.xml",
+    },
+    coverage: {
+      provider: "v8",
+      reporter: ["html", "text", "lcov"],
+      reportsDirectory: "coverage/storybook",
+      include: ["**/*.{vue,ts}"],
+      allowExternal: true,
+      exclude: [
+        ...coverageConfigDefaults.exclude,
+        "../packages/styles/",
+        "**/*.d.ts",
+        "**/{index,types,enums}.ts",
+        "**/*.stories.*",
+        "test-results/**",
+        "test-utils/**",
+      ],
     },
   },
 });

@@ -6,11 +6,10 @@ on:
     branches: [master]
 
 jobs:
-  lint-test-build:
-    permissions:
-      contents: read
-      pull-requests: write
+  build:
     runs-on: ubuntu-latest
+    outputs:
+      run-full-checks: ${{ steps.check-changes.outputs.run-full-checks }}
     steps:
       - uses: actions/checkout@v6
         with:
@@ -30,10 +29,90 @@ jobs:
       - name: Build packages
         run: pnpm run ci:build
 
-      # Chromatic runs automatically on master branch only
-      # For PRs, you can trigger it manually by commenting: /chromatic
+      - name: Check if audit is needed (can be skipped for only tokens/icons changes)
+        id: check-changes
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/${{ github.event.repository.default_branch }}" ] || git diff --name-only origin/${{ github.base_ref }}...HEAD | grep -qvE '^packages/styles/src/(tokens|img)/'; then
+            echo "run-full-checks=true" >> $GITHUB_OUTPUT
+          else
+            echo "run-full-checks=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Audit
+        if: steps.check-changes.outputs.run-full-checks == 'true'
+        run: pnpm run audit
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v6
+        with:
+          name: build-output
+          path: |
+            packages/*/dist
+          retention-days: 1
+
+      - name: Upload lint results
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: sonar-results
+          path: |
+            test-results/
+          retention-days: 1
+
+  test-and-coverage:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: "package.json"
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
+      - name: Download build artifacts
+        uses: actions/download-artifact@v6
+        with:
+          name: build-output
+          path: .
+
+      - name: Type check
+        run: pnpm run type-check
+
+      - name: Run unit tests with coverage
+        run: pnpm run coverage
+
+      - name: Upload unit coverage
+        uses: actions/upload-artifact@v6
+        with:
+          name: coverage-unit
+          path: coverage/unit/
+
+  chromatic:
+    needs: build
+    if: github.actor != 'dependabot[bot]' && github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: "package.json"
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
+      - name: Download build artifacts
+        uses: actions/download-artifact@v6
+        with:
+          name: build-output
+          path: .
+
       - name: Chromatic
-        if: github.event_name != 'pull_request' && github.actor != 'dependabot[bot]' && github.actor != 'github-actions[bot]'
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
@@ -43,17 +122,62 @@ jobs:
           onlyChanged: true # this enables Chromatic's TurboSnap to only test changed stories
           externals: "packages/styles/src/(tokens|css)/**" # changes in these folders will trigger a full test on Chromatic
 
-      - name: Type check
-        run: pnpm run type-check
+  storybook-tests:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: "package.json"
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
+      - name: Download build artifacts
+        uses: actions/download-artifact@v6
+        with:
+          name: build-output
+          path: .
 
-      - name: Run coverage
-        run: pnpm run coverage
+      - name: Get Playwright version
+        id: playwright-version
+        run: echo "version=$(pnpm -C documentation exec playwright --version | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -n1)" >> $GITHUB_OUTPUT
 
-      - name: Install Playwright
-        run: pnpm -C documentation exec playwright install --with-deps
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ runner.os }}-${{ runner.arch }}-${{ steps.playwright-version.outputs.version }}
 
-      - name: Run storybook tests
-        run: pnpm run test:storybook
+      - name: Validate cached Playwright installation
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        id: validate-cache
+        continue-on-error: true
+        run: |
+          PLAYWRIGHT_BROWSERS_PATH="${HOME}/.cache/ms-playwright"
+          echo "Checking for Chromium in: ${PLAYWRIGHT_BROWSERS_PATH}"
+          ls -la "${PLAYWRIGHT_BROWSERS_PATH}" || echo "Browser cache directory not found or empty"
+          if [ -d "${PLAYWRIGHT_BROWSERS_PATH}" ] && find "${PLAYWRIGHT_BROWSERS_PATH}" \( -path "*/chromium-*/chrome-linux/chrome" -o -path "*/chromium-*/chrome" \) -type f | grep -q .; then
+            echo "valid=true" >> $GITHUB_OUTPUT
+            echo "Chromium binary found"
+          else
+            echo "valid=false" >> $GITHUB_OUTPUT
+            echo "Chromium binary not found"
+          fi
+
+      - name: Install Playwright Chromium
+        if: steps.playwright-cache.outputs.cache-hit != 'true' || steps.validate-cache.outputs.valid == 'false'
+        run: pnpm -C documentation exec playwright install --with-deps chromium
+
+      - name: Install Playwright system dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true' && steps.validate-cache.outputs.valid != 'false'
+        run: pnpm -C documentation exec playwright install-deps chromium
+
+      - name: Run storybook tests with coverage
+        run: pnpm -C documentation run ci:coverage
 
       - name: Upload test results
         if: always()
@@ -65,57 +189,55 @@ jobs:
             test-results/**
             documentation/test-results/**
 
-      - name: Check if audit and sonar scans are needed (can be skipped for only tokens/icons changes)
-        id: check-changes
-        run: |
-          if [ "${{ github.ref }}" == "refs/heads/${{ github.event.repository.default_branch }}" ] || git diff --name-only origin/${{ github.base_ref }}...HEAD | grep -qvE '^packages/styles/src/(tokens|img)/'; then
-            echo "run-full-checks=true" >> $GITHUB_OUTPUT
-          else
-            echo "run-full-checks=false" >> $GITHUB_OUTPUT
-          fi
+      - name: Upload storybook coverage
+        uses: actions/upload-artifact@v6
+        with:
+          name: coverage-storybook
+          path: documentation/coverage/storybook/
 
-      # audit is skipped if only tokens or icons are changed
-      - name: Audit
-        if: steps.check-changes.outputs.run-full-checks == 'true'
-        run: pnpm run audit
+  sonar:
+    needs: [build, test-and-coverage, storybook-tests]
+    if: always() && needs.build.outputs.run-full-checks == 'true' && github.actor != 'dependabot[bot]' && github.actor != 'github-actions[bot]'
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0 # full history for SonarCloud
+      - uses: pnpm/action-setup@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: "package.json"
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
 
-      - name: Sonar scan (temporarily disabled)
-        if: false # steps.check-changes.outputs.run-full-checks == 'true' && github.actor != 'dependabot[bot]'
+      - name: Download lint results
+        uses: actions/download-artifact@v6
+        with:
+          name: sonar-results
+          path: .
+        continue-on-error: true
+
+      - name: Download unit coverage
+        uses: actions/download-artifact@v6
+        with:
+          name: coverage-unit
+          path: coverage/unit
+
+      - name: Download storybook coverage
+        uses: actions/download-artifact@v6
+        with:
+          name: coverage-storybook
+          path: documentation/coverage/storybook
+
+      - name: Merge coverage reports
+        run: pnpm run coverage:merge
+
+      - name: Sonar scan
         uses: SonarSource/sonarqube-scan-action@v7
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-      - name: Add PR comment about available commands
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@v8
-        with:
-          script: |
-            const comments = await github.paginate(
-              github.rest.issues.listComments,
-              {
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                per_page: 100
-              }
-            );
-
-            const botComment = comments.find(comment =>
-              comment.user.type === 'Bot' &&
-              comment.body.includes('Available PR Commands')
-            );
-
-            if (!botComment) {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                body: [
-                  '## Available PR Commands',
-                  '',
-                  'You can trigger additional CI tasks by commenting on this PR:',
-                  '',
-                  '- `/chromatic` - Run visual regression testing with Chromatic'
-                ].join('\n')
-              });
-            }

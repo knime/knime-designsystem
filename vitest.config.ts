@@ -16,7 +16,7 @@ export default defineConfig({
         ...coverageConfigDefaults.exclude,
         "packages/styles/",
         "**/*.d.ts",
-        "**/types.ts",
+        "**/{index,types,enums}.ts",
         "**/*.stories.ts",
       ],
       reporter: ["html", "text", "lcov"],
