@@ -50,6 +50,7 @@ export default defineConfig({
         "**/*.d.ts",
         "**/{index,types,enums}.ts",
         "**/*.stories.*",
+        ".storybook/**",
         "test-results/**",
         "test-utils/**",
       ],
