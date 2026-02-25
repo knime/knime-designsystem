@@ -12,7 +12,7 @@ import KdsRadioButton from "./KdsRadioButton.vue";
 type Story = StoryObj<typeof KdsRadioButton>;
 
 const meta: Meta<typeof KdsRadioButton> = {
-  title: "Form Fields/RadioButton",
+  title: "Form Fields/RadioButtonGroup/RadioButton",
   component: KdsRadioButton as Meta<typeof KdsRadioButton>["component"],
   tags: ["autodocs"],
   argTypes: {
