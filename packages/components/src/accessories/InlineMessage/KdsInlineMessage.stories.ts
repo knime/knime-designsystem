@@ -49,23 +49,66 @@ const meta: Meta<typeof KdsInlineMessage> = {
 };
 export default meta;
 
+export const AllVariants: Story = {
+  render: () => ({
+    components: { KdsInlineMessage },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 16px; width: 100%;">
+        <KdsInlineMessage 
+          variant="info" 
+          title="Info" 
+          message="Here is a message that informs the user about something"
+        />
+        <KdsInlineMessage 
+          variant="success" 
+          title="Success" 
+          message="Here is a message that informs the user about something"
+        />
+        <KdsInlineMessage 
+          variant="error" 
+          title="Error" 
+          message="Here is a message that informs the user about something"
+        />
+        <KdsInlineMessage 
+          variant="warning" 
+          title="Warning" 
+          message="Here is a message that informs the user about something"
+        />
+      </div>
+    `,
+  }),
+};
+
 export const Info: Story = {
   args: {
     variant: "info",
-    title: "This is an info message.",
+    title: "Title",
+    message: "Here is a message that informs the user about something",
   },
-  // play: async ({ canvasElement }) => {
-  //   const canvas = within(canvasElement);
+};
 
-  //   const avatar = canvas.getByRole("img", { name: "Demo User" });
-  //   await expect(avatar).toHaveAttribute("aria-label", "Demo User");
-  //   await expect(avatar).toHaveAttribute("title", "Demo User");
+export const Success: Story = {
+  args: {
+    variant: "success",
+    title: "Title",
+    message: "Here is a message that informs the user about something",
+  },
+};
 
-  //   const img = canvasElement.querySelector("img.kds-avatar-image");
-  //   await expect(img).toBeInTheDocument();
-  //   await expect(img).toHaveAttribute("alt", "");
-  //   await expect(img?.getAttribute("src")).toBeTruthy();
-  // },
+export const Error: Story = {
+  args: {
+    variant: "error",
+    title: "Title",
+    message: "Here is a message that informs the user about something",
+  },
+};
+
+export const Warning: Story = {
+  args: {
+    variant: "warning",
+    title: "Title",
+    message: "Here is a message that informs the user about something",
+  },
 };
 
 // export const TextOverflow: Story = {
