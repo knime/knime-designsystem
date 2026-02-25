@@ -1,5 +1,21 @@
 # @knime/kds-components
 
+## 0.9.0
+
+### Minor Changes
+
+- 284f899: BREAKING CHANGES: Remove native (UA) default styling from `KdsPopover` so it is a purely positioned container. Swapped right and left `placement` values to align with other frameworks.
+  - When using the `content` prop, default KDS surface styling (background, radius, shadow, padding) is applied automatically.
+  - When using the default slot, no styling is applied - wrap your content with your own styled container.
+  - The `placement` prop values for right and left are swapped to be more intuitive. For example, old `bottom-right` becomes `bottom-left` and old `bottom-left` becomes `bottom-right`.
+
+### Patch Changes
+
+- 72fbdc8: Expose focus for all input fields
+- 284f899: KdsLabel: Add optional description prop
+- 284f899: Wire `KdsVariableToggleButton` to open a flow-variable popover and add internal `VariablePopover` building block.
+  - @knime/kds-styles@0.9.0
+
 ## 0.8.0
 
 ### Minor Changes
