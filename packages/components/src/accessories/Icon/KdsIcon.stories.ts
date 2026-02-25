@@ -4,7 +4,7 @@ import KdsIcon from "./KdsIcon.vue";
 import { kdsIconNames, kdsIconSizes } from "./enums";
 
 const meta: Meta<typeof KdsIcon> = {
-  title: "Accessories/KdsIcon",
+  title: "Accessories/Icon",
   component: KdsIcon,
   tags: ["autodocs"],
   parameters: {

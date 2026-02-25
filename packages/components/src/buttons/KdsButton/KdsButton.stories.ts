@@ -14,7 +14,7 @@ import { kdsButtonSize, kdsButtonSizes, kdsButtonVariants } from "../enums";
 import KdsButton from "./KdsButton.vue";
 
 const meta: Meta<typeof KdsButton> = {
-  title: "Buttons/KdsButton",
+  title: "Buttons/Button",
   component: KdsButton as unknown as FunctionalComponent,
   tags: ["autodocs"],
   parameters: {

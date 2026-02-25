@@ -4,7 +4,7 @@ import KdsDataType from "./KdsDataType.vue";
 import { kdsDataTypeSizes, kdsTypeIconNames } from "./enums";
 
 const meta: Meta<typeof KdsDataType> = {
-  title: "Accessories/KdsDataType",
+  title: "Accessories/DataType",
   component: KdsDataType,
   tags: ["autodocs"],
   argTypes: {

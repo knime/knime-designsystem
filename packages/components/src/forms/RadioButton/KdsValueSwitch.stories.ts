@@ -14,7 +14,7 @@ import { kdsValueSwitchSizes, kdsValueSwitchVariants } from "./enums";
 type Story = StoryObj<typeof KdsValueSwitch>;
 
 const meta: Meta<typeof KdsValueSwitch> = {
-  title: "Form Fields/KdsValueSwitch",
+  title: "Form Fields/ValueSwitch",
   component: KdsValueSwitch as Meta<typeof KdsValueSwitch>["component"],
   tags: ["autodocs"],
   parameters: {

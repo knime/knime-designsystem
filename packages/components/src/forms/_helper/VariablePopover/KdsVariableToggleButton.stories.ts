@@ -13,7 +13,7 @@ const SAMPLE_CONTENT =
   "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.";
 
 const meta: Meta<typeof KdsVariableToggleButton> = {
-  title: "Form Fields/_Helper/KdsVariableToggleButton",
+  title: "Form Fields/_Helper/VariableToggleButton",
   component: KdsVariableToggleButton as unknown as FunctionalComponent,
   tags: ["autodocs"],
   parameters: {

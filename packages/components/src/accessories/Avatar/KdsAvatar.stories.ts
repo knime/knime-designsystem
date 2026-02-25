@@ -18,7 +18,7 @@ const figmaBaseUrl =
 
 const meta: Meta<typeof KdsAvatar> = {
   component: KdsAvatar,
-  title: "Accessories/KdsAvatar",
+  title: "Accessories/Avatar",
   tags: ["autodocs"],
   parameters: {
     docs: {

@@ -35,7 +35,7 @@ const optionsWithHelperTextAndError: KdsCheckboxGroupProps["possibleValues"] = [
 ];
 
 const meta: Meta<typeof KdsCheckboxGroup> = {
-  title: "Form Fields/KdsCheckboxGroup",
+  title: "Form Fields/CheckboxGroup",
   component: KdsCheckboxGroup as Meta<typeof KdsCheckboxGroup>["component"],
   tags: ["autodocs"],
   parameters: {

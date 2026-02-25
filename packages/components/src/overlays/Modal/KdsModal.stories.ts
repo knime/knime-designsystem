@@ -16,7 +16,7 @@ import {
 } from "./enums";
 
 const meta: Meta<typeof KdsModal> = {
-  title: "Overlays/KdsModal",
+  title: "Overlays/Modal",
   component: KdsModal,
   tags: ["autodocs"],
   parameters: {

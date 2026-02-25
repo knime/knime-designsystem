@@ -8,7 +8,7 @@ import KdsPopover from "./KdsPopover.vue";
 import { kdsPopoverPlacements, kdsPopoverRoles } from "./enums";
 
 const meta: Meta<typeof KdsPopover> = {
-  title: "Overlays/KdsPopover",
+  title: "Overlays/Popover",
   component: KdsPopover,
   tags: ["autodocs"],
   argTypes: {

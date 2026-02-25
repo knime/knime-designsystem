@@ -15,7 +15,7 @@ import KdsTextInput from "./KdsTextInput.vue";
 type Story = StoryObj<typeof KdsTextInput>;
 
 const meta: Meta<typeof KdsTextInput> = {
-  title: "Form Fields/KdsTextInput",
+  title: "Form Fields/TextInput",
   component: KdsTextInput as Meta<typeof KdsTextInput>["component"],
   tags: ["autodocs"],
   parameters: {

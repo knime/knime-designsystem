@@ -24,7 +24,7 @@ const isExpanded = ref(false);
 `.trim();
 
 const meta: Meta<typeof KdsToggleButton> = {
-  title: "Buttons/KdsToggleButton",
+  title: "Buttons/ToggleButton",
   component: KdsToggleButton as unknown as FunctionalComponent,
   tags: ["autodocs"],
   parameters: {
