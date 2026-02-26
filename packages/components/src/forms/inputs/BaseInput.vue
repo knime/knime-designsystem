@@ -222,6 +222,10 @@ defineExpose({
       <KdsIcon v-if="props.leadingIcon" :name="props.leadingIcon" />
     </div>
 
+    <div v-if="$slots.leading" class="leading-slot">
+      <slot name="leading" />
+    </div>
+
     <input
       :id="props.id"
       ref="input"
@@ -412,6 +416,14 @@ defineExpose({
 }
 
 .clear-button {
+  margin-left: var(--kds-spacing-container-0-12x);
+}
+
+.leading-slot {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--kds-spacing-container-0-12x);
+  align-items: center;
   margin-left: var(--kds-spacing-container-0-12x);
 }
 
