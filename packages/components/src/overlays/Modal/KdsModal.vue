@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { nextTick, ref, useTemplateRef, watch } from "vue";
 
+import { sleep } from "@knime/utils";
+
 import KdsModalLayout from "./KdsModalLayout.vue";
 import { kdsModalPropsDefault } from "./enums";
 import type { KdsModalProps } from "./types";
@@ -36,13 +38,16 @@ watch(
 const renderDialog = ref(props.active);
 
 const removeDialog = () => {
+  if (!renderDialog.value) {
+    return;
+  }
   renderDialog.value = false;
   emit("closed");
 };
 
 watch(
   () => props.active,
-  (value, lastValue) => {
+  async (value, lastValue) => {
     // on close wait until the animation has run
     if (value === false && lastValue === true) {
       if (dialog.value) {
@@ -51,6 +56,9 @@ watch(
             .getAnimations({ subtree: true })
             .map((animation) => animation.finished),
         ).then(removeDialog);
+        await sleep(350);
+        // fallback in case animations fail or dont resolve
+        removeDialog();
       } else {
         // fallback if dialog element ref is not accessible
         removeDialog();
