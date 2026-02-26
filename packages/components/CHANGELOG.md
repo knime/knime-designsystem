@@ -1,5 +1,12 @@
 # @knime/kds-components
 
+## 0.9.1
+
+### Patch Changes
+
+- b999539: supply timeout for modal to clear active config on closed
+  - @knime/kds-styles@0.9.1
+
 ## 0.9.0
 
 ### Minor Changes
