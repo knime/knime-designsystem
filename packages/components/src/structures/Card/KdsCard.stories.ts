@@ -41,7 +41,7 @@ const meta: Meta<typeof KdsCard> = {
       control: { type: "select" },
       options: kdsCardVariants,
       table: {
-        category: "Props",
+        category: "props",
       },
     },
     selectable: {
@@ -49,7 +49,7 @@ const meta: Meta<typeof KdsCard> = {
         "Whether the card can be selected. When true, the card can be toggled between selected and unselected states. When false, the card will emit click events instead of toggling selected states.",
       control: { type: "boolean" },
       table: {
-        category: "Props",
+        category: "props",
       },
     },
     disabled: {
@@ -57,7 +57,7 @@ const meta: Meta<typeof KdsCard> = {
         "Whether the card is disabled. When disabled, the card cannot be clicked or focused, and aria-disabled is set to true.",
       control: { type: "boolean" },
       table: {
-        category: "Props",
+        category: "props",
       },
     },
     ariaLabel: {
@@ -65,7 +65,7 @@ const meta: Meta<typeof KdsCard> = {
         "Accessible label for the card. Either ariaLabel or ariaLabelledby must be provided. Use ariaLabel for simple text labels.",
       control: { type: "text" },
       table: {
-        category: "Props",
+        category: "props",
       },
     },
     ariaLabelledby: {
@@ -73,7 +73,7 @@ const meta: Meta<typeof KdsCard> = {
         "ID of an element that labels the card. Either ariaLabel or ariaLabelledby must be provided. Use ariaLabelledby when the label already exists elsewhere in the DOM.",
       control: { type: "text" },
       table: {
-        category: "Props",
+        category: "props",
       },
     },
     modelValue: {
@@ -81,7 +81,7 @@ const meta: Meta<typeof KdsCard> = {
         "Controls the selected state of the card when `selectable` is true. When `selectable` is false, this model is ignored.",
       control: { type: "boolean" },
       table: {
-        category: "Model",
+        category: "model",
       },
     },
     onClick: {

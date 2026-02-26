@@ -34,63 +34,63 @@ const meta: Meta<typeof KdsValueSwitch> = {
       control: { type: "text" },
       description:
         "Currently selected option id (from `possibleValues`). Can be `undefined` if no option is selected.",
-      table: { category: "Model" },
+      table: { category: "model" },
     },
     id: {
       control: { type: "text" },
       description:
         "Optional id for the root element. Useful for external labeling and testing.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     label: {
       control: { type: "text" },
       description:
         "Optional group label. Recommended for accessibility; if omitted ensure the group still has an accessible name.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     possibleValues: {
       control: { type: "object" },
       description:
         "Options to render. Use `string[]` for simple cases or an array of objects for richer options: `{ id, text?, title?, leadingIcon?, trailingIcon? }`.\n\n- `id` is the value used for v-model.\n- `text` is the visible label.\n- For icon-only options omit `text` and provide `title` (used as accessible label).",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     variant: {
       control: { type: "select" },
       options: kdsValueSwitchVariants,
       description:
         "Visual variant of the value switch. Use `muted` for less prominent use cases (e.g. node dialogs).",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     size: {
       control: { type: "select" },
       options: kdsValueSwitchSizes,
       description:
         "Size of the value switch (affects height, padding and typography).",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     disabled: {
       control: { type: "boolean" },
       description:
         "Disables the entire group and prevents mouse/keyboard interaction.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     error: {
       control: { type: "boolean" },
       description:
         "Marks the value switch as invalid (group-level validation) and exposes `aria-invalid`.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     subText: {
       control: { type: "text" },
       description:
         "Optional helper or error text shown below the options. It is referenced via `aria-describedby`.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     preserveSubTextSpace: {
       control: { type: "boolean" },
       description:
         "Reserve space for `subText` to prevent layout shifts when helper/error text appears.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
   },
   args: {

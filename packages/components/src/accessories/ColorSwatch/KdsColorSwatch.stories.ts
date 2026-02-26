@@ -38,12 +38,12 @@ const meta: Meta<typeof KdsColorSwatch> = {
       options: [...kdsColorSwatchTypes, "#000000", "#f00"],
       description:
         "Semantic swatch type (maps to `kds.color.nodes-and-variables.*` tokens) or a hex color.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     title: {
       control: "text",
       description: "Tooltip text shown on hover. Also used as aria label.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
   },
   args: {

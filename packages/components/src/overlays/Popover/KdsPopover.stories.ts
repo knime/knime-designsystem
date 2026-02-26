@@ -14,7 +14,7 @@ const meta: Meta<typeof KdsPopover> = {
   argTypes: {
     modelValue: {
       control: { type: "boolean" },
-      table: { category: "Model" },
+      table: { category: "model" },
     },
     activatorEl: {
       control: false,
@@ -45,7 +45,7 @@ const meta: Meta<typeof KdsPopover> = {
       control: false,
       description:
         "Default slot content rendered inside the popover. When provided, overrides the `content` prop.",
-      table: { category: "Slots" },
+      table: { category: "slots" },
     },
   },
   args: {

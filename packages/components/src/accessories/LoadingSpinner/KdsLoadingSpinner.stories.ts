@@ -29,7 +29,7 @@ const meta: Meta<typeof KdsLoadingSpinner> = {
       options: kdsIconSizes,
       description: "The size of the loading spinner",
       table: {
-        category: "Props",
+        category: "props",
         type: { summary: "xsmall | small | medium | large" },
         defaultValue: { summary: "medium" },
       },
@@ -39,7 +39,7 @@ const meta: Meta<typeof KdsLoadingSpinner> = {
       options: kdsLoadingSpinnerVariants,
       description: "The color variant of the spinner",
       table: {
-        category: "Props",
+        category: "props",
         type: { summary: "onSurface | onPrimary" },
         defaultValue: { summary: "onSurface" },
       },

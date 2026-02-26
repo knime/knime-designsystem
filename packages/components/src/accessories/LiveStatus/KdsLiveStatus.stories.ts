@@ -41,7 +41,7 @@ const meta: Meta<typeof KdsLiveStatus> = {
       description:
         "Traffic light status. Use 'disabled' for a greyed-out indicator.",
       table: {
-        category: "Props",
+        category: "props",
         defaultValue: { summary: "red" },
         type: { summary: "'red' | 'orange' | 'green' | 'disabled'" },
       },
@@ -51,7 +51,7 @@ const meta: Meta<typeof KdsLiveStatus> = {
       options: kdsLiveStatusSizes,
       description: "Size of the indicator.",
       table: {
-        category: "Props",
+        category: "props",
         defaultValue: { summary: "medium" },
         type: { summary: "'large' | 'medium' | 'small'" },
       },
@@ -60,7 +60,7 @@ const meta: Meta<typeof KdsLiveStatus> = {
       control: "text",
       description: "Optional label displayed next to the indicator dot.",
       table: {
-        category: "Props",
+        category: "props",
         defaultValue: { summary: "" },
         type: { summary: "string" },
       },
@@ -68,7 +68,7 @@ const meta: Meta<typeof KdsLiveStatus> = {
     title: {
       control: "text",
       description: "Tooltip text shown on hover. Also used as aria label.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
   },
   args: {

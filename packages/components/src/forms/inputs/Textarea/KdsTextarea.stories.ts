@@ -39,73 +39,73 @@ const meta: Meta<typeof KdsTextarea> = {
     modelValue: {
       control: "text",
       description: "v-model binding for the textarea value",
-      table: { category: "Model" },
+      table: { category: "model" },
     },
     label: {
       control: "text",
       description: "Visible label text",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     ariaLabel: {
       control: "text",
       description: "Accessible label used when no visible label is rendered",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     id: {
       control: "text",
       description: "Id for associating labels and hint/error text",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     description: {
       control: "text",
       description:
         "Optional description displayed in an info popover next to the label. " +
         "The info toggle button is only visible when hovering the input field.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     placeholder: {
       control: "text",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     rows: {
       control: { type: "number", min: 1 },
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     name: {
       control: "text",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     autocomplete: {
       control: "text",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     subText: {
       control: "text",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     disabled: {
       control: "boolean",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     readonly: {
       control: "boolean",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     required: {
       control: "boolean",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     error: {
       control: "boolean",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     validating: {
       control: "boolean",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     preserveSubTextSpace: {
       control: "boolean",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
   },
   args: {

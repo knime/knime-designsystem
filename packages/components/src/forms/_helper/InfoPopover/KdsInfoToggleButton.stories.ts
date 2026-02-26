@@ -29,14 +29,14 @@ const meta = {
     },
   },
   argTypes: {
-    modelValue: { control: { type: "boolean" }, table: { category: "Model" } },
-    content: { control: { type: "text" }, table: { category: "Props" } },
-    hidden: { control: "boolean", table: { category: "Props" } },
+    modelValue: { control: { type: "boolean" }, table: { category: "model" } },
+    content: { control: { type: "text" }, table: { category: "props" } },
+    hidden: { control: "boolean", table: { category: "props" } },
     default: {
       control: false,
       description:
         "Custom content for the popover. When provided, overrides the `content` prop.",
-      table: { category: "Slots" },
+      table: { category: "slots" },
     },
   },
   args: {

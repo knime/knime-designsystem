@@ -23,31 +23,31 @@ const meta: Meta<typeof KdsCheckbox> = {
       control: { type: "select" },
       options: kdsCheckboxValues,
       description: "v-model binding for the checkbox state",
-      table: { category: "Model" },
+      table: { category: "model" },
     },
     label: {
       control: { type: "text" },
       description: "Required label of the checkbox",
       table: {
-        category: "Props",
+        category: "props",
         required: true,
       },
     },
     disabled: {
       control: { type: "boolean" },
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     subText: {
       control: { type: "text" },
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     error: {
       control: { type: "boolean" },
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     preserveSubTextSpace: {
       control: { type: "boolean" },
-      table: { category: "Props" },
+      table: { category: "props" },
     },
   },
   args: {
