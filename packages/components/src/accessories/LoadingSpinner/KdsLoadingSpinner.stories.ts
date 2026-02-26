@@ -11,7 +11,7 @@ import KdsLoadingSpinner from "./KdsLoadingSpinner.vue";
 import { kdsLoadingSpinnerVariants } from "./enums";
 
 const meta: Meta<typeof KdsLoadingSpinner> = {
-  title: "Accessories/KdsLoadingSpinner",
+  title: "Accessories/LoadingSpinner",
   component: KdsLoadingSpinner as unknown as FunctionalComponent,
   tags: ["autodocs"],
   parameters: {

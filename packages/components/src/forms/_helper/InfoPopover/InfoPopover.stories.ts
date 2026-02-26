@@ -12,7 +12,7 @@ const SAMPLE_CONTENT =
   "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large.";
 
 const meta = {
-  title: "Form Fields/_Helper/KdsInfoToggleButton/InfoPopover",
+  title: "Form Fields/_Helper/InfoToggleButton/InfoPopover",
   component: InfoPopover,
   tags: ["autodocs"],
   parameters: {

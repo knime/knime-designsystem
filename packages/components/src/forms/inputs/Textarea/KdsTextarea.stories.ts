@@ -19,7 +19,7 @@ const defaultRows = 3;
 const fourRows = 4;
 
 const meta: Meta<typeof KdsTextarea> = {
-  title: "Form Fields/KdsTextarea",
+  title: "Form Fields/Textarea",
   component: KdsTextarea as Meta<typeof KdsTextarea>["component"],
   tags: ["autodocs"],
   parameters: {

@@ -20,7 +20,7 @@ const ACTION_TIMEOUT = 900;
 const FEEDBACK_TIMEOUT = 900;
 
 const meta: Meta<typeof KdsProgressButton> = {
-  title: "Buttons/KdsProgressButton",
+  title: "Buttons/ProgressButton",
   component: KdsProgressButton as unknown as FunctionalComponent,
   tags: ["autodocs"],
   parameters: {

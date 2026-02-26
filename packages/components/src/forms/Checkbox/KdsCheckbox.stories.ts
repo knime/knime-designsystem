@@ -15,7 +15,7 @@ import { kdsCheckboxValues } from "./enums";
 type Story = StoryObj<typeof KdsCheckbox>;
 
 const meta: Meta<typeof KdsCheckbox> = {
-  title: "Form Fields/KdsCheckbox",
+  title: "Form Fields/Checkbox",
   component: KdsCheckbox as Meta<typeof KdsCheckbox>["component"],
   tags: ["autodocs"],
   argTypes: {

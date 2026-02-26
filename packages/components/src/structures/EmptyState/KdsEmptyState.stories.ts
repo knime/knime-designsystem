@@ -15,7 +15,7 @@ type Story = StoryObj<typeof KdsEmptyState>;
 
 const meta: Meta<typeof KdsEmptyState> = {
   component: KdsEmptyState,
-  title: "Structures/KdsEmptyState",
+  title: "Structures/EmptyState",
   tags: ["autodocs"],
   parameters: {
     docs: {

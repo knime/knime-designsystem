@@ -13,7 +13,7 @@ import KdsCard from "./KdsCard.vue";
 import { kdsCardVariants } from "./enums";
 
 const meta: Meta<typeof KdsCard> = {
-  title: "Structures/KdsCard",
+  title: "Structures/Card",
   component: KdsCard,
   tags: ["autodocs"],
   parameters: {

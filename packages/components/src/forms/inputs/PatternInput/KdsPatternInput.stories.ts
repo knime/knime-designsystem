@@ -16,7 +16,7 @@ import PatternDemo from "./PatternDemo.vue";
 type Story = StoryObj<typeof KdsPatternInput>;
 
 const meta: Meta<typeof KdsPatternInput> = {
-  title: "Form Fields/KdsPatternInput",
+  title: "Form Fields/PatternInput",
   component: KdsPatternInput as Meta<typeof KdsPatternInput>["component"],
   tags: ["autodocs"],
   parameters: {
