@@ -191,8 +191,8 @@ export type { KdsButtonVariant } from "./types";
 - Add a story file for each exported KdsComponent in the same folder as the component, named `KdsComponent.stories.ts`
 - Describe the behavior of the component with important key details. Often in Figma key aspects are described in notes.
 - Include Figma design URL in story parameters
-- Define modelValues for all v-model bindings in stories as category "Model". Do not add model update emit function since this is already covered by the term model.
-- Define all props in stories as category "Props" ordered by importance for users and similar to other stories.
+- Define modelValues for all v-model bindings in stories as category "model". Do not add model update emit function since this is already covered by the term model.
+- Define all props in stories as category "props" ordered by importance for users and similar to other stories.
 - Provide arg values for all props, e.g. false for boolean and "" for string props in the same order.
 - Provide stories for important prop combinations in the same order (if possible).
 - Test the desired behavior (e.g. disabled state) via storybook play function.

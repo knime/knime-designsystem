@@ -20,29 +20,29 @@ const meta: Meta<typeof KdsRadioButton> = {
       control: { type: "boolean" },
       description:
         "Whether the radio button is selected (true) or not (false). Radio buttons don't toggle back to false on click.",
-      table: { category: "Model" },
+      table: { category: "model" },
     },
     text: {
       control: { type: "text" },
       description: "Required text shown next to the control.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     helperText: {
       control: { type: "text" },
       description:
         "Optional helper text shown under the text and referenced via aria-describedby.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     disabled: {
       control: { type: "boolean" },
       description: "Disables the radio button and prevents interaction.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     error: {
       control: { type: "boolean" },
       description:
         "Sets the error state (affects styling and sets aria-invalid).",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
   },
   args: {

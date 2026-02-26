@@ -36,7 +36,7 @@ const meta: Meta<typeof KdsAvatar> = {
     initials: {
       control: "text",
       description: "Initials shown as fallback and as base avatar content.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     src: {
       control: "select",
@@ -48,12 +48,12 @@ const meta: Meta<typeof KdsAvatar> = {
       },
       description:
         "Optional image. If provided and successfully loaded, it is shown instead of the initials.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     title: {
       control: "text",
       description: "Tooltip text shown on hover and aria label (if provided).",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
   },
   args: {

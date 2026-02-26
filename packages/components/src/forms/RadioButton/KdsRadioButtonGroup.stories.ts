@@ -47,48 +47,48 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
       control: { type: "text" },
       description:
         "The currently selected option id. Can be undefined when no option is selected.",
-      table: { category: "Model" },
+      table: { category: "model" },
     },
     id: {
       control: { type: "text" },
       description: "Id set for the group to be linked for an external label.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     label: {
       control: { type: "text" },
       description: "Group label as a legend of the fieldset.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     possibleValues: {
       control: { type: "object" },
       description:
         "Required possibleValues array (at least 2 entries). Each entry may be a plain string or an object with text, id, and optional disabled/helperText/error for advanced settings.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     alignment: {
       control: { type: "select" },
       options: kdsRadioButtonGroupAlignments,
       description:
         "Layout of the radio buttons: vertical (column) or horizontal (row, wrapping).",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     disabled: {
       control: { type: "boolean" },
       description:
         "Disables the whole group (and therefore all possible values) and prevents interaction.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     subText: {
       control: { type: "text" },
       description:
         "Optional helper or error text shown below the possible values and referenced via aria-describedby.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     preserveSubTextSpace: {
       control: { type: "boolean" },
       description:
         "Reserve space for subtext to prevent layout shifts when helper text or errors appear",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
   },
   args: {

@@ -26,13 +26,13 @@ const meta = {
       control: { type: "text" },
       description:
         "Content to display inside the info popover. Used when no default slot is provided.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     default: {
       control: false,
       description:
         "Custom content for the popover. When provided, overrides the `content` prop.",
-      table: { category: "Slots" },
+      table: { category: "slots" },
     },
   },
   args: {

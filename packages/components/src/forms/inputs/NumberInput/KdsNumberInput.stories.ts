@@ -37,83 +37,83 @@ const meta: Meta<typeof KdsNumberInput> = {
     modelValue: {
       control: "number",
       description: "v-model binding for the numeric value (use NaN for empty)",
-      table: { category: "Model" },
+      table: { category: "model" },
     },
     ariaLabel: {
       control: "text",
       description: "Accessible label used when no visible label is rendered",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     label: {
       control: "text",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     description: {
       control: "text",
       description:
         "Optional description displayed in an info popover next to the label. " +
         "The info toggle button is only visible when hovering the input field.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     placeholder: {
       control: "text",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     name: {
       control: "text",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     autocomplete: {
       control: "text",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     unit: {
       control: "text",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     min: {
       control: "number",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     max: {
       control: "number",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     step: {
       control: "number",
       description:
         "Step size used for +/- buttons and arrow key increments. " +
         "Use a regular decimal number (e.g. 0.001) or scientific notation (e.g. 1e-3).",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     subText: {
       control: "text",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     disabled: {
       control: "boolean",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     readonly: {
       control: "boolean",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     required: {
       control: "boolean",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     error: {
       control: "boolean",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     validating: {
       control: "boolean",
       description: "Shows a spinner next to the subtext when true",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     preserveSubTextSpace: {
       control: "boolean",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
   },
   args: {

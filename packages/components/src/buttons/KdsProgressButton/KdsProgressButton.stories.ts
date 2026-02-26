@@ -41,7 +41,7 @@ const meta: Meta<typeof KdsProgressButton> = {
       control: { type: "select" },
       options: kdsButtonSizes,
       table: {
-        category: "Props",
+        category: "props",
         type: { summary: "KdsButtonSize" },
         defaultValue: { summary: "medium" },
       },
@@ -51,7 +51,7 @@ const meta: Meta<typeof KdsProgressButton> = {
       control: { type: "select" },
       options: kdsButtonVariants,
       table: {
-        category: "Props",
+        category: "props",
         type: { summary: "KdsButtonVariant" },
         defaultValue: { summary: "filled" },
       },
@@ -62,7 +62,7 @@ const meta: Meta<typeof KdsProgressButton> = {
       control: { type: "select" },
       options: kdsProgressButtonStates,
       table: {
-        category: "Model",
+        category: "model",
         type: { summary: "KdsProgressButtonState" },
         defaultValue: { summary: "default" },
       },
@@ -71,7 +71,7 @@ const meta: Meta<typeof KdsProgressButton> = {
       description:
         "Button label text. Required for the icon+label variant; must be omitted for icon-only buttons.",
       control: "text",
-      table: { category: "Props", type: { summary: "string" } },
+      table: { category: "props", type: { summary: "string" } },
     },
     leadingIcon: {
       description:
@@ -79,7 +79,7 @@ const meta: Meta<typeof KdsProgressButton> = {
       control: { type: "select" },
       options: iconNames,
       table: {
-        category: "Props",
+        category: "props",
         type: { summary: "IconName" },
       },
     },
@@ -87,13 +87,13 @@ const meta: Meta<typeof KdsProgressButton> = {
       description:
         'Accessible label for icon-only buttons. Required when `label` is not provided. Should be set according to the current state (e.g. "Save", "Saving…", "Saved", "Save failed").',
       control: "text",
-      table: { category: "Props", type: { summary: "string" } },
+      table: { category: "props", type: { summary: "string" } },
     },
     disabled: {
       description: "Disables the button.",
       control: "boolean",
       table: {
-        category: "Props",
+        category: "props",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },

@@ -55,54 +55,54 @@ const meta: Meta<typeof KdsCheckboxGroup> = {
       control: { type: "object" },
       description:
         "The currently selected option ids. Array of strings representing selected checkboxes.",
-      table: { category: "Model" },
+      table: { category: "model" },
     },
     id: {
       control: { type: "text" },
       description: "Id for label linkage.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     label: {
       control: { type: "text" },
       description: "Required label for group.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     possibleValues: {
       control: { type: "object" },
       description:
         "Required possibleValues array. Each entry may be a plain string or an object with text, id, and optional disabled/helperText/error for advanced settings.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     alignment: {
       control: { type: "select" },
       options: kdsCheckboxGroupAlignments,
       description:
         "Layout of the checkboxes: vertical (column) or horizontal (row, wrapping).",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     disabled: {
       control: { type: "boolean" },
       description:
         "Disables the whole group (and therefore all possible values) and prevents interaction.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     error: {
       control: { type: "boolean" },
       description:
         "Whether the group is in an error state. Shows subText in error styling.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     subText: {
       control: { type: "text" },
       description:
         "Optional helper or error text shown below the possible values and referenced via aria-describedby.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     preserveSubTextSpace: {
       control: { type: "boolean" },
       description:
         "Reserve space for subtext to prevent layout shifts when helper text or errors appear",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
   },
   args: {

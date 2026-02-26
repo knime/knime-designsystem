@@ -56,60 +56,60 @@ const meta: Meta<typeof KdsEmptyState> = {
       control: "text",
       description:
         "Optional link URL. When provided, a link button will be rendered instead of an action button.",
-      table: { category: "Link Button Props" },
+      table: { category: "link button props" },
     },
     buttonLabel: {
       control: "text",
       description: "Button label text",
-      table: { category: "Button Props" },
+      table: { category: "button props" },
     },
     buttonVariant: {
       control: "select",
       options: kdsButtonVariants,
       description: "Button variant style",
-      table: { category: "Button Props" },
+      table: { category: "button props" },
     },
     buttonSize: {
       control: "select",
       options: kdsButtonSizes,
       description: "Button size",
-      table: { category: "Button Props" },
+      table: { category: "button props" },
     },
     buttonDestructive: {
       description:
         "Marks the button as destructive (use for dangerous/irreversible actions).",
       control: "boolean",
-      table: { category: "Button Props" },
+      table: { category: "button props" },
     },
     buttonDisabled: {
       description: "Disables the button.",
       control: "boolean",
-      table: { category: "Button Props" },
+      table: { category: "button props" },
     },
     buttonLeadingIcon: {
       control: { type: "select" },
       description:
         "Optional leading icon. For icon-only buttons, set `buttonAriaLabel`.",
       options: [undefined, ...iconNames],
-      table: { category: "Button Props" },
+      table: { category: "button props" },
     },
     buttonTrailingIcon: {
       control: { type: "select" },
       description:
         "Optional trailing icon (requires `buttonLabel`, no trailing-icon-only button).",
       options: [undefined, ...iconNames],
-      table: { category: "Button Props" },
+      table: { category: "button props" },
     },
     buttonAriaLabel: {
       description:
         "Accessible label for icon-only buttons (and to override the accessible name).",
       control: "text",
-      table: { category: "Button Props" },
+      table: { category: "button props" },
     },
     buttonTitle: {
       description: "Optional tooltip text (HTML `title` attribute).",
       control: "text",
-      table: { category: "Button Props" },
+      table: { category: "button props" },
     },
   },
 };
