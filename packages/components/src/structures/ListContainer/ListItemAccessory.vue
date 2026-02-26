@@ -29,7 +29,7 @@ const props = defineProps<{
     :size="props.size"
   />
   <KdsIcon
-    v-if="props.accessory.type === 'icon'"
+    v-else-if="props.accessory.type === 'icon'"
     :name="props.accessory.name"
     :size="props.size"
   />
@@ -40,6 +40,8 @@ const props = defineProps<{
   />
   <KdsLiveStatus
     v-else-if="props.accessory.type === 'liveStatus'"
+    :status="props.accessory.status"
+    :title="props.accessory.title"
     :size="props.size"
   />
 </template>

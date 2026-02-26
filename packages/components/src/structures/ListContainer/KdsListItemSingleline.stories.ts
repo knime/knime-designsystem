@@ -87,6 +87,7 @@ const meta: Meta<typeof KdsListItemSingleline> = {
     },
   },
   args: {
+    id: "singleline-item",
     label: "Label",
     accessory: undefined,
     selected: false,
