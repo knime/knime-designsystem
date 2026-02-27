@@ -21,6 +21,13 @@ const meta: Meta<typeof KdsListItemSingleline> = {
   component: KdsListItemSingleline,
   title: "Form fields/ListContainer/ListItemSingleline",
   tags: ["autodocs"],
+  decorators: [
+    (story) => ({
+      components: { story },
+      template:
+        '<ul role="listbox" style="list-style: none; padding: 0; margin: 0;"><story /></ul>',
+    }),
+  ],
   parameters: {
     docs: {
       description: {

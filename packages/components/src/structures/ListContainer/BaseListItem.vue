@@ -20,6 +20,15 @@ const props = withDefaults(
 const emit = defineEmits<{
   click: [event: MouseEvent];
 }>();
+
+const onClick = (event: MouseEvent) => {
+  if (props.disabled) {
+    event.stopPropagation();
+    event.preventDefault();
+    return;
+  }
+  emit("click", event);
+};
 </script>
 
 <template>
@@ -37,7 +46,7 @@ const emit = defineEmits<{
         disabled: props.disabled,
       },
     ]"
-    @click="!props.disabled && emit('click', $event)"
+    @click="onClick"
   >
     <slot />
   </li>

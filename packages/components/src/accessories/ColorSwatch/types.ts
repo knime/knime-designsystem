@@ -1,4 +1,4 @@
-import { kdsColorSwatchType } from "./enums";
+import { kdsColorSwatchSize, kdsColorSwatchType } from "./enums";
 
 export type KdsColorSwatchType =
   (typeof kdsColorSwatchType)[keyof typeof kdsColorSwatchType];
@@ -14,7 +14,8 @@ export type KdsHexColor = `#${string}`;
 
 export type KdsColorSwatchColor = KdsColorSwatchType | KdsHexColor;
 
-export type KdsColorSwatchSize = "small" | "medium" | "large";
+export type KdsColorSwatchSize =
+  (typeof kdsColorSwatchSize)[keyof typeof kdsColorSwatchSize];
 
 export type KdsColorSwatchProps = {
   /**

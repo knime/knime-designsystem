@@ -21,6 +21,13 @@ const meta: Meta<typeof KdsListItemMultiline> = {
   component: KdsListItemMultiline,
   title: "Form fields/ListContainer/ListItemMultiline",
   tags: ["autodocs"],
+  decorators: [
+    (story) => ({
+      components: { story },
+      template:
+        '<ul role="listbox" style="list-style: none; padding: 0; margin: 0;"><story /></ul>',
+    }),
+  ],
   parameters: {
     docs: {
       description: {

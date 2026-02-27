@@ -1,5 +1,5 @@
 import { type Ref, ref } from "vue";
-import { useResizeObserver } from "@vueuse/core";
+import { useMutationObserver, useResizeObserver } from "@vueuse/core";
 
 export function elementOverflowsHorizontally(
   element: HTMLElement | null,
@@ -34,10 +34,18 @@ export function elementOverflowsVertically(
 export function useKdsIsTruncated(elementRef: Ref<HTMLElement | null>) {
   const isTruncated = ref(false);
 
-  useResizeObserver(elementRef, () => {
+  const checkTruncation = () => {
     isTruncated.value =
       elementOverflowsHorizontally(elementRef.value) ||
       elementOverflowsVertically(elementRef.value);
+  };
+
+  useResizeObserver(elementRef, checkTruncation);
+
+  useMutationObserver(elementRef, checkTruncation, {
+    childList: true,
+    characterData: true,
+    subtree: true,
   });
 
   return { isTruncated };

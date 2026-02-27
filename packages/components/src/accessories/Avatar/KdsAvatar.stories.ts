@@ -10,7 +10,7 @@ import {
 import KdsAvatar from "./KdsAvatar.vue";
 import { demoKnimeLogo } from "./demo-logo";
 import { demoUserImage } from "./demo-user";
-import { kdsAvatarSizes } from "./enums.ts";
+import { kdsAvatarSizes } from "./enums";
 
 type Story = StoryObj<typeof KdsAvatar>;
 

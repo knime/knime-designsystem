@@ -7,7 +7,7 @@ import {
 } from "../../test-utils/storybook";
 
 import KdsColorSwatch from "./KdsColorSwatch.vue";
-import { kdsColorSwatchTypes } from "./enums";
+import { kdsColorSwatchSizes, kdsColorSwatchTypes } from "./enums";
 
 type Story = StoryObj<typeof KdsColorSwatch>;
 
@@ -42,9 +42,9 @@ const meta: Meta<typeof KdsColorSwatch> = {
     },
     size: {
       control: "select",
-      options: ["small", "medium", "large"],
+      options: kdsColorSwatchSizes,
       description: "Size of the color swatch.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     title: {
       control: "text",
