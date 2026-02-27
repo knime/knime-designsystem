@@ -38,10 +38,6 @@ jobs:
             echo "run-full-checks=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Audit
-        if: steps.check-changes.outputs.run-full-checks == 'true'
-        run: pnpm run audit
-
       - name: Upload build artifacts
         uses: actions/upload-artifact@v6
         with:
@@ -58,6 +54,22 @@ jobs:
           path: |
             test-results/
           retention-days: 1
+
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: "package.json"
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run audit
+        run: pnpm run audit
 
   test-and-coverage:
     needs: build
