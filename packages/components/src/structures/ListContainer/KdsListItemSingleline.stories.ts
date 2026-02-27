@@ -25,7 +25,7 @@ const meta: Meta<typeof KdsListItemSingleline> = {
     (story) => ({
       components: { story },
       template:
-        '<ul role="listbox" style="list-style: none; padding: 0; margin: 0;"><story /></ul>',
+        '<ul role="listbox" aria-label="Listbox" style="list-style: none; padding: 0; margin: 0;"><story /></ul>',
     }),
   ],
   parameters: {
