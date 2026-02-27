@@ -47,7 +47,7 @@ const meta: Meta<typeof KdsCheckboxGroup> = {
     },
     design: {
       type: "figma",
-      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9202-7631&p=f",
+      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9202-7631",
     },
   },
   argTypes: {
