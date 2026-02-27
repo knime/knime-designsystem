@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
+import { expect, userEvent, within } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
@@ -22,6 +23,12 @@ const meta: Meta<typeof KdsRadioButton> = {
         "Whether the radio button is selected (true) or not (false). Radio buttons don't toggle back to false on click.",
       table: { category: "model" },
     },
+    // @ts-expect-error – Storybook doesn't type emit handlers in argTypes for DefineComponent
+    "update:modelValue": {
+      description: "Emitted when the radio button is selected",
+      table: { category: "model" },
+    },
+
     text: {
       control: { type: "text" },
       description: "Required text shown next to the control.",
@@ -47,27 +54,16 @@ const meta: Meta<typeof KdsRadioButton> = {
   },
   args: {
     modelValue: false,
+    // @ts-expect-error – Storybook reactive-arg workaround; not in ComponentPropsAndSlots
+    "update:modelValue": (value: boolean) => {
+      const [_, updateArgs] = useArgs();
+      updateArgs({ modelValue: value });
+    },
     text: "Label",
     helperText: "",
     disabled: false,
     error: false,
   },
-  decorators: [
-    (story) => {
-      const [currentArgs, updateArgs] = useArgs();
-      return {
-        components: { story },
-        setup() {
-          return {
-            args: currentArgs,
-            updateArgs,
-          };
-        },
-        template:
-          '<story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" />',
-      };
-    },
-  ],
   parameters: {
     docs: {
       description: {
@@ -89,6 +85,20 @@ export const Default: Story = {
     text: "Label",
     modelValue: false,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const radio = canvas.getByRole("radio", { name: "Label" });
+
+    await expect(radio).not.toBeChecked();
+
+    // Click selects the radio button
+    await userEvent.click(radio);
+    await expect(radio).toBeChecked();
+
+    // Second click does not unselect
+    await userEvent.click(radio);
+    await expect(radio).toBeChecked();
+  },
 };
 
 export const Selected: Story = {
@@ -104,6 +114,21 @@ export const WithHelperText: Story = {
     helperText: "Helper text",
     modelValue: false,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const radio = canvas.getByRole("radio", { name: "Label Helper text" });
+
+    await expect(radio).not.toBeChecked();
+
+    // Space selects the radio button
+    radio.focus();
+    await userEvent.keyboard(" ");
+    await expect(radio).toBeChecked();
+
+    // Second Space does not unselect
+    await userEvent.keyboard(" ");
+    await expect(radio).toBeChecked();
+  },
 };
 
 export const Disabled: Story = {
@@ -112,6 +137,22 @@ export const Disabled: Story = {
     helperText: "Helper text",
     modelValue: true,
     disabled: true,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const radio = canvas.getByRole("radio", { name: "Label Helper text" });
+
+    await expect(radio).toBeChecked();
+    await expect(radio).toBeDisabled();
+
+    // Click should not change state
+    await userEvent.click(radio);
+    await expect(radio).toBeChecked();
+
+    // Keyboard should not change state
+    radio.focus();
+    await userEvent.keyboard(" ");
+    await expect(radio).toBeChecked();
   },
 };
 
@@ -124,25 +165,18 @@ export const Error: Story = {
   },
 };
 
-export const AllCombinations: Story = buildAllCombinationsStory({
-  component: KdsRadioButton,
-  combinationsProps: [
-    {
-      modelValue: [false, true],
-      disabled: [false, true],
-      error: [false, true],
-      text: ["Label"],
-    },
-    {
-      modelValue: [false, true],
-      disabled: [false, true],
-      error: [false, true],
-      text: ["Label"],
-      helperText: ["Helper text"],
-    },
-  ],
-  pseudoStates: ["hover", "active", "focus-visible"],
-});
+export const TextOverflow: Story = {
+  ...buildTextOverflowStory({
+    component: KdsRadioButton,
+    width: 200,
+  }),
+  args: {
+    text: "This is a very long radio label that should overflow and wrap properly when the container is too narrow",
+    helperText:
+      "This is a very long helper text that should also overflow and wrap properly to test layout stability and accessibility",
+    modelValue: false,
+  },
+};
 
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsRadioButton,
@@ -226,15 +260,22 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   },
 });
 
-export const TextOverflow: Story = {
-  ...buildTextOverflowStory({
-    component: KdsRadioButton,
-    width: 200,
-  }),
-  args: {
-    text: "This is a very long radio label that should overflow and wrap properly when the container is too narrow",
-    helperText:
-      "This is a very long helper text that should also overflow and wrap properly to test layout stability and accessibility",
-    modelValue: false,
-  },
-};
+export const AllCombinations: Story = buildAllCombinationsStory({
+  component: KdsRadioButton,
+  combinationsProps: [
+    {
+      modelValue: [false, true],
+      disabled: [false, true],
+      error: [false, true],
+      text: ["Label"],
+    },
+    {
+      modelValue: [false, true],
+      disabled: [false, true],
+      error: [false, true],
+      text: ["Label"],
+      helperText: ["Helper text"],
+    },
+  ],
+  pseudoStates: ["hover", "active", "focus-visible"],
+});

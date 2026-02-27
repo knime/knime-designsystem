@@ -196,11 +196,13 @@ export type { KdsButtonVariant } from "./types";
 - Provide arg values for all props, e.g. false for boolean and "" for string props in the same order.
 - Provide stories for important prop combinations in the same order (if possible).
 - Test the desired behavior (e.g. disabled state) via storybook play function.
+- Always test **both mouse and keyboard interaction** in play tests. If a component cannot be reset to its initial state after one interaction method (e.g. a radio button that cannot be unselected), test mouse in one story and keyboard in another.
 - Do not allow stories witch violate accessibility rules. Rewrite the story accordingly (e.g. no label story -> use a custom label story).
-- Always add a story **TextOverflow**: Use `buildTextOverflowStory()` from `test-utils/storybook` and provide long text to test text overflow behavior.
-- Always add a story **DesignComparator**: Use `buildDesignComparatorStory()` from `test-utils/storybook` with Figma URLs + node IDs. Make sure to include all variants shown in Figma. Use the node id of the exact component usage (without potential wrapping explanations). Also include variants for different states (hover, focus, disabled) if applicable via `parameters: { pseudo: { hover: true } }`.
-- Always add a story **AllCombinations**: Use `buildAllCombinationsStory()` from `test-utils/storybook`. Also pseudo states via `pseudoStates: ('hover' | 'active' | 'focus' | 'focus-visible')[]` as variants if applicable. `hover` should be applicable to all components. `active` can only be applied to elements that perform actions like buttons. Always add some kind of focus pseudo class to test outline visibility - use `focus` instead of `focus-visible` if the component shows focus for mouse interactions (e.g. inputs). If the total number of combinations becomes too large (e.g. it would create too many Chromatic snapshots), split it into multiple stories (for example `AllCombinationsPart1` / `AllCombinationsPart2`) with smaller combination sets.
-- Remove `&m=dev` from all Figma URLs
+- Always add the following three stories **last** (in this order):
+  1. **TextOverflow** (third-to-last): Use `buildTextOverflowStory()` from `test-utils/storybook` and provide long text to test text overflow behavior.
+  2. **DesignComparator** (second-to-last): Use `buildDesignComparatorStory()` from `test-utils/storybook` with Figma URLs + node IDs. Make sure to include all variants shown in Figma. Use the node id of the exact component usage (without potential wrapping explanations). Also include variants for different states (hover, focus, disabled) if applicable via `parameters: { pseudo: { hover: true } }`.
+  3. **AllCombinations** (last): Use `buildAllCombinationsStory()` from `test-utils/storybook`. Also pseudo states via `pseudoStates: ('hover' | 'active' | 'focus' | 'focus-visible')[]` as variants if applicable. `hover` should be applicable to all components. `active` can only be applied to elements that perform actions like buttons. Always add some kind of focus pseudo class to test outline visibility - use `focus` instead of `focus-visible` if the component shows focus for mouse interactions (e.g. inputs). If the total number of combinations becomes too large (e.g. it would create too many Chromatic snapshots), split it into multiple stories (for example `AllCombinationsPart1` / `AllCombinationsPart2`) with smaller combination sets.
+- Remove `&p=f&m=dev` from all Figma URLs
 
 #### Storybook Play Test Auto-Waiting
 

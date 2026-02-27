@@ -133,7 +133,6 @@ const handleClick = () => {
     gap: var(--kds-spacing-container-0-25x);
 
     & .label {
-      padding-top: var(--kds-spacing-container-0-10x);
       font: var(--kds-font-base-interactive-small);
       color: var(--text-color);
     }

@@ -26,7 +26,7 @@ const meta: Meta<typeof KdsValueSwitch> = {
     },
     design: {
       type: "figma",
-      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2007-6814&m=dev",
+      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2007-6814",
     },
   },
   argTypes: {
@@ -34,6 +34,11 @@ const meta: Meta<typeof KdsValueSwitch> = {
       control: { type: "text" },
       description:
         "Currently selected option id (from `possibleValues`). Can be `undefined` if no option is selected.",
+      table: { category: "model" },
+    },
+    // @ts-expect-error – Storybook doesn't type emit handlers in argTypes for DefineComponent
+    "update:modelValue": {
+      description: "Emitted when the selection changes",
       table: { category: "model" },
     },
     id: {
@@ -95,6 +100,11 @@ const meta: Meta<typeof KdsValueSwitch> = {
   },
   args: {
     modelValue: "Option A",
+    // @ts-expect-error – Storybook reactive-arg workaround; not in ComponentPropsAndSlots
+    "update:modelValue": (value: string) => {
+      const [_, updateArgs] = useArgs();
+      updateArgs({ modelValue: value });
+    },
     id: "value-switch",
     label: "Label",
     possibleValues: ["Option A", "Option B", "Option C", "Option D"],
@@ -105,23 +115,6 @@ const meta: Meta<typeof KdsValueSwitch> = {
     subText: "",
     preserveSubTextSpace: false,
   },
-  decorators: [
-    (story) => {
-      const [currentArgs, updateArgs] = useArgs();
-
-      return {
-        components: { story },
-        setup() {
-          return {
-            args: currentArgs,
-            updateArgs,
-          };
-        },
-        template:
-          '<story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" />',
-      };
-    },
-  ],
 };
 
 export default meta;
@@ -129,6 +122,54 @@ export default meta;
 export const Default: Story = {
   args: {
     modelValue: "Option A",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const group = canvas.getByRole("radiogroup");
+    const scope = within(group);
+
+    const optionA = scope.getByRole("radio", { name: "Option A" });
+    const optionB = scope.getByRole("radio", { name: "Option B" });
+
+    await expect(optionA).toHaveAttribute("aria-checked", "true");
+    await expect(optionA).toHaveAttribute("tabindex", "0");
+    await expect(optionB).toHaveAttribute("tabindex", "-1");
+
+    // Mouse: selection changes
+    await userEvent.click(optionB);
+    await expect(optionB).toHaveAttribute("aria-checked", "true");
+    await expect(optionA).toHaveAttribute("tabindex", "-1");
+
+    // Keyboard: ArrowRight moves selection
+    optionB.focus();
+    await userEvent.keyboard("{ArrowRight}");
+    const optionC = scope.getByRole("radio", { name: "Option C" });
+    await expect(optionC).toHaveAttribute("aria-checked", "true");
+    await expect(optionC).toHaveFocus();
+
+    // ArrowLeft goes back
+    await userEvent.keyboard("{ArrowLeft}");
+    await expect(optionB).toHaveAttribute("aria-checked", "true");
+    await expect(optionB).toHaveFocus();
+
+    // Home -> first option
+    await userEvent.keyboard("{Home}");
+    await expect(optionA).toHaveAttribute("aria-checked", "true");
+    await expect(optionA).toHaveFocus();
+
+    // End -> last option
+    await userEvent.keyboard("{End}");
+    const optionD = scope.getByRole("radio", { name: "Option D" });
+    await expect(optionD).toHaveAttribute("aria-checked", "true");
+    await expect(optionD).toHaveFocus();
+
+    // Space on focused option keeps it selected
+    await userEvent.keyboard(" ");
+    await expect(optionD).toHaveAttribute("aria-checked", "true");
+
+    // Reset state
+    await userEvent.click(optionA);
+    await expect(optionA).toHaveAttribute("aria-checked", "true");
   },
 };
 
@@ -161,6 +202,25 @@ export const IconOnly: Story = {
       { id: "c", leadingIcon: "mini-map", title: "Mini map" },
     ],
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const group = canvas.getByRole("radiogroup");
+    const scope = within(group);
+
+    const cards = scope.getByRole("radio", { name: "Cards" });
+    const list = scope.getByRole("radio", { name: "List" });
+
+    await expect(cards).toHaveAttribute("aria-checked", "true");
+
+    // Mouse: selection changes
+    await userEvent.click(list);
+    await expect(list).toHaveAttribute("aria-checked", "true");
+    await expect(cards).toHaveAttribute("aria-checked", "false");
+
+    // Reset state
+    await userEvent.click(cards);
+    await expect(cards).toHaveAttribute("aria-checked", "true");
+  },
 };
 
 export const Small: Story = {
@@ -181,6 +241,26 @@ export const Disabled: Story = {
   args: {
     modelValue: "Option A",
     disabled: true,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const group = canvas.getByRole("radiogroup");
+    const scope = within(group);
+
+    const optionA = scope.getByRole("radio", { name: "Option A" });
+    const optionB = scope.getByRole("radio", { name: "Option B" });
+
+    await expect(optionA).toBeDisabled();
+    await expect(optionB).toBeDisabled();
+
+    // Click should not change selection
+    await userEvent.click(optionB);
+    await expect(optionA).toHaveAttribute("aria-checked", "true");
+
+    // Keyboard should not change selection
+    optionA.focus();
+    await userEvent.keyboard("{ArrowRight}");
+    await expect(optionA).toHaveAttribute("aria-checked", "true");
   },
 };
 
@@ -217,6 +297,33 @@ export const Error: Story = {
     error: true,
     subText: "Error message",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const group = canvas.getByRole("radiogroup");
+    const scope = within(group);
+
+    await expect(group).toHaveAttribute("aria-invalid", "true");
+    await expect(group).toHaveAttribute("aria-describedby");
+
+    const optionA = scope.getByRole("radio", { name: "Option A" });
+    const optionB = scope.getByRole("radio", { name: "Option B" });
+
+    // Mouse: selection changes even in error state
+    await userEvent.click(optionB);
+    await expect(optionB).toHaveAttribute("aria-checked", "true");
+    await expect(optionA).toHaveAttribute("aria-checked", "false");
+
+    // Keyboard: ArrowRight moves selection
+    optionB.focus();
+    await userEvent.keyboard("{ArrowRight}");
+    const optionC = scope.getByRole("radio", { name: "Option C" });
+    await expect(optionC).toHaveAttribute("aria-checked", "true");
+    await expect(optionC).toHaveFocus();
+
+    // Reset state
+    await userEvent.click(optionA);
+    await expect(optionA).toHaveAttribute("aria-checked", "true");
+  },
 };
 
 export const ExternalLabel: Story = {
@@ -244,270 +351,6 @@ export const ExternalLabel: Story = {
     `,
   }),
 };
-
-export const AllCombinations: Story = buildAllCombinationsStory({
-  component: KdsValueSwitch,
-  combinationsProps: {
-    default: {
-      id: ["value-switch-id"],
-      label: ["Label"],
-      modelValue: ["Option A"],
-      possibleValues: [
-        ["Option A", "Option B"],
-        [
-          { text: "Option A", id: "Option A", leadingIcon: "search" },
-          { text: "Option B", id: "Option B", trailingIcon: "chevron-right" },
-        ],
-        [
-          { id: "Option A", leadingIcon: "view-cards", title: "Cards" },
-          { id: "Option B", leadingIcon: "list", title: "List" },
-        ],
-      ],
-      size: kdsValueSwitchSizes,
-      variant: kdsValueSwitchVariants,
-      disabled: [false],
-      error: [false],
-      subText: [undefined, "Message"],
-    },
-    combinations: [
-      { error: [true], subText: ["Error message"] },
-      { disabled: [true] },
-    ],
-  },
-  pseudoStates: ["hover", "active", "focus-visible"],
-});
-
-export const DesignComparator: Story = buildDesignComparatorStory({
-  component: KdsValueSwitch,
-  designsToCompare: {
-    Default: {
-      props: {
-        possibleValues: [
-          { text: "{Value}", id: "a" },
-          { text: "{Value}", id: "b" },
-          { text: "{Value}", id: "c" },
-          { text: "{Value}", id: "d" },
-          { text: "{Value}", id: "e" },
-        ],
-        modelValue: "a",
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2408-14147&m=dev":
-          {},
-        // Focus (Figma bounding box includes outline)
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2416-31010&p=f&m=dev":
-          {
-            parameters: {
-              pseudo: { focusVisible: true },
-              figmaOffset: { x: -3, y: -3 },
-            },
-          },
-      },
-    },
-    Muted: {
-      props: {
-        possibleValues: [
-          { text: "{Value}", id: "a" },
-          { text: "{Value}", id: "b" },
-          { text: "{Value}", id: "c" },
-          { text: "{Value}", id: "d" },
-          { text: "{Value}", id: "e" },
-        ],
-        modelValue: "a",
-        variant: "muted",
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7684-91713&m=dev":
-          {},
-      },
-    },
-    Small: {
-      props: {
-        possibleValues: [
-          { text: "{Value}", id: "a" },
-          { text: "{Value}", id: "b" },
-          { text: "{Value}", id: "c" },
-          { text: "{Value}", id: "d" },
-          { text: "{Value}", id: "e" },
-        ],
-        modelValue: "a",
-        size: "small",
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2408-14191&m=dev":
-          {},
-      },
-    },
-    SmallMuted: {
-      props: {
-        possibleValues: [
-          { text: "{Value}", id: "a" },
-          { text: "{Value}", id: "b" },
-          { text: "{Value}", id: "c" },
-          { text: "{Value}", id: "d" },
-          { text: "{Value}", id: "e" },
-        ],
-        modelValue: "a",
-        size: "small",
-        variant: "muted",
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7684-91743&m=dev":
-          {},
-      },
-    },
-    Error: {
-      props: {
-        possibleValues: [
-          { text: "{Value}", id: "a" },
-          { text: "{Value}", id: "b" },
-          { text: "{Value}", id: "c" },
-          { text: "{Value}", id: "d" },
-          { text: "{Value}", id: "e" },
-        ],
-        modelValue: "a",
-        error: true,
-        subText: "{SubText content}",
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2082-20723&m=dev":
-          {},
-        // Error + :focus-visible (Accessibility example)
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2416-31011&m=dev":
-          {
-            parameters: {
-              pseudo: { focusVisible: true },
-              figmaOffset: { x: -3, y: -3 },
-            },
-          },
-      },
-    },
-    ErrorMuted: {
-      props: {
-        possibleValues: [
-          { text: "{Value}", id: "a" },
-          { text: "{Value}", id: "b" },
-          { text: "{Value}", id: "c" },
-          { text: "{Value}", id: "d" },
-          { text: "{Value}", id: "e" },
-        ],
-        modelValue: "a",
-        error: true,
-        subText: "{SubText content}",
-        variant: "muted",
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7691-106492&m=dev":
-          {},
-      },
-    },
-    SmallError: {
-      props: {
-        possibleValues: [
-          { text: "{Value}", id: "a" },
-          { text: "{Value}", id: "b" },
-          { text: "{Value}", id: "c" },
-          { text: "{Value}", id: "d" },
-          { text: "{Value}", id: "e" },
-        ],
-        modelValue: "a",
-        size: "small",
-        error: true,
-        subText: "{SubText content}",
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2408-13594&m=dev":
-          {},
-      },
-    },
-    SmallErrorMuted: {
-      props: {
-        possibleValues: [
-          { text: "{Value}", id: "a" },
-          { text: "{Value}", id: "b" },
-          { text: "{Value}", id: "c" },
-          { text: "{Value}", id: "d" },
-          { text: "{Value}", id: "e" },
-        ],
-        modelValue: "a",
-        size: "small",
-        error: true,
-        subText: "{SubText content}",
-        variant: "muted",
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7691-106458&m=dev":
-          {},
-      },
-    },
-    DisabledDefault: {
-      props: {
-        possibleValues: [
-          { text: "{Value}", id: "a" },
-          { text: "{Value}", id: "b" },
-          { text: "{Value}", id: "c" },
-          { text: "{Value}", id: "d" },
-          { text: "{Value}", id: "e" },
-        ],
-        modelValue: "a",
-        disabled: true,
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7588-143386&m=dev":
-          {},
-      },
-    },
-    DisabledMuted: {
-      props: {
-        possibleValues: [
-          { text: "{Value}", id: "a" },
-          { text: "{Value}", id: "b" },
-        ],
-        modelValue: "a",
-        variant: "muted",
-        disabled: true,
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7691-97819&m=dev":
-          {},
-      },
-    },
-    SmallDisabledDefault: {
-      props: {
-        possibleValues: [
-          { text: "{Value}", id: "a" },
-          { text: "{Value}", id: "b" },
-          { text: "{Value}", id: "c" },
-          { text: "{Value}", id: "d" },
-          { text: "{Value}", id: "e" },
-        ],
-        modelValue: "a",
-        size: "small",
-        disabled: true,
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7588-143387&m=dev":
-          {},
-      },
-    },
-    SmallDisabledMuted: {
-      props: {
-        possibleValues: [
-          { text: "{Value}", id: "a" },
-          { text: "{Value}", id: "b" },
-        ],
-        modelValue: "a",
-        size: "small",
-        variant: "muted",
-        disabled: true,
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7691-97820&m=dev":
-          {},
-      },
-    },
-  },
-});
 
 export const TextOverflow: Story = {
   ...buildTextOverflowStory({
@@ -549,201 +392,266 @@ export const TextOverflow: Story = {
   },
 };
 
-export const Interaction: Story = {
-  args: {
-    label: "Label",
-  },
-  parameters: {
-    controls: { disable: true },
-    actions: { disable: true },
-  },
-  render: () => ({
-    components: { KdsValueSwitch },
-    template: `
-      <div style="display: grid; gap: 24px; align-items: start;">
-        <div>
-          <KdsValueSwitch
-            label="Interactive group"
-            :possible-values="[
-              { text: 'Option A', id: 'a' },
-              { text: 'Option B', id: 'b' },
-              { text: 'Option C', id: 'c' },
-              { text: 'Option D', id: 'd' },
-            ]"
-            sub-text="Group sub text"
-            v-model="interactive"
-          />
-        </div>
-
-        <div>
-          <KdsValueSwitch
-            label="Error group"
-            :possible-values="[
-              { text: 'Option A', id: 'a' },
-              { text: 'Option B', id: 'b' },
-            ]"
-            sub-text="Error message"
-            error
-            v-model="errorGroup"
-          />
-        </div>
-
-        <div>
-          <KdsValueSwitch
-            label="Icon-only group"
-            :possible-values="[
-              { id: 'cards', leadingIcon: 'view-cards', title: 'Cards' },
-              { id: 'list', leadingIcon: 'list', title: 'List' },
-            ]"
-            v-model="iconOnly"
-          />
-        </div>
-
-        <div>
-          <KdsValueSwitch
-            label="Disabled group"
-            :possible-values="[
-              { text: 'Option A', id: 'a' },
-              { text: 'Option B', id: 'b' },
-            ]"
-            v-model="disabledGroup"
-            disabled
-          />
-        </div>
-      </div>
-    `,
-    data() {
-      return {
-        interactive: "a",
-        errorGroup: "a",
-        iconOnly: "cards",
-        disabledGroup: "a",
-      };
+export const DesignComparator: Story = buildDesignComparatorStory({
+  component: KdsValueSwitch,
+  designsToCompare: {
+    Default: {
+      props: {
+        possibleValues: [
+          { text: "{Value}", id: "a" },
+          { text: "{Value}", id: "b" },
+          { text: "{Value}", id: "c" },
+          { text: "{Value}", id: "d" },
+          { text: "{Value}", id: "e" },
+        ],
+        modelValue: "a",
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2408-14147":
+          {},
+        // Focus (Figma bounding box includes outline)
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2416-31010":
+          {
+            parameters: {
+              pseudo: { focusVisible: true },
+              figmaOffset: { x: -3, y: -3 },
+            },
+          },
+      },
     },
-  }),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // -------- Interactive group --------
-    const interactiveGroup = canvas.getByRole("radiogroup", {
-      name: "Interactive group",
-    });
-    const interactiveScope = within(interactiveGroup);
-
-    const optionA = interactiveScope.getByRole("radio", { name: "Option A" });
-    const optionB = interactiveScope.getByRole("radio", { name: "Option B" });
-    const optionC = interactiveScope.getByRole("radio", { name: "Option C" });
-    const optionD = interactiveScope.getByRole("radio", { name: "Option D" });
-
-    // Initial state from v-model
-    await expect(optionA).toHaveAttribute("aria-checked", "true");
-    await expect(optionA).toHaveAttribute("tabindex", "0");
-    await expect(optionB).toHaveAttribute("tabindex", "-1");
-
-    // Group sub text should be wired via aria-describedby
-    await expect(interactiveGroup).toHaveAttribute("aria-describedby");
-
-    // Mouse: selection changes
-    await userEvent.click(optionB);
-    await expect(optionB).toHaveAttribute("aria-checked", "true");
-    await expect(optionB).toHaveAttribute("tabindex", "0");
-    await expect(optionA).toHaveAttribute("tabindex", "-1");
-
-    // Keyboard: ArrowRight moves selection
-    optionB.focus();
-    await userEvent.keyboard("{ArrowRight}");
-    await expect(optionC).toHaveAttribute("aria-checked", "true");
-    await expect(optionC).toHaveFocus();
-
-    // ArrowLeft goes back
-    await userEvent.keyboard("{ArrowLeft}");
-    await expect(optionB).toHaveAttribute("aria-checked", "true");
-    await expect(optionB).toHaveFocus();
-
-    // Home -> first
-    await userEvent.keyboard("{Home}");
-    await expect(optionA).toHaveAttribute("aria-checked", "true");
-    await expect(optionA).toHaveFocus();
-
-    // End -> last
-    await userEvent.keyboard("{End}");
-    await expect(optionD).toHaveAttribute("aria-checked", "true");
-    await expect(optionD).toHaveFocus();
-
-    // Space on focused option selects it (common for radios)
-    await userEvent.keyboard(" ");
-    await expect(optionD).toHaveAttribute("aria-checked", "true");
-
-    // -------- Error group --------
-    const errorGroup = canvas.getByRole("radiogroup", { name: "Error group" });
-    const errorScope = within(errorGroup);
-
-    const errorA = errorScope.getByRole("radio", { name: "Option A" });
-    const errorB = errorScope.getByRole("radio", { name: "Option B" });
-
-    // Group-level validation should be exposed via aria-invalid
-    await expect(errorGroup).toHaveAttribute("aria-invalid", "true");
-    await expect(errorGroup).toHaveAttribute("aria-describedby");
-
-    await userEvent.click(errorB);
-    await expect(errorB).toHaveAttribute("aria-checked", "true");
-    await expect(errorA).toHaveAttribute("aria-checked", "false");
-
-    // -------- Icon-only group --------
-    const iconOnlyGroup = canvas.getByRole("radiogroup", {
-      name: "Icon-only group",
-    });
-    const iconOnlyScope = within(iconOnlyGroup);
-
-    const cards = iconOnlyScope.getByRole("radio", { name: "Cards" });
-    const list = iconOnlyScope.getByRole("radio", { name: "List" });
-
-    await expect(cards).toHaveAttribute("aria-checked", "true");
-
-    await userEvent.click(list);
-    await expect(list).toHaveAttribute("aria-checked", "true");
-    await expect(cards).toHaveAttribute("aria-checked", "false");
-
-    // -------- Disabled group --------
-    const disabledGroup = canvas.getByRole("radiogroup", {
-      name: "Disabled group",
-    });
-    const disabledScope = within(disabledGroup);
-
-    const disabledA = disabledScope.getByRole("radio", { name: "Option A" });
-    const disabledB = disabledScope.getByRole("radio", { name: "Option B" });
-
-    await expect(disabledA).toBeDisabled();
-    await expect(disabledB).toBeDisabled();
-
-    // Neither click nor keyboard should change selection
-    await userEvent.click(disabledB);
-    await expect(disabledA).toHaveAttribute("aria-checked", "true");
-
-    disabledA.focus();
-    await userEvent.keyboard("{ArrowRight}");
-    await expect(disabledA).toHaveAttribute("aria-checked", "true");
-
-    // Reset state so the interaction test can be re-run deterministically.
-    // We reset every group that we modified above.
-
-    // Interactive group back to initial: "a".
-    await userEvent.click(optionA);
-    await expect(optionA).toHaveAttribute("aria-checked", "true");
-    await expect(optionA).toHaveAttribute("tabindex", "0");
-
-    // Error group back to initial: "a".
-    await userEvent.click(errorA);
-    await expect(errorA).toHaveAttribute("aria-checked", "true");
-    await expect(errorB).toHaveAttribute("aria-checked", "false");
-
-    // Icon-only group back to initial: "cards".
-    await userEvent.click(cards);
-    await expect(cards).toHaveAttribute("aria-checked", "true");
-    await expect(list).toHaveAttribute("aria-checked", "false");
-
-    // Disabled group should never have changed, but assert initial selection again.
-    await expect(disabledA).toHaveAttribute("aria-checked", "true");
-    await expect(disabledB).toHaveAttribute("aria-checked", "false");
+    Muted: {
+      props: {
+        possibleValues: [
+          { text: "{Value}", id: "a" },
+          { text: "{Value}", id: "b" },
+          { text: "{Value}", id: "c" },
+          { text: "{Value}", id: "d" },
+          { text: "{Value}", id: "e" },
+        ],
+        modelValue: "a",
+        variant: "muted",
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7684-91713":
+          {},
+      },
+    },
+    Small: {
+      props: {
+        possibleValues: [
+          { text: "{Value}", id: "a" },
+          { text: "{Value}", id: "b" },
+          { text: "{Value}", id: "c" },
+          { text: "{Value}", id: "d" },
+          { text: "{Value}", id: "e" },
+        ],
+        modelValue: "a",
+        size: "small",
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2408-14191":
+          {},
+      },
+    },
+    SmallMuted: {
+      props: {
+        possibleValues: [
+          { text: "{Value}", id: "a" },
+          { text: "{Value}", id: "b" },
+          { text: "{Value}", id: "c" },
+          { text: "{Value}", id: "d" },
+          { text: "{Value}", id: "e" },
+        ],
+        modelValue: "a",
+        size: "small",
+        variant: "muted",
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7684-91743":
+          {},
+      },
+    },
+    Error: {
+      props: {
+        possibleValues: [
+          { text: "{Value}", id: "a" },
+          { text: "{Value}", id: "b" },
+          { text: "{Value}", id: "c" },
+          { text: "{Value}", id: "d" },
+          { text: "{Value}", id: "e" },
+        ],
+        modelValue: "a",
+        error: true,
+        subText: "{SubText content}",
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2082-20723":
+          {},
+        // Error + :focus-visible (Accessibility example)
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2416-31011":
+          {
+            parameters: {
+              pseudo: { focusVisible: true },
+              figmaOffset: { x: -3, y: -3 },
+            },
+          },
+      },
+    },
+    ErrorMuted: {
+      props: {
+        possibleValues: [
+          { text: "{Value}", id: "a" },
+          { text: "{Value}", id: "b" },
+          { text: "{Value}", id: "c" },
+          { text: "{Value}", id: "d" },
+          { text: "{Value}", id: "e" },
+        ],
+        modelValue: "a",
+        error: true,
+        subText: "{SubText content}",
+        variant: "muted",
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7691-106492":
+          {},
+      },
+    },
+    SmallError: {
+      props: {
+        possibleValues: [
+          { text: "{Value}", id: "a" },
+          { text: "{Value}", id: "b" },
+          { text: "{Value}", id: "c" },
+          { text: "{Value}", id: "d" },
+          { text: "{Value}", id: "e" },
+        ],
+        modelValue: "a",
+        size: "small",
+        error: true,
+        subText: "{SubText content}",
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=2408-13594":
+          {},
+      },
+    },
+    SmallErrorMuted: {
+      props: {
+        possibleValues: [
+          { text: "{Value}", id: "a" },
+          { text: "{Value}", id: "b" },
+          { text: "{Value}", id: "c" },
+          { text: "{Value}", id: "d" },
+          { text: "{Value}", id: "e" },
+        ],
+        modelValue: "a",
+        size: "small",
+        error: true,
+        subText: "{SubText content}",
+        variant: "muted",
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7691-106458":
+          {},
+      },
+    },
+    DisabledDefault: {
+      props: {
+        possibleValues: [
+          { text: "{Value}", id: "a" },
+          { text: "{Value}", id: "b" },
+          { text: "{Value}", id: "c" },
+          { text: "{Value}", id: "d" },
+          { text: "{Value}", id: "e" },
+        ],
+        modelValue: "a",
+        disabled: true,
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7588-143386":
+          {},
+      },
+    },
+    DisabledMuted: {
+      props: {
+        possibleValues: [
+          { text: "{Value}", id: "a" },
+          { text: "{Value}", id: "b" },
+        ],
+        modelValue: "a",
+        variant: "muted",
+        disabled: true,
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7691-97819":
+          {},
+      },
+    },
+    SmallDisabledDefault: {
+      props: {
+        possibleValues: [
+          { text: "{Value}", id: "a" },
+          { text: "{Value}", id: "b" },
+          { text: "{Value}", id: "c" },
+          { text: "{Value}", id: "d" },
+          { text: "{Value}", id: "e" },
+        ],
+        modelValue: "a",
+        size: "small",
+        disabled: true,
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7588-143387":
+          {},
+      },
+    },
+    SmallDisabledMuted: {
+      props: {
+        possibleValues: [
+          { text: "{Value}", id: "a" },
+          { text: "{Value}", id: "b" },
+        ],
+        modelValue: "a",
+        size: "small",
+        variant: "muted",
+        disabled: true,
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7691-97820":
+          {},
+      },
+    },
   },
-};
+});
+
+export const AllCombinations: Story = buildAllCombinationsStory({
+  component: KdsValueSwitch,
+  combinationsProps: {
+    default: {
+      id: ["value-switch-id"],
+      label: ["Label"],
+      modelValue: ["Option A"],
+      possibleValues: [
+        ["Option A", "Option B"],
+        [
+          { text: "Option A", id: "Option A", leadingIcon: "search" },
+          { text: "Option B", id: "Option B", trailingIcon: "chevron-right" },
+        ],
+        [
+          { id: "Option A", leadingIcon: "view-cards", title: "Cards" },
+          { id: "Option B", leadingIcon: "list", title: "List" },
+        ],
+      ],
+      size: kdsValueSwitchSizes,
+      variant: kdsValueSwitchVariants,
+      disabled: [false],
+      error: [false],
+      subText: [undefined, "Message"],
+    },
+    combinations: [
+      { error: [true], subText: ["Error message"] },
+      { disabled: [true] },
+    ],
+  },
+  pseudoStates: ["hover", "active", "focus-visible"],
+});

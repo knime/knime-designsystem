@@ -1,4 +1,3 @@
-import { ref } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
@@ -10,7 +9,7 @@ import {
 } from "../../test-utils/storybook";
 
 import KdsCheckbox from "./KdsCheckbox.vue";
-import { kdsCheckboxValues } from "./enums";
+import { kdsCheckboxValue, kdsCheckboxValues } from "./enums";
 
 type Story = StoryObj<typeof KdsCheckbox>;
 
@@ -23,6 +22,10 @@ const meta: Meta<typeof KdsCheckbox> = {
       control: { type: "select" },
       options: kdsCheckboxValues,
       description: "v-model binding for the checkbox state",
+      table: { category: "model" },
+    },
+    "update:modelValue": {
+      description: "Emitted when the checkbox state changes",
       table: { category: "model" },
     },
     label: {
@@ -51,29 +54,17 @@ const meta: Meta<typeof KdsCheckbox> = {
     },
   },
   args: {
-    modelValue: false,
+    modelValue: kdsCheckboxValue.UNCHECKED,
+    "update:modelValue": (value: boolean) => {
+      const [_, updateArgs] = useArgs();
+      updateArgs({ modelValue: value });
+    },
     label: "Label",
     disabled: false,
     subText: "",
     error: false,
     preserveSubTextSpace: false,
   },
-  decorators: [
-    (story) => {
-      const [currentArgs, updateArgs] = useArgs();
-      return {
-        components: { story },
-        setup() {
-          return {
-            args: currentArgs,
-            updateArgs,
-          };
-        },
-        template:
-          '<story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" />',
-      };
-    },
-  ],
   parameters: {
     docs: {
       description: {
@@ -94,6 +85,28 @@ export const Default: Story = {
   args: {
     label: "Label",
     modelValue: false,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const checkbox = canvas.getByRole("checkbox", { name: "Label" });
+
+    await expect(checkbox).not.toBeChecked();
+
+    // Toggle with mouse click
+    await userEvent.click(checkbox);
+    await expect(checkbox).toBeChecked();
+
+    await userEvent.click(checkbox);
+    await expect(checkbox).not.toBeChecked();
+
+    // Toggle with keyboard (Space) while focused
+    await expect(checkbox).toHaveFocus();
+
+    await userEvent.keyboard(" ");
+    await expect(checkbox).toBeChecked();
+
+    await userEvent.keyboard(" ");
+    await expect(checkbox).not.toBeChecked();
   },
 };
 
@@ -125,6 +138,22 @@ export const Disabled: Story = {
     modelValue: true,
     disabled: true,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const checkbox = canvas.getByRole("checkbox", { name: "Label" });
+
+    await expect(checkbox).toBeChecked();
+    await expect(checkbox).toBeDisabled();
+
+    // Click should not change state
+    await userEvent.click(checkbox);
+    await expect(checkbox).toBeChecked();
+
+    // Keyboard should not change state
+    checkbox.focus();
+    await userEvent.keyboard(" ");
+    await expect(checkbox).toBeChecked();
+  },
 };
 
 export const Error: Story = {
@@ -136,7 +165,7 @@ export const Error: Story = {
   },
 };
 
-export const WithoutLabel: Story = {
+export const WithCustomLabel: Story = {
   args: {
     label: undefined,
     title: "Checkbox title",
@@ -144,19 +173,19 @@ export const WithoutLabel: Story = {
   },
 };
 
-export const AllCombinations: Story = buildAllCombinationsStory({
-  component: KdsCheckbox,
-  combinationsProps: [
-    {
-      modelValue: kdsCheckboxValues,
-      label: ["Label"],
-      disabled: [false, true],
-      error: [false, true],
-      subText: [undefined, "SubText"],
-    },
-  ],
-  pseudoStates: ["hover", "active", "focus-visible"],
-});
+export const TextOverflow: Story = {
+  ...buildTextOverflowStory({
+    component: KdsCheckbox,
+    width: 200,
+  }),
+  args: {
+    label:
+      "This is a very long checkbox label that should overflow and wrap properly when the container is too narrow",
+    subText:
+      "This is a very long sub text that should also overflow and wrap properly when there is not enough space",
+    modelValue: false,
+  },
+};
 
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsCheckbox,
@@ -404,65 +433,16 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   },
 });
 
-export const TextOverflow: Story = {
-  ...buildTextOverflowStory({
-    component: KdsCheckbox,
-    width: 200,
-  }),
-  args: {
-    label:
-      "This is a very long checkbox label that should overflow and wrap properly when the container is too narrow",
-    subText:
-      "This is a very long sub text that should also overflow and wrap properly when there is not enough space",
-    modelValue: false,
-  },
-};
-
-export const Interaction: Story = {
-  args: {
-    label: "Label",
-    modelValue: false,
-    disabled: false,
-    subText: "",
-    error: false,
-    preserveSubTextSpace: false,
-  },
-  render: (args) => ({
-    components: { KdsCheckbox },
-    setup() {
-      const { modelValue: _modelValue, ...rest } = args;
-      const modelValue = ref(_modelValue ?? false);
-
-      return {
-        modelValue,
-        rest,
-      };
+export const AllCombinations: Story = buildAllCombinationsStory({
+  component: KdsCheckbox,
+  combinationsProps: [
+    {
+      modelValue: kdsCheckboxValues,
+      label: ["Label"],
+      disabled: [false, true],
+      error: [false, true],
+      subText: [undefined, "SubText"],
     },
-    template: '<KdsCheckbox v-bind="rest" v-model="modelValue" />',
-  }),
-  play: async ({ canvasElement, step }) => {
-    const canvas = within(canvasElement);
-    const checkbox = canvas.getByRole("checkbox", { name: "Label" });
-
-    await expect(checkbox).not.toBeChecked();
-
-    await step("Toggle with mouse click", async () => {
-      await userEvent.click(checkbox);
-      await expect(checkbox).toBeChecked();
-
-      await userEvent.click(checkbox);
-      await expect(checkbox).not.toBeChecked();
-    });
-
-    await step("Toggle with keyboard (Space) while focused", async () => {
-      // Checkbox should have focus from previous step
-      await expect(checkbox).toHaveFocus();
-
-      await userEvent.keyboard(" ");
-      await expect(checkbox).toBeChecked();
-
-      await userEvent.keyboard(" ");
-      await expect(checkbox).not.toBeChecked();
-    });
-  },
-};
+  ],
+  pseudoStates: ["hover", "active", "focus-visible"],
+});
