@@ -10,6 +10,7 @@ import {
 
 import KdsCheckbox from "./KdsCheckbox.vue";
 import { kdsCheckboxValue, kdsCheckboxValues } from "./enums";
+import type { KdsCheckboxValue } from "./types";
 
 type Story = StoryObj<typeof KdsCheckbox>;
 
@@ -55,7 +56,7 @@ const meta: Meta<typeof KdsCheckbox> = {
   },
   args: {
     modelValue: kdsCheckboxValue.UNCHECKED,
-    "update:modelValue": (value: boolean) => {
+    "update:modelValue": (value: KdsCheckboxValue) => {
       const [_, updateArgs] = useArgs();
       updateArgs({ modelValue: value });
     },
@@ -84,7 +85,7 @@ export default meta;
 export const Default: Story = {
   args: {
     label: "Label",
-    modelValue: false,
+    modelValue: kdsCheckboxValue.UNCHECKED,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -113,14 +114,14 @@ export const Default: Story = {
 export const Checked: Story = {
   args: {
     label: "Label",
-    modelValue: true,
+    modelValue: kdsCheckboxValue.CHECKED,
   },
 };
 
 export const Indeterminate: Story = {
   args: {
     label: "Label",
-    modelValue: "indeterminate",
+    modelValue: kdsCheckboxValue.INDETERMINATE,
   },
 };
 
@@ -128,14 +129,14 @@ export const SubText: Story = {
   args: {
     label: "Label",
     subText: "Sub text",
-    modelValue: false,
+    modelValue: kdsCheckboxValue.UNCHECKED,
   },
 };
 
 export const Disabled: Story = {
   args: {
     label: "Label",
-    modelValue: true,
+    modelValue: kdsCheckboxValue.CHECKED,
     disabled: true,
   },
   play: async ({ canvasElement }) => {
@@ -160,7 +161,7 @@ export const Error: Story = {
   args: {
     label: "Label",
     subText: "Error message",
-    modelValue: false,
+    modelValue: kdsCheckboxValue.UNCHECKED,
     error: true,
   },
 };
@@ -169,7 +170,7 @@ export const WithCustomLabel: Story = {
   args: {
     label: undefined,
     title: "Checkbox title",
-    modelValue: false,
+    modelValue: kdsCheckboxValue.UNCHECKED,
   },
 };
 
@@ -183,7 +184,7 @@ export const TextOverflow: Story = {
       "This is a very long checkbox label that should overflow and wrap properly when the container is too narrow",
     subText:
       "This is a very long sub text that should also overflow and wrap properly when there is not enough space",
-    modelValue: false,
+    modelValue: kdsCheckboxValue.UNCHECKED,
   },
 };
 
@@ -193,7 +194,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     Default: {
       props: {
         label: "Label",
-        modelValue: false,
+        modelValue: kdsCheckboxValue.UNCHECKED,
       },
       variants: {
         // Default state
@@ -273,7 +274,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     Checked: {
       props: {
         label: "Label",
-        modelValue: true,
+        modelValue: kdsCheckboxValue.CHECKED,
       },
       variants: {
         // Default
@@ -353,7 +354,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     Indeterminate: {
       props: {
         label: "Label",
-        modelValue: "indeterminate",
+        modelValue: kdsCheckboxValue.INDETERMINATE,
       },
       variants: {
         // Default
