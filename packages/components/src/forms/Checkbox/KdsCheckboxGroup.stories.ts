@@ -47,7 +47,7 @@ const meta: Meta<typeof KdsCheckboxGroup> = {
     },
     design: {
       type: "figma",
-      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9202-7631&p=f&m=dev",
+      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9202-7631",
     },
   },
   argTypes: {
@@ -55,6 +55,11 @@ const meta: Meta<typeof KdsCheckboxGroup> = {
       control: { type: "object" },
       description:
         "The currently selected option ids. Array of strings representing selected checkboxes.",
+      table: { category: "model" },
+    },
+    // @ts-expect-error – Storybook doesn't type emit handlers in argTypes for DefineComponent
+    "update:modelValue": {
+      description: "Emitted when the checkbox state changes",
       table: { category: "model" },
     },
     id: {
@@ -107,31 +112,68 @@ const meta: Meta<typeof KdsCheckboxGroup> = {
   },
   args: {
     modelValue: ["Option A"],
+    // @ts-expect-error – Storybook reactive-arg workaround; not in ComponentPropsAndSlots
+    "update:modelValue": (value: string[]) => {
+      const [_, updateArgs] = useArgs();
+      updateArgs({ modelValue: value });
+    },
     id: "checkbox-group",
     label: "Label",
     possibleValues: ["Option A", "Option B", "Option C", "Option D"],
+    alignment: "vertical",
+    disabled: false,
+    error: false,
+    subText: "",
+    preserveSubTextSpace: false,
   },
-  decorators: [
-    (story) => {
-      const [currentArgs, updateArgs] = useArgs();
-      return {
-        components: { story },
-        setup() {
-          return {
-            args: currentArgs,
-            updateArgs,
-          };
-        },
-        template:
-          '<story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" />',
-      };
-    },
-  ],
 };
 
 export default meta;
 
-export const Default: Story = {};
+export const Default: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const group = canvas.getByRole("group");
+    const scope = within(group);
+
+    const optionA = scope.getByRole("checkbox", { name: "Option A" });
+    const optionB = scope.getByRole("checkbox", { name: "Option B" });
+
+    // Initially, Option A is checked
+    await expect(optionA).toHaveAttribute("aria-checked", "true");
+    await expect(optionB).toHaveAttribute("aria-checked", "false");
+
+    // Click to check Option B
+    await userEvent.click(optionB);
+    await expect(optionB).toHaveAttribute("aria-checked", "true");
+    await expect(optionA).toHaveAttribute("aria-checked", "true");
+
+    // Click to uncheck Option A
+    await userEvent.click(optionA);
+    await expect(optionA).toHaveAttribute("aria-checked", "false");
+    await expect(optionB).toHaveAttribute("aria-checked", "true");
+
+    // Space key to toggle
+    optionA.focus();
+    await userEvent.keyboard(" ");
+    await expect(optionA).toHaveAttribute("aria-checked", "true");
+
+    // Enter key to toggle
+    await userEvent.keyboard("{Enter}");
+    await expect(optionA).toHaveAttribute("aria-checked", "false");
+
+    // Tab navigation between checkboxes
+    optionA.focus();
+    await userEvent.tab();
+    await expect(optionB).toHaveFocus();
+
+    // Reset state
+    await userEvent.click(optionA);
+    await userEvent.click(optionB);
+    await expect(optionA).toHaveAttribute("aria-checked", "true");
+    await expect(optionB).toHaveAttribute("aria-checked", "false");
+  },
+};
 
 export const MultipleSelections: Story = {
   args: {
@@ -139,16 +181,9 @@ export const MultipleSelections: Story = {
   },
 };
 
-export const WithSubText: Story = {
+export const WithOptionsHelperText: Story = {
   args: {
-    subText: "Additional information about this selection",
-  },
-};
-
-export const PreserveSubTextSpace: Story = {
-  args: {
-    subText: undefined,
-    preserveSubTextSpace: true,
+    possibleValues: optionsWithHelperText,
   },
 };
 
@@ -173,15 +208,76 @@ export const HorizontalWithHelperTexts: Story = {
   },
 };
 
-export const WithOptionsHelperText: Story = {
+export const WithSubText: Story = {
   args: {
-    possibleValues: optionsWithHelperText,
+    subText: "Additional information about this selection",
+  },
+};
+
+export const PreserveSubTextSpace: Story = {
+  args: {
+    subText: undefined,
+    preserveSubTextSpace: true,
+  },
+};
+
+export const DisabledOption: Story = {
+  args: {
+    possibleValues: [
+      { text: "Option A", id: "Option A" },
+      { text: "Option B", id: "Option B" },
+      {
+        text: "Option C (disabled)",
+        id: "Option C (disabled)",
+        disabled: true,
+      },
+      { text: "Option D", id: "Option D" },
+    ],
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const group = canvas.getByRole("group");
+    const scope = within(group);
+
+    const optionB = scope.getByRole("checkbox", { name: "Option B" });
+    const optionC = scope.getByRole("checkbox", {
+      name: "Option C (disabled)",
+    });
+    const optionD = scope.getByRole("checkbox", { name: "Option D" });
+
+    await expect(optionC).toBeDisabled();
+
+    // Tab navigation should skip the disabled option
+    optionB.focus();
+    await userEvent.tab();
+    await expect(optionD).toHaveFocus();
   },
 };
 
 export const Disabled: Story = {
   args: {
     disabled: true,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const group = canvas.getByRole("group");
+    const scope = within(group);
+
+    const optionA = scope.getByRole("checkbox", { name: "Option A" });
+    const optionB = scope.getByRole("checkbox", { name: "Option B" });
+
+    await expect(optionA).toBeDisabled();
+    await expect(optionB).toBeDisabled();
+
+    // Click should not change selection
+    await userEvent.click(optionB);
+    await expect(optionA).toHaveAttribute("aria-checked", "true");
+    await expect(optionB).toHaveAttribute("aria-checked", "false");
+
+    // Keyboard should not change selection
+    optionA.focus();
+    await userEvent.keyboard(" ");
+    await expect(optionA).toHaveAttribute("aria-checked", "true");
   },
 };
 
@@ -208,121 +304,23 @@ export const ErrorInOption: Story = {
   },
 };
 
-export const WithoutLabel: Story = {
-  args: {
-    label: undefined,
-    possibleValues: ["Option A", "Option B", "Option C", "Option D"],
-    modelValue: ["Option A"],
-  },
+export const WithCustomLabel: Story = {
+  render: () => ({
+    components: { KdsCheckboxGroup },
+    template: `
+      <div style="display: grid; gap: 8px; align-items: start;">
+        <label for="custom-checkbox-group">Custom label</label>
+
+        <KdsCheckboxGroup
+          id="custom-checkbox-group"
+          :possible-values="['Option A', 'Option B', 'Option C', 'Option D']"
+          :model-value="['Option A']"
+          :label="undefined"
+        />
+      </div>
+    `,
+  }),
 };
-
-export const AllCombinations: Story = buildAllCombinationsStory({
-  component: KdsCheckboxGroup,
-  combinationsProps: [
-    {
-      label: ["Label"],
-      disabled: [false, true],
-      alignment: kdsCheckboxGroupAlignments,
-      subText: [undefined, "Additional information"],
-      possibleValues: [twoOptions, optionsWithHelperText],
-      modelValue: [[], ["Option A"], ["Option A", "Option B"]],
-    },
-    {
-      label: ["Label"],
-      alignment: kdsCheckboxGroupAlignments,
-      subText: ["Error information"],
-      possibleValues: [optionsWithError, optionsWithHelperTextAndError],
-      modelValue: [[], ["Option A"], ["Option A", "Option B"]],
-    },
-    {
-      label: ["Label"],
-      error: [true],
-      alignment: kdsCheckboxGroupAlignments,
-      subText: ["Please select at least one option"],
-      possibleValues: [twoOptions],
-      modelValue: [[]],
-    },
-  ],
-});
-
-export const DesignComparator: Story = buildDesignComparatorStory({
-  component: KdsCheckboxGroup,
-  designsToCompare: {
-    "Component Source": {
-      props: {
-        label: "{Label}",
-        possibleValues: [
-          { text: "Label", id: "a" },
-          { text: "Label", id: "b" },
-          { text: "Label", id: "c" },
-          { text: "Label", id: "d" },
-        ],
-        modelValue: [],
-      },
-      variants: {
-        // Variants from Figma frame 14198:4812
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7118-319636&p=f&m=dev":
-          {
-            alignment: "vertical",
-            possibleValues: [
-              { text: "Label", id: "a" },
-              { text: "Label", id: "b" },
-              { text: "Label", id: "c" },
-              { text: "Label", id: "d" },
-            ],
-          },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=14198-38239&p=f&m=dev":
-          {
-            alignment: "vertical",
-            modelValue: ["a"],
-            possibleValues: [
-              {
-                text: "Label",
-                id: "a",
-                error: true,
-              },
-              { text: "Label", id: "b" },
-              { text: "Label", id: "c" },
-              { text: "Label", id: "d" },
-            ],
-            subText: "{Error message}",
-          },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=14198-9884&p=f&m=dev":
-          {
-            alignment: "horizontal",
-            possibleValues: [
-              { text: "Label", id: "a" },
-              { text: "Label", id: "b" },
-              { text: "Label", id: "c" },
-              { text: "Label", id: "d" },
-              { text: "Label", id: "e" },
-              { text: "Label", id: "f" },
-              { text: "Label", id: "g" },
-            ],
-          },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=14198-38462&p=f&m=dev":
-          {
-            alignment: "horizontal",
-            modelValue: ["a"],
-            possibleValues: [
-              {
-                text: "Label",
-                id: "a",
-                error: true,
-              },
-              { text: "Label", id: "b" },
-              { text: "Label", id: "c" },
-              { text: "Label", id: "d" },
-              { text: "Label", id: "e" },
-              { text: "Label", id: "f" },
-              { text: "Label", id: "g" },
-            ],
-            subText: "{Error message}",
-          },
-      },
-    },
-  },
-});
 
 export const TextOverflow: Story = {
   ...buildTextOverflowStory({
@@ -355,127 +353,110 @@ export const TextOverflow: Story = {
   },
 };
 
-export const Interaction: Story = {
-  args: {
-    label: "Label",
-  },
-  parameters: {
-    controls: { disable: true },
-    actions: { disable: true },
-  },
-  render: () => ({
-    components: { KdsCheckboxGroup },
-    template: `
-      <div style="display: grid; gap: 24px; align-items: start;">
-        <div>
-          <KdsCheckboxGroup
-            id="checkbox-group-1"
-            label="Interactive group"
-            :possible-values="[
-              { text: 'Option A', id: 'a' },
-              { text: 'Option B', id: 'b' },
-              { text: 'Option C (disabled)', id: 'c', disabled: true },
-              { text: 'Option D', id: 'd' },
-            ]"
-            v-model="interactive"
-           />
-        </div>
-
-        <div>
-          <KdsCheckboxGroup
-            id="checkbox-group-2"
-            label="Disabled group"
-            :possible-values="[
-              { text: 'Option A', id: 'a' },
-              { text: 'Option B', id: 'b' },
-            ]"
-            v-model="disabledGroup"
-            disabled
-          />
-        </div>
-      </div>
-    `,
-    data() {
-      return {
-        interactive: ["a"],
-        disabledGroup: ["a"],
-      };
+export const DesignComparator: Story = buildDesignComparatorStory({
+  component: KdsCheckboxGroup,
+  designsToCompare: {
+    "Component Source": {
+      props: {
+        label: "{Label}",
+        possibleValues: [
+          { text: "Label", id: "a" },
+          { text: "Label", id: "b" },
+          { text: "Label", id: "c" },
+          { text: "Label", id: "d" },
+        ],
+        modelValue: [],
+      },
+      variants: {
+        // Variants from Figma frame 14198:4812
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7118-319636":
+          {
+            alignment: "vertical",
+            possibleValues: [
+              { text: "Label", id: "a" },
+              { text: "Label", id: "b" },
+              { text: "Label", id: "c" },
+              { text: "Label", id: "d" },
+            ],
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=14198-38239":
+          {
+            alignment: "vertical",
+            modelValue: ["a"],
+            possibleValues: [
+              {
+                text: "Label",
+                id: "a",
+                error: true,
+              },
+              { text: "Label", id: "b" },
+              { text: "Label", id: "c" },
+              { text: "Label", id: "d" },
+            ],
+            subText: "{Error message}",
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=14198-9884":
+          {
+            alignment: "horizontal",
+            possibleValues: [
+              { text: "Label", id: "a" },
+              { text: "Label", id: "b" },
+              { text: "Label", id: "c" },
+              { text: "Label", id: "d" },
+              { text: "Label", id: "e" },
+              { text: "Label", id: "f" },
+              { text: "Label", id: "g" },
+            ],
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=14198-38462":
+          {
+            alignment: "horizontal",
+            modelValue: ["a"],
+            possibleValues: [
+              {
+                text: "Label",
+                id: "a",
+                error: true,
+              },
+              { text: "Label", id: "b" },
+              { text: "Label", id: "c" },
+              { text: "Label", id: "d" },
+              { text: "Label", id: "e" },
+              { text: "Label", id: "f" },
+              { text: "Label", id: "g" },
+            ],
+            subText: "{Error message}",
+          },
+      },
     },
-  }),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    const groups = canvas.getAllByRole("group");
-
-    // -------- Interactive group --------
-    const interactiveGroup = groups[0];
-    const interactiveScope = within(interactiveGroup);
-
-    const optionA = interactiveScope.getByRole("checkbox", {
-      name: "Option A",
-    });
-    const optionB = interactiveScope.getByRole("checkbox", {
-      name: "Option B",
-    });
-    const optionC = interactiveScope.getByRole("checkbox", {
-      name: "Option C (disabled)",
-    });
-    const optionD = interactiveScope.getByRole("checkbox", {
-      name: "Option D",
-    });
-
-    // Initially, Option A is checked
-    await expect(optionA).toHaveAttribute("aria-checked", "true");
-    await expect(optionB).toHaveAttribute("aria-checked", "false");
-    await expect(optionC).toBeDisabled();
-    await expect(optionD).toHaveAttribute("aria-checked", "false");
-
-    // Click to check Option B
-    await userEvent.click(optionB);
-    await expect(optionB).toHaveAttribute("aria-checked", "true");
-    await expect(optionA).toHaveAttribute("aria-checked", "true");
-
-    // Click to uncheck Option A
-    await userEvent.click(optionA);
-    await expect(optionA).toHaveAttribute("aria-checked", "false");
-    await expect(optionB).toHaveAttribute("aria-checked", "true");
-
-    // Space key to check Option D
-    optionD.focus();
-    await userEvent.keyboard(" ");
-    await expect(optionD).toHaveAttribute("aria-checked", "true");
-
-    // Enter key to uncheck Option D
-    await userEvent.keyboard("{Enter}");
-    await expect(optionD).toHaveAttribute("aria-checked", "false");
-
-    // Tab navigation should work
-    optionA.focus();
-    await userEvent.tab();
-    await expect(optionB).toHaveFocus();
-    await userEvent.tab();
-    // Skip disabled option C
-    await expect(optionD).toHaveFocus();
-
-    // Reset state
-    await userEvent.click(optionB);
-    await userEvent.click(optionA);
-    await expect(optionA).toHaveAttribute("aria-checked", "true");
-    await expect(optionB).toHaveAttribute("aria-checked", "false");
-
-    // -------- Disabled group --------
-    const disabledGroup = groups[1];
-    const disabledScope = within(disabledGroup);
-
-    const disabledA = disabledScope.getByRole("checkbox", { name: "Option A" });
-    const disabledB = disabledScope.getByRole("checkbox", { name: "Option B" });
-
-    await expect(disabledA).toBeDisabled();
-    await expect(disabledB).toBeDisabled();
-
-    // Neither click nor keyboard should change selection
-    await userEvent.click(disabledB);
-    await expect(disabledA).toHaveAttribute("aria-checked", "true");
-    await expect(disabledB).toHaveAttribute("aria-checked", "false");
   },
-};
+});
+
+export const AllCombinations: Story = buildAllCombinationsStory({
+  component: KdsCheckboxGroup,
+  combinationsProps: [
+    {
+      label: ["Label"],
+      disabled: [false, true],
+      alignment: kdsCheckboxGroupAlignments,
+      subText: [undefined, "Additional information"],
+      possibleValues: [twoOptions, optionsWithHelperText],
+      modelValue: [[], ["Option A"], ["Option A", "Option B"]],
+    },
+    {
+      label: ["Label"],
+      alignment: kdsCheckboxGroupAlignments,
+      subText: ["Error information"],
+      possibleValues: [optionsWithError, optionsWithHelperTextAndError],
+      modelValue: [[], ["Option A"], ["Option A", "Option B"]],
+    },
+    {
+      label: ["Label"],
+      error: [true],
+      alignment: kdsCheckboxGroupAlignments,
+      subText: ["Please select at least one option"],
+      possibleValues: [twoOptions],
+      modelValue: [[]],
+    },
+  ],
+});

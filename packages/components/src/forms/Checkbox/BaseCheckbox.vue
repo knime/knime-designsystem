@@ -165,7 +165,6 @@ const handleClick = () => {
     text-rendering: geometricprecision;
 
     & .label {
-      padding-top: var(--kds-spacing-container-0-10x);
       font: var(--kds-font-base-interactive-small);
       color: var(--text-color);
     }

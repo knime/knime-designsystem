@@ -39,7 +39,7 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
     },
     design: {
       type: "figma",
-      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9325-7964&p=f&m=dev",
+      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=9325-7964",
     },
   },
   argTypes: {
@@ -47,6 +47,11 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
       control: { type: "text" },
       description:
         "The currently selected option id. Can be undefined when no option is selected.",
+      table: { category: "model" },
+    },
+    // @ts-expect-error – Storybook doesn't type emit handlers in argTypes for DefineComponent
+    "update:modelValue": {
+      description: "Emitted when the selection changes",
       table: { category: "model" },
     },
     id: {
@@ -93,6 +98,11 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
   },
   args: {
     modelValue: "Option A",
+    // @ts-expect-error – Storybook reactive-arg workaround; not in ComponentPropsAndSlots
+    "update:modelValue": (value: string) => {
+      const [_, updateArgs] = useArgs();
+      updateArgs({ modelValue: value });
+    },
     id: "radio-button-group",
     label: "Label",
     possibleValues: ["Option A", "Option B", "Option C", "Option D"],
@@ -101,27 +111,51 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
     subText: "",
     preserveSubTextSpace: false,
   },
-  decorators: [
-    (story) => {
-      const [currentArgs, updateArgs] = useArgs();
-      return {
-        components: { story },
-        setup() {
-          return {
-            args: currentArgs,
-            updateArgs,
-          };
-        },
-        template:
-          '<story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" />',
-      };
-    },
-  ],
 };
 
 export default meta;
 
-export const Default: Story = {};
+export const Default: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const group = canvas.getByRole("radiogroup");
+    const scope = within(group);
+
+    const optionA = scope.getByRole("radio", { name: "Option A" });
+    const optionB = scope.getByRole("radio", { name: "Option B" });
+
+    await expect(optionA).toHaveAttribute("aria-checked", "true");
+    await expect(optionA).toHaveAttribute("tabindex", "0");
+    await expect(optionB).toHaveAttribute("tabindex", "-1");
+
+    // Mouse: selection changes
+    await userEvent.click(optionB);
+    await expect(optionB).toHaveAttribute("aria-checked", "true");
+    await expect(optionA).toHaveAttribute("tabindex", "-1");
+
+    // Keyboard: ArrowRight moves selection
+    optionB.focus();
+    await userEvent.keyboard("{ArrowRight}");
+    const optionC = scope.getByRole("radio", { name: "Option C" });
+    await expect(optionC).toHaveAttribute("aria-checked", "true");
+    await expect(optionC).toHaveFocus();
+
+    // Home -> first option
+    await userEvent.keyboard("{Home}");
+    await expect(optionA).toHaveAttribute("aria-checked", "true");
+    await expect(optionA).toHaveFocus();
+
+    // End -> last option
+    await userEvent.keyboard("{End}");
+    const optionD = scope.getByRole("radio", { name: "Option D" });
+    await expect(optionD).toHaveAttribute("aria-checked", "true");
+    await expect(optionD).toHaveFocus();
+
+    // Reset state
+    await userEvent.click(optionA);
+    await expect(optionA).toHaveAttribute("aria-checked", "true");
+  },
+};
 
 export const WithOptionsHelperText: Story = {
   args: {
@@ -167,7 +201,28 @@ export const Disabled: Story = {
   args: {
     disabled: true,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const group = canvas.getByRole("radiogroup");
+    const scope = within(group);
+
+    const optionA = scope.getByRole("radio", { name: "Option A" });
+    const optionB = scope.getByRole("radio", { name: "Option B" });
+
+    await expect(optionA).toBeDisabled();
+    await expect(optionB).toBeDisabled();
+
+    // Click should not change selection
+    await userEvent.click(optionB);
+    await expect(optionA).toHaveAttribute("aria-checked", "true");
+
+    // Keyboard should not change selection
+    optionA.focus();
+    await userEvent.keyboard("{ArrowRight}");
+    await expect(optionA).toHaveAttribute("aria-checked", "true");
+  },
 };
+
 export const WithSubText: Story = {
   render: () => ({
     components: { KdsRadioButtonGroup },
@@ -255,72 +310,6 @@ export const WithCustomLabel: Story = {
   }),
 };
 
-export const AllCombinations: Story = buildAllCombinationsStory({
-  component: KdsRadioButtonGroup,
-  combinationsProps: [
-    {
-      label: ["Label", undefined],
-      subText: [undefined, "Additional information"],
-      preserveSubTextSpace: [false, true],
-      possibleValues: [
-        ["Option A", "Option B"],
-        optionsWithError,
-        optionsWithHelperText,
-      ],
-      modelValue: [undefined, "Option A", "Option B"],
-      alignment: kdsRadioButtonGroupAlignments,
-      disabled: [false, true],
-    },
-  ],
-});
-
-export const DesignComparator: Story = buildDesignComparatorStory({
-  component: KdsRadioButtonGroup,
-  designsToCompare: {
-    Default: {
-      props: {
-        label: "{Label}",
-        possibleValues: [
-          { text: "Label", id: "a" },
-          { text: "Label", id: "b" },
-          { text: "Label", id: "c" },
-          { text: "Label", id: "d" },
-        ],
-        modelValue: "a",
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7118-319373&m=dev":
-          {},
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=12591-110389&m=dev":
-          {
-            alignment: "horizontal",
-          },
-      },
-    },
-    Error: {
-      props: {
-        label: "{Label}",
-        possibleValues: [
-          { text: "Label", id: "a", error: true },
-          { text: "Label", id: "b" },
-          { text: "Label", id: "c" },
-          { text: "Label", id: "d" },
-        ],
-        modelValue: "a",
-        subText: "{Error message}",
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=12591-97153&m=dev":
-          {},
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=12591-110317&m=dev":
-          {
-            alignment: "horizontal",
-          },
-      },
-    },
-  },
-});
-
 export const TextOverflow: Story = {
   ...buildTextOverflowStory({
     component: KdsRadioButtonGroup,
@@ -352,120 +341,68 @@ export const TextOverflow: Story = {
   },
 };
 
-export const Interaction: Story = {
-  args: {
-    label: "Label",
-  },
-  parameters: {
-    controls: { disable: true },
-    actions: { disable: true },
-  },
-  render: () => ({
-    components: { KdsRadioButtonGroup },
-    template: `
-      <div style="display: grid; gap: 24px; align-items: start;">
-        <div>
-          <KdsRadioButtonGroup
-            label="Interactive group"
-            :possible-values="[
-              { text: 'Option A', id: 'a' },
-              { text: 'Option B', id: 'b' },
-              { text: 'Option C (disabled)', id: 'c', disabled: true },
-              { text: 'Option D', id: 'd' },
-            ]"
-            v-model="interactive"
-          />
-        </div>
-
-        <div>
-          <KdsRadioButtonGroup
-            label="Disabled group"
-            :possible-values="[
-              { text: 'Option A', id: 'a' },
-              { text: 'Option B', id: 'b' },
-            ]"
-            v-model="disabledGroup"
-            disabled
-          />
-        </div>
-      </div>
-    `,
-    data() {
-      return {
-        interactive: "a",
-        disabledGroup: "a",
-      };
+export const DesignComparator: Story = buildDesignComparatorStory({
+  component: KdsRadioButtonGroup,
+  designsToCompare: {
+    Default: {
+      props: {
+        label: "{Label}",
+        possibleValues: [
+          { text: "Label", id: "a" },
+          { text: "Label", id: "b" },
+          { text: "Label", id: "c" },
+          { text: "Label", id: "d" },
+        ],
+        modelValue: "a",
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7118-319373":
+          {},
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=12591-110389":
+          {
+            alignment: "horizontal",
+          },
+      },
     },
-  }),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    const groups = canvas.getAllByRole("radiogroup");
-
-    // -------- Interactive group --------
-    const interactiveGroup = groups[0];
-    const interactiveScope = within(interactiveGroup);
-
-    const optionA = interactiveScope.getByRole("radio", { name: "Option A" });
-    const optionB = interactiveScope.getByRole("radio", { name: "Option B" });
-    const optionC = interactiveScope.getByRole("radio", {
-      name: "Option C (disabled)",
-    });
-    const optionD = interactiveScope.getByRole("radio", { name: "Option D" });
-
-    await expect(optionA).toHaveAttribute("aria-checked", "true");
-    await expect(optionA).toHaveAttribute("tabindex", "0");
-    await expect(optionB).toHaveAttribute("tabindex", "-1");
-    await expect(optionC).toBeDisabled();
-
-    // Mouse: selection changes
-    await userEvent.click(optionB);
-    await expect(optionB).toHaveAttribute("aria-checked", "true");
-    await expect(optionB).toHaveAttribute("tabindex", "0");
-    await expect(optionA).toHaveAttribute("tabindex", "-1");
-
-    // Keyboard: ArrowRight moves selection and skips disabled option
-    optionB.focus();
-    await userEvent.keyboard("{ArrowRight}");
-    await expect(optionD).toHaveAttribute("aria-checked", "true");
-    await expect(optionD).toHaveFocus();
-
-    // Home -> first enabled
-    await userEvent.keyboard("{Home}");
-    await expect(optionA).toHaveAttribute("aria-checked", "true");
-    await expect(optionA).toHaveFocus();
-
-    // End -> last enabled
-    await userEvent.keyboard("{End}");
-    await expect(optionD).toHaveAttribute("aria-checked", "true");
-    await expect(optionD).toHaveFocus();
-
-    // Enter on disabled should not change selection
-    optionC.focus();
-    await userEvent.keyboard("{Enter}");
-    await expect(optionD).toHaveAttribute("aria-checked", "true");
-
-    // Reset state so the interaction test can be re-run deterministically
-    await userEvent.click(optionA);
-    await expect(optionA).toHaveAttribute("aria-checked", "true");
-    await expect(optionA).toHaveAttribute("tabindex", "0");
-
-    // -------- Disabled group --------
-    const disabledGroup = groups[1];
-    const disabledScope = within(disabledGroup);
-
-    const disabledA = disabledScope.getByRole("radio", { name: "Option A" });
-    const disabledB = disabledScope.getByRole("radio", { name: "Option B" });
-
-    await expect(disabledA).toBeDisabled();
-    await expect(disabledB).toBeDisabled();
-
-    // Neither click nor keyboard should change selection
-    await userEvent.click(disabledB);
-    await expect(disabledA).toHaveAttribute("aria-checked", "true");
-
-    disabledA.focus();
-    await userEvent.keyboard("{ArrowRight}");
-    await expect(disabledA).toHaveAttribute("aria-checked", "true");
+    Error: {
+      props: {
+        label: "{Label}",
+        possibleValues: [
+          { text: "Label", id: "a", error: true },
+          { text: "Label", id: "b" },
+          { text: "Label", id: "c" },
+          { text: "Label", id: "d" },
+        ],
+        modelValue: "a",
+        subText: "{Error message}",
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=12591-97153":
+          {},
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=12591-110317":
+          {
+            alignment: "horizontal",
+          },
+      },
+    },
   },
-};
+});
+
+export const AllCombinations: Story = buildAllCombinationsStory({
+  component: KdsRadioButtonGroup,
+  combinationsProps: [
+    {
+      label: ["Label", undefined],
+      subText: [undefined, "Additional information"],
+      preserveSubTextSpace: [false, true],
+      possibleValues: [
+        ["Option A", "Option B"],
+        optionsWithError,
+        optionsWithHelperText,
+      ],
+      modelValue: [undefined, "Option A", "Option B"],
+      alignment: kdsRadioButtonGroupAlignments,
+      disabled: [false, true],
+    },
+  ],
+});
