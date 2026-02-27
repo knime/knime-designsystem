@@ -71,6 +71,13 @@ export const Default: Story = {
     await userEvent.click(getButton());
     await expect(getButton()).toHaveAttribute("aria-pressed", "true");
 
+    // Popover should have the accessible label
+    const popover = canvas.getByRole("dialog");
+    await expect(popover).toHaveAttribute(
+      "aria-label",
+      "Flow Variable settings",
+    );
+
     await userEvent.click(getButton());
     await expect(getButton()).toHaveAttribute("aria-pressed", "false");
   },
