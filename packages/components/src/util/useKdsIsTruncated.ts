@@ -42,10 +42,11 @@ export function useKdsIsTruncated(elementRef: Ref<HTMLElement | null>) {
 
   useResizeObserver(elementRef, checkTruncation);
 
+  // Observes direct child and text-node changes only — does not detect
+  // mutations in nested descendants (subtree is intentionally omitted).
   useMutationObserver(elementRef, checkTruncation, {
     childList: true,
     characterData: true,
-    subtree: true,
   });
 
   return { isTruncated };
