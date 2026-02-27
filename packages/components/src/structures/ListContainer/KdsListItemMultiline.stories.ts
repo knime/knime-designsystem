@@ -328,5 +328,6 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       active: [false, true],
     },
   ],
+  // focus does not apply — list items receive focus via aria-activedescendant on the parent listbox, not directly
   pseudoStates: ["hover", "active"],
 });

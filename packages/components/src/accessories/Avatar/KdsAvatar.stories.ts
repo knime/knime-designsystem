@@ -60,7 +60,7 @@ const meta: Meta<typeof KdsAvatar> = {
       control: "select",
       options: kdsAvatarSizes,
       description: "Size of the avatar. Defaults to 'medium'.",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
   },
   args: {
