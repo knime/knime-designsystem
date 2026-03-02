@@ -27,7 +27,7 @@
     "vue": "catalog:"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^5.0.0",
+    "@chromatic-com/storybook": "^5.0.1",
     "@storybook-community/storybook-dark-mode": "catalog:storybook",
     "@storybook/addon-a11y": "catalog:storybook",
     "@storybook/addon-designs": "catalog:storybook",
