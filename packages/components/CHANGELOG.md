@@ -1,5 +1,17 @@
 # @knime/kds-components
 
+## 0.10.0
+
+### Minor Changes
+
+- b2f685c: BREAKING CHANGE: KdsPopover needs an accessible name. Prop popoverAriaLabel is required
+
+### Patch Changes
+
+- b2f685c: InfoPopover: Remove unintended line break rendering
+- 5a8d642: KdsCheckbox and KdsRadioButton: Remove unwanted padding to align control with text
+  - @knime/kds-styles@0.10.0
+
 ## 0.9.1
 
 ### Patch Changes
