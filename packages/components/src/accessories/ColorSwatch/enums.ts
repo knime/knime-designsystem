@@ -9,3 +9,11 @@ export const kdsColorSwatchType = {
 } as const;
 
 export const kdsColorSwatchTypes = Object.values(kdsColorSwatchType);
+
+export const kdsColorSwatchSize = {
+  SMALL: "small",
+  MEDIUM: "medium",
+  LARGE: "large",
+} as const;
+
+export const kdsColorSwatchSizes = Object.values(kdsColorSwatchSize);
