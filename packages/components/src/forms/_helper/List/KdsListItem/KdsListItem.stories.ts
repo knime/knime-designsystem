@@ -103,6 +103,7 @@ const meta: Meta<typeof KdsListItem> = {
     missing: false,
     disabled: false,
     special: false,
+    onClick: fn(),
   },
 };
 
@@ -111,13 +112,20 @@ export default meta;
 type Story = StoryObj<typeof KdsListItem>;
 
 export const Default: Story = {
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const option = canvas.getByRole("option");
 
     await expect(option).toHaveAttribute("aria-selected", "false");
     await expect(option).not.toHaveAttribute("aria-disabled", "true");
     await expect(canvas.getByText("Label")).toBeInTheDocument();
+
+    // No trailing icon in default state
+    await expect(option.querySelectorAll(".kds-icon").length).toBe(0);
+
+    // Click emits event
+    await userEvent.click(option);
+    await expect(args.onClick).toHaveBeenCalledOnce();
   },
 };
 
@@ -145,13 +153,29 @@ export const Selected: Story = {
     const option = canvas.getByRole("option");
 
     await expect(option).toHaveAttribute("aria-selected", "true");
-    await expect(option.querySelector(".kds-icon")).toBeInTheDocument();
+
+    // Exactly one trailing icon (checkmark) is rendered
+    const icons = option.querySelectorAll(".kds-icon");
+    await expect(icons.length).toBe(1);
+    await expect(icons[0]).toBeInTheDocument();
+
+    // No "(Missing)" prefix
+    await expect(canvas.queryByText("(Missing)")).not.toBeInTheDocument();
   },
 };
 
 export const Active: Story = {
   args: {
     active: true,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const option = canvas.getByRole("option");
+
+    await expect(canvas.getByText("Label")).toBeInTheDocument();
+
+    // No trailing icon in active-only state
+    await expect(option.querySelectorAll(".kds-icon").length).toBe(0);
   },
 };
 
@@ -164,7 +188,11 @@ export const Missing: Story = {
     const option = canvas.getByRole("option");
 
     await expect(canvas.getByText("(Missing)")).toBeInTheDocument();
-    await expect(option.querySelector(".kds-icon")).toBeInTheDocument();
+
+    // Exactly one trailing icon (trash) is rendered
+    const icons = option.querySelectorAll(".kds-icon");
+    await expect(icons.length).toBe(1);
+    await expect(icons[0]).toBeInTheDocument();
   },
 };
 
@@ -184,6 +212,10 @@ export const Disabled: Story = {
     const option = canvas.getByRole("option");
 
     await expect(option).toHaveAttribute("aria-disabled", "true");
+
+    // No trailing icons when disabled (not selected, not missing)
+    await expect(option.querySelectorAll(".kds-icon").length).toBe(0);
+
     await userEvent.click(option);
     await expect(args.onClick).not.toHaveBeenCalled();
   },
