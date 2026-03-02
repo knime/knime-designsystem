@@ -87,7 +87,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Download build artifacts
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: build-output
           path: .
@@ -121,7 +121,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Download build artifacts
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: build-output
           path: .
@@ -150,7 +150,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Download build artifacts
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: build-output
           path: .
@@ -230,20 +230,20 @@ jobs:
         run: pnpm install
 
       - name: Download lint results
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: sonar-results
           path: .
         continue-on-error: true
 
       - name: Download unit coverage
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: coverage-unit
           path: coverage/unit
 
       - name: Download storybook coverage
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: coverage-storybook
           path: documentation/coverage/storybook
