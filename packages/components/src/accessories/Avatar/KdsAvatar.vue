@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
 
+import { kdsAvatarSize } from "./enums";
 import type { KdsAvatarProps } from "./types";
 
 const props = withDefaults(defineProps<KdsAvatarProps>(), {
   title: undefined,
   src: undefined,
+  size: kdsAvatarSize.XLARGE,
 });
 
 const imageLoadFailed = ref(false);
@@ -36,6 +38,7 @@ const displayedInitials = computed(() =>
 <template>
   <div
     class="kds-avatar"
+    :class="props.size"
     :role="hasTitle ? 'img' : 'presentation'"
     :title="hasTitle ? accessibleTitle : undefined"
     :aria-hidden="!hasTitle ? 'true' : undefined"
@@ -61,12 +64,31 @@ const displayedInitials = computed(() =>
 .kds-avatar {
   position: relative;
   display: inline-block;
-  inline-size: var(--kds-dimension-component-width-1-5x);
-  block-size: var(--kds-dimension-component-width-1-5x);
+  flex-shrink: 0;
   aspect-ratio: 1 / 1;
   overflow: hidden;
   vertical-align: middle;
   border-radius: var(--kds-border-radius-container-pill);
+
+  &.small {
+    inline-size: var(--kds-dimension-icon-0-75x);
+    block-size: var(--kds-dimension-icon-0-75x);
+  }
+
+  &.medium {
+    inline-size: var(--kds-dimension-icon-1x);
+    block-size: var(--kds-dimension-icon-1x);
+  }
+
+  &.large {
+    inline-size: var(--kds-dimension-component-width-1-25x);
+    block-size: var(--kds-dimension-component-height-1-25x);
+  }
+
+  &.xlarge {
+    inline-size: var(--kds-dimension-component-width-1-5x);
+    block-size: var(--kds-dimension-component-height-1-5x);
+  }
 }
 
 .kds-avatar::after {

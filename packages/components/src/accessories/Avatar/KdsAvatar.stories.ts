@@ -10,6 +10,7 @@ import {
 import KdsAvatar from "./KdsAvatar.vue";
 import { demoKnimeLogo } from "./demo-logo";
 import { demoUserImage } from "./demo-user";
+import { kdsAvatarSize, kdsAvatarSizes } from "./enums";
 
 type Story = StoryObj<typeof KdsAvatar>;
 
@@ -55,11 +56,18 @@ const meta: Meta<typeof KdsAvatar> = {
       description: "Tooltip text shown on hover and aria label (if provided).",
       table: { category: "props" },
     },
+    size: {
+      control: "select",
+      options: kdsAvatarSizes,
+      description: "Size of the avatar. Defaults to 'xlarge'.",
+      table: { category: "props" },
+    },
   },
   args: {
     initials: "fv",
     src: undefined,
     title: "",
+    size: kdsAvatarSize.XLARGE,
   },
 };
 
@@ -216,6 +224,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   combinationsProps: [
     {
       initials: ["FV"],
+      size: kdsAvatarSizes,
       src: [undefined, demoUserImage, demoKnimeLogo, "/broken"],
       title: [undefined],
     },

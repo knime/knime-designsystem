@@ -7,7 +7,11 @@ import {
 } from "../../test-utils/storybook";
 
 import KdsColorSwatch from "./KdsColorSwatch.vue";
-import { kdsColorSwatchTypes } from "./enums";
+import {
+  kdsColorSwatchSize,
+  kdsColorSwatchSizes,
+  kdsColorSwatchTypes,
+} from "./enums";
 
 type Story = StoryObj<typeof KdsColorSwatch>;
 
@@ -40,6 +44,12 @@ const meta: Meta<typeof KdsColorSwatch> = {
         "Semantic swatch type (maps to `kds.color.nodes-and-variables.*` tokens) or a hex color.",
       table: { category: "props" },
     },
+    size: {
+      control: "select",
+      options: kdsColorSwatchSizes,
+      description: "Size of the color swatch.",
+      table: { category: "props" },
+    },
     title: {
       control: "text",
       description: "Tooltip text shown on hover. Also used as aria label.",
@@ -48,6 +58,7 @@ const meta: Meta<typeof KdsColorSwatch> = {
   },
   args: {
     color: "learner",
+    size: kdsColorSwatchSize.SMALL,
     title: "Learner color",
   },
 };
@@ -92,10 +103,12 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   combinationsProps: [
     {
       color: kdsColorSwatchTypes,
+      size: kdsColorSwatchSizes,
       title: ["Color token"],
     },
     {
       color: ["#000", "#fff", "#f00", "#0f0", "#00f", "#ff0", "#0ff", "#f0f"],
+      size: kdsColorSwatchSizes,
       title: ["Example custom color"],
     },
   ],
