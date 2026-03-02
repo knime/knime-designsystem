@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { KdsLiveStatus } from "../../../accessories";
-import KdsAvatar from "../../../accessories/Avatar/KdsAvatar.vue";
-import KdsColorSwatch from "../../../accessories/ColorSwatch/KdsColorSwatch.vue";
-import KdsDataType from "../../../accessories/Icon/KdsDataType.vue";
-import KdsIcon from "../../../accessories/Icon/KdsIcon.vue";
+import { KdsLiveStatus } from "../../../../accessories";
+import KdsAvatar from "../../../../accessories/Avatar/KdsAvatar.vue";
+import KdsColorSwatch from "../../../../accessories/ColorSwatch/KdsColorSwatch.vue";
+import KdsDataType from "../../../../accessories/Icon/KdsDataType.vue";
+import KdsIcon from "../../../../accessories/Icon/KdsIcon.vue";
 
 import type { KdsListItemAccessory } from "./types.ts";
 
