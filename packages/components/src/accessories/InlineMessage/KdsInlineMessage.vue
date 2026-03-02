@@ -66,10 +66,6 @@ const iconName = computed(() => {
     color: var(--icon-color);
   }
 
-  .icons :deep(svg) {
-    stroke-width: var(--icon-stroke-width);
-  }
-
   .title {
     font: var(--kds-font-base-title-small-strong);
     color: var(--kds-color-text-and-icon-neutral);
