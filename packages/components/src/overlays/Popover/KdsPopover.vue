@@ -105,6 +105,7 @@ onBeforeUnmount(() => {
     :popover="unref(props.activatorEl) ? 'auto' : undefined"
     :style="{ 'position-anchor': anchorName }"
     :role="props.role"
+    :aria-label="props.popoverAriaLabel"
     @toggle="open = $event.newState === 'open'"
   >
     <slot v-if="open">

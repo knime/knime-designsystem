@@ -41,6 +41,11 @@ const meta: Meta<typeof KdsPopover> = {
       description:
         "When true, the popover's minimum width matches the anchor element's width.",
     },
+    popoverAriaLabel: {
+      control: { type: "text" },
+      description:
+        "Accessible label for the popover element. Rendered as `aria-label` on the popover. Recommended for all roles (dialog, menu, listbox) when the popover does not have a visible label or accessible name.",
+    },
     default: {
       control: false,
       description:
@@ -56,6 +61,7 @@ const meta: Meta<typeof KdsPopover> = {
     placement: "bottom-left",
     role: "dialog",
     fullWidth: false,
+    popoverAriaLabel: "Popover",
   },
   parameters: {
     docs: {
@@ -90,6 +96,7 @@ const activatorEl = useTemplateRef("activatorEl");
   <KdsPopover
     v-model="isOpen"
     :activator-el="activatorEl"
+    popover-aria-label="My popover"
   >
     ...custom popover content here...
   </KdsPopover>
@@ -132,6 +139,7 @@ export const Default: Story = {
         :content="args.content"
         :role="args.role"
         :full-width="args.fullWidth"
+        :popover-aria-label="args.popoverAriaLabel"
         data-testid="popover"
       />
     `,
@@ -143,6 +151,9 @@ export const Default: Story = {
 
     // Initially popover should not be visible
     await expect(popover).not.toBeVisible();
+
+    // Popover should have the accessible label from the popoverAriaLabel prop
+    await expect(popover).toHaveAttribute("aria-label", "Popover");
 
     // Activator (which is also the anchor) should have correct a11y attributes
     expect(toggleButton).toHaveAttribute("aria-haspopup", "dialog");
@@ -196,6 +207,7 @@ export const DifferentPlacement: Story = {
         :content="args.content"
         :role="args.role"
         :full-width="args.fullWidth"
+        :popover-aria-label="args.popoverAriaLabel"
       />
     `,
   }),
@@ -238,6 +250,7 @@ export const SeparateAnchorEl: Story = {
         :anchor-el="anchorEl"
         placement="bottom-left"
         content="This popover is anchored to a separate element."
+        popover-aria-label="Separate anchor popover"
         data-testid="popover"
       />
     `,
@@ -250,6 +263,12 @@ export const SeparateAnchorEl: Story = {
 
     // Initially popover should not be visible
     await expect(popover).not.toBeVisible();
+
+    // Popover should have the accessible label
+    await expect(popover).toHaveAttribute(
+      "aria-label",
+      "Separate anchor popover",
+    );
 
     // A11y attributes should be on the activator, NOT the anchor
     expect(toggleButton).toHaveAttribute("aria-haspopup", "dialog");
@@ -302,6 +321,7 @@ export const Inline: Story = {
         <KdsPopover
           :activator-el="activatorEl"
           content="This popover is rendered inline because the activator ref is null."
+          popover-aria-label="Inline popover"
         />
       </div>
     `,
@@ -343,6 +363,7 @@ export const FullWidth: Story = {
         :placement="args.placement"
         :content="args.content"
         :full-width="args.fullWidth"
+        :popover-aria-label="args.popoverAriaLabel"
         data-testid="popover"
       />
     `,
@@ -355,6 +376,9 @@ export const FullWidth: Story = {
     // Click to open
     await userEvent.click(toggleButton);
     await expect(popover).toBeVisible();
+
+    // Popover should have the accessible label
+    await expect(popover).toHaveAttribute("aria-label", "Popover");
 
     // The popover should have the same width as the anchor
     const anchorWidth = toggleButton.getBoundingClientRect().width;

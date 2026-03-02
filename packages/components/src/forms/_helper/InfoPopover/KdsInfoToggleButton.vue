@@ -49,6 +49,7 @@ const isFocused = ref(false);
     v-model="modelValue"
     :activator-el="buttonEl"
     placement="top-right"
+    popover-aria-label="Description"
   >
     <InfoPopover :content="props.content">
       <slot />

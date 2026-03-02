@@ -47,6 +47,15 @@ export type KdsPopoverProps = {
   fullWidth?: boolean;
 
   /**
+   * Accessible label for the popover element.
+   *
+   * Required so screen readers can announce the popover
+   * when focus moves into it (e.g. for `dialog`, `menu`, `listbox` roles).
+   * Rendered as `aria-label` on the popover element.
+   */
+  popoverAriaLabel: string;
+
+  /**
    * Optional content rendered when no default slot is provided.
    */
   content?: string;

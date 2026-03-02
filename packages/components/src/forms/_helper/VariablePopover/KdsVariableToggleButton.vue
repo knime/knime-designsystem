@@ -102,6 +102,7 @@ const title = computed(() => {
     v-model="modelValue"
     :activator-el="buttonEl"
     placement="bottom-right"
+    popover-aria-label="Flow Variable settings"
   >
     <VariablePopover :content="props.content">
       <slot />
