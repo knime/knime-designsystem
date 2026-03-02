@@ -111,6 +111,24 @@ export const Warning: Story = {
   },
 };
 
+// Example story showcasing formatted text in the message content (italic/bold)
+
+export const WithFormattedText: Story = {
+  render: () => ({
+    components: { KdsInlineMessage },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 16px; width: 100%;">
+        <KdsInlineMessage variant="info" title="Formatted Text Example">
+          This message has <strong>bold text</strong> and <em>italic text</em> for emphasis.
+        </KdsInlineMessage>
+        <KdsInlineMessage variant="success" title="Multiple Formatting">
+          You can combine <strong>bold</strong>, <em>italic</em>, and even <strong><em>both</em></strong> together.
+        </KdsInlineMessage>
+      </div>
+    `,
+  }),
+};
+
 // export const TextOverflow: Story = {
 //   ...buildTextOverflowStory({
 //     component: KdsAvatar,
