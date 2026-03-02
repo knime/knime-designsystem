@@ -1,5 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
+import {
+  buildDesignComparatorStory,
+  buildTextOverflowStory,
+} from "../../test-utils/storybook";
+
 import KdsInlineMessage from "./KdsInlineMessage.vue";
 import { kdsInlineMessageVariants } from "./enums";
 
@@ -111,6 +116,13 @@ export const Warning: Story = {
   },
 };
 
+export const OnlyTitle: Story = {
+  args: {
+    variant: "info",
+    title: "Title",
+  },
+};
+
 // Example story showcasing formatted text in the message content (italic/bold)
 
 export const WithFormattedText: Story = {
@@ -129,38 +141,39 @@ export const WithFormattedText: Story = {
   }),
 };
 
-// export const TextOverflow: Story = {
-//   ...buildTextOverflowStory({
-//     component: KdsAvatar,
-//     width: 120,
-//   }),
-//   args: {
-//     initials: "MM",
-//     title:
-//       "Very long avatar tooltip text that should be preserved and not break rendering",
-//   },
-// };
+export const TextOverflow: Story = {
+  ...buildTextOverflowStory({
+    component: KdsInlineMessage,
+  }),
+  args: {
+    title:
+      "This is a very long title that should overflow and be truncated with an ellipsis",
+    message:
+      "This is a very long message that should overflow and be truncated with an ellipsis at the end",
+  },
+};
 
-// export const DesignComparator: Story = buildDesignComparatorStory({
-//   component: KdsAvatar,
-//   designsToCompare: {
-//     Variants: {
-//       props: {
-//         title: undefined,
-//         initials: "FV",
-//         src: undefined,
-//       },
-//       variants: {
-//         [`${figmaBaseUrl}?node-id=9555-79394`]: {},
-//         [`${figmaBaseUrl}?node-id=9555-79424`]: { src: demoUserImage },
-//         [`${figmaBaseUrl}?node-id=9555-81576`]: { src: demoKnimeLogo },
-//       },
-//     },
-//   },
-// });
+export const DesignComparator: Story = buildDesignComparatorStory({
+  component: KdsInlineMessage,
+  designsToCompare: {
+    Variants: {
+      props: {
+        title: "Title",
+        message: "Here is a message that informs the user about something",
+      },
+      variants: {
+        [`${figmaBaseUrl}?node-id=3870-16219`]: {},
+        [`${figmaBaseUrl}?node-id=11984-102908`]: {
+          title: "Title",
+          message: undefined,
+        },
+      },
+    },
+  },
+});
 
 // export const AllCombinations: Story = buildAllCombinationsStory({
-//   component: KdsAvatar,
+//   component: KdsInlineMessage,
 //   combinationsProps: [
 //     {
 //       initials: ["FV"],

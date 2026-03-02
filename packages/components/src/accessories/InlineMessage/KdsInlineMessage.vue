@@ -51,7 +51,10 @@ const iconName = computed(() => {
   flex-direction: column;
   gap: var(--kds-spacing-container-0-25x);
   justify-content: center;
-  padding: var(--kds-spacing-container-0-5x);
+  width: 100%;
+  padding: calc(
+    var(--kds-spacing-container-0-5x) - var(--kds-core-border-width-xs)
+  ); /* needed as border in Figma is not increasing the width */
 
   .header {
     display: flex;
