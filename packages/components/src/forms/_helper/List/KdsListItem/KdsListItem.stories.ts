@@ -19,7 +19,7 @@ import {
 
 const meta: Meta<typeof KdsListItem> = {
   component: KdsListItem,
-  title: "Form fields/ListContainer/ListItem",
+  title: "Form fields/_helper/ListItem",
   tags: ["autodocs"],
   decorators: [
     (story) => ({
@@ -509,7 +509,6 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsListItem,
   combinationsProps: [
     {
-      id: ["combo-item"],
       selected: [false, true],
       label: ["Label"],
       subText: [
@@ -530,7 +529,6 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       active: [false, true],
     },
     {
-      id: ["combo-item"],
       selected: [false],
       label: ["Label"],
       subText: [

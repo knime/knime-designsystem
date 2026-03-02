@@ -84,14 +84,15 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
 
       <!-- Multiline layout -->
       <span v-else class="kds-list-item-content">
-        <span class="kds-list-item-title">
+        <span
+          ref="labelEl"
+          class="kds-list-item-title"
+          :title="isLabelTruncated ? props.label : undefined"
+        >
           <span v-if="props.missing" class="kds-list-item-missing-prefix">
             (Missing)
           </span>
-          <span
-            ref="labelEl"
-            :title="isLabelTruncated ? props.label : undefined"
-          >
+          <span>
             {{ props.label }}
           </span>
         </span>
