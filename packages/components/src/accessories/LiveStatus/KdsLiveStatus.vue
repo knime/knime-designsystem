@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, useTemplateRef } from "vue";
+
+import { useKdsIsTruncated } from "../../util";
 
 import type { KdsLiveStatusProps } from "./types";
 
@@ -13,6 +15,9 @@ const props = withDefaults(defineProps<KdsLiveStatusProps>(), {
 const accessibleTitle = computed(
   () => props.title?.trim() || `Status is ${props.status}`,
 );
+
+const labelEl = useTemplateRef("labelEl");
+const { isTruncated } = useKdsIsTruncated(labelEl);
 </script>
 
 <template>
@@ -23,7 +28,14 @@ const accessibleTitle = computed(
     :aria-label="accessibleTitle"
   >
     <span class="dot" />
-    <span v-if="props.label" class="label">{{ props.label }}</span>
+    <span
+      v-if="props.label"
+      ref="labelEl"
+      class="label"
+      :title="isTruncated ? props.label : undefined"
+    >
+      {{ props.label }}
+    </span>
   </span>
 </template>
 
@@ -35,6 +47,7 @@ const accessibleTitle = computed(
   flex-shrink: 0;
   gap: 0; /* gap already included in dot */
   align-items: center;
+  max-width: 100%;
   line-height: 0;
 
   &.red {
@@ -68,6 +81,8 @@ const accessibleTitle = computed(
   }
 
   .label {
+    overflow: hidden;
+    text-overflow: ellipsis;
     font: var(--kds-font-base-subtext-medium);
     color: var(--kds-color-text-and-icon-neutral);
     white-space: nowrap;

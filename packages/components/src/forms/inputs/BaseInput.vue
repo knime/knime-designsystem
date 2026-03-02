@@ -261,6 +261,7 @@ defineExpose({
         placeholder: showUnitPlaceholder,
         disabled: props.disabled,
       }"
+      :aria-disabled="props.disabled || undefined"
     >
       {{ props.unit }}
     </span>

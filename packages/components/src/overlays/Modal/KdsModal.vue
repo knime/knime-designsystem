@@ -56,6 +56,7 @@ watch(
             .getAnimations({ subtree: true })
             .map((animation) => animation.finished),
         ).then(removeDialog);
+        // eslint-disable-next-line no-magic-numbers
         await sleep(350);
         // fallback in case animations fail or dont resolve
         removeDialog();

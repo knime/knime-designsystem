@@ -149,7 +149,7 @@ export const TextOverflow: Story = {
   }),
   args: {
     status: "green",
-    title: "A veeery loooong status label that should not break rendering",
+    title: "Green status",
     label: "A veeery loooong status label that should not break rendering",
   },
 };

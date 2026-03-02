@@ -147,7 +147,9 @@ export const TokenPreview = () => {
         </p>
         <div style="display: flex; gap: var(--kds-spacing-container-1x, 16px); margin-bottom: var(--kds-spacing-container-1x, 16px); flex-wrap: wrap;">
           <div style="flex: 1; min-width: 200px;">
+            <label for="token-search">Search tokens</label>
             <input
+              id="token-search"
               type="search"
               v-model="searchQuery"
               placeholder="Search tokens..."
@@ -155,7 +157,8 @@ export const TokenPreview = () => {
             />
           </div>
           <div>
-            <select v-model="selectedCategory" style="padding: var(--kds-spacing-container-1x, 8px);">
+            <label for="token-category">Category</label>
+            <select id="token-category" v-model="selectedCategory" style="padding: var(--kds-spacing-container-1x, 8px); width: 100%">
               <option v-for="cat in categories" :key="cat" :value="cat">{{ cat }}</option>
             </select>
           </div>
