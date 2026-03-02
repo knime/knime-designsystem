@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
+import { kdsColorSwatchSize } from "./enums";
 import type { KdsColorSwatchProps, KdsColorSwatchType } from "./types";
 
 const props = withDefaults(defineProps<KdsColorSwatchProps>(), {
-  size: "small",
+  size: kdsColorSwatchSize.SMALL,
   title: undefined,
 });
 

@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
 
+import { kdsAvatarSize } from "./enums";
 import type { KdsAvatarProps } from "./types";
 
 const props = withDefaults(defineProps<KdsAvatarProps>(), {
   title: undefined,
   src: undefined,
-  size: "xlarge",
+  size: kdsAvatarSize.XLARGE,
 });
 
 const imageLoadFailed = ref(false);

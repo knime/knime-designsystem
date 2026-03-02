@@ -7,7 +7,11 @@ import {
 } from "../../test-utils/storybook";
 
 import KdsColorSwatch from "./KdsColorSwatch.vue";
-import { kdsColorSwatchSizes, kdsColorSwatchTypes } from "./enums";
+import {
+  kdsColorSwatchSize,
+  kdsColorSwatchSizes,
+  kdsColorSwatchTypes,
+} from "./enums";
 
 type Story = StoryObj<typeof KdsColorSwatch>;
 
@@ -54,7 +58,7 @@ const meta: Meta<typeof KdsColorSwatch> = {
   },
   args: {
     color: "learner",
-    size: "small",
+    size: kdsColorSwatchSize.SMALL,
     title: "Learner color",
   },
 };
@@ -99,10 +103,12 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   combinationsProps: [
     {
       color: kdsColorSwatchTypes,
+      size: kdsColorSwatchSizes,
       title: ["Color token"],
     },
     {
       color: ["#000", "#fff", "#f00", "#0f0", "#00f", "#ff0", "#0ff", "#f0f"],
+      size: kdsColorSwatchSizes,
       title: ["Example custom color"],
     },
   ],

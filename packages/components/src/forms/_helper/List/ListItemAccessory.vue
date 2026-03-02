@@ -9,7 +9,7 @@ import type { KdsListItemAccessory } from "./types.ts";
 
 const props = defineProps<{
   accessory: KdsListItemAccessory;
-  size: "small" | "large";
+  size: "small" | "medium" | "large";
 }>();
 </script>
 
