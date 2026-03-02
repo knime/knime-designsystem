@@ -19,7 +19,7 @@ import {
 
 const meta: Meta<typeof KdsListItem> = {
   component: KdsListItem,
-  title: "Form fields/_helper/ListItem",
+  title: "Form Fields/_Helper/ListItem",
   tags: ["autodocs"],
   decorators: [
     (story) => ({
