@@ -4,6 +4,7 @@ import { computed } from "vue";
 import type { KdsColorSwatchProps, KdsColorSwatchType } from "./types";
 
 const props = withDefaults(defineProps<KdsColorSwatchProps>(), {
+  size: "small",
   title: undefined,
 });
 
@@ -35,6 +36,7 @@ const hasTitle = computed(() => accessibleTitle.value.length > 0);
   <span
     :role="hasTitle ? 'img' : 'presentation'"
     class="kds-color-swatch"
+    :class="props.size"
     :title="hasTitle ? accessibleTitle : undefined"
     :style="{ backgroundColor }"
     :aria-hidden="hasTitle ? undefined : 'true'"
@@ -45,11 +47,25 @@ const hasTitle = computed(() => accessibleTitle.value.length > 0);
 <style scoped>
 .kds-color-swatch {
   display: inline-block;
-  width: var(--kds-dimension-icon-0-75x);
-  height: var(--kds-dimension-icon-0-75x);
+  flex-shrink: 0;
   overflow: hidden;
   line-height: 0;
   border: var(--kds-border-base-muted);
   border-radius: var(--kds-border-radius-container-0-25x);
+
+  &.small {
+    width: var(--kds-dimension-icon-0-75x);
+    height: var(--kds-dimension-icon-0-75x);
+  }
+
+  &.medium {
+    width: var(--kds-dimension-icon-1x);
+    height: var(--kds-dimension-icon-1x);
+  }
+
+  &.large {
+    width: var(--kds-dimension-component-width-1-25x);
+    height: var(--kds-dimension-component-height-1-25x);
+  }
 }
 </style>
