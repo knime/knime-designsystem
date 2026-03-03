@@ -101,6 +101,11 @@ type BaseInputProps = {
    */
   ariaValuetext?: string;
   /**
+   * ID of the currently active descendant element (for aria-activedescendant).
+   * Used when the input controls an external listbox or similar widget.
+   */
+  ariaActivedescendant?: string;
+  /**
    * Unit shown next to the input value
    */
   unit?: string;
@@ -146,6 +151,7 @@ const props = withDefaults(defineProps<BaseInputProps>(), {
   ariaValuemin: undefined,
   ariaValuemax: undefined,
   ariaValuetext: undefined,
+  ariaActivedescendant: undefined,
   unit: undefined,
   inputmode: undefined,
   clearable: false,
@@ -246,6 +252,7 @@ defineExpose({
       :aria-valuemin="props.ariaValuemin"
       :aria-valuemax="props.ariaValuemax"
       :aria-valuetext="props.ariaValuetext"
+      :aria-activedescendant="props.ariaActivedescendant"
       :class="{ 'input-field': true, 'has-value': hasValue }"
       @input="handleInput"
       @focus="emit('focus', $event)"
