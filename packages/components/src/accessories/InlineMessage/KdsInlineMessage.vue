@@ -65,7 +65,6 @@ const iconName = computed(() => {
     width: 100%;
 
     .icons {
-      align-self: center;
       color: var(--icon-color);
     }
   }
