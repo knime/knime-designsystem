@@ -9,7 +9,7 @@ type BaseInputProps = {
   /**
    * ID for the input element
    */
-  id: string;
+  id?: string;
   /**
    * The type of input field
    */
@@ -117,6 +117,7 @@ type BaseInputProps = {
 };
 
 const props = withDefaults(defineProps<BaseInputProps>(), {
+  id: undefined,
   type: "text",
   min: undefined,
   max: undefined,
