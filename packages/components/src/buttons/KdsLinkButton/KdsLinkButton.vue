@@ -21,7 +21,7 @@ const component = computed(() => {
 });
 
 const emit = defineEmits<{
-  (e: "click", event: MouseEvent): void;
+  click: [event: MouseEvent];
 }>();
 </script>
 

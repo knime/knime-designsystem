@@ -3,7 +3,6 @@ import { computed } from "vue";
 
 import KdsButton from "../../buttons/KdsButton/KdsButton.vue";
 import KdsLinkButton from "../../buttons/KdsLinkButton/KdsLinkButton.vue";
-import { isDefinedAndNotEmpty } from "../../util/isDefinedAndNotEmpty";
 
 import type { KdsEmptyStateProps } from "./types";
 
@@ -13,66 +12,18 @@ const emit = defineEmits<{
   /**
    * Fired when the button is clicked
    *
-   * This event is only emitted when button props are provided.
+   * This event is only emitted when the `button` prop is provided.
    */
   buttonClick: [event: MouseEvent];
 }>();
 
-const hasButton = computed(() => {
-  return (
-    isDefinedAndNotEmpty(props, "buttonLabel") ||
-    isDefinedAndNotEmpty(props, "buttonLeadingIcon")
-  );
-});
+const isLinkButton = computed(
+  () => props.button && "to" in props.button && props.button.to !== undefined,
+);
 
-const buttonType = computed(() => {
-  if (isDefinedAndNotEmpty(props, "buttonTo")) {
-    return KdsLinkButton;
-  }
-  return KdsButton;
-});
-
-const mapProps = (
-  mappings: ReadonlyArray<readonly [string, keyof KdsEmptyStateProps]>,
-) => {
-  return Object.fromEntries(
-    mappings
-      .map(([targetKey, sourceKey]) => [targetKey, props[sourceKey]] as const)
-      .filter(([, value]) => value !== undefined),
-  );
-};
-
-const buttonProps = computed(() => {
-  if (!hasButton.value) {
-    return {};
-  }
-
-  const baseProps = mapProps([
-    ["label", "buttonLabel"],
-    ["leadingIcon", "buttonLeadingIcon"],
-    ["trailingIcon", "buttonTrailingIcon"],
-    ["ariaLabel", "buttonAriaLabel"],
-    ["disabled", "buttonDisabled"],
-    ["variant", "buttonVariant"],
-    ["size", "buttonSize"],
-    ["destructive", "buttonDestructive"],
-    ["title", "buttonTitle"],
-  ]);
-
-  if (buttonType.value !== KdsLinkButton) {
-    return baseProps;
-  }
-
-  return {
-    ...baseProps,
-    ...mapProps([
-      ["to", "buttonTo"],
-      ["target", "buttonTarget"],
-      ["rel", "buttonRel"],
-      ["download", "buttonDownload"],
-    ]),
-  };
-});
+const buttonComponent = computed(() =>
+  isLinkButton.value ? KdsLinkButton : KdsButton,
+);
 </script>
 
 <template>
@@ -81,10 +32,10 @@ const buttonProps = computed(() => {
     <p v-if="props.description" class="kds-empty-state-description">
       {{ props.description }}
     </p>
-    <div v-if="hasButton" class="kds-empty-state-action">
+    <div v-if="props.button" class="kds-empty-state-action">
       <component
-        :is="buttonType"
-        v-bind="buttonProps"
+        :is="buttonComponent"
+        v-bind="props.button"
         @click="emit('buttonClick', $event)"
       />
     </div>

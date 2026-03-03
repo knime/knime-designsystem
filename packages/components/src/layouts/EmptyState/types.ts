@@ -1,29 +1,10 @@
-import type {
-  PrefixedKdsButtonProps,
-  PrefixedKdsButtonPropsAsNever,
-  PrefixedKdsLinkButtonProps,
-  PrefixedKdsLinkButtonPropsAsNever,
-} from "../../buttons";
+import type { KdsButtonProps, KdsLinkButtonProps } from "../../buttons";
 
-type CommonProps = {
+export type KdsEmptyStateProps = {
   headline: string;
   description?: string;
+  button?: KdsButtonProps | KdsLinkButtonProps;
 };
-
-type BaseEmptyStateProps = CommonProps &
-  PrefixedKdsButtonPropsAsNever &
-  PrefixedKdsLinkButtonPropsAsNever;
-
-type EmptyStateWithButtonProps = CommonProps &
-  PrefixedKdsButtonProps &
-  PrefixedKdsLinkButtonPropsAsNever;
-
-type EmptyStateWithLinkButtonProps = CommonProps & PrefixedKdsLinkButtonProps;
-
-export type KdsEmptyStateProps =
-  | BaseEmptyStateProps
-  | EmptyStateWithButtonProps
-  | EmptyStateWithLinkButtonProps;
 
 /**
  * Testers
@@ -35,40 +16,28 @@ propTypeTester<KdsEmptyStateProps>({
   headline: "headline",
   description: "description",
 });
-// supports headline and minimal button props
+// supports headline and button with label
 propTypeTester<KdsEmptyStateProps>({
   headline: "headline",
-  buttonLabel: "foo",
+  button: { label: "foo" },
 });
-// supports headline and minimal link button props
+// supports headline and link button with label and to
 propTypeTester<KdsEmptyStateProps>({
   headline: "headline",
-  buttonLabel: "foo",
-  buttonTo: "#",
+  button: { label: "foo", to: "#" },
 });
 // supports icon buttons
 propTypeTester<KdsEmptyStateProps>({
   headline: "headline",
-  buttonLeadingIcon: "placeholder",
-  buttonAriaLabel: "placeholder",
-});
-// @ts-expect-error trailing icon requires label
-propTypeTester<KdsEmptyStateProps>({
-  headline: "headline",
-  buttonTrailingIcon: "placeholder",
+  button: { leadingIcon: "placeholder", ariaLabel: "placeholder" },
 });
 // @ts-expect-error - headline is required
 propTypeTester<KdsEmptyStateProps>({
-  buttonLabel: "foo",
+  button: { label: "foo" },
 });
-// @ts-expect-error - buttonTo requires buttonLabel or icon
+// button requires at least label or leadingIcon
 propTypeTester<KdsEmptyStateProps>({
   headline: "headline",
-  buttonTo: "#",
-});
-// @ts-expect-error - buttonTarget requires buttonTo
-propTypeTester<KdsEmptyStateProps>({
-  headline: "headline",
-  buttonLabel: "foo",
-  buttonTarget: "_blank",
+  // @ts-expect-error - button requires at least label or leadingIcon
+  button: { to: "#" },
 });

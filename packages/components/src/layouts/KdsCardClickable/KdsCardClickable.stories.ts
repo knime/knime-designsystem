@@ -9,13 +9,13 @@ import {
   buildTextOverflowStory,
 } from "../../test-utils/storybook";
 
-import DemoCard from "./DemoCard.vue";
-import KdsCardButton from "./KdsCardButton.vue";
+import DemoCardClickable from "./DemoCardClickable.vue";
+import KdsCardClickable from "./KdsCardClickable.vue";
 import { kdsCardVariants } from "./enums";
 
 const meta = {
-  title: "Buttons/CardButton",
-  component: KdsCardButton,
+  title: "Layouts/CardClickable",
+  component: KdsCardClickable,
   tags: ["autodocs"],
   parameters: {
     docs: {
@@ -105,7 +105,7 @@ const meta = {
   render: (args) => {
     const [, updateArgs] = useArgs();
     return {
-      components: { KdsCard: KdsCardButton },
+      components: { KdsCard: KdsCardClickable },
       setup() {
         const modelValue = ref(args.modelValue);
         watchEffect(() => (modelValue.value = args.modelValue));
@@ -122,11 +122,11 @@ const meta = {
       `,
     };
   },
-} satisfies Meta<typeof KdsCardButton>;
+} satisfies Meta<typeof KdsCardClickable>;
 export default meta;
 
-type Story = StoryObj<typeof KdsCardButton>;
-type DemoStory = StoryObj<typeof DemoCard>;
+type Story = StoryObj<typeof KdsCardClickable>;
+type DemoStory = StoryObj<typeof DemoCardClickable>;
 
 export const Default: Story = {
   args: {
@@ -214,7 +214,7 @@ export const Disabled: Story = {
 
 export const TextOverflow: DemoStory = {
   ...buildTextOverflowStory({
-    component: DemoCard,
+    component: DemoCardClickable,
     width: 300,
   }),
   args: {
@@ -224,7 +224,7 @@ export const TextOverflow: DemoStory = {
 };
 
 export const DesignComparator: DemoStory = buildDesignComparatorStory({
-  component: DemoCard,
+  component: DemoCardClickable,
   designsToCompare: {
     filled: {
       props: {
@@ -386,7 +386,7 @@ export const DesignComparator: DemoStory = buildDesignComparatorStory({
 });
 
 export const AllCombinations: DemoStory = buildAllCombinationsStory({
-  component: DemoCard,
+  component: DemoCardClickable,
   combinationsProps: [
     {
       variant: kdsCardVariants,

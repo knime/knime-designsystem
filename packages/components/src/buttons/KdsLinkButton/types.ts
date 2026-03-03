@@ -1,4 +1,3 @@
-import type { PrefixedKdsButtonProps } from "../KdsButton/types";
 import type {
   KdsButtonCommonProps,
   WithDestructive,
@@ -39,34 +38,6 @@ export type KdsLinkButtonProps = KdsButtonCommonProps &
   WithDestructive &
   WithRouterNavigation &
   WithAnchorElementAttributes;
-
-/**
- * Prefixed version of link-specific props for use in composite components.
- * Explicitly defined to avoid Vue compiler issues with complex mapped types.
- */
-type PrefixedLinkProps = {
-  buttonTo: string | Record<string, unknown>;
-  buttonDownload?: boolean;
-  buttonTarget?: "_blank" | "_parent" | "_self" | "_top" | string | null;
-  buttonRel?:
-    | "noopener"
-    | "noreferrer"
-    | "nofollow"
-    | "sponsored"
-    | "ugc"
-    | string
-    | null;
-};
-
-export type PrefixedKdsLinkButtonProps = PrefixedKdsButtonProps &
-  PrefixedLinkProps;
-
-export type PrefixedKdsLinkButtonPropsAsNever = {
-  buttonTo?: never;
-  buttonDownload?: never;
-  buttonTarget?: never;
-  buttonRel?: never;
-};
 
 /**
  * Testers
