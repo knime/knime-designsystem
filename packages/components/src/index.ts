@@ -10,7 +10,7 @@ export type * from "./buttons";
 export * from "./forms";
 export type * from "./forms";
 
-// Export structure components
+// Export layout components
 export * from "./layouts";
 export type * from "./layouts";
 

@@ -2,4 +2,4 @@
 "@knime/kds-components": minor
 ---
 
-BREAKING CHANGE: Rename KdsCard to KdsCardButton
+BREAKING CHANGE: Rename KdsCard to KdsCardClickable

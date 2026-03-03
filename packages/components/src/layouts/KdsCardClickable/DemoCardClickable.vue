@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import KdsCardButton from "./KdsCardButton.vue";
+import KdsCardClickable from "./KdsCardClickable.vue";
 import type { KdsCardProps } from "./types";
 
 const props = defineProps<KdsCardProps>();
@@ -8,7 +8,7 @@ const modelValue = defineModel<boolean>({ default: false });
 </script>
 
 <template>
-  <KdsCardButton v-model="modelValue" v-bind="props">
+  <KdsCardClickable v-model="modelValue" v-bind="props">
     <div class="wrapper">
       <div class="title">Demo for Storybook</div>
       <div class="text">
@@ -16,7 +16,7 @@ const modelValue = defineModel<boolean>({ default: false });
         waiting to be told.
       </div>
     </div>
-  </KdsCardButton>
+  </KdsCardClickable>
 </template>
 
 <style scoped>

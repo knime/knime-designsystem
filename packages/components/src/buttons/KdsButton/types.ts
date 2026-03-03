@@ -1,8 +1,5 @@
-import type { KdsIconName } from "../../accessories/Icon/types";
 import type {
   KdsButtonCommonProps,
-  KdsButtonSize,
-  KdsButtonVariant,
   WithDestructive,
   WithLabelAndIcons,
 } from "../types";
@@ -10,47 +7,6 @@ import type {
 export type KdsButtonProps = KdsButtonCommonProps &
   WithLabelAndIcons &
   WithDestructive;
-
-/**
- * Prefixed version of KdsButtonProps for use in composite components.
- * Explicitly defined to avoid Vue compiler issues with complex mapped types.
- */
-type PrefixedButtonCommonProps = {
-  buttonSize?: KdsButtonSize;
-  buttonDisabled?: boolean;
-  buttonTitle?: string;
-  buttonVariant?: KdsButtonVariant;
-  buttonDestructive?: boolean;
-};
-
-type PrefixedButtonWithLabel = {
-  buttonLabel: string;
-  buttonLeadingIcon?: KdsIconName;
-  buttonTrailingIcon?: KdsIconName;
-  buttonAriaLabel?: never;
-};
-
-type PrefixedButtonWithIconOnly = {
-  buttonLabel?: never;
-  buttonLeadingIcon: KdsIconName;
-  buttonTrailingIcon?: never;
-  buttonAriaLabel: string;
-};
-
-export type PrefixedKdsButtonProps = PrefixedButtonCommonProps &
-  (PrefixedButtonWithLabel | PrefixedButtonWithIconOnly);
-
-export type PrefixedKdsButtonPropsAsNever = {
-  buttonSize?: never;
-  buttonDisabled?: never;
-  buttonTitle?: never;
-  buttonVariant?: never;
-  buttonDestructive?: never;
-  buttonLabel?: never;
-  buttonLeadingIcon?: never;
-  buttonTrailingIcon?: never;
-  buttonAriaLabel?: never;
-};
 
 /**
  * Testers
