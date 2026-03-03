@@ -63,15 +63,16 @@ const iconName = computed(() => {
     gap: var(--kds-spacing-container-0-25x);
     align-items: flex-start;
     width: 100%;
-  }
 
-  .header .icons {
-    align-self: center;
-    color: var(--icon-color);
+    .icons {
+      align-self: center;
+      color: var(--icon-color);
+    }
   }
 
   .title {
     font: var(--kds-font-base-title-small-strong);
+    line-height: 130%;
     color: var(--kds-color-text-and-icon-neutral);
   }
 
@@ -84,7 +85,7 @@ const iconName = computed(() => {
   .body {
     width: 100%;
     padding-right: var(
-      --kds-spacing-container-1x
+      --kds-spacing-container-0-75x
     ); /* ziemlich viel, aber in Figma so definiert */
 
     padding-left: var(--kds-spacing-container-1x);
