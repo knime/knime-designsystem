@@ -191,7 +191,32 @@ export type { KdsButtonVariant } from "./types";
 - Add a story file for each exported KdsComponent in the same folder as the component, named `KdsComponent.stories.ts`
 - Describe the behavior of the component with important key details. Often in Figma key aspects are described in notes.
 - Include Figma design URL in story parameters
-- Define modelValues for all v-model bindings in stories as category "model". Do not add model update emit function since this is already covered by the term model.
+- Define modelValues for all v-model bindings in stories as category "model". Handle model syncing in the `render` function using a local `ref` bound via `v-model` (for reactive DOM updates in play tests) and a `watchEffect` to sync back to Storybook controls via `useArgs()` from `storybook/preview-api`. Do NOT call `useArgs()` inside `args` callbacks — it throws "hooks can only be called inside decorators". Call `useArgs()` in the `render` function scope (not inside Vue's `setup()`):
+  ```typescript
+  argTypes: {
+    modelValue: {
+      control: { type: "..." },
+      description: "...",
+      table: { category: "model" },
+    },
+  },
+  args: {
+    modelValue: "...",
+  },
+  render: (args) => {
+    const [, updateArgs] = useArgs();
+    return {
+      components: { KdsMyComponent },
+      setup() {
+        const modelValue = ref(args.modelValue);
+        watchEffect(() => (modelValue.value = args.modelValue));
+        watchEffect(() => updateArgs({ modelValue: modelValue.value }));
+        return { args, modelValue };
+      },
+      template: '<KdsMyComponent v-bind="args" v-model="modelValue" />',
+    };
+  },
+  ```
 - Define all props in stories as category "props" ordered by importance for users and similar to other stories.
 - Provide arg values for all props, e.g. false for boolean and "" for string props in the same order.
 - Provide stories for important prop combinations in the same order (if possible).

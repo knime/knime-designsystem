@@ -1,3 +1,4 @@
+import { ref, watchEffect } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
@@ -57,11 +58,6 @@ const meta: Meta<typeof KdsCheckboxGroup> = {
         "The currently selected option ids. Array of strings representing selected checkboxes.",
       table: { category: "model" },
     },
-    // @ts-expect-error – Storybook doesn't type emit handlers in argTypes for DefineComponent
-    "update:modelValue": {
-      description: "Emitted when the checkbox state changes",
-      table: { category: "model" },
-    },
     id: {
       control: { type: "text" },
       description: "Id for label linkage.",
@@ -112,11 +108,6 @@ const meta: Meta<typeof KdsCheckboxGroup> = {
   },
   args: {
     modelValue: ["Option A"],
-    // @ts-expect-error – Storybook reactive-arg workaround; not in ComponentPropsAndSlots
-    "update:modelValue": (value: string[]) => {
-      const [_, updateArgs] = useArgs();
-      updateArgs({ modelValue: value });
-    },
     id: "checkbox-group",
     label: "Label",
     possibleValues: ["Option A", "Option B", "Option C", "Option D"],
@@ -125,6 +116,19 @@ const meta: Meta<typeof KdsCheckboxGroup> = {
     error: false,
     subText: "",
     preserveSubTextSpace: false,
+  },
+  render: (args) => {
+    const [, updateArgs] = useArgs();
+    return {
+      components: { KdsCheckboxGroup },
+      setup() {
+        const modelValue = ref(args.modelValue);
+        watchEffect(() => (modelValue.value = args.modelValue));
+        watchEffect(() => updateArgs({ modelValue: modelValue.value }));
+        return { args, modelValue };
+      },
+      template: '<KdsCheckboxGroup v-bind="args" v-model="modelValue" />',
+    };
   },
 };
 
@@ -281,7 +285,7 @@ export const Disabled: Story = {
   },
 };
 
-export const Error: Story = {
+export const WithError: Story = {
   args: {
     error: true,
     possibleValues: ["Option A", "Option B", "Option C", "Option D"],

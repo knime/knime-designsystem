@@ -10,7 +10,12 @@ import type { KdsEmptyStateProps } from "./types";
 const props = defineProps<KdsEmptyStateProps>();
 
 const emit = defineEmits<{
-  (e: "buttonClick", event: MouseEvent): void;
+  /**
+   * Fired when the button is clicked
+   *
+   * This event is only emitted when button props are provided.
+   */
+  buttonClick: [event: MouseEvent];
 }>();
 
 const hasButton = computed(() => {

@@ -1,4 +1,4 @@
-import { ref, useTemplateRef, watch } from "vue";
+import { ref, useTemplateRef, watchEffect } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
@@ -120,38 +120,19 @@ const meta: Meta<typeof KdsSearchInput> = {
     subText: "",
     preserveSubTextSpace: false,
   },
-  decorators: [
-    (story) => {
-      const [currentArgs, updateArgs] = useArgs();
-      return {
-        components: { story },
-        setup() {
-          const localModelValue = ref(currentArgs.modelValue);
-
-          watch(
-            () => currentArgs.modelValue,
-            (newValue) => {
-              localModelValue.value = newValue;
-            },
-          );
-
-          const onModelValueUpdate = (value: string) => {
-            localModelValue.value = value;
-            updateArgs({ modelValue: value });
-          };
-
-          return {
-            args: currentArgs,
-            updateArgs,
-            localModelValue,
-            onModelValueUpdate,
-          };
-        },
-        template:
-          '<story v-bind="args" :model-value="localModelValue" @update:model-value="onModelValueUpdate" />',
-      };
-    },
-  ],
+  render: (args) => {
+    const [, updateArgs] = useArgs();
+    return {
+      components: { KdsSearchInput },
+      setup() {
+        const modelValue = ref(args.modelValue);
+        watchEffect(() => (modelValue.value = args.modelValue));
+        watchEffect(() => updateArgs({ modelValue: modelValue.value }));
+        return { args, modelValue };
+      },
+      template: '<KdsSearchInput v-bind="args" v-model="modelValue" />',
+    };
+  },
 };
 
 export default meta;
@@ -384,12 +365,9 @@ export const Interaction: Story = {
       const { modelValue: initialModelValue, ...rest } = args;
       const localModelValue = ref(initialModelValue);
 
-      watch(
-        () => args.modelValue,
-        (newValue) => {
-          localModelValue.value = newValue;
-        },
-      );
+      watchEffect(() => {
+        localModelValue.value = args.modelValue;
+      });
 
       return {
         rest,

@@ -1,3 +1,4 @@
+import { ref, watchEffect } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
@@ -10,7 +11,6 @@ import {
 
 import KdsCheckbox from "./KdsCheckbox.vue";
 import { kdsCheckboxValue, kdsCheckboxValues } from "./enums";
-import type { KdsCheckboxValue } from "./types";
 
 type Story = StoryObj<typeof KdsCheckbox>;
 
@@ -23,10 +23,6 @@ const meta: Meta<typeof KdsCheckbox> = {
       control: { type: "select" },
       options: kdsCheckboxValues,
       description: "v-model binding for the checkbox state",
-      table: { category: "model" },
-    },
-    "update:modelValue": {
-      description: "Emitted when the checkbox state changes",
       table: { category: "model" },
     },
     label: {
@@ -56,15 +52,24 @@ const meta: Meta<typeof KdsCheckbox> = {
   },
   args: {
     modelValue: kdsCheckboxValue.UNCHECKED,
-    "update:modelValue": (value: KdsCheckboxValue) => {
-      const [_, updateArgs] = useArgs();
-      updateArgs({ modelValue: value });
-    },
     label: "Label",
     disabled: false,
     subText: "",
     error: false,
     preserveSubTextSpace: false,
+  },
+  render: (args) => {
+    const [, updateArgs] = useArgs();
+    return {
+      components: { KdsCheckbox },
+      setup() {
+        const modelValue = ref(args.modelValue);
+        watchEffect(() => (modelValue.value = args.modelValue));
+        watchEffect(() => updateArgs({ modelValue: modelValue.value }));
+        return { args, modelValue };
+      },
+      template: '<KdsCheckbox v-bind="args" v-model="modelValue" />',
+    };
   },
   parameters: {
     docs: {
@@ -157,7 +162,7 @@ export const Disabled: Story = {
   },
 };
 
-export const Error: Story = {
+export const WithError: Story = {
   args: {
     label: "Label",
     subText: "Error message",

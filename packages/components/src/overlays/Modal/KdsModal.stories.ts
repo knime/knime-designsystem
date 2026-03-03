@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { useArgs } from "storybook/internal/preview-api";
+import { useArgs } from "storybook/preview-api";
 import { fn } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";

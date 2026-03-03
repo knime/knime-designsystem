@@ -1,4 +1,4 @@
-import { useTemplateRef } from "vue";
+import { ref, useTemplateRef, watchEffect } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
@@ -112,24 +112,22 @@ const meta: Meta<typeof KdsPatternInput> = {
     error: false,
     preserveSubTextSpace: false,
   },
-  decorators: [
-    (story) => {
-      const [currentArgs, updateArgs] = useArgs();
-      return {
-        components: { story, PatternDemo },
-        setup() {
-          return {
-            args: currentArgs,
-            updateArgs,
-          };
-        },
-        template: `
-          <story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" />
-          <PatternDemo :pattern="args.modelValue" />
-          `,
-      };
-    },
-  ],
+  render: (args) => {
+    const [, updateArgs] = useArgs();
+    return {
+      components: { KdsPatternInput, PatternDemo },
+      setup() {
+        const modelValue = ref(args.modelValue);
+        watchEffect(() => (modelValue.value = args.modelValue));
+        watchEffect(() => updateArgs({ modelValue: modelValue.value }));
+        return { args, modelValue };
+      },
+      template: `
+        <KdsPatternInput v-bind="args" v-model="modelValue" />
+        <PatternDemo :pattern="modelValue" />
+      `,
+    };
+  },
 };
 
 export default meta;

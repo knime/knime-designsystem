@@ -22,7 +22,7 @@ export type KdsCardAriaProps =
     };
 
 /**
- * Props for KdsCard component.
+ * Props for KdsCardButton component.
  *
  * **Important Usage Note**: Due to TypeScript limitations with discriminated unions in Vue templates,
  * you must use `v-bind` with a properly typed object. Direct prop binding (even with hardcoded values)
@@ -34,9 +34,9 @@ export type KdsCardAriaProps =
  *   variant: "filled",
  *   ariaLabel: "My card"
  * };
- * <KdsCard v-bind="cardProps">
+ * <KdsCardButton v-bind="cardProps">
  *   <div>Content</div>
- * </KdsCard>
+ * </KdsCardButton>
  *
  * @example
  * // ✅ Correct: In wrapper components, use computed with typed object
@@ -46,17 +46,17 @@ export type KdsCardAriaProps =
  *     ? { ...base, ariaLabel: props.ariaLabel } as KdsCardProps
  *     : { ...base, ariaLabelledby: props.ariaLabelledby! } as KdsCardProps;
  * });
- * <KdsCard v-bind="cardProps" />
+ * <KdsCardButton v-bind="cardProps" />
  *
  * @example
  * // ❌ Incorrect: Direct prop binding causes type errors
- * <KdsCard aria-label="My card" variant="filled">
+ * <KdsCardButton aria-label="My card" variant="filled">
  *   <div>Content</div>
- * </KdsCard>
+ * </KdsCardButton>
  *
  * @example
  * // ❌ Incorrect: Even forwarding individual props causes type errors
- * <KdsCard :aria-label="ariaLabel" :aria-labelledby="ariaLabelledby" />
+ * <KdsCardButton :aria-label="ariaLabel" :aria-labelledby="ariaLabelledby" />
  */
 export type KdsCardProps = {
   /**
