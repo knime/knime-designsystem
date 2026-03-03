@@ -175,7 +175,13 @@ describe("useKdsIsTruncated", () => {
     expect(useMutationObserver).toHaveBeenCalledWith(
       elementRef,
       expect.any(Function),
-      { childList: true, characterData: true, subtree: true },
+      expect.objectContaining({
+        childList: true,
+        characterData: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ["class", "style"],
+      }),
     );
   });
 

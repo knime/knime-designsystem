@@ -127,6 +127,7 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
   width: 100%;
   color: var(--kds-color-text-and-icon-neutral);
   cursor: pointer;
+  list-style: none;
   background: var(--kds-color-background-neutral-initial);
   border: none;
 
@@ -151,42 +152,42 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
     background: var(--kds-color-background-neutral-active);
   }
 
-  &.selected {
+  &.selected:not(.disabled) {
     color: var(--kds-color-text-and-icon-selected);
     background: var(--kds-color-background-selected-initial);
 
-    &:not(.disabled):hover {
+    &:hover {
       background: var(--kds-color-background-selected-hover);
     }
 
-    &:not(.disabled):active {
+    &:active {
       background: var(--kds-color-background-selected-active);
     }
   }
 
-  &.missing {
+  &.missing:not(.disabled) {
     color: var(--kds-color-text-and-icon-danger);
     background: var(--kds-color-background-danger-initial);
 
-    &:not(.disabled):hover {
+    &:hover {
       background: var(--kds-color-background-danger-hover);
     }
 
-    &:not(.disabled):active {
+    &:active {
       background: var(--kds-color-background-danger-active);
     }
   }
 
-  &.active {
-    &:not(.disabled, .selected, .missing) {
+  &.active:not(.disabled) {
+    &:not(.selected, .missing) {
       background: var(--kds-color-background-neutral-hover);
     }
 
-    &.selected:not(.disabled) {
+    &.selected {
       background: var(--kds-color-background-selected-hover);
     }
 
-    &.missing:not(.disabled) {
+    &.missing {
       background: var(--kds-color-background-danger-hover);
     }
   }
