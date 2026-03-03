@@ -50,22 +50,23 @@ const iconName = computed(() => {
   display: flex;
   flex-direction: column;
   gap: var(--kds-spacing-container-0-25x);
-  justify-content: center;
+  align-items: flex-start;
   width: 100%;
   padding: calc(
     var(--kds-spacing-container-0-5x) - var(--kds-core-border-width-xs)
   ); /* needed as border in Figma is not increasing the width */
 
+  border-radius: var(--kds-border-radius-container-0-50x);
+
   .header {
     display: flex;
     gap: var(--kds-spacing-container-0-25x);
-    align-items: center;
+    align-items: flex-start;
+    width: 100%;
   }
 
   .header .icons {
-    align-self: var(--kds-dimension-icon-0-75x);
-    width: var(--kds-dimension-component-width-0-75x);
-    height: var(--kds-dimension-component-height-0-75x);
+    align-self: center;
     color: var(--icon-color);
   }
 
@@ -75,12 +76,17 @@ const iconName = computed(() => {
   }
 
   .message {
+    align-self: stretch;
     font: var(--kds-font-base-body-small);
     color: var(--kds-color-text-and-icon-neutral);
   }
 
   .body {
-    gap: var(--kds-spacing-container-0-5x);
+    width: 100%;
+    padding-right: var(
+      --kds-spacing-container-1x
+    ); /* ziemlich viel, aber in Figma so definiert */
+
     padding-left: var(--kds-spacing-container-1x);
   }
 
@@ -90,7 +96,6 @@ const iconName = computed(() => {
 
     background-color: var(--kds-color-background-static-info-muted);
     border: var(--kds-border-base-info);
-    border-radius: var(--kds-border-radius-container-0-50x);
   }
 
   &.success {
@@ -99,7 +104,6 @@ const iconName = computed(() => {
 
     background-color: var(--kds-color-background-static-success-muted);
     border: var(--kds-border-base-success);
-    border-radius: var(--kds-border-radius-container-0-50x);
   }
 
   &.error {
@@ -108,7 +112,6 @@ const iconName = computed(() => {
 
     background-color: var(--kds-color-background-static-danger-muted);
     border: var(--kds-border-base-danger);
-    border-radius: var(--kds-border-radius-container-0-50x);
   }
 
   &.warning {
@@ -117,7 +120,6 @@ const iconName = computed(() => {
 
     background-color: var(--kds-color-background-static-warning-muted);
     border: var(--kds-border-base-warning);
-    border-radius: var(--kds-border-radius-container-0-50x);
   }
 }
 </style>
