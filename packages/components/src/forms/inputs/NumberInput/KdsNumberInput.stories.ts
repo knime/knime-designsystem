@@ -1,4 +1,4 @@
-import { useTemplateRef } from "vue";
+import { ref, useTemplateRef, watchEffect } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
@@ -117,7 +117,7 @@ const meta: Meta<typeof KdsNumberInput> = {
     },
   },
   args: {
-    modelValue: NaN,
+    modelValue: Number.NaN,
     label: "Label",
     description: "",
     ariaLabel: undefined,
@@ -136,22 +136,19 @@ const meta: Meta<typeof KdsNumberInput> = {
     subText: "",
     preserveSubTextSpace: false,
   },
-  decorators: [
-    (story) => {
-      const [currentArgs, updateArgs] = useArgs();
-      return {
-        components: { story },
-        setup() {
-          return {
-            args: currentArgs,
-            updateArgs,
-          };
-        },
-        template:
-          '<story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" />',
-      };
-    },
-  ],
+  render: (args) => {
+    const [, updateArgs] = useArgs();
+    return {
+      components: { KdsNumberInput },
+      setup() {
+        const modelValue = ref(args.modelValue);
+        watchEffect(() => (modelValue.value = args.modelValue));
+        watchEffect(() => updateArgs({ modelValue: modelValue.value }));
+        return { args, modelValue };
+      },
+      template: '<KdsNumberInput v-bind="args" v-model="modelValue" />',
+    };
+  },
 };
 
 export default meta;
@@ -286,7 +283,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       label: ["Label"],
       ariaLabel: [undefined],
       // eslint-disable-next-line no-magic-numbers
-      modelValue: [NaN, 42],
+      modelValue: [Number.NaN, 42],
       placeholder: ["", "Enter number"],
       unit: [undefined, "ms"],
       readonly: [false],
@@ -325,7 +322,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3524-14839":
           {
-            modelValue: NaN,
+            modelValue: Number.NaN,
             unit: "{unit}",
             parameters: {
               pseudo: { focus: true },
@@ -379,7 +376,7 @@ export const TextOverflow: Story = {
 export const Interaction: Story = {
   args: {
     label: "Label",
-    modelValue: NaN,
+    modelValue: Number.NaN,
     placeholder: "Enter number",
     unit: "ms",
     min: 0,

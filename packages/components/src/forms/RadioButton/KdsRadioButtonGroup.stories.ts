@@ -1,3 +1,4 @@
+import { ref, watchEffect } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
@@ -49,11 +50,6 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
         "The currently selected option id. Can be undefined when no option is selected.",
       table: { category: "model" },
     },
-    // @ts-expect-error – Storybook doesn't type emit handlers in argTypes for DefineComponent
-    "update:modelValue": {
-      description: "Emitted when the selection changes",
-      table: { category: "model" },
-    },
     id: {
       control: { type: "text" },
       description: "Id set for the group to be linked for an external label.",
@@ -98,11 +94,6 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
   },
   args: {
     modelValue: "Option A",
-    // @ts-expect-error – Storybook reactive-arg workaround; not in ComponentPropsAndSlots
-    "update:modelValue": (value: string) => {
-      const [_, updateArgs] = useArgs();
-      updateArgs({ modelValue: value });
-    },
     id: "radio-button-group",
     label: "Label",
     possibleValues: ["Option A", "Option B", "Option C", "Option D"],
@@ -110,6 +101,19 @@ const meta: Meta<typeof KdsRadioButtonGroup> = {
     disabled: false,
     subText: "",
     preserveSubTextSpace: false,
+  },
+  render: (args) => {
+    const [, updateArgs] = useArgs();
+    return {
+      components: { KdsRadioButtonGroup },
+      setup() {
+        const modelValue = ref(args.modelValue);
+        watchEffect(() => (modelValue.value = args.modelValue));
+        watchEffect(() => updateArgs({ modelValue: modelValue.value }));
+        return { args, modelValue };
+      },
+      template: '<KdsRadioButtonGroup v-bind="args" v-model="modelValue" />',
+    };
   },
 };
 
@@ -250,7 +254,7 @@ export const WithSubText: Story = {
   },
 };
 
-export const Error: Story = {
+export const WithError: Story = {
   render: () => ({
     components: { KdsRadioButtonGroup },
     template: `

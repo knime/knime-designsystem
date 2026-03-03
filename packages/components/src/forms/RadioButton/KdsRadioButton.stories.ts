@@ -1,3 +1,4 @@
+import { ref, watchEffect } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
@@ -21,11 +22,6 @@ const meta: Meta<typeof KdsRadioButton> = {
       control: { type: "boolean" },
       description:
         "Whether the radio button is selected (true) or not (false). Radio buttons don't toggle back to false on click.",
-      table: { category: "model" },
-    },
-    // @ts-expect-error – Storybook doesn't type emit handlers in argTypes for DefineComponent
-    "update:modelValue": {
-      description: "Emitted when the radio button is selected",
       table: { category: "model" },
     },
 
@@ -54,15 +50,23 @@ const meta: Meta<typeof KdsRadioButton> = {
   },
   args: {
     modelValue: false,
-    // @ts-expect-error – Storybook reactive-arg workaround; not in ComponentPropsAndSlots
-    "update:modelValue": (value: boolean) => {
-      const [_, updateArgs] = useArgs();
-      updateArgs({ modelValue: value });
-    },
     text: "Label",
     helperText: "",
     disabled: false,
     error: false,
+  },
+  render: (args) => {
+    const [, updateArgs] = useArgs();
+    return {
+      components: { KdsRadioButton },
+      setup() {
+        const modelValue = ref(args.modelValue);
+        watchEffect(() => (modelValue.value = args.modelValue));
+        watchEffect(() => updateArgs({ modelValue: modelValue.value }));
+        return { args, modelValue };
+      },
+      template: '<KdsRadioButton v-bind="args" v-model="modelValue" />',
+    };
   },
   parameters: {
     docs: {
@@ -156,7 +160,7 @@ export const Disabled: Story = {
   },
 };
 
-export const Error: Story = {
+export const WithError: Story = {
   args: {
     text: "Label",
     helperText: "Helper text",

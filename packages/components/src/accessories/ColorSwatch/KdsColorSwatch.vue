@@ -20,7 +20,7 @@ const typeToTokenColor: Record<KdsColorSwatchType, string> = {
 };
 
 const isKdsColorSwatchType = (value: string): value is KdsColorSwatchType =>
-  Object.prototype.hasOwnProperty.call(typeToTokenColor, value);
+  Object.hasOwn(typeToTokenColor, value);
 
 const backgroundColor = computed(() => {
   if (isKdsColorSwatchType(props.color)) {

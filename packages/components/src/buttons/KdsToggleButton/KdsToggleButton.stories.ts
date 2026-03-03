@@ -1,7 +1,7 @@
+import { ref, watchEffect } from "vue";
 import type { FunctionalComponent } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { useArgs } from "storybook/internal/preview-api";
-import { fn } from "storybook/test";
+import { useArgs } from "storybook/preview-api";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
@@ -64,27 +64,24 @@ const meta: Meta<typeof KdsToggleButton> = {
     },
     ariaLabel: { control: "text" },
     title: { control: "text" },
-    modelValue: { control: { type: "boolean" } },
+    modelValue: { control: { type: "boolean" }, table: { category: "model" } },
   },
   args: {
-    "onUpdate:modelValue": fn(),
+    modelValue: false,
   },
-  decorators: [
-    (story) => {
-      const [currentArgs, updateArgs] = useArgs();
-      return {
-        components: { story },
-        setup() {
-          return {
-            args: currentArgs,
-            updateArgs,
-          };
-        },
-        template:
-          '<story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" />',
-      };
-    },
-  ],
+  render: (args) => {
+    const [, updateArgs] = useArgs();
+    return {
+      components: { KdsToggleButton },
+      setup() {
+        const modelValue = ref(args.modelValue);
+        watchEffect(() => (modelValue.value = args.modelValue));
+        watchEffect(() => updateArgs({ modelValue: modelValue.value }));
+        return { args, modelValue };
+      },
+      template: '<KdsToggleButton v-bind="args" v-model="modelValue" />',
+    };
+  },
 };
 export default meta;
 

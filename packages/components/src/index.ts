@@ -10,13 +10,13 @@ export type * from "./buttons";
 export * from "./forms";
 export type * from "./forms";
 
+// Export structure components
+export * from "./layouts";
+export type * from "./layouts";
+
 // Export overlay components
 export * from "./overlays";
 export type * from "./overlays";
-
-// Export structure components
-export * from "./structures";
-export type * from "./structures";
 
 // Export utils
 export * from "./util";

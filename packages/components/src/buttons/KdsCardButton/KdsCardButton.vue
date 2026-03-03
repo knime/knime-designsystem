@@ -24,16 +24,12 @@ const emit = defineEmits<{
    * This event is only emitted when `selectable` is false.
    * Clicks while `selectable` is true toggle the card.
    */
-  click: [event: MouseEvent | KeyboardEvent];
+  click: [event: MouseEvent];
 }>();
 
 const selected = computed(() => modelValue.value && selectable);
 
-const handleClick = (event: MouseEvent | KeyboardEvent) => {
-  if (disabled) {
-    return;
-  }
-
+const handleClick = (event: MouseEvent) => {
   if (selectable) {
     modelValue.value = !modelValue.value;
   } else {
@@ -43,25 +39,18 @@ const handleClick = (event: MouseEvent | KeyboardEvent) => {
 </script>
 
 <template>
-  <div
+  <button
+    type="button"
     class="kds-card"
-    :class="[
-      `variant-${variant}`,
-      { selected: selected },
-      { disabled: disabled },
-    ]"
-    role="button"
+    :class="[`variant-${variant}`, { selected: selected }]"
     :aria-label="ariaLabel"
     :aria-labelledby="ariaLabelledby"
-    :aria-disabled="disabled"
     :aria-pressed="selectable ? modelValue : undefined"
-    :tabindex="disabled ? -1 : 0"
+    :disabled="disabled"
     @click="handleClick"
-    @keydown.enter.prevent="handleClick"
-    @keydown.space.prevent="handleClick"
   >
     <slot />
-  </div>
+  </button>
 </template>
 
 <style scoped>
@@ -69,6 +58,11 @@ const handleClick = (event: MouseEvent | KeyboardEvent) => {
   position: relative;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-align: start;
   cursor: pointer;
   outline: none;
   border-style: solid;
@@ -84,7 +78,7 @@ const handleClick = (event: MouseEvent | KeyboardEvent) => {
     border-radius: var(--kds-border-radius-container-0-56x);
   }
 
-  &.disabled {
+  &:disabled {
     cursor: default;
   }
 }
@@ -94,11 +88,11 @@ const handleClick = (event: MouseEvent | KeyboardEvent) => {
   background: var(--kds-color-surface-default);
   border: var(--kds-border-base-subtle);
 
-  &:hover:not(.disabled) {
+  &:hover:not(:disabled) {
     box-shadow: var(--kds-elevation-level-3);
   }
 
-  &:active:not(.disabled) {
+  &:active:not(:disabled) {
     background: var(--kds-color-background-neutral-active);
     box-shadow: var(--kds-elevation-level-1);
   }
@@ -109,11 +103,11 @@ const handleClick = (event: MouseEvent | KeyboardEvent) => {
   background: var(--kds-color-background-neutral-initial);
   border: var(--kds-border-base-muted);
 
-  &:hover:not(.disabled) {
+  &:hover:not(:disabled) {
     box-shadow: var(--kds-elevation-level-3);
   }
 
-  &:active:not(.disabled) {
+  &:active:not(:disabled) {
     background: var(--kds-color-background-neutral-active);
     box-shadow: var(--kds-elevation-level-1);
   }
@@ -124,12 +118,12 @@ const handleClick = (event: MouseEvent | KeyboardEvent) => {
   background: var(--kds-color-background-neutral-initial);
   border: var(--kds-border-action-transparent);
 
-  &:hover:not(.disabled) {
+  &:hover:not(:disabled) {
     background: var(--kds-color-background-neutral-hover);
     box-shadow: var(--kds-elevation-level-3);
   }
 
-  &:active:not(.disabled) {
+  &:active:not(:disabled) {
     background: var(--kds-color-background-neutral-active);
     box-shadow: var(--kds-elevation-level-1);
   }
@@ -140,11 +134,11 @@ const handleClick = (event: MouseEvent | KeyboardEvent) => {
   background: var(--kds-color-background-selected-initial);
   border: var(--kds-border-action-selected);
 
-  &:hover:not(.disabled) {
+  &:hover:not(:disabled) {
     box-shadow: var(--kds-elevation-level-3);
   }
 
-  &:active:not(.disabled) {
+  &:active:not(:disabled) {
     background: var(--kds-color-background-selected-active);
     box-shadow: var(--kds-elevation-level-1);
   }
@@ -155,11 +149,11 @@ const handleClick = (event: MouseEvent | KeyboardEvent) => {
   background: var(--kds-color-background-selected-initial);
   border: var(--kds-border-action-selected);
 
-  &:hover:not(.disabled) {
+  &:hover:not(:disabled) {
     box-shadow: var(--kds-elevation-level-3);
   }
 
-  &:active:not(.disabled) {
+  &:active:not(:disabled) {
     background: var(--kds-color-background-selected-active);
     box-shadow: var(--kds-elevation-level-1);
   }
@@ -170,12 +164,12 @@ const handleClick = (event: MouseEvent | KeyboardEvent) => {
   background: var(--kds-color-background-selected-initial);
   border: var(--kds-border-action-selected);
 
-  &:hover:not(.disabled) {
+  &:hover:not(:disabled) {
     background: var(--kds-color-background-selected-initial);
     box-shadow: var(--kds-elevation-level-3);
   }
 
-  &:active:not(.disabled) {
+  &:active:not(:disabled) {
     background: var(--kds-color-background-selected-active);
     box-shadow: var(--kds-elevation-level-1);
   }

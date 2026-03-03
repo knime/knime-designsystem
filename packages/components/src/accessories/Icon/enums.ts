@@ -1,10 +1,11 @@
+export { iconNames as kdsIconNames } from "@knime/kds-styles/img/icons/def";
+export { typeIconNames as kdsTypeIconNames } from "@knime/kds-styles/img/type-icons/def";
+
 import { iconNames as kdsIconNames } from "@knime/kds-styles/img/icons/def";
 import { typeIconNames as kdsTypeIconNames } from "@knime/kds-styles/img/type-icons/def";
 
-export { kdsIconNames, kdsTypeIconNames };
-
 const toEnumKey = (name: string) =>
-  name.toUpperCase().replace(/-/g, "_") as Uppercase<typeof name>;
+  name.toUpperCase().replaceAll("-", "_") as Uppercase<typeof name>;
 
 export const kdsIconName = Object.fromEntries(
   kdsIconNames.map((name) => [toEnumKey(name), name] as const),

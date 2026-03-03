@@ -1,3 +1,4 @@
+import { ref, watchEffect } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
@@ -34,11 +35,6 @@ const meta: Meta<typeof KdsValueSwitch> = {
       control: { type: "text" },
       description:
         "Currently selected option id (from `possibleValues`). Can be `undefined` if no option is selected.",
-      table: { category: "model" },
-    },
-    // @ts-expect-error – Storybook doesn't type emit handlers in argTypes for DefineComponent
-    "update:modelValue": {
-      description: "Emitted when the selection changes",
       table: { category: "model" },
     },
     id: {
@@ -100,11 +96,6 @@ const meta: Meta<typeof KdsValueSwitch> = {
   },
   args: {
     modelValue: "Option A",
-    // @ts-expect-error – Storybook reactive-arg workaround; not in ComponentPropsAndSlots
-    "update:modelValue": (value: string) => {
-      const [_, updateArgs] = useArgs();
-      updateArgs({ modelValue: value });
-    },
     id: "value-switch",
     label: "Label",
     possibleValues: ["Option A", "Option B", "Option C", "Option D"],
@@ -114,6 +105,19 @@ const meta: Meta<typeof KdsValueSwitch> = {
     error: false,
     subText: "",
     preserveSubTextSpace: false,
+  },
+  render: (args) => {
+    const [, updateArgs] = useArgs();
+    return {
+      components: { KdsValueSwitch },
+      setup() {
+        const modelValue = ref(args.modelValue);
+        watchEffect(() => (modelValue.value = args.modelValue));
+        watchEffect(() => updateArgs({ modelValue: modelValue.value }));
+        return { args, modelValue };
+      },
+      template: '<KdsValueSwitch v-bind="args" v-model="modelValue" />',
+    };
   },
 };
 
@@ -291,7 +295,7 @@ export const WithSubText: Story = {
   },
 };
 
-export const Error: Story = {
+export const WithError: Story = {
   args: {
     modelValue: "Option A",
     error: true,

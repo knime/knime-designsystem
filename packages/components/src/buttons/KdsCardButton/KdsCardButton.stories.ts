@@ -1,5 +1,6 @@
+import { ref, watchEffect } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { useArgs } from "storybook/internal/preview-api";
+import { useArgs } from "storybook/preview-api";
 import { expect, fn, userEvent, within } from "storybook/test";
 
 import {
@@ -9,12 +10,12 @@ import {
 } from "../../test-utils/storybook";
 
 import DemoCard from "./DemoCard.vue";
-import KdsCard from "./KdsCard.vue";
+import KdsCardButton from "./KdsCardButton.vue";
 import { kdsCardVariants } from "./enums";
 
-const meta: Meta<typeof KdsCard> = {
-  title: "Structures/Card",
-  component: KdsCard,
+const meta = {
+  title: "Buttons/CardButton",
+  component: KdsCardButton,
   tags: ["autodocs"],
   parameters: {
     docs: {
@@ -54,7 +55,7 @@ const meta: Meta<typeof KdsCard> = {
     },
     disabled: {
       description:
-        "Whether the card is disabled. When disabled, the card cannot be clicked or focused, and aria-disabled is set to true.",
+        "Whether the card is disabled. When disabled, the card cannot be clicked or focused.",
       control: { type: "boolean" },
       table: {
         category: "props",
@@ -87,6 +88,11 @@ const meta: Meta<typeof KdsCard> = {
     onClick: {
       table: { disable: true },
     },
+    default: {
+      control: false,
+      description: "Default slot content rendered inside the card.",
+      table: { category: "slots" },
+    },
   },
   args: {
     modelValue: false,
@@ -94,82 +100,56 @@ const meta: Meta<typeof KdsCard> = {
     selectable: false,
     disabled: false,
     ariaLabel: "Demo card for Storybook",
+    ariaLabelledby: undefined,
   },
-  render: (args) => ({
-    components: { KdsCard },
-    setup() {
-      return { args };
-    },
-    template: `
-      <KdsCard v-bind="args">
-        <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px;">
-          <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-default);">Demo for Storybook</div>
-          <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-default);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
-        </div>
-      </KdsCard>
-    `,
-  }),
-};
+  render: (args) => {
+    const [, updateArgs] = useArgs();
+    return {
+      components: { KdsCard: KdsCardButton },
+      setup() {
+        const modelValue = ref(args.modelValue);
+        watchEffect(() => (modelValue.value = args.modelValue));
+        watchEffect(() => updateArgs({ modelValue: modelValue.value }));
+        return { args, modelValue };
+      },
+      template: `
+        <KdsCard v-bind="args" v-model="modelValue">
+          <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px;">
+            <div style="font: var(--kds-font-base-title-large-strong); color: var(--kds-color-text-and-icon-neutral);">Demo for Storybook</div>
+            <div style="font: var(--kds-font-base-body-small); color: var(--kds-color-text-and-icon-neutral);">Once upon a time in a land of dreams, there lived a whimsical tale waiting to be told.</div>
+          </div>
+        </KdsCard>
+      `,
+    };
+  },
+} satisfies Meta<typeof KdsCardButton>;
 export default meta;
 
-type Story = StoryObj<typeof KdsCard>;
+type Story = StoryObj<typeof KdsCardButton>;
 type DemoStory = StoryObj<typeof DemoCard>;
 
 export const Default: Story = {
   args: {
     onClick: fn(),
   },
-  decorators: [
-    (story) => {
-      const [currentArgs, updateArgs] = useArgs();
-      return {
-        components: { story },
-        setup() {
-          return {
-            args: currentArgs,
-            updateArgs,
-          };
-        },
-        template:
-          '<story v-bind="args" @update:modelValue="(value) => updateArgs({ modelValue: value })" />',
-      };
-    },
-  ],
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const card = canvas.getByRole("button", {
-      name: args.ariaLabel ?? "Demo card for Storybook",
+      name: "Demo card for Storybook",
     });
+    let clicks = 0;
 
-    if (args.selectable) {
-      await expect(card).toHaveAttribute("aria-pressed", "false");
+    // Test mouse interaction
+    await userEvent.click(card);
+    await expect(args.onClick).toHaveBeenCalledTimes(++clicks);
 
-      await userEvent.click(card);
-      await expect(card).toHaveAttribute("aria-pressed", "true");
+    // Test keyboard interaction
+    card.focus();
+    await userEvent.keyboard("{Enter}");
+    await expect(args.onClick).toHaveBeenCalledTimes(++clicks);
 
-      await userEvent.click(card);
-      await expect(card).toHaveAttribute("aria-pressed", "false");
-
-      // Test keyboard interaction
-      card.focus();
-      await userEvent.keyboard("{Enter}");
-      await expect(card).toHaveAttribute("aria-pressed", "true");
-
-      await userEvent.keyboard(" ");
-      await expect(card).toHaveAttribute("aria-pressed", "false");
-    } else {
-      let clicks = 0;
-      await userEvent.click(card);
-      await expect(args.onClick).toHaveBeenCalledTimes(++clicks);
-
-      // Test keyboard interaction
-      card.focus();
-      await userEvent.keyboard("{Enter}");
-      await expect(args.onClick).toHaveBeenCalledTimes(++clicks);
-
-      await userEvent.keyboard(" ");
-      await expect(args.onClick).toHaveBeenCalledTimes(++clicks);
-    }
+    await userEvent.keyboard(" ");
+    await expect(args.onClick).toHaveBeenCalledTimes(++clicks);
   },
 };
 
@@ -187,31 +167,61 @@ export const Transparent: Story = {
 
 export const Selected: Story = {
   args: {
-    variant: "filled",
     selectable: true,
     modelValue: true,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const card = canvas.getByRole("button", {
+      name: "Demo card for Storybook",
+    });
+
+    await expect(card).toHaveAttribute("aria-pressed", "true");
+
+    // Test mouse interaction
+    await userEvent.click(card);
+    await expect(card).toHaveAttribute("aria-pressed", "false");
+
+    await userEvent.click(card);
+    await expect(card).toHaveAttribute("aria-pressed", "true");
+
+    // Test keyboard interaction
+    card.focus();
+    await userEvent.keyboard("{Enter}");
+    await expect(card).toHaveAttribute("aria-pressed", "false");
+
+    await userEvent.keyboard(" ");
+    await expect(card).toHaveAttribute("aria-pressed", "true");
+  },
 };
 
-export const AllCombinations: DemoStory = buildAllCombinationsStory({
-  component: DemoCard,
-  combinationsProps: [
-    {
-      variant: kdsCardVariants,
-      modelValue: [false],
-      selectable: [false],
-      ariaLabel: ["Demo card for Storybook"],
-    },
-    {
-      variant: kdsCardVariants,
-      modelValue: [false, true],
-      selectable: [true],
-      ariaLabel: ["Demo card for Storybook"],
-    },
-  ],
-  pseudoStates: ["hover", "active", "focus-visible"],
-  columns: 3,
-});
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+    onClick: fn(),
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    const card = canvas.getByRole("button", {
+      name: "Demo card for Storybook",
+    });
+
+    await expect(card).toBeDisabled();
+    await userEvent.click(card);
+    await expect(args.onClick).not.toHaveBeenCalled();
+  },
+};
+
+export const TextOverflow: DemoStory = {
+  ...buildTextOverflowStory({
+    component: DemoCard,
+    width: 300,
+  }),
+  args: {
+    variant: "filled",
+    ariaLabel: "Demo card for Storybook",
+  },
+};
 
 export const DesignComparator: DemoStory = buildDesignComparatorStory({
   component: DemoCard,
@@ -375,15 +385,22 @@ export const DesignComparator: DemoStory = buildDesignComparatorStory({
   },
 });
 
-export const TextOverflow: DemoStory = {
-  ...buildTextOverflowStory({
-    component: DemoCard,
-    width: 300,
-  }),
-  args: {
-    variant: "filled",
-    ariaLabel: "Demo card for Storybook",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-};
+export const AllCombinations: DemoStory = buildAllCombinationsStory({
+  component: DemoCard,
+  combinationsProps: [
+    {
+      variant: kdsCardVariants,
+      modelValue: [false],
+      selectable: [false],
+      ariaLabel: ["Demo card for Storybook"],
+    },
+    {
+      variant: kdsCardVariants,
+      modelValue: [false, true],
+      selectable: [true],
+      ariaLabel: ["Demo card for Storybook"],
+    },
+  ],
+  pseudoStates: ["hover", "active", "focus-visible"],
+  columns: 3,
+});
