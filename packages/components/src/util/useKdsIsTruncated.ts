@@ -48,6 +48,10 @@ export function useKdsIsTruncated(elementRef: Ref<HTMLElement | null>) {
     childList: true,
     characterData: true,
     subtree: true,
+    // Also observe attribute changes (especially class/style) that can affect
+    // truncation without necessarily triggering a resize event.
+    attributes: true,
+    attributeFilter: ["class", "style"],
   });
 
   return { isTruncated };
