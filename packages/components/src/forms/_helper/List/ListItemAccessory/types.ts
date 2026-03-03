@@ -3,7 +3,7 @@ import {
   type KdsIconName,
   type KdsLiveStatusStatus,
   type KdsTypeIconName,
-} from "../../../accessories";
+} from "../../../../accessories";
 
 export type KdsIconAccessory = {
   type: "icon";

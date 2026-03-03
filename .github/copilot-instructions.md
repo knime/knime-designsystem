@@ -250,9 +250,25 @@ play: async ({ canvasElement }) => {
 
 - Vitest for unit tests
 - Test files in `src/**/__tests__/*.test.ts`
-- We want to test as much as possible with Story book tests
-  - story book can cover visual changes for props
+- We want to test as much as possible with Storybook tests
+  - Storybook can cover visual changes for props
   - unit tests should only cover logic that is internally hidden
+
+### Code Coverage
+
+SonarQube receives a **merged** coverage report (`coverage/lcov.info`) that combines:
+
+1. **Unit test coverage** (`coverage/unit/lcov.info`) — collected by `pnpm test:unit` / `pnpm coverage` via Vitest with V8.
+2. **Storybook play test coverage** (`documentation/coverage/storybook/lcov.info`) — collected by `pnpm test:storybook` via Vitest browser mode (Playwright + V8). Every story is rendered as a test (even without a `play` function), so simply having a story that renders a component contributes to coverage.
+
+The merge is done via `pnpm coverage:merge`. Both sources count equally toward the final report.
+
+**Key implications for covering component code:**
+
+- To cover a `.vue` component's template branches (e.g. `v-if` / `v-else-if` chains), ensure there are Storybook stories (or unit tests) that render the component with props triggering **each branch**.
+- V8 coverage tracks branch coverage: for a `v-if` / `v-else-if` chain, each condition must evaluate to both `true` and `false` across the full test suite. Provide stories with different prop combinations so every branch outcome is exercised.
+- Stories **without** a `play` function still contribute to coverage (the component is mounted and rendered). However, stories **with** `play` functions also exercise interactive code paths (event handlers, state transitions).
+- Files excluded from coverage reporting (configured in `vitest.config.ts` and `sonar-project.properties`): `index.ts`, `types.ts`, `enums.ts`, `*.stories.ts`, `*.d.ts`, `packages/styles/`, `documentation/`, `test-utils/`.
 
 ### Migration documentation
 
