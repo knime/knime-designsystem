@@ -45,9 +45,9 @@ const ariaLabelledby = computed(() =>
 );
 
 const emit = defineEmits<{
-  (e: "click"): void;
-  (e: "keydown", event: KeyboardEvent): void;
-  (e: "update:open", value: boolean): void;
+  click: [];
+  keydown: [event: KeyboardEvent];
+  "update:open": [value: boolean];
 }>();
 
 const onTriggerKeydown = (event: KeyboardEvent) => {

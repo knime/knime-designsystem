@@ -1,6 +1,33 @@
-import type { KdsInputFieldProps } from "./baseTypes";
+import type { KdsFormFieldProps } from "../types";
 
-export type { KdsInputFieldProps } from "./baseTypes";
+type KdsCommonInputProps = {
+  /**
+   * Placeholder text for the input element
+   */
+  placeholder?: string;
+  /**
+   * Whether the input is disabled
+   */
+  disabled?: boolean;
+  /**
+   * Whether the input is readonly
+   */
+  readonly?: boolean;
+  /**
+   * Whether the input is required
+   */
+  required?: boolean;
+  /**
+   * Name attribute for the input element
+   */
+  name?: string;
+  /**
+   * Autocomplete attribute for the input element
+   */
+  autocomplete?: string;
+};
+
+type KdsInputFieldProps = KdsFormFieldProps & KdsCommonInputProps;
 
 export type KdsTextInputProps = KdsInputFieldProps;
 
@@ -36,8 +63,3 @@ export type KdsTextareaProps = KdsInputFieldProps & {
    */
   rows?: number;
 };
-
-export type {
-  KdsDropdownOption,
-  KdsDropdownProps,
-} from "../selects/Dropdown/types";
