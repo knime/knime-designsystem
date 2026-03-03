@@ -229,7 +229,21 @@ export const AccessoryIcon: Story = {
     const canvas = within(canvasElement);
 
     await expect(canvas.getByText("Label")).toBeInTheDocument();
+    // KdsIcon renders an svg with class kds-icon directly (no wrapper container)
     await expect(canvasElement.querySelector(".kds-icon")).toBeInTheDocument();
+    // Verify no other accessory types are rendered
+    await expect(
+      canvasElement.querySelector(".kds-data-type-icon-container"),
+    ).not.toBeInTheDocument();
+    await expect(
+      canvasElement.querySelector(".kds-color-swatch"),
+    ).not.toBeInTheDocument();
+    await expect(
+      canvasElement.querySelector(".kds-avatar"),
+    ).not.toBeInTheDocument();
+    await expect(
+      canvasElement.querySelector(".kds-live-status"),
+    ).not.toBeInTheDocument();
   },
 };
 
@@ -244,6 +258,16 @@ export const AccessoryDataType: Story = {
     await expect(
       canvasElement.querySelector(".kds-data-type-icon-container"),
     ).toBeInTheDocument();
+    // Verify no other accessory types are rendered
+    await expect(
+      canvasElement.querySelector(".kds-color-swatch"),
+    ).not.toBeInTheDocument();
+    await expect(
+      canvasElement.querySelector(".kds-avatar"),
+    ).not.toBeInTheDocument();
+    await expect(
+      canvasElement.querySelector(".kds-live-status"),
+    ).not.toBeInTheDocument();
   },
 };
 
@@ -258,6 +282,19 @@ export const AccessoryColorSwatch: Story = {
     await expect(
       canvas.getByRole("img", { name: "Danger" }),
     ).toBeInTheDocument();
+    await expect(
+      canvasElement.querySelector(".kds-color-swatch"),
+    ).toBeInTheDocument();
+    // Verify no other accessory types are rendered
+    await expect(
+      canvasElement.querySelector(".kds-data-type-icon-container"),
+    ).not.toBeInTheDocument();
+    await expect(
+      canvasElement.querySelector(".kds-avatar"),
+    ).not.toBeInTheDocument();
+    await expect(
+      canvasElement.querySelector(".kds-live-status"),
+    ).not.toBeInTheDocument();
   },
 };
 
@@ -272,6 +309,19 @@ export const AccessoryAvatar: Story = {
     await expect(
       canvas.getByRole("img", { name: "Avatar" }),
     ).toBeInTheDocument();
+    await expect(
+      canvasElement.querySelector(".kds-avatar"),
+    ).toBeInTheDocument();
+    // Verify no other accessory types are rendered
+    await expect(
+      canvasElement.querySelector(".kds-color-swatch"),
+    ).not.toBeInTheDocument();
+    await expect(
+      canvasElement.querySelector(".kds-data-type-icon-container"),
+    ).not.toBeInTheDocument();
+    await expect(
+      canvasElement.querySelector(".kds-live-status"),
+    ).not.toBeInTheDocument();
   },
 };
 
@@ -286,6 +336,19 @@ export const AccessoryLiveStatus: Story = {
     await expect(
       canvas.getByRole("img", { name: "Running" }),
     ).toBeInTheDocument();
+    await expect(
+      canvasElement.querySelector(".kds-live-status"),
+    ).toBeInTheDocument();
+    // Verify no other accessory types are rendered
+    await expect(
+      canvasElement.querySelector(".kds-color-swatch"),
+    ).not.toBeInTheDocument();
+    await expect(
+      canvasElement.querySelector(".kds-data-type-icon-container"),
+    ).not.toBeInTheDocument();
+    await expect(
+      canvasElement.querySelector(".kds-avatar"),
+    ).not.toBeInTheDocument();
   },
 };
 
