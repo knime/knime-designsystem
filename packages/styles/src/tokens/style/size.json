@@ -267,10 +267,20 @@
             "$value": "{kds.core.size.scale} * 32",
             "$description": "Medium container width (512px). Use for standard sidepanels and dialogs."
           },
+          "35x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 35",
+            "$description": "Medium container width (560px). Use for Editor panels and max width."
+          },
           "45x": {
             "$type": "dimension",
             "$value": "{kds.core.size.scale} * 45",
             "$description": "Large container width (720px). Use for wide sidepanels and content areas."
+          },
+          "52_5x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 52.5",
+            "$description": "Large container width (840px). Use for wide sidepanels and content areas or max width."
           },
           "61x": {
             "$type": "dimension",
