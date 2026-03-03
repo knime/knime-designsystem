@@ -21,7 +21,7 @@ const meta: Meta<typeof KdsInlineMessage> = {
     docs: {
       description: {
         component:
-          "A small circular avatar that shows initials and can optionally show an image instead (falls back to initials if the image fails to load).",
+          "An inline message component to display contextual information, warnings, errors, or success messages to users.",
       },
     },
     design: {
@@ -46,13 +46,17 @@ const meta: Meta<typeof KdsInlineMessage> = {
       table: { category: "Props" },
     },
   },
-  // args: {
-  //   initials: "fv",
-  //   src: undefined,
-  //   title: "",
-  // },
+  args: {
+    variant: "info",
+    title: "Title",
+    message: "Here is a message that informs the user about something",
+  },
 };
 export default meta;
+
+export const Playground: Story = {
+  // No args here - uses meta.args and allows full control editing
+};
 
 export const AllVariants: Story = {
   render: () => ({
