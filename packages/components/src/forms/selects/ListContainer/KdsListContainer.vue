@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, ref, useTemplateRef } from "vue";
 
 import { KdsListItem } from "../../_helper/List/KdsListItem";
 
@@ -15,6 +15,17 @@ const emit = defineEmits<{
 
 /** active item id via keyboard or mouseover */
 const activeId = ref<string | null>(null);
+
+const containerEl = useTemplateRef("containerEl");
+
+const onMouseLeave = () => {
+  if (
+    containerEl.value &&
+    !containerEl.value.contains(document.activeElement)
+  ) {
+    activeId.value = null;
+  }
+};
 
 const enabledValues = computed(() =>
   props.possibleValues.filter((o) => !o.disabled),
@@ -85,12 +96,14 @@ const onKeydown = (event: KeyboardEvent) => {
 
 <template>
   <div
+    ref="containerEl"
     role="listbox"
     class="kds-list-container"
     :tabindex="props.controlEl ? -1 : 0"
     @keydown="onKeydown"
     @focus="onFocus"
     @blur="onBlur"
+    @mouseleave="onMouseLeave"
   >
     <KdsListItem
       v-for="item in props.possibleValues"

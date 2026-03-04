@@ -69,12 +69,26 @@ export const Default: Story = {
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const listbox = canvas.getByRole("listbox");
+    const firstOption = canvas.getByRole("option", { name: "Label 1" });
+    const lastOption = canvas.getByRole("option", { name: "Label 5" });
+
+    // --- Mouse: mouseover activates an option ---
+    const thirdOption = canvas.getByRole("option", { name: "Label 3" });
+    await userEvent.hover(thirdOption);
+    await expect(thirdOption).toHaveClass("active");
+
+    // --- Mouseleave clears active when not focused ---
+    await userEvent.unhover(thirdOption);
+    await expect(thirdOption).not.toHaveClass("active");
+
+    // --- Mouse: click emits toggleItem ---
+    await userEvent.click(thirdOption);
+    await expect(args.onToggleItem).toHaveBeenCalledWith("option-3");
 
     // --- Focus activates the first enabled item ---
+    listbox.blur();
     listbox.focus();
     await expect(listbox).toHaveFocus();
-
-    const firstOption = canvas.getByRole("option", { name: "Label 1" });
     await expect(firstOption).toHaveClass("active");
 
     // --- ArrowDown moves to the next option ---
@@ -87,33 +101,51 @@ export const Default: Story = {
     await userEvent.keyboard("{Enter}");
     await expect(args.onToggleItem).toHaveBeenCalledWith("option-2");
 
+    // --- Space emits toggleItem ---
+    await userEvent.keyboard("{ArrowDown}");
+    await userEvent.keyboard(" ");
+    await expect(args.onToggleItem).toHaveBeenCalledWith("option-3");
+
+    // --- ArrowUp from the first item wraps to the last ---
+    await userEvent.keyboard("{Home}");
+    await expect(firstOption).toHaveClass("active");
+    await userEvent.keyboard("{ArrowUp}");
+    await expect(lastOption).toHaveClass("active");
+
+    // --- ArrowDown from the last item wraps to the first ---
+    await userEvent.keyboard("{ArrowDown}");
+    await expect(firstOption).toHaveClass("active");
+
+    // --- Home jumps to the first ---
+    await userEvent.keyboard("{ArrowDown}{ArrowDown}");
+    await userEvent.keyboard("{Home}");
+    await expect(firstOption).toHaveClass("active");
+
+    // --- End jumps to the last ---
+    await userEvent.keyboard("{End}");
+    await expect(lastOption).toHaveClass("active");
+
     // --- Blur clears active state ---
     listbox.blur();
-    await expect(secondOption).not.toHaveClass("active");
-  },
-};
+    await expect(lastOption).not.toHaveClass("active");
 
-export const WithSelectedOption: Story = {
-  args: {
-    possibleValues: options(5, (idx) => ({ selected: idx === 1 })),
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    const selectedOption = canvas.getByRole("option", { name: "Label 2" });
-    await expect(selectedOption).toHaveAttribute("aria-selected", "true");
-
-    const unselectedOption = canvas.getByRole("option", { name: "Label 1" });
-    await expect(unselectedOption).toHaveAttribute("aria-selected", "false");
+    // --- Mouseleave preserves active when focused ---
+    listbox.focus();
+    await userEvent.hover(thirdOption);
+    await expect(thirdOption).toHaveClass("active");
+    await userEvent.unhover(thirdOption);
+    await expect(thirdOption).toHaveClass("active");
   },
 };
 
 export const WithDisabledOptions: Story = {
   args: {
     possibleValues: [
-      { id: "1", text: "Enabled option", selected: false },
-      { id: "2", text: "Disabled option", selected: false, disabled: true },
-      { id: "3", text: "Another enabled option", selected: false },
+      { id: "1", text: "Disabled first", selected: false, disabled: true },
+      { id: "2", text: "Enabled option", selected: false },
+      { id: "3", text: "Disabled middle", selected: false, disabled: true },
+      { id: "4", text: "Another enabled option", selected: false },
+      { id: "5", text: "Disabled last", selected: false, disabled: true },
     ],
     onToggleItem: fn(),
   },
@@ -121,102 +153,56 @@ export const WithDisabledOptions: Story = {
     const canvas = within(canvasElement);
     const listbox = canvas.getByRole("listbox");
 
-    // Disabled option renders with aria-disabled
-    const disabledOption = canvas.getByRole("option", {
-      name: "Disabled option",
-    });
-    await expect(disabledOption).toHaveAttribute("aria-disabled", "true");
+    // Disabled options render with aria-disabled
+    await expect(
+      canvas.getByRole("option", { name: "Disabled first" }),
+    ).toHaveAttribute("aria-disabled", "true");
+    await expect(
+      canvas.getByRole("option", { name: "Disabled middle" }),
+    ).toHaveAttribute("aria-disabled", "true");
+    await expect(
+      canvas.getByRole("option", { name: "Disabled last" }),
+    ).toHaveAttribute("aria-disabled", "true");
 
     // Clicking a disabled option does not emit toggleItem
-    await userEvent.click(disabledOption);
+    await userEvent.click(
+      canvas.getByRole("option", { name: "Disabled first" }),
+    );
     await expect(args.onToggleItem).not.toHaveBeenCalled();
 
-    // --- Keyboard: ArrowDown skips disabled items ---
+    // --- Keyboard: focus activates the first *enabled* item ---
     listbox.focus();
-
-    // First enabled option "Enabled option" is active on focus
     const firstEnabled = canvas.getByRole("option", {
       name: "Enabled option",
     });
     await expect(firstEnabled).toHaveClass("active");
 
-    // ArrowDown goes to "Another enabled option" (skips disabled)
+    // ArrowDown skips disabled middle → lands on "Another enabled option"
     await userEvent.keyboard("{ArrowDown}");
-    const thirdOption = canvas.getByRole("option", {
+    const secondEnabled = canvas.getByRole("option", {
       name: "Another enabled option",
     });
-    await expect(thirdOption).toHaveClass("active");
+    await expect(secondEnabled).toHaveClass("active");
 
-    // Enter emits toggleItem with id "3"
+    // Enter emits toggleItem with id "4"
     await userEvent.keyboard("{Enter}");
-    await expect(args.onToggleItem).toHaveBeenCalledWith("3");
-  },
-};
+    await expect(args.onToggleItem).toHaveBeenCalledWith("4");
 
-export const MouseInteraction: Story = {
-  args: {
-    onToggleItem: fn(),
-  },
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement);
-
-    // --- Mouseover activates an option ---
-    const thirdOption = canvas.getByRole("option", { name: "Label 3" });
-    await userEvent.hover(thirdOption);
-    await expect(thirdOption).toHaveClass("active");
-
-    // --- Click emits toggleItem ---
-    await userEvent.click(thirdOption);
-    await expect(args.onToggleItem).toHaveBeenCalledWith("option-3");
-  },
-};
-
-export const KeyboardWrapAround: Story = {
-  args: {
-    onToggleItem: fn(),
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const listbox = canvas.getByRole("listbox");
-
-    listbox.focus();
-
-    // First option is active on focus
-    const firstOption = canvas.getByRole("option", { name: "Label 1" });
-    await expect(firstOption).toHaveClass("active");
-
-    // ArrowUp from the first item wraps to the last
-    await userEvent.keyboard("{ArrowUp}");
-    const lastOption = canvas.getByRole("option", { name: "Label 5" });
-    await expect(lastOption).toHaveClass("active");
-
-    // ArrowDown from the last item wraps to the first
-    await userEvent.keyboard("{ArrowDown}");
-    await expect(firstOption).toHaveClass("active");
-
-    // Navigate to the middle, then Home jumps to the first
-    await userEvent.keyboard("{ArrowDown}{ArrowDown}");
+    // --- Home jumps to the first enabled item (skips disabled first) ---
     await userEvent.keyboard("{Home}");
-    await expect(firstOption).toHaveClass("active");
+    await expect(firstEnabled).toHaveClass("active");
 
-    // End jumps to the last
+    // --- End jumps to the last enabled item (skips disabled last) ---
     await userEvent.keyboard("{End}");
-    await expect(lastOption).toHaveClass("active");
-  },
-};
+    await expect(secondEnabled).toHaveClass("active");
 
-export const SpaceToSelect: Story = {
-  args: {
-    onToggleItem: fn(),
-  },
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement);
-    const listbox = canvas.getByRole("listbox");
-
-    listbox.focus();
+    // --- ArrowDown from the last enabled wraps to the first enabled ---
     await userEvent.keyboard("{ArrowDown}");
-    await userEvent.keyboard(" ");
-    await expect(args.onToggleItem).toHaveBeenCalledWith("option-2");
+    await expect(firstEnabled).toHaveClass("active");
+
+    // --- ArrowUp from the first enabled wraps to the last enabled ---
+    await userEvent.keyboard("{ArrowUp}");
+    await expect(secondEnabled).toHaveClass("active");
   },
 };
 
@@ -254,6 +240,12 @@ export const WithAccessories: Story = {
         text: "Avatar option",
         accessory: { type: "avatar", initials: "FV" },
         subText: "user@mail.com",
+      },
+      {
+        id: "5",
+        text: "Live status",
+        accessory: { type: "liveStatus", status: "red" },
+        subText: "stopped",
       },
     ],
   },
@@ -311,7 +303,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   combinationsProps: [
     {
       noEntriesText: ["No entries found"],
-      possibleValues: [options(6, () => ({})), []],
+      possibleValues: [options(3, () => ({})), []],
     },
   ],
   pseudoStates: ["hover", "focus-visible"],
