@@ -19,6 +19,7 @@ const props = withDefaults(defineProps<KdsListItemProps>(), {
 
 const emit = defineEmits<{
   click: [event: MouseEvent];
+  mouseover: [event: MouseEvent];
 }>();
 
 const isMultiline = computed(() => props.subText !== undefined);
@@ -30,6 +31,15 @@ const onClick = (event: MouseEvent) => {
     return;
   }
   emit("click", event);
+};
+
+const onMouseOver = (event: MouseEvent) => {
+  if (props.disabled) {
+    event.stopPropagation();
+    event.preventDefault();
+    return;
+  }
+  emit("mouseover", event);
 };
 
 const labelEl = useTemplateRef("labelEl");
@@ -56,6 +66,7 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
       },
     ]"
     @click="onClick"
+    @mouseover="onMouseOver"
   >
     <div
       :class="
@@ -144,10 +155,6 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
     cursor: default;
   }
 
-  &:not(.disabled):hover {
-    background: var(--kds-color-background-neutral-hover);
-  }
-
   &:not(.disabled):active {
     background: var(--kds-color-background-neutral-active);
   }
@@ -155,10 +162,6 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
   &.selected:not(.disabled) {
     color: var(--kds-color-text-and-icon-selected);
     background: var(--kds-color-background-selected-initial);
-
-    &:hover {
-      background: var(--kds-color-background-selected-hover);
-    }
 
     &:active {
       background: var(--kds-color-background-selected-active);
@@ -168,10 +171,6 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
   &.missing:not(.disabled) {
     color: var(--kds-color-text-and-icon-danger);
     background: var(--kds-color-background-danger-initial);
-
-    &:hover {
-      background: var(--kds-color-background-danger-hover);
-    }
 
     &:active {
       background: var(--kds-color-background-danger-active);

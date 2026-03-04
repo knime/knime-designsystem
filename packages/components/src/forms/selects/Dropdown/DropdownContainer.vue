@@ -213,8 +213,12 @@ defineExpose({ focusSearch });
         :aria-activedescendant="activeId ?? undefined"
         leading-icon="search"
         :clearable="true"
+        @focus-in="ensureActiveIndex"
+        @focus-out="activeId = null"
       />
     </div>
+
+    {{ activeId }}
 
     <!-- eslint-disable-next-line vuejs-accessibility/role-has-required-aria-props, vuejs-accessibility/no-redundant-roles -->
     <div role="listbox" class="kds-dropdown-list">
@@ -223,6 +227,7 @@ defineExpose({ focusSearch });
         :key="item.id"
         v-bind="item"
         @click="selectItem(item.optionId)"
+        @mouseover="activeId = item.id"
       />
       <div v-if="listItems.length === 0" class="kds-dropdown-empty">
         {{ props.noEntriesText }}

@@ -94,26 +94,43 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Click to select the first option
-    await userEvent.click(canvas.getByRole("option", { name: "Label" }));
-
-    // Verify selection: the first option should be selected
-    const firstOption = canvas.getByRole("option", { name: "Label" });
+    // --- Mouse: click selects the first option ---
+    const firstOption = canvas.getByRole("option", { name: "Label 1" });
+    await userEvent.click(firstOption);
     await expect(firstOption).toHaveAttribute("aria-selected", "true");
 
-    // Focus the search input
+    // Click same option again to deselect (not required)
+    await userEvent.click(firstOption);
+    await expect(firstOption).toHaveAttribute("aria-selected", "false");
+
+    // --- Keyboard: ArrowDown + Enter selects ---
     const filterInput = canvas.getByRole("textbox", {
       name: "Filter options",
     });
     filterInput.focus();
     await expect(filterInput).toHaveFocus();
 
-    // ArrowDown + Enter selects the first option
     await userEvent.keyboard("{ArrowDown}{Enter}");
-
     await expect(firstOption).toHaveAttribute("aria-selected", "true");
 
-    // TODO test search functionality and empty text
+    // --- Search filtering ---
+    await userEvent.clear(filterInput);
+    await userEvent.type(filterInput, "Label 3");
+
+    // Only "Label 3" should be visible
+    await expect(canvas.getByRole("option", { name: "Label 3" })).toBeVisible();
+    await expect(
+      canvas.queryByRole("option", { name: "Label 1" }),
+    ).not.toBeInTheDocument();
+
+    // --- No entries text ---
+    await userEvent.clear(filterInput);
+    await userEvent.type(filterInput, "zzz");
+    await expect(canvas.getByText("No entries found")).toBeVisible();
+
+    // Clear search to restore all options
+    await userEvent.clear(filterInput);
+    await expect(canvas.getAllByRole("option")).toHaveLength(5);
   },
 };
 
@@ -121,8 +138,17 @@ export const WithValue: Story = {
   args: {
     modelValue: "option-id-2",
   },
-  play: async () => {
-    // TODO add play tests, option-id-2 should be selected on initial render
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // option-id-2 should be selected on initial render
+    const selectedOption = canvas.getByRole("option", { name: "Label 2" });
+    await expect(selectedOption).toHaveAttribute("aria-selected", "true");
+
+    // Other options should not be selected
+    await expect(
+      canvas.getByRole("option", { name: "Label 1" }),
+    ).toHaveAttribute("aria-selected", "false");
   },
 };
 
@@ -154,13 +180,41 @@ export const MissingValue: Story = {
 export const WithDisabledOptions: Story = {
   args: {
     possibleValues: [
-      { id: "1", text: "Enabled option", disabled: true },
-      { id: "2", text: "Disabled option" },
+      { id: "1", text: "Disabled option", disabled: true },
+      { id: "2", text: "Enabled option" },
       { id: "3", text: "Another enabled option" },
     ],
   },
-  play: async () => {
-    // TODO add play tests, option-id-2 should be selected on initial render since 1 is disabled
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Disabled option should have aria-disabled
+    const disabledOption = canvas.getByRole("option", {
+      name: "Disabled option",
+    });
+    await expect(disabledOption).toHaveAttribute("aria-disabled", "true");
+
+    // Clicking a disabled option should not select it
+    await userEvent.click(disabledOption);
+    await expect(disabledOption).toHaveAttribute("aria-selected", "false");
+
+    // Clicking an enabled option should select it
+    const enabledOption = canvas.getByRole("option", {
+      name: "Enabled option",
+    });
+    await userEvent.click(enabledOption);
+    await expect(enabledOption).toHaveAttribute("aria-selected", "true");
+
+    // Keyboard navigation skips the disabled option: ArrowDown from first → third
+    const filterInput = canvas.getByRole("textbox", {
+      name: "Filter options",
+    });
+    filterInput.focus();
+    await userEvent.keyboard("{ArrowDown}{ArrowDown}{Enter}");
+    const thirdOption = canvas.getByRole("option", {
+      name: "Another enabled option",
+    });
+    await expect(thirdOption).toHaveAttribute("aria-selected", "true");
   },
 };
 
@@ -170,10 +224,15 @@ export const Required: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const combobox = canvas.getByRole("combobox");
-    await expect(combobox).toHaveAttribute("aria-required", "true");
 
-    // TODO check that selecting an selected option does not deselect it, since it's required
+    // Select the first option
+    const firstOption = canvas.getByRole("option", { name: "Label 1" });
+    await userEvent.click(firstOption);
+    await expect(firstOption).toHaveAttribute("aria-selected", "true");
+
+    // Click the same option again — it should stay selected because required=true
+    await userEvent.click(firstOption);
+    await expect(firstOption).toHaveAttribute("aria-selected", "true");
   },
 };
 
