@@ -1,11 +1,13 @@
-import type { IconName } from "@knime/kds-styles/img/icons/def";
+import type { KdsIconName } from "../../accessories/Icon/types";
 
-export type KdsTabBarSize = "small" | "large";
+import { kdsTabBarSize } from "./enums";
+
+export type KdsTabBarSize = (typeof kdsTabBarSize)[keyof typeof kdsTabBarSize];
 
 export type KdsTab = {
   value: string | number;
   label: string;
-  icon?: IconName;
+  icon?: KdsIconName;
   title?: string;
   disabled?: boolean;
 };
@@ -15,7 +17,6 @@ export type KdsTabBarProps = {
   size?: KdsTabBarSize;
   fullWidth?: boolean;
   disabled?: boolean;
-  name?: string;
 };
 
 /**
@@ -32,7 +33,6 @@ propTypeTester<KdsTabBarProps>({
   size: "small",
   fullWidth: false,
   disabled: false,
-  name: "tab-bar",
 });
 
 propTypeTester<KdsTab>({

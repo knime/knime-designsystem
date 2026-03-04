@@ -1,7 +1,7 @@
 import type { Ref } from "vue";
 import { computed, nextTick, ref, watch } from "vue";
 
-import { useIconHidingOnEllipsis } from "../util/useIconHidingOnEllipsis";
+import { useIconHidingOnEllipsis } from "../../util/useIconHidingOnEllipsis";
 
 import type { KdsTab } from "./types";
 /**
@@ -33,7 +33,7 @@ export const useTabBarIconHiding = ({
       getKey: (tab) => tab.value,
       shouldCheckItem: (tab) => Boolean(tab.icon),
       labelSelector: ".label",
-      elementCtor: HTMLLabelElement,
+      elementCtor: HTMLButtonElement,
     });
 
   const shouldHideIconsOnOverflow = ref(false);
