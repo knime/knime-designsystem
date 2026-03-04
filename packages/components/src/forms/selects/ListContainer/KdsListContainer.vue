@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { ComponentPublicInstance } from "vue";
 import { computed, onBeforeUnmount, ref, toValue, watch } from "vue";
+import { unrefElement } from "@vueuse/core";
 
 import { KdsListItem } from "../../_helper/List/KdsListItem";
 
@@ -18,18 +18,6 @@ const emit = defineEmits<{
 const activeId = ref<string | null>(null);
 
 const isFocused = ref(false);
-
-const resolveElement = (
-  el: HTMLElement | ComponentPublicInstance | null,
-): HTMLElement | null => {
-  if (!el) {
-    return null;
-  }
-  if (el instanceof HTMLElement) {
-    return el;
-  }
-  return (el as ComponentPublicInstance).$el as HTMLElement;
-};
 
 const onMouseLeave = () => {
   if (!isFocused.value) {
@@ -118,8 +106,8 @@ const onKeydown = (event: KeyboardEvent) => {
 
 let cleanupControlEl: (() => void) | null = null;
 
-const attachControlListeners = (el: HTMLElement) => {
-  el.addEventListener("keydown", onKeydown);
+const attachControlListeners = (el: HTMLElement | SVGElement) => {
+  el.addEventListener("keydown", onKeydown as EventListener);
   el.addEventListener("focusin", onFocus);
   el.addEventListener("focusout", onBlur);
 
@@ -137,7 +125,7 @@ const attachControlListeners = (el: HTMLElement) => {
   });
 
   return () => {
-    el.removeEventListener("keydown", onKeydown);
+    el.removeEventListener("keydown", onKeydown as EventListener);
     el.removeEventListener("focusin", onFocus);
     el.removeEventListener("focusout", onBlur);
     stopWatch();
@@ -151,7 +139,7 @@ watch(
   (raw) => {
     cleanupControlEl?.();
     cleanupControlEl = null;
-    const el = resolveElement(raw);
+    const el = unrefElement(raw);
     if (el) {
       cleanupControlEl = attachControlListeners(el);
     }
@@ -201,6 +189,7 @@ onBeforeUnmount(() => {
       v-if="props.possibleValues.length === 0"
       role="option"
       aria-disabled="true"
+      aria-selected="false"
       class="kds-list-container-empty"
     >
       {{ props.noEntriesText }}

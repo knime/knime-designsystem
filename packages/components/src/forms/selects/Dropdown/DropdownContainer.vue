@@ -20,7 +20,7 @@ const modelValue = defineModel<string | null>({ default: null });
 
 const searchValue = ref("");
 
-const searchEl = useTemplateRef("searchEl");
+const searchEl = useTemplateRef<HTMLInputElement>("searchEl");
 
 const optionsWithSyntheticMissing = computed<DropdownOptionWithMissing[]>(
   () => {

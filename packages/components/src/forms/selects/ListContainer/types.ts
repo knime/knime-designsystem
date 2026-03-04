@@ -1,4 +1,4 @@
-import type { ComponentPublicInstance, MaybeRef } from "vue";
+import type { MaybeComputedElementRef } from "@vueuse/core";
 
 import type { KdsListItemAccessory } from "../../_helper/List/ListItemAccessory/types.ts";
 
@@ -27,5 +27,5 @@ export type KdsListContainerProps = {
   /** Accessible label for the listbox */
   ariaLabel?: string;
   /** Reference to the controlling element (e.g. filter input). If empty, list is focusable and controls itself. */
-  controlEl?: MaybeRef<HTMLElement | ComponentPublicInstance | null>;
+  controlEl?: MaybeComputedElementRef;
 };

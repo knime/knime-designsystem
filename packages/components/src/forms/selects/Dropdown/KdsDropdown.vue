@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<KdsDropdownProps>(), {
 const modelValue = defineModel<string | null>({ default: null });
 
 const open = ref(false);
-const activatorEl = useTemplateRef("activatorEl");
+const activatorEl = useTemplateRef<HTMLButtonElement>("activatorEl");
 const dropdownContainerEl = useTemplateRef("dropdownContainerEl");
 
 watch(open, (isOpen) => {
