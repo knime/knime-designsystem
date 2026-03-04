@@ -26,7 +26,7 @@ const props = withDefaults(defineProps<KdsDropdownProps>(), {
   noEntriesText: "No entries found",
 });
 
-const modelValue = defineModel<string>({});
+const modelValue = defineModel<string | null>({ default: null });
 
 const open = ref(false);
 const activatorEl = useTemplateRef<HTMLButtonElement>("activatorEl");
@@ -44,10 +44,7 @@ watchEffect(() => {
 });
 
 /** Close dropdown on value selection */
-watch(modelValue, (_, oldValue) => {
-  if (oldValue === undefined) {
-    return;
-  }
+watch(modelValue, () => {
   if (open.value) {
     open.value = false;
   }

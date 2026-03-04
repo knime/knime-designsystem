@@ -157,6 +157,7 @@ onBeforeUnmount(() => {
   <div
     role="listbox"
     :aria-label="props.ariaLabel"
+    :aria-activedescendant="!props.controlEl && activeId ? activeId : undefined"
     class="kds-list-container"
     :tabindex="props.controlEl ? -1 : 0"
     v-on="

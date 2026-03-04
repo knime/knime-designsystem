@@ -2,7 +2,6 @@ import { ref } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { expect, fn, userEvent, within } from "storybook/test";
 
-import { KdsButton } from "../../../buttons";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
@@ -271,7 +270,7 @@ export const WithExternalControlEl: Story = {
   render: (args) => ({
     components: { KdsListContainer, KdsSearchInput },
     setup() {
-      const controlEl = ref<InstanceType<typeof KdsButton> | null>(null);
+      const controlEl = ref<InstanceType<typeof KdsSearchInput> | null>(null);
       return { args, controlEl };
     },
     template: `

@@ -12,7 +12,6 @@ export type KdsDropdownOption = {
   accessory?: KdsListItemAccessory;
   /** Disables the option in the list */
   disabled?: boolean;
-  /** Shows the option as selected in the list */
 };
 
 export type KdsDropdownProps = {
