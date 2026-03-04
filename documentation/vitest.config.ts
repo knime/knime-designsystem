@@ -20,12 +20,6 @@ export default defineConfig({
       configDir: path.join(dirname, ".storybook"),
     }),
   ],
-  // Watch for component/story changes outside the documentation package
-  server: {
-    watch: {
-      ignored: ["!**/packages/**"],
-    },
-  },
   test: {
     name: "storybook",
     testTimeout: 30000,
