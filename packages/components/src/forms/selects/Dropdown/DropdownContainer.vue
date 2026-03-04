@@ -18,7 +18,10 @@ type KdsDropdownContainerProps = {
 const props = defineProps<KdsDropdownContainerProps>();
 
 const modelValue = defineModel<string | null>({ default: null });
-const open = defineModel<boolean>("open");
+
+const selectItem = (id: string) => {
+  modelValue.value = modelValue.value === id && !props.required ? null : id;
+};
 
 const containerId = useId();
 const searchValue = ref("");
@@ -71,35 +74,9 @@ const enabledOptions = computed(() =>
   filteredOptions.value.filter((option) => !option.disabled && !option.missing),
 );
 
-const applyById = (prefixedId: string | null) => {
-  if (!prefixedId) {
-    return;
-  }
-
-  const optionId = prefixedId.replace(`${containerId}-`, "");
-  const option = filteredOptions.value.find((o) => o.id === optionId);
-  if (!option || option.disabled || option.missing) {
-    return;
-  }
-
-  if (modelValue.value === option.id) {
-    modelValue.value = props.required ? option.id : null;
-  } else {
-    modelValue.value = option.id;
-  }
-
-  searchValue.value = "";
-  open.value = false;
-};
-
 const makeElement = (index: number) => ({
   index,
-  onClick: () => {
-    const option = enabledOptions.value[index];
-    if (option) {
-      applyById(`${containerId}-${option.id}`);
-    }
-  },
+  onClick: () => selectItem(enabledOptions.value[index].id),
 });
 
 const {
@@ -135,7 +112,6 @@ const {
     return makeElement(enabledOptions.value.length - 1);
   },
   close() {
-    open.value = false;
     searchValue.value = "";
   },
   disableSpaceToClick: true,
@@ -155,12 +131,15 @@ const activeId = computed(() => {
 const listItems = computed(() => {
   return filteredOptions.value.map((option) => ({
     id: `${containerId}-${option.id}`,
+    optionId: option.id,
     label: option.text,
+    subText: option.subText,
     accessory: option.accessory,
     disabled: Boolean(option.disabled) || option.missing,
     missing: option.missing,
     selected: option.id === modelValue.value,
     active: `${containerId}-${option.id}` === activeId.value,
+    special: option.special,
   }));
 });
 
@@ -196,10 +175,6 @@ watch(filteredOptions, () => {
   ensureActiveIndex();
 });
 
-const onItemClick = (prefixedId: string) => {
-  applyById(prefixedId);
-};
-
 const onKeydown = (event: KeyboardEvent) => {
   if (filteredOptions.value.length === 0) {
     return;
@@ -209,21 +184,20 @@ const onKeydown = (event: KeyboardEvent) => {
   onNavKeydown(event);
 };
 
-watch(open, (isOpen) => {
-  if (isOpen) {
-    resetNavigation();
-    // Set active to the current selection when opening
-    const selectedIdx = enabledOptions.value.findIndex(
-      (o) => o.id === modelValue.value,
-    );
-    if (selectedIdx === -1) {
-      ensureActiveIndex();
-    } else {
-      setElement(makeElement(selectedIdx));
-    }
-    nextTick(() => searchEl.value?.focus());
+const focusSearch = () => {
+  resetNavigation();
+  const selectedIdx = enabledOptions.value.findIndex(
+    (o) => o.id === modelValue.value,
+  );
+  if (selectedIdx === -1) {
+    ensureActiveIndex();
+  } else {
+    setElement(makeElement(selectedIdx));
   }
-});
+  nextTick(() => searchEl.value?.focus());
+};
+
+defineExpose({ focusSearch });
 </script>
 
 <template>
@@ -234,6 +208,7 @@ watch(open, (isOpen) => {
         ref="searchEl"
         v-model="searchValue"
         type="search"
+        placeholder="Search"
         :aria-label="'Filter options'"
         :aria-activedescendant="activeId ?? undefined"
         leading-icon="search"
@@ -247,7 +222,7 @@ watch(open, (isOpen) => {
         v-for="item in listItems"
         :key="item.id"
         v-bind="item"
-        @click="onItemClick(item.id)"
+        @click="selectItem(item.optionId)"
       />
       <div v-if="listItems.length === 0" class="kds-dropdown-empty">
         {{ props.noEntriesText }}

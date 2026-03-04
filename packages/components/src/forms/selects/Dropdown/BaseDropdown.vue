@@ -8,7 +8,7 @@ import type { KdsListItemAccessory } from "../../_helper/List/ListItemAccessory/
 type BaseDropdownProps = {
   open: boolean;
   text: string;
-  placeholder?: boolean;
+  placeholder: string;
   disabled?: boolean;
   readonly?: boolean;
   error?: boolean;
@@ -24,7 +24,6 @@ type BaseDropdownProps = {
 };
 
 const props = withDefaults(defineProps<BaseDropdownProps>(), {
-  placeholder: false,
   disabled: false,
   readonly: false,
   error: false,
@@ -100,9 +99,9 @@ const onKeydown = (event: KeyboardEvent) => {
     <span
       :id="valueTextId"
       class="text"
-      :class="{ placeholder: props.placeholder, missing: props.missing }"
+      :class="{ placeholder: !!props.placeholder, missing: props.missing }"
     >
-      {{ props.text }}
+      {{ props.text ?? props.placeholder }}
     </span>
 
     <span class="trailing" aria-hidden="true">

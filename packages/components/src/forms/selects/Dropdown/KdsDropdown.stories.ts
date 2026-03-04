@@ -134,19 +134,10 @@ const meta: Meta = {
       control: "text",
       table: { category: "props" },
     },
-    name: {
-      control: "text",
-      table: { category: "props" },
-    },
-    autocomplete: {
-      control: "text",
-      table: { category: "props" },
-    },
   },
   args: {
     modelValue: null,
     label: "Label",
-    ariaLabel: undefined,
     description: "",
     placeholder: "Select an option",
     possibleValues: baseOptions,
@@ -159,8 +150,6 @@ const meta: Meta = {
     validating: false,
     preserveSubTextSpace: false,
     id: "",
-    name: "",
-    autocomplete: "",
   },
   render: (args) => {
     const [, updateArgs] = useArgs();
@@ -424,7 +413,6 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   designsToCompare: {
     ".Dropdown": {
       props: {
-        label: undefined,
         ariaLabel: "Dropdown",
         possibleValues: baseOptions,
       },
@@ -484,7 +472,6 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     },
     ".WithAccessory": {
       props: {
-        label: undefined,
         ariaLabel: "Dropdown",
         possibleValues: baseOptions,
       },

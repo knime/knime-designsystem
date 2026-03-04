@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type { ComponentPublicInstance } from "vue";
-import { computed, ref, watch } from "vue";
+import { computed, nextTick, ref, useTemplateRef, watch } from "vue";
 
 import { KdsPopover } from "../../../overlays";
 import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
@@ -23,7 +22,14 @@ const props = withDefaults(defineProps<KdsDropdownProps>(), {
 const modelValue = defineModel<string | null>({ default: null });
 
 const open = ref(false);
-const activatorEl = ref<HTMLElement | ComponentPublicInstance | null>(null);
+const activatorEl = useTemplateRef("activatorEl");
+const dropdownContainerEl = useTemplateRef("dropdownContainerEl");
+
+watch(open, (isOpen) => {
+  if (isOpen) {
+    nextTick(() => dropdownContainerEl.value?.focusSearch());
+  }
+});
 
 const selectedOption = computed(() =>
   props.possibleValues.find((o) => o.id === modelValue.value),
@@ -47,13 +53,14 @@ const triggerText = computed(() => {
   return selectedOption.value.text;
 });
 
-const isPlaceholder = computed(() => !modelValue.value);
-
 const announcement = ref("");
 
 watch(modelValue, (newValue, oldValue) => {
   if (oldValue === undefined) {
     return;
+  }
+  if (open.value) {
+    open.value = false;
   }
   if (newValue) {
     const option = props.possibleValues.find((o) => o.id === newValue);
@@ -72,7 +79,7 @@ watch(modelValue, (newValue, oldValue) => {
         ref="activatorEl"
         :open="open"
         :text="triggerText"
-        :placeholder="isPlaceholder"
+        :placeholder="props.placeholder"
         :disabled="props.disabled"
         :readonly="props.readonly"
         :error="props.error"
@@ -91,8 +98,8 @@ watch(modelValue, (newValue, oldValue) => {
         popover-aria-label="Dropdown options"
       >
         <DropdownContainer
+          ref="dropdownContainerEl"
           v-model="modelValue"
-          v-model:open="open"
           :possible-values="props.possibleValues"
           :no-entries-text="props.noEntriesText"
           :required="props.required"
