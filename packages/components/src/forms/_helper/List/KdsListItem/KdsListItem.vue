@@ -138,6 +138,7 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
   width: 100%;
   color: var(--kds-color-text-and-icon-neutral);
   cursor: pointer;
+  user-select: none;
   list-style: none;
   background: var(--kds-color-background-neutral-initial);
   border: none;

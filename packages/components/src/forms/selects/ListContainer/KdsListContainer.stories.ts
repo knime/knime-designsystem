@@ -1,6 +1,9 @@
+import { ref } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { expect, fn, userEvent, within } from "storybook/test";
 
+import { KdsButton } from "../../../buttons";
+import KdsSearchInput from "../../../forms/inputs/SearchInput/KdsSearchInput.vue";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
@@ -248,6 +251,75 @@ export const WithAccessories: Story = {
         subText: "stopped",
       },
     ],
+  },
+};
+
+export const WithExternalControlEl: Story = {
+  args: {
+    onToggleItem: fn(),
+  },
+  render: (args) => ({
+    components: { KdsListContainer, KdsButton },
+    setup() {
+      const controlEl = ref<InstanceType<typeof KdsSearchInput> | null>(null);
+      return { args, controlEl };
+    },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <kdsButton ref="controlEl" label="Focus button to control the list" />
+        <div style="border-radius: var(--kds-border-radius-container-0-37x); box-shadow: var(--kds-elevation-level-3);">
+          <KdsListContainer v-bind="args" :control-el="controlEl" />
+        </div>
+      </div>
+    `,
+  }),
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    const searchInput = canvas.getByRole("searchbox");
+    const listbox = canvas.getByRole("listbox");
+    const firstOption = canvas.getByRole("option", { name: "Label 1" });
+    const lastOption = canvas.getByRole("option", { name: "Label 5" });
+
+    // Listbox is not focusable when controlled
+    await expect(listbox).toHaveAttribute("tabindex", "-1");
+
+    // --- Focus on search input activates the first item ---
+    searchInput.focus();
+    await expect(searchInput).toHaveFocus();
+    await expect(firstOption).toHaveClass("active");
+
+    // --- ArrowDown navigates within the list while input keeps focus ---
+    await userEvent.keyboard("{ArrowDown}");
+    const secondOption = canvas.getByRole("option", { name: "Label 2" });
+    await expect(secondOption).toHaveClass("active");
+    await expect(searchInput).toHaveFocus();
+
+    // --- Enter emits toggleItem ---
+    await userEvent.keyboard("{Enter}");
+    await expect(args.onToggleItem).toHaveBeenCalledWith("option-2");
+
+    // --- Home / End work from the input ---
+    await userEvent.keyboard("{End}");
+    await expect(lastOption).toHaveClass("active");
+    await userEvent.keyboard("{Home}");
+    await expect(firstOption).toHaveClass("active");
+
+    // --- Blur on the search input clears active ---
+    searchInput.blur();
+    await expect(firstOption).not.toHaveClass("active");
+
+    // --- Mouseover then mouseleave clears active when search is not focused ---
+    await userEvent.hover(firstOption);
+    await expect(firstOption).toHaveClass("active");
+    await userEvent.unhover(firstOption);
+    await expect(firstOption).not.toHaveClass("active");
+
+    // --- Mouseleave preserves active when search is focused ---
+    searchInput.focus();
+    await userEvent.hover(firstOption);
+    await expect(firstOption).toHaveClass("active");
+    await userEvent.unhover(firstOption);
+    await expect(firstOption).toHaveClass("active");
   },
 };
 

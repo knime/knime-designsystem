@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, ref, useTemplateRef } from "vue";
+import type { ComponentPublicInstance } from "vue";
+import { computed, onBeforeUnmount, ref, toValue, watch } from "vue";
 
 import { KdsListItem } from "../../_helper/List/KdsListItem";
 
@@ -16,13 +17,22 @@ const emit = defineEmits<{
 /** active item id via keyboard or mouseover */
 const activeId = ref<string | null>(null);
 
-const containerEl = useTemplateRef("containerEl");
+const isFocused = ref(false);
+
+const resolveElement = (
+  el: HTMLElement | ComponentPublicInstance | null,
+): HTMLElement | null => {
+  if (!el) {
+    return null;
+  }
+  if (el instanceof HTMLElement) {
+    return el;
+  }
+  return (el as ComponentPublicInstance).$el as HTMLElement;
+};
 
 const onMouseLeave = () => {
-  if (
-    containerEl.value &&
-    !containerEl.value.contains(document.activeElement)
-  ) {
+  if (!isFocused.value) {
     activeId.value = null;
   }
 };
@@ -40,12 +50,14 @@ const activateFirst = () => {
 };
 
 const onFocus = () => {
+  isFocused.value = true;
   if (activeId.value === null) {
     activateFirst();
   }
 };
 
 const onBlur = () => {
+  isFocused.value = false;
   activeId.value = null;
 };
 
@@ -92,18 +104,54 @@ const onKeydown = (event: KeyboardEvent) => {
       break;
   }
 };
+
+let cleanupControlEl: (() => void) | null = null;
+
+const attachControlListeners = (el: HTMLElement) => {
+  el.addEventListener("keydown", onKeydown as EventListener);
+  el.addEventListener("focusin", onFocus);
+  el.addEventListener("focusout", onBlur);
+  return () => {
+    el.removeEventListener("keydown", onKeydown as EventListener);
+    el.removeEventListener("focusin", onFocus);
+    el.removeEventListener("focusout", onBlur);
+  };
+};
+
+watch(
+  () => toValue(props.controlEl) ?? null,
+  (raw) => {
+    cleanupControlEl?.();
+    cleanupControlEl = null;
+    const el = resolveElement(raw);
+    if (el) {
+      cleanupControlEl = attachControlListeners(el);
+    }
+  },
+  { immediate: true, flush: "post" },
+);
+
+onBeforeUnmount(() => {
+  cleanupControlEl?.();
+});
 </script>
 
 <template>
+  <!-- eslint-disable-next-line vuejs-accessibility/no-redundant-roles -->
   <div
-    ref="containerEl"
     role="listbox"
     class="kds-list-container"
     :tabindex="props.controlEl ? -1 : 0"
-    @keydown="onKeydown"
-    @focus="onFocus"
-    @blur="onBlur"
-    @mouseleave="onMouseLeave"
+    v-on="
+      props.controlEl
+        ? { mouseleave: onMouseLeave }
+        : {
+            keydown: onKeydown,
+            focus: onFocus,
+            blur: onBlur,
+            mouseleave: onMouseLeave,
+          }
+    "
   >
     <KdsListItem
       v-for="item in props.possibleValues"

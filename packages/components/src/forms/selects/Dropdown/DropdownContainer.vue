@@ -218,9 +218,6 @@ defineExpose({ focusSearch });
       />
     </div>
 
-    {{ activeId }}
-
-    <!-- eslint-disable-next-line vuejs-accessibility/role-has-required-aria-props, vuejs-accessibility/no-redundant-roles -->
     <div role="listbox" class="kds-dropdown-list">
       <KdsListItem
         v-for="item in listItems"
