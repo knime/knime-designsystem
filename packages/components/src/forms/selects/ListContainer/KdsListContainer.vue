@@ -160,7 +160,6 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <!-- eslint-disable-next-line vuejs-accessibility/no-redundant-roles -->
   <div
     role="listbox"
     :aria-label="props.ariaLabel"
