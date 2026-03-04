@@ -57,6 +57,7 @@ defineOptions({ inheritAttrs: false });
   --modal-gap: var(--kds-spacing-container-1x);
 
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
   overflow: v-bind(overflow);
   font: var(--kds-font-base-body-small);
