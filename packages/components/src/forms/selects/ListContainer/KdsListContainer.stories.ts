@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { useTemplateRef } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { expect, fn, userEvent, within } from "storybook/test";
 
@@ -59,8 +59,8 @@ const meta = {
       control: "text",
       table: { category: "props" },
     },
-    controlEl: {
-      control: false,
+    controlledExternally: {
+      control: "boolean",
       table: { category: "props" },
     },
     onToggleItem: {
@@ -265,19 +265,26 @@ export const WithAccessories: Story = {
 
 export const WithExternalControlEl: Story = {
   args: {
+    controlledExternally: true,
     onToggleItem: fn(),
   },
   render: (args) => ({
     components: { KdsListContainer, KdsSearchInput },
     setup() {
-      const controlEl = ref<InstanceType<typeof KdsSearchInput> | null>(null);
-      return { args, controlEl };
+      const listContainer = useTemplateRef("listContainer");
+      return { args, listContainer };
     },
     template: `
       <div style="display: flex; flex-direction: column; gap: 6px">
-        <KdsSearchInput ref="controlEl" label="Focus input to control the list" />
+        <KdsSearchInput
+          label="Focus input to control the list"
+          :aria-activedescendant="listContainer?.activeId"
+          @keydown="listContainer?.handleKeydown($event)"
+          @focus="listContainer?.handleFocus()"
+          @blur="listContainer?.handleBlur()"
+        />
         <div style="border-radius: var(--kds-border-radius-container-0-37x); box-shadow: var(--kds-elevation-level-3);">
-          <KdsListContainer v-bind="args" :control-el="controlEl" />
+          <KdsListContainer ref="listContainer" v-bind="args" />
         </div>
       </div>
     `,

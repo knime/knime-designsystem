@@ -1,4 +1,4 @@
-import type { MaybeRefOrGetter } from "vue";
+import type { Ref } from "vue";
 
 import type { KdsListItemAccessory } from "../../_helper/List/ListItemAccessory/types.ts";
 
@@ -26,6 +26,17 @@ export type KdsListContainerProps = {
   noEntriesText?: string;
   /** Accessible label for the listbox */
   ariaLabel?: string;
-  /** Reference to the controlling element (e.g. filter input). If empty, list is focusable and controls itself. */
-  controlEl?: MaybeRefOrGetter;
+  /** When true, the list is controlled externally (e.g. by a search input). The list will not be focusable and the parent must forward events via the exposed handleKeydown/handleFocus/handleBlur methods. */
+  controlledExternally?: boolean;
+};
+
+export type KdsListContainerExpose = {
+  /** Forward a keydown event to the list for keyboard navigation */
+  handleKeydown: (event: KeyboardEvent) => void;
+  /** Notify the list that its controlling element received focus */
+  handleFocus: () => void;
+  /** Notify the list that its controlling element lost focus */
+  handleBlur: () => void;
+  /** The id of the currently active (highlighted) option, or undefined */
+  activeId: Readonly<Ref<string | undefined>>;
 };

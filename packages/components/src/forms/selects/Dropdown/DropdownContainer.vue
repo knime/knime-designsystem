@@ -21,6 +21,7 @@ const modelValue = defineModel<string | null>({ default: null });
 const searchValue = ref("");
 
 const searchEl = useTemplateRef("searchEl");
+const listContainerRef = useTemplateRef("listContainer");
 
 const optionsWithSyntheticMissing = computed<DropdownOptionWithMissing[]>(
   () => {
@@ -93,15 +94,20 @@ defineExpose({ focusSearch });
         type="search"
         placeholder="Search"
         :aria-label="'Filter options'"
+        :aria-activedescendant="listContainerRef?.activeId"
         leading-icon="search"
         :clearable="true"
+        @keydown="listContainerRef?.handleKeydown($event)"
+        @focus="listContainerRef?.handleFocus()"
+        @blur="listContainerRef?.handleBlur()"
       />
     </div>
 
     <KdsListContainer
+      ref="listContainer"
       :possible-values="listOptions"
       :no-entries-text="props.noEntriesText"
-      :control-el="searchEl"
+      controlled-externally
       aria-label="Dropdown options"
       @toggle-item="modelValue = $event"
     />

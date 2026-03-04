@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, ref, toValue, watch } from "vue";
-import { unrefElement } from "@vueuse/core";
+import { computed, ref } from "vue";
 
 import { KdsListItem } from "../../_helper/List/KdsListItem";
 
-import type { KdsListContainerProps } from "./types.ts";
+import type { KdsListContainerExpose, KdsListContainerProps } from "./types.ts";
 
 const props = withDefaults(defineProps<KdsListContainerProps>(), {
   noEntriesText: "",
@@ -15,13 +14,13 @@ const emit = defineEmits<{
 }>();
 
 /** active item id via keyboard or mouseover */
-const activeId = ref<string | null>(null);
+const activeId = ref<string | undefined>(undefined);
 
 const isFocused = ref(false);
 
 const onMouseLeave = () => {
   if (!isFocused.value) {
-    activeId.value = null;
+    activeId.value = undefined;
   }
 };
 
@@ -29,27 +28,27 @@ const enabledValues = computed(() =>
   props.possibleValues.filter((o) => !o.disabled),
 );
 
-const findEnabledIndex = (id: string | null) =>
-  id === null ? -1 : enabledValues.value.findIndex((o) => o.id === id);
+const findEnabledIndex = (id: string | undefined) =>
+  id === undefined ? -1 : enabledValues.value.findIndex((o) => o.id === id);
 
 const activateFirst = () => {
   activeId.value =
-    enabledValues.value.length > 0 ? enabledValues.value[0].id : null;
+    enabledValues.value.length > 0 ? enabledValues.value[0].id : undefined;
 };
 
-const onFocus = () => {
+const handleFocus = () => {
   isFocused.value = true;
-  if (activeId.value === null) {
+  if (activeId.value === undefined) {
     activateFirst();
   }
 };
 
-const onBlur = () => {
+const handleBlur = () => {
   isFocused.value = false;
-  activeId.value = null;
+  activeId.value = undefined;
 };
 
-const onKeydown = (event: KeyboardEvent) => {
+const handleKeydown = (event: KeyboardEvent) => {
   if (enabledValues.value.length === 0) {
     return;
   }
@@ -104,58 +103,11 @@ const onKeydown = (event: KeyboardEvent) => {
   }
 };
 
-let cleanupControlEl: (() => void) | null = null;
-
-const attachControlListeners = (el: HTMLElement | SVGElement) => {
-  const onControlFocusOut = (event: FocusEvent) => {
-    const related = event.relatedTarget as Node | null;
-    if (!related || !el.contains(related)) {
-      onBlur();
-    }
-  };
-
-  el.addEventListener("keydown", onKeydown as EventListener);
-  el.addEventListener("focusin", onFocus);
-  el.addEventListener("focusout", onControlFocusOut as EventListener);
-
-  const updateAriaActiveDescendant = () => {
-    const target = el.querySelector("input, textarea, select") ?? el;
-    if (activeId.value) {
-      target.setAttribute("aria-activedescendant", activeId.value);
-    } else {
-      target.removeAttribute("aria-activedescendant");
-    }
-  };
-
-  const stopWatch = watch(activeId, updateAriaActiveDescendant, {
-    flush: "post",
-  });
-
-  return () => {
-    el.removeEventListener("keydown", onKeydown as EventListener);
-    el.removeEventListener("focusin", onFocus);
-    el.removeEventListener("focusout", onControlFocusOut as EventListener);
-    stopWatch();
-    const target = el.querySelector("input, textarea, select") ?? el;
-    target.removeAttribute("aria-activedescendant");
-  };
-};
-
-watch(
-  () => toValue(props.controlEl) ?? null,
-  (raw) => {
-    cleanupControlEl?.();
-    cleanupControlEl = null;
-    const el = unrefElement(raw);
-    if (el) {
-      cleanupControlEl = attachControlListeners(el);
-    }
-  },
-  { immediate: true, flush: "post" },
-);
-
-onBeforeUnmount(() => {
-  cleanupControlEl?.();
+defineExpose<KdsListContainerExpose>({
+  handleKeydown,
+  handleFocus,
+  handleBlur,
+  activeId,
 });
 </script>
 
@@ -163,16 +115,18 @@ onBeforeUnmount(() => {
   <div
     role="listbox"
     :aria-label="props.ariaLabel"
-    :aria-activedescendant="!props.controlEl && activeId ? activeId : undefined"
+    :aria-activedescendant="
+      !props.controlledExternally && activeId ? activeId : undefined
+    "
     class="kds-list-container"
-    :tabindex="props.controlEl ? -1 : 0"
+    :tabindex="props.controlledExternally ? -1 : 0"
     v-on="
-      props.controlEl
+      props.controlledExternally
         ? { mouseleave: onMouseLeave }
         : {
-            keydown: onKeydown,
-            focus: onFocus,
-            blur: onBlur,
+            keydown: handleKeydown,
+            focus: handleFocus,
+            blur: handleBlur,
             mouseleave: onMouseLeave,
           }
     "
