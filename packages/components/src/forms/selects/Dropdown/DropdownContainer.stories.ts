@@ -244,6 +244,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   designsToCompare: {
     "Content=Label": {
       props: {
+        noEntriesText: "No entries found",
         possibleValues: options(6, () => ({ text: "Label" })),
       },
       variants: {
@@ -255,6 +256,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     },
     "Content=Columns": {
       props: {
+        noEntriesText: "No entries found",
         possibleValues: options(6, () => ({
           text: "Label",
           accessory: { type: "dataType", name: "string-datatype" },
@@ -269,6 +271,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     },
     "Content=Color swatch": {
       props: {
+        noEntriesText: "No entries found",
         possibleValues: options(13, () => ({
           text: "Color",
           accessory: { type: "colorSwatch", color: "#FFF" },
@@ -283,6 +286,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     },
     "Content=ColorGradient": {
       props: {
+        noEntriesText: "No entries found",
         possibleValues: options(7, () => ({})),
       },
       variants: {
@@ -294,6 +298,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     },
     "Content=Color palette": {
       props: {
+        noEntriesText: "No entries found",
         possibleValues: options(7, () => ({})),
       },
       variants: {
@@ -305,6 +310,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     },
     "Content=User": {
       props: {
+        noEntriesText: "No entries found",
         possibleValues: options(6, () => ({
           text: "Username",
           subText: "user.name@mail.com",
@@ -320,6 +326,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     },
     "Content=Label with subtext": {
       props: {
+        noEntriesText: "No entries found",
         possibleValues: options(7, () => ({
           text: "Label",
           subText: "Short description mix max 2 lines",
@@ -334,6 +341,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     },
     "Content=Icon with label and subtext": {
       props: {
+        noEntriesText: "No entries found",
         possibleValues: options(7, () => ({
           text: "Label",
           subText: "Short description mix max 2 lines",
@@ -349,6 +357,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     },
     "Content=Live status": {
       props: {
+        noEntriesText: "No entries found",
         possibleValues: options(7, () => ({
           text: "Label",
           subText: "Short description mix max 2 lines",
