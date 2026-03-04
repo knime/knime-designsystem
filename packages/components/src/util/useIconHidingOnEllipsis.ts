@@ -51,6 +51,14 @@ export const useIconHidingOnEllipsis = <
 
     if (elementToRegister instanceof elementCtor) {
       itemEls.value.set(key, elementToRegister);
+    } else if (elementToRegister !== null && import.meta.env.DEV) {
+      // In dev mode, warn when an element is passed but doesn't match the expected type.
+      // This is typically caused by incorrect ref usage or component structure changes.
+      // eslint-disable-next-line no-console
+      console.warn(
+        `[useIconHidingOnEllipsis] Element for key "${key}" is not an instance of ${elementCtor.name}. ` +
+          `Expected: ${elementCtor.name}, received: ${elementToRegister?.constructor?.name ?? typeof elementToRegister}`,
+      );
     }
   };
 
