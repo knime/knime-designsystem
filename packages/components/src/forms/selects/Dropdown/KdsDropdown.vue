@@ -102,7 +102,6 @@ watch(modelValue, (newValue, oldValue) => {
           v-model="modelValue"
           :possible-values="props.possibleValues"
           :no-entries-text="props.noEntriesText"
-          :required="props.required"
         />
       </KdsPopover>
 

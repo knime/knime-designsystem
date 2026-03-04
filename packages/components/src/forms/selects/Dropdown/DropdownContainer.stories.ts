@@ -61,16 +61,11 @@ const meta = {
       control: "text",
       table: { category: "props" },
     },
-    required: {
-      control: "boolean",
-      table: { category: "props" },
-    },
   },
   args: {
     modelValue: null,
     possibleValues: options(5, () => ({})),
     noEntriesText: "No entries found",
-    required: false,
   },
   render: (args) => {
     const [, updateArgs] = useArgs();
@@ -99,9 +94,9 @@ export const Default: Story = {
     await userEvent.click(firstOption);
     await expect(firstOption).toHaveAttribute("aria-selected", "true");
 
-    // Click same option again to deselect (not required)
+    // Click same option again — stays selected
     await userEvent.click(firstOption);
-    await expect(firstOption).toHaveAttribute("aria-selected", "false");
+    await expect(firstOption).toHaveAttribute("aria-selected", "true");
 
     // --- Keyboard: ArrowDown + Enter selects ---
     const filterInput = canvas.getByRole("textbox", {
@@ -215,24 +210,6 @@ export const WithDisabledOptions: Story = {
       name: "Another enabled option",
     });
     await expect(thirdOption).toHaveAttribute("aria-selected", "true");
-  },
-};
-
-export const Required: Story = {
-  args: {
-    required: true,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Select the first option
-    const firstOption = canvas.getByRole("option", { name: "Label 1" });
-    await userEvent.click(firstOption);
-    await expect(firstOption).toHaveAttribute("aria-selected", "true");
-
-    // Click the same option again — it should stay selected because required=true
-    await userEvent.click(firstOption);
-    await expect(firstOption).toHaveAttribute("aria-selected", "true");
   },
 };
 
@@ -392,7 +369,6 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   combinationsProps: [
     {
       modelValue: [null, "option-id-1", "missing"],
-      required: [false],
       noEntriesText: ["No entries found"],
       possibleValues: [
         options(3, () => ({})),
