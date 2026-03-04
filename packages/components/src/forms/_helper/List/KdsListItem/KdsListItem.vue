@@ -173,7 +173,7 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
     color: var(--kds-color-text-and-icon-danger);
     background: var(--kds-color-background-danger-initial);
 
-    &:active {
+    &:not(.disabled):active {
       background: var(--kds-color-background-danger-active);
     }
   }
@@ -181,14 +181,26 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
   &.active:not(.disabled) {
     &:not(.selected, .missing) {
       background: var(--kds-color-background-neutral-hover);
+
+      &:active {
+        background: var(--kds-color-background-neutral-active);
+      }
     }
 
     &.selected {
       background: var(--kds-color-background-selected-hover);
+
+      &:active {
+        background: var(--kds-color-background-selected-active);
+      }
     }
 
     &.missing {
       background: var(--kds-color-background-danger-hover);
+
+      &:active {
+        background: var(--kds-color-background-danger-active);
+      }
     }
   }
 }
