@@ -168,11 +168,67 @@ const meta: Meta = {
 
 export default meta;
 
-export const Default: Story = {};
+export const Default: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const combobox = canvas.getByRole("combobox");
+
+    // --- Keyboard: ArrowDown opens dropdown and focuses the search field ---
+    combobox.focus();
+    await expect(combobox).toHaveFocus();
+    await userEvent.keyboard("{ArrowDown}");
+
+    const filterInput = await canvas.findByRole("searchbox", {
+      name: "Filter options",
+    });
+    await expect(filterInput).toHaveFocus();
+    await expect(filterInput).toHaveAttribute("aria-activedescendant");
+
+    // Enter selects the first active option (Option A)
+    await userEvent.keyboard("{Enter}");
+    await expect(combobox).toHaveTextContent("Option A");
+
+    // --- Mouse: click reopens dropdown, search gets focus ---
+    await userEvent.click(combobox);
+
+    const filterInputAfterClick = await canvas.findByRole("searchbox", {
+      name: "Filter options",
+    });
+    await expect(filterInputAfterClick).toHaveFocus();
+    await expect(
+      canvas.getByRole("option", { name: "Option A" }),
+    ).toBeVisible();
+
+    // ArrowDown from Option A (active) → Option B, then select
+    await userEvent.keyboard("{ArrowDown}{Enter}");
+    await expect(combobox).toHaveTextContent("Option B");
+
+    // --- Reopen and test Escape (selection stays unchanged) ---
+    await userEvent.click(combobox);
+    await canvas.findByRole("searchbox", { name: "Filter options" });
+    await userEvent.keyboard("{ArrowDown}{ArrowDown}{Escape}");
+    await expect(combobox).toHaveTextContent("Option B");
+
+    // --- Clicking the same option keeps it selected ---
+    await userEvent.click(combobox);
+    await userEvent.click(await canvas.findByText("Option B"));
+    await expect(combobox).toHaveTextContent("Option B");
+  },
+};
 
 export const WithValue: Story = {
   args: {
     modelValue: "a",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const combobox = canvas.getByRole("combobox");
+
+    // Selected value is shown on the trigger
+    await expect(combobox).toHaveTextContent("Option A");
+
+    // Option A has an icon accessory shown on the trigger
+    await expect(canvasElement.querySelector(".kds-icon")).not.toBeNull();
   },
 };
 
@@ -223,11 +279,13 @@ export const Readonly: Story = {
     readonly: true,
     modelValue: "a",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const combobox = canvas.getByRole("combobox");
 
-export const Required: Story = {
-  args: {
-    required: true,
+    await expect(combobox).toHaveAttribute("aria-readonly", "true");
+    await userEvent.click(combobox);
+    await expect(canvas.queryByRole("searchbox")).not.toBeInTheDocument();
   },
 };
 
@@ -240,6 +298,14 @@ export const WithSubText: Story = {
 export const Disabled: Story = {
   args: {
     disabled: true,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const combobox = canvas.getByRole("combobox");
+
+    await expect(combobox).toBeDisabled();
+    await userEvent.click(combobox);
+    await expect(canvas.queryByRole("searchbox")).not.toBeInTheDocument();
   },
 };
 
@@ -311,76 +377,6 @@ export const InModal: Story = {
     await userEvent.click(combobox);
 
     await expect(canvas.getByText("Option A")).toBeTruthy();
-  },
-};
-
-export const Interaction: Story = {
-  args: {
-    label: "Label",
-    placeholder: "{text}",
-    possibleValues: baseOptions,
-    modelValue: null,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const combobox = canvas.getByRole("combobox");
-
-    // --- Keyboard: ArrowDown opens dropdown and focuses the search field ---
-    combobox.focus();
-    await expect(combobox).toHaveFocus();
-    await userEvent.keyboard("{ArrowDown}");
-
-    const filterInputFromKeyboard = await canvas.findByRole("searchbox", {
-      name: "Filter options",
-    });
-    await expect(filterInputFromKeyboard).toHaveFocus();
-
-    // Enter selects the first active option (Option A)
-    await userEvent.keyboard("{Enter}");
-    await expect(combobox).toHaveTextContent("Option A");
-
-    // --- Mouse: click reopens dropdown, search field gets focus ---
-    await userEvent.click(combobox);
-
-    const filterInput = await canvas.findByRole("searchbox", {
-      name: "Filter options",
-    });
-    await expect(filterInput).toHaveFocus();
-    await expect(filterInput).toHaveAttribute("aria-activedescendant");
-    await expect(
-      canvas.getByRole("option", { name: "Option A" }),
-    ).toBeVisible();
-
-    // ArrowDown from Option A (active) → Option B, then select
-    await userEvent.keyboard("{ArrowDown}{Enter}");
-    await expect(combobox).toHaveTextContent("Option B");
-
-    // Option B has a dataType accessory shown on the trigger
-    await expect(
-      canvasElement.querySelector(".kds-data-type-icon-container"),
-    ).not.toBeNull();
-
-    // --- Reopen and test Escape (selection stays unchanged) ---
-    await userEvent.click(combobox);
-
-    const filterInputAfterReopen = await canvas.findByRole("searchbox", {
-      name: "Filter options",
-    });
-    await expect(filterInputAfterReopen).toHaveFocus();
-    await expect(filterInputAfterReopen).toHaveAttribute(
-      "aria-activedescendant",
-    );
-    await expect(
-      canvas.getByRole("option", { name: "Option B" }),
-    ).toBeVisible();
-
-    await userEvent.keyboard("{ArrowDown}{ArrowDown}{Escape}");
-    await expect(combobox).toHaveTextContent("Option B");
-
-    // --- Clicking the same option keeps it selected ---
-    await userEvent.click(combobox);
-    await userEvent.click(await canvas.findByText("Option B"));
-    await expect(combobox).toHaveTextContent("Option B");
   },
 };
 
