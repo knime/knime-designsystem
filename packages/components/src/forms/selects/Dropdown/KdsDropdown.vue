@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<KdsDropdownProps>(), {
   noEntriesText: "No entries found",
 });
 
-const modelValue = defineModel<string | null>({ default: null });
+const modelValue = defineModel<string>({});
 
 const open = ref(false);
 const activatorEl = useTemplateRef<HTMLButtonElement>("activatorEl");
@@ -53,20 +53,12 @@ const triggerText = computed(() => {
   return selectedOption.value.text;
 });
 
-const announcement = ref("");
-
 watch(modelValue, (newValue, oldValue) => {
   if (oldValue === undefined) {
     return;
   }
   if (open.value) {
     open.value = false;
-  }
-  if (newValue) {
-    const option = props.possibleValues.find((o) => o.id === newValue);
-    announcement.value = `Selected ${option?.text ?? newValue}`;
-  } else {
-    announcement.value = "Selection cleared";
   }
 });
 </script>
@@ -103,24 +95,6 @@ watch(modelValue, (newValue, oldValue) => {
           :no-entries-text="props.noEntriesText"
         />
       </KdsPopover>
-
-      <span class="sr-only" aria-live="assertive" aria-atomic="true">
-        {{ announcement }}
-      </span>
     </template>
   </BaseFormFieldWrapper>
 </template>
-
-<style scoped>
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  white-space: nowrap;
-  border: 0;
-  clip-path: inset(50%);
-}
-</style>

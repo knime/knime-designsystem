@@ -338,7 +338,6 @@ export const Interaction: Story = {
     // Enter selects the first active option (Option A)
     await userEvent.keyboard("{Enter}");
     await expect(combobox).toHaveTextContent("Option A");
-    await expect(canvas.getByText("Selected Option A")).toBeInTheDocument();
 
     // --- Mouse: click reopens dropdown, search field gets focus ---
     await userEvent.click(combobox);
@@ -355,7 +354,6 @@ export const Interaction: Story = {
     // ArrowDown from Option A (active) → Option B, then select
     await userEvent.keyboard("{ArrowDown}{Enter}");
     await expect(combobox).toHaveTextContent("Option B");
-    await expect(canvas.getByText("Selected Option B")).toBeInTheDocument();
 
     // Option B has a dataType accessory shown on the trigger
     await expect(
