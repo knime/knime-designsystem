@@ -190,6 +190,23 @@ export const FullSizeInnerScrollable: Story = {
   },
 };
 
+export const FullSizeWithNoFullSizeContent: Story = {
+  parameters: {
+    modalOptions: {
+      buttonLabel: "Open",
+      content:
+        "This is some text. The buttons should be at the bottom of the modal.",
+      cancelButton: { show: true },
+      confirmButton: { label: "Ok" },
+    },
+  },
+  args: {
+    title: "This should take up all space",
+    width: "full",
+    height: "full",
+  },
+};
+
 export const LightDismissible: Story = {
   parameters: {
     modalOptions: {
