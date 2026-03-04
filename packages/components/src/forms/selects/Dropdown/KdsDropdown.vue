@@ -29,7 +29,7 @@ const props = withDefaults(defineProps<KdsDropdownProps>(), {
 const modelValue = defineModel<string | null>({ default: null });
 
 const open = ref(false);
-const activatorEl = useTemplateRef<HTMLButtonElement>("activatorEl");
+const activatorEl = useTemplateRef("activatorEl");
 const dropdownContainerEl = useTemplateRef("dropdownContainerEl");
 
 const selectedOption = computed(() =>
@@ -39,7 +39,7 @@ const selectedOption = computed(() =>
 /** Focus search field on opening of dropdown */
 watchEffect(() => {
   if (open.value) {
-    nextTick(() => dropdownContainerEl.value?.focus());
+    nextTick(() => dropdownContainerEl.value?.focusSearch());
   }
 });
 

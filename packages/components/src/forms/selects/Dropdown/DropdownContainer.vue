@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useTemplateRef } from "vue";
+import { computed, nextTick, ref, useTemplateRef } from "vue";
 
 import BaseInput from "../../inputs/BaseInput.vue";
 import { KdsListContainer } from "../ListContainer";
@@ -20,7 +20,7 @@ const modelValue = defineModel<string | null>({ default: null });
 
 const searchValue = ref("");
 
-const searchEl = useTemplateRef<HTMLInputElement>("searchEl");
+const searchEl = useTemplateRef("searchEl");
 
 const optionsWithSyntheticMissing = computed<DropdownOptionWithMissing[]>(
   () => {
@@ -77,9 +77,11 @@ const listOptions = computed<KdsListOption[]>(() =>
   })),
 );
 
-defineExpose({
-  focus: () => searchEl.value?.focus(),
-});
+const focusSearch = () => {
+  nextTick(() => searchEl.value?.focus());
+};
+
+defineExpose({ focusSearch });
 </script>
 
 <template>

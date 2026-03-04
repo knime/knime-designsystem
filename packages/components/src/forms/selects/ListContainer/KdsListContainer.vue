@@ -107,9 +107,16 @@ const onKeydown = (event: KeyboardEvent) => {
 let cleanupControlEl: (() => void) | null = null;
 
 const attachControlListeners = (el: HTMLElement | SVGElement) => {
+  const onControlFocusOut = (event: FocusEvent) => {
+    const related = event.relatedTarget as Node | null;
+    if (!related || !el.contains(related)) {
+      onBlur();
+    }
+  };
+
   el.addEventListener("keydown", onKeydown as EventListener);
   el.addEventListener("focusin", onFocus);
-  el.addEventListener("focusout", onBlur);
+  el.addEventListener("focusout", onControlFocusOut as EventListener);
 
   const updateAriaActiveDescendant = () => {
     const target = el.querySelector("input, textarea, select") ?? el;
@@ -127,7 +134,7 @@ const attachControlListeners = (el: HTMLElement | SVGElement) => {
   return () => {
     el.removeEventListener("keydown", onKeydown as EventListener);
     el.removeEventListener("focusin", onFocus);
-    el.removeEventListener("focusout", onBlur);
+    el.removeEventListener("focusout", onControlFocusOut as EventListener);
     stopWatch();
     const target = el.querySelector("input, textarea, select") ?? el;
     target.removeAttribute("aria-activedescendant");
