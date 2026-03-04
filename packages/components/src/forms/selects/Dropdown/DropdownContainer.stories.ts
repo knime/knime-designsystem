@@ -102,11 +102,12 @@ export const Default: Story = {
     const filterInput = canvas.getByRole("searchbox", {
       name: "Filter options",
     });
-    filterInput.focus();
+    await userEvent.click(filterInput);
     await expect(filterInput).toHaveFocus();
 
     await userEvent.keyboard("{ArrowDown}{Enter}");
-    await expect(firstOption).toHaveAttribute("aria-selected", "true");
+    const secondOption = canvas.getByRole("option", { name: "Label 2" });
+    await expect(secondOption).toHaveAttribute("aria-selected", "true");
 
     // --- Search filtering ---
     await userEvent.clear(filterInput);
@@ -200,12 +201,12 @@ export const WithDisabledOptions: Story = {
     await userEvent.click(enabledOption);
     await expect(enabledOption).toHaveAttribute("aria-selected", "true");
 
-    // Keyboard navigation skips the disabled option: ArrowDown from first → third
+    // Keyboard navigation skips the disabled option: ArrowDown from first enabled → second enabled
     const filterInput = canvas.getByRole("searchbox", {
       name: "Filter options",
     });
-    filterInput.focus();
-    await userEvent.keyboard("{ArrowDown}{ArrowDown}{Enter}");
+    await userEvent.click(filterInput);
+    await userEvent.keyboard("{ArrowDown}{Enter}");
     const thirdOption = canvas.getByRole("option", {
       name: "Another enabled option",
     });

@@ -119,13 +119,30 @@ const onKeydown = (event: KeyboardEvent) => {
 let cleanupControlEl: (() => void) | null = null;
 
 const attachControlListeners = (el: HTMLElement) => {
-  el.addEventListener("keydown", onKeydown as EventListener);
+  el.addEventListener("keydown", onKeydown);
   el.addEventListener("focusin", onFocus);
   el.addEventListener("focusout", onBlur);
+
+  const updateAriaActiveDescendant = () => {
+    const target = el.querySelector("input, textarea, select") ?? el;
+    if (activeId.value) {
+      target.setAttribute("aria-activedescendant", activeId.value);
+    } else {
+      target.removeAttribute("aria-activedescendant");
+    }
+  };
+
+  const stopWatch = watch(activeId, updateAriaActiveDescendant, {
+    flush: "post",
+  });
+
   return () => {
-    el.removeEventListener("keydown", onKeydown as EventListener);
+    el.removeEventListener("keydown", onKeydown);
     el.removeEventListener("focusin", onFocus);
     el.removeEventListener("focusout", onBlur);
+    stopWatch();
+    const target = el.querySelector("input, textarea, select") ?? el;
+    target.removeAttribute("aria-activedescendant");
   };
 };
 

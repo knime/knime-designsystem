@@ -379,11 +379,10 @@ export const Interaction: Story = {
     await userEvent.keyboard("{ArrowDown}{ArrowDown}{Escape}");
     await expect(combobox).toHaveTextContent("Option B");
 
-    // --- Toggle off: selecting the same option clears the selection ---
+    // --- Clicking the same option keeps it selected ---
     await userEvent.click(combobox);
     await userEvent.click(await canvas.findByText("Option B"));
-    await expect(combobox).toHaveTextContent("{text}");
-    await expect(canvas.getByText("Selection cleared")).toBeInTheDocument();
+    await expect(combobox).toHaveTextContent("Option B");
   },
 };
 

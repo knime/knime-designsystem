@@ -8,6 +8,7 @@ import {
   buildDesignComparatorStory,
   buildTextOverflowStory,
 } from "../../../test-utils/storybook";
+import { KdsSearchInput } from "../../inputs";
 
 import KdsListContainer from "./KdsListContainer.vue";
 import type { KdsListOption } from "./types";
@@ -268,14 +269,14 @@ export const WithExternalControlEl: Story = {
     onToggleItem: fn(),
   },
   render: (args) => ({
-    components: { KdsListContainer, KdsButton },
+    components: { KdsListContainer, KdsSearchInput },
     setup() {
       const controlEl = ref<InstanceType<typeof KdsButton> | null>(null);
       return { args, controlEl };
     },
     template: `
       <div style="display: flex; flex-direction: column; gap: 6px">
-        <KdsButton ref="controlEl" label="Focus button to control the list" />
+        <KdsSearchInput ref="controlEl" label="Focus input to control the list" />
         <div style="border-radius: var(--kds-border-radius-container-0-37x); box-shadow: var(--kds-elevation-level-3);">
           <KdsListContainer v-bind="args" :control-el="controlEl" />
         </div>
@@ -284,8 +285,8 @@ export const WithExternalControlEl: Story = {
   }),
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", {
-      name: "Focus button to control the list",
+    const input = canvas.getByRole("searchbox", {
+      name: "Focus input to control the list",
     });
     const listbox = canvas.getByRole("listbox");
     const firstOption = canvas.getByRole("option", { name: "Label 1" });
@@ -294,39 +295,39 @@ export const WithExternalControlEl: Story = {
     // Listbox is not focusable when controlled
     await expect(listbox).toHaveAttribute("tabindex", "-1");
 
-    // --- Focus on button activates the first item ---
-    await userEvent.click(button);
-    await expect(button).toHaveFocus();
+    // --- Focus on input activates the first item ---
+    await userEvent.click(input);
+    await expect(input).toHaveFocus();
     await expect(firstOption).toHaveClass("active");
 
-    // --- ArrowDown navigates within the list while button keeps focus ---
+    // --- ArrowDown navigates within the list while input keeps focus ---
     await userEvent.keyboard("{ArrowDown}");
     const secondOption = canvas.getByRole("option", { name: "Label 2" });
     await expect(secondOption).toHaveClass("active");
-    await expect(button).toHaveFocus();
+    await expect(input).toHaveFocus();
 
     // --- Enter emits toggleItem ---
     await userEvent.keyboard("{Enter}");
     await expect(args.onToggleItem).toHaveBeenCalledWith("option-2");
 
-    // --- Home / End work from the button ---
+    // --- Home / End work from the input ---
     await userEvent.keyboard("{End}");
     await expect(lastOption).toHaveClass("active");
     await userEvent.keyboard("{Home}");
     await expect(firstOption).toHaveClass("active");
 
-    // --- Blur on the button clears active ---
+    // --- Blur on the input clears active ---
     await userEvent.tab();
     await expect(firstOption).not.toHaveClass("active");
 
-    // --- Mouseover then mouseleave clears active when button is not focused ---
+    // --- Mouseover then mouseleave clears active when input is not focused ---
     await userEvent.hover(firstOption);
     await expect(firstOption).toHaveClass("active");
     await userEvent.unhover(firstOption);
     await expect(firstOption).not.toHaveClass("active");
 
-    // --- Mouseleave preserves active when button is focused ---
-    await userEvent.click(button);
+    // --- Mouseleave preserves active when input is focused ---
+    await userEvent.click(input);
     await userEvent.hover(firstOption);
     await expect(firstOption).toHaveClass("active");
     await userEvent.unhover(firstOption);
