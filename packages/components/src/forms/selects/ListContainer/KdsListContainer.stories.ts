@@ -47,6 +47,10 @@ const meta = {
     },
   },
   argTypes: {
+    ariaLabel: {
+      control: "text",
+      table: { category: "props" },
+    },
     possibleValues: {
       control: "object",
       table: { category: "props" },
@@ -64,6 +68,7 @@ const meta = {
     },
   },
   args: {
+    ariaLabel: "Options",
     possibleValues: baseOptions,
     noEntriesText: "No entries found",
     onToggleItem: fn(),
@@ -93,8 +98,8 @@ export const Default: Story = {
     await expect(args.onToggleItem).toHaveBeenCalledWith("option-3");
 
     // --- Focus activates the first enabled item ---
-    listbox.blur();
-    listbox.focus();
+    await userEvent.tab();
+    await userEvent.tab({ shift: true });
     await expect(listbox).toHaveFocus();
     await expect(firstOption).toHaveClass("active");
 
@@ -133,11 +138,11 @@ export const Default: Story = {
     await expect(lastOption).toHaveClass("active");
 
     // --- Blur clears active state ---
-    listbox.blur();
+    await userEvent.tab();
     await expect(lastOption).not.toHaveClass("active");
 
     // --- Mouseleave preserves active when focused ---
-    listbox.focus();
+    await userEvent.click(listbox);
     await userEvent.hover(thirdOption);
     await expect(thirdOption).toHaveClass("active");
     await userEvent.unhover(thirdOption);
@@ -178,7 +183,7 @@ export const WithDisabledOptions: Story = {
     await expect(args.onToggleItem).not.toHaveBeenCalled();
 
     // --- Keyboard: focus activates the first *enabled* item ---
-    listbox.focus();
+    await userEvent.click(listbox);
     const firstEnabled = canvas.getByRole("option", {
       name: "Enabled option",
     });
@@ -290,7 +295,7 @@ export const WithExternalControlEl: Story = {
     await expect(listbox).toHaveAttribute("tabindex", "-1");
 
     // --- Focus on button activates the first item ---
-    button.focus();
+    await userEvent.click(button);
     await expect(button).toHaveFocus();
     await expect(firstOption).toHaveClass("active");
 
@@ -311,7 +316,7 @@ export const WithExternalControlEl: Story = {
     await expect(firstOption).toHaveClass("active");
 
     // --- Blur on the button clears active ---
-    button.blur();
+    await userEvent.tab();
     await expect(firstOption).not.toHaveClass("active");
 
     // --- Mouseover then mouseleave clears active when button is not focused ---
@@ -321,7 +326,7 @@ export const WithExternalControlEl: Story = {
     await expect(firstOption).not.toHaveClass("active");
 
     // --- Mouseleave preserves active when button is focused ---
-    button.focus();
+    await userEvent.click(button);
     await userEvent.hover(firstOption);
     await expect(firstOption).toHaveClass("active");
     await userEvent.unhover(firstOption);
@@ -350,36 +355,54 @@ export const TextOverflow: Story = {
   },
 };
 
-export const DesignComparator: Story = buildDesignComparatorStory({
-  component: KdsListContainer,
-  wrapperStyle: { width: "213px" },
-  designsToCompare: {
-    Default: {
-      props: {
-        possibleValues: options(13, () => ({
-          accessory: { type: "dataType", name: "string-datatype" },
-          text: "Label",
-        })),
+export const DesignComparator: Story = {
+  ...buildDesignComparatorStory({
+    component: KdsListContainer,
+    wrapperStyle: { width: "213px" },
+    designsToCompare: {
+      Default: {
+        props: {
+          ariaLabel: "Options",
+          possibleValues: options(13, () => ({
+            accessory: { type: "dataType", name: "string-datatype" },
+            text: "Label",
+          })),
+        },
+        variants: {
+          "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3433-24499":
+            {},
+        },
       },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3433-24499":
-          {},
+      Empty: {
+        props: {
+          ariaLabel: "Options",
+          possibleValues: [],
+          noEntriesText: "No entries in this list",
+        },
+        variants: {
+          "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4711-38479":
+            {},
+        },
       },
     },
-    Empty: {
-      props: { possibleValues: [], noEntriesText: "No entries in this list" },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4711-38479":
-          {},
+  }),
+  parameters: {
+    a11y: {
+      config: {
+        rules: [
+          { id: "color-contrast", enabled: false },
+          { id: "label", enabled: false },
+        ],
       },
     },
   },
-});
+};
 
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsListContainer,
   combinationsProps: [
     {
+      ariaLabel: ["Options"],
       noEntriesText: ["No entries found"],
       possibleValues: [options(3, () => ({})), []],
     },

@@ -94,7 +94,6 @@ watch(modelValue, (newValue, oldValue) => {
         :activator-el="activatorEl"
         placement="bottom-left"
         full-width
-        role="listbox"
         popover-aria-label="Dropdown options"
       >
         <DropdownContainer

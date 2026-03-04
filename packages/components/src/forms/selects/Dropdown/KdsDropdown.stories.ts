@@ -330,7 +330,7 @@ export const Interaction: Story = {
     await expect(combobox).toHaveFocus();
     await userEvent.keyboard("{ArrowDown}");
 
-    const filterInputFromKeyboard = await canvas.findByRole("textbox", {
+    const filterInputFromKeyboard = await canvas.findByRole("searchbox", {
       name: "Filter options",
     });
     await expect(filterInputFromKeyboard).toHaveFocus();
@@ -343,7 +343,7 @@ export const Interaction: Story = {
     // --- Mouse: click reopens dropdown, search field gets focus ---
     await userEvent.click(combobox);
 
-    const filterInput = await canvas.findByRole("textbox", {
+    const filterInput = await canvas.findByRole("searchbox", {
       name: "Filter options",
     });
     await expect(filterInput).toHaveFocus();
@@ -365,7 +365,7 @@ export const Interaction: Story = {
     // --- Reopen and test Escape (selection stays unchanged) ---
     await userEvent.click(combobox);
 
-    const filterInputAfterReopen = await canvas.findByRole("textbox", {
+    const filterInputAfterReopen = await canvas.findByRole("searchbox", {
       name: "Filter options",
     });
     await expect(filterInputAfterReopen).toHaveFocus();

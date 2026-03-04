@@ -151,6 +151,7 @@ onBeforeUnmount(() => {
   <!-- eslint-disable-next-line vuejs-accessibility/no-redundant-roles -->
   <div
     role="listbox"
+    :aria-label="props.ariaLabel"
     class="kds-list-container"
     :tabindex="props.controlEl ? -1 : 0"
     v-on="
@@ -181,6 +182,8 @@ onBeforeUnmount(() => {
     />
     <div
       v-if="props.possibleValues.length === 0"
+      role="option"
+      aria-disabled="true"
       class="kds-list-container-empty"
     >
       {{ props.noEntriesText }}

@@ -99,7 +99,7 @@ export const Default: Story = {
     await expect(firstOption).toHaveAttribute("aria-selected", "true");
 
     // --- Keyboard: ArrowDown + Enter selects ---
-    const filterInput = canvas.getByRole("textbox", {
+    const filterInput = canvas.getByRole("searchbox", {
       name: "Filter options",
     });
     filterInput.focus();
@@ -201,7 +201,7 @@ export const WithDisabledOptions: Story = {
     await expect(enabledOption).toHaveAttribute("aria-selected", "true");
 
     // Keyboard navigation skips the disabled option: ArrowDown from first → third
-    const filterInput = canvas.getByRole("textbox", {
+    const filterInput = canvas.getByRole("searchbox", {
       name: "Filter options",
     });
     filterInput.focus();

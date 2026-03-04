@@ -24,6 +24,8 @@ export type KdsListContainerProps = {
   possibleValues: KdsListOption[];
   /** Text shown when no entries match the search */
   noEntriesText?: string;
+  /** Accessible label for the listbox */
+  ariaLabel?: string;
   /** Reference to the controlling element (e.g. filter input). If empty, list is focusable and controls itself. */
   controlEl?: MaybeRef<HTMLElement | ComponentPublicInstance | null>;
 };

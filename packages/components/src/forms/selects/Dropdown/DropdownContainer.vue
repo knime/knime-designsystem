@@ -102,6 +102,7 @@ defineExpose({ focusSearch });
       :possible-values="listOptions"
       :no-entries-text="props.noEntriesText"
       :control-el="searchEl"
+      aria-label="Dropdown options"
       @toggle-item="modelValue = $event"
     />
   </div>
