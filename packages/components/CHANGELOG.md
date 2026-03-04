@@ -1,5 +1,33 @@
 # @knime/kds-components
 
+## 0.11.0
+
+### Minor Changes
+
+- f6168a5: BREAKING CHANGE: KdsEmptyState grouped button props. Previously, the component exposed multiple prefixed button props (for example `buttonVariant`, `buttonSize`, `buttonDisabled`, `buttonLeadingIcon`, `buttonTrailingIcon`, `buttonAriaLabel`, `buttonLabel`, `buttonTo`, `buttonTitle`, `buttonDestructive`, `buttonTarget`, `buttonRel`, `buttonDownload`). To migrate, replace these props with the new nested `button` prop as follows:
+  - `buttonVariant` → `button.variant`
+  - `buttonSize` → `button.size`
+  - `buttonDisabled` → `button.disabled`
+  - `buttonLeadingIcon` → `button.leadingIcon`
+  - `buttonTrailingIcon` → `button.trailingIcon`
+  - `buttonAriaLabel` → `button.ariaLabel`
+  - `buttonLabel` → `button.label`
+  - `buttonTo` → `button.to`
+  - `buttonTitle` → `button.title`
+  - `buttonDestructive` → `button.destructive`
+  - `buttonTarget` → `button.target`
+  - `buttonRel` → `button.rel`
+  - `buttonDownload` → `button.download`
+
+  Additionally, the helper types `PrefixedKdsButtonProps*` and `PrefixedKdsLinkButtonProps*` are no longer exported; if you relied on them, please inline the corresponding props in your own types or migrate to the new `KdsEmptyState` button prop shape.
+
+- f7a8ce8: BREAKING CHANGE: Rename KdsCard to KdsCardClickable
+
+### Patch Changes
+
+- a1ffdb4: KDS-659: Let the KdsModal body grow to fix modal full size does not take up all space
+  - @knime/kds-styles@0.11.0
+
 ## 0.10.0
 
 ### Minor Changes
