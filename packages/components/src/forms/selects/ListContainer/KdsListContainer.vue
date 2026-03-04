@@ -86,7 +86,18 @@ const onKeydown = (event: KeyboardEvent) => {
       break;
     }
     case "Enter":
+      if (activeId.value) {
+        emit("toggleItem", activeId.value);
+        event.preventDefault();
+      }
+      break;
     case " ":
+      if (
+        event.target instanceof HTMLElement &&
+        ["INPUT", "TEXTAREA", "SELECT"].includes(event.target.tagName)
+      ) {
+        break;
+      }
       if (activeId.value) {
         emit("toggleItem", activeId.value);
         event.preventDefault();
@@ -164,6 +175,7 @@ onBeforeUnmount(() => {
       :disabled="item.disabled"
       :active="activeId === item.id"
       :special="item.special"
+      :missing="item.missing"
       @click="emit('toggleItem', item.id)"
       @mouseover="activeId = item.id"
     />

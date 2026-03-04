@@ -70,9 +70,10 @@ const listOptions = computed<KdsListOption[]>(() =>
     text: option.text,
     subText: option.subText,
     accessory: option.accessory,
-    disabled: Boolean(option.disabled) || option.missing,
+    disabled: option.disabled || option.missing,
     selected: option.id === modelValue.value,
     special: option.special,
+    missing: option.missing,
   })),
 );
 

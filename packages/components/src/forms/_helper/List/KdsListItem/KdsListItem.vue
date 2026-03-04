@@ -169,7 +169,7 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
     }
   }
 
-  &.missing:not(.disabled) {
+  &.missing {
     color: var(--kds-color-text-and-icon-danger);
     background: var(--kds-color-background-danger-initial);
 

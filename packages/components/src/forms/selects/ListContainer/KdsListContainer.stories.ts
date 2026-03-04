@@ -3,7 +3,6 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { expect, fn, userEvent, within } from "storybook/test";
 
 import { KdsButton } from "../../../buttons";
-import KdsSearchInput from "../../../forms/inputs/SearchInput/KdsSearchInput.vue";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
@@ -56,19 +55,24 @@ const meta = {
       control: "text",
       table: { category: "props" },
     },
+    controlEl: {
+      control: false,
+      table: { category: "props" },
+    },
+    onToggleItem: {
+      table: { disable: true },
+    },
   },
   args: {
     possibleValues: baseOptions,
     noEntriesText: "No entries found",
+    onToggleItem: fn(),
   },
 } satisfies Meta<typeof KdsListContainer>;
 
 export default meta;
 
 export const Default: Story = {
-  args: {
-    onToggleItem: fn(),
-  },
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const listbox = canvas.getByRole("listbox");
@@ -261,12 +265,12 @@ export const WithExternalControlEl: Story = {
   render: (args) => ({
     components: { KdsListContainer, KdsButton },
     setup() {
-      const controlEl = ref<InstanceType<typeof KdsSearchInput> | null>(null);
+      const controlEl = ref<InstanceType<typeof KdsButton> | null>(null);
       return { args, controlEl };
     },
     template: `
       <div style="display: flex; flex-direction: column; gap: 6px">
-        <kdsButton ref="controlEl" label="Focus button to control the list" />
+        <KdsButton ref="controlEl" label="Focus button to control the list" />
         <div style="border-radius: var(--kds-border-radius-container-0-37x); box-shadow: var(--kds-elevation-level-3);">
           <KdsListContainer v-bind="args" :control-el="controlEl" />
         </div>
@@ -275,7 +279,9 @@ export const WithExternalControlEl: Story = {
   }),
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
-    const searchInput = canvas.getByRole("searchbox");
+    const button = canvas.getByRole("button", {
+      name: "Focus button to control the list",
+    });
     const listbox = canvas.getByRole("listbox");
     const firstOption = canvas.getByRole("option", { name: "Label 1" });
     const lastOption = canvas.getByRole("option", { name: "Label 5" });
@@ -283,39 +289,39 @@ export const WithExternalControlEl: Story = {
     // Listbox is not focusable when controlled
     await expect(listbox).toHaveAttribute("tabindex", "-1");
 
-    // --- Focus on search input activates the first item ---
-    searchInput.focus();
-    await expect(searchInput).toHaveFocus();
+    // --- Focus on button activates the first item ---
+    button.focus();
+    await expect(button).toHaveFocus();
     await expect(firstOption).toHaveClass("active");
 
-    // --- ArrowDown navigates within the list while input keeps focus ---
+    // --- ArrowDown navigates within the list while button keeps focus ---
     await userEvent.keyboard("{ArrowDown}");
     const secondOption = canvas.getByRole("option", { name: "Label 2" });
     await expect(secondOption).toHaveClass("active");
-    await expect(searchInput).toHaveFocus();
+    await expect(button).toHaveFocus();
 
     // --- Enter emits toggleItem ---
     await userEvent.keyboard("{Enter}");
     await expect(args.onToggleItem).toHaveBeenCalledWith("option-2");
 
-    // --- Home / End work from the input ---
+    // --- Home / End work from the button ---
     await userEvent.keyboard("{End}");
     await expect(lastOption).toHaveClass("active");
     await userEvent.keyboard("{Home}");
     await expect(firstOption).toHaveClass("active");
 
-    // --- Blur on the search input clears active ---
-    searchInput.blur();
+    // --- Blur on the button clears active ---
+    button.blur();
     await expect(firstOption).not.toHaveClass("active");
 
-    // --- Mouseover then mouseleave clears active when search is not focused ---
+    // --- Mouseover then mouseleave clears active when button is not focused ---
     await userEvent.hover(firstOption);
     await expect(firstOption).toHaveClass("active");
     await userEvent.unhover(firstOption);
     await expect(firstOption).not.toHaveClass("active");
 
-    // --- Mouseleave preserves active when search is focused ---
-    searchInput.focus();
+    // --- Mouseleave preserves active when button is focused ---
+    button.focus();
     await userEvent.hover(firstOption);
     await expect(firstOption).toHaveClass("active");
     await userEvent.unhover(firstOption);

@@ -15,7 +15,8 @@ export type KdsListOption = {
   accessory?: KdsListItemAccessory;
   /** Disables the option in the list */
   disabled?: boolean;
-  /** Shows the option as selected in the list */
+  /** Shows the option as missing in the list */
+  missing?: boolean;
 };
 
 export type KdsListContainerProps = {
