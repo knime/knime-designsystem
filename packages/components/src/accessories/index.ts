@@ -15,3 +15,6 @@ export type * from "./LiveStatus";
 
 export * from "./LoadingSpinner";
 export type * from "./LoadingSpinner";
+
+export * from "./InlineMessage";
+export type * from "./InlineMessage";
