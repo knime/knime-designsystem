@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 
 import { KdsListItem } from "../../_helper/List/KdsListItem";
 
@@ -27,6 +27,16 @@ const onMouseLeave = () => {
 const enabledValues = computed(() =>
   props.possibleValues.filter((o) => !o.disabled),
 );
+
+/** Reset activeId when possibleValues change and current activeId no longer exists */
+watch(enabledValues, (values) => {
+  if (
+    activeId.value !== undefined &&
+    !values.some((o) => o.id === activeId.value)
+  ) {
+    activeId.value = values.length > 0 ? values[0].id : undefined;
+  }
+});
 
 const findEnabledIndex = (id: string | undefined) =>
   id === undefined ? -1 : enabledValues.value.findIndex((o) => o.id === id);
@@ -162,7 +172,7 @@ defineExpose<KdsListContainerExpose>({
 .kds-list-container {
   display: flex;
   flex-direction: column;
-  padding: var(--kds-border-radius-container-0-25x);
+  padding: var(--kds-spacing-container-0-25x);
   overflow-y: auto;
   list-style: none;
 

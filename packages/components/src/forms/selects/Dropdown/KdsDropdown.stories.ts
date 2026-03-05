@@ -351,11 +351,10 @@ export const InModal: Story = {
             <template #body>
               <KdsDropdown
                 v-bind="args"
+                v-model="modelValue"
                 label="Dropdown"
                 placeholder="Select an option"
-                :model-value="modelValue"
                 :possible-values="args.possibleValues"
-                @update:modelValue="(value) => (modelValue = value)"
               />
             </template>
 
