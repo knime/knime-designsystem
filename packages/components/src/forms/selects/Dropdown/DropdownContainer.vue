@@ -84,11 +84,20 @@ const hasMultiline = computed(() =>
 
 const focusSearch = () => searchEl.value?.focus();
 
+const onToggleItem = (id: string) => {
+  modelValue.value = id;
+
+  // Focus search when not already focused
+  if (document.activeElement !== searchEl.value) {
+    focusSearch();
+  }
+};
+
 defineExpose({ focusSearch });
 </script>
 
 <template>
-  <div class="kds-dropdown-container" :class="{ multiline: hasMultiline }">
+  <div class="kds-dropdown-container">
     <div class="kds-dropdown-container-sticky-top">
       <BaseInput
         ref="searchEl"
@@ -107,11 +116,13 @@ defineExpose({ focusSearch });
 
     <KdsListContainer
       ref="listContainer"
+      class="kds-dropdown-container-list"
+      :class="{ multiline: hasMultiline }"
       :possible-values="listOptions"
       :no-entries-text="props.noEntriesText"
       controlled-externally
       aria-label="Dropdown options"
-      @toggle-item="modelValue = $event"
+      @toggle-item="onToggleItem"
     />
   </div>
 </template>
@@ -120,23 +131,22 @@ defineExpose({ focusSearch });
 .kds-dropdown-container {
   display: flex;
   flex-direction: column;
-  max-height: var(--kds-dimension-component-height-12x);
-  overflow-y: auto;
   background-color: var(--kds-color-surface-default);
   border-radius: var(--kds-border-radius-container-0-50x);
   box-shadow: var(--kds-elevation-level-3);
+}
+
+.kds-dropdown-container-sticky-top {
+  padding: var(--kds-spacing-container-0-25x);
+  background-color: var(--kds-color-surface-default);
+  border-bottom: var(--kds-border-base-subtle);
+}
+
+.kds-dropdown-container-list {
+  max-height: var(--kds-dimension-component-height-12x);
 
   &.multiline {
     max-height: var(--kds-dimension-component-height-20x);
   }
-}
-
-.kds-dropdown-container-sticky-top {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  padding: var(--kds-spacing-container-0-25x);
-  background-color: var(--kds-color-surface-default);
-  border-bottom: var(--kds-border-base-subtle);
 }
 </style>

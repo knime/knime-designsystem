@@ -97,26 +97,26 @@ export const Default: Story = {
     await userEvent.click(thirdOption);
     await expect(args.onToggleItem).toHaveBeenCalledWith("option-3");
 
-    // --- Focus activates the first enabled item ---
+    // --- Re-focus restores the last active item ---
     await userEvent.tab();
     await userEvent.tab({ shift: true });
     await expect(listbox).toHaveFocus();
-    await expect(firstOption).toHaveClass("active");
+    await expect(thirdOption).toHaveClass("active");
 
     // --- ArrowDown moves to the next option ---
     await userEvent.keyboard("{ArrowDown}");
-    const secondOption = canvas.getByRole("option", { name: "Label 2" });
-    await expect(secondOption).toHaveClass("active");
-    await expect(firstOption).not.toHaveClass("active");
+    const fourthOption = canvas.getByRole("option", { name: "Label 4" });
+    await expect(fourthOption).toHaveClass("active");
+    await expect(thirdOption).not.toHaveClass("active");
 
     // --- Enter emits toggleItem ---
     await userEvent.keyboard("{Enter}");
-    await expect(args.onToggleItem).toHaveBeenCalledWith("option-2");
+    await expect(args.onToggleItem).toHaveBeenCalledWith("option-4");
 
     // --- Space emits toggleItem ---
     await userEvent.keyboard("{ArrowDown}");
     await userEvent.keyboard(" ");
-    await expect(args.onToggleItem).toHaveBeenCalledWith("option-3");
+    await expect(args.onToggleItem).toHaveBeenCalledWith("option-5");
 
     // --- ArrowUp from the first item wraps to the last ---
     await userEvent.keyboard("{Home}");
@@ -301,7 +301,7 @@ export const WithExternalControlEl: Story = {
     const lastOption = canvas.getByRole("option", { name: "Label 5" });
 
     // Listbox is not focusable when controlled externally
-    await expect(listbox).toHaveAttribute("tabindex", "-1");
+    await expect(listbox).not.toHaveAttribute("tabindex");
 
     // --- Focus on input activates the first item ---
     await userEvent.click(input);

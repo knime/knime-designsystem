@@ -47,6 +47,14 @@ const meta = {
       type: "figma",
       url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=8379-28006",
     },
+    a11y: {
+      config: {
+        rules: [
+          // List is scrollable but intentionally not focusable — controlled via search input
+          { id: "scrollable-region-focusable", enabled: false },
+        ],
+      },
+    },
   },
   argTypes: {
     modelValue: {
@@ -165,15 +173,11 @@ export const ManyOptions: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const container = canvasElement.querySelector(
-      ".kds-dropdown-container",
-    ) as HTMLElement;
+    const list = canvas.getByRole("listbox");
 
-    // Container height is capped (single-line: 192px)
-    await expect(container.scrollHeight).toBeGreaterThan(
-      container.clientHeight,
-    );
-    await expect(container.clientHeight).toBeLessThanOrEqual(192);
+    // List height is capped (single-line: 192px) and scrolls independently
+    await expect(list.scrollHeight).toBeGreaterThan(list.clientHeight);
+    await expect(list.clientHeight).toBeLessThanOrEqual(192);
 
     // Navigate to a far item via keyboard — it should scroll into view
     const filterInput = canvas.getByRole("searchbox", {
@@ -186,10 +190,10 @@ export const ManyOptions: Story = {
     }
 
     const activeOption = canvas.getByRole("option", { name: "Label 21" });
-    const containerRect = container.getBoundingClientRect();
+    const listRect = list.getBoundingClientRect();
     const itemRect = activeOption.getBoundingClientRect();
-    await expect(itemRect.bottom).toBeLessThanOrEqual(containerRect.bottom + 1);
-    await expect(itemRect.top).toBeGreaterThanOrEqual(containerRect.top - 1);
+    await expect(itemRect.bottom).toBeLessThanOrEqual(listRect.bottom + 1);
+    await expect(itemRect.top).toBeGreaterThanOrEqual(listRect.top - 1);
 
     // Click an item, then verify keyboard navigation still works (focus returns to search)
     await userEvent.click(canvas.getByRole("option", { name: "Label 5" }));
@@ -209,15 +213,11 @@ export const ManyMultilineOptions: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const container = canvasElement.querySelector(
-      ".kds-dropdown-container",
-    ) as HTMLElement;
+    const list = canvas.getByRole("listbox");
 
-    // Container height is capped (multiline: 320px)
-    await expect(container.scrollHeight).toBeGreaterThan(
-      container.clientHeight,
-    );
-    await expect(container.clientHeight).toBeLessThanOrEqual(320);
+    // List height is capped (multiline: 320px) and scrolls independently
+    await expect(list.scrollHeight).toBeGreaterThan(list.clientHeight);
+    await expect(list.clientHeight).toBeLessThanOrEqual(320);
 
     // Navigate to a far item via keyboard — it should scroll into view
     const filterInput = canvas.getByRole("searchbox", {
@@ -232,10 +232,10 @@ export const ManyMultilineOptions: Story = {
     const activeOption = canvas.getByRole("option", {
       name: /^Label 21\b/,
     });
-    const containerRect = container.getBoundingClientRect();
+    const listRect = list.getBoundingClientRect();
     const itemRect = activeOption.getBoundingClientRect();
-    await expect(itemRect.bottom).toBeLessThanOrEqual(containerRect.bottom + 1);
-    await expect(itemRect.top).toBeGreaterThanOrEqual(containerRect.top - 1);
+    await expect(itemRect.bottom).toBeLessThanOrEqual(listRect.bottom + 1);
+    await expect(itemRect.top).toBeGreaterThanOrEqual(listRect.top - 1);
   },
 };
 
