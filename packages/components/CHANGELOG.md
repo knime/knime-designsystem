@@ -1,5 +1,15 @@
 # @knime/kds-components
 
+## 0.12.0
+
+### Minor Changes
+
+- def0784: BREAKING CHANGE: KdsPopover is no longer exported
+
+### Patch Changes
+
+- @knime/kds-styles@0.12.0
+
 ## 0.11.0
 
 ### Minor Changes
