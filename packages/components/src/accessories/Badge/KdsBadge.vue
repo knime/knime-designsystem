@@ -35,6 +35,7 @@ const sizeToIconSize: Record<KdsBadgeSize, KdsIconSize> = {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    max-width: var(--kds-dimension-component-width-16x);
   }
 
   &.xxsmall {
