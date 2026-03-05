@@ -39,7 +39,7 @@ const selectedOption = computed(() =>
 /** Focus search field on opening of dropdown */
 watchEffect(() => {
   if (open.value) {
-    nextTick(() => dropdownContainerEl.value?.focusSearch());
+    nextTick(() => dropdownContainerEl.value?.focus());
   }
 });
 

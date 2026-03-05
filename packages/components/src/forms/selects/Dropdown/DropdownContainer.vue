@@ -93,7 +93,7 @@ const onToggleItem = (id: string) => {
   }
 };
 
-defineExpose({ focusSearch });
+defineExpose({ focus: focusSearch });
 </script>
 
 <template>
