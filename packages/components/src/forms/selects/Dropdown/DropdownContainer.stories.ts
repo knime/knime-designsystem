@@ -190,6 +190,14 @@ export const ManyOptions: Story = {
     const itemRect = activeOption.getBoundingClientRect();
     await expect(itemRect.bottom).toBeLessThanOrEqual(containerRect.bottom + 1);
     await expect(itemRect.top).toBeGreaterThanOrEqual(containerRect.top - 1);
+
+    // Click an item, then verify keyboard navigation still works (focus returns to search)
+    await userEvent.click(canvas.getByRole("option", { name: "Label 5" }));
+    await expect(filterInput).toHaveFocus();
+    await userEvent.keyboard("{ArrowDown}{Enter}");
+    await expect(
+      canvas.getByRole("option", { name: "Label 6" }),
+    ).toHaveAttribute("aria-selected", "true");
   },
 };
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, useTemplateRef } from "vue";
+import { computed, ref, useTemplateRef } from "vue";
 
 import BaseInput from "../../inputs/BaseInput.vue";
 import { KdsListContainer } from "../ListContainer";
@@ -82,9 +82,7 @@ const hasMultiline = computed(() =>
   props.possibleValues.some((o) => o.subText !== undefined),
 );
 
-const focusSearch = () => {
-  nextTick(() => searchEl.value?.focus());
-};
+const focusSearch = () => searchEl.value?.focus();
 
 defineExpose({ focusSearch });
 </script>

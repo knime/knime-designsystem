@@ -16,6 +16,9 @@ const emit = defineEmits<{
 /** active item id via keyboard or mouseover */
 const activeId = ref<string | undefined>(undefined);
 
+/** remembers the last active item so it can be restored on re-focus */
+const lastActiveId = ref<string | undefined>(undefined);
+
 const isFocused = ref(false);
 
 const containerEl = useTemplateRef("containerEl");
@@ -50,13 +53,16 @@ const enabledValues = computed(() =>
   props.possibleValues.filter((o) => !o.disabled),
 );
 
-/** Reset activeId when possibleValues change and current activeId no longer exists */
+/** Reset activeId/lastActiveId when possibleValues change and current id no longer exists */
 watch(enabledValues, (values) => {
-  if (
-    activeId.value !== undefined &&
-    !values.some((o) => o.id === activeId.value)
-  ) {
+  const isValid = (id: string | undefined) =>
+    id !== undefined && values.some((o) => o.id === id);
+
+  if (activeId.value !== undefined && !isValid(activeId.value)) {
     activeId.value = values.length > 0 ? values[0].id : undefined;
+  }
+  if (!isValid(lastActiveId.value)) {
+    lastActiveId.value = undefined;
   }
   nextTick(scrollToView);
 });
@@ -64,20 +70,16 @@ watch(enabledValues, (values) => {
 const findEnabledIndex = (id: string | undefined) =>
   id === undefined ? -1 : enabledValues.value.findIndex((o) => o.id === id);
 
-const activateFirst = () => {
-  activeId.value =
-    enabledValues.value.length > 0 ? enabledValues.value[0].id : undefined;
-};
-
 const handleFocus = () => {
   isFocused.value = true;
   if (activeId.value === undefined) {
-    activateFirst();
+    activeId.value = lastActiveId.value ?? enabledValues.value[0]?.id;
   }
 };
 
 const handleBlur = () => {
   isFocused.value = false;
+  lastActiveId.value = activeId.value;
   activeId.value = undefined;
 };
 
@@ -157,7 +159,7 @@ defineExpose<KdsListContainerExpose>({
       !props.controlledExternally && activeId ? activeId : undefined
     "
     class="kds-list-container"
-    :tabindex="props.controlledExternally ? -1 : 0"
+    :tabindex="props.controlledExternally ? undefined : 0"
     v-on="
       props.controlledExternally
         ? { mousemove: onMousemove, mouseleave: onMouseLeave }
@@ -182,7 +184,8 @@ defineExpose<KdsListContainerExpose>({
       :active="activeId === item.id"
       :special="item.special"
       :missing="item.missing"
-      @click="emit('toggleItem', item.id)"
+      @mousedown="props.controlledExternally && $event.preventDefault()"
+      @click.stop="emit('toggleItem', item.id)"
     />
     <div
       v-if="props.possibleValues.length === 0"
