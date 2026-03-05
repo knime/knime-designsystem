@@ -1,6 +1,9 @@
 export * from "./Avatar";
 export type * from "./Avatar";
 
+export * from "./Badge";
+export type * from "./Badge";
+
 export * from "./ColorSwatch";
 export type * from "./ColorSwatch";
 
