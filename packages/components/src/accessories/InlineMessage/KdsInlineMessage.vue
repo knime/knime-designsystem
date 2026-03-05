@@ -31,7 +31,7 @@ const iconName = computed(() => {
 <template>
   <div :class="classes">
     <div class="header">
-      <KdsIcon class="icons" :name="iconName" size="small" />
+      <KdsIcon class="icon" :name="iconName" size="small" />
       <div class="title">
         {{ props.title }}
       </div>
@@ -51,7 +51,6 @@ const iconName = computed(() => {
   flex-direction: column;
   gap: var(--kds-spacing-container-0-25x);
   align-items: flex-start;
-  width: 100%;
   padding: calc(
     var(--kds-spacing-container-0-5x) - var(--kds-core-border-width-xs)
   ); /* needed as border in Figma is not increasing the width */
@@ -64,7 +63,7 @@ const iconName = computed(() => {
     gap: var(--kds-spacing-container-0-25x);
     align-items: flex-start;
 
-    .icons {
+    .icon {
       align-self: center;
       color: var(--icon-color);
     }
@@ -72,25 +71,19 @@ const iconName = computed(() => {
 
   .title {
     font: var(--kds-font-base-title-small-strong);
-    line-height: 14px; /* token defines 130% is 15,6 pixel */
   }
 
   .message {
     align-self: stretch;
     font: var(--kds-font-base-body-small);
-    line-height: 14px; /* token defines 130% is 15,6 pixel */
   }
 
   .body {
-    padding-right: var(
-      --kds-spacing-container-0-75x
-    ); /* not defined in figma */
     padding-left: var(--kds-spacing-container-1x);
   }
 
   &.info {
     --icon-color: var(--kds-color-text-and-icon-info);
-    --icon-stroke-width: var(--kds-border-width-icon-stroke-m);
 
     background-color: var(--kds-color-background-static-info-muted);
     border: var(--kds-border-base-info);
@@ -98,7 +91,6 @@ const iconName = computed(() => {
 
   &.success {
     --icon-color: var(--kds-color-text-and-icon-success);
-    --icon-stroke-width: var(--kds-border-width-icon-stroke-m);
 
     background-color: var(--kds-color-background-static-success-muted);
     border: var(--kds-border-base-success);
@@ -106,7 +98,6 @@ const iconName = computed(() => {
 
   &.error {
     --icon-color: var(--kds-color-text-and-icon-danger);
-    --icon-stroke-width: var(--kds-border-width-icon-stroke-m);
 
     background-color: var(--kds-color-background-static-danger-muted);
     border: var(--kds-border-base-danger);
@@ -114,7 +105,6 @@ const iconName = computed(() => {
 
   &.warning {
     --icon-color: var(--kds-color-text-and-icon-warning);
-    --icon-stroke-width: var(--kds-border-width-icon-stroke-m);
 
     background-color: var(--kds-color-background-static-warning-muted);
     border: var(--kds-border-base-warning);
