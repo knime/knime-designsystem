@@ -78,6 +78,10 @@ const listOptions = computed<KdsListOption[]>(() =>
   })),
 );
 
+const hasMultiline = computed(() =>
+  props.possibleValues.some((o) => o.subText !== undefined),
+);
+
 const focusSearch = () => {
   nextTick(() => searchEl.value?.focus());
 };
@@ -86,7 +90,7 @@ defineExpose({ focusSearch });
 </script>
 
 <template>
-  <div class="kds-dropdown-container">
+  <div class="kds-dropdown-container" :class="{ multiline: hasMultiline }">
     <div class="kds-dropdown-container-sticky-top">
       <BaseInput
         ref="searchEl"
@@ -118,10 +122,15 @@ defineExpose({ focusSearch });
 .kds-dropdown-container {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  max-height: var(--kds-dimension-component-height-12x);
+  overflow-y: auto;
   background-color: var(--kds-color-surface-default);
   border-radius: var(--kds-border-radius-container-0-50x);
   box-shadow: var(--kds-elevation-level-3);
+
+  &.multiline {
+    max-height: var(--kds-dimension-component-height-20x);
+  }
 }
 
 .kds-dropdown-container-sticky-top {

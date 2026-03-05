@@ -159,6 +159,78 @@ export const NoEntriesText: Story = {
   },
 };
 
+export const ManyOptions: Story = {
+  args: {
+    possibleValues: options(100, () => ({})),
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const container = canvasElement.querySelector(
+      ".kds-dropdown-container",
+    ) as HTMLElement;
+
+    // Container height is capped (single-line: 192px)
+    await expect(container.scrollHeight).toBeGreaterThan(
+      container.clientHeight,
+    );
+    await expect(container.clientHeight).toBeLessThanOrEqual(192);
+
+    // Navigate to a far item via keyboard — it should scroll into view
+    const filterInput = canvas.getByRole("searchbox", {
+      name: "Filter options",
+    });
+    await userEvent.click(filterInput);
+
+    for (let i = 0; i < 20; i++) {
+      await userEvent.keyboard("{ArrowDown}");
+    }
+
+    const activeOption = canvas.getByRole("option", { name: "Label 21" });
+    const containerRect = container.getBoundingClientRect();
+    const itemRect = activeOption.getBoundingClientRect();
+    await expect(itemRect.bottom).toBeLessThanOrEqual(containerRect.bottom + 1);
+    await expect(itemRect.top).toBeGreaterThanOrEqual(containerRect.top - 1);
+  },
+};
+
+export const ManyMultilineOptions: Story = {
+  args: {
+    possibleValues: options(100, (idx) => ({
+      subText: `Description for item ${idx + 1}`,
+    })),
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const container = canvasElement.querySelector(
+      ".kds-dropdown-container",
+    ) as HTMLElement;
+
+    // Container height is capped (multiline: 320px)
+    await expect(container.scrollHeight).toBeGreaterThan(
+      container.clientHeight,
+    );
+    await expect(container.clientHeight).toBeLessThanOrEqual(320);
+
+    // Navigate to a far item via keyboard — it should scroll into view
+    const filterInput = canvas.getByRole("searchbox", {
+      name: "Filter options",
+    });
+    await userEvent.click(filterInput);
+
+    for (let i = 0; i < 20; i++) {
+      await userEvent.keyboard("{ArrowDown}");
+    }
+
+    const activeOption = canvas.getByRole("option", {
+      name: /^Label 21\b/,
+    });
+    const containerRect = container.getBoundingClientRect();
+    const itemRect = activeOption.getBoundingClientRect();
+    await expect(itemRect.bottom).toBeLessThanOrEqual(containerRect.bottom + 1);
+    await expect(itemRect.top).toBeGreaterThanOrEqual(containerRect.top - 1);
+  },
+};
+
 export const MissingValue: Story = {
   args: {
     modelValue: "missing",

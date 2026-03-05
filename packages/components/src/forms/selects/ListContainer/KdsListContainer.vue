@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
+import { computed, ref, useTemplateRef, watch } from "vue";
 
 import { KdsListItem } from "../../_helper/List/KdsListItem";
 
@@ -18,9 +18,32 @@ const activeId = ref<string | undefined>(undefined);
 
 const isFocused = ref(false);
 
+const containerEl = useTemplateRef("containerEl");
+
+/** Scroll the active item into view when changed via keyboard */
+watch(activeId, (id) => {
+  if (!id || !containerEl.value) {
+    return;
+  }
+  containerEl.value
+    ?.querySelector(`#${CSS.escape(id)}`)
+    ?.scrollIntoView({ block: "nearest" });
+});
+
 const onMouseLeave = () => {
   if (!isFocused.value) {
     activeId.value = undefined;
+  }
+};
+
+const onMousemove = (event: MouseEvent) => {
+  const target = (event.target as HTMLElement)?.closest?.('[role="option"]');
+  if (
+    target instanceof HTMLElement &&
+    target.id &&
+    target.getAttribute("aria-disabled") !== "true"
+  ) {
+    activeId.value = target.id;
   }
 };
 
@@ -123,6 +146,7 @@ defineExpose<KdsListContainerExpose>({
 
 <template>
   <div
+    ref="containerEl"
     role="listbox"
     :aria-label="props.ariaLabel"
     :aria-activedescendant="
@@ -132,11 +156,12 @@ defineExpose<KdsListContainerExpose>({
     :tabindex="props.controlledExternally ? -1 : 0"
     v-on="
       props.controlledExternally
-        ? { mouseleave: onMouseLeave }
+        ? { mousemove: onMousemove, mouseleave: onMouseLeave }
         : {
             keydown: handleKeydown,
             focus: handleFocus,
             blur: handleBlur,
+            mousemove: onMousemove,
             mouseleave: onMouseLeave,
           }
     "
@@ -154,7 +179,6 @@ defineExpose<KdsListContainerExpose>({
       :special="item.special"
       :missing="item.missing"
       @click="emit('toggleItem', item.id)"
-      @mouseover="activeId = item.id"
     />
     <div
       v-if="props.possibleValues.length === 0"
@@ -174,7 +198,6 @@ defineExpose<KdsListContainerExpose>({
   flex-direction: column;
   padding: var(--kds-spacing-container-0-25x);
   overflow-y: auto;
-  list-style: none;
 
   &:focus-visible {
     outline: var(--kds-border-action-focused);

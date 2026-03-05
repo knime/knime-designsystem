@@ -411,16 +411,16 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3594-15392":
           {
-            placeholder: "{text}",
+            placeholder: "Label",
             modelValue: null,
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3594-15391":
           {
-            placeholder: "{text}",
+            placeholder: "Label",
             modelValue: null,
             parameters: { pseudo: { hover: true } },
           },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3594-15389":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=16518-76137":
           {
             modelValue: "a",
             possibleValues: [{ id: "a", text: "Label" }],
@@ -432,32 +432,32 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3594-15388":
           {
             modelValue: "a",
-            possibleValues: [{ id: "a", text: "{text}" }],
+            possibleValues: [{ id: "a", text: "Label" }],
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3594-15417":
           {
             modelValue: "a",
-            possibleValues: [{ id: "a", text: "{text}" }],
+            possibleValues: [{ id: "a", text: "Label" }],
             error: true,
             subText: "{Error message}",
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=5351-35693":
           {
             modelValue: "a",
-            possibleValues: [{ id: "a", text: "{text}" }],
+            possibleValues: [{ id: "a", text: "Label" }],
             validating: true,
             subText: "{Validation message}",
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3594-15390":
           {
             modelValue: "a",
-            possibleValues: [{ id: "a", text: "{text}" }],
+            possibleValues: [{ id: "a", text: "Label" }],
             disabled: true,
           },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=7410-161699":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=16518-77523":
           {
             initiallyOpen: true,
-            modelValue: "missing",
+            modelValue: "Label",
             possibleValues: baseOptions,
           },
       },
@@ -474,7 +474,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
             possibleValues: [
               {
                 id: "a",
-                text: "{text}",
+                text: "Label",
                 accessory: { type: "icon", name: "placeholder" },
               },
             ],
@@ -485,7 +485,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
             possibleValues: [
               {
                 id: "a",
-                text: "{text}",
+                text: "Label",
                 accessory: { type: "dataType", name: "string-datatype" },
               },
             ],
@@ -496,7 +496,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
             possibleValues: [
               {
                 id: "a",
-                text: "{text}",
+                text: "Label",
                 accessory: { type: "colorSwatch", color: "#C7DA3E" },
               },
             ],
@@ -507,7 +507,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
             possibleValues: [
               {
                 id: "a",
-                text: "{text}",
+                text: "Label",
                 accessory: { type: "avatar", initials: "fv" },
               },
             ],

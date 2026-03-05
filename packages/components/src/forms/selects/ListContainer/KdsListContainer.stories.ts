@@ -300,7 +300,7 @@ export const WithExternalControlEl: Story = {
     const firstOption = canvas.getByRole("option", { name: "Label 1" });
     const lastOption = canvas.getByRole("option", { name: "Label 5" });
 
-    // Listbox is not focusable when controlled
+    // Listbox is not focusable when controlled externally
     await expect(listbox).toHaveAttribute("tabindex", "-1");
 
     // --- Focus on input activates the first item ---
