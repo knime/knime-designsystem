@@ -7,7 +7,7 @@ import {
   buildDesignComparatorStory,
   buildTextOverflowStory,
 } from "../../../test-utils/storybook";
-import { KdsSearchInput } from "../../inputs";
+import BaseInput from "../../inputs/BaseInput.vue";
 
 import KdsListContainer from "./KdsListContainer.vue";
 import type { KdsListOption } from "./types";
@@ -269,15 +269,17 @@ export const WithExternalControlEl: Story = {
     onToggleItem: fn(),
   },
   render: (args) => ({
-    components: { KdsListContainer, KdsSearchInput },
+    components: { KdsListContainer, BaseInput },
     setup() {
       const listContainer = useTemplateRef("listContainer");
       return { args, listContainer };
     },
     template: `
       <div style="display: flex; flex-direction: column; gap: 6px">
-        <KdsSearchInput
-          label="Focus input to control the list"
+        <BaseInput
+          placeholder="Focus input to control the list"
+          aria-label="Focus input to control the list"
+          type="search"
           :aria-activedescendant="listContainer?.activeId"
           @keydown="listContainer?.handleKeydown($event)"
           @focus="listContainer?.handleFocus()"

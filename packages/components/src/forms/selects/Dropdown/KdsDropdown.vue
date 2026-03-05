@@ -8,7 +8,7 @@ import {
   watchEffect,
 } from "vue";
 
-import { KdsPopover } from "../../../overlays";
+import KdsPopover from "../../../overlays/Popover/KdsPopover.vue";
 import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
 
 import BaseDropdown from "./BaseDropdown.vue";
@@ -29,7 +29,7 @@ const props = withDefaults(defineProps<KdsDropdownProps>(), {
 const modelValue = defineModel<string | null>({ default: null });
 
 const open = ref(false);
-const activatorEl = useTemplateRef("activatorEl");
+const popoverEl = useTemplateRef("popoverEl");
 const dropdownContainerEl = useTemplateRef("dropdownContainerEl");
 
 const selectedOption = computed(() =>
@@ -39,7 +39,7 @@ const selectedOption = computed(() =>
 /** Focus search field on opening of dropdown */
 watchEffect(() => {
   if (open.value) {
-    nextTick(() => dropdownContainerEl.value?.focus());
+    nextTick(() => dropdownContainerEl.value?.focusSearch());
   }
 });
 
@@ -56,7 +56,6 @@ watch(modelValue, () => {
     <template #default="slotProps">
       <BaseDropdown
         v-bind="slotProps"
-        ref="activatorEl"
         :open="open"
         :text="
           modelValue && !selectedOption
@@ -69,14 +68,19 @@ watch(modelValue, () => {
         :error="props.error"
         :missing="!!modelValue && !selectedOption"
         :accessory="selectedOption?.accessory"
+        :style="popoverEl?.anchorStyle"
+        :aria-expanded="open"
+        :popover-id="popoverEl?.popoverId"
+        aria-haspopup="listbox"
         @click="open = !open"
         @update:open="open = $event"
       />
 
       <KdsPopover
+        ref="popoverEl"
         v-model="open"
-        :activator-el="activatorEl"
         placement="bottom-left"
+        role="dialog"
         full-width
         popover-aria-label="Searchable dropdown options"
       >

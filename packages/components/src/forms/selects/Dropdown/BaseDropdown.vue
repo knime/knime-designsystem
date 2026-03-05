@@ -21,6 +21,8 @@ type BaseDropdownProps = {
   ariaDescribedby?: string;
   ariaLabel?: string;
   ariaInvalid?: boolean;
+  popoverId?: string;
+  ariaHaspopup?: "dialog" | "menu" | "listbox" | "tree" | "grid";
 };
 
 const props = withDefaults(defineProps<BaseDropdownProps>(), {
@@ -36,6 +38,8 @@ const props = withDefaults(defineProps<BaseDropdownProps>(), {
   ariaDescribedby: undefined,
   ariaLabel: undefined,
   ariaInvalid: undefined,
+  popoverId: undefined,
+  ariaHaspopup: undefined,
 });
 
 const valueTextId = useId();
@@ -79,11 +83,14 @@ const onKeydown = (event: KeyboardEvent) => {
     type="button"
     role="combobox"
     aria-autocomplete="list"
+    :aria-expanded="props.open"
     :aria-labelledby="ariaLabelledby"
     :aria-describedby="props.ariaDescribedby"
     :aria-label="props.ariaLabel"
     :aria-invalid="props.ariaInvalid"
     :aria-readonly="props.readonly || undefined"
+    :aria-controls="props.popoverId"
+    :aria-haspopup="props.ariaHaspopup"
     :disabled="props.disabled"
     :class="{
       error: props.error,
