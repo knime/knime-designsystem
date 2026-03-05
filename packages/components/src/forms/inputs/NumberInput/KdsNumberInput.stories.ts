@@ -282,7 +282,6 @@ export const AllCombinations: Story = buildAllCombinationsStory({
     default: {
       label: ["Label"],
       ariaLabel: [undefined],
-      // eslint-disable-next-line no-magic-numbers
       modelValue: [Number.NaN, 42],
       placeholder: ["", "Enter number"],
       unit: [undefined, "ms"],

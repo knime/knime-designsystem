@@ -142,7 +142,6 @@ export const Scaled: Story = {
     `,
   }),
   play: async ({ canvasElement }) => {
-    // eslint-disable-next-line no-magic-numbers
     const expectedFontSizes = [8, 12, 16, 32, 64];
 
     const initialsSpans = canvasElement.querySelectorAll(
@@ -152,7 +151,9 @@ export const Scaled: Story = {
     await expect(initialsSpans.length).toBe(expectedFontSizes.length);
 
     initialsSpans.forEach((span, index) => {
-      const computedFontSize = parseFloat(getComputedStyle(span).fontSize);
+      const computedFontSize = Number.parseFloat(
+        getComputedStyle(span).fontSize,
+      );
       expect(computedFontSize).toBeCloseTo(expectedFontSizes[index], 1);
     });
   },
