@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useTemplateRef, watch } from "vue";
+import { computed, nextTick, ref, useTemplateRef, watch } from "vue";
 
 import { KdsListItem } from "../../_helper/List/KdsListItem";
 
@@ -20,15 +20,14 @@ const isFocused = ref(false);
 
 const containerEl = useTemplateRef("containerEl");
 
-/** Scroll the active item into view when changed via keyboard */
-watch(activeId, (id) => {
-  if (!id || !containerEl.value) {
+function scrollToView() {
+  if (!activeId.value || !containerEl.value) {
     return;
   }
   containerEl.value
-    ?.querySelector(`#${CSS.escape(id)}`)
+    ?.querySelector(`#${CSS.escape(activeId.value)}`)
     ?.scrollIntoView({ block: "nearest" });
-});
+}
 
 const onMouseLeave = () => {
   if (!isFocused.value) {
@@ -59,6 +58,7 @@ watch(enabledValues, (values) => {
   ) {
     activeId.value = values.length > 0 ? values[0].id : undefined;
   }
+  nextTick(scrollToView);
 });
 
 const findEnabledIndex = (id: string | undefined) =>
@@ -95,6 +95,7 @@ const handleKeydown = (event: KeyboardEvent) => {
           ? 0
           : currentIndex + 1;
       activeId.value = enabledValues.value[nextIndex].id;
+      scrollToView();
       event.preventDefault();
       break;
     }
@@ -102,6 +103,7 @@ const handleKeydown = (event: KeyboardEvent) => {
       const nextIndex =
         currentIndex <= 0 ? enabledValues.value.length - 1 : currentIndex - 1;
       activeId.value = enabledValues.value[nextIndex].id;
+      scrollToView();
       event.preventDefault();
       break;
     }
@@ -125,10 +127,12 @@ const handleKeydown = (event: KeyboardEvent) => {
       break;
     case "Home":
       activeId.value = enabledValues.value[0].id;
+      scrollToView();
       event.preventDefault();
       break;
     case "End":
       activeId.value = enabledValues.value[enabledValues.value.length - 1].id;
+      scrollToView();
       event.preventDefault();
       break;
     default:
