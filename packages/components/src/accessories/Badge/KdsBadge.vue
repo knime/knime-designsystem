@@ -31,11 +31,11 @@ const sizeToIconSize: Record<KdsBadgeSize, KdsIconSize> = {
 
   & .label-wrapper {
     min-width: 0;
+    max-width: var(--kds-dimension-component-width-16x);
     padding: 0 var(--kds-spacing-container-0-12x);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    max-width: var(--kds-dimension-component-width-16x);
   }
 
   &.xxsmall {
