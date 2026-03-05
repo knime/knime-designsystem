@@ -37,7 +37,7 @@ const meta: Meta<typeof KdsListItem> = {
     },
     design: {
       type: "figma",
-      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4703-35266",
+      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4703-35265",
     },
   },
   argTypes: {
@@ -56,6 +56,19 @@ const meta: Meta<typeof KdsListItem> = {
       control: "text",
       description:
         "Two-line subtext shown below the label. When provided, the item renders in multiline mode.",
+      table: { category: "props" },
+    },
+    variant: {
+      control: "radio",
+      options: ["small", "large"],
+      description:
+        "Visual size variant of the list item. Influences accessory/icon sizing, gaps and typography.",
+      table: { category: "props" },
+    },
+    shortcut: {
+      control: "text",
+      description:
+        "Optional shortcut text shown at the end of the row (e.g. 'Ctrl + 1'). Only shown when the item is not selected and not missing.",
       table: { category: "props" },
     },
     accessory: {
@@ -97,6 +110,8 @@ const meta: Meta<typeof KdsListItem> = {
     id: "list-item-1",
     label: "Label",
     subText: undefined,
+    variant: "small",
+    shortcut: undefined,
     accessory: undefined,
     selected: false,
     active: false,
@@ -199,6 +214,20 @@ export const Missing: Story = {
 export const SpecialContent: Story = {
   args: {
     special: true,
+  },
+};
+
+export const Shortcut: Story = {
+  args: {
+    shortcut: "Ctrl + 1",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText("Ctrl + 1")).toBeInTheDocument();
+    await expect(
+      canvasElement.querySelector(".kds-list-item-trailing-item"),
+    ).toBeInTheDocument();
   },
 };
 
@@ -371,9 +400,40 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsListItem,
   wrapperStyle: { width: "316px" },
   designsToCompare: {
-    "Singleline, Unselected": {
+    "Variant, Small (Overview)": {
       props: {
         id: "design-comparator-item",
+        variant: "small",
+        label: "Label",
+        accessory: { type: "dataType", name: "string-datatype" },
+        selected: false,
+        missing: false,
+        disabled: false,
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18026-139128":
+          {},
+      },
+    },
+    "Variant, Large (Overview)": {
+      props: {
+        id: "design-comparator-item",
+        variant: "large",
+        label: "Label",
+        accessory: { type: "dataType", name: "string-datatype" },
+        selected: false,
+        missing: false,
+        disabled: false,
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=15397-26950":
+          {},
+      },
+    },
+    "Small, Singleline": {
+      props: {
+        id: "design-comparator-item",
+        variant: "small",
         label: "Label",
         accessory: { type: "dataType", name: "string-datatype" },
         selected: false,
@@ -382,149 +442,135 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         special: false,
       },
       variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4703-35267":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18026-139129":
           {},
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4703-35270":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18026-139150":
           { parameters: { pseudo: { hover: true } } },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4703-35274":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18026-139171":
           { parameters: { pseudo: { active: true } } },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4703-35278":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18026-139192":
           { disabled: true },
       },
     },
-    "Singleline, Unselected (Special Content)": {
+    "Small, Selected": {
       props: {
         id: "design-comparator-item",
-        label: "Label",
-        selected: false,
-        missing: false,
-        disabled: false,
-        special: true,
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4711-27217":
-          {},
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4711-27225":
-          { parameters: { pseudo: { hover: true } } },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4711-27234":
-          { parameters: { pseudo: { active: true } } },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4711-27243":
-          { disabled: true },
-      },
-    },
-    "Singleline, Selected": {
-      props: {
-        id: "design-comparator-item",
+        variant: "small",
         label: "Label",
         accessory: { type: "dataType", name: "string-datatype" },
         selected: true,
         missing: false,
         disabled: false,
-        special: false,
       },
       variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4703-35282":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18026-139211":
           {},
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4703-35286":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18026-139228":
           { parameters: { pseudo: { hover: true } } },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4703-35290":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18026-139245":
           { parameters: { pseudo: { active: true } } },
       },
     },
-    "Singleline, Unknown Columns Unselected": {
+    "Small, Missing": {
       props: {
         id: "design-comparator-item",
-        label: "Unknown columns",
-        accessory: { type: "dataType", name: "string-datatype" },
-        selected: false,
-        missing: false,
-        disabled: false,
-        special: true,
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=5192-27087":
-          {},
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=5192-31963":
-          { parameters: { pseudo: { hover: true } } },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=5192-31975":
-          { parameters: { pseudo: { active: true } } },
-      },
-    },
-    "Singleline, Unknown Columns Selected": {
-      props: {
-        id: "design-comparator-item",
-        label: "Unknown columns",
-        accessory: { type: "dataType", name: "string-datatype" },
-        selected: true,
-        missing: false,
-        disabled: false,
-        special: true,
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=5950-25418":
-          {},
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=5951-28656":
-          { parameters: { pseudo: { hover: true } } },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=5951-28670":
-          { parameters: { pseudo: { active: true } } },
-      },
-    },
-    "Singleline, Missing": {
-      props: {
-        id: "design-comparator-item",
+        variant: "small",
         label: "Label",
         accessory: { type: "dataType", name: "unknown-datatype" },
         selected: false,
         missing: true,
         disabled: false,
-        special: false,
       },
       variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4703-35294":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18047-187599":
           {},
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4703-35298":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18047-187616":
           { parameters: { pseudo: { hover: true } } },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4703-35302":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18047-187633":
           { parameters: { pseudo: { active: true } } },
       },
     },
-    "Singleline, Missing (Special Content)": {
+    "Large, Singleline": {
       props: {
         id: "design-comparator-item",
+        variant: "large",
         label: "Label",
-        selected: false,
-        missing: true,
-        disabled: false,
-        special: true,
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4711-28198":
-          {},
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4711-28209":
-          { parameters: { pseudo: { hover: true } } },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4711-28220":
-          { parameters: { pseudo: { active: true } } },
-      },
-    },
-    "Singleline, Overflow": {
-      props: {
-        id: "design-comparator-item",
-        label: "Label that is very very very long and needs space",
+        accessory: { type: "dataType", name: "string-datatype" },
         selected: false,
         missing: false,
         disabled: false,
-        special: false,
       },
       variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=16020-80680":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18047-188099":
           {},
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=15989-20450":
-          { accessory: dataTypeAccessory },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18047-188091":
+          { parameters: { pseudo: { hover: true } } },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18047-188083":
+          { parameters: { pseudo: { active: true } } },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18047-188076":
+          { disabled: true },
       },
     },
-    "Multiline, Default": {
+    "Large, Selected": {
       props: {
         id: "design-comparator-item",
+        variant: "large",
+        label: "Label",
+        accessory: { type: "dataType", name: "string-datatype" },
+        selected: true,
+        missing: false,
+        disabled: false,
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18047-188127":
+          {},
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18047-188135":
+          { parameters: { pseudo: { hover: true } } },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18047-188143":
+          { parameters: { pseudo: { active: true } } },
+      },
+    },
+    "Large, Missing": {
+      props: {
+        id: "design-comparator-item",
+        variant: "large",
+        label: "Label",
+        accessory: { type: "dataType", name: "unknown-datatype" },
+        selected: false,
+        missing: true,
+        disabled: false,
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18047-188223":
+          {},
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18047-188233":
+          { parameters: { pseudo: { hover: true } } },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18047-188243":
+          { parameters: { pseudo: { active: true } } },
+      },
+    },
+    "Small, Multiline": {
+      props: {
+        id: "design-comparator-item",
+        variant: "small",
+        label: "Label",
+        subText: "{Subtext}",
+        accessory: { type: "dataType", name: "string-datatype" },
+        selected: false,
+        missing: false,
+        disabled: false,
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18026-139139":
+          {},
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18026-139160":
+          { parameters: { pseudo: { hover: true } } },
+      },
+    },
+    "Large, Multiline": {
+      props: {
+        id: "design-comparator-item",
+        variant: "large",
         label: "Label",
         subText: "Here is a description that can be maximum 2 lines long",
         accessory: { type: "avatar", initials: "FV" },
@@ -537,64 +583,6 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           {},
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=15397-26962":
           { parameters: { pseudo: { hover: true } } },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=15397-26970":
-          { parameters: { pseudo: { active: true } } },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=15397-26978":
-          { disabled: true },
-      },
-    },
-    "Multiline, Selected": {
-      props: {
-        id: "design-comparator-item",
-        label: "Label",
-        subText: "Here is a description that can be maximum 2 lines long",
-        accessory: { type: "avatar", initials: "FV" },
-        selected: true,
-        missing: false,
-        disabled: false,
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=15397-26986":
-          {},
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=15397-26993":
-          { parameters: { pseudo: { hover: true } } },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=15397-27000":
-          { parameters: { pseudo: { active: true } } },
-      },
-    },
-    "Multiline, Missing": {
-      props: {
-        id: "design-comparator-item",
-        label: "Label",
-        subText: "Here is a description that can be maximum 2 lines long",
-        accessory: { type: "avatar", initials: "FV" },
-        selected: false,
-        missing: true,
-        disabled: false,
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=16020-80764":
-          {},
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=16020-80755":
-          { parameters: { pseudo: { hover: true } } },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=16020-80746":
-          { parameters: { pseudo: { active: true } } },
-      },
-    },
-    "Multiline, Overflow": {
-      props: {
-        id: "design-comparator-item",
-        label: "Title that is super very long and needs much space more",
-        subText:
-          "Here is a description that can be maximum 2 lines long and if its longer than it gets truncated to not break the layout, so keep it short",
-        accessory: { type: "avatar", initials: "FV" },
-        selected: false,
-        missing: false,
-        disabled: false,
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=15989-67742":
-          {},
       },
     },
   },
@@ -605,12 +593,14 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   combinationsProps: [
     {
       id: ["item"],
+      variant: ["small", "large"],
       selected: [false, true],
       label: ["Label"],
       subText: [
         undefined,
         "Subtext that is long enough to overflow and should be clamped to two lines in the UI to prevent the row height from expanding.",
       ],
+      shortcut: [undefined, "Ctrl + 1"],
       accessory: [
         undefined,
         iconAccessory,
@@ -626,12 +616,14 @@ export const AllCombinations: Story = buildAllCombinationsStory({
     },
     {
       id: ["item"],
+      variant: ["small", "large"],
       selected: [false],
       label: ["Label"],
       subText: [
         undefined,
         "Subtext that is long enough to overflow and should be clamped to two lines in the UI to prevent the row height from expanding.",
       ],
+      shortcut: [undefined],
       accessory: [
         undefined,
         iconAccessory,

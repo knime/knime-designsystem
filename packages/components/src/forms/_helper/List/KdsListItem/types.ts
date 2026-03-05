@@ -13,6 +13,12 @@ export type KdsListItemProps = {
   /** Two-line subtext shown below the label. When provided, the item renders in multiline mode. */
   subText?: string;
 
+  /** Visual size variant of the list item. Influences accessory/icon sizing, gaps and typography. */
+  variant?: "small" | "large";
+
+  /** Optional shortcut text shown at the end of the row (e.g. "Ctrl + 1"). Only shown when the item is not selected and not missing. */
+  shortcut?: string;
+
   /** Applies "special content" styling (used when the content is not a standard data field). Only applies in singleline mode. */
   special?: boolean;
 

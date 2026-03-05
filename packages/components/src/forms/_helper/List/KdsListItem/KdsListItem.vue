@@ -10,6 +10,8 @@ import type { KdsListItemProps } from "./types.ts";
 const props = withDefaults(defineProps<KdsListItemProps>(), {
   accessory: undefined,
   subText: undefined,
+  variant: "small",
+  shortcut: undefined,
   special: false,
   selected: false,
   active: false,
@@ -22,6 +24,12 @@ const emit = defineEmits<{
 }>();
 
 const isMultiline = computed(() => props.subText !== undefined);
+const hasShortcut = computed(
+  () => props.shortcut !== undefined && !props.selected && !props.missing,
+);
+const accessorySize = computed(() =>
+  props.variant === "large" ? "large" : "small",
+);
 
 const onClick = (event: MouseEvent) => {
   if (props.disabled) {
@@ -47,8 +55,9 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
     :aria-disabled="props.disabled"
     :class="[
       'kds-list-item',
-      isMultiline ? 'large' : 'small',
+      props.variant,
       {
+        multiline: isMultiline,
         selected: props.selected,
         active: props.active,
         missing: props.missing,
@@ -57,28 +66,28 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
     ]"
     @click="onClick"
   >
-    <div
-      :class="
-        isMultiline ? 'kds-list-item-multiline' : 'kds-list-item-singleline'
-      "
-    >
+    <div class="kds-list-item-wrapper">
       <ListItemAccessory
         v-if="props.accessory"
         :accessory="props.accessory"
-        size="small"
+        :size="accessorySize"
       />
 
       <!-- Singleline layout -->
       <template v-if="!isMultiline">
-        <span v-if="props.missing" class="kds-list-item-missing-prefix">
-          (Missing)
-        </span>
-        <span
-          ref="labelEl"
-          :class="{ 'kds-list-item-label': true, special: props.special }"
-          :title="isLabelTruncated ? props.label : undefined"
-        >
-          {{ props.label }}
+        <span class="kds-list-item-content-singleline">
+          <span class="kds-list-item-title-singleline">
+            <span v-if="props.missing" class="kds-list-item-missing-prefix">
+              (Missing)
+            </span>
+            <span
+              ref="labelEl"
+              :class="{ 'kds-list-item-label': true, special: props.special }"
+              :title="isLabelTruncated ? props.label : undefined"
+            >
+              {{ props.label }}
+            </span>
+          </span>
         </span>
       </template>
 
@@ -102,6 +111,12 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
           :title="isSubtitleTruncated ? props.subText : undefined"
         >
           {{ props.subText }}
+        </span>
+      </span>
+
+      <span v-if="hasShortcut" class="kds-list-item-trailing-item">
+        <span class="kds-list-item-shortcut">
+          {{ props.shortcut }}
         </span>
       </span>
 
@@ -130,14 +145,7 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
   list-style: none;
   background: var(--kds-color-background-neutral-initial);
   border: none;
-
-  &.small {
-    border-radius: var(--kds-border-radius-container-0-25x);
-  }
-
-  &.large {
-    border-radius: var(--kds-border-radius-container-0-31x);
-  }
+  border-radius: var(--kds-border-radius-container-0-31x);
 
   &.disabled {
     color: var(--kds-color-text-and-icon-disabled);
@@ -193,40 +201,61 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
   }
 }
 
-.kds-list-item-singleline {
-  display: flex;
-  gap: var(--kds-spacing-container-0-25x);
-  align-items: center;
-  width: 100%;
-  min-height: var(--kds-dimension-component-height-1-5x);
-  padding: 0 var(--kds-spacing-container-0-5x);
-  font: var(--kds-font-base-interactive-small);
-
-  .kds-list-item-missing-prefix {
-    flex-shrink: 0;
-  }
-
-  .kds-list-item-label {
-    flex: 1 1 auto;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font: inherit;
-    white-space: nowrap;
-
-    &.special {
-      font: var(--kds-font-base-interactive-small-italic);
-    }
-  }
-}
-
-.kds-list-item-multiline {
+.kds-list-item-wrapper {
   display: flex;
   gap: var(--kds-spacing-container-0-5x);
   align-items: center;
   width: 100%;
   min-height: var(--kds-dimension-component-height-2-5x);
   padding: var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-5x);
+}
+
+.kds-list-item.small {
+  font: var(--kds-font-base-interactive-small);
+  border-radius: var(--kds-border-radius-container-0-25x);
+}
+
+.kds-list-item.small:not(.multiline) .kds-list-item-wrapper {
+  gap: var(--kds-spacing-container-0-25x);
+  min-height: var(--kds-dimension-component-height-1-5x);
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.kds-list-item.large {
+  font: var(--kds-font-base-interactive-small-strong);
+}
+
+.kds-list-item-content-singleline {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  min-width: 0;
+}
+
+.kds-list-item-title-singleline {
+  display: flex;
+  flex: 1 1 auto;
+  gap: var(--kds-spacing-container-0-12x);
+  align-items: center;
+  min-width: 0;
+}
+
+.kds-list-item-missing-prefix {
+  flex-shrink: 0;
+}
+
+.kds-list-item-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font: inherit;
+  white-space: nowrap;
+
+  &.special {
+    font: var(--kds-font-base-interactive-small-italic);
+  }
 }
 
 .kds-list-item-content {
@@ -240,7 +269,7 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
 .kds-list-item-title {
   overflow: hidden;
   text-overflow: ellipsis;
-  font: var(--kds-font-base-interactive-small-strong);
+  font: inherit;
   white-space: nowrap;
 
   .kds-list-item-missing-prefix {
@@ -255,5 +284,26 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
   line-clamp: 2;
   font: var(--kds-font-base-subtext-small);
   -webkit-box-orient: vertical;
+}
+
+.kds-list-item-trailing-item {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: flex-end;
+  color: var(--kds-color-text-and-icon-muted);
+}
+
+.kds-list-item-shortcut {
+  width: var(--kds-dimension-component-width-2-25x);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font: var(--kds-font-base-interactive-xsmall-strong);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.kds-list-item.disabled .kds-list-item-trailing-item {
+  color: var(--kds-color-text-and-icon-disabled);
 }
 </style>
