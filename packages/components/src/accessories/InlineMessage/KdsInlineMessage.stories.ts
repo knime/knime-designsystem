@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
 import {
+  buildAllCombinationsStory,
   buildDesignComparatorStory,
   buildTextOverflowStory,
 } from "../../test-utils/storybook";
@@ -33,11 +34,19 @@ const meta: Meta<typeof KdsInlineMessage> = {
     variant: {
       control: { type: "select" },
       options: kdsInlineMessageVariants,
+      description: "Visual style / status of the inline message.",
+      table: {
+        category: "Props",
+        type: { summary: kdsInlineMessageVariants.join(" | ") },
+        defaultValue: { summary: "info" },
+      },
     },
 
     title: {
       control: "text",
-      description: "Tooltip text shown on hover and aria label (if provided).",
+      description:
+        "Title text displayed before the message content inside the inline message.",
+
       table: { category: "Props" },
     },
     message: {
@@ -49,44 +58,10 @@ const meta: Meta<typeof KdsInlineMessage> = {
   args: {
     variant: "info",
     title: "Title",
-    message: "Here is a message that informs the user about something",
+    message: undefined,
   },
 };
 export default meta;
-
-export const Playground: Story = {
-  // No args here - uses meta.args and allows full control editing
-};
-
-export const AllVariants: Story = {
-  render: () => ({
-    components: { KdsInlineMessage },
-    template: `
-      <div style="display: flex; flex-direction: column; gap: 16px; width: 100%;">
-        <KdsInlineMessage 
-          variant="info" 
-          title="Info" 
-          message="Here is a message that informs the user about something"
-        />
-        <KdsInlineMessage 
-          variant="success" 
-          title="Success" 
-          message="Here is a message that informs the user about something"
-        />
-        <KdsInlineMessage 
-          variant="error" 
-          title="Error" 
-          message="Here is a message that informs the user about something"
-        />
-        <KdsInlineMessage 
-          variant="warning" 
-          title="Warning" 
-          message="Here is a message that informs the user about something"
-        />
-      </div>
-    `,
-  }),
-};
 
 export const Info: Story = {
   args: {
@@ -151,9 +126,9 @@ export const TextOverflow: Story = {
   }),
   args: {
     title:
-      "This is a very long title that should overflow and be truncated with an ellipsis",
+      "This is a very long title that should overflow, This is a very long title that should overflow ",
     message:
-      "This is a very long message that should overflow and be truncated with an ellipsis at the end",
+      "This is a very long message that should overflow, This is a very long message that should overflow ",
   },
 };
 
@@ -178,14 +153,17 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   },
 });
 
-// export const AllCombinations: Story = buildAllCombinationsStory({
-//   component: KdsInlineMessage,
-//   combinationsProps: [
-//     {
-//       initials: ["FV"],
-//       src: [undefined, demoUserImage, demoKnimeLogo, "/broken"],
-//       title: [undefined],
-//     },
-//   ],
-//   pseudoStates: [], // no interactive states for this presentational component
-// });
+export const AllCombinations: Story = buildAllCombinationsStory({
+  component: KdsInlineMessage,
+  combinationsProps: [
+    {
+      variant: kdsInlineMessageVariants,
+      title: ["Title", "A longer inline message title"],
+      message: [
+        undefined,
+        "Here is a message that informs the user about something",
+      ],
+    },
+  ],
+  pseudoStates: [], // no interactive states for this presentational component
+});
