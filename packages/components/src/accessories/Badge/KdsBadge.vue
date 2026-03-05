@@ -30,6 +30,7 @@ const sizeToIconSize: Record<KdsBadgeSize, KdsIconSize> = {
   border-radius: var(--kds-border-radius-container-pill);
 
   & .label-wrapper {
+    min-width: 0;
     padding: 0 var(--kds-spacing-container-0-12x);
     overflow: hidden;
     text-overflow: ellipsis;

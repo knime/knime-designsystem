@@ -58,6 +58,11 @@ const meta: Meta<typeof KdsBadge> = {
       table: { category: "props" },
     },
   },
+};
+
+export default meta;
+
+export const Default: Story = {
   args: {
     variant: "neutral",
     label: "Badge",
@@ -65,14 +70,7 @@ const meta: Meta<typeof KdsBadge> = {
   },
 };
 
-export default meta;
-
-export const Default: Story = {};
-
 export const WithIcon: Story = {
-  parameters: {
-    docs: false,
-  },
   args: {
     variant: "neutral",
     label: "Badge",
