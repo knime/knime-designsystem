@@ -1,5 +1,3 @@
-import type { ComponentPublicInstance, MaybeRef } from "vue";
-
 import { kdsPopoverPlacement, kdsPopoverRole } from "./enums";
 
 export type KdsPopoverPlacement =
@@ -9,20 +7,6 @@ export type KdsPopoverRole =
   (typeof kdsPopoverRole)[keyof typeof kdsPopoverRole];
 
 export type KdsPopoverProps = {
-  /**
-   * Reference to the activator element (typically a button element).
-   *
-   * Can be an HTMLElement or a Vue component instance.
-   */
-  activatorEl: MaybeRef<HTMLElement | ComponentPublicInstance | null>;
-
-  /**
-   * Optional reference to the anchor element used for positioning.
-   *
-   * Defaults to `activatorEl`.
-   */
-  anchorEl?: MaybeRef<HTMLElement | ComponentPublicInstance | null>;
-
   /**
    * Placement of the popover relative to the anchor element.
    *
@@ -59,4 +43,17 @@ export type KdsPopoverProps = {
    * Optional content rendered when no default slot is provided.
    */
   content?: string;
+};
+
+export type KdsPopoverExpose = {
+  /**
+   * Ready-to-use inline style object (`{ "anchor-name": "..." }`) to apply
+   * on the anchor/activator element via `:style="popoverRef?.anchorStyle"`.
+   */
+  anchorStyle: Record<string, string>;
+
+  /**
+   * The popover element's ID. Use for `aria-controls` on the activator.
+   */
+  popoverId: string;
 };

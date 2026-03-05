@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import type { ComponentPublicInstance } from "vue";
-import { onBeforeUnmount, unref, useId, useTemplateRef, watch } from "vue";
+import { useId, useTemplateRef, watchEffect } from "vue";
 
-import type { KdsPopoverProps } from "./types";
+import type { KdsPopoverExpose, KdsPopoverProps } from "./types";
 
 const props = withDefaults(defineProps<KdsPopoverProps>(), {
   placement: "bottom-left",
@@ -16,84 +15,18 @@ const popoverEl = useTemplateRef("popoverEl");
 const popoverId = useId();
 const anchorName = `--anchor-${popoverId}`;
 
-const resolveElement = (
-  el: HTMLElement | ComponentPublicInstance | null | undefined,
-): HTMLElement | null => {
-  if (!el) {
-    return null;
-  }
-
-  const maybeInstance = el as ComponentPublicInstance & { $el?: unknown };
-  const candidate = maybeInstance.$el ?? el;
-
-  return candidate instanceof HTMLElement ? candidate : null;
-};
-
-const setA11yAttributes = (
-  el: HTMLElement | null,
-  options: { expanded: boolean; popoverId: string } | null,
-) => {
-  if (!el) {
-    return;
-  }
-
-  if (options === null) {
-    el.removeAttribute("aria-expanded");
-    el.removeAttribute("aria-controls");
-    el.removeAttribute("aria-haspopup");
-    return;
-  }
-
-  el.setAttribute("aria-expanded", String(options.expanded));
-  el.setAttribute("aria-controls", options.popoverId);
-  el.setAttribute("aria-haspopup", props.role);
-};
-
 // Sync the open state with the native popover element's open state
-watch(open, (isOpen) => {
-  if (isOpen) {
+watchEffect(() => {
+  if (open.value) {
     popoverEl.value?.showPopover?.();
   } else {
     popoverEl.value?.hidePopover?.();
   }
-
-  const activatorElement = resolveElement(unref(props.activatorEl));
-  activatorElement?.setAttribute("aria-expanded", String(isOpen));
 });
 
-watch(
-  () => [unref(props.anchorEl), unref(props.activatorEl)],
-  ([nextAnchorEl, nextActivatorEl], prev) => {
-    const [prevAnchorEl, prevActivatorEl] = prev ?? [null, null];
+const anchorStyle = { "anchor-name": anchorName };
 
-    const prevAnchor =
-      resolveElement(prevAnchorEl ?? null) ?? resolveElement(prevActivatorEl);
-    prevAnchor?.style.removeProperty("anchor-name");
-
-    // Clean up a11y attributes from previous activator
-    const prevActivator = resolveElement(prevActivatorEl);
-    setA11yAttributes(prevActivator, null);
-
-    const nextAnchor =
-      resolveElement(nextAnchorEl ?? null) ?? resolveElement(nextActivatorEl);
-    nextAnchor?.style.setProperty("anchor-name", anchorName);
-
-    // Set a11y attributes on new activator
-    const nextActivator = resolveElement(nextActivatorEl);
-    setA11yAttributes(nextActivator, { expanded: open.value, popoverId });
-  },
-  { immediate: true },
-);
-
-onBeforeUnmount(() => {
-  const anchor =
-    resolveElement(unref(props.anchorEl) ?? null) ??
-    resolveElement(unref(props.activatorEl));
-  anchor?.style.removeProperty("anchor-name");
-
-  const activator = resolveElement(unref(props.activatorEl));
-  setA11yAttributes(activator, null);
-});
+defineExpose<KdsPopoverExpose>({ anchorStyle, popoverId });
 </script>
 
 <template>
@@ -102,7 +35,7 @@ onBeforeUnmount(() => {
     ref="popoverEl"
     class="kds-popover"
     :class="['floating', props.placement, { 'full-width': props.fullWidth }]"
-    :popover="unref(props.activatorEl) ? 'auto' : undefined"
+    popover="auto"
     :style="{ 'position-anchor': anchorName }"
     :role="props.role"
     :aria-label="props.popoverAriaLabel"
