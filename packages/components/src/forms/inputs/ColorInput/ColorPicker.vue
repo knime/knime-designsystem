@@ -32,6 +32,14 @@ const hueEl = ref<HTMLElement | null>(null);
 const hue = ref(DEFAULT_HUE_DEG);
 const saturation = ref(DEFAULT_SATURATION);
 const value = ref(DEFAULT_VALUE);
+/**
+ * This flag is used to prevent feedback loops when updating the internal HSV state from the external modelValue.
+ * When the user updates the color using the UI, we first set this flag to indicate that the next modelValue update is
+ * coming from an internal change, so the watcher should ignore it.
+ * Without this flag, updating the color would adapt the position of the handle (i.e. the handle jumps), because the
+ * same color can occur in multiple places in the color space.
+ */
+const hasPendingInternalModelUpdate = ref(false);
 
 const syncFromModelValue = (next: string) => {
   const rgb = hexToRgb(next);
@@ -48,6 +56,11 @@ const syncFromModelValue = (next: string) => {
 watch(
   () => modelValue.value,
   (next) => {
+    if (hasPendingInternalModelUpdate.value) {
+      hasPendingInternalModelUpdate.value = false;
+      return;
+    }
+
     syncFromModelValue(next);
   },
   { immediate: true },
@@ -63,10 +76,12 @@ const currentHex = computed(() =>
 
 const hueRgb = computed(() => hsvToRgb({ h: hue.value, s: 1, v: 1 }));
 
+const TO_BOTTOM_GRADIENT = "linear-gradient(to bottom, transparent, black)";
+
 const colorspaceBackground = computed(() => {
   const { r, g, b } = hueRgb.value;
   return {
-    backgroundImage: `linear-gradient(90deg, rgba(${r}, ${g}, ${b}, 0) 0%, rgb(${r}, ${g}, ${b}) 100%), linear-gradient(0deg, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%)`,
+    background: `${TO_BOTTOM_GRADIENT}, linear-gradient(to right, white, rgb(${r}, ${g}, ${b}))`,
   };
 });
 
@@ -80,6 +95,7 @@ const hueHandleStyle = computed(() => ({
 }));
 
 const setModelValueFromHsv = () => {
+  hasPendingInternalModelUpdate.value = true;
   modelValue.value = currentHex.value;
 };
 
@@ -179,12 +195,17 @@ const updateFromTextValue = (next: string) => {
 const clamp = (val: number, min: number, max: number) =>
   Math.min(max, Math.max(min, val));
 
+const saturationPercent = computed(() =>
+  Math.round(saturation.value * PERCENT),
+);
+const valuePercent = computed(() => Math.round(value.value * PERCENT));
+
 const colorspaceValueText = computed(
   () =>
-    `Saturation ${Math.round(saturation.value * PERCENT)}%, Brightness ${Math.round(value.value * PERCENT)}%`,
+    `Saturation ${saturationPercent.value} percent, brightness ${valuePercent.value} percent`,
 );
 
-const hueValueText = computed(() => `${Math.round(hue.value)}°`);
+const hueValueText = computed(() => `${Math.round(hue.value)} degrees`);
 
 const onColorspaceKeyDown = (event: KeyboardEvent) => {
   const step = event.shiftKey ? KEYBOARD_LARGE_STEP : KEYBOARD_STEP;
@@ -246,15 +267,15 @@ const onHueKeyDown = (event: KeyboardEvent) => {
       aria-label="Color selection"
       aria-roledescription="2D color slider"
       :aria-valuetext="colorspaceValueText"
-      tabindex="0"
       :style="colorspaceBackground"
+      tabindex="0"
       @pointerdown.prevent="onColorspacePointerDown"
       @pointermove.prevent="onColorspacePointerMove"
       @pointerup="onColorspacePointerUp"
       @pointercancel="onColorspacePointerUp"
       @keydown="onColorspaceKeyDown"
     >
-      <div class="colorspace-handle" :style="colorspaceHandleStyle" />
+      <div class="handle" :style="colorspaceHandleStyle" />
     </div>
 
     <div
@@ -273,7 +294,7 @@ const onHueKeyDown = (event: KeyboardEvent) => {
       @pointercancel="onHuePointerUp"
       @keydown="onHueKeyDown"
     >
-      <div class="hue-handle" :style="hueHandleStyle" />
+      <div class="handle" :style="hueHandleStyle" />
     </div>
 
     <KdsTextInput
@@ -306,18 +327,14 @@ const onHueKeyDown = (event: KeyboardEvent) => {
   border-radius: var(--kds-border-radius-container-0-37x);
 }
 
-.colorspace:focus-visible {
-  outline: var(--kds-border-action-focused);
-  outline-offset: var(--kds-spacing-offset-focus);
-}
-
-.colorspace-handle {
+.handle {
   position: absolute;
   width: var(--kds-dimension-icon-0-75x);
   height: var(--kds-dimension-icon-0-75x);
   pointer-events: none;
-  border: var(--kds-border-node-status-empty);
-  border-radius: 50%;
+  border: var(--kds-border-color-picker-handle-initial);
+  border-radius: var(--kds-border-radius-container-pill);
+  box-shadow: var(--kds-elevation-level-3);
   transform: translate(-50%, -50%);
 }
 
@@ -337,24 +354,23 @@ const onHueKeyDown = (event: KeyboardEvent) => {
     hsl(300deg 100% 50%) 83%,
     hsl(360deg 100% 50%) 100%
   );
-  border-radius: 100px;
+  border-radius: var(--kds-border-radius-container-pill);
+
+  & .handle {
+    top: 50%;
+  }
 }
 
-.hue:focus-visible {
+.colorspace:focus,
+.hue:focus {
+  outline: none;
+}
+
+.colorspace:focus .handle,
+.colorspace:focus-visible .handle,
+.hue:focus .handle,
+.hue:focus-visible .handle {
   outline: var(--kds-border-action-focused);
-  outline-offset: var(--kds-spacing-offset-focus);
-}
-
-.hue-handle {
-  position: absolute;
-  top: 50%;
-  width: var(--kds-dimension-icon-0-75x);
-  height: var(--kds-dimension-icon-0-75x);
-  pointer-events: none;
-  background: var(--kds-color-surface-default);
-  border: var(--kds-border-node-status-empty);
-  border-radius: 50%;
-  box-shadow: var(--kds-elevation-level-3);
-  transform: translate(-50%, -50%);
+  outline-offset: calc(-1 * var(--kds-spacing-offset-focus));
 }
 </style>

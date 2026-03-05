@@ -32,60 +32,60 @@ const meta: Meta<typeof KdsColorInput> = {
     modelValue: {
       control: "text",
       description: "v-model binding for the hex color value",
-      table: { category: "Model" },
+      table: { category: "model" },
     },
     ariaLabel: {
       control: "text",
       description: "Accessible label used when no visible label is rendered",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     label: {
       control: "text",
       description: "Label shown above the input",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     placeholder: {
       control: "text",
       description: "Placeholder shown when the input is empty",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     name: {
       control: "text",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     autocomplete: {
       control: "text",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     subText: {
       control: "text",
       description: "Helper text or error message shown below the input",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     disabled: {
       control: "boolean",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     readonly: {
       control: "boolean",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     required: {
       control: "boolean",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     error: {
       control: "boolean",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     validating: {
       control: "boolean",
       description: "Shows a spinner next to the subtext when true",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     preserveSubTextSpace: {
       control: "boolean",
-      table: { category: "Props" },
+      table: { category: "props" },
     },
   },
   args: {
