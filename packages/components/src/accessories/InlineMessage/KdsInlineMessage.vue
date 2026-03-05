@@ -56,13 +56,13 @@ const iconName = computed(() => {
     var(--kds-spacing-container-0-5x) - var(--kds-core-border-width-xs)
   ); /* needed as border in Figma is not increasing the width */
 
+  color: var(--kds-color-text-and-icon-neutral);
   border-radius: var(--kds-border-radius-container-0-50x);
 
   .header {
     display: flex;
     gap: var(--kds-spacing-container-0-25x);
     align-items: flex-start;
-    width: 100%;
 
     .icons {
       align-self: center;
@@ -72,18 +72,19 @@ const iconName = computed(() => {
 
   .title {
     font: var(--kds-font-base-title-small-strong);
-    color: var(--kds-color-text-and-icon-neutral);
+    line-height: 14px; /* token defines 130% is 15,6 pixel */
   }
 
   .message {
     align-self: stretch;
     font: var(--kds-font-base-body-small);
-    color: var(--kds-color-text-and-icon-neutral);
+    line-height: 14px; /* token defines 130% is 15,6 pixel */
   }
 
   .body {
-    width: 100%;
-    padding-right: var(--kds-spacing-container-0-75x);
+    padding-right: var(
+      --kds-spacing-container-0-75x
+    ); /* not defined in figma */
     padding-left: var(--kds-spacing-container-1x);
   }
 
