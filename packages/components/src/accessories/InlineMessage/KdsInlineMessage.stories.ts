@@ -139,18 +139,17 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       props: {
         title: "Title",
         message: "Here is a message that informs the user about something",
-        variant: "error",
       },
       variants: {
         [`${figmaBaseUrl}?node-id=3870-16219`]: {},
         [`${figmaBaseUrl}?node-id=11984-102908`]: {
           title: "Title",
           message: undefined,
-          variant: "error",
         },
       },
     },
   },
+  wrapperStyle: "width: 100%;",
 });
 
 export const AllCombinations: Story = buildAllCombinationsStory({
