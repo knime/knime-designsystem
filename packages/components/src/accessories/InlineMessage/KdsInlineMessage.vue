@@ -26,10 +26,14 @@ const iconName = computed(() => {
       return "circle-info";
   }
 });
+
+const role = computed(() =>
+  props.variant === "warning" || props.variant === "error" ? "alert" : "status",
+);
 </script>
 
 <template>
-  <div :class="classes">
+  <div :class="classes" :role="role">
     <div class="header">
       <KdsIcon class="icon" :name="iconName" size="small" />
       <div class="title">
