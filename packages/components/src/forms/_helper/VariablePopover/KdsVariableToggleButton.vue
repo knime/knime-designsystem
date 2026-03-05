@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<KdsVariableToggleButtonProps>(), {
 });
 
 const modelValue = defineModel<boolean>({ default: false });
-const buttonEl = useTemplateRef("buttonEl");
+const popoverEl = useTemplateRef("popoverEl");
 const isHovered = ref(false);
 const isFocused = ref(false);
 
@@ -77,7 +77,6 @@ const title = computed(() => {
 
 <template>
   <button
-    ref="buttonEl"
     v-bind="$attrs"
     :class="{
       'variable-toggle-button': true,
@@ -88,6 +87,10 @@ const title = computed(() => {
     :title="title"
     :aria-label="title"
     :aria-pressed="modelValue"
+    :aria-expanded="modelValue"
+    :aria-controls="popoverEl?.popoverId"
+    aria-haspopup="dialog"
+    :style="popoverEl?.anchorStyle"
     type="button"
     @click="modelValue = !modelValue"
     @mouseenter="isHovered = true"
@@ -99,8 +102,8 @@ const title = computed(() => {
   </button>
 
   <KdsPopover
+    ref="popoverEl"
     v-model="modelValue"
-    :activator-el="buttonEl"
     placement="bottom-right"
     popover-aria-label="Flow Variable settings"
   >

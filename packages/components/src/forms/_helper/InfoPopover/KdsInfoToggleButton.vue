@@ -18,14 +18,13 @@ const props = withDefaults(defineProps<KdsInfoToggleButtonProps>(), {
 const TITLE = "Click for more information";
 
 const modelValue = defineModel<boolean>({ default: false });
-const buttonEl = useTemplateRef("buttonEl");
+const popoverEl = useTemplateRef("popoverEl");
 const isHovered = ref(false);
 const isFocused = ref(false);
 </script>
 
 <template>
   <button
-    ref="buttonEl"
     v-bind="$attrs"
     :class="{
       'info-toggle-button': true,
@@ -35,6 +34,10 @@ const isFocused = ref(false);
     :title="TITLE"
     :aria-label="TITLE"
     :aria-pressed="modelValue"
+    :aria-expanded="modelValue"
+    :aria-controls="popoverEl?.popoverId"
+    aria-haspopup="dialog"
+    :style="popoverEl?.anchorStyle"
     type="button"
     @click="modelValue = !modelValue"
     @mouseenter="isHovered = true"
@@ -46,8 +49,8 @@ const isFocused = ref(false);
   </button>
 
   <KdsPopover
+    ref="popoverEl"
     v-model="modelValue"
-    :activator-el="buttonEl"
     placement="top-right"
     popover-aria-label="Description"
   >

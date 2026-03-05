@@ -16,12 +16,6 @@ const meta: Meta<typeof KdsPopover> = {
       control: { type: "boolean" },
       table: { category: "model" },
     },
-    activatorEl: {
-      control: false,
-    },
-    anchorEl: {
-      control: false,
-    },
     placement: {
       control: { type: "select" },
       options: kdsPopoverPlacements,
@@ -55,8 +49,6 @@ const meta: Meta<typeof KdsPopover> = {
   },
   args: {
     modelValue: false,
-    activatorEl: null,
-    anchorEl: null,
     content: "This is a basic popover example.",
     placement: "bottom-left",
     role: "dialog",
@@ -71,10 +63,13 @@ const meta: Meta<typeof KdsPopover> = {
 KdsPopover provides default KDS surface styling when using the \`content\` prop.
 For custom content, use the default slot.
 
-Automatically sets the following a11y attributes on the activatorEl:
-- \`aria-expanded\` – synced with the open state
-- \`aria-controls\` – points to the popover's ID
-- \`aria-haspopup\` – indicates the element controls a popup
+Exposes \`anchorStyle\` and \`popoverId\` so the consumer can declaratively set
+anchor positioning and a11y attributes on the activator element:
+
+- \`:style="popoverRef?.anchorStyle"\` – sets the CSS \`anchor-name\`
+- \`:aria-controls="popoverRef?.popoverId"\` – links activator to popover
+- \`:aria-expanded="open"\` – synced with the open state
+- \`aria-haspopup="dialog"\` – indicates the element controls a popup
 
 Sample usage:
 \`\`\`vue
@@ -83,19 +78,22 @@ import { ref, useTemplateRef } from "vue";
 import { KdsPopover, KdsToggleButton } from "@knime/kds-components";
 
 const isOpen = ref(false);
-const activatorEl = useTemplateRef("activatorEl");
+const popoverRef = useTemplateRef("popoverRef");
 </script>
 
 <template>
   <KdsToggleButton
-    ref="activatorEl"
     v-model="isOpen"
     label="Toggle popover"
+    :style="popoverRef?.anchorStyle"
+    :aria-controls="popoverRef?.popoverId"
+    :aria-expanded="isOpen"
+    aria-haspopup="dialog"
   />
 
   <KdsPopover
+    ref="popoverRef"
     v-model="isOpen"
-    :activator-el="activatorEl"
     popover-aria-label="My popover"
   >
     ...custom popover content here...
@@ -120,21 +118,24 @@ export const Default: Story = {
   render: (args) => ({
     components: { KdsToggleButton, KdsPopover },
     setup() {
-      const activatorEl = useTemplateRef("activatorEl");
-      return { args, activatorEl };
+      const popoverRef = useTemplateRef("popoverRef");
+      return { args, popoverRef };
     },
     template: `
       <KdsToggleButton
-        ref="activatorEl"
         v-model="args.modelValue"
         label="Toggle popover"
         variant="outlined"
+        :style="popoverRef?.anchorStyle"
+        :aria-controls="popoverRef?.popoverId"
+        :aria-expanded="args.modelValue"
+        aria-haspopup="dialog"
         data-testid="toggle-button"
       />
 
       <KdsPopover
+        ref="popoverRef"
         v-model="args.modelValue"
-        :activator-el="activatorEl"
         :placement="args.placement"
         :content="args.content"
         :role="args.role"
@@ -155,12 +156,12 @@ export const Default: Story = {
     // Popover should have the accessible label from the popoverAriaLabel prop
     await expect(popover).toHaveAttribute("aria-label", "Popover");
 
-    // Activator (which is also the anchor) should have correct a11y attributes
+    // Activator should have correct a11y attributes
     expect(toggleButton).toHaveAttribute("aria-haspopup", "dialog");
     expect(toggleButton).toHaveAttribute("aria-controls", popover.id);
     expect(toggleButton).toHaveAttribute("aria-expanded", "false");
 
-    // Activator (which is also the anchor) should have CSS anchor-name set
+    // Activator should have CSS anchor-name set via anchorStyle
     expect(toggleButton.style.getPropertyValue("anchor-name")).toBe(
       `--anchor-${popover.id}`,
     );
@@ -169,15 +170,11 @@ export const Default: Story = {
     await userEvent.click(toggleButton);
     await expect(popover).toBeVisible();
     await expect(popover).toHaveAttribute("role", "dialog");
-    await expect(toggleButton).toHaveAttribute("aria-haspopup", "dialog");
-    await expect(toggleButton).toHaveAttribute("aria-controls", popover.id);
     await expect(toggleButton).toHaveAttribute("aria-expanded", "true");
 
     // Click to close
     await userEvent.click(toggleButton);
     await expect(popover).not.toBeVisible();
-    await expect(toggleButton).toHaveAttribute("aria-haspopup", "dialog");
-    await expect(toggleButton).toHaveAttribute("aria-controls", popover.id);
     await expect(toggleButton).toHaveAttribute("aria-expanded", "false");
   },
 };
@@ -189,20 +186,23 @@ export const DifferentPlacement: Story = {
   render: (args) => ({
     components: { KdsToggleButton, KdsPopover },
     setup() {
-      const activatorEl = useTemplateRef("activatorEl");
-      return { args, activatorEl };
+      const popoverRef = useTemplateRef("popoverRef");
+      return { args, popoverRef };
     },
     template: `
       <KdsToggleButton
-        ref="activatorEl"
         label="Toggle popover"
         variant="outlined"
         v-model="args.modelValue"
+        :style="popoverRef?.anchorStyle"
+        :aria-controls="popoverRef?.popoverId"
+        :aria-expanded="args.modelValue"
+        aria-haspopup="dialog"
       />
 
       <KdsPopover
+        ref="popoverRef"
         v-model="args.modelValue"
-        :activator-el="activatorEl"
         :placement="args.placement"
         :content="args.content"
         :role="args.role"
@@ -213,27 +213,28 @@ export const DifferentPlacement: Story = {
   }),
 };
 
-export const SeparateAnchorEl: Story = {
+export const SeparateAnchorElement: Story = {
   render: (args) => ({
     components: { KdsToggleButton, KdsPopover },
     setup() {
       const open = ref(false);
-      const activatorEl = useTemplateRef("activatorEl");
-      const anchorEl = useTemplateRef("anchorEl");
+      const popoverRef = useTemplateRef("popoverRef");
 
-      return { args, open, activatorEl, anchorEl };
+      return { args, open, popoverRef };
     },
     template: `
       <KdsToggleButton
-        ref="activatorEl"
         label="Toggle popover"
         variant="outlined"
         v-model="open"
+        :aria-controls="popoverRef?.popoverId"
+        :aria-expanded="open"
+        aria-haspopup="dialog"
         data-testid="toggle-button"
       />
 
       <div
-        ref="anchorEl"
+        :style="popoverRef?.anchorStyle"
         data-testid="anchor-element"
         style="
           margin-top: var(--kds-spacing-container-1x);
@@ -245,9 +246,8 @@ export const SeparateAnchorEl: Story = {
       </div>
 
       <KdsPopover
+        ref="popoverRef"
         v-model="open"
-        :activator-el="activatorEl"
-        :anchor-el="anchorEl"
         placement="bottom-left"
         content="This popover is anchored to a separate element."
         popover-aria-label="Separate anchor popover"
@@ -301,33 +301,6 @@ export const SeparateAnchorEl: Story = {
   },
 };
 
-export const Inline: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "When the activator ref is invalid (null), the popover renders inline without positioning or the native popover behavior.",
-      },
-    },
-  },
-  render: () => ({
-    components: { KdsPopover },
-    setup() {
-      const activatorEl = useTemplateRef("activatorEl");
-      return { activatorEl };
-    },
-    template: `
-      <div style="display: flex">
-        <KdsPopover
-          :activator-el="activatorEl"
-          content="This popover is rendered inline because the activator ref is null."
-          popover-aria-label="Inline popover"
-        />
-      </div>
-    `,
-  }),
-};
-
 export const FullWidth: Story = {
   parameters: {
     docs: {
@@ -344,22 +317,25 @@ export const FullWidth: Story = {
   render: (args) => ({
     components: { KdsToggleButton, KdsPopover },
     setup() {
-      const activatorEl = ref<HTMLButtonElement | null>(null);
-      return { args, activatorEl };
+      const popoverRef = useTemplateRef("popoverRef");
+      return { args, popoverRef };
     },
     template: `
       <KdsToggleButton
-        ref="activatorEl"
         v-model="args.modelValue"
         label="Wide toggle button as anchor"
         variant="outlined"
         style="min-width: 400px;"
+        :style="popoverRef?.anchorStyle"
+        :aria-controls="popoverRef?.popoverId"
+        :aria-expanded="args.modelValue"
+        aria-haspopup="dialog"
         data-testid="toggle-button"
       />
 
       <KdsPopover
+        ref="popoverRef"
         v-model="args.modelValue"
-        :activator-el="activatorEl"
         :placement="args.placement"
         :content="args.content"
         :full-width="args.fullWidth"
