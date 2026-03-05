@@ -137,19 +137,18 @@ export const Default: Story = {
     const card = canvas.getByRole("button", {
       name: "Demo card for Storybook",
     });
-    let clicks = 0;
 
     // Test mouse interaction
     await userEvent.click(card);
-    await expect(args.onClick).toHaveBeenCalledTimes(++clicks);
+    await expect(args.onClick).toHaveBeenCalledTimes(1);
 
     // Test keyboard interaction
     card.focus();
     await userEvent.keyboard("{Enter}");
-    await expect(args.onClick).toHaveBeenCalledTimes(++clicks);
+    await expect(args.onClick).toHaveBeenCalledTimes(2);
 
     await userEvent.keyboard(" ");
-    await expect(args.onClick).toHaveBeenCalledTimes(++clicks);
+    await expect(args.onClick).toHaveBeenCalledTimes(3);
   },
 };
 

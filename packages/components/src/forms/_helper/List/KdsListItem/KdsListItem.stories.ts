@@ -604,6 +604,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsListItem,
   combinationsProps: [
     {
+      id: ["item"],
       selected: [false, true],
       label: ["Label"],
       subText: [
@@ -624,6 +625,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       active: [false, true],
     },
     {
+      id: ["item"],
       selected: [false],
       label: ["Label"],
       subText: [

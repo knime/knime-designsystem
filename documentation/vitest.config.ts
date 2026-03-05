@@ -34,6 +34,13 @@ export default defineConfig({
       ],
     },
     setupFiles: [".storybook/vitest.setup.ts"],
+    // Suppress noisy Vue compiler warning in non-browser builds (Vitest server-side)
+    onConsoleLog(log) {
+      if (log.includes("decodeEntities option is passed")) {
+        return false;
+      }
+      return undefined;
+    },
     reporters: ["default", "junit"],
     outputFile: {
       junit: "test-results/junit.xml",
