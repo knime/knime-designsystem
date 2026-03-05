@@ -71,7 +71,7 @@ watch(modelValue, () => {
         :style="popoverEl?.anchorStyle"
         :aria-expanded="open"
         :popover-id="popoverEl?.popoverId"
-        aria-haspopup="listbox"
+        aria-haspopup="dialog"
         @click="open = !open"
         @update:open="open = $event"
       />

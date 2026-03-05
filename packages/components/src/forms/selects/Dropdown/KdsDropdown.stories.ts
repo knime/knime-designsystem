@@ -456,7 +456,6 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=16518-77523":
           {
-            initiallyOpen: true,
             modelValue: "Label",
             possibleValues: baseOptions,
           },
