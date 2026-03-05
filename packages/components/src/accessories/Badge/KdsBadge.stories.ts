@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { expect, within } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
@@ -68,6 +69,12 @@ export const Default: Story = {
     label: "Badge",
     size: kdsBadgeSize.XSMALL,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const label = canvas.getByText("Badge");
+    await expect(label).toBeInTheDocument();
+  },
 };
 
 export const WithIcon: Story = {
@@ -75,6 +82,16 @@ export const WithIcon: Story = {
     variant: "neutral",
     label: "Badge",
     icon: "placeholder",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const label = canvas.getByText("Badge");
+    await expect(label).toBeInTheDocument();
+
+    const badge = canvas.getByText("Badge").closest(".kds-badge");
+    const icon = badge?.querySelector(".kds-icon");
+    await expect(icon).toBeInTheDocument();
   },
 };
 
@@ -95,7 +112,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsBadge,
   designsToCompare: {
     Types: {
-      props: { label: "Badge" },
+      props: { label: "{Label}", icon: "placeholder" },
       variants: {
         [`${figmaBaseUrl}?node-id=972-2164`]: { variant: "neutral" },
         [`${figmaBaseUrl}?node-id=973-2651`]: { variant: "info" },
@@ -112,15 +129,10 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsBadge,
   combinationsProps: [
     {
+      icon: [undefined, "placeholder"],
       variant: kdsBadgeVariants,
       label: ["Badge"],
       size: kdsBadgeSizes,
-    },
-    {
-      variant: kdsBadgeVariants,
-      label: ["Badge"],
-      size: kdsBadgeSizes,
-      icon: ["placeholder"],
     },
   ],
 });
