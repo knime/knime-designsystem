@@ -17,6 +17,7 @@ const {
   error = false,
   disabled = false,
   toggled = false,
+  removeBorderRadius = undefined,
   ...props
 } = defineProps<BaseButtonPropsWithComponent>();
 
@@ -33,6 +34,7 @@ const classes = computed(() => [
   { toggled },
   { success },
   { error },
+  removeBorderRadius ? `remove-border-radius-${removeBorderRadius}` : undefined,
 ]);
 
 const iconSize = computed(() => {
@@ -331,6 +333,16 @@ html.kds-legacy {
       background-color 200ms ease-out,
       border-color 200ms ease-out,
       color 200ms ease-out;
+  }
+
+  &.remove-border-radius-left {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  &.remove-border-radius-right {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
   }
 }
 </style>
