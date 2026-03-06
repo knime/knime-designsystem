@@ -1,5 +1,11 @@
 # @knime/kds-styles
 
+## 0.13.2
+
+### Patch Changes
+
+- 3d9c68c: KDS-775: Add stop icon
+
 ## 0.13.1
 
 ## 0.13.0
