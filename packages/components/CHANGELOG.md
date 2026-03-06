@@ -1,5 +1,12 @@
 # @knime/kds-components
 
+## 0.13.1
+
+### Patch Changes
+
+- 85b57f8: Add KdsBadge
+  - @knime/kds-styles@0.13.1
+
 ## 0.13.0
 
 ### Minor Changes
