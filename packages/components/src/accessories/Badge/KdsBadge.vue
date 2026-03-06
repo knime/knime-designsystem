@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { KdsIcon, type KdsIconSize } from "../Icon";
 
-import { kdsBadgeSize } from "./enums";
+import { kdsBadgeSize, kdsBadgeVariant } from "./enums";
 import type { KdsBadgeProps, KdsBadgeSize } from "./types";
 
 withDefaults(defineProps<KdsBadgeProps>(), {
+  variant: kdsBadgeVariant.NEUTRAL,
   size: kdsBadgeSize.XSMALL,
   icon: undefined,
 });

@@ -35,15 +35,15 @@ const meta: Meta<typeof KdsBadge> = {
     },
   },
   argTypes: {
+    label: {
+      control: "text",
+      description: "Text content of the badge.",
+      table: { category: "props" },
+    },
     variant: {
       control: "select",
       options: kdsBadgeVariants,
       description: "Visual variant of the badge.",
-      table: { category: "props" },
-    },
-    label: {
-      control: "text",
-      description: "Text content of the badge.",
       table: { category: "props" },
     },
     size: {
@@ -65,8 +65,8 @@ export default meta;
 
 export const Default: Story = {
   args: {
-    variant: "neutral",
     label: "Badge",
+    variant: "neutral",
     size: kdsBadgeSize.XSMALL,
   },
   play: async ({ canvasElement }) => {
@@ -79,8 +79,8 @@ export const Default: Story = {
 
 export const WithIcon: Story = {
   args: {
-    variant: "neutral",
     label: "Badge",
+    variant: "neutral",
     icon: "placeholder",
   },
   play: async ({ canvasElement }) => {
@@ -101,9 +101,9 @@ export const TextOverflow: Story = {
     width: 120,
   }),
   args: {
-    variant: "neutral",
     label:
       "A very long text that gives comprehensive information about an item",
+    variant: "neutral",
     icon: "placeholder",
   },
 };
@@ -129,10 +129,10 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsBadge,
   combinationsProps: [
     {
-      icon: [undefined, "placeholder"],
-      variant: kdsBadgeVariants,
       label: ["Badge"],
+      variant: kdsBadgeVariants,
       size: kdsBadgeSizes,
+      icon: [undefined, "placeholder"],
     },
   ],
 });

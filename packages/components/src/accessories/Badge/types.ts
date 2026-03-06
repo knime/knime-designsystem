@@ -8,11 +8,11 @@ export type KdsBadgeVariant =
 export type KdsBadgeSize = (typeof kdsBadgeSize)[keyof typeof kdsBadgeSize];
 
 export type KdsBadgeProps = {
-  /** Visual variant of the badge. */
-  variant: KdsBadgeVariant;
-
   /** Text content of the badge. */
   label: string;
+
+  /** Visual variant of the badge. */
+  variant?: KdsBadgeVariant;
 
   /** Size of the badge. Defaults to "xsmall". */
   size?: KdsBadgeSize;
