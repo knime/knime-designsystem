@@ -1,5 +1,16 @@
 # @knime/kds-components
 
+## 0.13.0
+
+### Minor Changes
+
+- 208eb81: Add kds.color.TextHighlight.background.default token
+
+### Patch Changes
+
+- Updated dependencies [208eb81]
+  - @knime/kds-styles@0.13.0
+
 ## 0.12.0
 
 ### Minor Changes
