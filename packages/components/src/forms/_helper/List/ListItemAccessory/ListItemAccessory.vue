@@ -5,11 +5,14 @@ import KdsColorSwatch from "../../../../accessories/ColorSwatch/KdsColorSwatch.v
 import KdsDataType from "../../../../accessories/Icon/KdsDataType.vue";
 import KdsIcon from "../../../../accessories/Icon/KdsIcon.vue";
 
-import type { KdsListItemAccessory } from "./types.ts";
+import type {
+  KdsListItemAccessory,
+  KdsListItemAccessorySize,
+} from "./types.ts";
 
 const props = defineProps<{
   accessory: KdsListItemAccessory;
-  size: "small" | "medium" | "large";
+  size: KdsListItemAccessorySize;
 }>();
 </script>
 
