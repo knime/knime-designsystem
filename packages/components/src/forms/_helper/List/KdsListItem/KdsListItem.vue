@@ -40,7 +40,7 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
 </script>
 
 <template>
-  <li
+  <div
     :id="props.id"
     role="option"
     :aria-selected="props.selected"
@@ -116,7 +116,7 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
         size="small"
       />
     </div>
-  </li>
+  </div>
 </template>
 
 <style scoped>
@@ -127,7 +127,7 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
   width: 100%;
   color: var(--kds-color-text-and-icon-neutral);
   cursor: pointer;
-  list-style: none;
+  user-select: none;
   background: var(--kds-color-background-neutral-initial);
   border: none;
 
@@ -144,10 +144,6 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
     cursor: default;
   }
 
-  &:not(.disabled):hover {
-    background: var(--kds-color-background-neutral-hover);
-  }
-
   &:not(.disabled):active {
     background: var(--kds-color-background-neutral-active);
   }
@@ -156,24 +152,16 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
     color: var(--kds-color-text-and-icon-selected);
     background: var(--kds-color-background-selected-initial);
 
-    &:hover {
-      background: var(--kds-color-background-selected-hover);
-    }
-
     &:active {
       background: var(--kds-color-background-selected-active);
     }
   }
 
-  &.missing:not(.disabled) {
+  &.missing {
     color: var(--kds-color-text-and-icon-danger);
     background: var(--kds-color-background-danger-initial);
 
-    &:hover {
-      background: var(--kds-color-background-danger-hover);
-    }
-
-    &:active {
+    &:not(.disabled):active {
       background: var(--kds-color-background-danger-active);
     }
   }
@@ -181,14 +169,26 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
   &.active:not(.disabled) {
     &:not(.selected, .missing) {
       background: var(--kds-color-background-neutral-hover);
+
+      &:active {
+        background: var(--kds-color-background-neutral-active);
+      }
     }
 
     &.selected {
       background: var(--kds-color-background-selected-hover);
+
+      &:active {
+        background: var(--kds-color-background-selected-active);
+      }
     }
 
     &.missing {
       background: var(--kds-color-background-danger-hover);
+
+      &:active {
+        background: var(--kds-color-background-danger-active);
+      }
     }
   }
 }
