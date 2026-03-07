@@ -72,6 +72,12 @@ const meta: Meta<typeof KdsListItem> = {
         "Optional shortcut text shown at the end of the row (e.g. 'Ctrl + 1'). Only shown when the item is not selected and not missing.",
       table: { category: "props" },
     },
+    trailingIcon: {
+      control: "text",
+      description:
+        "Optional trailing icon displayed at the end of the row (e.g. 'checkmark' for selected, 'trash' for missing).",
+      table: { category: "props" },
+    },
     accessory: {
       control: "select",
       options: Object.keys(demoAccessories),
@@ -113,6 +119,7 @@ const meta: Meta<typeof KdsListItem> = {
     subText: undefined,
     variant: "small",
     shortcut: undefined,
+    trailingIcon: undefined,
     accessory: undefined,
     selected: false,
     active: false,
@@ -163,6 +170,7 @@ export const Multiline: Story = {
 export const Selected: Story = {
   args: {
     selected: true,
+    trailingIcon: "checkmark",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -198,6 +206,7 @@ export const Active: Story = {
 export const Missing: Story = {
   args: {
     missing: true,
+    trailingIcon: "trash",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -401,18 +410,20 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsListItem,
   wrapperStyle: { width: "316px" },
   designsToCompare: {
-    "Variant, Small (Overview)": {
+    "Small singleline": {
       props: {
         id: "design-comparator-item",
         variant: "small",
+        accessory: { type: "icon", name: "placeholder" },
         label: "Label",
-        accessory: { type: "dataType", name: "string-datatype" },
+        shortcut: "Ctrl + 1",
+        trailingIcon: "chevron-right",
         selected: false,
         missing: false,
         disabled: false,
       },
       variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18026-139128":
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18026-139129":
           {},
       },
     },
@@ -459,6 +470,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         variant: "small",
         label: "Label",
         accessory: { type: "dataType", name: "string-datatype" },
+        trailingIcon: "checkmark",
         selected: true,
         missing: false,
         disabled: false,
@@ -478,6 +490,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         variant: "small",
         label: "Label",
         accessory: { type: "dataType", name: "unknown-datatype" },
+        trailingIcon: "trash",
         selected: false,
         missing: true,
         disabled: false,
@@ -518,6 +531,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         variant: "large",
         label: "Label",
         accessory: { type: "dataType", name: "string-datatype" },
+        trailingIcon: "checkmark",
         selected: true,
         missing: false,
         disabled: false,
@@ -537,6 +551,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         variant: "large",
         label: "Label",
         accessory: { type: "dataType", name: "unknown-datatype" },
+        trailingIcon: "trash",
         selected: false,
         missing: true,
         disabled: false,
@@ -602,6 +617,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
         "Subtext that is long enough to overflow and should be clamped to two lines in the UI to prevent the row height from expanding.",
       ],
       shortcut: [undefined, "Ctrl + 1"],
+      trailingIcon: [undefined, "checkmark"],
       accessory: [
         undefined,
         iconAccessory,
@@ -625,6 +641,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
         "Subtext that is long enough to overflow and should be clamped to two lines in the UI to prevent the row height from expanding.",
       ],
       shortcut: [undefined],
+      trailingIcon: [undefined, "trash"],
       accessory: [
         undefined,
         iconAccessory,

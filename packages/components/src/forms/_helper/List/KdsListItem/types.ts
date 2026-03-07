@@ -1,6 +1,7 @@
+import { KdsIconName } from "../../../../accessories";
 import type { KdsListItemAccessory } from "../ListItemAccessory/types.ts";
 
-import type { kdsListItemVariant } from "./enums.ts";
+import type { kdsListItemVariant } from "./enums";
 
 export type KdsListItemVariant =
   (typeof kdsListItemVariant)[keyof typeof kdsListItemVariant];
@@ -23,6 +24,9 @@ export type KdsListItemProps = {
 
   /** Optional shortcut text shown at the end of the row (e.g. "Ctrl + 1"). Only shown when the item is not selected and not missing. */
   shortcut?: string;
+
+  /** Optional trailing icon displayed at the end of the row (e.g. "checkmark" for selected, "trash" for missing). */
+  trailingIcon?: KdsIconName;
 
   /** Applies "special content" styling (used when the content is not a standard data field). Only applies in singleline mode. */
   special?: boolean;

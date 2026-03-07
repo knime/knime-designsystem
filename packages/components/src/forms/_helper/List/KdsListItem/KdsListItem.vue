@@ -13,6 +13,7 @@ const props = withDefaults(defineProps<KdsListItemProps>(), {
   subText: undefined,
   variant: kdsListItemVariant.SMALL,
   shortcut: undefined,
+  trailingIcon: undefined,
   special: false,
   selected: false,
   active: false,
@@ -122,13 +123,8 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
       </span>
 
       <KdsIcon
-        v-if="props.selected && !props.missing"
-        name="checkmark"
-        size="small"
-      />
-      <KdsIcon
-        v-else-if="props.missing && !props.disabled"
-        name="trash"
+        v-if="props.trailingIcon"
+        :name="props.trailingIcon"
         size="small"
       />
     </div>
