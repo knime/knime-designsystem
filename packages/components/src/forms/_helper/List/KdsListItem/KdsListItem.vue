@@ -4,6 +4,7 @@ import { computed, useTemplateRef } from "vue";
 import KdsIcon from "../../../../accessories/Icon/KdsIcon.vue";
 import { useKdsIsTruncated } from "../../../../util";
 import ListItemAccessory from "../ListItemAccessory/ListItemAccessory.vue";
+import { kdsListItemAccessorySize } from "../ListItemAccessory/enums.ts";
 
 import { kdsListItemVariant } from "./enums.ts";
 import type { KdsListItemProps } from "./types.ts";
@@ -30,7 +31,9 @@ const hasShortcut = computed(
   () => props.shortcut !== undefined && !props.selected && !props.missing,
 );
 const accessorySize = computed(() =>
-  props.variant === kdsListItemVariant.LARGE ? "large" : "small",
+  props.variant === kdsListItemVariant.LARGE
+    ? kdsListItemAccessorySize.LARGE
+    : kdsListItemAccessorySize.SMALL,
 );
 
 const onClick = (event: MouseEvent) => {
