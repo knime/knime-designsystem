@@ -5,12 +5,13 @@ import KdsIcon from "../../../../accessories/Icon/KdsIcon.vue";
 import { useKdsIsTruncated } from "../../../../util";
 import ListItemAccessory from "../ListItemAccessory/ListItemAccessory.vue";
 
+import { kdsListItemVariant } from "./enums.ts";
 import type { KdsListItemProps } from "./types.ts";
 
 const props = withDefaults(defineProps<KdsListItemProps>(), {
   accessory: undefined,
   subText: undefined,
-  variant: "small",
+  variant: kdsListItemVariant.SMALL,
   shortcut: undefined,
   special: false,
   selected: false,
@@ -28,7 +29,7 @@ const hasShortcut = computed(
   () => props.shortcut !== undefined && !props.selected && !props.missing,
 );
 const accessorySize = computed(() =>
-  props.variant === "large" ? "large" : "small",
+  props.variant === kdsListItemVariant.LARGE ? "large" : "small",
 );
 
 const onClick = (event: MouseEvent) => {
@@ -212,14 +213,13 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
 
 .kds-list-item.small {
   font: var(--kds-font-base-interactive-small);
-  border-radius: var(--kds-border-radius-container-0-25x);
 }
 
 .kds-list-item.small:not(.multiline) .kds-list-item-wrapper {
   gap: var(--kds-spacing-container-0-25x);
   min-height: var(--kds-dimension-component-height-1-5x);
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: var(--kds-spacing-container-0-37x);
+  padding-bottom: var(--kds-spacing-container-0-37x);
 }
 
 .kds-list-item.large {
@@ -289,6 +289,7 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
 .kds-list-item-trailing-item {
   display: flex;
   flex-shrink: 0;
+  gap: var(--kds-spacing-container-0-12x);
   align-items: center;
   justify-content: flex-end;
   color: var(--kds-color-text-and-icon-muted);

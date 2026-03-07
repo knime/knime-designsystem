@@ -16,6 +16,7 @@ import {
   iconAccessory,
   liveStatusAccessory,
 } from "./demo-accessories.ts";
+import { kdsListItemVariants } from "./enums.ts";
 
 const meta: Meta<typeof KdsListItem> = {
   component: KdsListItem,
@@ -59,8 +60,8 @@ const meta: Meta<typeof KdsListItem> = {
       table: { category: "props" },
     },
     variant: {
-      control: "radio",
-      options: ["small", "large"],
+      control: "select",
+      options: kdsListItemVariants,
       description:
         "Visual size variant of the list item. Influences accessory/icon sizing, gaps and typography.",
       table: { category: "props" },
@@ -593,7 +594,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   combinationsProps: [
     {
       id: ["item"],
-      variant: ["small", "large"],
+      variant: kdsListItemVariants,
       selected: [false, true],
       label: ["Label"],
       subText: [
@@ -616,7 +617,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
     },
     {
       id: ["item"],
-      variant: ["small", "large"],
+      variant: kdsListItemVariants,
       selected: [false],
       label: ["Label"],
       subText: [
