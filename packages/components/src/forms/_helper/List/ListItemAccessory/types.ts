@@ -5,6 +5,11 @@ import {
   type KdsTypeIconName,
 } from "../../../../accessories";
 
+import { kdsListItemAccessorySize } from "./enums";
+
+export type KdsListItemAccessorySize =
+  (typeof kdsListItemAccessorySize)[keyof typeof kdsListItemAccessorySize];
+
 export type KdsIconAccessory = {
   type: "icon";
   name: KdsIconName;
