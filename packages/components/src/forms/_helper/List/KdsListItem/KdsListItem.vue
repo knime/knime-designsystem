@@ -26,10 +26,7 @@ const emit = defineEmits<{
   click: [event: MouseEvent];
 }>();
 
-const isMultiline = computed(() => props.subText !== undefined);
-const hasShortcut = computed(
-  () => props.shortcut !== undefined && !props.selected && !props.missing,
-);
+const isMultiline = computed(() => props.subText);
 const accessorySize = computed(() =>
   props.variant === kdsListItemVariant.LARGE
     ? kdsListItemAccessorySize.LARGE
@@ -119,7 +116,7 @@ const { isTruncated: isSubtitleTruncated } = useKdsIsTruncated(subtitleEl);
         </span>
       </span>
 
-      <span v-if="hasShortcut" class="kds-list-item-trailing-item">
+      <span v-if="props.shortcut" class="kds-list-item-trailing-item">
         <span class="kds-list-item-shortcut">
           {{ props.shortcut }}
         </span>
