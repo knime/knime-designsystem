@@ -240,29 +240,12 @@ describe("KdsNumberInput", () => {
       await input.trigger("keydown", { key: "ArrowUp" });
       expect(wrapper.emitted("update:modelValue")).toBeFalsy();
     });
-
-    it("does not respond to arrow keys when readonly", async () => {
-      const wrapper = mount(KdsNumberInput, {
-        props: { modelValue: 5, readonly: true, ariaLabel: "Test" },
-      });
-      const input = getInput(wrapper);
-      await input.trigger("keydown", { key: "ArrowUp" });
-      expect(wrapper.emitted("update:modelValue")).toBeFalsy();
-    });
   });
 
-  describe("disabled and readonly states", () => {
+  describe("disabled states", () => {
     it("disables buttons when disabled", () => {
       const wrapper = mount(KdsNumberInput, {
         props: { modelValue: 5, disabled: true, label: "Amount" },
-      });
-      expect(getDecreaseButton(wrapper).attributes("disabled")).toBeDefined();
-      expect(getIncreaseButton(wrapper).attributes("disabled")).toBeDefined();
-    });
-
-    it("disables buttons when readonly", () => {
-      const wrapper = mount(KdsNumberInput, {
-        props: { modelValue: 5, readonly: true, label: "Amount" },
       });
       expect(getDecreaseButton(wrapper).attributes("disabled")).toBeDefined();
       expect(getIncreaseButton(wrapper).attributes("disabled")).toBeDefined();

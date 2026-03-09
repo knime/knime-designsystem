@@ -59,10 +59,6 @@ const meta: Meta<typeof KdsNumberInput> = {
       control: "text",
       table: { category: "props" },
     },
-    name: {
-      control: "text",
-      table: { category: "props" },
-    },
     autocomplete: {
       control: "text",
       table: { category: "props" },
@@ -94,14 +90,6 @@ const meta: Meta<typeof KdsNumberInput> = {
       control: "boolean",
       table: { category: "props" },
     },
-    readonly: {
-      control: "boolean",
-      table: { category: "props" },
-    },
-    required: {
-      control: "boolean",
-      table: { category: "props" },
-    },
     error: {
       control: "boolean",
       table: { category: "props" },
@@ -122,15 +110,12 @@ const meta: Meta<typeof KdsNumberInput> = {
     description: "",
     ariaLabel: undefined,
     placeholder: "",
-    name: "",
     autocomplete: "",
     unit: "",
     min: undefined,
     max: undefined,
     step: 0.1,
     disabled: false,
-    readonly: false,
-    required: false,
     error: false,
     validating: false,
     subText: "",
@@ -158,6 +143,16 @@ export const Default: Story = {
     placeholder: "Enter number",
     unit: "ms",
   },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("spinbutton", { name: "Label" });
+
+    await step("Tab focus", async () => {
+      input.blur();
+      await userEvent.tab();
+      await expect(input).toHaveFocus();
+    });
+  },
 };
 
 export const WithValue: Story = {
@@ -165,15 +160,64 @@ export const WithValue: Story = {
     modelValue: 42,
     unit: "ms",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("spinbutton", { name: "Label" });
+    await expect(input).toHaveValue("42");
+  },
 };
 
 export const WithMinMax: Story = {
   args: {
-    modelValue: 5,
+    modelValue: Number.NaN,
     min: 0,
-    max: 10,
+    max: 2,
     step: 1,
     unit: "kg",
+  },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("spinbutton", { name: "Label" });
+
+    await step("Increment/decrement via buttons", async () => {
+      const decrease = canvas.getByRole("button", { name: /decrease/i });
+      const increase = canvas.getByRole("button", { name: /increase/i });
+
+      await userEvent.click(increase);
+      await expect(input).toHaveValue("0");
+
+      await userEvent.click(increase);
+      await expect(input).toHaveValue("1");
+
+      await userEvent.click(increase);
+      await expect(input).toHaveValue("2");
+
+      await userEvent.click(increase);
+      await expect(input).toHaveValue("2");
+
+      await userEvent.click(decrease);
+      await expect(input).toHaveValue("1");
+    });
+
+    await step("Arrow key stepping", async () => {
+      await userEvent.click(input);
+      await userEvent.keyboard("{ArrowDown}");
+      await expect(input).toHaveValue("0");
+
+      await userEvent.keyboard("{ArrowDown}");
+      await expect(input).toHaveValue("0");
+    });
+
+    await step("Cleanup invalid input on blur", async () => {
+      await userEvent.click(input);
+      await userEvent.clear(input);
+      await userEvent.type(input, "1e3");
+
+      // move focus away to trigger blur cleanup and clamping to max=2
+      await userEvent.tab();
+
+      await expect(input).toHaveValue("2");
+    });
   },
 };
 
@@ -183,13 +227,15 @@ export const Disabled: Story = {
     unit: "ms",
     disabled: true,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("spinbutton", { name: "Label" });
+    await expect(input).toBeDisabled();
 
-export const Readonly: Story = {
-  args: {
-    modelValue: 42,
-    unit: "ms",
-    readonly: true,
+    const decrease = canvas.getByRole("button", { name: /decrease/i });
+    const increase = canvas.getByRole("button", { name: /increase/i });
+    await expect(decrease).toBeDisabled();
+    await expect(increase).toBeDisabled();
   },
 };
 
@@ -228,6 +274,10 @@ export const WithError: Story = {
     error: true,
     subText: "Error message",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Error message")).toBeInTheDocument();
+  },
 };
 
 export const Validating: Story = {
@@ -236,6 +286,10 @@ export const Validating: Story = {
     unit: "ms",
     validating: true,
     subText: "Validation message",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Validation message")).toBeInTheDocument();
   },
 };
 
@@ -285,14 +339,12 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       modelValue: [Number.NaN, 42],
       placeholder: ["", "Enter number"],
       unit: [undefined, "ms"],
-      readonly: [false],
       disabled: [false],
       error: [false],
       validating: [false],
       subText: [undefined, "Message"],
     },
     combinations: [
-      { readonly: [true] },
       { validating: [true], subText: ["Validation message"] },
       { error: [true], subText: ["Error message"] },
       { disabled: [true] },
@@ -369,71 +421,5 @@ export const TextOverflow: Story = {
     unit: "UNIT",
     subText:
       "Very long helper text that should wrap to multiple lines when needed",
-  },
-};
-
-export const Interaction: Story = {
-  args: {
-    label: "Label",
-    modelValue: Number.NaN,
-    placeholder: "Enter number",
-    unit: "ms",
-    min: 0,
-    max: 2,
-    step: 1,
-    disabled: false,
-    readonly: false,
-    required: false,
-    error: false,
-    validating: false,
-    subText: "",
-    preserveSubTextSpace: false,
-    name: "",
-    autocomplete: "",
-  },
-  play: async ({ canvasElement, step }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByRole("spinbutton", { name: "Label" });
-
-    await step("Increment/decrement via buttons", async () => {
-      const buttons = canvas.getAllByRole("button");
-      const decrease = buttons[0];
-      const increase = buttons[1];
-
-      await userEvent.click(increase);
-      await expect(input).toHaveValue("0");
-
-      await userEvent.click(increase);
-      await expect(input).toHaveValue("1");
-
-      await userEvent.click(increase);
-      await expect(input).toHaveValue("2");
-
-      await userEvent.click(increase);
-      await expect(input).toHaveValue("2");
-
-      await userEvent.click(decrease);
-      await expect(input).toHaveValue("1");
-    });
-
-    await step("Arrow key stepping", async () => {
-      await userEvent.click(input);
-      await userEvent.keyboard("{ArrowDown}");
-      await expect(input).toHaveValue("0");
-
-      await userEvent.keyboard("{ArrowDown}");
-      await expect(input).toHaveValue("0");
-    });
-
-    await step("Cleanup invalid input on blur", async () => {
-      await userEvent.click(input);
-      await userEvent.clear(input);
-      await userEvent.type(input, "1e3");
-
-      // move focus away to trigger blur cleanup and clamping to max=2
-      await userEvent.tab();
-
-      await expect(input).toHaveValue("2");
-    });
   },
 };

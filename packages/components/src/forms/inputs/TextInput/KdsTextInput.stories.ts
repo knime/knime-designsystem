@@ -59,10 +59,6 @@ const meta: Meta<typeof KdsTextInput> = {
       description: "Placeholder shown when the input is empty",
       table: { category: "props" },
     },
-    name: {
-      control: "text",
-      table: { category: "props" },
-    },
     autocomplete: {
       control: "text",
       table: { category: "props" },
@@ -73,14 +69,6 @@ const meta: Meta<typeof KdsTextInput> = {
       table: { category: "props" },
     },
     disabled: {
-      control: "boolean",
-      table: { category: "props" },
-    },
-    readonly: {
-      control: "boolean",
-      table: { category: "props" },
-    },
-    required: {
       control: "boolean",
       table: { category: "props" },
     },
@@ -104,11 +92,8 @@ const meta: Meta<typeof KdsTextInput> = {
     description: "",
     ariaLabel: undefined,
     placeholder: "",
-    name: "",
     autocomplete: "",
-    required: false,
     disabled: false,
-    readonly: false,
     validating: false,
     error: false,
     subText: "",
@@ -135,25 +120,36 @@ export const Default: Story = {
   args: {
     placeholder: "Enter text",
   },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("textbox", { name: "Label" });
+
+    await step("Type into the input", async () => {
+      await userEvent.click(input);
+      await userEvent.clear(input);
+      await userEvent.type(input, "Hello");
+      await expect(input).toHaveValue("Hello");
+
+      await userEvent.clear(input);
+      await expect(input).toHaveValue("");
+    });
+
+    await step("Tab focus", async () => {
+      input.blur();
+      await userEvent.tab();
+      await expect(input).toHaveFocus();
+    });
+  },
 };
 
 export const WithValue: Story = {
   args: {
     modelValue: "Some value",
   },
-};
-
-export const Required: Story = {
-  args: {
-    placeholder: "Enter text",
-    required: true,
-  },
-};
-
-export const Readonly: Story = {
-  args: {
-    readonly: true,
-    modelValue: "Read only value",
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("textbox", { name: "Label" });
+    await expect(input).toHaveValue("Some value");
   },
 };
 
@@ -189,12 +185,21 @@ export const Disabled: Story = {
     placeholder: "Enter text",
     disabled: true,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("textbox", { name: "Label" });
+    await expect(input).toBeDisabled();
+  },
 };
 
 export const WithSubText: Story = {
   args: {
     placeholder: "Enter text",
     subText: "Helper text goes here",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Helper text goes here")).toBeInTheDocument();
   },
 };
 
@@ -204,6 +209,10 @@ export const Validating: Story = {
     validating: true,
     subText: "Validation message",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Validation message")).toBeInTheDocument();
+  },
 };
 
 export const WithError: Story = {
@@ -212,14 +221,22 @@ export const WithError: Story = {
     error: true,
     subText: "Error message",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Error message")).toBeInTheDocument();
+  },
 };
 
-export const NameAndAutocomplete: Story = {
+export const Autocomplete: Story = {
   args: {
     label: "Email",
     placeholder: "your@email.com",
-    name: "email",
     autocomplete: "email",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("textbox", { name: "Email" });
+    await expect(input).toHaveAttribute("autocomplete", "email");
   },
 };
 
@@ -268,14 +285,12 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       ariaLabel: [undefined],
       modelValue: ["", "Value"],
       placeholder: ["", "Placeholder"],
-      readonly: [false],
       disabled: [false],
       error: [false],
       validating: [false],
       subText: [undefined, "Message"],
     },
     combinations: [
-      { readonly: [true] },
       { validating: [true], subText: ["Validation message"] },
       { error: [true], subText: ["Error message"] },
       { disabled: [true] },
@@ -346,43 +361,5 @@ export const TextOverflow: Story = {
       "Very long value that should be truncated when the container is too small",
     subText:
       "Very long helper text that should wrap to multiple lines when needed",
-  },
-};
-
-export const Interaction: Story = {
-  args: {
-    label: "Label",
-    ariaLabel: undefined,
-    modelValue: "",
-    placeholder: "Enter text",
-    disabled: false,
-    readonly: false,
-    required: false,
-    error: false,
-    validating: false,
-    subText: "",
-    preserveSubTextSpace: false,
-    name: "",
-    autocomplete: "",
-  },
-  play: async ({ canvasElement, step }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByRole("textbox", { name: "Label" });
-
-    await step("Type into the input", async () => {
-      await userEvent.click(input);
-      await userEvent.clear(input);
-      await userEvent.type(input, "Hello");
-      await expect(input).toHaveValue("Hello");
-
-      await userEvent.clear(input);
-      await expect(input).toHaveValue("");
-    });
-
-    await step("Tab focus", async () => {
-      input.blur();
-      await userEvent.tab();
-      await expect(input).toHaveFocus();
-    });
   },
 };

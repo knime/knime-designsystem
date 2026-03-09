@@ -71,10 +71,6 @@ const meta: Meta<typeof KdsTextarea> = {
       control: { type: "number", min: 1 },
       table: { category: "props" },
     },
-    name: {
-      control: "text",
-      table: { category: "props" },
-    },
     autocomplete: {
       control: "text",
       table: { category: "props" },
@@ -84,14 +80,6 @@ const meta: Meta<typeof KdsTextarea> = {
       table: { category: "props" },
     },
     disabled: {
-      control: "boolean",
-      table: { category: "props" },
-    },
-    readonly: {
-      control: "boolean",
-      table: { category: "props" },
-    },
-    required: {
       control: "boolean",
       table: { category: "props" },
     },
@@ -116,11 +104,8 @@ const meta: Meta<typeof KdsTextarea> = {
     description: "",
     placeholder: "",
     rows: defaultRows,
-    name: "",
     autocomplete: "",
-    required: false,
     disabled: false,
-    readonly: false,
     validating: false,
     error: false,
     subText: "",
@@ -164,6 +149,11 @@ export const WithValue: Story = {
   args: {
     modelValue: "First line\nSecond line",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const textarea = canvas.getByRole("textbox", { name: "Label" });
+    await expect(textarea).toHaveValue("First line\nSecond line");
+  },
 };
 
 export const FourRows: Story = {
@@ -171,33 +161,10 @@ export const FourRows: Story = {
     rows: fourRows,
     placeholder: "Enter text",
   },
-};
-
-export const Required: Story = {
-  args: {
-    modelValue: "Delete to invalidate",
-    required: true,
-  },
-};
-
-export const Readonly: Story = {
-  args: {
-    readonly: true,
-    modelValue: "Read only value",
-  },
-  play: async ({ canvasElement, step }) => {
+  play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const textarea = canvas.getByRole("textbox", { name: "Label" });
-
-    await step("Is readonly", async () => {
-      await expect(textarea).toHaveAttribute("readonly");
-    });
-
-    await step("Typing does not change value", async () => {
-      await userEvent.click(textarea);
-      await userEvent.type(textarea, "X");
-      await expect(textarea).toHaveValue("Read only value");
-    });
+    await expect(textarea).toHaveAttribute("rows", "4");
   },
 };
 
@@ -248,6 +215,10 @@ export const WithSubText: Story = {
     placeholder: "Enter text",
     subText: "Helper text goes here",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Helper text goes here")).toBeInTheDocument();
+  },
 };
 
 export const Validating: Story = {
@@ -255,6 +226,10 @@ export const Validating: Story = {
     modelValue: "Checking...",
     validating: true,
     subText: "Validation message",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Validation message")).toBeInTheDocument();
   },
 };
 
@@ -264,6 +239,10 @@ export const WithError: Story = {
     error: true,
     subText: "Error message",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Error message")).toBeInTheDocument();
+  },
 };
 
 export const WithAriaLabel: Story = {
@@ -271,6 +250,11 @@ export const WithAriaLabel: Story = {
     label: undefined,
     ariaLabel: "Textarea",
     placeholder: "Enter text",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const textarea = canvas.getByRole("textbox", { name: "Textarea" });
+    await expect(textarea).toBeInTheDocument();
   },
 };
 
@@ -297,6 +281,11 @@ export const ExternalLabel: Story = {
       </div>
     `,
   }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const textarea = canvas.getByRole("textbox", { name: "External label" });
+    await expect(textarea).toBeInTheDocument();
+  },
 };
 
 export const ProgrammaticFocus: Story = {
@@ -345,14 +334,12 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       modelValue: ["", "Value", "Value\nSecond line"],
       rows: [defaultRows, fourRows],
       placeholder: ["", "Placeholder"],
-      readonly: [false],
       disabled: [false],
       error: [false],
       validating: [false],
       subText: [undefined, "Message"],
     },
     combinations: [
-      { readonly: [true] },
       { validating: [true], subText: ["Validation message"] },
       { error: [true], subText: ["Error message"] },
       { disabled: [true] },
