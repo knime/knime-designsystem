@@ -40,8 +40,8 @@ const role = computed(() =>
       </div>
     </div>
 
-    <div v-if="props.message || $slots.default" class="body">
-      <slot>{{ props.message }}</slot>
+    <div v-if="props.message" class="body">
+      {{ props.message }}
     </div>
   </div>
 </template>
