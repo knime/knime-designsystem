@@ -171,11 +171,11 @@ export default meta;
 export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const combobox = canvas.getByRole("combobox");
+    const trigger = canvas.getByRole("button", { name: /Label/ });
 
     // --- Keyboard: ArrowDown opens dropdown and focuses the search field ---
-    combobox.focus();
-    await expect(combobox).toHaveFocus();
+    trigger.focus();
+    await expect(trigger).toHaveFocus();
     await userEvent.keyboard("{ArrowDown}");
 
     const filterInput = await canvas.findByRole("searchbox", {
@@ -186,10 +186,10 @@ export const Default: Story = {
 
     // Enter selects the first active option (Option A)
     await userEvent.keyboard("{Enter}");
-    await expect(combobox).toHaveTextContent("Option A");
+    await expect(trigger).toHaveTextContent("Option A");
 
     // --- Mouse: click reopens dropdown, search gets focus ---
-    await userEvent.click(combobox);
+    await userEvent.click(trigger);
 
     const filterInputAfterClick = await canvas.findByRole("searchbox", {
       name: "Filter options",
@@ -201,18 +201,18 @@ export const Default: Story = {
 
     // ArrowDown from Option A (active) → Option B, then select
     await userEvent.keyboard("{ArrowDown}{Enter}");
-    await expect(combobox).toHaveTextContent("Option B");
+    await expect(trigger).toHaveTextContent("Option B");
 
     // --- Reopen and test Escape (selection stays unchanged) ---
-    await userEvent.click(combobox);
+    await userEvent.click(trigger);
     await canvas.findByRole("searchbox", { name: "Filter options" });
     await userEvent.keyboard("{ArrowDown}{ArrowDown}{Escape}");
-    await expect(combobox).toHaveTextContent("Option B");
+    await expect(trigger).toHaveTextContent("Option B");
 
     // --- Clicking the same option keeps it selected ---
-    await userEvent.click(combobox);
+    await userEvent.click(trigger);
     await userEvent.click(await canvas.findByText("Option B"));
-    await expect(combobox).toHaveTextContent("Option B");
+    await expect(trigger).toHaveTextContent("Option B");
   },
 };
 
@@ -222,10 +222,10 @@ export const WithValue: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const combobox = canvas.getByRole("combobox");
+    const trigger = canvas.getByRole("button", { name: /Label/ });
 
     // Selected value is shown on the trigger
-    await expect(combobox).toHaveTextContent("Option A");
+    await expect(trigger).toHaveTextContent("Option A");
 
     // Option A has an icon accessory shown on the trigger
     await expect(canvasElement.querySelector(".kds-icon")).not.toBeNull();
@@ -239,9 +239,9 @@ export const MissingValue: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const combobox = canvas.getByRole("combobox");
+    const trigger = canvas.getByRole("button", { name: /Label/ });
 
-    await userEvent.click(combobox);
+    await userEvent.click(trigger);
 
     const missingOption = canvas.getByRole("option", {
       name: /\(Missing\)\s*missing/i,
@@ -250,9 +250,9 @@ export const MissingValue: Story = {
 
     await userEvent.click(canvas.getByRole("option", { name: "Option A" }));
 
-    await expect(combobox).toHaveTextContent("Option A");
+    await expect(trigger).toHaveTextContent("Option A");
 
-    await userEvent.click(combobox);
+    await userEvent.click(trigger);
 
     await expect(
       canvas.queryByRole("option", { name: /\(Missing\)\s*missing/i }),
@@ -281,10 +281,10 @@ export const Readonly: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const combobox = canvas.getByRole("combobox");
+    const trigger = canvas.getByRole("button", { name: /Label/ });
 
-    await expect(combobox).toHaveAttribute("aria-readonly", "true");
-    await userEvent.click(combobox);
+    await expect(trigger).toHaveAttribute("aria-disabled", "true");
+    await userEvent.click(trigger);
     await expect(canvas.queryByRole("searchbox")).not.toBeInTheDocument();
   },
 };
@@ -301,10 +301,10 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const combobox = canvas.getByRole("combobox");
+    const trigger = canvas.getByRole("button", { name: /Label/ });
 
-    await expect(combobox).toBeDisabled();
-    await userEvent.click(combobox);
+    await expect(trigger).toBeDisabled();
+    await userEvent.click(trigger);
     await expect(canvas.queryByRole("searchbox")).not.toBeInTheDocument();
   },
 };
@@ -372,8 +372,8 @@ export const InModal: Story = {
 
     await userEvent.click(canvas.getByRole("button", { name: "Open modal" }));
 
-    const combobox = await canvas.findByRole("combobox");
-    await userEvent.click(combobox);
+    const trigger = await canvas.findByRole("button", { name: /Dropdown/ });
+    await userEvent.click(trigger);
 
     await expect(canvas.getByText("Option A")).toBeTruthy();
   },
