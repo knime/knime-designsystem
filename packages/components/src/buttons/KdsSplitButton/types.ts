@@ -49,11 +49,11 @@ export type KdsSplitButtonProps = {
    */
   disabled?: boolean;
   /**
-   * The label of the primary button
+   * The label of the primary button (used when no action is selected)
    */
   label: string;
   /**
-   * The optional leading icon in the primary button
+   * The optional leading icon in the primary button (used when no action is selected)
    */
   leadingIcon?: KdsIconName;
   /**
@@ -64,10 +64,6 @@ export type KdsSplitButtonProps = {
    * Optional aria-label for the primary button
    */
   primaryAriaLabel?: string;
-  /**
-   * Optional aria-label for the secondary button
-   */
-  secondaryAriaLabel?: string;
 
   /**
    * Alternative actions rendered in the context menu.
@@ -78,4 +74,10 @@ export type KdsSplitButtonProps = {
    * Accessible label for the context menu.
    */
   contextMenuAriaLabel?: string;
+
+  /**
+   * The ID of the currently selected action from alternativeActions.
+   * When set, the primary button will display this action's label and icon.
+   */
+  selectedActionId?: string;
 };
