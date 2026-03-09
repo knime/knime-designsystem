@@ -5,14 +5,12 @@ import KdsButton from "../../../buttons/KdsButton/KdsButton.vue";
 import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
 import type { KdsFormFieldExpose } from "../../types.ts";
 import BaseInput from "../BaseInput.vue";
-import type { KdsNumberInputProps } from "../types";
 
 import { createKdsNumberParser } from "./numberParser";
+import type { KdsNumberInputProps } from "./types";
 
 const props = withDefaults(defineProps<KdsNumberInputProps>(), {
   disabled: false,
-  readonly: false,
-  required: false,
   error: false,
   validating: false,
   preserveSubTextSpace: false,
@@ -20,7 +18,7 @@ const props = withDefaults(defineProps<KdsNumberInputProps>(), {
   step: 1,
 });
 
-const modelValue = defineModel<number>({ default: NaN });
+const modelValue = defineModel<number>({ default: Number.NaN });
 
 const isFocused = ref(false);
 
@@ -52,7 +50,7 @@ const ariaValuetext = computed(() => {
 
 const clamp = (value: number) => {
   if (!Number.isFinite(value)) {
-    return NaN;
+    return Number.NaN;
   }
 
   let result = value;
@@ -80,7 +78,7 @@ watch(
 );
 
 const canDecrease = computed(() => {
-  if (props.disabled || props.readonly) {
+  if (props.disabled) {
     return false;
   }
 
@@ -96,7 +94,7 @@ const canDecrease = computed(() => {
 });
 
 const canIncrease = computed(() => {
-  if (props.disabled || props.readonly) {
+  if (props.disabled) {
     return false;
   }
 
@@ -130,7 +128,7 @@ const adjustByStep = (direction: -1 | 1) => {
 };
 
 const handleKeydown = (event: KeyboardEvent) => {
-  if (props.disabled || props.readonly) {
+  if (props.disabled) {
     return;
   }
 
@@ -179,10 +177,7 @@ defineExpose<KdsFormFieldExpose>({
         :inputmode="props.step >= 1 ? 'numeric' : 'decimal'"
         :placeholder="props.placeholder"
         :disabled="props.disabled"
-        :readonly="props.readonly"
-        :required="props.required"
         :error="props.error"
-        :name="props.name"
         :autocomplete="props.autocomplete"
         :unit="props.unit"
         role="spinbutton"

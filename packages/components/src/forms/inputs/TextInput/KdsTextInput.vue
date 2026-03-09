@@ -4,12 +4,11 @@ import { useTemplateRef } from "vue";
 import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
 import type { KdsFormFieldExpose } from "../../types.ts";
 import BaseInput from "../BaseInput.vue";
-import type { KdsTextInputProps } from "../types";
+
+import type { KdsTextInputProps } from "./types";
 
 const props = withDefaults(defineProps<KdsTextInputProps>(), {
   disabled: false,
-  readonly: false,
-  required: false,
   error: false,
   validating: false,
   preserveSubTextSpace: false,
@@ -34,10 +33,7 @@ defineExpose<KdsFormFieldExpose>({
         type="text"
         :placeholder="props.placeholder"
         :disabled="props.disabled"
-        :readonly="props.readonly"
-        :required="props.required"
         :error="props.error"
-        :name="props.name"
         :autocomplete="props.autocomplete"
       />
     </template>

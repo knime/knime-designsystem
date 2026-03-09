@@ -35,14 +35,6 @@ type BaseInputProps = {
    */
   disabled?: boolean;
   /**
-   * Whether the input is readonly
-   */
-  readonly?: boolean;
-  /**
-   * Whether the input is required
-   */
-  required?: boolean;
-  /**
    * Icon displayed at the start of the input
    */
   leadingIcon?: KdsIconName;
@@ -54,10 +46,6 @@ type BaseInputProps = {
    * Whether the input has an error state
    */
   error?: boolean;
-  /**
-   * Name attribute for the input element
-   */
-  name?: string;
   /**
    * Autocomplete attribute for the input element
    */
@@ -135,12 +123,9 @@ const props = withDefaults(defineProps<BaseInputProps>(), {
   step: undefined,
   placeholder: undefined,
   disabled: false,
-  readonly: false,
-  required: false,
   leadingIcon: undefined,
   trailingIcon: undefined,
   error: false,
-  name: undefined,
   autocomplete: undefined,
   ariaLabel: undefined,
   ariaLabelledby: undefined,
@@ -240,9 +225,6 @@ defineExpose({
       :inputmode="props.inputmode"
       :placeholder="props.placeholder"
       :disabled="props.disabled"
-      :readonly="props.readonly"
-      :required="props.required"
-      :name="props.name"
       :autocomplete="props.autocomplete"
       :min="props.min"
       :max="props.max"
@@ -278,7 +260,7 @@ defineExpose({
     </span>
 
     <KdsButton
-      v-if="props.clearable && hasValue && !props.disabled && !props.readonly"
+      v-if="props.clearable && hasValue && !props.disabled"
       class="clear-button"
       type="button"
       size="xsmall"
