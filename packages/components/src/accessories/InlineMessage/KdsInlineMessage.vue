@@ -77,6 +77,7 @@ const role = computed(() =>
     align-self: stretch;
     padding-left: var(--kds-spacing-container-1x);
     font: var(--kds-font-base-body-small);
+    color: var(--kds-color-text-and-icon-muted);
   }
 
   &.info {
