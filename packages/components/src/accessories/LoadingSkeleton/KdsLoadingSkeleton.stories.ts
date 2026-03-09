@@ -13,6 +13,7 @@ const variants = [
   "generic",
   "button",
   "icon-button",
+  "combined",
   "rounded-sm",
   "rounded-md",
 ] as const;
@@ -62,11 +63,11 @@ const meta: Meta<typeof KdsLoadingSkeleton> = {
   },
   args: {
     width: "100%",
-    height: "20px",
+    height: "var(--kds-spacing-container-1-25x)",
     variant: "generic",
     loading: true,
     repeat: 1,
-    repeatGap: "2px",
+    repeatGap: "var(--kds-spacing-container-0-12x)",
   },
 };
 
@@ -79,14 +80,14 @@ export const Default: Story = {};
 export const Repeated: Story = {
   args: {
     repeat: 3,
-    repeatGap: "8px",
+    repeatGap: "var(--kds-spacing-container-0-5x)",
   },
 };
 
 export const IconButton: Story = {
   args: {
-    width: "32px",
-    height: "32px",
+    width: "var(--kds-spacing-container-2x)",
+    height: "var(--kds-spacing-container-2x)",
     variant: "icon-button",
   },
 };
@@ -94,6 +95,13 @@ export const IconButton: Story = {
 export const Rectangle: Story = {
   args: {
     borderRadius: "var(--kds-border-radius-container-none)",
+  },
+};
+
+export const CombinedLayout: Story = {
+  args: {
+    variant: "combined",
+    width: "100%",
   },
 };
 
@@ -123,13 +131,13 @@ export const Backgrounds: Story = {
       return { args, backgrounds };
     },
     template: `
-      <div style="display: grid; gap: 12px;">
+      <div style="display: grid; gap: var(--kds-spacing-container-0-75x);">
         <div
           v-for="background in backgrounds"
           :key="background.label"
-          :style="{ background: background.value, padding: '12px' }"
+          :style="{ background: background.value, padding: 'var(--kds-spacing-container-0-75x)' }"
         >
-          <div style="font: var(--kds-font-base-body-small-strong); margin-bottom: 8px;">
+          <div style="font: var(--kds-font-base-body-small-strong); margin-bottom: var(--kds-spacing-container-0-5x);">
             {{ background.label }}
           </div>
           <KdsLoadingSkeleton v-bind="args" />
@@ -144,8 +152,8 @@ export const TextOverflow: Story = {
     component: KdsLoadingSkeleton,
   }),
   args: {
-    width: "1000px",
-    height: "20px",
+    width: "100%",
+    height: "var(--kds-spacing-container-1-25x)",
     variant: "rounded-md",
   },
 };
@@ -153,25 +161,14 @@ export const TextOverflow: Story = {
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsLoadingSkeleton,
   designsToCompare: {
-    Variants: {
+    CombinedLayout: {
       props: {
-        width: "200px",
-        height: "20px",
-        variant: "generic",
+        variant: "combined",
+        width: "100%",
       },
       variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3535-331":
-          {
-            variant: "generic",
-          },
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3535-328":
-          {
-            variant: "button",
-          },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3651-44106":
-          {
-            variant: "icon-button",
-          },
+          {},
       },
     },
   },
@@ -182,10 +179,16 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   combinationsProps: [
     {
       variant: variants,
-      width: ["120px", "220px"],
-      height: ["16px", "32px"],
+      width: ["75%", "100%"],
+      height: [
+        "var(--kds-spacing-container-1x)",
+        "var(--kds-spacing-container-2x)",
+      ],
       repeat: [1, 3],
-      repeatGap: ["2px", "8px"],
+      repeatGap: [
+        "var(--kds-spacing-container-0-12x)",
+        "var(--kds-spacing-container-0-5x)",
+      ],
       borderRadius: [
         undefined,
         "var(--kds-border-radius-container-none)",
