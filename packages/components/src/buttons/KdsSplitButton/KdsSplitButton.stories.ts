@@ -1,5 +1,7 @@
 import type { FunctionalComponent } from "vue";
+import { ref, watchEffect } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { useArgs } from "storybook/preview-api";
 import { expect, fn, userEvent, within } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
@@ -27,35 +29,60 @@ const meta: Meta<typeof KdsSplitButton> = {
     size: {
       control: { type: "select" },
       options: kdsButtonSizes,
+      table: { category: "props" },
     },
     variant: {
       control: { type: "select" },
       options: kdsButtonVariants,
+      table: { category: "props" },
     },
-    disabled: { control: "boolean" },
-    label: { control: "text" },
+    disabled: {
+      control: "boolean",
+      table: { category: "props" },
+    },
+    label: {
+      control: "text",
+      table: { category: "props" },
+    },
     leadingIcon: {
       control: { type: "select" },
       options: [undefined, ...iconNames],
+      table: { category: "props" },
     },
-    title: { control: "text" },
-    primaryAriaLabel: { control: "text" },
-    secondaryAriaLabel: { control: "text" },
-    contextMenuAriaLabel: { control: "text" },
+    title: {
+      control: "text",
+      table: { category: "props" },
+    },
+    primaryAriaLabel: {
+      control: "text",
+      table: { category: "props" },
+    },
+    contextMenuAriaLabel: {
+      control: "text",
+      table: { category: "props" },
+    },
     alternativeActions: {
       control: "object",
+      table: { category: "props" },
+    },
+    selectedActionId: {
+      control: "text",
+      description:
+        "The ID of the currently selected action. When set, the primary button displays this action's label and icon.",
+      table: { category: "model" },
     },
   },
   args: {
     "onClick:primary": fn(),
     "onClick:secondary": fn(),
     "onClick:alternative": fn(),
+    "onUpdate:selectedActionId": fn(),
     alternativeActions: [
       { id: "duplicate", label: "Duplicate" },
       { id: "rename", label: "Rename" },
       { id: "delete", label: "Delete", leadingIcon: "trash" },
     ],
-    secondaryAriaLabel: "Open alternative actions",
+    selectedActionId: undefined,
   },
 };
 export default meta;
@@ -109,21 +136,40 @@ export const PrimaryAndAlternativeActions: Story = {
     variant: "filled",
     size: "medium",
     label: "Run",
+    selectedActionId: undefined,
     alternativeActions: [
       { id: "run-all", label: "Run all" },
       { id: "run-selected", label: "Run selected" },
-      { id: "schedule", label: "Schedule", leadingIcon: "placeholder" },
+      { id: "schedule", label: "Schedule", leadingIcon: "circle-success" },
     ],
+  },
+  render: (args) => {
+    const [, updateArgs] = useArgs();
+    return {
+      components: { KdsSplitButton },
+      setup() {
+        const selectedActionId = ref(args.selectedActionId);
+        watchEffect(() => (selectedActionId.value = args.selectedActionId));
+        watchEffect(() =>
+          updateArgs({ selectedActionId: selectedActionId.value }),
+        );
+        return { args, selectedActionId };
+      },
+      template:
+        '<KdsSplitButton v-bind="args" v-model:selected-action-id="selectedActionId" />',
+    };
   },
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
 
+    // Initially, primary button shows default label
     const primaryButton = canvas.getByRole("button", { name: "Run" });
     await userEvent.click(primaryButton);
     await expect(args["onClick:primary"]).toHaveBeenCalledOnce();
 
+    // Open the menu
     const secondaryButton = canvas.getByRole("button", {
-      name: "Open alternative actions",
+      name: "Change option",
     });
     await userEvent.click(secondaryButton);
 
@@ -132,12 +178,22 @@ export const PrimaryAndAlternativeActions: Story = {
     });
     await expect(contextMenu).toBeVisible();
 
-    const runSelectedAction = await canvas.findByRole("menuitem", {
+    // Click on "Run selected" action
+    const runSelectedAction = await canvas.findByRole("option", {
       name: "Run selected",
     });
     await userEvent.click(runSelectedAction);
 
     await expect(args["onClick:alternative"]).toHaveBeenCalledOnce();
+    await expect(args["onUpdate:selectedActionId"]).toHaveBeenCalledWith(
+      "run-selected",
+    );
+
+    // After selection, the primary button should now show "Run selected"
+    const updatedPrimaryButton = await canvas.findByRole("button", {
+      name: "Run selected",
+    });
+    await expect(updatedPrimaryButton).toBeInTheDocument();
   },
 };
 

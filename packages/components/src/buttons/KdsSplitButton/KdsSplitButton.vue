@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, useTemplateRef } from "vue";
 
-import KdsIcon from "../../accessories/Icon/KdsIcon.vue";
+import KdsListItem from "../../forms/_helper/List/KdsListItem/KdsListItem.vue";
 import KdsPopover from "../../overlays/Popover/KdsPopover.vue";
 import BaseButton from "../BaseButton.vue";
 
@@ -14,6 +14,7 @@ const props = withDefaults(defineProps<KdsSplitButtonProps>(), {
   variant: "filled",
   size: "medium",
   alternativeActions: () => [],
+  selectedActionId: undefined,
 });
 
 const emit = defineEmits<{
@@ -23,6 +24,7 @@ const emit = defineEmits<{
     action: KdsSplitButtonAlternativeAction,
     event: MouseEvent,
   ];
+  "update:selectedActionId": [actionId: string];
 }>();
 
 const contextMenuOpen = ref(false);
@@ -30,6 +32,20 @@ const popoverEl = useTemplateRef("popoverEl");
 
 const hasAlternativeActions = computed(
   () => props.alternativeActions?.some((action) => !action.disabled) ?? false,
+);
+
+const selectedAction = computed(() =>
+  props.alternativeActions?.find(
+    (action) => action.id === props.selectedActionId,
+  ),
+);
+
+const primaryButtonLabel = computed(
+  () => selectedAction.value?.label ?? props.label,
+);
+
+const primaryButtonIcon = computed(
+  () => selectedAction.value?.leadingIcon ?? props.leadingIcon,
 );
 
 const buttonClasses = computed(() => ({
@@ -69,6 +85,7 @@ function handleAlternativeClick(
   }
 
   contextMenuOpen.value = false;
+  emit("update:selectedActionId", action.id);
   emit("click:alternative", action, e);
 }
 </script>
@@ -81,8 +98,8 @@ function handleAlternativeClick(
       :variant="props.variant"
       :disabled="props.disabled"
       :title="props.title"
-      :label="props.label"
-      :leading-icon="props.leadingIcon"
+      :label="primaryButtonLabel"
+      :leading-icon="primaryButtonIcon"
       :aria-label="props.primaryAriaLabel"
       @click="handlePrimaryClick"
     />
@@ -97,7 +114,7 @@ function handleAlternativeClick(
         :variant="props.variant"
         :leading-icon="'chevron-down'"
         :disabled="props.disabled"
-        :aria-label="props.secondaryAriaLabel || 'Open alternative actions'"
+        :aria-label="'Change option'"
         @click="handleSecondaryClick"
       />
     </div>
@@ -110,30 +127,24 @@ function handleAlternativeClick(
       placement="bottom-right"
       :popover-aria-label="props.contextMenuAriaLabel || 'Alternative actions'"
     >
-      <ul class="kds-split-button-context-menu" role="menu">
-        <li
+      <ul
+        :aria-label="props.contextMenuAriaLabel || 'Alternative actions'"
+        :class="'kds-menu-container'"
+      >
+        <KdsListItem
           v-for="action in props.alternativeActions"
+          :id="action.id"
           :key="action.id"
-          class="kds-split-button-context-menu-item"
-        >
-          <button
-            type="button"
-            class="kds-split-button-context-menu-button"
-            role="menuitem"
-            :aria-label="action.ariaLabel || action.label"
-            :disabled="action.disabled"
-            @click="handleAlternativeClick(action, $event)"
-          >
-            <KdsIcon
-              v-if="action.leadingIcon"
-              :name="action.leadingIcon"
-              size="small"
-            />
-            <span class="kds-split-button-context-menu-label">
-              {{ action.label }}
-            </span>
-          </button>
-        </li>
+          :label="action.label"
+          :accessory="
+            action.leadingIcon
+              ? { type: 'icon', name: action.leadingIcon }
+              : undefined
+          "
+          :disabled="action.disabled"
+          :selected="action.id === props.selectedActionId"
+          @click="handleAlternativeClick(action, $event)"
+        />
       </ul>
     </KdsPopover>
   </div>
@@ -158,68 +169,13 @@ function handleAlternativeClick(
 
 .kds-split-button-primary {
   &.outlined {
-    border-top-right-radius: var(--kds-border-radius-container-none);
-    border-bottom-right-radius: var(--kds-border-radius-container-none);
+    /* Override BaseButton's border to prevent double borders in outlined variant */
+    border-right: none !important;
   }
 }
 
 .kds-split-button-secondary-anchor {
   display: flex;
-}
-
-.kds-split-button-context-menu {
-  display: flex;
-  flex-direction: column;
-  gap: var(--kds-spacing-container-0-12x);
-  padding: var(--kds-spacing-container-0-25x);
-  margin: 0;
-  list-style: none;
-  background: var(--kds-color-surface-default);
-  border-radius: var(--kds-border-radius-container-0-37x);
-  box-shadow: var(--kds-elevation-level-3);
-}
-
-.kds-split-button-context-menu-item {
-  display: flex;
-}
-
-.kds-split-button-context-menu-button {
-  display: inline-flex;
-  gap: var(--kds-spacing-container-0-25x);
-  align-items: center;
-  width: 100%;
-  min-height: var(--kds-dimension-component-height-1-5x);
-  padding: 0 var(--kds-spacing-container-0-5x);
-  font: var(--kds-font-base-interactive-small);
-  color: var(--kds-color-text-and-icon-neutral);
-  cursor: pointer;
-  background: var(--kds-color-background-neutral-initial);
-  border: var(--kds-border-action-transparent);
-  border-radius: var(--kds-border-radius-container-0-25x);
-
-  &:focus-visible {
-    outline: var(--kds-border-action-focused);
-    outline-offset: var(--kds-spacing-offset-focus);
-  }
-
-  &:disabled {
-    color: var(--kds-color-text-and-icon-disabled);
-    cursor: default;
-  }
-
-  &:hover:not(:disabled) {
-    background: var(--kds-color-background-neutral-hover);
-  }
-
-  &:active:not(:disabled) {
-    background: var(--kds-color-background-neutral-active);
-  }
-}
-
-.kds-split-button-context-menu-label {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 /* Size-specific styling */
@@ -318,6 +274,23 @@ function handleAlternativeClick(
       var(--kds-border-radius-container-none);
 
     /* background-color: var(--kds-color-background-primary-bold-initial); LOOK AGAIN */
+  }
+
+  .kds-menu-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--kds-spacing-container-0-10x);
+    padding: var(--kds-spacing-container-0-25x);
+    margin: 0;
+    list-style: none;
+    background: var(--kds-color-surface-default);
+    border-radius: var(--kds-border-radius-container-0-50x);
+    box-shadow: var(--kds-elevation-level-3);
+  }
+
+  .kds-item-small {
+    min-height: var(--kds-dimension-component-height-1-5x);
+    border-radius: var(--kds-border-radius-container-0-25x);
   }
 }
 </style>
