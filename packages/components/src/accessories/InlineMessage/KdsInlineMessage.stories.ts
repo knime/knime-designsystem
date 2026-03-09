@@ -16,7 +16,7 @@ const figmaBaseUrl =
 
 const meta: Meta<typeof KdsInlineMessage> = {
   component: KdsInlineMessage,
-  title: "Messaging/KdsInlineMessage",
+  title: "Accessories/InlineMessage",
   tags: ["autodocs"],
   parameters: {
     docs: {
@@ -51,15 +51,8 @@ const meta: Meta<typeof KdsInlineMessage> = {
     },
     message: {
       control: "text",
-      description:
-        "The message content displayed inside the inline message. To render rich text or other components, use the default slot instead.",
+      description: "The message content displayed inside the inline message.",
       table: { category: "props" },
-    },
-    default: {
-      control: false,
-      description:
-        "Default slot for rendering e.g. rich text instead of message.",
-      table: { category: "slots" },
     },
   },
   args: {
@@ -107,17 +100,6 @@ export const OnlyTitle: Story = {
     variant: "info",
     title: "Title",
   },
-};
-
-export const WithFormattedText: Story = {
-  render: () => ({
-    components: { KdsInlineMessage },
-    template: `
-      <KdsInlineMessage variant="info" title="Formatted Text Example">
-        This message has <strong>bold text</strong> and <em>italic text</em> for emphasis.
-      </KdsInlineMessage>
-    `,
-  }),
 };
 
 export const TextOverflow: Story = {
