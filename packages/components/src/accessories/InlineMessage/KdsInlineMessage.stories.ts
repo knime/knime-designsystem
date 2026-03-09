@@ -16,7 +16,7 @@ const figmaBaseUrl =
 
 const meta: Meta<typeof KdsInlineMessage> = {
   component: KdsInlineMessage,
-  title: "Accessories/KdsInlineMessage",
+  title: "Messaging/KdsInlineMessage",
   tags: ["autodocs"],
   parameters: {
     docs: {
@@ -27,7 +27,7 @@ const meta: Meta<typeof KdsInlineMessage> = {
     },
     design: {
       type: "figma",
-      url: `${figmaBaseUrl}?node-id=9555-79423`,
+      url: `${figmaBaseUrl}?node-id=3690-14792`,
     },
   },
   argTypes: {
@@ -36,7 +36,7 @@ const meta: Meta<typeof KdsInlineMessage> = {
       options: kdsInlineMessageVariants,
       description: "Visual style / status of the inline message.",
       table: {
-        category: "Props",
+        category: "props",
         type: { summary: kdsInlineMessageVariants.join(" | ") },
         defaultValue: { summary: "info" },
       },
@@ -47,12 +47,19 @@ const meta: Meta<typeof KdsInlineMessage> = {
       description:
         "Title text displayed before the message content inside the inline message.",
 
-      table: { category: "Props" },
+      table: { category: "props" },
     },
     message: {
       control: "text",
-      description: "The message content displayed inside the inline message.",
-      table: { category: "Props" },
+      description:
+        "The message content displayed inside the inline message. To render rich text or other components, use the default slot instead.",
+      table: { category: "props" },
+    },
+    default: {
+      control: false,
+      description:
+        "Default slot for rendering e.g. rich text instead of message.",
+      table: { category: "slots" },
     },
   },
   args: {
@@ -102,20 +109,13 @@ export const OnlyTitle: Story = {
   },
 };
 
-// Example story showcasing formatted text in the message content (italic/bold)
-
 export const WithFormattedText: Story = {
   render: () => ({
     components: { KdsInlineMessage },
     template: `
-      <div style="display: flex; flex-direction: column; gap: 16px; width: 100%;">
-        <KdsInlineMessage variant="info" title="Formatted Text Example">
-          This message has <strong>bold text</strong> and <em>italic text</em> for emphasis.
-        </KdsInlineMessage>
-        <KdsInlineMessage variant="success" title="Multiple Formatting">
-          You can combine <strong>bold</strong>, <em>italic</em>, and even <strong><em>both</em></strong> together.
-        </KdsInlineMessage>
-      </div>
+      <KdsInlineMessage variant="info" title="Formatted Text Example">
+        This message has <strong>bold text</strong> and <em>italic text</em> for emphasis.
+      </KdsInlineMessage>
     `,
   }),
 };
@@ -141,8 +141,11 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         message: "Here is a message that informs the user about something",
       },
       variants: {
-        [`${figmaBaseUrl}?node-id=3870-16219`]: {},
+        [`${figmaBaseUrl}?node-id=3870-16219`]: {
+          variant: "info",
+        },
         [`${figmaBaseUrl}?node-id=11984-102908`]: {
+          variant: "info",
           title: "Title",
           message: undefined,
         },

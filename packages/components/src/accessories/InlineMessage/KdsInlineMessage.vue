@@ -6,7 +6,6 @@ import KdsIcon from "../Icon/KdsIcon.vue";
 import type { KdsInlineMessageProps } from "./types";
 
 const props = withDefaults(defineProps<KdsInlineMessageProps>(), {
-  title: "",
   variant: "info",
   message: undefined,
 });
@@ -42,9 +41,7 @@ const role = computed(() =>
     </div>
 
     <div v-if="props.message || $slots.default" class="body">
-      <div class="message">
-        <slot>{{ props.message }}</slot>
-      </div>
+      <slot>{{ props.message }}</slot>
     </div>
   </div>
 </template>
@@ -57,8 +54,7 @@ const role = computed(() =>
   align-items: flex-start;
   padding: calc(
     var(--kds-spacing-container-0-5x) - var(--kds-core-border-width-xs)
-  ); /* needed as border in Figma is not increasing the width */
-
+  );
   color: var(--kds-color-text-and-icon-neutral);
   border-radius: var(--kds-border-radius-container-0-50x);
 
@@ -68,22 +64,19 @@ const role = computed(() =>
     align-items: flex-start;
 
     .icon {
-      align-self: center;
+      align-self: flex-start;
       color: var(--icon-color);
+    }
+
+    .title {
+      font: var(--kds-font-base-title-small-strong);
     }
   }
 
-  .title {
-    font: var(--kds-font-base-title-small-strong);
-  }
-
-  .message {
-    align-self: stretch;
-    font: var(--kds-font-base-body-small);
-  }
-
   .body {
+    align-self: stretch;
     padding-left: var(--kds-spacing-container-1x);
+    font: var(--kds-font-base-body-small);
   }
 
   &.info {
