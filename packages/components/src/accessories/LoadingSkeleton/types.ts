@@ -1,15 +1,29 @@
-import { kdsInlineMessageVariant } from "./enums";
+export type KdsLoadingSkeletonVariant =
+  | "generic"
+  | "button"
+  | "icon-button"
+  | "rounded-sm"
+  | "rounded-md";
 
-export type KdsInlineMessageVariant =
-  (typeof kdsInlineMessageVariant)[keyof typeof kdsInlineMessageVariant];
+export type KdsLoadingSkeletonProps = {
+  /** Width in px or %. Defaults to 100%. */
+  width?: `${number}px` | `${number}%`;
 
-export type KdsInlineMessageProps = {
-  /** Optional title displayed on top of the inline message. */
-  title?: string;
+  /** Height in px or %. Defaults to 100%. */
+  height?: `${number}px` | `${number}%`;
 
-  /** Message content displayed in the inline message. */
-  message?: string;
+  /** Optional border radius value (for example a KDS token variable). Defaults to pill radius. */
+  borderRadius?: string;
 
-  /** Optional variant. */
-  variant?: KdsInlineMessageVariant;
+  /** Skeleton shape variant. */
+  variant?: KdsLoadingSkeletonVariant;
+
+  /** Whether to render skeletons (true) or slot content (false). */
+  loading?: boolean;
+
+  /** Number of skeleton items to render. Defaults to 1. */
+  repeat?: number;
+
+  /** Gap between repeated skeleton items in px. */
+  repeatGap?: `${number}px`;
 };

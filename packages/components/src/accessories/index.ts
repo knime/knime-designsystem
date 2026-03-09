@@ -16,5 +16,8 @@ export type * from "./LiveStatus";
 export * from "./LoadingSpinner";
 export type * from "./LoadingSpinner";
 
+export * from "./LoadingSkeleton";
+export type * from "./LoadingSkeleton";
+
 export * from "./InlineMessage";
 export type * from "./InlineMessage";
