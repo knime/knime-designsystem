@@ -1,5 +1,15 @@
 # @knime/kds-components
 
+## 0.14.0
+
+### Minor Changes
+
+- 89d3eb1: Add KDSColorInput with ColorPicker functionality
+
+### Patch Changes
+
+- @knime/kds-styles@0.14.0
+
 ## 0.13.2
 
 ### Patch Changes
