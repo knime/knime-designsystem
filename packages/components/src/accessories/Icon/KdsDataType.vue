@@ -3,17 +3,15 @@ import { computed } from "vue";
 
 import { ID_TO_ICON_MAP, type TypeId } from "./IdToIconNameMapping";
 import { kdsTypeIconNames } from "./enums";
-import type { KdsDataTypeSize, KdsIconSize, KdsTypeIconName } from "./types";
+import type {
+  KdsDataTypeProps,
+  KdsDataTypeSize,
+  KdsIconSize,
+  KdsTypeIconName,
+} from "./types";
 import useIcon from "./useIcon";
 
 type DataTypeIconSize = Exclude<KdsIconSize, "large">;
-
-type Props = {
-  iconName?: KdsTypeIconName | TypeId | string;
-  iconTitle?: string;
-  size?: KdsDataTypeSize;
-  disabled?: boolean;
-};
 
 const DATA_TYPE_SIZE_TO_ICON_SIZE: Record<KdsDataTypeSize, DataTypeIconSize> = {
   large: "medium",
@@ -21,7 +19,7 @@ const DATA_TYPE_SIZE_TO_ICON_SIZE: Record<KdsDataTypeSize, DataTypeIconSize> = {
   small: "xsmall",
 } as const;
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<KdsDataTypeProps>(), {
   iconName: "unknown-datatype",
   iconTitle: "Unknown Data Type",
   size: "medium",
