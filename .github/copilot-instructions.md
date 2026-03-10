@@ -271,6 +271,10 @@ play: async ({ canvasElement }) => {
 
 - Follow [Figma MCP Integration Rules](./instructions/figma.md).
 
+### AI-assisted Development / Vibecoding
+
+- For design-library-first vibecoding guidance, see [AI-assisted development / vibecoding guidelines](./instructions/vibecoding.md).
+
 ### Testing
 
 - Vitest for unit tests
