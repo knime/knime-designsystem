@@ -1,12 +1,21 @@
 import { type Preview, setup } from "@storybook/vue3-vite";
-import { useDarkMode } from "@storybook-community/storybook-dark-mode";
+import { DARK_MODE_EVENT_NAME } from "@storybook-community/storybook-dark-mode";
+import { addons } from "storybook/preview-api";
 
 import "@knime/kds-styles/index.css";
 import "@knime/kds-styles/kds-legacy-theme.css";
+
 import {
   useKdsDarkMode,
   useKdsLegacyMode,
 } from "../../packages/components/src";
+
+const channel = addons.getChannel();
+const { currentMode } = useKdsDarkMode();
+
+channel.on(DARK_MODE_EVENT_NAME, (isDark: boolean) => {
+  currentMode.value = isDark ? "dark" : "light";
+});
 
 let storybookAppInstanceCounter = 0;
 
@@ -92,9 +101,6 @@ const preview: Preview = {
   },
   decorators: [
     (story, context) => {
-      const isDark = useDarkMode();
-      useKdsDarkMode().currentMode.value = isDark ? "dark" : "light";
-
       const isLegacy = context.globals.legacy === "true";
       useKdsLegacyMode(isLegacy);
       return story();
