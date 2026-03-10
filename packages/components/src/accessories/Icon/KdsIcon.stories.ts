@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
+import { buildAllCombinationsStory } from "../../test-utils/storybook";
+
 import KdsIcon from "./KdsIcon.vue";
 import { kdsIconNames, kdsIconSizes } from "./enums";
 
@@ -24,6 +26,9 @@ const meta: Meta<typeof KdsIcon> = {
       control: { type: "select" },
       options: kdsIconSizes,
     },
+    disabled: {
+      control: "boolean",
+    },
   },
 };
 export default meta;
@@ -34,6 +39,15 @@ export const IconStory: Story = {
   args: {
     name: "placeholder",
     size: "medium",
+    disabled: false,
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    name: "placeholder",
+    size: "medium",
+    disabled: true,
   },
 };
 
@@ -66,3 +80,14 @@ export const SizeComparison: Story = {
     name: "placeholder",
   },
 };
+
+export const AllCombinations: Story = buildAllCombinationsStory({
+  component: KdsIcon,
+  combinationsProps: [
+    {
+      name: ["placeholder"],
+      size: kdsIconSizes,
+      disabled: [false, true],
+    },
+  ],
+});

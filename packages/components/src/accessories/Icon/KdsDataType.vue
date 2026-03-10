@@ -56,11 +56,7 @@ const iconComponent = useIcon({
 
 <template>
   <div
-    :class="[
-      'kds-data-type-icon-container',
-      size,
-      { disabled: props.disabled },
-    ]"
+    :class="['kds-data-type-icon-container', size, { disabled }]"
     :title="props.iconTitle"
   >
     <component

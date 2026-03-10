@@ -8,9 +8,10 @@ import type { KdsIconName, KdsIconSize } from "./types";
 import useIcon from "./useIcon";
 
 const props = withDefaults(
-  defineProps<{ name: KdsIconName; size?: KdsIconSize }>(),
+  defineProps<{ name: KdsIconName; size?: KdsIconSize; disabled?: boolean }>(),
   {
     size: "medium",
+    disabled: false,
   },
 );
 
@@ -21,13 +22,13 @@ const iconComponent = useIcon({ name: toRef(props, "name"), folder: "icons" });
   <component
     :is="iconComponent"
     v-if="iconComponent"
-    :class="['kds-icon', props.size]"
+    :class="['kds-icon', props.size, { disabled }]"
     aria-hidden="true"
     focusable="false"
   />
   <span
     v-else
-    :class="['kds-icon', props.size]"
+    :class="['kds-icon', props.size, { disabled }]"
     aria-hidden="true"
     focusable="false"
   />
@@ -35,4 +36,8 @@ const iconComponent = useIcon({ name: toRef(props, "name"), folder: "icons" });
 
 <style scoped>
 @import url("./styles.css");
+
+.kds-icon.disabled {
+  color: var(--kds-color-text-and-icon-disabled);
+}
 </style>
