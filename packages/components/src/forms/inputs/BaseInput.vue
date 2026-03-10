@@ -432,7 +432,6 @@ defineExpose({
   flex-shrink: 0;
   gap: var(--kds-spacing-container-0-12x);
   align-items: center;
-  margin-left: var(--kds-spacing-container-0-12x);
 }
 
 .trailing-slot {
