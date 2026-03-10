@@ -19,7 +19,7 @@ const meta: Meta<typeof KdsIcon> = {
     docs: {
       description: {
         component:
-          "Displays an icon from the KDS icon set. The icon color inherits the text color of the parent element.",
+          "Displays an icon from the KDS icon set. By default, the icon color inherits the text color of the parent element, but when `disabled` is set the icon uses the disabled icon styling instead.",
       },
     },
     design: {
