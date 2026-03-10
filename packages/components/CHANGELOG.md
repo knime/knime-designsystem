@@ -1,5 +1,18 @@
 # @knime/kds-components
 
+## 0.15.0
+
+### Minor Changes
+
+- 8546ad7: BREAKING CHANGE: Removed required, readonly, and name props from all input fields
+
+### Patch Changes
+
+- c054e1c: Add `disabled` prop to `KdsDataType` and `KdsIcon` components
+- be6e1c5: Add KdsDropdown component
+- 940ee0f: Fix slight misalignment of color swatch in color input
+  - @knime/kds-styles@0.15.0
+
 ## 0.14.0
 
 ### Minor Changes
