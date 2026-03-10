@@ -12,6 +12,7 @@ type Props = {
   iconName?: KdsTypeIconName | TypeId | string;
   iconTitle?: string;
   size?: KdsDataTypeSize;
+  disabled?: boolean;
 };
 
 const DATA_TYPE_SIZE_TO_ICON_SIZE: Record<KdsDataTypeSize, DataTypeIconSize> = {
@@ -24,6 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
   iconName: "unknown-datatype",
   iconTitle: "Unknown Data Type",
   size: "medium",
+  disabled: false,
 });
 
 const iconSize = computed(() => DATA_TYPE_SIZE_TO_ICON_SIZE[props.size]);
@@ -53,7 +55,14 @@ const iconComponent = useIcon({
 </script>
 
 <template>
-  <div :class="['kds-data-type-icon-container', size]" :title="props.iconTitle">
+  <div
+    :class="[
+      'kds-data-type-icon-container',
+      size,
+      { disabled: props.disabled },
+    ]"
+    :title="props.iconTitle"
+  >
     <component
       :is="iconComponent"
       :class="['kds-icon', 'kds-data-type-icon', iconSize]"
@@ -81,6 +90,10 @@ const iconComponent = useIcon({
   background-color: var(--kds-color-page-default);
   border: var(--kds-border-base-muted);
   border-radius: var(--kds-border-radius-container-0-12x);
+
+  &.disabled {
+    color: var(--kds-color-text-and-icon-disabled);
+  }
 
   &.small {
     --data-type-height: var(--kds-dimension-icon-0-75x);

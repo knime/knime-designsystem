@@ -19,6 +19,7 @@ const meta: Meta<typeof KdsDataType> = {
       control: { type: "select" },
       options: kdsDataTypeSizes,
     },
+    disabled: { control: "boolean" },
   },
 };
 export default meta;
@@ -30,5 +31,6 @@ export const DataTypeStory: Story = {
     iconName: "string-datatype",
     iconTitle: "String",
     size: "medium",
+    disabled: false,
   },
 };
