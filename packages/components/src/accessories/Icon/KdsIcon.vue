@@ -1,18 +1,18 @@
 <script setup lang="ts">
 /**
- * Displays an icon from the KDS icon set. The icon color inherits the text color of the parent element.
+ * Displays an icon from the KDS icon set. The icon color inherits the text
+ * color of the parent element by default. When the `disabled` prop is set,
+ * the color is overridden with the `kds.color.text-and-icon.disabled` token.
  */
 import { toRef } from "vue";
 
-import type { KdsIconName, KdsIconSize } from "./types";
+import type { KdsIconProps } from "./types";
 import useIcon from "./useIcon";
 
-const props = withDefaults(
-  defineProps<{ name: KdsIconName; size?: KdsIconSize }>(),
-  {
-    size: "medium",
-  },
-);
+const props = withDefaults(defineProps<KdsIconProps>(), {
+  size: "medium",
+  disabled: false,
+});
 
 const iconComponent = useIcon({ name: toRef(props, "name"), folder: "icons" });
 </script>
@@ -21,13 +21,13 @@ const iconComponent = useIcon({ name: toRef(props, "name"), folder: "icons" });
   <component
     :is="iconComponent"
     v-if="iconComponent"
-    :class="['kds-icon', props.size]"
+    :class="['kds-icon', props.size, { disabled }]"
     aria-hidden="true"
     focusable="false"
   />
   <span
     v-else
-    :class="['kds-icon', props.size]"
+    :class="['kds-icon', props.size, { disabled }]"
     aria-hidden="true"
     focusable="false"
   />
@@ -35,4 +35,8 @@ const iconComponent = useIcon({ name: toRef(props, "name"), folder: "icons" });
 
 <style scoped>
 @import url("./styles.css");
+
+.kds-icon.disabled {
+  color: var(--kds-color-text-and-icon-disabled);
+}
 </style>

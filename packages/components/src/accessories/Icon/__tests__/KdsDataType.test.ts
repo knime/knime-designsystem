@@ -44,4 +44,18 @@ describe("DataType.vue", () => {
     await vi.dynamicImportSettled();
     expect(wrapper).not.toBeNull();
   });
+
+  it("applies disabled class when disabled prop is true", () => {
+    const wrapper = mount(KdsDataType, {
+      props: { iconName: "string-datatype", disabled: true },
+    });
+    expect(wrapper.classes()).toContain("disabled");
+  });
+
+  it("does not apply disabled class when disabled prop is false", () => {
+    const wrapper = mount(KdsDataType, {
+      props: { iconName: "string-datatype", disabled: false },
+    });
+    expect(wrapper.classes()).not.toContain("disabled");
+  });
 });

@@ -10,10 +10,16 @@ import type {
   KdsListItemAccessorySize,
 } from "./types.ts";
 
-const props = defineProps<{
-  accessory: KdsListItemAccessory;
-  size: KdsListItemAccessorySize;
-}>();
+const props = withDefaults(
+  defineProps<{
+    accessory: KdsListItemAccessory;
+    size: KdsListItemAccessorySize;
+    disabled?: boolean;
+  }>(),
+  {
+    disabled: false,
+  },
+);
 </script>
 
 <template>
@@ -34,11 +40,13 @@ const props = defineProps<{
     v-else-if="props.accessory.type === 'icon'"
     :name="props.accessory.name"
     :size="props.size"
+    :disabled="props.disabled"
   />
   <KdsDataType
     v-else-if="props.accessory.type === 'dataType'"
     :icon-name="props.accessory.name"
     :size="props.size"
+    :disabled="props.disabled"
   />
   <KdsLiveStatus
     v-else-if="props.accessory.type === 'liveStatus'"

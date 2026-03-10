@@ -70,7 +70,11 @@ const { isTruncated: isSubtextTruncated } = useKdsIsTruncated(subtextEl);
     @click="onClick"
   >
     <span v-if="props.accessory" class="accessory">
-      <ListItemAccessory :accessory="props.accessory" :size="accessorySize" />
+      <ListItemAccessory
+        :accessory="props.accessory"
+        :size="accessorySize"
+        :disabled="props.disabled"
+      />
     </span>
 
     <span class="content">
