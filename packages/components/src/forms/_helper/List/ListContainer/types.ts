@@ -23,7 +23,7 @@ export type KdsListContainerProps = {
   /** Possible values to show in the list */
   possibleValues: KdsListOption[];
   /** Text shown when no entries are provided */
-  noEntriesText?: string;
+  emptyText?: string;
   /** Accessible label for the listbox */
   ariaLabel?: string;
   /** When true, the list is controlled externally (e.g. by a search input). The list will not be focusable and the parent must forward events via the exposed handleKeydown/handleFocus/handleBlur methods. */

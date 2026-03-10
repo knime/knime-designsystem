@@ -55,7 +55,7 @@ const meta = {
       control: "object",
       table: { category: "props" },
     },
-    noEntriesText: {
+    emptyText: {
       control: "text",
       table: { category: "props" },
     },
@@ -70,7 +70,7 @@ const meta = {
   args: {
     ariaLabel: "List container",
     possibleValues: baseOptions,
-    noEntriesText: "No entries found",
+    emptyText: "No entries found",
     controlledExternally: false,
     onItemClick: fn(),
   },
@@ -221,7 +221,7 @@ export const WithDisabledOptions: Story = {
 export const NoEntries: Story = {
   args: {
     possibleValues: [],
-    noEntriesText: "Nothing to show",
+    emptyText: "Nothing to show",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -359,7 +359,7 @@ export const TextOverflow: Story = {
         text: "Short",
       },
     ],
-    noEntriesText: "No entries found",
+    emptyText: "No entries found",
   },
 };
 
@@ -385,7 +385,7 @@ export const DesignComparator: Story = {
         props: {
           ariaLabel: "Options",
           possibleValues: [],
-          noEntriesText: "No entries in this list",
+          emptyText: "No entries in this list",
         },
         variants: {
           "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4711-38479":
@@ -401,7 +401,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   combinationsProps: [
     {
       ariaLabel: ["Options"],
-      noEntriesText: ["No entries found"],
+      emptyText: ["No entries found"],
       possibleValues: [options(3, () => ({})), []],
     },
   ],

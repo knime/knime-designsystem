@@ -17,6 +17,15 @@ const props = withDefaults(defineProps<KdsSearchInputProps>(), {
 
 const modelValue = defineModel<string>({ default: "" });
 
+const emit = defineEmits<{
+  /** Native focus event forwarded from the input element. */
+  focus: [event: FocusEvent];
+  /** Native blur event forwarded from the input element. */
+  blur: [event: FocusEvent];
+  /** Native keydown event forwarded from the input element. */
+  keydown: [event: KeyboardEvent];
+}>();
+
 const baseInput = useTemplateRef("baseInput");
 
 defineExpose<KdsFormFieldExpose>({
@@ -38,6 +47,9 @@ defineExpose<KdsFormFieldExpose>({
         :autocomplete="props.autocomplete"
         leading-icon="search"
         :clearable="true"
+        @focus="emit('focus', $event)"
+        @blur="emit('blur', $event)"
+        @keydown="emit('keydown', $event)"
       />
     </template>
   </BaseFormFieldWrapper>

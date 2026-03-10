@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, useId, useTemplateRef, watch } from "vue";
 
+import KdsEmptyState from "../../../../layouts/EmptyState/KdsEmptyState.vue";
 import { KdsListItem } from "../KdsListItem";
 
 import type { KdsListContainerExpose, KdsListContainerProps } from "./types";
 
 const props = withDefaults(defineProps<KdsListContainerProps>(), {
-  noEntriesText: "",
+  emptyText: "",
 });
 
 const emit = defineEmits<{
@@ -16,6 +17,7 @@ const emit = defineEmits<{
 
 const idPrefix = useId();
 const toOptionId = (elementId: string) => elementId.slice(idPrefix.length + 1);
+const emptyOptionId = `${idPrefix}-empty`;
 
 /** possibleValues with prefixed ids to avoid DOM id collisions */
 const prefixedValues = computed(() =>
@@ -68,7 +70,15 @@ watch(enabledValues, (values) => {
     id !== undefined && values.some((o) => o.id === id);
 
   if (activeId.value !== undefined && !isValid(activeId.value)) {
-    activeId.value = values.length > 0 ? values[0].id : undefined;
+    if (values.length > 0) {
+      activeId.value = values[0].id;
+    } else {
+      // Only point to the empty-state element when the list is truly empty.
+      // When items exist but are all disabled, leave activeId undefined to
+      // avoid aria-activedescendant referencing a non-existent DOM element.
+      activeId.value =
+        prefixedValues.value.length === 0 ? emptyOptionId : undefined;
+    }
   }
   if (!isValid(lastActiveId.value)) {
     lastActiveId.value = undefined;
@@ -196,17 +206,19 @@ defineExpose<KdsListContainerExpose>({
       :active="activeId === item.id"
       :special="item.special"
       :missing="item.missing"
+      :trailing-icon="item.selected ? 'checkmark' : undefined"
       @mousedown="props.controlledExternally && $event.preventDefault()"
       @click.stop="emit('itemClick', toOptionId(item.id))"
     />
     <div
       v-if="prefixedValues.length === 0"
+      :id="emptyOptionId"
       role="option"
       aria-disabled="true"
-      aria-selected="false"
+      :aria-selected="undefined"
       class="kds-list-container-empty"
     >
-      {{ props.noEntriesText }}
+      <KdsEmptyState :headline="props.emptyText" />
     </div>
   </div>
 </template>
@@ -226,9 +238,7 @@ defineExpose<KdsListContainerExpose>({
 }
 
 .kds-list-container-empty {
-  padding: var(--kds-spacing-container-0-5x);
-  font: var(--kds-font-base-body-small);
-  color: var(--kds-color-text-and-icon-subtle);
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 </style>

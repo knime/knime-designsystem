@@ -18,6 +18,9 @@ export type * from "./RadioButton";
 export * from "./inputs";
 export type * from "./inputs";
 
+export * from "./selects";
+export type * from "./selects";
+
 export * from "./_helper/InfoPopover";
 export type * from "./_helper/InfoPopover";
 
