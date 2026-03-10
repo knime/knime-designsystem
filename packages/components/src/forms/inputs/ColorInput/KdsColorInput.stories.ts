@@ -45,10 +45,6 @@ const meta: Meta<typeof KdsColorInput> = {
       description: "Placeholder shown when the input is empty",
       table: { category: "props" },
     },
-    name: {
-      control: "text",
-      table: { category: "props" },
-    },
     autocomplete: {
       control: "text",
       table: { category: "props" },
@@ -80,7 +76,6 @@ const meta: Meta<typeof KdsColorInput> = {
     modelValue: "",
     label: "Label",
     placeholder: "#FFFFFF",
-    name: "",
     autocomplete: "",
     disabled: false,
     validating: false,
@@ -162,12 +157,27 @@ export const WithValue: Story = {
   args: {
     modelValue: "#5148E5",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("textbox", { name: "Label" });
+    await expect(input).toHaveValue("#5148E5");
+  },
 };
 
 export const Disabled: Story = {
   args: {
     modelValue: "#5148E5",
     disabled: true,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("textbox", { name: "Label" });
+    await expect(input).toBeDisabled();
+
+    const pickerButton = canvas.getByRole("button", {
+      name: /open color picker/i,
+    });
+    await expect(pickerButton).toBeDisabled();
   },
 };
 
@@ -176,6 +186,10 @@ export const WithError: Story = {
     modelValue: "#FFFFFF",
     error: true,
     subText: "Error message",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Error message")).toBeInTheDocument();
   },
 };
 

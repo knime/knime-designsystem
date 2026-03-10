@@ -58,10 +58,6 @@ const meta: Meta<typeof KdsPatternInput> = {
       control: "text",
       table: { category: "props" },
     },
-    name: {
-      control: "text",
-      table: { category: "props" },
-    },
     autocomplete: {
       control: "text",
       table: { category: "props" },
@@ -71,14 +67,6 @@ const meta: Meta<typeof KdsPatternInput> = {
       table: { category: "props" },
     },
     disabled: {
-      control: "boolean",
-      table: { category: "props" },
-    },
-    readonly: {
-      control: "boolean",
-      table: { category: "props" },
-    },
-    required: {
       control: "boolean",
       table: { category: "props" },
     },
@@ -102,12 +90,9 @@ const meta: Meta<typeof KdsPatternInput> = {
     description: "",
     ariaLabel: undefined,
     placeholder: "",
-    name: "",
     autocomplete: "",
     subText: "",
-    required: false,
     disabled: false,
-    readonly: false,
     validating: false,
     error: false,
     preserveSubTextSpace: false,
@@ -136,17 +121,69 @@ export const Default: Story = {
   args: {
     placeholder: "^column([1-9]|10)$",
   },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("textbox", { name: "Pattern" });
+
+    await step("Tab navigation (empty)", async () => {
+      input.blur();
+      await userEvent.tab();
+      await expect(input).toHaveFocus();
+
+      await userEvent.tab();
+      const caseToggle = canvas.getByRole("button", {
+        name: "Match case-insensitive",
+      });
+      await expect(caseToggle).toHaveFocus();
+    });
+
+    await step("Type, clear, and toggle", async () => {
+      await userEvent.click(input);
+      await userEvent.type(input, "abc");
+      await expect(input).toHaveValue("abc");
+
+      // Wait for clear button to appear after typing
+      const clearButton = await canvas.findByRole("button", { name: "Clear" });
+      await userEvent.tab();
+      await expect(clearButton).toHaveFocus();
+
+      await userEvent.keyboard("{Enter}");
+      await expect(input).toHaveValue("");
+
+      // After clearing, the clear button disappears. Wait for toggle to be focusable.
+      const caseToggle = await canvas.findByRole("button", {
+        name: "Match case-insensitive",
+      });
+      await userEvent.click(caseToggle);
+
+      // Wait for toggle state to update - the name changes when pressed
+      const caseToggleActive = await canvas.findByRole("button", {
+        name: "Match case-sensitive",
+      });
+      await expect(caseToggleActive).toHaveAttribute("aria-pressed", "true");
+    });
+  },
 };
 
 export const WithValue: Story = {
   args: {
     modelValue: "^column([1-9]|10)$",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("textbox", { name: "Pattern" });
+    await expect(input).toHaveValue("^column([1-9]|10)$");
+  },
 };
 
 export const WithEncodedOptions: Story = {
   args: {
     modelValue: "^(?!.*^column([1-9]|10)$).*$",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("textbox", { name: "Pattern" });
+    await expect(input).toBeInTheDocument();
   },
 };
 
@@ -155,12 +192,10 @@ export const Disabled: Story = {
     modelValue: "^column([1-9]|10)$",
     disabled: true,
   },
-};
-
-export const Readonly: Story = {
-  args: {
-    modelValue: "^column([1-9]|10)$",
-    readonly: true,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("textbox", { name: "Pattern" });
+    await expect(input).toBeDisabled();
   },
 };
 
@@ -197,6 +232,10 @@ export const WithError: Story = {
     error: true,
     subText: "Invalid pattern",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Invalid pattern")).toBeInTheDocument();
+  },
 };
 
 export const Validating: Story = {
@@ -204,6 +243,10 @@ export const Validating: Story = {
     modelValue: "^column([1-9]|10)$",
     validating: true,
     subText: "Validating pattern",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Validating pattern")).toBeInTheDocument();
   },
 };
 
@@ -252,14 +295,12 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       ariaLabel: [undefined],
       modelValue: ["", "^column([1-9]|10)$"],
       placeholder: ["", "{pattern}"],
-      readonly: [false],
       disabled: [false],
       error: [false],
       validating: [false],
       subText: [undefined, "Message"],
     },
     combinations: [
-      { readonly: [true] },
       { validating: [true], subText: ["Validation message"] },
       { error: [true], subText: ["Error message"] },
       { disabled: [true] },
@@ -296,65 +337,5 @@ export const TextOverflow: Story = {
       "^a-very-very-very-long-pattern-with-a-lot-of-characters-and-groups([0-9]+)$",
     subText:
       "Very long helper text that should wrap to multiple lines when needed",
-  },
-};
-
-export const Interaction: Story = {
-  args: {
-    label: "Pattern",
-    ariaLabel: undefined,
-    modelValue: "",
-    placeholder: "^column([1-9]|10)$",
-    disabled: false,
-    readonly: false,
-    required: false,
-    error: false,
-    validating: false,
-    subText: "",
-    preserveSubTextSpace: false,
-    name: "",
-    autocomplete: "",
-  },
-  play: async ({ canvasElement, step }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByRole("textbox", { name: "Pattern" });
-
-    await step("Tab navigation (empty)", async () => {
-      input.blur();
-      await userEvent.tab();
-      await expect(input).toHaveFocus();
-
-      await userEvent.tab();
-      const caseToggle = canvas.getByRole("button", {
-        name: "Match case-insensitive",
-      });
-      await expect(caseToggle).toHaveFocus();
-    });
-
-    await step("Type, clear, and toggle", async () => {
-      await userEvent.click(input);
-      await userEvent.type(input, "abc");
-      await expect(input).toHaveValue("abc");
-
-      // Wait for clear button to appear after typing
-      const clearButton = await canvas.findByRole("button", { name: "Clear" });
-      await userEvent.tab();
-      await expect(clearButton).toHaveFocus();
-
-      await userEvent.keyboard("{Enter}");
-      await expect(input).toHaveValue("");
-
-      // After clearing, the clear button disappears. Wait for toggle to be focusable.
-      const caseToggle = await canvas.findByRole("button", {
-        name: "Match case-insensitive",
-      });
-      await userEvent.click(caseToggle);
-
-      // Wait for toggle state to update - the name changes when pressed
-      const caseToggleActive = await canvas.findByRole("button", {
-        name: "Match case-sensitive",
-      });
-      await expect(caseToggleActive).toHaveAttribute("aria-pressed", "true");
-    });
   },
 };

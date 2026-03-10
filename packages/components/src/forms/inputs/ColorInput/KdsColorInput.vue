@@ -7,10 +7,10 @@ import { KdsToggleButton } from "../../../buttons";
 import KdsPopover from "../../../overlays/Popover/KdsPopover.vue";
 import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
 import BaseInput from "../BaseInput.vue";
-import type { KdsColorInputProps } from "../types";
 
 import ColorPicker from "./ColorPicker.vue";
 import { normalizeHexColor } from "./colorUtils";
+import type { KdsColorInputProps } from "./types";
 import { useColorInputValidationOnFocusOut } from "./useColorInputValidationOnFocusOut";
 
 const props = withDefaults(defineProps<KdsColorInputProps>(), {
@@ -20,7 +20,6 @@ const props = withDefaults(defineProps<KdsColorInputProps>(), {
   validating: false,
   preserveSubTextSpace: false,
   autocomplete: undefined,
-  name: undefined,
 });
 
 const modelValue = defineModel<string>({ default: "" });
@@ -45,7 +44,6 @@ const { handleFocusOut } = useColorInputValidationOnFocusOut(modelValue);
           :placeholder="props.placeholder"
           :disabled="props.disabled"
           :error="props.error"
-          :name="props.name"
           :autocomplete="props.autocomplete"
         >
           <template #leading>

@@ -5,17 +5,15 @@ import KdsToggleButton from "../../../buttons/KdsToggleButton/KdsToggleButton.vu
 import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
 import type { KdsFormFieldExpose } from "../../types.ts";
 import BaseInput from "../BaseInput.vue";
-import type { KdsPatternInputProps } from "../types.ts";
 
 import {
   buildRegexFromPatternInput,
   parseRegexToPatternInputValue,
 } from "./patternRegex.ts";
+import type { KdsPatternInputProps } from "./types";
 
 const props = withDefaults(defineProps<KdsPatternInputProps>(), {
   disabled: false,
-  readonly: false,
-  required: false,
   error: false,
   validating: false,
   preserveSubTextSpace: false,
@@ -77,10 +75,7 @@ defineExpose<KdsFormFieldExpose>({
         type="text"
         :placeholder="props.placeholder"
         :disabled="props.disabled"
-        :readonly="props.readonly"
-        :required="props.required"
         :error="props.error"
-        :name="props.name"
         :autocomplete="props.autocomplete"
         leading-icon="filter"
         clearable
@@ -94,7 +89,7 @@ defineExpose<KdsFormFieldExpose>({
             leading-icon="case-sensitive"
             :title="caseSensitiveAriaLabel"
             :aria-label="caseSensitiveAriaLabel"
-            :disabled="props.disabled || props.readonly"
+            :disabled="props.disabled"
             @update:model-value="rebuildRegexFromUi"
           />
 
@@ -105,7 +100,7 @@ defineExpose<KdsFormFieldExpose>({
             leading-icon="arrows-order"
             :title="excludeMatchesAriaLabel"
             :aria-label="excludeMatchesAriaLabel"
-            :disabled="props.disabled || props.readonly"
+            :disabled="props.disabled"
             @update:model-value="rebuildRegexFromUi"
           />
 
@@ -116,7 +111,7 @@ defineExpose<KdsFormFieldExpose>({
             leading-icon="regex"
             :title="patternModeAriaLabel"
             :aria-label="patternModeAriaLabel"
-            :disabled="props.disabled || props.readonly"
+            :disabled="props.disabled"
             @update:model-value="rebuildRegexFromUi"
           />
         </template>

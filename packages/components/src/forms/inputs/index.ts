@@ -1,7 +1,17 @@
 export * from "./ColorInput";
+export type * from "./ColorInput";
+
 export * from "./NumberInput";
+export type * from "./NumberInput";
+
 export * from "./PatternInput";
+export type * from "./PatternInput";
+
 export * from "./SearchInput";
+export type * from "./SearchInput";
+
 export * from "./TextInput";
+export type * from "./TextInput";
+
 export * from "./Textarea";
-export type * from "./types";
+export type * from "./Textarea";

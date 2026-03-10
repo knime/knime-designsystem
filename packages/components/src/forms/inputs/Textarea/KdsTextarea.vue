@@ -4,14 +4,13 @@ import { useResizeObserver } from "@vueuse/core";
 
 import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
 import type { KdsFormFieldExpose } from "../../types.ts";
-import type { KdsTextareaProps } from "../types";
+
+import type { KdsTextareaProps } from "./types";
 
 const props = withDefaults(defineProps<KdsTextareaProps>(), {
   placeholder: "",
   rows: 3,
   disabled: false,
-  readonly: false,
-  required: false,
   error: false,
   validating: false,
   preserveSubTextSpace: false,
@@ -62,9 +61,6 @@ defineExpose<KdsFormFieldExpose>({
         :rows="normalizedRows"
         :placeholder="props.placeholder"
         :disabled="props.disabled"
-        :readonly="props.readonly"
-        :required="props.required"
-        :name="props.name"
         :autocomplete="props.autocomplete"
       />
     </template>

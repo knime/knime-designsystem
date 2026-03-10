@@ -64,10 +64,6 @@ const meta: Meta<typeof KdsSearchInput> = {
       description: "Placeholder shown when the input is empty",
       table: { category: "props" },
     },
-    name: {
-      control: "text",
-      table: { category: "props" },
-    },
     autocomplete: {
       control: "text",
       table: { category: "props" },
@@ -78,14 +74,6 @@ const meta: Meta<typeof KdsSearchInput> = {
       table: { category: "props" },
     },
     disabled: {
-      control: "boolean",
-      table: { category: "props" },
-    },
-    readonly: {
-      control: "boolean",
-      table: { category: "props" },
-    },
-    required: {
       control: "boolean",
       table: { category: "props" },
     },
@@ -110,11 +98,8 @@ const meta: Meta<typeof KdsSearchInput> = {
     description: "",
     ariaLabel: "Search",
     placeholder: "Search",
-    name: "",
     autocomplete: "",
     disabled: false,
-    readonly: false,
-    required: false,
     error: false,
     validating: false,
     subText: "",
@@ -137,12 +122,43 @@ const meta: Meta<typeof KdsSearchInput> = {
 
 export default meta;
 
-export const Default: Story = {};
+export const Default: Story = {
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("searchbox", { name: "Search" });
+
+    await step("Type search value", async () => {
+      await userEvent.click(input);
+      await userEvent.type(input, "Searchterm");
+      await expect(input).toHaveValue("Searchterm");
+    });
+
+    await step(
+      "Tab to clear button and clear while keeping focus on the input",
+      async () => {
+        const clearButton = await canvas.findByRole("button", {
+          name: "Clear",
+        });
+        await userEvent.tab();
+        await expect(clearButton).toHaveFocus();
+
+        await userEvent.click(clearButton);
+        await expect(input).toHaveValue("");
+        await expect(input).toHaveFocus();
+      },
+    );
+  },
+};
 
 export const WithLabel: Story = {
   args: {
     label: "Search",
     ariaLabel: undefined,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("searchbox", { name: "Search" });
+    await expect(input).toBeInTheDocument();
   },
 };
 
@@ -150,12 +166,10 @@ export const WithValue: Story = {
   args: {
     modelValue: "Searchterm",
   },
-};
-
-export const Readonly: Story = {
-  args: {
-    readonly: true,
-    modelValue: "Searchterm",
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("searchbox", { name: "Search" });
+    await expect(input).toHaveValue("Searchterm");
   },
 };
 
@@ -192,11 +206,20 @@ export const Disabled: Story = {
   args: {
     disabled: true,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("searchbox", { name: "Search" });
+    await expect(input).toBeDisabled();
+  },
 };
 
 export const WithSubText: Story = {
   args: {
     subText: "Helper text goes here",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Helper text goes here")).toBeInTheDocument();
   },
 };
 
@@ -206,6 +229,10 @@ export const Validating: Story = {
     validating: true,
     subText: "Validation message",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Validation message")).toBeInTheDocument();
+  },
 };
 
 export const WithError: Story = {
@@ -213,6 +240,10 @@ export const WithError: Story = {
     modelValue: "Searchterm",
     error: true,
     subText: "Error message",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Error message")).toBeInTheDocument();
   },
 };
 
@@ -261,14 +292,12 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       ariaLabel: [undefined],
       modelValue: ["", "Searchterm"],
       placeholder: ["", "Search"],
-      readonly: [false],
       disabled: [false],
       error: [false],
       validating: [false],
       subText: [undefined, "Message"],
     },
     combinations: [
-      { readonly: [true] },
       { validating: [true], subText: ["Validation message"] },
       { error: [true], subText: ["Error message"] },
       { disabled: [true] },
@@ -339,66 +368,5 @@ export const TextOverflow: Story = {
     modelValue: "Very long value that should be truncated",
     subText:
       "Very long helper text that should wrap to multiple lines when needed",
-  },
-};
-
-export const Interaction: Story = {
-  args: {
-    modelValue: "",
-    id: "",
-    label: undefined,
-    ariaLabel: "Search",
-    placeholder: "Search",
-    name: "",
-    autocomplete: "",
-    disabled: false,
-    readonly: false,
-    required: false,
-    error: false,
-    validating: false,
-    subText: "",
-    preserveSubTextSpace: false,
-  },
-  render: (args) => ({
-    components: { KdsSearchInput },
-    setup() {
-      const { modelValue: initialModelValue, ...rest } = args;
-      const localModelValue = ref(initialModelValue);
-
-      watchEffect(() => {
-        localModelValue.value = args.modelValue;
-      });
-
-      return {
-        rest,
-        localModelValue,
-      };
-    },
-    template: '<KdsSearchInput v-bind="rest" v-model="localModelValue" />',
-  }),
-  play: async ({ canvasElement, step }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByRole("searchbox", { name: "Search" });
-
-    await step("Clear via the clear button", async () => {
-      await userEvent.click(input);
-      await userEvent.type(input, "Searchterm");
-      await expect(input).toHaveValue("Searchterm");
-    });
-
-    await step(
-      "Tab to clear button and clear while keeping focus on the input",
-      async () => {
-        const clearButton = await canvas.findByRole("button", {
-          name: "Clear",
-        });
-        await userEvent.tab();
-        await expect(clearButton).toHaveFocus();
-
-        await userEvent.click(clearButton);
-        await expect(input).toHaveValue("");
-        await expect(input).toHaveFocus();
-      },
-    );
   },
 };
