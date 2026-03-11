@@ -112,7 +112,7 @@ export const createKdsNumberParser = (params: {
 
   const roundToStep = (value: number) => {
     if (!Number.isFinite(value)) {
-      return NaN;
+      return Number.NaN;
     }
 
     const step = params.step;
@@ -156,7 +156,7 @@ export const createKdsNumberParser = (params: {
   const parseFromInput = (value: string) => {
     const trimmed = value.trim();
     if (trimmed.length === 0) {
-      return NaN;
+      return Number.NaN;
     }
 
     const localeDecimal = decimalSeparator;
@@ -169,10 +169,10 @@ export const createKdsNumberParser = (params: {
       const withoutGrouping = removeGroupingSeparators(trimmed);
       const normalized = withoutGrouping.split(localeDecimal).join(".");
       if (!isValidNormalizedNumber(normalized)) {
-        return NaN;
+        return Number.NaN;
       }
       const parsed = Number.parseFloat(normalized);
-      return Number.isFinite(parsed) ? parsed : NaN;
+      return Number.isFinite(parsed) ? parsed : Number.NaN;
     }
 
     // No locale decimal separator present.
@@ -193,11 +193,11 @@ export const createKdsNumberParser = (params: {
         : removeGroupingSeparators(trimmed);
 
       if (!isValidNormalizedNumber(normalized)) {
-        return NaN;
+        return Number.NaN;
       }
 
       const parsed = Number.parseFloat(normalized);
-      return Number.isFinite(parsed) ? parsed : NaN;
+      return Number.isFinite(parsed) ? parsed : Number.NaN;
     }
 
     // Case B: locale uses '.' as decimal separator (e.g. en-US).
@@ -205,10 +205,10 @@ export const createKdsNumberParser = (params: {
     // Note: we intentionally do NOT treat ',' as a decimal separator here.
     const normalized = removeGroupingSeparators(trimmed);
     if (!isValidNormalizedNumber(normalized)) {
-      return NaN;
+      return Number.NaN;
     }
     const parsed = Number.parseFloat(normalized);
-    return Number.isFinite(parsed) ? parsed : NaN;
+    return Number.isFinite(parsed) ? parsed : Number.NaN;
   };
 
   return {
