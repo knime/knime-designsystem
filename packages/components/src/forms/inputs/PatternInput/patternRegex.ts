@@ -5,7 +5,7 @@ export type KdsPatternInputOptions = {
 };
 
 const escapeRegex = (value: string) =>
-  value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  value.replaceAll(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 const wildcardToRegexBody = (pattern: string) => {
   // Convert a simple wildcard pattern to a regex body.
