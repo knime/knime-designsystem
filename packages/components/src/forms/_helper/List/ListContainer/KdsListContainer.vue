@@ -226,7 +226,7 @@ defineExpose<KdsListContainerExpose>({
       <ListItemSectionTitle
         v-if="group.label"
         :label="group.label"
-        :icon-name="group.iconName"
+        :leading-icon="group.leadingIcon"
         role="presentation"
         aria-hidden="true"
       />

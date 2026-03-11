@@ -14,8 +14,8 @@ const { isTruncated } = useKdsIsTruncated(labelEl);
 
 <template>
   <div class="kds-list-item-section-title">
-    <span v-if="props.iconName" class="icon">
-      <KdsIcon :name="props.iconName" size="small" />
+    <span v-if="props.leadingIcon" class="icon">
+      <KdsIcon :name="props.leadingIcon" size="small" />
     </span>
 
     <span
@@ -37,8 +37,6 @@ const { isTruncated } = useKdsIsTruncated(labelEl);
   min-height: var(--kds-dimension-component-height-1-5x);
   padding: var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-5x);
   color: var(--kds-color-text-and-icon-muted);
-  background: var(--kds-color-background-neutral-initial);
-  border-radius: var(--kds-border-radius-container-0-31x);
 
   .icon {
     display: flex;

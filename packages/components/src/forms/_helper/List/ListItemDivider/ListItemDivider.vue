@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
   <hr class="kds-list-item-divider" />
 </template>

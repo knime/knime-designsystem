@@ -35,7 +35,7 @@ const meta: Meta<typeof ListItemSectionTitle> = {
       description: "Text shown in the section title row.",
       table: { category: "props" },
     },
-    iconName: {
+    leadingIcon: {
       control: { type: "select" },
       options: kdsIconNames,
       description: "Optional leading icon shown before the section title.",
@@ -44,7 +44,7 @@ const meta: Meta<typeof ListItemSectionTitle> = {
   },
   args: {
     label: "Sectiontitle",
-    iconName: undefined,
+    leadingIcon: undefined,
   },
 };
 
@@ -65,13 +65,13 @@ export const Default: Story = {
 
 export const WithIcon: Story = {
   args: {
-    iconName: "placeholder",
+    leadingIcon: "placeholder",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
     await expect(canvas.getByText("Sectiontitle")).toBeInTheDocument();
-    await expect(canvasElement.querySelector(".kds-icon")).toBeInTheDocument();
+    await expect(canvasElement.querySelector(".icon")).toBeInTheDocument();
   },
 };
 
@@ -83,7 +83,7 @@ export const TextOverflow: Story = {
   args: {
     label:
       "This is a very long section title that should overflow with an ellipsis when there is not enough space",
-    iconName: "placeholder",
+    leadingIcon: "placeholder",
   },
 };
 
@@ -94,7 +94,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
     WithIcon: {
       props: {
         label: "Sectiontitle",
-        iconName: "placeholder",
+        leadingIcon: "placeholder",
       },
       variants: {
         [`${figmaBaseUrl}?node-id=15752-6652`]: {},
@@ -108,7 +108,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   combinationsProps: [
     {
       label: ["Sectiontitle"],
-      iconName: [undefined, "placeholder"],
+      leadingIcon: [undefined, "placeholder"],
     },
   ],
 });

@@ -25,7 +25,7 @@ export type KdsListGroup = {
   /** Optional section title label shown above the group */
   label?: string;
   /** Optional leading icon shown before the section title */
-  iconName?: KdsIconName;
+  leadingIcon?: KdsIconName;
   /** Selectable options in this group */
   options: KdsListOption[];
 };
