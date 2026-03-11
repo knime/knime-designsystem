@@ -11,6 +11,9 @@ export default defineConfig({
       junit: "test-results/junit.xml",
     },
     coverage: {
+      provider: "v8",
+      reporter: ["html", "text", "lcov", "json"],
+      reportsDirectory: "./coverage/unit",
       include: ["packages/**/src/**/**.{js,jsx,ts,tsx,vue}"],
       exclude: [
         ...coverageConfigDefaults.exclude,
@@ -18,9 +21,10 @@ export default defineConfig({
         "**/*.d.ts",
         "**/{index,types,enums}.ts",
         "**/*.stories.ts",
+        ".storybook/**",
+        "test-results/**",
+        "test-utils/**",
       ],
-      reporter: ["html", "text", "lcov"],
-      reportsDirectory: "./coverage/unit",
     },
   },
 });
