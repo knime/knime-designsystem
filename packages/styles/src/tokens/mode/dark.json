@@ -473,7 +473,7 @@
         },
         "muted": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.250}",
+          "$value": "{kds.core.color.neutral.175}",
           "$description": "Muted text and icon color for secondary content on dark surfaces."
         },
         "subtle": {
