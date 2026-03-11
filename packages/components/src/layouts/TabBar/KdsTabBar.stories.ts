@@ -1,6 +1,7 @@
 import { ref, watchEffect } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
+import { expect, userEvent, within } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
@@ -9,10 +10,11 @@ import {
 } from "../../test-utils/storybook";
 
 import KdsTabBar from "./KdsTabBar.vue";
+import { kdsTabBarSizes } from "./enums";
 import type { KdsTab } from "./types";
 
 const meta: Meta<typeof KdsTabBar> = {
-  title: "Components/KdsTabBar",
+  title: "Layouts/TabBar",
   component: KdsTabBar,
   tags: ["autodocs"],
   parameters: {
@@ -43,13 +45,13 @@ const meta: Meta<typeof KdsTabBar> = {
     },
     design: {
       type: "figma",
-      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=431-16858&m",
+      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=431-16858",
     },
   },
   argTypes: {
     size: {
-      control: "select",
-      options: ["small", "large"],
+      control: { type: "select" },
+      options: kdsTabBarSizes,
       description: "Size of the tab bar, affecting padding and font size",
       table: { category: "props" },
     },
@@ -145,6 +147,66 @@ export const Default: Story = {
     disabled: false,
     modelValue: "localfilesystem",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Mouse interaction: click a different tab to select it
+    const hubTab = canvas.getByRole("tab", { name: "My KNIME Hub" });
+    await userEvent.click(hubTab);
+    await expect(hubTab).toHaveAttribute("aria-selected", "true");
+
+    const localTab = canvas.getByRole("tab", { name: "Local Filesystem" });
+    await expect(localTab).toHaveAttribute("aria-selected", "false");
+
+    // Verify disabled tab cannot be clicked
+    const disabledTab = canvas.getByRole("tab", { name: "Disabled" });
+    await expect(disabledTab).toBeDisabled();
+  },
+};
+
+export const KeyboardNavigation: Story = {
+  args: {
+    tabs: sampleTabs,
+    size: "small",
+    fullWidth: false,
+    disabled: false,
+    modelValue: "localfilesystem",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Focus the selected tab
+    const localTab = canvas.getByRole("tab", { name: "Local Filesystem" });
+    localTab.focus();
+    await expect(localTab).toHaveFocus();
+
+    // ArrowRight navigates to next tab (skipping disabled)
+    await userEvent.keyboard("{ArrowRight}");
+    const hubTab = canvas.getByRole("tab", { name: "My KNIME Hub" });
+    await expect(hubTab).toHaveFocus();
+    await expect(hubTab).toHaveAttribute("aria-selected", "true");
+
+    // ArrowRight again
+    await userEvent.keyboard("{ArrowRight}");
+    const oracleTab = canvas.getByRole("tab", { name: "Oracle Database" });
+    await expect(oracleTab).toHaveFocus();
+    await expect(oracleTab).toHaveAttribute("aria-selected", "true");
+
+    // Home key goes to first enabled tab
+    await userEvent.keyboard("{Home}");
+    await expect(localTab).toHaveFocus();
+    await expect(localTab).toHaveAttribute("aria-selected", "true");
+
+    // End key goes to last enabled tab
+    await userEvent.keyboard("{End}");
+    const boxTab = canvas.getByRole("tab", { name: "Box" });
+    await expect(boxTab).toHaveFocus();
+    await expect(boxTab).toHaveAttribute("aria-selected", "true");
+
+    // ArrowLeft wraps around to last enabled tab
+    await userEvent.keyboard("{ArrowLeft}");
+    await expect(oracleTab).toHaveFocus();
+  },
 };
 
 export const LargeLeftAligned: Story = {
@@ -207,18 +269,29 @@ export const DisabledEntireTabBar: Story = {
   },
 };
 
-export const AllCombinations: Story = buildAllCombinationsStory({
-  component: KdsTabBar,
-  combinationsProps: [
-    {
-      tabs: [sampleTabs],
-      size: ["small", "large"],
-      fullWidth: [false, true],
-      modelValue: ["localfilesystem", "myknimehub"],
-    },
-  ],
-  columns: 1,
-});
+export const TextOverflow: Story = {
+  ...buildTextOverflowStory({
+    component: KdsTabBar,
+  }),
+  args: {
+    tabs: [
+      {
+        value: "long1",
+        label: "This is a very long tab label that should overflow",
+        icon: "workflow",
+      },
+      {
+        value: "long2",
+        label: "Another extremely long tab label for testing",
+        icon: "component",
+      },
+      { value: "short", label: "Short" },
+    ],
+    size: "small",
+    fullWidth: false,
+    modelValue: "long1",
+  },
+};
 
 export const DesignComparator: Story = {
   ...buildDesignComparatorStory({
@@ -277,26 +350,16 @@ export const DesignComparator: Story = {
   parameters: { chromatic: { disableSnapshot: true } },
 };
 
-export const TextOverflow: Story = {
-  ...buildTextOverflowStory({
-    component: KdsTabBar,
-  }),
-  args: {
-    tabs: [
-      {
-        value: "long1",
-        label: "This is a very long tab label that should overflow",
-        icon: "workflow",
-      },
-      {
-        value: "long2",
-        label: "Another extremely long tab label for testing",
-        icon: "component",
-      },
-      { value: "short", label: "Short" },
-    ],
-    size: "small",
-    fullWidth: false,
-    modelValue: "long1",
-  },
-};
+export const AllCombinations: Story = buildAllCombinationsStory({
+  component: KdsTabBar,
+  combinationsProps: [
+    {
+      tabs: [sampleTabs],
+      size: ["small", "large"],
+      fullWidth: [false, true],
+      modelValue: ["localfilesystem", "myknimehub"],
+    },
+  ],
+  pseudoStates: ["hover", "focus-visible"],
+  columns: 1,
+});

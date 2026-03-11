@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, toRef, useTemplateRef } from "vue";
+import { computed, ref, toRef, useTemplateRef, watch } from "vue";
 import { useElementSize } from "@vueuse/core";
 
 import KdsIcon from "../../accessories/Icon/KdsIcon.vue";
@@ -84,23 +84,30 @@ const { shouldHideIcons, setItemEl } = useTabBarIconHiding({
 });
 
 const tabBarClass = computed(() => ({
-  "tab-bar": true,
-  [props.size]: true,
-  "full-width": props.fullWidth,
+  "kds-tab-bar": true,
+  [`kds-tab-bar-${props.size}`]: true,
+  "kds-tab-bar-full-width": props.fullWidth,
 }));
 
-// Auto-select first available tab if none is selected
-onMounted(() => {
-  const availableTabs = getEnabledTabs();
-  let initialTab = availableTabs.find((tab) => tab.value === modelValue.value);
+// Auto-select first available tab when current selection is invalid
+// (on mount, when tabs change, or when the selected tab becomes disabled)
+watch(
+  () => [props.tabs, props.disabled, modelValue.value] as const,
+  () => {
+    const enabledTabs = getEnabledTabs();
+    const isCurrentSelectionValid = enabledTabs.some(
+      (tab) => tab.value === modelValue.value,
+    );
 
-  if (!initialTab) {
-    initialTab = availableTabs[0];
-    if (initialTab) {
-      modelValue.value = initialTab.value;
+    if (!isCurrentSelectionValid) {
+      const firstEnabled = enabledTabs[0];
+      if (firstEnabled) {
+        modelValue.value = firstEnabled.value;
+      }
     }
-  }
-});
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
@@ -127,8 +134,8 @@ onMounted(() => {
       "
       :disabled="isTabDisabled(tab)"
       :class="{
-        tab: true,
-        selected: modelValue === tab.value,
+        'kds-tab': true,
+        'kds-tab-selected': modelValue === tab.value,
       }"
       @click="selectTab(tab)"
       @keydown="handleKeydown($event, tab)"
@@ -136,17 +143,20 @@ onMounted(() => {
       <KdsIcon
         v-if="tab.icon && !shouldHideIcons"
         :name="tab.icon"
-        :class="`icon-${props.size}`"
+        class="kds-tab-icon"
       />
-      <span class="label">{{ tab.label }}</span>
-      <span v-if="modelValue === tab.value" class="indicator" />
+      <span class="kds-tab-label">{{ tab.label }}</span>
+      <span v-if="modelValue === tab.value" class="kds-tab-indicator" />
     </button>
   </div>
 </template>
 
 <style scoped>
-/* Base elements - lowest specificity first */
-.label {
+.kds-tab-icon {
+  flex-shrink: 0;
+}
+
+.kds-tab-label {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -155,12 +165,34 @@ onMounted(() => {
   white-space: nowrap;
 }
 
-.icon-small,
-.icon-large {
-  flex-shrink: 0;
+/* Size-dependent icon and label overrides (ascending specificity before .kds-tab hover rules) */
+.kds-tab-bar-small .kds-tab-icon {
+  width: var(--kds-dimension-component-width-1x);
+  height: var(--kds-dimension-component-height-1x);
 }
 
-.tab {
+.kds-tab-bar-large .kds-tab-icon {
+  width: var(--kds-dimension-component-width-1-25x);
+  height: var(--kds-dimension-component-height-1-25x);
+}
+
+.kds-tab-bar-large .kds-tab-label {
+  font: var(--kds-font-base-interactive-large-strong);
+}
+
+.kds-tab-bar-small .kds-tab-selected .kds-tab-icon {
+  color: var(--kds-color-text-and-icon-selected);
+}
+
+.kds-tab-bar-large .kds-tab-selected .kds-tab-icon {
+  color: var(--kds-color-text-and-icon-selected);
+}
+
+.kds-tab-bar-large .kds-tab-selected .kds-tab-label {
+  font: var(--kds-font-base-title-large);
+}
+
+.kds-tab {
   position: relative;
   display: flex;
   align-items: center;
@@ -169,108 +201,78 @@ onMounted(() => {
   background: var(--kds-color-background-neutral-initial);
   border: none;
   border-radius: var(--kds-border-radius-container-none);
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &:focus-visible {
+    outline: var(--kds-border-action-focused);
+    outline-offset: calc(-2 * var(--kds-spacing-offset-focus));
+    border-radius: var(--kds-border-radius-container-0-12x);
+  }
+
+  &.kds-tab-selected .kds-tab-indicator {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: var(--kds-core-border-width-m);
+    background: var(--kds-color-background-selected-bold-initial);
+    border: var(--kds-border-action-selected);
+    border-top-left-radius: var(--kds-border-radius-container-0-12x);
+    border-top-right-radius: var(--kds-border-radius-container-0-12x);
+  }
+
+  &.kds-tab-selected .kds-tab-label {
+    color: var(--kds-color-text-and-icon-selected);
+  }
+
+  &:hover:not(:disabled, .kds-tab-selected) {
+    color: var(--kds-color-text-and-icon-selected);
+
+    & .kds-tab-label {
+      color: var(--kds-color-text-and-icon-selected);
+    }
+  }
 }
 
-.tab:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-.tab:focus-visible {
-  outline: var(--kds-border-action-focused);
-  outline-offset: calc(-2 * var(--kds-spacing-offset-focus));
-  border-radius: var(--kds-border-radius-container-0-12x);
-}
-
-.tab.selected .indicator {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: var(--kds-core-border-width-m);
-  background: var(--kds-color-background-selected-bold-initial);
-  border: var(--kds-border-action-selected);
-  border-top-left-radius: var(--kds-border-radius-container-0-12x);
-  border-top-right-radius: var(--kds-border-radius-container-0-12x);
-}
-
-.tab:hover:not(:disabled, .selected) {
-  color: var(--kds-color-text-and-icon-selected);
-}
-
-/* Tab bar container */
-.tab-bar {
+.kds-tab-bar {
   display: flex;
   flex-wrap: nowrap;
   overflow: auto hidden;
   scrollbar-width: none;
   border-bottom: var(--kds-border-base-subtle);
   border-bottom-width: var(--kds-core-border-width-m);
-}
 
-.tab-bar::-webkit-scrollbar {
-  display: none;
-}
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
-.tab-bar:not(.full-width) .tab {
-  flex: 0 1 auto;
-  min-width: var(--kds-dimension-component-width-4x);
-}
+  &:not(.kds-tab-bar-full-width) .kds-tab {
+    flex: 0 1 auto;
+    min-width: var(--kds-dimension-component-width-4x);
+  }
 
-.tab-bar.small .tab {
-  gap: var(--kds-spacing-container-0-37x);
-  height: var(--kds-dimension-component-height-1-75x);
-  padding: 0
-    calc(var(--kds-spacing-container-0-5x) - var(--kds-core-border-width-m));
-}
+  &.kds-tab-bar-small .kds-tab {
+    gap: var(--kds-spacing-container-0-37x);
+    height: var(--kds-dimension-component-height-1-75x);
+    padding: 0
+      calc(var(--kds-spacing-container-0-5x) - var(--kds-core-border-width-m));
+  }
 
-.tab-bar.large .tab {
-  gap: var(--kds-spacing-container-0-5x);
-  height: var(--kds-dimension-component-height-2-25x);
-  padding: 0
-    calc(var(--kds-spacing-container-0-75x) - var(--kds-core-border-width-m));
-}
+  &.kds-tab-bar-large .kds-tab {
+    gap: var(--kds-spacing-container-0-5x);
+    height: var(--kds-dimension-component-height-2-25x);
+    padding: 0
+      calc(var(--kds-spacing-container-0-75x) - var(--kds-core-border-width-m));
+  }
 
-.tab-bar.full-width .tab {
-  flex: 1;
-  justify-content: center;
-  width: 100%;
-}
-
-/* Small size icons */
-.tab-bar.small .icon-small {
-  width: var(--kds-dimension-component-width-1x);
-  height: var(--kds-dimension-component-height-1x);
-}
-
-.tab-bar.small .tab.selected .icon-small {
-  color: var(--kds-color-text-and-icon-selected);
-}
-
-/* Large size icons */
-.tab-bar.large .icon-large {
-  width: var(--kds-dimension-component-width-1-25x);
-  height: var(--kds-dimension-component-height-1-25x);
-}
-
-.tab-bar.large .tab.selected .icon-large {
-  color: var(--kds-color-text-and-icon-selected);
-}
-
-/* Label styles - ordered by ascending specificity */
-.tab-bar.large .label {
-  font: var(--kds-font-base-interactive-large-strong);
-}
-
-.tab.selected .label {
-  color: var(--kds-color-text-and-icon-selected);
-}
-
-.tab:hover:not(:disabled, .selected) .label {
-  color: var(--kds-color-text-and-icon-selected);
-}
-
-.tab-bar.large .tab.selected .label {
-  font: var(--kds-font-base-title-large);
+  &.kds-tab-bar-full-width .kds-tab {
+    flex: 1;
+    justify-content: center;
+    width: 100%;
+  }
 }
 </style>
