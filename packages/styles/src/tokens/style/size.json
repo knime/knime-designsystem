@@ -257,6 +257,16 @@
             "$value": "{kds.core.size.scale} * 16",
             "$description": "Container width (256px). Use for narrow tooltips or popovers to prevent text stretching."
           },
+          "17_5x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 17.5",
+            "$description": "Container width (280px). Use for default, max, min width of panels and containers"
+          },
+          "20x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 20",
+            "$description": "Container width (320px). Use for default, max, min width of panels and containers"
+          },
           "25x": {
             "$type": "dimension",
             "$value": "{kds.core.size.scale} * 25",
