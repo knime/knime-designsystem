@@ -1,5 +1,12 @@
 # @knime/kds-components
 
+## 0.15.1
+
+### Patch Changes
+
+- e324127: Add KdsInlineMessage
+  - @knime/kds-styles@0.15.1
+
 ## 0.15.0
 
 ### Minor Changes
