@@ -32,7 +32,7 @@ export const useTabBarIconHiding = ({
       items: tabs,
       getKey: (tab) => tab.value,
       shouldCheckItem: (tab) => Boolean(tab.icon),
-      labelSelector: ".label",
+      labelSelector: ".kds-tab-label",
       elementCtor: HTMLButtonElement,
     });
 
