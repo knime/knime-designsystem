@@ -310,9 +310,9 @@ export function buildTextOverflowStory(
       },
       template: `
       Component without size restrictions to check if it has a max size itself<br>
-      <Component :is="component" v-bind="args" /><br>
+      <div data-testid="unrestricted"><Component :is="component" v-bind="args" /></div><br>
       Component with size restrictions. Try by resizing the box!
-      <div :style="{ width: width + 'px', height: height + 'px', padding: '10px', background: 'lightgray', resize: 'both', overflow: 'auto' }">
+      <div data-testid="restricted" :style="{ width: width + 'px', height: height + 'px', padding: '10px', background: 'lightgray', resize: 'both', overflow: 'auto' }">
         <Component :is="component" v-bind="args" />
       </div>`,
     }),

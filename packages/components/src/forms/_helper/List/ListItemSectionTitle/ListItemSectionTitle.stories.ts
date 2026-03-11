@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { expect, within } from "storybook/test";
+import { expect, waitFor, within } from "storybook/test";
 
 import { kdsIconNames } from "../../../../accessories/Icon/enums";
 import {
@@ -84,6 +84,25 @@ export const TextOverflow: Story = {
     label:
       "This is a very long section title that should overflow with an ellipsis when there is not enough space",
     leadingIcon: "placeholder",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const unrestricted = within(canvas.getByTestId("unrestricted"));
+    const restricted = within(canvas.getByTestId("restricted"));
+
+    // Title is shown when text overflows
+    await waitFor(async () => {
+      const restrictedText = await restricted.findByText(/This is a very long/);
+      expect(restrictedText).toHaveAttribute(
+        "title",
+        "This is a very long section title that should overflow with an ellipsis when there is not enough space",
+      );
+    });
+
+    // Title is not shown when text does not overflow
+    const unrestrictedText =
+      await unrestricted.findByText(/This is a very long/);
+    expect(unrestrictedText).not.toHaveAttribute("title");
   },
 };
 
