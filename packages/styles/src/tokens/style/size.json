@@ -180,6 +180,11 @@
             "$value": "{kds.core.size.scale} * 2.5",
             "$description": "Large-extra component height (40px). Use for prominent buttons and larger inputs."
           },
+          "2_75x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 2.75",
+            "$description": "Component height (44px). Used for donut chart."
+          },
           "4x": {
             "$type": "dimension",
             "$value": "{kds.core.size.scale} * 4",
@@ -189,6 +194,11 @@
             "$type": "dimension",
             "$value": "{kds.core.size.scale} * 12",
             "$description": "Intended for max-height on elements"
+          },
+          "12_5x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 12.5",
+            "$description": "Intended for donut charts"
           },
           "20x": {
             "$type": "dimension",
@@ -247,10 +257,20 @@
             "$value": "{kds.core.size.scale} * 2.25",
             "$description": "Large component width (36px). Use for square buttons and larger icons."
           },
+          "2_75x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 2.75",
+            "$description": "Component width (36px). Use for donut charts."
+          },
           "4x": {
             "$type": "dimension",
             "$value": "{kds.core.size.scale} * 4",
             "$description": "Extra large component width (64px). Use for large interactive elements."
+          },
+          "12_5x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 12.5",
+            "$description": "Intended for donut charts"
           },
           "16x": {
             "$type": "dimension",

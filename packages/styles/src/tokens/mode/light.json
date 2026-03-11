@@ -418,6 +418,31 @@
           "$type": "color",
           "$value": "{kds.core.color.neutral.725}",
           "$description": "Background color for content overlay, like tooltip."
+        },
+        "chart-0": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.250}",
+          "$description": "Color used for charts (Empty)."
+        },
+        "chart-1": {
+          "$type": "color",
+          "$value": "{kds.core.color.blue.400}",
+          "$description": "Color used for charts (color 1)."
+        },
+        "chart-2": {
+          "$type": "color",
+          "$value": "{kds.core.color.green.250}",
+          "$description": "Color used for charts (color 2)."
+        },
+        "chart-3": {
+          "$type": "color",
+          "$value": "{kds.core.color.red.400}",
+          "$description": "Color used for charts (color 3)."
+        },
+        "chart-4": {
+          "$type": "color",
+          "$value": "{kds.core.color.yellow.325}",
+          "$description": "Color used for charts (color 4)."
         }
       },
       "text-and-icon": {
