@@ -1,5 +1,6 @@
 import type { Ref } from "vue";
 
+import type { KdsIconName } from "../../../../accessories";
 import type { KdsListItemAccessory } from "../ListItemAccessory/types";
 
 export type KdsListOption = {
@@ -19,9 +20,23 @@ export type KdsListOption = {
   missing?: boolean;
 };
 
+/** A group of options with an optional section title */
+export type KdsListGroup = {
+  /** Optional section title label shown above the group */
+  label?: string;
+  /** Optional leading icon shown before the section title */
+  iconName?: KdsIconName;
+  /** Selectable options in this group */
+  options: KdsListOption[];
+};
+
 export type KdsListContainerProps = {
-  /** Possible values to show in the list */
-  possibleValues: KdsListOption[];
+  /**
+   * Options to show in the list.
+   * Pass a flat `KdsListOption[]` for an ungrouped list, or
+   * `KdsListGroup[]` to render labelled groups separated by dividers.
+   */
+  possibleValues: KdsListOption[] | KdsListGroup[];
   /** Text shown when no entries are provided */
   emptyText?: string;
   /** Accessible label for the listbox */

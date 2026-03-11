@@ -3,8 +3,19 @@ import { computed, nextTick, ref, useId, useTemplateRef, watch } from "vue";
 
 import KdsEmptyState from "../../../../layouts/EmptyState/KdsEmptyState.vue";
 import { KdsListItem } from "../KdsListItem";
+import ListItemDivider from "../ListItemDivider/ListItemDivider.vue";
+import ListItemSectionTitle from "../ListItemSectionTitle/ListItemSectionTitle.vue";
 
-import type { KdsListContainerExpose, KdsListContainerProps } from "./types";
+import type {
+  KdsListContainerExpose,
+  KdsListContainerProps,
+  KdsListGroup,
+  KdsListOption,
+} from "./types";
+
+const isGrouped = (
+  values: KdsListOption[] | KdsListGroup[],
+): values is KdsListGroup[] => values.length > 0 && "options" in values[0];
 
 const props = withDefaults(defineProps<KdsListContainerProps>(), {
   emptyText: "",
@@ -19,9 +30,21 @@ const idPrefix = useId();
 const toOptionId = (elementId: string) => elementId.slice(idPrefix.length + 1);
 const emptyOptionId = `${idPrefix}-empty`;
 
-/** possibleValues with prefixed ids to avoid DOM id collisions */
+/** Normalize possibleValues into groups, prefixing option IDs */
+const normalizedGroups = computed(() => {
+  const groups = isGrouped(props.possibleValues)
+    ? props.possibleValues
+    : [{ options: props.possibleValues }];
+
+  return groups.map((group) => ({
+    ...group,
+    options: group.options.map((o) => ({ ...o, id: `${idPrefix}-${o.id}` })),
+  }));
+});
+
+/** All selectable options (with prefixed ids), flattened across groups */
 const prefixedValues = computed(() =>
-  props.possibleValues.map((o) => ({ ...o, id: `${idPrefix}-${o.id}` })),
+  normalizedGroups.value.flatMap((g) => g.options),
 );
 
 /** active item id (prefixed) via keyboard or mouseover */
@@ -194,22 +217,36 @@ defineExpose<KdsListContainerExpose>({
           }
     "
   >
-    <KdsListItem
-      v-for="item in prefixedValues"
-      :id="item.id"
-      :key="item.id"
-      :accessory="item.accessory"
-      :label="item.text"
-      :sub-text="item.subText"
-      :selected="item.selected"
-      :disabled="item.disabled"
-      :active="activeId === item.id"
-      :special="item.special"
-      :missing="item.missing"
-      :trailing-icon="item.selected ? 'checkmark' : undefined"
-      @mousedown="props.controlledExternally && $event.preventDefault()"
-      @click.stop="emit('itemClick', toOptionId(item.id))"
-    />
+    <template v-for="(group, groupIdx) in normalizedGroups" :key="groupIdx">
+      <ListItemDivider
+        v-if="groupIdx > 0"
+        role="presentation"
+        aria-hidden="true"
+      />
+      <ListItemSectionTitle
+        v-if="group.label"
+        :label="group.label"
+        :icon-name="group.iconName"
+        role="presentation"
+        aria-hidden="true"
+      />
+      <KdsListItem
+        v-for="item in group.options"
+        :id="item.id"
+        :key="item.id"
+        :accessory="item.accessory"
+        :label="item.text"
+        :sub-text="item.subText"
+        :selected="item.selected"
+        :disabled="item.disabled"
+        :active="activeId === item.id"
+        :special="item.special"
+        :missing="item.missing"
+        :trailing-icon="item.selected ? 'checkmark' : undefined"
+        @mousedown="props.controlledExternally && $event.preventDefault()"
+        @click.stop="emit('itemClick', toOptionId(item.id))"
+      />
+    </template>
     <div
       v-if="prefixedValues.length === 0"
       :id="emptyOptionId"
