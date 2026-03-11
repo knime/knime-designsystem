@@ -347,7 +347,6 @@ export const DesignComparator: Story = {
       },
     },
   }),
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const AllCombinations: Story = buildAllCombinationsStory({
