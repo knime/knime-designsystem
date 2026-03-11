@@ -1,5 +1,11 @@
 # @knime/kds-documentation
 
+## 0.15.1
+
+### Patch Changes
+
+- @knime/kds-styles@0.15.1
+
 ## 0.15.0
 
 ### Patch Changes
