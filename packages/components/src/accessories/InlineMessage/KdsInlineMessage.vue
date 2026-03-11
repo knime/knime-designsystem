@@ -65,6 +65,7 @@ const role = computed(() =>
 
     .icon {
       align-self: flex-start;
+      margin-top: var(--kds-spacing-container-0-12x);
       color: var(--icon-color);
     }
 

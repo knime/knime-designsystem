@@ -16,7 +16,7 @@ const figmaBaseUrl =
 
 const meta: Meta<typeof KdsInlineMessage> = {
   component: KdsInlineMessage,
-  title: "Accessories/InlineMessage",
+  title: "Messaging/InlineMessage",
   tags: ["autodocs"],
   parameters: {
     docs: {
