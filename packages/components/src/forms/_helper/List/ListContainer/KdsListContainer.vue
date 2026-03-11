@@ -217,7 +217,10 @@ defineExpose<KdsListContainerExpose>({
           }
     "
   >
-    <template v-for="(group, groupIdx) in normalizedGroups" :key="groupIdx">
+    <template
+      v-for="(group, groupIdx) in normalizedGroups"
+      :key="group.label ?? groupIdx"
+    >
       <ListItemDivider
         v-if="groupIdx > 0"
         role="presentation"
