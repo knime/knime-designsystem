@@ -91,8 +91,8 @@ export const TextOverflow: Story = {
     const restricted = within(canvas.getByTestId("restricted"));
 
     // Title is shown when text overflows
-    await waitFor(async () => {
-      const restrictedText = await restricted.findByText(/This is a very long/);
+    const restrictedText = await restricted.findByText(/This is a very long/);
+    await waitFor(() => {
       expect(restrictedText).toHaveAttribute(
         "title",
         "This is a very long section title that should overflow with an ellipsis when there is not enough space",
