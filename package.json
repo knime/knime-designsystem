@@ -20,7 +20,7 @@
     "test:unit": "vitest run",
     "test:storybook": "pnpm run --filter @knime/kds-documentation test:storybook",
     "coverage": "vitest run --coverage",
-    "coverage:merge": "sed 's|^SF:\\.\\./|SF:|' documentation/coverage/storybook/lcov.info > documentation/coverage/storybook/lcov-fixed.info && lcov-result-merger '{coverage/unit/lcov.info,documentation/coverage/storybook/lcov-fixed.info}' coverage/lcov.info",
+    "coverage:merge": "vitest-coverage-merge coverage/unit documentation/coverage/storybook -o coverage/merged",
     "changeset": "pnpm exec changeset",
     "changeset:version": "pnpm exec changeset version",
     "changeset:publish": "pnpm exec changeset publish",
@@ -46,12 +46,12 @@
     "globals": "17.3.0",
     "husky": "catalog:",
     "jsdom": "catalog:",
-    "lcov-result-merger": "^5.0.1",
     "lint-staged": "catalog:",
     "npm-run-all": "catalog:",
     "prettier": "catalog:",
     "stylelint": "catalog:",
     "vitest": "catalog:vitest",
+    "vitest-coverage-merge": "0.2.0",
     "vue-tsc": "catalog:"
   },
   "engines": {
