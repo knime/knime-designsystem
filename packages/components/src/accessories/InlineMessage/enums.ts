@@ -1,8 +1,8 @@
 export const kdsInlineMessageVariant = {
-  WARNING: "warning",
   ERROR: "error",
-  SUCCESS: "success",
   INFO: "info",
+  SUCCESS: "success",
+  WARNING: "warning",
 } as const;
 
 export const kdsInlineMessageVariants = Object.values(kdsInlineMessageVariant);

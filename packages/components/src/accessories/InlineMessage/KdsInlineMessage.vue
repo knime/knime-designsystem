@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { type HTMLAttributes, computed } from "vue";
 
 import KdsIcon from "../Icon/KdsIcon.vue";
+import type { KdsIconName } from "../Icon/types.ts";
 
 import type { KdsInlineMessageProps } from "./types";
 
@@ -12,7 +13,7 @@ const props = withDefaults(defineProps<KdsInlineMessageProps>(), {
 
 const classes = computed(() => ["kds-inline-message", props.variant]);
 
-const iconName = computed(() => {
+const iconName = computed<KdsIconName>(() => {
   switch (props.variant) {
     case "success":
       return "circle-success";
@@ -26,7 +27,7 @@ const iconName = computed(() => {
   }
 });
 
-const role = computed(() =>
+const role = computed<HTMLAttributes["role"]>(() =>
   props.variant === "warning" || props.variant === "error" ? "alert" : "status",
 );
 </script>
