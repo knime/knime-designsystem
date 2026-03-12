@@ -263,7 +263,7 @@ export const WithAccessories: Story = {
   },
 };
 
-export const WithGroups: Story = {
+export const WithSectionTitles: Story = {
   args: {
     possibleValues: [
       {

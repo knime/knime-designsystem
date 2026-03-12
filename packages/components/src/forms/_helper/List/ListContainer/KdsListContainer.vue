@@ -25,7 +25,7 @@ const idPrefix = useId();
 const toOptionId = (elementId: string) => elementId.slice(idPrefix.length + 1);
 const emptyOptionId = `${idPrefix}-empty`;
 
-/** All items with prefixed IDs */
+/** possibleValues with prefixed ids to avoid DOM id collisions */
 const prefixedValues = computed<KdsListOption[]>(() =>
   props.possibleValues.map((o) => ({ ...o, id: `${idPrefix}-${o.id}` })),
 );
