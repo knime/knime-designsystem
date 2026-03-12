@@ -15,7 +15,7 @@ const scriptExample = `
 import { useKdsDynamicModal } from "@knime/kds-components";
 
 const { askConfirmation } = useKdsDynamicModal();
-const result = await askConfirmation({ title: "Confirm", message: "A question for you." });
+const result = await askConfirmation({ headline: "Confirm", message: "A question for you." });
 
 if (result.confirmed) {
   // do your thing
