@@ -1,6 +1,5 @@
 import { ref, useTemplateRef } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { fn } from "storybook/test";
 
 import KdsToggleButton from "../../buttons/KdsToggleButton/KdsToggleButton.vue";
 import KdsPopover from "../Popover/KdsPopover.vue";
@@ -45,13 +44,9 @@ const meta = {
       control: "object",
       table: { category: "props" },
     },
-    onItemClick: {
-      table: { disable: true },
-    },
   },
   args: {
     items: baseOptions,
-    onItemClick: fn(),
   },
   render: (args) => ({
     components: { KdsToggleButton, KdsPopover, KdsMenuContainer },

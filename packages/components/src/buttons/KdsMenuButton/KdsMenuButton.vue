@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { computed, ref, useAttrs, useTemplateRef } from "vue";
+import {
+  computed,
+  nextTick,
+  ref,
+  useAttrs,
+  useTemplateRef,
+  watchEffect,
+} from "vue";
 
 import KdsMenuContainer from "../../overlays/MenuContainer/KdsMenuContainer.vue";
 import KdsPopover from "../../overlays/Popover/KdsPopover.vue";
@@ -37,11 +44,19 @@ const toggleButtonProps = computed(() => {
 
 const isMenuOpen = ref<boolean>(false);
 const popoverEl = useTemplateRef("popoverEl");
+const menuContainerEl = useTemplateRef("menuContainerEl");
 
 const onItemClick = (event: string) => {
   isMenuOpen.value = false;
   emit("itemClick", event);
 };
+
+/** Focus search field on opening of dropdown */
+watchEffect(() => {
+  if (isMenuOpen.value) {
+    nextTick(() => menuContainerEl.value?.focus());
+  }
+});
 </script>
 
 <template>
@@ -61,7 +76,11 @@ const onItemClick = (event: string) => {
     :placement="placement"
     popover-aria-label="Menu items"
   >
-    <KdsMenuContainer :items="items" @item-click="onItemClick" />
+    <KdsMenuContainer
+      ref="menuContainerEl"
+      :items="items"
+      @item-click="onItemClick"
+    />
   </KdsPopover>
 </template>
 

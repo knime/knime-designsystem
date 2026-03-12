@@ -54,6 +54,8 @@ export type KdsListContainerExpose = {
   handleFocus: () => void;
   /** Notify the list that its controlling element lost focus */
   handleBlur: () => void;
+  /** Allow the consumer to programmatically focus the list */
+  focus: () => void;
   /** The DOM id of the currently active (highlighted) option, or undefined. Prefixed to avoid DOM id collisions. */
   activeDescendant: Readonly<Ref<string | undefined>>;
 };

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useTemplateRef } from "vue";
+
 import { KdsListContainer } from "../../forms/_helper/List/ListContainer";
 
 import type { KdsMenuContainerProps } from "./types";
@@ -9,11 +11,18 @@ const emit = defineEmits<{
   /** Emitted when item is clicked */
   itemClick: [id: string];
 }>();
+
+const listContainerEl = useTemplateRef("listContainerEl");
+
+defineExpose({
+  focus: () => listContainerEl.value?.focus(),
+});
 </script>
 
 <template>
   <div class="kds-menu-container">
     <KdsListContainer
+      ref="listContainerEl"
       :possible-values="items"
       empty-text="Menu is empty"
       aria-label="Menu"
