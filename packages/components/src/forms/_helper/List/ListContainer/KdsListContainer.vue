@@ -3,6 +3,7 @@ import { computed, nextTick, ref, useId, useTemplateRef, watch } from "vue";
 
 import KdsEmptyState from "../../../../layouts/EmptyState/KdsEmptyState.vue";
 import { KdsListItem } from "../KdsListItem";
+import { kdsListItemVariant } from "../KdsListItem/enums";
 import ListItemDivider from "../ListItemDivider/ListItemDivider.vue";
 import ListItemSectionTitle from "../ListItemSectionTitle/ListItemSectionTitle.vue";
 
@@ -14,6 +15,7 @@ import type {
 
 const props = withDefaults(defineProps<KdsListContainerProps>(), {
   emptyText: "",
+  variant: kdsListItemVariant.SMALL,
 });
 
 const emit = defineEmits<{
@@ -193,7 +195,7 @@ defineExpose<KdsListContainerExpose>({
     :aria-activedescendant="
       !props.controlledExternally && activeId ? activeId : undefined
     "
-    class="kds-list-container"
+    :class="['kds-list-container', { standalone: !props.controlledExternally }]"
     :tabindex="props.controlledExternally ? undefined : 0"
     v-on="
       props.controlledExternally
@@ -226,6 +228,7 @@ defineExpose<KdsListContainerExpose>({
         :active="activeId === item.id"
         :special="item.special"
         :missing="item.missing"
+        :variant="props.variant"
         :trailing-icon="item.selected ? 'checkmark' : undefined"
         @mousedown="props.controlledExternally && $event.preventDefault()"
         @click.stop="emit('itemClick', toOptionId(item.id))"
@@ -257,6 +260,11 @@ defineExpose<KdsListContainerExpose>({
   padding: var(--kds-spacing-container-0-25x);
   overflow-y: auto;
 
+  &.standalone {
+    border: var(--kds-border-base-subtle);
+    border-radius: var(--kds-border-radius-container-0-31x);
+  }
+
   &:focus-visible {
     outline: var(--kds-border-action-focused);
     outline-offset: var(--kds-spacing-offset-focus);
@@ -266,6 +274,8 @@ defineExpose<KdsListContainerExpose>({
 
 .kds-list-container-empty {
   display: flex;
+  flex: 1;
+  align-items: center;
   justify-content: center;
 }
 </style>
