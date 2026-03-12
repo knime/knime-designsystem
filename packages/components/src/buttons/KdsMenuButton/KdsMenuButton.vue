@@ -1,12 +1,5 @@
 <script setup lang="ts">
-import {
-  computed,
-  nextTick,
-  ref,
-  useAttrs,
-  useTemplateRef,
-  watchEffect,
-} from "vue";
+import { computed, ref, useAttrs, useTemplateRef } from "vue";
 
 import KdsMenuContainer from "../../overlays/MenuContainer/KdsMenuContainer.vue";
 import KdsToggleButton from "../KdsToggleButton/KdsToggleButton.vue";
@@ -48,13 +41,6 @@ const onItemClick = (event: string) => {
   isMenuOpen.value = false;
   emit("itemClick", event);
 };
-
-/** Focus search field on opening of dropdown */
-watchEffect(() => {
-  if (isMenuOpen.value) {
-    nextTick(() => menuContainerEl.value?.focus());
-  }
-});
 </script>
 
 <template>
@@ -65,6 +51,9 @@ watchEffect(() => {
     :aria-expanded="isMenuOpen"
     :aria-controls="menuContainerEl?.popoverEl?.popoverId"
     :style="menuContainerEl?.popoverEl?.anchorStyle"
+    @keydown="menuContainerEl?.listContainerEl?.handleKeydown($event)"
+    @focus="menuContainerEl?.listContainerEl?.handleFocus()"
+    @blur="menuContainerEl?.listContainerEl?.handleBlur()"
   />
 
   <KdsMenuContainer

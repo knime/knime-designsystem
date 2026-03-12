@@ -6,7 +6,9 @@ import KdsPopover from "../Popover/KdsPopover.vue";
 
 import type { KdsMenuContainerProps } from "./types";
 
-defineProps<KdsMenuContainerProps>();
+withDefaults(defineProps<KdsMenuContainerProps>(), {
+  placement: "bottom-left",
+});
 
 const emit = defineEmits<{
   /** Emitted when item is clicked */
@@ -20,7 +22,7 @@ const modelValue = defineModel<boolean>({ default: false });
 
 defineExpose({
   popoverEl,
-  focus: () => listContainerEl.value?.focus(),
+  listContainerEl,
 });
 </script>
 
@@ -39,6 +41,7 @@ defineExpose({
         empty-text="Menu is empty"
         aria-label="Menu"
         is-menu
+        controlled-externally
         @item-click="emit('itemClick', $event)"
       />
     </div>

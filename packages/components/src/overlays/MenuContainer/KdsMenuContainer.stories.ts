@@ -5,6 +5,7 @@ import KdsToggleButton from "../../buttons/KdsToggleButton/KdsToggleButton.vue";
 import KdsPopover from "../Popover/KdsPopover.vue";
 
 import KdsMenuContainer from "./KdsMenuContainer.vue";
+import { kdsMenuContainerPlacements } from "./enums";
 import type { KdsMenuItem } from "./types";
 
 type Story = StoryObj<typeof KdsMenuContainer>;
@@ -42,6 +43,11 @@ const meta = {
   argTypes: {
     items: {
       control: "object",
+      table: { category: "props" },
+    },
+    placement: {
+      control: { type: "select" },
+      options: kdsMenuContainerPlacements,
       table: { category: "props" },
     },
   },
