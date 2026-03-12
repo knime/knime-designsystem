@@ -15,6 +15,8 @@ const emit = defineEmits<{
   <div class="kds-menu-container">
     <KdsListContainer
       :possible-values="possibleValues"
+      empty-text="Menu is empty"
+      aria-label="Menu"
       @item-click="emit('itemClick', $event)"
     />
   </div>
@@ -22,7 +24,6 @@ const emit = defineEmits<{
 
 <style scoped>
 .kds-menu-container {
-  min-width: var(--kds-dimension-component-width-8x);
   background-color: var(--kds-color-surface-default);
   border-radius: var(--kds-border-radius-container-0-50x);
   box-shadow: var(--kds-elevation-level-3);

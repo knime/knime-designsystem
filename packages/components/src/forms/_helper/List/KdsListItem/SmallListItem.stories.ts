@@ -38,6 +38,11 @@ const meta: Meta<typeof KdsListItem> = {
       description: "Unique identifier for the list item.",
       table: { category: "props" },
     },
+    role: {
+      control: "text",
+      description: "Role for the list item.",
+      table: { category: "props" },
+    },
     accessory: {
       control: "select",
       options: Object.keys(demoAccessories),

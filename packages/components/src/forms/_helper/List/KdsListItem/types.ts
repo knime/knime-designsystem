@@ -42,4 +42,7 @@ export type KdsListItemProps = {
 
   /** Disables interaction and dims the content. */
   disabled?: boolean;
+
+  /** Role of the item */
+  role?: "option" | "menuitem";
 };
