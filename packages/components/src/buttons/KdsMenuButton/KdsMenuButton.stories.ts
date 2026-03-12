@@ -5,19 +5,19 @@ import { expect, userEvent, within } from "storybook/test";
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
 import type { KdsMenuItem } from "../../overlays/MenuContainer";
+import { kdsPopoverPlacements } from "../../overlays/Popover";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
   buildTextOverflowStory,
 } from "../../test-utils/storybook";
+import {
+  kdsToggleButtonVariant,
+  kdsToggleButtonVariants,
+} from "../KdsToggleButton";
 import { kdsButtonSizes } from "../enums";
 
 import KdsMenuButton from "./KdsMenuButton.vue";
-import {
-  kdsMenuButtonPlacements,
-  kdsMenuButtonVariant,
-  kdsMenuButtonVariants,
-} from "./enums";
 
 function options(
   length: number,
@@ -61,7 +61,7 @@ const meta: Meta<typeof KdsMenuButton> = {
     },
     variant: {
       control: { type: "select" },
-      options: kdsMenuButtonVariants,
+      options: kdsToggleButtonVariants,
       table: { category: "props" },
     },
     disabled: { control: "boolean", table: { category: "props" } },
@@ -84,7 +84,7 @@ const meta: Meta<typeof KdsMenuButton> = {
     },
     placement: {
       control: { type: "select" },
-      options: kdsMenuButtonPlacements,
+      options: kdsPopoverPlacements,
       table: { category: "props" },
     },
   },
@@ -202,8 +202,8 @@ export const AllCombinations: Story = buildAllCombinationsStory({
     {
       size: kdsButtonSizes,
       variant: [
-        kdsMenuButtonVariant.OUTLINED,
-        kdsMenuButtonVariant.TRANSPARENT,
+        kdsToggleButtonVariant.OUTLINED,
+        kdsToggleButtonVariant.TRANSPARENT,
       ],
       disabled: [false, true],
       label: ["{label}"],
@@ -215,8 +215,8 @@ export const AllCombinations: Story = buildAllCombinationsStory({
     {
       size: kdsButtonSizes,
       variant: [
-        kdsMenuButtonVariant.OUTLINED,
-        kdsMenuButtonVariant.TRANSPARENT,
+        kdsToggleButtonVariant.OUTLINED,
+        kdsToggleButtonVariant.TRANSPARENT,
       ],
       disabled: [false, true],
       leadingIcon: ["placeholder"],

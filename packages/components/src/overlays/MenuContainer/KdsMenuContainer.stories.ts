@@ -2,9 +2,9 @@ import { ref, useTemplateRef } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
 import KdsToggleButton from "../../buttons/KdsToggleButton/KdsToggleButton.vue";
+import { kdsPopoverPlacements } from "../Popover";
 
 import KdsMenuContainer from "./KdsMenuContainer.vue";
-import { kdsMenuContainerPlacements } from "./enums";
 import type { KdsMenuItem } from "./types";
 
 type Story = StoryObj<typeof KdsMenuContainer>;
@@ -46,7 +46,7 @@ const meta = {
     },
     placement: {
       control: { type: "select" },
-      options: kdsMenuContainerPlacements,
+      options: kdsPopoverPlacements,
       table: { category: "props" },
     },
   },
