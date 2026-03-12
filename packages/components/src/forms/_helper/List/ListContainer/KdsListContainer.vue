@@ -14,7 +14,11 @@ import type {
 
 const props = withDefaults(defineProps<KdsListContainerProps>(), {
   emptyText: "",
+<<<<<<< HEAD
   loading: false,
+=======
+  role: "listbox",
+>>>>>>> bf71a79 (KDS-532: More suggestions)
 });
 
 const emit = defineEmits<{
@@ -51,7 +55,7 @@ const isFocused = ref(false);
 const containerEl = useTemplateRef("containerEl");
 
 const listItemRole = computed(() => {
-  return props.isMenu ? "menuitem" : "option";
+  return props.role === "listbox" ? "option" : "menuitem";
 });
 
 function scrollToView() {
@@ -203,7 +207,7 @@ defineExpose<KdsListContainerExpose>({
   <div
     v-bind="$attrs"
     ref="containerEl"
-    :role="props.isMenu ? 'menu' : 'listbox'"
+    :role="props.role"
     :aria-busy="props.loading"
     :aria-label="props.ariaLabel"
     :aria-activedescendant="

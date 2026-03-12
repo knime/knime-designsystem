@@ -21,8 +21,6 @@ export type KdsMenuItem = {
   text: string;
   /** Optional subtext shown below the main label (multiline list item layout) */
   subText?: string;
-  /** Renders the item as selected */
-  selected?: boolean;
   /** Optional leading accessory (icon, data type, or color swatch) shown before the text */
   accessory?: KdsMenuItemAccessory;
   /** Disables the option in the list */
