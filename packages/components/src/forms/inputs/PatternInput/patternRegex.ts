@@ -109,7 +109,7 @@ const stripCaseInsensitiveWrapper = (pattern: string) =>
 
 const tryParseExcluded = (regex: string): { excludedInner?: string } => {
   // Matches `^(?!.*<inner>).*$` where <inner> is the pattern we emitted.
-  const match = new RegExp(/^\^\(\?!\.\*([\s\S]*)\)\.\*\$$/).exec(regex.trim());
+  const match = /^\^\(\?!\.\*([\s\S]*)\)\.\*\$$/.exec(regex.trim());
   if (!match) {
     return {};
   }
