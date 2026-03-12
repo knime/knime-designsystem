@@ -32,6 +32,12 @@ const swatchColor = computed<KdsHexColor>(
 );
 
 const { handleFocusOut } = useColorInputValidationOnFocusOut(modelValue);
+
+const onClickColorSwatch = () => {
+  if (!props.disabled) {
+    open.value = !open.value;
+  }
+};
 </script>
 
 <template>
@@ -51,6 +57,8 @@ const { handleFocusOut } = useColorInputValidationOnFocusOut(modelValue);
               size="large"
               :color="swatchColor"
               :aria-hidden="true"
+              :style="{ cursor: props.disabled ? 'default' : 'pointer' }"
+              @click="onClickColorSwatch"
             />
           </template>
           <template #trailing>
