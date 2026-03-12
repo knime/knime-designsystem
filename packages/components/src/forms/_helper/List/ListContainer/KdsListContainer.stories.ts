@@ -267,39 +267,40 @@ export const WithGroups: Story = {
   args: {
     possibleValues: [
       {
-        label: "Fruits",
-        options: [
-          {
-            id: "1",
-            text: "Apple",
-            accessory: { type: "icon", name: "placeholder" },
-          },
-          {
-            id: "2",
-            text: "Banana",
-            accessory: { type: "icon", name: "placeholder" },
-          },
-          {
-            id: "3",
-            text: "Cherry",
-            accessory: { type: "icon", name: "placeholder" },
-          },
-        ],
+        id: "fruits-header",
+        text: "Fruits",
+        sectionHeadline: true,
       },
       {
-        label: "Recently used",
-        options: [
-          {
-            id: "4",
-            text: "Banana",
-            accessory: { type: "icon", name: "placeholder" },
-          },
-          {
-            id: "5",
-            text: "Cherry",
-            accessory: { type: "icon", name: "placeholder" },
-          },
-        ],
+        id: "1",
+        text: "Apple",
+        accessory: { type: "icon", name: "placeholder" },
+      },
+      {
+        id: "2",
+        text: "Banana",
+        accessory: { type: "icon", name: "placeholder" },
+      },
+      {
+        id: "3",
+        text: "Cherry",
+        accessory: { type: "icon", name: "placeholder" },
+        separator: true,
+      },
+      {
+        id: "recently-used-header",
+        text: "Recently used",
+        sectionHeadline: true,
+      },
+      {
+        id: "4",
+        text: "Banana",
+        accessory: { type: "icon", name: "placeholder" },
+      },
+      {
+        id: "5",
+        text: "Cherry",
+        accessory: { type: "icon", name: "placeholder" },
       },
     ],
   },

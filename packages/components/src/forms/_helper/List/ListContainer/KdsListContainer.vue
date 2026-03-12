@@ -9,13 +9,8 @@ import ListItemSectionTitle from "../ListItemSectionTitle/ListItemSectionTitle.v
 import type {
   KdsListContainerExpose,
   KdsListContainerProps,
-  KdsListGroup,
   KdsListOption,
 } from "./types";
-
-const isGrouped = (
-  values: KdsListOption[] | KdsListGroup[],
-): values is KdsListGroup[] => values.length > 0 && "options" in values[0];
 
 const props = withDefaults(defineProps<KdsListContainerProps>(), {
   emptyText: "",
@@ -30,21 +25,14 @@ const idPrefix = useId();
 const toOptionId = (elementId: string) => elementId.slice(idPrefix.length + 1);
 const emptyOptionId = `${idPrefix}-empty`;
 
-/** Normalize possibleValues into groups, prefixing option IDs */
-const normalizedGroups = computed(() => {
-  const groups = isGrouped(props.possibleValues)
-    ? props.possibleValues
-    : [{ options: props.possibleValues }];
+/** All items with prefixed IDs */
+const prefixedValues = computed<KdsListOption[]>(() =>
+  props.possibleValues.map((o) => ({ ...o, id: `${idPrefix}-${o.id}` })),
+);
 
-  return groups.map((group) => ({
-    ...group,
-    options: group.options.map((o) => ({ ...o, id: `${idPrefix}-${o.id}` })),
-  }));
-});
-
-/** All selectable options (with prefixed ids), flattened across groups */
-const prefixedValues = computed(() =>
-  normalizedGroups.value.flatMap((g) => g.options),
+/** Only selectable (non-section-headline) items */
+const selectableValues = computed(() =>
+  prefixedValues.value.filter((o) => !o.sectionHeadline),
 );
 
 /** active item id (prefixed) via keyboard or mouseover */
@@ -84,7 +72,7 @@ const onMousemove = (event: MouseEvent) => {
 };
 
 const enabledValues = computed(() =>
-  prefixedValues.value.filter((o) => !o.disabled),
+  selectableValues.value.filter((o) => !o.disabled),
 );
 
 /** Reset activeId/lastActiveId when possibleValues change and current id no longer exists */
@@ -100,7 +88,7 @@ watch(enabledValues, (values) => {
       // When items exist but are all disabled, leave activeId undefined to
       // avoid aria-activedescendant referencing a non-existent DOM element.
       activeId.value =
-        prefixedValues.value.length === 0 ? emptyOptionId : undefined;
+        selectableValues.value.length === 0 ? emptyOptionId : undefined;
     }
   }
   if (!isValid(lastActiveId.value)) {
@@ -217,26 +205,17 @@ defineExpose<KdsListContainerExpose>({
           }
     "
   >
-    <template
-      v-for="(group, groupIdx) in normalizedGroups"
-      :key="group.label ?? groupIdx"
-    >
-      <ListItemDivider
-        v-if="groupIdx > 0"
-        role="presentation"
-        aria-hidden="true"
-      />
+    <template v-for="(item, index) in prefixedValues" :key="item.id">
       <ListItemSectionTitle
-        v-if="group.label"
-        :label="group.label"
-        :leading-icon="group.leadingIcon"
+        v-if="item.sectionHeadline"
+        :label="item.text"
+        :leading-icon="item.sectionHeadlineIcon"
         role="presentation"
         aria-hidden="true"
       />
       <KdsListItem
-        v-for="item in group.options"
+        v-else
         :id="item.id"
-        :key="item.id"
         :accessory="item.accessory"
         :label="item.text"
         :sub-text="item.subText"
@@ -249,9 +228,14 @@ defineExpose<KdsListContainerExpose>({
         @mousedown="props.controlledExternally && $event.preventDefault()"
         @click.stop="emit('itemClick', toOptionId(item.id))"
       />
+      <ListItemDivider
+        v-if="item.separator && index < prefixedValues.length - 1"
+        role="presentation"
+        aria-hidden="true"
+      />
     </template>
     <div
-      v-if="prefixedValues.length === 0"
+      v-if="selectableValues.length === 0"
       :id="emptyOptionId"
       role="option"
       aria-disabled="true"

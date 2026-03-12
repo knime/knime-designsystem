@@ -18,25 +18,25 @@ export type KdsListOption = {
   disabled?: boolean;
   /** Shows the option as missing in the list */
   missing?: boolean;
-};
-
-/** A group of options with an optional section title */
-export type KdsListGroup = {
-  /** Optional section title label shown above the group */
-  label?: string;
-  /** Optional leading icon shown before the section title */
-  leadingIcon?: KdsIconName;
-  /** Selectable options in this group */
-  options: KdsListOption[];
+  /**
+   * When true, the item is rendered as a non-selectable section headline
+   * (styled as a section title row). Section headline items are skipped
+   * during keyboard navigation and cannot be clicked.
+   */
+  sectionHeadline?: boolean;
+  /** Optional leading icon shown before a section headline */
+  sectionHeadlineIcon?: KdsIconName;
+  /** Show a separator below the item if it's not the last in the list */
+  separator?: boolean;
 };
 
 export type KdsListContainerProps = {
   /**
    * Options to show in the list.
-   * Pass a flat `KdsListOption[]` for an ungrouped list, or
-   * `KdsListGroup[]` to render labelled groups separated by dividers.
+   * Items with `sectionHeadline: true` are rendered as non-selectable
+   * section titles. Items with `separator: true` show a divider below them.
    */
-  possibleValues: KdsListOption[] | KdsListGroup[];
+  possibleValues: KdsListOption[];
   /** Text shown when no entries are provided */
   emptyText?: string;
   /** Accessible label for the listbox */
