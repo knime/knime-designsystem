@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { computed, ref, toRef, useTemplateRef, watch } from "vue";
+import { computed, nextTick, ref, toRef, useTemplateRef, watch } from "vue";
 import { useElementSize } from "@vueuse/core";
 
 import KdsIcon from "../../accessories/Icon/KdsIcon.vue";
+import { elementOverflowsHorizontally } from "../../util/useKdsIsTruncated";
 
-import type { KdsTab, KdsTabBarProps } from "./types";
+import type { KdsTabBarItem, KdsTabBarProps } from "./types";
 import { useTabBarIconHiding } from "./useTabBarIconHiding";
 
 const props = withDefaults(defineProps<KdsTabBarProps>(), {
@@ -16,7 +17,7 @@ const props = withDefaults(defineProps<KdsTabBarProps>(), {
 const modelValue = defineModel<string | number>({ required: false });
 
 const emit = defineEmits<{
-  tabClick: [tab: KdsTab];
+  tabSelect: [tab: KdsTabBarItem];
 }>();
 
 const tabRefs = ref<Map<string | number, HTMLButtonElement>>(new Map());
@@ -29,18 +30,18 @@ const setTabRef = (value: string | number, el: unknown) => {
   }
 };
 
-const isTabDisabled = (tab: KdsTab) => props.disabled || tab.disabled;
+const isTabDisabled = (tab: KdsTabBarItem) => props.disabled || tab.disabled;
 
-const selectTab = (tab: KdsTab) => {
+const selectTab = (tab: KdsTabBarItem) => {
   if (!isTabDisabled(tab) && modelValue.value !== tab.value) {
     modelValue.value = tab.value;
-    emit("tabClick", tab);
+    emit("tabSelect", tab);
   }
 };
 
 const getEnabledTabs = () => props.tabs.filter((tab) => !isTabDisabled(tab));
 
-const handleKeydown = (event: KeyboardEvent, currentTab: KdsTab) => {
+const handleKeydown = (event: KeyboardEvent, currentTab: KdsTabBarItem) => {
   const enabledTabs = getEnabledTabs();
   const currentIndex = enabledTabs.findIndex(
     (tab) => tab.value === currentTab.value,
@@ -89,6 +90,40 @@ const tabBarClass = computed(() => ({
   "kds-tab-bar-full-width": props.fullWidth,
 }));
 
+// The tab that should receive tabindex=0 (keyboard-focusable).
+// Prefers the selected tab if it's enabled; otherwise falls back to the first enabled tab.
+const focusableTabValue = computed(() => {
+  const enabledTabs = getEnabledTabs();
+  const selectedIsEnabled = enabledTabs.some(
+    (tab) => tab.value === modelValue.value,
+  );
+  if (selectedIsEnabled) {
+    return modelValue.value;
+  }
+  return enabledTabs[0]?.value ?? null;
+});
+
+const truncatedTabs = ref<Set<string | number>>(new Set());
+
+watch(
+  () => [width.value, shouldHideIcons.value, props.tabs] as const,
+  async () => {
+    await nextTick();
+    const newSet = new Set<string | number>();
+    for (const [value, el] of tabRefs.value) {
+      const label = el.querySelector<HTMLElement>(".kds-tab-label");
+      if (elementOverflowsHorizontally(label)) {
+        newSet.add(value);
+      }
+    }
+    truncatedTabs.value = newSet;
+  },
+  { immediate: true },
+);
+
+const getTabTitle = (tab: KdsTabBarItem) =>
+  truncatedTabs.value.has(tab.value) ? (tab.title ?? tab.label) : undefined;
+
 // Auto-select first available tab when current selection is invalid
 // (on mount, when tabs change, or when the selected tab becomes disabled)
 watch(
@@ -114,6 +149,7 @@ watch(
   <div ref="availableWidthContainer" :class="tabBarClass" role="tablist">
     <button
       v-for="tab in tabs"
+      :id="tab.id"
       :key="tab.value"
       :ref="
         (el) => {
@@ -123,15 +159,10 @@ watch(
       "
       type="button"
       role="tab"
-      :title="tab.title ?? tab.label"
+      :title="getTabTitle(tab)"
       :aria-selected="modelValue === tab.value"
-      :tabindex="
-        modelValue === tab.value ||
-        (!tabs.some((t) => t.value === modelValue && !isTabDisabled(t)) &&
-          tabs.find((t) => !isTabDisabled(t))?.value === tab.value)
-          ? 0
-          : -1
-      "
+      :aria-controls="tab.panelId"
+      :tabindex="focusableTabValue === tab.value ? 0 : -1"
       :disabled="isTabDisabled(tab)"
       :class="{
         'kds-tab': true,
@@ -141,8 +172,8 @@ watch(
       @keydown="handleKeydown($event, tab)"
     >
       <KdsIcon
-        v-if="tab.icon && !shouldHideIcons"
-        :name="tab.icon"
+        v-if="tab.trailingIcon && !shouldHideIcons"
+        :name="tab.trailingIcon"
         class="kds-tab-icon"
       />
       <span class="kds-tab-label">{{ tab.label }}</span>
@@ -161,11 +192,10 @@ watch(
   overflow: hidden;
   text-overflow: ellipsis;
   font: var(--kds-font-base-interactive-medium-strong);
-  color: var(--kds-color-text-and-icon-neutral);
   white-space: nowrap;
 }
 
-/* Size-dependent icon and label overrides (ascending specificity before .kds-tab hover rules) */
+/* Size-dependent overrides — must precede .kds-tab for ascending specificity */
 .kds-tab-bar-small .kds-tab-icon {
   width: var(--kds-dimension-component-width-1x);
   height: var(--kds-dimension-component-height-1x);
@@ -180,10 +210,7 @@ watch(
   font: var(--kds-font-base-interactive-large-strong);
 }
 
-.kds-tab-bar-small .kds-tab-selected .kds-tab-icon {
-  color: var(--kds-color-text-and-icon-selected);
-}
-
+.kds-tab-bar-small .kds-tab-selected .kds-tab-icon,
 .kds-tab-bar-large .kds-tab-selected .kds-tab-icon {
   color: var(--kds-color-text-and-icon-selected);
 }
@@ -197,54 +224,51 @@ watch(
   display: flex;
   align-items: center;
   min-width: 0;
+  color: var(--kds-color-text-and-icon-neutral);
   cursor: pointer;
   background: var(--kds-color-background-neutral-initial);
   border: none;
+  border-bottom: var(--kds-border-base-subtle);
+  border-bottom-width: var(--kds-core-border-width-m);
   border-radius: var(--kds-border-radius-container-none);
 
   &:disabled {
+    color: var(--kds-color-text-and-icon-disabled);
     cursor: not-allowed;
-    opacity: 0.5;
   }
 
   &:focus-visible {
     outline: var(--kds-border-action-focused);
-    outline-offset: calc(-2 * var(--kds-spacing-offset-focus));
+    outline-offset: var(--kds-spacing-offset-focus);
     border-radius: var(--kds-border-radius-container-0-12x);
   }
 
-  &.kds-tab-selected .kds-tab-indicator {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    height: var(--kds-core-border-width-m);
-    background: var(--kds-color-background-selected-bold-initial);
-    border: var(--kds-border-action-selected);
-    border-top-left-radius: var(--kds-border-radius-container-0-12x);
-    border-top-right-radius: var(--kds-border-radius-container-0-12x);
-  }
-
-  &.kds-tab-selected .kds-tab-label {
-    color: var(--kds-color-text-and-icon-selected);
-  }
-
-  &:hover:not(:disabled, .kds-tab-selected) {
+  &.kds-tab-selected {
     color: var(--kds-color-text-and-icon-selected);
 
-    & .kds-tab-label {
-      color: var(--kds-color-text-and-icon-selected);
+    & .kds-tab-indicator {
+      position: absolute;
+      right: 0;
+      bottom: calc(-1 * var(--kds-core-border-width-m));
+      left: 0;
+      z-index: -1;
+      height: var(--kds-dimension-component-height-0-125x);
+      background: var(--kds-color-background-selected-bold-initial);
+      border: var(--kds-border-action-selected);
+      border-top-left-radius: var(--kds-border-radius-container-0-12x);
+      border-top-right-radius: var(--kds-border-radius-container-0-12x);
     }
+  }
+
+  &:hover:not(:disabled) {
+    color: var(--kds-color-text-and-icon-selected);
   }
 }
 
 .kds-tab-bar {
   display: flex;
   flex-wrap: nowrap;
-  overflow: auto hidden;
   scrollbar-width: none;
-  border-bottom: var(--kds-border-base-subtle);
-  border-bottom-width: var(--kds-core-border-width-m);
 
   &::-webkit-scrollbar {
     display: none;

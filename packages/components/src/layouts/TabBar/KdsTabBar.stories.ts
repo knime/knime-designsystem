@@ -11,7 +11,7 @@ import {
 
 import KdsTabBar from "./KdsTabBar.vue";
 import { kdsTabBarSizes } from "./enums";
-import type { KdsTab } from "./types";
+import type { KdsTabBarItem } from "./types";
 
 const meta: Meta<typeof KdsTabBar> = {
   title: "Layouts/TabBar",
@@ -23,18 +23,19 @@ const meta: Meta<typeof KdsTabBar> = {
         component:
           "Use `KdsTabBar` to provide a horizontal navigation for switching between different views or content sections. Each tab can have an optional icon and can be disabled individually or as a whole.\n\n" +
           "**How it works**\n" +
-          "- Provide an array of `tabs`, where each tab has a `value`, `label`, optional `icon`, and optional `disabled` state.\n" +
+          "- Provide an array of `tabs`, where each tab has an `id`, `value`, `label`, `panelId`, optional `trailingIcon`, and optional `disabled` state.\n" +
           "- Control the currently selected tab via the `modelValue` prop, which should match the `value` of one of the tabs.\n" +
           "- The `size` prop controls the overall size of the tab bar, while the `fullWidth` prop determines whether tabs should stretch to fill the container.\n\n" +
-          "**Example**\n" +
+          "**Example**\n\n" +
+          "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/\n" +
           "```vue\n" +
           "<KdsTabBar\n" +
           '  :tabs="[\n' +
-          "    { value: 'localfilesystem', label: 'Local Filesystem', icon: 'local-filesystem' },\n" +
-          "    { value: 'myknimehub', label: 'My KNIME Hub', icon: 'cloud-knime' },\n" +
-          "    { value: 'oracledatabase', label: 'Oracle Database', icon: 'db-database' },\n" +
-          "    { value: 'box', label: 'Box', icon: 'cloud-download' },\n" +
-          "    { value: 'disabled', label: 'Disabled', icon: 'cloud-download', disabled: true },\n" +
+          "    { id: 'tab-localfilesystem', value: 'localfilesystem', label: 'Local Filesystem', panelId: 'panel-localfilesystem', trailingIcon: 'local-filesystem' },\n" +
+          "    { id: 'tab-myknimehub', value: 'myknimehub', label: 'My KNIME Hub', panelId: 'panel-myknimehub', trailingIcon: 'cloud-knime' },\n" +
+          "    { id: 'tab-oracledatabase', value: 'oracledatabase', label: 'Oracle Database', panelId: 'panel-oracledatabase', trailingIcon: 'db-database' },\n" +
+          "    { id: 'tab-box', value: 'box', label: 'Box', panelId: 'panel-box', trailingIcon: 'cloud-download' },\n" +
+          "    { id: 'tab-disabled', value: 'disabled', label: 'Disabled', panelId: 'panel-disabled', trailingIcon: 'cloud-download', disabled: true },\n" +
           '  ]"\n' +
           '  size="large"\n' +
           '  :full-width="false"\n' +
@@ -70,7 +71,7 @@ const meta: Meta<typeof KdsTabBar> = {
     tabs: {
       control: "object",
       description:
-        "Array of tab objects, where each tab has a `value`, `label`, optional `icon`, and optional `disabled` state",
+        "Array of tab objects, where each tab has an `id`, `value`, `label`, `panelId`, optional `trailingIcon`, and optional `disabled` state",
       table: { category: "props" },
     },
     modelValue: {
@@ -105,30 +106,82 @@ const meta: Meta<typeof KdsTabBar> = {
 export default meta;
 type Story = StoryObj<typeof KdsTabBar>;
 
-const sampleTabs: KdsTab[] = [
+const sampleTabs: KdsTabBarItem[] = [
   {
+    id: "tab-localfilesystem",
     value: "localfilesystem",
     label: "Local Filesystem",
-    icon: "local-filesystem",
+    panelId: "panel-localfilesystem",
+    trailingIcon: "local-filesystem",
   },
-  { value: "myknimehub", label: "My KNIME Hub", icon: "cloud-knime" },
-  { value: "oracledatabase", label: "Oracle Database", icon: "db-database" },
-  { value: "box", label: "Box", icon: "cloud-download" },
   {
+    id: "tab-myknimehub",
+    value: "myknimehub",
+    label: "My KNIME Hub",
+    panelId: "panel-myknimehub",
+    trailingIcon: "cloud-knime",
+  },
+  {
+    id: "tab-oracledatabase",
+    value: "oracledatabase",
+    label: "Oracle Database",
+    panelId: "panel-oracledatabase",
+    trailingIcon: "db-database",
+  },
+  {
+    id: "tab-box",
+    value: "box",
+    label: "Box",
+    panelId: "panel-box",
+    trailingIcon: "cloud-download",
+  },
+  {
+    id: "tab-disabled",
     value: "disabled",
     label: "Disabled",
-    icon: "cloud-download",
+    panelId: "panel-disabled",
+    trailingIcon: "cloud-download",
     disabled: true,
   },
 ];
 
-const extraTabs: KdsTab[] = [
+const extraTabs: KdsTabBarItem[] = [
   ...sampleTabs,
-  { value: "folder", label: "Folder", icon: "folder" },
-  { value: "settings", label: "Settings", icon: "settings" },
-  { value: "component", label: "Component", icon: "component" },
-  { value: "workflow", label: "Workflow", icon: "workflow" },
-  { value: "data-table", label: "Data Table", icon: "db-table" },
+  {
+    id: "tab-folder",
+    value: "folder",
+    label: "Folder",
+    panelId: "panel-folder",
+    trailingIcon: "folder",
+  },
+  {
+    id: "tab-settings",
+    value: "settings",
+    label: "Settings",
+    panelId: "panel-settings",
+    trailingIcon: "settings",
+  },
+  {
+    id: "tab-component",
+    value: "component",
+    label: "Component",
+    panelId: "panel-component",
+    trailingIcon: "component",
+  },
+  {
+    id: "tab-workflow",
+    value: "workflow",
+    label: "Workflow",
+    panelId: "panel-workflow",
+    trailingIcon: "workflow",
+  },
+  {
+    id: "tab-data-table",
+    value: "data-table",
+    label: "Data Table",
+    panelId: "panel-data-table",
+    trailingIcon: "db-table",
+  },
 ];
 
 export const Default: Story = {
@@ -265,7 +318,6 @@ export const DisabledEntireTabBar: Story = {
     size: "small",
     fullWidth: false,
     disabled: true,
-    modelValue: "localfilesystem",
   },
 };
 
@@ -276,16 +328,25 @@ export const TextOverflow: Story = {
   args: {
     tabs: [
       {
+        id: "tab-long1",
         value: "long1",
         label: "This is a very long tab label that should overflow",
-        icon: "workflow",
+        panelId: "panel-long1",
+        trailingIcon: "workflow",
       },
       {
+        id: "tab-long2",
         value: "long2",
         label: "Another extremely long tab label for testing",
-        icon: "component",
+        panelId: "panel-long2",
+        trailingIcon: "component",
       },
-      { value: "short", label: "Short" },
+      {
+        id: "tab-short",
+        value: "short",
+        label: "Short",
+        panelId: "panel-short",
+      },
     ],
     size: "small",
     fullWidth: false,
