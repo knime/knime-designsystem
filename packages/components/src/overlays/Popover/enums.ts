@@ -11,6 +11,7 @@ export const kdsPopoverRole = {
   DIALOG: "dialog",
   MENU: "menu",
   LISTBOX: "listbox",
+  NONE: "undefined",
 } as const;
 
 export const kdsPopoverRoles = Object.values(kdsPopoverRole);

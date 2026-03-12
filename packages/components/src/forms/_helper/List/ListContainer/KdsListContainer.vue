@@ -190,7 +190,7 @@ defineExpose<KdsListContainerExpose>({
 <template>
   <div
     ref="containerEl"
-    :role="props.isMenu ? undefined : 'listbox'"
+    :role="props.isMenu ? 'menu' : 'listbox'"
     :aria-label="props.ariaLabel"
     :aria-activedescendant="
       !props.controlledExternally && activeId ? activeId : undefined
