@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed, ref, useAttrs, useTemplateRef } from "vue";
+import { computed, ref, useAttrs, useId, useTemplateRef } from "vue";
 
-import KdsMenuContainer from "../../overlays/MenuContainer/KdsMenuContainer.vue";
+import KdsListContainer from "../../forms/_helper/List/ListContainer/KdsListContainer.vue";
+import KdsPopover from "../../overlays/Popover/KdsPopover.vue";
 import KdsToggleButton from "../KdsToggleButton/KdsToggleButton.vue";
 
 import type { KdsMenuButtonProps } from "./types";
@@ -35,7 +36,10 @@ const toggleButtonProps = computed(() => {
 });
 
 const isMenuOpen = ref<boolean>(false);
-const menuContainerEl = useTemplateRef("menuContainerEl");
+const popoverEl = useTemplateRef("popoverEl");
+const listContainerEl = useTemplateRef("listContainerEl");
+
+const menuId = useId();
 
 const onItemClick = (event: string) => {
   isMenuOpen.value = false;
@@ -49,20 +53,39 @@ const onItemClick = (event: string) => {
     v-bind="toggleButtonProps"
     aria-haspopup="menu"
     :aria-expanded="isMenuOpen"
-    :aria-controls="menuContainerEl?.popoverEl?.popoverId"
-    :style="menuContainerEl?.popoverEl?.anchorStyle"
-    @keydown="menuContainerEl?.listContainerEl?.handleKeydown($event)"
-    @focus="menuContainerEl?.listContainerEl?.handleFocus()"
-    @blur="menuContainerEl?.listContainerEl?.handleBlur()"
+    :aria-controls="menuId"
+    :aria-activedescendant="listContainerEl?.activeDescendant"
+    :style="popoverEl?.anchorStyle"
+    @keydown="listContainerEl?.handleKeydown"
+    @blur="isMenuOpen = false"
   />
 
-  <KdsMenuContainer
-    ref="menuContainerEl"
+  <KdsPopover
+    ref="popoverEl"
     v-model="isMenuOpen"
-    :items="items"
     :placement="placement"
-    @item-click="onItemClick"
-  />
+    popover-aria-label="Menu"
+  >
+    <div class="kds-menu-container">
+      <KdsListContainer
+        :id="menuId"
+        ref="listContainerEl"
+        :possible-values="items"
+        empty-text="Menu is empty"
+        aria-label="Actions"
+        is-menu
+        controlled-externally
+        @item-click="onItemClick"
+      />
+    </div>
+  </KdsPopover>
 </template>
 
-<style scoped></style>
+<style scoped>
+.kds-menu-container {
+  max-width: var(--kds-dimension-component-width-20x);
+  background-color: var(--kds-color-surface-default);
+  border-radius: var(--kds-border-radius-container-0-50x);
+  box-shadow: var(--kds-elevation-level-3);
+}
+</style>

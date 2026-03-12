@@ -4,8 +4,6 @@ import { expect, userEvent, within } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
-import type { KdsMenuItem } from "../../overlays/MenuContainer";
-import { kdsPopoverPlacements } from "../../overlays/Popover";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
@@ -18,6 +16,8 @@ import {
 import { kdsButtonSizes } from "../enums";
 
 import KdsMenuButton from "./KdsMenuButton.vue";
+import { kdsMenuButtonPopoverPlacements } from "./enums";
+import type { KdsMenuItem } from "./types";
 
 function options(
   length: number,
@@ -45,7 +45,7 @@ const meta: Meta<typeof KdsMenuButton> = {
       description: {
         component:
           "Displays a menu to the user — such as a set of actions or functions — triggered by a button. " +
-          "It is a combination of a KdsToggleButton with a KdsMenuContainer",
+          "It is a combination of a KdsToggleButton with a KdsListContainer within a KdsPopover",
       },
     },
     design: {
@@ -84,13 +84,15 @@ const meta: Meta<typeof KdsMenuButton> = {
     },
     placement: {
       control: { type: "select" },
-      options: kdsPopoverPlacements,
+      options: kdsMenuButtonPopoverPlacements,
       table: { category: "props" },
     },
   },
   args: {
     label: "{Label}",
+    variant: "outlined",
     items: baseOptions,
+    placement: "bottom-left",
   },
 };
 export default meta;

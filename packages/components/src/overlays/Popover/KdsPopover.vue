@@ -5,7 +5,7 @@ import type { KdsPopoverExpose, KdsPopoverProps } from "./types";
 
 const props = withDefaults(defineProps<KdsPopoverProps>(), {
   placement: "bottom-left",
-  role: "dialog",
+  role: undefined,
   fullWidth: false,
 });
 
