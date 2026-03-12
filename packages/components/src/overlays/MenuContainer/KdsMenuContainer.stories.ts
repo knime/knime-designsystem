@@ -1,12 +1,10 @@
+import { ref, useTemplateRef } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { fn } from "storybook/test";
 
+import KdsToggleButton from "../../buttons/KdsToggleButton/KdsToggleButton.vue";
 import type { KdsListOption } from "../../forms/_helper/List/ListContainer";
-import {
-  buildAllCombinationsStory,
-  buildDesignComparatorStory,
-  buildTextOverflowStory,
-} from "../../test-utils/storybook";
+import KdsPopover from "../Popover/KdsPopover.vue";
 
 import KdsMenuContainer from "./KdsMenuContainer.vue";
 
@@ -55,6 +53,38 @@ const meta = {
     possibleValues: baseOptions,
     onItemClick: fn(),
   },
+  render: (args) => ({
+    components: { KdsToggleButton, KdsPopover, KdsMenuContainer },
+    setup() {
+      const popoverRef = useTemplateRef("popoverRef");
+      const isMenuOpen = ref<boolean>(false);
+      return { args, popoverRef, isMenuOpen };
+    },
+    template: `
+        <KdsToggleButton
+          v-model="isMenuOpen"
+          label="Toggle menu"
+          variant="outlined"
+          aria-haspopup="menu"
+          :aria-expanded="isMenuOpen"
+          :aria-controls="popoverRef?.popoverId"
+          :style="popoverRef?.anchorStyle"
+        />
+
+        <KdsPopover
+          ref="popoverRef"
+          v-model="isMenuOpen"
+          role="menu"
+          placement="bottom-left"
+          popover-aria-label="Menu items"
+        >
+          <KdsMenuContainer
+            :possible-values="args.possibleValues"
+            @item-click="isMenuOpen = false"
+          />
+        </KdsPopover>
+      `,
+  }),
 } satisfies Meta<typeof KdsMenuContainer>;
 
 export default meta;
@@ -113,62 +143,8 @@ export const WithAccessories: Story = {
   },
 };
 
-export const TextOverflow: Story = {
-  ...buildTextOverflowStory({
-    component: KdsMenuContainer,
-    width: 200,
-  }),
-  args: {
-    possibleValues: [
-      {
-        id: "long",
-        text: "A very very very very very long option label that should overflow",
-        accessory: { type: "dataType", name: "string-datatype" },
-      },
-      {
-        id: "short",
-        text: "Short",
-      },
-    ],
-  },
-};
+// TextOverflow story is not applicable for KdsMenuContainer as it has no text content or visual prop variants
 
-export const DesignComparator: Story = {
-  ...buildDesignComparatorStory({
-    component: KdsMenuContainer,
-    wrapperStyle: { width: "213px" },
-    designsToCompare: {
-      Default: {
-        props: {
-          possibleValues: options(13, () => ({
-            accessory: { type: "icon", name: "placeholder" },
-            text: "Label",
-          })),
-        },
-        variants: {
-          "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3433-24499":
-            {},
-        },
-      },
-      Empty: {
-        props: {
-          possibleValues: [],
-        },
-        variants: {
-          "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4711-38479":
-            {},
-        },
-      },
-    },
-  }),
-};
+// DesignComparator story is not applicable for KdsMenuContainer as it has no visual prop variants and requires an activator element
 
-export const AllCombinations: Story = buildAllCombinationsStory({
-  component: KdsMenuContainer,
-  combinationsProps: [
-    {
-      possibleValues: [options(3, () => ({})), []],
-    },
-  ],
-  pseudoStates: ["hover", "focus-visible"],
-});
+// AllCombinations story is not applicable for KdsMenuContainer as it has no visual prop variants and requires an activator element

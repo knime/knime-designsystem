@@ -4,3 +4,10 @@ export const kdsListItemVariant = {
 } as const;
 
 export const kdsListItemVariants = Object.values(kdsListItemVariant);
+
+export const kdsListItemRole = {
+  OPTION: "option",
+  MENUITEM: "menuitem",
+};
+
+export const kdsListItemRoles = Object.values(kdsListItemRole);

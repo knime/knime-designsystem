@@ -1,10 +1,13 @@
 import type { KdsIconName } from "../../../../accessories";
 import type { KdsListItemAccessory } from "../ListItemAccessory/types.ts";
 
-import type { kdsListItemVariant } from "./enums";
+import type { kdsListItemRole, kdsListItemVariant } from "./enums";
 
 export type KdsListItemVariant =
   (typeof kdsListItemVariant)[keyof typeof kdsListItemVariant];
+
+export type KdsListItemRole =
+  (typeof kdsListItemRole)[keyof typeof kdsListItemRole];
 
 export type KdsListItemProps = {
   /** Unique identifier for the list item (also used as DOM id for aria-activedescendant patterns). */
@@ -44,5 +47,5 @@ export type KdsListItemProps = {
   disabled?: boolean;
 
   /** Role of the item */
-  role?: "option" | "menuitem";
+  role?: KdsListItemRole;
 };

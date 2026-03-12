@@ -17,6 +17,7 @@ const emit = defineEmits<{
       :possible-values="possibleValues"
       empty-text="Menu is empty"
       aria-label="Menu"
+      is-menu
       @item-click="emit('itemClick', $event)"
     />
   </div>
