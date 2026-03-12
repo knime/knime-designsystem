@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, ref, useAttrs, useTemplateRef } from "vue";
 
-import { KdsMenuContainer } from "../../overlays/MenuContainer";
-import { KdsPopover } from "../../overlays/Popover";
-import { KdsToggleButton } from "../KdsToggleButton";
+import KdsMenuContainer from "../../overlays/MenuContainer/KdsMenuContainer.vue";
+import KdsPopover from "../../overlays/Popover/KdsPopover.vue";
+import KdsToggleButton from "../KdsToggleButton/KdsToggleButton.vue";
 
 import type { KdsMenuButtonProps } from "./types";
 
