@@ -188,7 +188,7 @@ defineExpose<KdsListContainerExpose>({
 <template>
   <div
     ref="containerEl"
-    role="listbox"
+    :role="props.isMenu ? 'menu' : 'listbox'"
     :aria-label="props.ariaLabel"
     :aria-activedescendant="
       !props.controlledExternally && activeId ? activeId : undefined
@@ -227,6 +227,7 @@ defineExpose<KdsListContainerExpose>({
         :special="item.special"
         :missing="item.missing"
         :trailing-icon="item.selected ? 'checkmark' : undefined"
+        :role="props.isMenu ? 'menuitem' : 'option'"
         @mousedown="props.controlledExternally && $event.preventDefault()"
         @click.stop="emit('itemClick', toOptionId(item.id))"
       />
@@ -254,6 +255,7 @@ defineExpose<KdsListContainerExpose>({
   display: flex;
   flex-direction: column;
   gap: var(--kds-spacing-container-0-10x);
+  min-width: var(--kds-dimension-component-width-12x);
   padding: var(--kds-spacing-container-0-25x);
   overflow-y: auto;
 
