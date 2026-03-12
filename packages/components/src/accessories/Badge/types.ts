@@ -18,5 +18,5 @@ export type KdsBadgeProps = {
   size?: KdsBadgeSize;
 
   /** Icon shown next to the label. */
-  icon?: KdsIconName;
+  leadingIcon?: KdsIconName;
 };

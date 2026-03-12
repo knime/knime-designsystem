@@ -86,14 +86,14 @@ watch(
   >
     <slot
       :title="title"
-      :icon="icon"
+      :leading-icon="leadingIcon"
       :variant="variant"
       :overflow="overflow"
       :on-close="onClose"
     >
       <KdsModalLayout
         :title="title"
-        :icon="icon"
+        :leading-icon="leadingIcon"
         :variant="variant"
         :overflow="overflow"
         @close="onClose"

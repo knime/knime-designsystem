@@ -34,7 +34,7 @@ export const kdsModalLayoutPropsDefault = {
   title: "",
   variant: kdsModalVariant.PADDED,
   overflow: "auto",
-  icon: undefined,
+  leadingIcon: undefined,
 } as const;
 
 export const kdsModalPropsDefault = {

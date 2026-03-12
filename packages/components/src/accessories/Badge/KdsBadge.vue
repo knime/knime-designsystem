@@ -7,7 +7,7 @@ import type { KdsBadgeProps, KdsBadgeSize } from "./types";
 withDefaults(defineProps<KdsBadgeProps>(), {
   variant: kdsBadgeVariant.NEUTRAL,
   size: kdsBadgeSize.XSMALL,
-  icon: undefined,
+  leadingIcon: undefined,
 });
 
 const sizeToIconSize: Record<KdsBadgeSize, KdsIconSize> = {
@@ -18,7 +18,11 @@ const sizeToIconSize: Record<KdsBadgeSize, KdsIconSize> = {
 
 <template>
   <span :class="['kds-badge', size, variant]">
-    <KdsIcon v-if="icon" :name="icon" :size="sizeToIconSize[size]" />
+    <KdsIcon
+      v-if="leadingIcon"
+      :name="leadingIcon"
+      :size="sizeToIconSize[size]"
+    />
     <span class="label-wrapper">{{ label }}</span>
   </span>
 </template>

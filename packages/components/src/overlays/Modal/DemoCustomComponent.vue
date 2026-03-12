@@ -11,14 +11,14 @@ const props = defineProps<KdsDynamicModalPropsAPI>();
 const checked = ref<boolean | "indeterminate">(false);
 
 const title = "Can you see this?";
-const icon = "ai-general";
+const leadingIcon = "ai-general";
 
-props.updateConfig({ title, icon });
+props.updateConfig({ title, leadingIcon });
 
 watch(checked, (value) => {
   props.updateConfig({
     title: title + (value ? " (checked)" : ""),
-    icon: value ? "checkmark" : icon,
+    leadingIcon: value ? "checkmark" : leadingIcon,
   });
 });
 </script>

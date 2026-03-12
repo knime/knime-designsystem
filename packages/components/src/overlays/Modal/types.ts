@@ -20,7 +20,7 @@ export type KdsModalProps = {
    *
    * **Only used for special modals most regular ones do not need one.**
    */
-  icon?: KdsIconName;
+  leadingIcon?: KdsIconName;
   title?: string;
   /**
    * `padded` adds gap and padding to the content
@@ -62,5 +62,5 @@ export type KdsModalProps = {
 
 export type KdsModalLayoutProps = Pick<
   KdsModalProps,
-  "title" | "variant" | "icon" | "overflow"
+  "title" | "variant" | "leadingIcon" | "overflow"
 > & { onClose: (event?: Event) => void };

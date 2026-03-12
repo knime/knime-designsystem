@@ -36,13 +36,13 @@ const role = computed<HTMLAttributes["role"]>(() =>
   <div :class="classes" :role="role">
     <div class="header">
       <KdsIcon class="icon" :name="iconName" size="small" />
-      <div class="title">
-        {{ props.title }}
+      <div class="headline">
+        {{ props.headline }}
       </div>
     </div>
 
-    <div v-if="props.message" class="body">
-      {{ props.message }}
+    <div v-if="props.description" class="body">
+      {{ props.description }}
     </div>
   </div>
 </template>
@@ -70,7 +70,7 @@ const role = computed<HTMLAttributes["role"]>(() =>
       color: var(--icon-color);
     }
 
-    .title {
+    .headline {
       font: var(--kds-font-base-title-small-strong);
     }
   }

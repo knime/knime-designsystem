@@ -126,7 +126,7 @@ export const ConfirmationWithTemplate: Story = {
       const showModal = () => {
         askConfirmation({
           title: "Can you see this?",
-          icon: "list-bulletpoint",
+          leadingIcon: "list-bulletpoint",
           closedby: "any",
           component: h("div", [
             h("h3", "A Headline"),
@@ -177,7 +177,7 @@ export const WithCustomComponentAndLayout: Story = {
       const showModal = () => {
         showByTemplate({
           title: "Can you see this?",
-          icon: "list-bulletpoint",
+          leadingIcon: "list-bulletpoint",
           closedby: "any",
           component: markRaw(DemoCustomComponent),
         });
@@ -210,7 +210,7 @@ export const WithCustomComponentWithoutLayout: Story = {
       const showModal = () => {
         showByTemplate({
           title: "Can you see this?",
-          icon: "list-bulletpoint",
+          leadingIcon: "list-bulletpoint",
           closedby: "any",
           context: {
             someData: true,

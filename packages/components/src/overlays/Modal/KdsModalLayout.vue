@@ -14,7 +14,7 @@ defineOptions({ inheritAttrs: false });
 
 <template>
   <header class="modal-header">
-    <KdsIcon v-if="props.icon" :name="props.icon" size="medium" />
+    <KdsIcon v-if="props.leadingIcon" :name="props.leadingIcon" size="medium" />
     <div class="modal-header-title">{{ props.title }}</div>
     <KdsButton
       leading-icon="x-close"

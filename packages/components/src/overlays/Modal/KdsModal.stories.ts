@@ -33,7 +33,7 @@ const meta: Meta<typeof KdsModal> = {
     },
   },
   argTypes: {
-    icon: {
+    leadingIcon: {
       options: [undefined, ...iconNames],
     },
     closedby: {
@@ -72,7 +72,7 @@ const meta: Meta<typeof KdsModal> = {
         };
       },
       template: `
-    <KdsModal>
+    <KdsModal v-bind="args">
       <template #body>
         ${params.content ?? "Modal content text."}
       </template>
@@ -182,7 +182,7 @@ export const FullSizeInnerScrollable: Story = {
     },
   },
   args: {
-    icon: "info",
+    leadingIcon: "info",
     title: "Scrollable inner content",
     width: "full",
     height: "full",
