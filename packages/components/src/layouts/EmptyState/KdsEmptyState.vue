@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
+import KdsLoadingSpinner from "../../accessories/LoadingSpinner/KdsLoadingSpinner.vue";
 import KdsButton from "../../buttons/KdsButton/KdsButton.vue";
 import KdsLinkButton from "../../buttons/KdsLinkButton/KdsLinkButton.vue";
 
@@ -28,6 +29,13 @@ const buttonComponent = computed(() =>
 
 <template>
   <div class="kds-empty-state">
+    <KdsLoadingSpinner
+      v-if="props.loadingSpinner"
+      data-testid="loading-spinner"
+      size="large"
+      variant="onSurface"
+      aria-hidden="true"
+    />
     <p class="kds-empty-state-headline">{{ props.headline }}</p>
     <p v-if="props.description" class="kds-empty-state-description">
       {{ props.description }}
