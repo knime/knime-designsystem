@@ -1,14 +1,22 @@
 import type { Ref } from "vue";
-import { computed, nextTick, ref, watch } from "vue";
+import {
+  computed,
+  nextTick,
+  onBeforeUpdate,
+  ref,
+  shallowRef,
+  watch,
+} from "vue";
 
-import { useIconHidingOnEllipsis } from "../../util/useIconHidingOnEllipsis";
+import { elementOverflowsHorizontally } from "../../util/useKdsIsTruncated";
 
 import type { KdsTab } from "./types";
 /**
  * Computes whether icons in TabBar items should be hidden.
  *
  * Global logic: as soon as at least one text+icon item ellipsizes its label
- * (`scrollWidth > clientWidth`), icons are hidden for all text+icon items.
+ * (`scrollWidth > clientWidth`), or the tab bar overflows horizontally,
+ * icons are hidden for all text+icon items.
  */
 export const useTabBarIconHiding = ({
   width,
@@ -26,17 +34,43 @@ export const useTabBarIconHiding = ({
    */
   containerEl: Ref<HTMLElement | null>;
 }) => {
-  const { shouldHideIcons: shouldHideIconsOnEllipsis, setItemEl } =
-    useIconHidingOnEllipsis({
-      width,
-      items: tabs,
-      getKey: (tab) => tab.value,
-      shouldCheckItem: (tab) => Boolean(tab.icon),
-      labelSelector: ".kds-tab-label",
-      elementCtor: HTMLButtonElement,
-    });
+  const itemEls = shallowRef<Map<string | number, HTMLButtonElement>>(
+    new Map(),
+  );
 
-  const shouldHideIconsOnOverflow = ref(false);
+  onBeforeUpdate(() => {
+    itemEls.value = new Map();
+  });
+
+  const setItemEl = (key: string | number, el: unknown) => {
+    const elementToRegister =
+      el && typeof el === "object" && "$el" in el
+        ? (el as { $el: unknown }).$el
+        : el;
+
+    if (elementToRegister instanceof HTMLButtonElement) {
+      itemEls.value.set(key, elementToRegister);
+    }
+  };
+
+  const hasLabelEllipsis = (key: string | number) => {
+    const el = itemEls.value.get(key);
+    if (!el) {
+      return false;
+    }
+
+    const label = el.querySelector<HTMLElement>(".kds-tab-label");
+    return elementOverflowsHorizontally(label);
+  };
+
+  const anyItemHasEllipsis = () =>
+    tabs.value.some((tab) => {
+      if (!tab.icon) {
+        return false;
+      }
+
+      return hasLabelEllipsis(tab.value);
+    });
 
   const isOverflowing = () => {
     const el = containerEl.value;
@@ -48,14 +82,19 @@ export const useTabBarIconHiding = ({
     return el.scrollWidth > el.clientWidth + 1;
   };
 
+  const shouldHideIconsOnEllipsis = ref(false);
+  const shouldHideIconsOnOverflow = ref(false);
+
   watch(
     () => [width.value, tabs.value, containerEl.value],
     async () => {
       // First pass: with icons rendered
+      shouldHideIconsOnEllipsis.value = false;
       shouldHideIconsOnOverflow.value = false;
 
-      // Second pass: hide icons as soon as the bar overflows.
+      // Second pass: hide icons as soon as any label is truncated or the bar overflows.
       await nextTick();
+      shouldHideIconsOnEllipsis.value = anyItemHasEllipsis();
       shouldHideIconsOnOverflow.value = isOverflowing();
     },
     { immediate: true },
