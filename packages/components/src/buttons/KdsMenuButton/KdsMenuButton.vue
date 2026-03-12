@@ -56,6 +56,7 @@ const onItemClick = (itemId: string) => {
     :aria-controls="menuId"
     :aria-activedescendant="listContainerEl?.activeDescendant"
     :style="popoverEl?.anchorStyle"
+    @focus="listContainerEl?.handleFocus"
     @keydown="listContainerEl?.handleKeydown"
     @blur="isMenuOpen = false"
   />

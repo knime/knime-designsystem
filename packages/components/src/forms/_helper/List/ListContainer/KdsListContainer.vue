@@ -160,6 +160,13 @@ const handleKeydown = (event: KeyboardEvent) => {
       break;
     }
     case "Enter":
+      if (
+        event.target instanceof HTMLElement &&
+        ["BUTTON"].includes(event.target.tagName) &&
+        event.target.ariaExpanded === "false"
+      ) {
+        break;
+      }
       if (activeId.value) {
         emit("itemClick", toOptionId(activeId.value));
         event.preventDefault();

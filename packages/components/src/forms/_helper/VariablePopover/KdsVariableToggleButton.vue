@@ -108,7 +108,7 @@ const title = computed(() => {
     role="dialog"
     popover-aria-label="Flow Variable settings"
   >
-    <VariablePopover :content="props.content">
+    <VariablePopover v-if="modelValue" :content="props.content">
       <slot />
     </VariablePopover>
   </KdsPopover>
