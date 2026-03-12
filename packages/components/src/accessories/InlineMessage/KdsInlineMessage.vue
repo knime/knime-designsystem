@@ -8,7 +8,7 @@ import type { KdsInlineMessageProps } from "./types";
 
 const props = withDefaults(defineProps<KdsInlineMessageProps>(), {
   variant: "info",
-  message: undefined,
+  description: undefined,
 });
 
 const classes = computed(() => ["kds-inline-message", props.variant]);
