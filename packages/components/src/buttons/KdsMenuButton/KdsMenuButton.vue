@@ -30,7 +30,13 @@ const toggleButtonProps = computed(() => {
     ...rest
   } = props;
 
-  return { ...attrs, ...rest };
+  const {
+    modelValue: _modelValue,
+    "onUpdate:modelValue": _onUpdateModelValue,
+    ...safeAttrs
+  } = attrs;
+
+  return { ...safeAttrs, ...rest };
 });
 
 const isMenuOpen = ref<boolean>(false);
@@ -66,4 +72,4 @@ const onItemClick = (event: string) => {
   </KdsPopover>
 </template>
 
-<style lang="postcss" scoped></style>
+<style scoped></style>
