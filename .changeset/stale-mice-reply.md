@@ -4,7 +4,7 @@
 
 Apply consistent naming convention for component props.
 
-The following component props have been renamed:
+BREAKING CHANGE: The following component props have been renamed:
 
 - `KdsBadge`: `icon` → `leadingIcon`
 - `KdsInlineMessage`: `title` → `headline`
