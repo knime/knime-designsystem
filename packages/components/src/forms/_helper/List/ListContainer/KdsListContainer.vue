@@ -68,6 +68,8 @@ const onMousemove = (event: MouseEvent) => {
     target.getAttribute("aria-disabled") !== "true"
   ) {
     activeId.value = target.id;
+  } else if (!isFocused.value) {
+    activeId.value = undefined;
   }
 };
 
@@ -251,6 +253,7 @@ defineExpose<KdsListContainerExpose>({
 .kds-list-container {
   display: flex;
   flex-direction: column;
+  gap: var(--kds-spacing-container-0-10x);
   padding: var(--kds-spacing-container-0-25x);
   overflow-y: auto;
 
