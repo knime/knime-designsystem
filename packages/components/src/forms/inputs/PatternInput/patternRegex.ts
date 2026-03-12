@@ -5,7 +5,7 @@ export type KdsPatternInputOptions = {
 };
 
 const escapeRegex = (value: string) =>
-  value.replaceAll(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  value.replaceAll(/[.*+?^${}()|[\]\\]/g, String.raw`\$&`);
 
 const wildcardToRegexBody = (pattern: string) => {
   // Convert a simple wildcard pattern to a regex body.
@@ -109,7 +109,7 @@ const stripCaseInsensitiveWrapper = (pattern: string) =>
 
 const tryParseExcluded = (regex: string): { excludedInner?: string } => {
   // Matches `^(?!.*<inner>).*$` where <inner> is the pattern we emitted.
-  const match = regex.trim().match(/^\^\(\?!\.\*([\s\S]*)\)\.\*\$$/);
+  const match = new RegExp(/^\^\(\?!\.\*([\s\S]*)\)\.\*\$$/).exec(regex.trim());
   if (!match) {
     return {};
   }
@@ -127,7 +127,7 @@ export const parseRegexToPatternInputValue = (
   }
 
   const { excludedInner } = tryParseExcluded(regex);
-  const inner = excludedInner === undefined ? regex : excludedInner;
+  const inner = excludedInner ?? regex;
 
   const withoutCase = options.caseSensitive
     ? inner
