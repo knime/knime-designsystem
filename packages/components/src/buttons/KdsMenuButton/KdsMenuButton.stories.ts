@@ -4,7 +4,7 @@ import { expect, userEvent, within } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
-import type { KdsListOption } from "../../forms/_helper/List/ListContainer";
+import type { KdsMenuItem } from "../../overlays/MenuContainer";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
@@ -21,8 +21,8 @@ import {
 
 function options(
   length: number,
-  generator: (idx: number) => Partial<KdsListOption>,
-): KdsListOption[] {
+  generator: (idx: number) => Partial<KdsMenuItem>,
+): KdsMenuItem[] {
   return Array.from({ length }, (_, idx) => ({
     id: `option-${idx + 1}`,
     text: `Label ${idx + 1}`,
@@ -78,7 +78,7 @@ const meta: Meta<typeof KdsMenuButton> = {
     },
     ariaLabel: { control: "text", table: { category: "props" } },
     title: { control: "text", table: { category: "props" } },
-    possibleValues: {
+    items: {
       control: "object",
       table: { category: "props" },
     },
@@ -90,7 +90,7 @@ const meta: Meta<typeof KdsMenuButton> = {
   },
   args: {
     label: "{Label}",
-    possibleValues: baseOptions,
+    items: baseOptions,
   },
 };
 export default meta;
@@ -104,7 +104,7 @@ export const Outlined: Story = {
   args: {
     variant: "outlined",
     label: "Toggle menu",
-    possibleValues: baseOptions,
+    items: baseOptions,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -137,7 +137,7 @@ export const Transparent: Story = {
   args: {
     variant: "transparent",
     label: "Toggle menu",
-    possibleValues: baseOptions,
+    items: baseOptions,
   },
 };
 
@@ -149,7 +149,7 @@ export const Disabled: Story = {
     variant: "outlined",
     label: "Toggle menu",
     disabled: true,
-    possibleValues: baseOptions,
+    items: baseOptions,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -177,7 +177,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsMenuButton,
   designsToCompare: {
     Types: {
-      props: { label: "{Label}", possibleValues: baseOptions },
+      props: { label: "{Label}", items: baseOptions },
       variants: {
         [`${figmaBaseUrl}?node-id=19388-216947`]: { variant: "outlined" },
       },
@@ -198,7 +198,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       label: ["{label}"],
       leadingIcon: [undefined, "placeholder"],
       trailingIcon: [undefined, "placeholder"],
-      possibleValues: [baseOptions],
+      items: [baseOptions],
       placement: ["bottom-left"],
     },
     {
@@ -210,7 +210,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       disabled: [false, true],
       leadingIcon: ["placeholder"],
       ariaLabel: ["Icon only button"],
-      possibleValues: [baseOptions],
+      items: [baseOptions],
       placement: ["bottom-left"],
     },
   ],
