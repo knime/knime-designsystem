@@ -149,6 +149,20 @@ export type KdsButtonVariant =
   (typeof kdsButtonVariant)[keyof typeof kdsButtonVariant];
 ```
 
+### Naming Conventions for component props
+
+- Use `modelValue` for v-model bindings (e.g. `KdsToggleButton`, `KdsSelect`)
+- Use `disabled` for disabled state (boolean)
+- Use `variant` for visual variants (string union, e.g. `KdsButton`)
+- Use `size` for size variants (string union, e.g. `KdsAvatar`)
+- Use `label` for the main label of an input component (string)
+- Use `subText` for the secondary text of an input component (string)
+- Use `headline` for the main text of a non-input component (string)
+- Use `description` for the secondary text of a non-input component (string)
+- Always use `leadingIcon` and `trailingIcon` props for icons of components (don't use single `icon` prop).
+- Use `accessory` for interchangeable supporting content (e.g. avatar or icon in a list item)
+- Only use `title` prop for tooltips and similar content that appears on hover/focus, never for main labels or headlines.
+
 ### Component Folder Structure
 
 - Each component should be in its own subfolder: `ComponentCategory/KdsComponent/`

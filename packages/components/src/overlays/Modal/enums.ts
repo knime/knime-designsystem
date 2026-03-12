@@ -31,10 +31,10 @@ export const kdsModalVariant = {
 export const kdsModalVariants = Object.values(kdsModalVariant);
 
 export const kdsModalLayoutPropsDefault = {
-  title: "",
+  headline: "",
   variant: kdsModalVariant.PADDED,
   overflow: "auto",
-  icon: undefined,
+  leadingIcon: undefined,
 } as const;
 
 export const kdsModalPropsDefault = {

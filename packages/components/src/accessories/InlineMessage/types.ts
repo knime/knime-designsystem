@@ -4,11 +4,11 @@ export type KdsInlineMessageVariant =
   (typeof kdsInlineMessageVariant)[keyof typeof kdsInlineMessageVariant];
 
 export type KdsInlineMessageProps = {
-  /** The title displayed at the top of the inline message. */
-  title: string;
+  /** The headline displayed at the top of the inline message. */
+  headline: string;
 
-  /** The message content displayed inside the inline message. */
-  message?: string;
+  /** The description content displayed inside the inline message. */
+  description?: string;
 
   /** Variant of the inline message. */
   variant?: KdsInlineMessageVariant;

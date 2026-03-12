@@ -313,7 +313,7 @@ export const InModal: Story = {
         <KdsButton label="Open modal" variant="filled" @click="open" />
 
         <KdsModal :active="isActive" @close="close">
-          <KdsModalLayout title="Modal title" :on-close="close">
+          <KdsModalLayout headline="Modal title" :on-close="close">
             <template #body>
               <KdsDropdown
                 v-bind="args"

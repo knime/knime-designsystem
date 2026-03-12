@@ -33,7 +33,7 @@ const meta: Meta<typeof KdsModal> = {
     },
   },
   argTypes: {
-    icon: {
+    leadingIcon: {
       options: [undefined, ...iconNames],
     },
     closedby: {
@@ -72,7 +72,7 @@ const meta: Meta<typeof KdsModal> = {
         };
       },
       template: `
-    <KdsModal>
+    <KdsModal v-bind="args">
       <template #body>
         ${params.content ?? "Modal content text."}
       </template>
@@ -137,7 +137,7 @@ export const Default: Story = {
     },
   },
   args: {
-    title: "Title",
+    headline: "Headline",
   },
 };
 
@@ -153,7 +153,7 @@ export const ShowOnLoad: Story = {
   },
   args: {
     active: true,
-    title: "Show on load…",
+    headline: "Show on load…",
   },
 };
 
@@ -165,7 +165,7 @@ export const VariantPlain: Story = {
     },
   },
   args: {
-    title: "Variant Plain",
+    headline: "Variant Plain",
     variant: "plain",
   },
 };
@@ -182,8 +182,8 @@ export const FullSizeInnerScrollable: Story = {
     },
   },
   args: {
-    icon: "info",
-    title: "Scrollable inner content",
+    leadingIcon: "info",
+    headline: "Scrollable inner content",
     width: "full",
     height: "full",
     variant: "plain",
@@ -201,7 +201,7 @@ export const FullSizeWithNoFullSizeContent: Story = {
     },
   },
   args: {
-    title: "This should take up all space",
+    headline: "This should take up all space",
     width: "full",
     height: "full",
   },
@@ -217,7 +217,7 @@ export const LightDismissible: Story = {
     },
   },
   args: {
-    title: "Please read carefully. A click outside should close the modal.",
+    headline: "Please read carefully. A click outside should close the modal.",
     closedby: "any",
   },
 };

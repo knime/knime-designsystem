@@ -42,23 +42,23 @@ const meta: Meta<typeof KdsInlineMessage> = {
       },
     },
 
-    title: {
+    headline: {
       control: "text",
       description:
-        "Title text displayed before the message content inside the inline message.",
+        "Headline text displayed before the message content inside the inline message.",
 
       table: { category: "props" },
     },
-    message: {
+    description: {
       control: "text",
-      description: "The message content displayed inside the inline message.",
+      description: "The description text displayed inside the inline message.",
       table: { category: "props" },
     },
   },
   args: {
     variant: "info",
-    title: "Title",
-    message: undefined,
+    headline: "Headline",
+    description: undefined,
   },
 };
 export default meta;
@@ -66,39 +66,39 @@ export default meta;
 export const Info: Story = {
   args: {
     variant: "info",
-    title: "Title",
-    message: "Here is a message that informs the user about something",
+    headline: "Headline",
+    description: "Here is a message that informs the user about something",
   },
 };
 
 export const Success: Story = {
   args: {
     variant: "success",
-    title: "Title",
-    message: "Here is a message that informs the user about something",
+    headline: "Headline",
+    description: "Here is a message that informs the user about something",
   },
 };
 
 export const Error: Story = {
   args: {
     variant: "error",
-    title: "Title",
-    message: "Here is a message that informs the user about something",
+    headline: "Headline",
+    description: "Here is a message that informs the user about something",
   },
 };
 
 export const Warning: Story = {
   args: {
     variant: "warning",
-    title: "Title",
-    message: "Here is a message that informs the user about something",
+    headline: "Headline",
+    description: "Here is a message that informs the user about something",
   },
 };
 
-export const OnlyTitle: Story = {
+export const OnlyHeadline: Story = {
   args: {
     variant: "info",
-    title: "Title",
+    headline: "Headline",
   },
 };
 
@@ -107,10 +107,10 @@ export const TextOverflow: Story = {
     component: KdsInlineMessage,
   }),
   args: {
-    title:
-      "This is a very long title that should overflow, This is a very long title that should overflow ",
-    message:
-      "This is a very long message that should overflow, This is a very long message that should overflow ",
+    headline:
+      "This is a very long headline that should overflow, This is a very long headline that should overflow ",
+    description:
+      "This is a very long description that should overflow, This is a very long description that should overflow ",
   },
 };
 
@@ -119,8 +119,8 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   designsToCompare: {
     Variants: {
       props: {
-        title: "Title",
-        message: "Here is a message that informs the user about something",
+        headline: "Headline",
+        description: "Here is a message that informs the user about something",
       },
       variants: {
         [`${figmaBaseUrl}?node-id=3870-16219`]: {
@@ -128,8 +128,8 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         },
         [`${figmaBaseUrl}?node-id=11984-102908`]: {
           variant: "info",
-          title: "Title",
-          message: undefined,
+          headline: "Headline",
+          description: undefined,
         },
       },
     },
@@ -142,8 +142,8 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   combinationsProps: [
     {
       variant: kdsInlineMessageVariants,
-      title: ["Title", "A longer inline message title"],
-      message: [
+      headline: ["Headline", "A longer inline message headline"],
+      description: [
         undefined,
         "Here is a message that informs the user about something",
       ],
