@@ -4,29 +4,11 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
+  buildTextOverflowStory,
 } from "../../test-utils/storybook";
 
 import KdsLoadingSkeleton from "./KdsLoadingSkeleton.vue";
-
-const variants = [
-  "default",
-  "text-default",
-  "text-headline-with-paragraph",
-  "icon-large",
-  "icon-medium",
-  "icon-small",
-  "button-large",
-  "button-medium",
-  "button-small",
-  "button-xsmall",
-  "input-field",
-  "list-item-large",
-  "list-item-large-with-subtext",
-  "list-item-small",
-  "list-item-small-with-subtext",
-  "card-default",
-  "combined",
-] as const;
+import { kdsLoadingSkeletonVariants } from "./types";
 
 const meta: Meta<typeof KdsLoadingSkeleton> = {
   title: "Accessories/LoadingSkeleton",
@@ -58,29 +40,9 @@ const meta: Meta<typeof KdsLoadingSkeleton> = {
       control: "text",
       table: { category: "props" },
     },
-    iconPreset: {
-      control: false,
-      description: 'Legacy fallback prop (used only with variant="default").',
-      table: { disable: true },
-    },
-    buttonPreset: {
-      control: false,
-      description: 'Legacy fallback prop (used only with variant="default").',
-      table: { disable: true },
-    },
-    textPreset: {
-      control: false,
-      description: 'Legacy fallback prop (used only with variant="default").',
-      table: { disable: true },
-    },
-    cardPreset: {
-      control: false,
-      description: 'Legacy fallback prop (used only with variant="default").',
-      table: { disable: true },
-    },
     variant: {
       control: { type: "select" },
-      options: variants,
+      options: kdsLoadingSkeletonVariants,
       description: "Primary API for selecting skeleton preset/layout.",
       table: { category: "props" },
     },
@@ -106,7 +68,7 @@ const meta: Meta<typeof KdsLoadingSkeleton> = {
     variant: "default",
     loading: true,
     repeat: 1,
-    repeatGap: "var(--kds-spacing-container-1x)",
+    repeatGap: "var(--kds-spacing-container-1-25x)",
   },
 };
 
@@ -114,129 +76,102 @@ export default meta;
 
 type Story = StoryObj<typeof KdsLoadingSkeleton>;
 
+type VariantValue = (typeof kdsLoadingSkeletonVariants)[number];
+
+type VariantListItem = {
+  label: string;
+  value: VariantValue;
+  repeat?: number;
+};
+
+const buildVariantStory = (variant: VariantValue): Story => ({
+  args: { variant },
+});
+
+const buildVariantListStory = ({
+  items,
+  containerGap,
+  maxWidth,
+}: {
+  items: VariantListItem[];
+  containerGap: string;
+  maxWidth?: string;
+}): Story => ({
+  render: () => ({
+    components: { KdsLoadingSkeleton },
+    setup() {
+      return {
+        items,
+        containerStyle: {
+          display: "grid",
+          gap: containerGap,
+          ...(maxWidth ? { maxWidth } : {}),
+        },
+      };
+    },
+    template: `
+      <div :style="containerStyle">
+        <div
+          v-for="item in items"
+          :key="item.label"
+          style="display: grid; gap: var(--kds-spacing-container-0-25x);"
+        >
+          <div style="font: var(--kds-font-base-label-small-regular);">{{ item.label }}</div>
+          <KdsLoadingSkeleton :variant="item.value" :repeat="item.repeat ?? 1" />
+        </div>
+      </div>
+    `,
+  }),
+});
+
 export const Default: Story = {};
 
-export const TextPresets: Story = {
-  render: () => ({
-    components: { KdsLoadingSkeleton },
-    setup() {
-      const textPresets = [
-        {
-          label: "Headline with Paragraph",
-          value: "text-headline-with-paragraph",
-          repeat: 1,
-        },
-      ];
-
-      return { textPresets };
+export const TextPresets: Story = buildVariantListStory({
+  items: [
+    {
+      label: "Headline with Paragraph",
+      value: "text-headline-with-paragraph",
+      repeat: 1,
     },
-    template: `
-      <div style="display: grid; gap: var(--kds-spacing-container-0-75x); max-width: 28rem;">
-        <div
-          v-for="preset in textPresets"
-          :key="preset.label"
-          style="display: grid; gap: var(--kds-spacing-container-0-25x);"
-        >
-          <div style="font: var(--kds-font-base-label-small-regular);">
-            {{ preset.label }}
-          </div>
-          <KdsLoadingSkeleton :variant="preset.value" :repeat="preset.repeat" />
-        </div>
-      </div>
-    `,
-  }),
-};
+  ],
+  containerGap: "var(--kds-spacing-container-0-75x)",
+  maxWidth: "28rem",
+});
 
-export const IconPresets: Story = {
-  render: () => ({
-    components: { KdsLoadingSkeleton },
-    setup() {
-      const iconPresets = [
-        { label: "Large", value: "icon-large" },
-        { label: "Medium", value: "icon-medium" },
-        { label: "Small", value: "icon-small" },
-      ];
+export const IconPresets: Story = buildVariantListStory({
+  items: [
+    { label: "Large", value: "icon-large" },
+    { label: "Medium", value: "icon-medium" },
+    { label: "Small", value: "icon-small" },
+  ],
+  containerGap: "var(--kds-spacing-container-0-5x)",
+});
 
-      return { iconPresets };
-    },
-    template: `
-      <div style="display: grid; gap: var(--kds-spacing-container-0-5x);">
-        <div
-          v-for="preset in iconPresets"
-          :key="preset.label"
-          style="display: grid; gap: var(--kds-spacing-container-0-25x);"
-        >
-          <div style="font: var(--kds-font-base-label-small-regular);">{{ preset.label }}</div>
-          <KdsLoadingSkeleton :variant="preset.value" />
-        </div>
-      </div>
-    `,
-  }),
-};
+export const ButtonPresets: Story = buildVariantListStory({
+  items: [
+    { label: "Large", value: "button-large" },
+    { label: "Medium", value: "button-medium" },
+    { label: "Small", value: "button-small" },
+    { label: "XSmall", value: "button-xsmall" },
+  ],
+  containerGap: "var(--kds-spacing-container-0-5x)",
+});
 
-export const ButtonPresets: Story = {
-  render: () => ({
-    components: { KdsLoadingSkeleton },
-    setup() {
-      const buttonPresets = [
-        { label: "Large", value: "button-large" },
-        { label: "Medium", value: "button-medium" },
-        { label: "Small", value: "button-small" },
-        { label: "XSmall", value: "button-xsmall" },
-      ];
+export const InputFieldPresets: Story = buildVariantStory("input-field");
 
-      return { buttonPresets };
-    },
-    template: `
-      <div style="display: grid; gap: var(--kds-spacing-container-0-5x);">
-        <div
-          v-for="preset in buttonPresets"
-          :key="preset.label"
-          style="display: grid; gap: var(--kds-spacing-container-0-25x);"
-        >
-          <div style="font: var(--kds-font-base-label-small-regular);">{{ preset.label }}</div>
-          <KdsLoadingSkeleton :variant="preset.value" />
-        </div>
-      </div>
-    `,
-  }),
-};
+export const ListItemLargePreset: Story = buildVariantStory("list-item-large");
 
-export const InputFieldPresets: Story = {
-  args: {
-    variant: "input-field",
-  },
-};
+export const ListItemLargeWithSubtextPreset: Story = buildVariantStory(
+  "list-item-large-with-subtext",
+);
 
-export const ListItemLargePreset: Story = {
-  args: {
-    variant: "list-item-large",
-  },
-};
+export const ListItemSmallPreset: Story = buildVariantStory("list-item-small");
 
-export const ListItemLargeWithSubtextPreset: Story = {
-  args: {
-    variant: "list-item-large-with-subtext",
-  },
-};
+export const ListItemSmallWithSubtextPreset: Story = buildVariantStory(
+  "list-item-small-with-subtext",
+);
 
-export const ListItemSmallPreset: Story = {
-  args: {
-    variant: "list-item-small",
-  },
-};
-
-export const ListItemSmallWithSubtextPreset: Story = {
-  args: {
-    variant: "list-item-small-with-subtext",
-  },
-};
-
-export const CardPresets: Story = {
-  args: {
-    variant: "card-default",
-  },
-};
+export const CardPresets: Story = buildVariantStory("card-default");
 
 export const Backgrounds: Story = {
   render: (args) => ({
@@ -284,10 +219,22 @@ export const Backgrounds: Story = {
   }),
 };
 
+export const TextOverflow: Story = {
+  ...buildTextOverflowStory({
+    component: KdsLoadingSkeleton,
+    width: 240,
+  }),
+  args: {
+    variant: "text-headline-with-paragraph",
+    repeat: 1,
+    loading: true,
+  },
+};
+
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsLoadingSkeleton,
   designsToCompare: {
-    CombinedLayout: {
+    HeadlineWithParagraphLayout: {
       props: {
         variant: "text-headline-with-paragraph",
         width: "var(--kds-dimension-component-width-8x)",

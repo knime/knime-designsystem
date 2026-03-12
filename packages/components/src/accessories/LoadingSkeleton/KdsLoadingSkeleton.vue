@@ -1,13 +1,6 @@
 <script setup lang="ts">
-import { computed, toRefs } from "vue";
-
-import {
-  kdsLoadingSkeletonButtonPreset,
-  kdsLoadingSkeletonCardPreset,
-  kdsLoadingSkeletonIconPreset,
-  kdsLoadingSkeletonTextPreset,
-} from "./enums";
 import type { KdsLoadingSkeletonProps } from "./types";
+import { useKdsLoadingSkeleton } from "./useKdsLoadingSkeleton";
 
 const props = withDefaults(defineProps<KdsLoadingSkeletonProps>(), {
   width: "100%",
@@ -19,188 +12,21 @@ const props = withDefaults(defineProps<KdsLoadingSkeletonProps>(), {
   repeatGap: "var(--kds-spacing-container-1-25x)",
 });
 
-const { width, height } = toRefs(props);
-const sizeMultiplier = computed(() =>
-  props.size > 0 && Number.isFinite(props.size) ? props.size : 1,
-);
-const scaledLength = (value: string) =>
-  sizeMultiplier.value === 1
-    ? value
-    : `calc(${value} * ${sizeMultiplier.value})`;
-const effectiveVariant = computed<
-  NonNullable<KdsLoadingSkeletonProps["variant"]>
->(() => {
-  if (props.variant !== "default") {
-    return props.variant;
-  }
-
-  if (props.buttonPreset) {
-    const buttonValueMap: Record<
-      NonNullable<KdsLoadingSkeletonProps["buttonPreset"]>,
-      NonNullable<KdsLoadingSkeletonProps["variant"]>
-    > = {
-      [kdsLoadingSkeletonButtonPreset.LARGE]: "button-large",
-      [kdsLoadingSkeletonButtonPreset.MEDIUM]: "button-medium",
-      [kdsLoadingSkeletonButtonPreset.SMALL]: "button-small",
-      [kdsLoadingSkeletonButtonPreset.XSMALL]: "button-xsmall",
-    };
-
-    return buttonValueMap[props.buttonPreset];
-  }
-
-  if (props.iconPreset) {
-    const iconValueMap: Record<
-      NonNullable<KdsLoadingSkeletonProps["iconPreset"]>,
-      NonNullable<KdsLoadingSkeletonProps["variant"]>
-    > = {
-      [kdsLoadingSkeletonIconPreset.LARGE]: "icon-large",
-      [kdsLoadingSkeletonIconPreset.MEDIUM]: "icon-medium",
-      [kdsLoadingSkeletonIconPreset.SMALL]: "icon-small",
-      [kdsLoadingSkeletonIconPreset.XSMALL]: "icon-small",
-    };
-
-    return iconValueMap[props.iconPreset];
-  }
-
-  if (props.cardPreset === kdsLoadingSkeletonCardPreset.DEFAULT) {
-    return "card-default";
-  }
-
-  if (props.textPreset === kdsLoadingSkeletonTextPreset.DEFAULT) {
-    return "text-default";
-  }
-
-  if (
-    props.textPreset === kdsLoadingSkeletonTextPreset.HEADLINE_WITH_PARAGRAPH
-  ) {
-    return "text-headline-with-paragraph";
-  }
-
-  return "default";
-});
-
-const isCombinedVariant = computed(() => effectiveVariant.value === "combined");
-const isHeadlineWithParagraphPreset = computed(
-  () => effectiveVariant.value === "text-headline-with-paragraph",
-);
-const isInputFieldVariant = computed(
-  () => effectiveVariant.value === "input-field",
-);
-const isListItemLargeVariant = computed(
-  () => effectiveVariant.value === "list-item-large",
-);
-const isListItemLargeWithSubtextVariant = computed(
-  () => effectiveVariant.value === "list-item-large-with-subtext",
-);
-const isListItemSmallVariant = computed(
-  () => effectiveVariant.value === "list-item-small",
-);
-const isListItemSmallWithSubtextVariant = computed(
-  () => effectiveVariant.value === "list-item-small-with-subtext",
-);
-
-const presetClass = computed(() => {
-  const valueMap: Partial<
-    Record<NonNullable<KdsLoadingSkeletonProps["variant"]>, string>
-  > = {
-    "button-large": "button-preset-large",
-    "button-medium": "button-preset-medium",
-    "button-small": "button-preset-small",
-    "button-xsmall": "button-preset-xsmall",
-    "icon-large": "icon-preset-large",
-    "icon-medium": "icon-preset-medium",
-    "icon-small": "icon-preset-small",
-    "text-default": "text-preset-default",
-    "card-default": "card-preset-default",
-  };
-
-  return valueMap[effectiveVariant.value] ?? null;
-});
-
-const borderRadius = computed(() => {
-  if (props.borderRadius) {
-    return props.borderRadius;
-  }
-
-  const valueMap: Partial<
-    Record<NonNullable<KdsLoadingSkeletonProps["variant"]>, string>
-  > = {
-    "button-large": "var(--kds-border-radius-container-pill)",
-    "button-medium": "var(--kds-border-radius-container-pill)",
-    "button-small": "var(--kds-border-radius-container-pill)",
-    "button-xsmall": "var(--kds-border-radius-container-pill)",
-  };
-
-  return (
-    valueMap[effectiveVariant.value] ??
-    "var(--kds-border-radius-container-pill)"
-  );
-});
-
-const styles = computed(() => {
-  const hasPreset =
-    Boolean(presetClass.value) || isHeadlineWithParagraphPreset.value;
-  const borderRadiusVar = props.borderRadius?.trim();
-
-  return {
-    ...(borderRadiusVar
-      ? { "--kds-loading-skeleton-border-radius": borderRadiusVar }
-      : {}),
-    width: hasPreset ? "" : scaledLength(width.value),
-    height: hasPreset ? "" : scaledLength(height.value),
-    borderRadius: borderRadiusVar ?? (hasPreset ? "" : borderRadius.value),
-  };
-});
-
-const repeatContainerStyles = computed(() => {
-  return {
-    gap: props.repeat > 1 ? props.repeatGap : "0px",
-  };
-});
-
-const headlineWithParagraphStyles = computed(() => {
-  return {
-    width: scaledLength(width.value),
-  };
-});
-
-const inputFieldStyles = computed(() => {
-  return {
-    width: scaledLength(width.value),
-  };
-});
-
-const listItemStyles = computed(() => {
-  return {
-    width: scaledLength(width.value),
-  };
-});
-
-const combinedLayoutStyles = computed(() => {
-  const borderRadiusVar = props.borderRadius?.trim();
-  const combinedStyles: Record<string, string> = {
-    width: scaledLength(width.value),
-    ...(borderRadiusVar
-      ? { "--kds-loading-skeleton-border-radius": borderRadiusVar }
-      : {}),
-  };
-
-  if (props.height !== "var(--kds-spacing-container-1-25x)") {
-    combinedStyles["--kds-loading-skeleton-combined-icon-size"] = scaledLength(
-      height.value,
-    );
-    combinedStyles["--kds-loading-skeleton-combined-line-height"] =
-      scaledLength(height.value);
-  }
-
-  return combinedStyles;
-});
+const {
+  combinedLayoutStyles,
+  contentWidthStyles,
+  isVariant,
+  presetClass,
+  repeatContainerStyles,
+  sizeMultiplier,
+  styles,
+} = useKdsLoadingSkeleton(props);
 </script>
 
 <template>
   <div v-if="loading" class="wrapper">
     <div class="repeat-items" :style="repeatContainerStyles">
-      <template v-if="isCombinedVariant">
+      <template v-if="isVariant('combined')">
         <div
           v-for="index in repeat"
           :key="`combined-${index}`"
@@ -215,13 +41,13 @@ const combinedLayoutStyles = computed(() => {
           </div>
         </div>
       </template>
-      <template v-else-if="isHeadlineWithParagraphPreset">
+      <template v-else-if="isVariant('text-headline-with-paragraph')">
         <div
           v-for="index in repeat"
           :key="`headline-${index}`"
           class="headline-with-paragraph"
           v-bind="$attrs"
-          :style="headlineWithParagraphStyles"
+          :style="contentWidthStyles"
         >
           <div class="skeleton-item headline-line" />
           <div class="skeleton-item paragraph-line paragraph-line-1" />
@@ -229,37 +55,37 @@ const combinedLayoutStyles = computed(() => {
           <div class="skeleton-item paragraph-line paragraph-line-3" />
         </div>
       </template>
-      <template v-else-if="isInputFieldVariant">
+      <template v-else-if="isVariant('input-field')">
         <div
           v-for="index in repeat"
           :key="`input-field-${index}`"
           class="input-field-layout"
           v-bind="$attrs"
-          :style="inputFieldStyles"
+          :style="contentWidthStyles"
         >
           <div class="skeleton-item input-field-label" />
           <div class="skeleton-item input-field-card" />
         </div>
       </template>
-      <template v-else-if="isListItemLargeVariant">
+      <template v-else-if="isVariant('list-item-large')">
         <div
           v-for="index in repeat"
           :key="`list-item-large-${index}`"
           class="list-item-layout list-item-layout-large"
           v-bind="$attrs"
-          :style="listItemStyles"
+          :style="contentWidthStyles"
         >
           <div class="skeleton-item list-item-icon-large" />
           <div class="skeleton-item list-item-text-large" />
         </div>
       </template>
-      <template v-else-if="isListItemLargeWithSubtextVariant">
+      <template v-else-if="isVariant('list-item-large-with-subtext')">
         <div
           v-for="index in repeat"
           :key="`list-item-large-with-subtext-${index}`"
           class="list-item-layout list-item-layout-large-with-subtext"
           v-bind="$attrs"
-          :style="listItemStyles"
+          :style="contentWidthStyles"
         >
           <div class="skeleton-item list-item-icon-large" />
           <div class="list-item-lines">
@@ -268,25 +94,25 @@ const combinedLayoutStyles = computed(() => {
           </div>
         </div>
       </template>
-      <template v-else-if="isListItemSmallVariant">
+      <template v-else-if="isVariant('list-item-small')">
         <div
           v-for="index in repeat"
           :key="`list-item-small-${index}`"
           class="list-item-layout list-item-layout-small"
           v-bind="$attrs"
-          :style="listItemStyles"
+          :style="contentWidthStyles"
         >
           <div class="skeleton-item list-item-icon-small" />
           <div class="skeleton-item list-item-text-small" />
         </div>
       </template>
-      <template v-else-if="isListItemSmallWithSubtextVariant">
+      <template v-else-if="isVariant('list-item-small-with-subtext')">
         <div
           v-for="index in repeat"
           :key="`list-item-small-with-subtext-${index}`"
           class="list-item-layout list-item-layout-small-with-subtext"
           v-bind="$attrs"
-          :style="listItemStyles"
+          :style="contentWidthStyles"
         >
           <div class="skeleton-item list-item-icon-small" />
           <div class="list-item-lines">
@@ -414,18 +240,30 @@ const combinedLayoutStyles = computed(() => {
   animation: knight-rider 2s linear 200ms infinite;
 
   &.icon-preset-large {
-    width: var(--kds-dimension-component-width-1-25x);
-    height: var(--kds-dimension-component-height-1-25x);
+    width: calc(
+      var(--kds-dimension-component-width-1-25x) * v-bind(sizeMultiplier)
+    );
+    height: calc(
+      var(--kds-dimension-component-height-1-25x) * v-bind(sizeMultiplier)
+    );
   }
 
   &.icon-preset-medium {
-    width: var(--kds-dimension-component-width-1x);
-    height: var(--kds-dimension-component-height-1x);
+    width: calc(
+      var(--kds-dimension-component-width-1x) * v-bind(sizeMultiplier)
+    );
+    height: calc(
+      var(--kds-dimension-component-height-1x) * v-bind(sizeMultiplier)
+    );
   }
 
   &.icon-preset-small {
-    width: var(--kds-dimension-component-width-0-75x);
-    height: var(--kds-dimension-component-height-0-75x);
+    width: calc(
+      var(--kds-dimension-component-width-0-75x) * v-bind(sizeMultiplier)
+    );
+    height: calc(
+      var(--kds-dimension-component-height-0-75x) * v-bind(sizeMultiplier)
+    );
   }
 
   &.button-preset-large {
@@ -433,8 +271,12 @@ const combinedLayoutStyles = computed(() => {
       --kds-border-radius-container-0-50x
     );
 
-    width: var(--kds-dimension-component-width-4x);
-    height: var(--kds-dimension-component-height-2-25x);
+    width: calc(
+      var(--kds-dimension-component-width-4x) * v-bind(sizeMultiplier)
+    );
+    height: calc(
+      var(--kds-dimension-component-height-2-25x) * v-bind(sizeMultiplier)
+    );
   }
 
   &.button-preset-medium {
@@ -442,8 +284,12 @@ const combinedLayoutStyles = computed(() => {
       --kds-border-radius-container-0-37x
     );
 
-    width: var(--kds-dimension-component-width-4x);
-    height: var(--kds-dimension-component-height-1-75x);
+    width: calc(
+      var(--kds-dimension-component-width-4x) * v-bind(sizeMultiplier)
+    );
+    height: calc(
+      var(--kds-dimension-component-height-1-75x) * v-bind(sizeMultiplier)
+    );
   }
 
   &.button-preset-small {
@@ -451,8 +297,12 @@ const combinedLayoutStyles = computed(() => {
       --kds-border-radius-container-0-37x
     );
 
-    width: var(--kds-dimension-component-width-4x);
-    height: var(--kds-dimension-component-height-1-5x);
+    width: calc(
+      var(--kds-dimension-component-width-4x) * v-bind(sizeMultiplier)
+    );
+    height: calc(
+      var(--kds-dimension-component-height-1-5x) * v-bind(sizeMultiplier)
+    );
   }
 
   &.button-preset-xsmall {
@@ -460,13 +310,17 @@ const combinedLayoutStyles = computed(() => {
       --kds-border-radius-container-0-25x
     );
 
-    width: var(--kds-dimension-component-width-4x);
-    height: var(--kds-dimension-component-height-1-25x);
+    width: calc(
+      var(--kds-dimension-component-width-4x) * v-bind(sizeMultiplier)
+    );
+    height: calc(
+      var(--kds-dimension-component-height-1-25x) * v-bind(sizeMultiplier)
+    );
   }
 
   &.text-preset-default {
     width: 100%;
-    height: var(--kds-spacing-container-1x);
+    height: calc(var(--kds-spacing-container-1x) * v-bind(sizeMultiplier));
   }
 
   &.card-preset-default {
@@ -475,17 +329,23 @@ const combinedLayoutStyles = computed(() => {
     );
 
     width: 100%;
-    height: var(--kds-dimension-component-height-1-75x);
+    height: calc(
+      var(--kds-dimension-component-height-1-75x) * v-bind(sizeMultiplier)
+    );
   }
 }
 
 .headline-line {
   width: 50%;
-  height: var(--kds-dimension-component-height-1x);
+  height: calc(
+    var(--kds-dimension-component-height-1x) * v-bind(sizeMultiplier)
+  );
 }
 
 .paragraph-line {
-  height: var(--kds-dimension-component-height-0-75x);
+  height: calc(
+    var(--kds-dimension-component-height-0-75x) * v-bind(sizeMultiplier)
+  );
 }
 
 .paragraph-line-1 {
@@ -502,7 +362,9 @@ const combinedLayoutStyles = computed(() => {
 
 .input-field-label {
   width: 35%;
-  height: var(--kds-dimension-component-height-0-75x);
+  height: calc(
+    var(--kds-dimension-component-height-0-75x) * v-bind(sizeMultiplier)
+  );
 }
 
 .input-field-card {
@@ -511,27 +373,41 @@ const combinedLayoutStyles = computed(() => {
   );
 
   width: 100%;
-  height: var(--kds-dimension-component-height-1-75x);
+  height: calc(
+    var(--kds-dimension-component-height-1-75x) * v-bind(sizeMultiplier)
+  );
 }
 
 .list-item-icon-large {
-  width: var(--kds-dimension-component-width-1-25x);
-  height: var(--kds-dimension-component-height-1-25x);
+  width: calc(
+    var(--kds-dimension-component-width-1-25x) * v-bind(sizeMultiplier)
+  );
+  height: calc(
+    var(--kds-dimension-component-height-1-25x) * v-bind(sizeMultiplier)
+  );
 }
 
 .list-item-icon-small {
-  width: var(--kds-dimension-component-width-0-75x);
-  height: var(--kds-dimension-component-height-0-75x);
+  width: calc(
+    var(--kds-dimension-component-width-0-75x) * v-bind(sizeMultiplier)
+  );
+  height: calc(
+    var(--kds-dimension-component-height-0-75x) * v-bind(sizeMultiplier)
+  );
 }
 
 .list-item-text-large {
   width: 100%;
-  height: var(--kds-dimension-component-height-0-88x);
+  height: calc(
+    var(--kds-dimension-component-height-0-88x) * v-bind(sizeMultiplier)
+  );
 }
 
 .list-item-text-small {
   width: 100%;
-  height: var(--kds-dimension-component-height-0-75x);
+  height: calc(
+    var(--kds-dimension-component-height-0-75x) * v-bind(sizeMultiplier)
+  );
 }
 
 .combined-icon {
@@ -542,11 +418,11 @@ const combinedLayoutStyles = computed(() => {
   flex: 0 0 auto;
   width: var(
     --kds-loading-skeleton-combined-icon-size,
-    var(--kds-spacing-container-2x)
+    calc(var(--kds-spacing-container-2x) * v-bind(sizeMultiplier))
   );
   height: var(
     --kds-loading-skeleton-combined-icon-size,
-    var(--kds-spacing-container-2x)
+    calc(var(--kds-spacing-container-2x) * v-bind(sizeMultiplier))
   );
 }
 
@@ -558,7 +434,7 @@ const combinedLayoutStyles = computed(() => {
   width: 100%;
   height: var(
     --kds-loading-skeleton-combined-line-height,
-    var(--kds-spacing-container-0-75x)
+    calc(var(--kds-spacing-container-0-75x) * v-bind(sizeMultiplier))
   );
 }
 </style>
