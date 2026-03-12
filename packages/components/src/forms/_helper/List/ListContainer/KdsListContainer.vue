@@ -3,9 +3,9 @@ import { computed, nextTick, ref, useId, useTemplateRef, watch } from "vue";
 
 import KdsEmptyState from "../../../../layouts/EmptyState/KdsEmptyState.vue";
 import { KdsListItem } from "../KdsListItem";
+import { kdsListItemVariant } from "../KdsListItem/enums";
 import ListItemDivider from "../ListItemDivider/ListItemDivider.vue";
 import ListItemSectionTitle from "../ListItemSectionTitle/ListItemSectionTitle.vue";
-import { kdsListItemVariant } from "../KdsListItem/enums";
 
 import type {
   KdsListContainerExpose,
@@ -229,7 +229,7 @@ defineExpose<KdsListContainerExpose>({
         :special="item.special"
         :missing="item.missing"
         :variant="props.variant"
-      :trailing-icon="item.selected ? 'checkmark' : undefined"
+        :trailing-icon="item.selected ? 'checkmark' : undefined"
         @mousedown="props.controlledExternally && $event.preventDefault()"
         @click.stop="emit('itemClick', toOptionId(item.id))"
       />
