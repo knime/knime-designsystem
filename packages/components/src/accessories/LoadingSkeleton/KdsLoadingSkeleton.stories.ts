@@ -233,11 +233,12 @@ export const TextOverflow: Story = {
 
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsLoadingSkeleton,
+  wrapperStyle: { width: "var(--kds-dimension-component-width-8x)" },
   designsToCompare: {
     HeadlineWithParagraphLayout: {
       props: {
         variant: "text-headline-with-paragraph",
-        width: "var(--kds-dimension-component-width-8x)",
+        width: "100%",
         loading: true,
       },
       variants: {
