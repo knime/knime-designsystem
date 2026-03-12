@@ -100,7 +100,8 @@ defineExpose({
       ref="listContainer"
       class="kds-dropdown-container-list"
       :class="{ multiline: hasMultiline }"
-      :possible-values="listOptions"
+      :possible-values="props.loading ? [] : listOptions"
+      :loading="props.loading"
       :empty-text="props.emptyText"
       controlled-externally
       aria-label="Dropdown options"

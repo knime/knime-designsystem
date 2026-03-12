@@ -104,6 +104,10 @@ const meta: Meta<typeof KdsDropdown> = {
       control: "boolean",
       table: { category: "props" },
     },
+    loading: {
+      control: "boolean",
+      table: { category: "props" },
+    },
     error: {
       control: "boolean",
       table: { category: "props" },
@@ -128,6 +132,7 @@ const meta: Meta<typeof KdsDropdown> = {
     possibleValues: baseOptions,
     subText: "",
     disabled: false,
+    loading: false,
     error: false,
     validating: false,
     preserveSubTextSpace: false,
@@ -274,6 +279,22 @@ export const Disabled: Story = {
     await expect(trigger).toBeDisabled();
     await userEvent.click(trigger);
     await expect(canvas.queryByRole("searchbox")).not.toBeInTheDocument();
+  },
+};
+
+export const Loading: Story = {
+  args: {
+    loading: true,
+    possibleValues: [],
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole("button", { name: /Label/ });
+
+    await userEvent.click(trigger);
+
+    await expect(canvas.getByText("Loading entries")).toBeVisible();
+    await expect(canvas.queryByRole("option", { name: "Option A" })).toBeNull();
   },
 };
 
