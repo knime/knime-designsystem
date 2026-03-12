@@ -95,17 +95,25 @@ export const Outlined: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const toggleButton = canvas.getByRole("button");
+    const toggleButton = canvas.getByRole("button", { name: "Button" });
 
+    // Mouse interaction: click to open and close the menu
     await userEvent.click(toggleButton);
-
-    const menu = canvas.getByRole("listbox");
-
+    const menu = await canvas.findByRole("listbox");
     await expect(menu).toBeVisible();
-
     await userEvent.click(toggleButton);
+    await expect(canvas.queryByRole("listbox")).not.toBeInTheDocument();
 
-    await expect(menu).not.toBeInTheDocument();
+    // Keyboard interaction: tab to the button, open menu, navigate and select
+    toggleButton.blur();
+    await userEvent.tab();
+    await expect(toggleButton).toHaveFocus();
+    await userEvent.keyboard("[Enter]");
+    const keyboardMenu = await canvas.findByRole("listbox");
+    await expect(keyboardMenu).toBeVisible();
+    await userEvent.keyboard("[ArrowDown]");
+    await userEvent.keyboard("[Enter]");
+    await expect(canvas.queryByRole("listbox")).not.toBeInTheDocument();
   },
 };
 

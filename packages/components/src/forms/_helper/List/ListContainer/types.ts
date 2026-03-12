@@ -45,6 +45,8 @@ export type KdsListContainerProps = {
   ariaLabel?: string;
   /** When true, the list is controlled externally (e.g. by a search input). The list will not be focusable and the parent must forward events via the exposed handleKeydown/handleFocus/handleBlur methods. */
   controlledExternally?: boolean;
+  /** When true, uses correct menu aria attributes */
+  isMenu?: boolean;
 };
 
 export type KdsListContainerExpose = {
