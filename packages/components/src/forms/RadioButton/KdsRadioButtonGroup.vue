@@ -11,16 +11,21 @@ import type {
 } from "./types";
 import { useRadioSelection } from "./useRadioSelection";
 
-const props = withDefaults(defineProps<KdsRadioButtonGroupProps>(), {
-  disabled: false,
-  alignment: "vertical",
-});
+const {
+  disabled = false,
+  alignment = "vertical",
+  possibleValues,
+  id,
+  label,
+  subText,
+  preserveSubTextSpace,
+} = defineProps<KdsRadioButtonGroupProps>();
 
 const modelValue = defineModel<string>();
 
 const options = computed(
   () =>
-    props.possibleValues.map((o) => {
+    possibleValues.map((o) => {
       if (typeof o === "string") {
         return { text: o, id: o };
       }
@@ -38,28 +43,28 @@ const { tabIndexForOption, handleClick, handleKeyDown, hasError } =
   useRadioSelection({
     selectedId: modelValue,
     options,
-    globalDisable: computed(() => props.disabled),
+    globalDisable: computed(() => disabled),
     optionContainer,
   });
 </script>
 
 <template>
   <div
-    :id="props.id"
+    :id="id"
     class="radio-button-group"
     role="radiogroup"
-    :aria-labelledby="props.label ? labelId : undefined"
-    :aria-describedby="props.subText ? descriptionId : undefined"
+    :aria-labelledby="label ? labelId : undefined"
+    :aria-describedby="subText ? descriptionId : undefined"
   >
-    <KdsLabel v-if="props.label" :id="labelId" :label="props.label" />
+    <KdsLabel v-if="label" :id="labelId" :label="label" />
 
     <div
       ref="optionContainer"
-      :class="{ options: true, horizontal: props.alignment === 'horizontal' }"
+      :class="{ options: true, horizontal: alignment === 'horizontal' }"
     >
       <div v-for="(option, index) in options" :key="option.id" class="option">
         <KdsRadioButton
-          :disabled="props.disabled || option.disabled"
+          :disabled="disabled || option.disabled"
           :error="option.error"
           :helper-text="option.helperText"
           :text="option.text"
@@ -74,8 +79,8 @@ const { tabIndexForOption, handleClick, handleKeyDown, hasError } =
 
     <KdsSubText
       :id="descriptionId"
-      :sub-text="props.subText"
-      :preserve-sub-text-space="props.preserveSubTextSpace"
+      :sub-text="subText"
+      :preserve-sub-text-space="preserveSubTextSpace"
       :error="hasError"
     />
   </div>

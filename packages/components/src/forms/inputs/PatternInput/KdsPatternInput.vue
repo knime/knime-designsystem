@@ -12,12 +12,14 @@ import {
 } from "./patternRegex.ts";
 import type { KdsPatternInputProps } from "./types";
 
-const props = withDefaults(defineProps<KdsPatternInputProps>(), {
-  disabled: false,
-  error: false,
-  validating: false,
-  preserveSubTextSpace: false,
-});
+const {
+  disabled = false,
+  error = false,
+  validating = false,
+  preserveSubTextSpace = false,
+  placeholder,
+  autocomplete,
+} = defineProps<KdsPatternInputProps>();
 
 // Public API: a single regex string (encoded with options when toggles are used).
 const regex = defineModel<string>({ default: "" });
@@ -66,17 +68,17 @@ defineExpose<KdsFormFieldExpose>({
 </script>
 
 <template>
-  <BaseFormFieldWrapper v-bind="props">
+  <BaseFormFieldWrapper v-bind="$props">
     <template #default="slotProps">
       <BaseInput
         ref="baseInput"
         v-bind="slotProps"
         v-model="uiValue"
         type="text"
-        :placeholder="props.placeholder"
-        :disabled="props.disabled"
-        :error="props.error"
-        :autocomplete="props.autocomplete"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        :error="error"
+        :autocomplete="autocomplete"
         leading-icon="filter"
         clearable
         @update:model-value="rebuildRegexFromUi"
@@ -89,7 +91,7 @@ defineExpose<KdsFormFieldExpose>({
             leading-icon="case-sensitive"
             :title="caseSensitiveAriaLabel"
             :aria-label="caseSensitiveAriaLabel"
-            :disabled="props.disabled"
+            :disabled="disabled"
             @update:model-value="rebuildRegexFromUi"
           />
 
@@ -100,7 +102,7 @@ defineExpose<KdsFormFieldExpose>({
             leading-icon="arrows-order"
             :title="excludeMatchesAriaLabel"
             :aria-label="excludeMatchesAriaLabel"
-            :disabled="props.disabled"
+            :disabled="disabled"
             @update:model-value="rebuildRegexFromUi"
           />
 
@@ -111,7 +113,7 @@ defineExpose<KdsFormFieldExpose>({
             leading-icon="regex"
             :title="patternModeAriaLabel"
             :aria-label="patternModeAriaLabel"
-            :disabled="props.disabled"
+            :disabled="disabled"
             @update:model-value="rebuildRegexFromUi"
           />
         </template>

@@ -11,9 +11,7 @@ import type { KdsInfoToggleButtonProps } from "./types";
  * @slot default - Custom content for the popover. When provided, overrides the `content` prop.
  */
 
-const props = withDefaults(defineProps<KdsInfoToggleButtonProps>(), {
-  hidden: false,
-});
+const { hidden = false, content } = defineProps<KdsInfoToggleButtonProps>();
 
 const TITLE = "Click for more information";
 
@@ -29,7 +27,7 @@ const isFocused = ref(false);
     :class="{
       'info-toggle-button': true,
       selected: modelValue,
-      hidden: props.hidden && !modelValue && !isHovered && !isFocused,
+      hidden: hidden && !modelValue && !isHovered && !isFocused,
     }"
     :title="TITLE"
     :aria-label="TITLE"
@@ -54,7 +52,7 @@ const isFocused = ref(false);
     placement="top-right"
     popover-aria-label="Description"
   >
-    <InfoPopover :content="props.content">
+    <InfoPopover :content="content">
       <slot />
     </InfoPopover>
   </KdsPopover>

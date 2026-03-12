@@ -12,9 +12,8 @@ import type {
   KdsListOption,
 } from "./types";
 
-const props = withDefaults(defineProps<KdsListContainerProps>(), {
-  emptyText: "",
-});
+const { emptyText = "", possibleValues, ariaLabel, controlledExternally } =
+  defineProps<KdsListContainerProps>();
 
 const emit = defineEmits<{
   /** Emitted when item is clicked */
@@ -27,7 +26,7 @@ const emptyOptionId = `${idPrefix}-empty`;
 
 /** possibleValues with prefixed ids to avoid DOM id collisions */
 const prefixedValues = computed<KdsListOption[]>(() =>
-  props.possibleValues.map((o) => ({ ...o, id: `${idPrefix}-${o.id}` })),
+  possibleValues.map((o) => ({ ...o, id: `${idPrefix}-${o.id}` })),
 );
 
 /** Only selectable (non-section-headline) items */
@@ -189,14 +188,14 @@ defineExpose<KdsListContainerExpose>({
   <div
     ref="containerEl"
     role="listbox"
-    :aria-label="props.ariaLabel"
+    :aria-label="ariaLabel"
     :aria-activedescendant="
-      !props.controlledExternally && activeId ? activeId : undefined
+      !controlledExternally && activeId ? activeId : undefined
     "
     class="kds-list-container"
-    :tabindex="props.controlledExternally ? undefined : 0"
+    :tabindex="controlledExternally ? undefined : 0"
     v-on="
-      props.controlledExternally
+      controlledExternally
         ? { mousemove: onMousemove, mouseleave: onMouseLeave }
         : {
             keydown: handleKeydown,
@@ -227,7 +226,7 @@ defineExpose<KdsListContainerExpose>({
         :special="item.special"
         :missing="item.missing"
         :trailing-icon="item.selected ? 'checkmark' : undefined"
-        @mousedown="props.controlledExternally && $event.preventDefault()"
+        @mousedown="controlledExternally && $event.preventDefault()"
         @click.stop="emit('itemClick', toOptionId(item.id))"
       />
       <ListItemDivider
@@ -244,7 +243,7 @@ defineExpose<KdsListContainerExpose>({
       :aria-selected="undefined"
       class="kds-list-container-empty"
     >
-      <KdsEmptyState :headline="props.emptyText" />
+      <KdsEmptyState :headline="emptyText" />
     </div>
   </div>
 </template>

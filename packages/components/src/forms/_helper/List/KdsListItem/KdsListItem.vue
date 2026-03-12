@@ -9,18 +9,20 @@ import { kdsListItemAccessorySize } from "../ListItemAccessory/enums.ts";
 import { kdsListItemVariant } from "./enums.ts";
 import type { KdsListItemProps } from "./types.ts";
 
-const props = withDefaults(defineProps<KdsListItemProps>(), {
-  accessory: undefined,
-  subText: undefined,
-  variant: kdsListItemVariant.SMALL,
-  shortcut: undefined,
-  trailingIcon: undefined,
-  special: false,
-  selected: false,
-  active: false,
-  missing: false,
-  disabled: false,
-});
+const {
+  accessory,
+  subText,
+  variant = kdsListItemVariant.SMALL,
+  shortcut,
+  trailingIcon,
+  special = false,
+  selected = false,
+  active = false,
+  missing = false,
+  disabled = false,
+  id,
+  label,
+} = defineProps<KdsListItemProps>();
 
 const emit = defineEmits<{
   /**
@@ -30,13 +32,13 @@ const emit = defineEmits<{
 }>();
 
 const accessorySize = computed(() =>
-  props.variant === kdsListItemVariant.LARGE
+  variant === kdsListItemVariant.LARGE
     ? kdsListItemAccessorySize.LARGE
     : kdsListItemAccessorySize.SMALL,
 );
 
 const onClick = (event: MouseEvent) => {
-  if (props.disabled) {
+  if (disabled) {
     event.stopPropagation();
     event.preventDefault();
     return;
@@ -53,27 +55,27 @@ const { isTruncated: isSubtextTruncated } = useKdsIsTruncated(subtextEl);
 
 <template>
   <div
-    :id="props.id"
+    :id="id"
     role="option"
-    :aria-selected="props.selected"
-    :aria-disabled="props.disabled"
+    :aria-selected="selected"
+    :aria-disabled="disabled"
     :class="[
       'kds-list-item',
-      props.variant,
+      variant,
       {
-        selected: props.selected,
-        active: props.active,
-        missing: props.missing,
-        disabled: props.disabled,
+        selected: selected,
+        active: active,
+        missing: missing,
+        disabled: disabled,
       },
     ]"
     @click="onClick"
   >
-    <span v-if="props.accessory" class="accessory">
+    <span v-if="accessory" class="accessory">
       <ListItemAccessory
-        :accessory="props.accessory"
+        :accessory="accessory"
         :size="accessorySize"
-        :disabled="props.disabled"
+        :disabled="disabled"
       />
     </span>
 
@@ -81,29 +83,29 @@ const { isTruncated: isSubtextTruncated } = useKdsIsTruncated(subtextEl);
       <span
         ref="labelEl"
         class="label"
-        :title="isLabelTruncated ? props.label : undefined"
+        :title="isLabelTruncated ? label : undefined"
       >
-        <span v-if="props.missing" class="prefix">(Missing)&nbsp;</span>
-        <span :class="{ special: props.special }">{{ props.label }}</span>
+        <span v-if="missing" class="prefix">(Missing)&nbsp;</span>
+        <span :class="{ special: special }">{{ label }}</span>
       </span>
       <span
-        v-if="props.subText"
+        v-if="subText"
         ref="subtextEl"
         class="subtext"
-        :title="isSubtextTruncated ? props.subText : undefined"
+        :title="isSubtextTruncated ? subText : undefined"
       >
-        {{ props.subText }}
+        {{ subText }}
       </span>
     </span>
 
-    <span v-if="props.shortcut || props.trailingIcon" class="trailing-item">
-      <span v-if="props.shortcut" class="shortcut">
-        {{ props.shortcut }}
+    <span v-if="shortcut || trailingIcon" class="trailing-item">
+      <span v-if="shortcut" class="shortcut">
+        {{ shortcut }}
       </span>
 
       <KdsIcon
-        v-if="props.trailingIcon"
-        :name="props.trailingIcon"
+        v-if="trailingIcon"
+        :name="trailingIcon"
         size="small"
       />
     </span>

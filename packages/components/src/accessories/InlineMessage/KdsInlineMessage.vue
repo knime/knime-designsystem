@@ -6,15 +6,13 @@ import type { KdsIconName } from "../Icon/types.ts";
 
 import type { KdsInlineMessageProps } from "./types";
 
-const props = withDefaults(defineProps<KdsInlineMessageProps>(), {
-  variant: "info",
-  message: undefined,
-});
+const { variant = "info", title, message } =
+  defineProps<KdsInlineMessageProps>();
 
-const classes = computed(() => ["kds-inline-message", props.variant]);
+const classes = computed(() => ["kds-inline-message", variant]);
 
 const iconName = computed<KdsIconName>(() => {
-  switch (props.variant) {
+  switch (variant) {
     case "success":
       return "circle-success";
     case "error":
@@ -28,7 +26,7 @@ const iconName = computed<KdsIconName>(() => {
 });
 
 const role = computed<HTMLAttributes["role"]>(() =>
-  props.variant === "warning" || props.variant === "error" ? "alert" : "status",
+  variant === "warning" || variant === "error" ? "alert" : "status",
 );
 </script>
 
@@ -37,12 +35,12 @@ const role = computed<HTMLAttributes["role"]>(() =>
     <div class="header">
       <KdsIcon class="icon" :name="iconName" size="small" />
       <div class="title">
-        {{ props.title }}
+        {{ title }}
       </div>
     </div>
 
-    <div v-if="props.message" class="body">
-      {{ props.message }}
+    <div v-if="message" class="body">
+      {{ message }}
     </div>
   </div>
 </template>
