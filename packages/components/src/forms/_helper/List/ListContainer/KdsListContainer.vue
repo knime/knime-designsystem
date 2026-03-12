@@ -188,7 +188,7 @@ defineExpose<KdsListContainerExpose>({
 <template>
   <div
     ref="containerEl"
-    :role="props.isMenu ? 'menu' : 'listbox'"
+    :role="props.isMenu ? undefined : 'listbox'"
     :aria-label="props.ariaLabel"
     :aria-activedescendant="
       !props.controlledExternally && activeId ? activeId : undefined
@@ -240,7 +240,7 @@ defineExpose<KdsListContainerExpose>({
     <div
       v-if="selectableValues.length === 0"
       :id="emptyOptionId"
-      role="option"
+      :role="props.isMenu ? 'menuitem' : 'option'"
       aria-disabled="true"
       :aria-selected="undefined"
       class="kds-list-container-empty"

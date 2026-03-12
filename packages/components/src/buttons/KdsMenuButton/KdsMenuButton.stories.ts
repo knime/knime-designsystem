@@ -13,7 +13,11 @@ import {
 import { kdsButtonSizes } from "../enums";
 
 import KdsMenuButton from "./KdsMenuButton.vue";
-import { kdsMenuButtonVariant, kdsMenuButtonVariants } from "./enums";
+import {
+  kdsMenuButtonPlacements,
+  kdsMenuButtonVariant,
+  kdsMenuButtonVariants,
+} from "./enums";
 
 function options(
   length: number,
@@ -53,25 +57,34 @@ const meta: Meta<typeof KdsMenuButton> = {
     size: {
       control: { type: "select" },
       options: kdsButtonSizes,
+      table: { category: "props" },
     },
     variant: {
       control: { type: "select" },
       options: kdsMenuButtonVariants,
+      table: { category: "props" },
     },
-    disabled: { control: "boolean" },
-    label: { control: "text" },
+    disabled: { control: "boolean", table: { category: "props" } },
+    label: { control: "text", table: { category: "props" } },
     leadingIcon: {
       control: { type: "select" },
       options: [undefined, ...iconNames],
+      table: { category: "props" },
     },
     trailingIcon: {
       control: { type: "select" },
       options: [undefined, ...iconNames],
+      table: { category: "props" },
     },
-    ariaLabel: { control: "text" },
-    title: { control: "text" },
+    ariaLabel: { control: "text", table: { category: "props" } },
+    title: { control: "text", table: { category: "props" } },
     possibleValues: {
       control: "object",
+      table: { category: "props" },
+    },
+    placement: {
+      control: { type: "select" },
+      options: kdsMenuButtonPlacements,
       table: { category: "props" },
     },
   },
@@ -90,30 +103,30 @@ export const Outlined: Story = {
   },
   args: {
     variant: "outlined",
-    label: "Button",
+    label: "Toggle menu",
     possibleValues: baseOptions,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const toggleButton = canvas.getByRole("button", { name: "Button" });
+    const toggleButton = canvas.getByRole("button");
 
     // Mouse interaction: click to open and close the menu
     await userEvent.click(toggleButton);
-    const menu = await canvas.findByRole("listbox");
+    const menu = await canvas.findByRole("menu");
     await expect(menu).toBeVisible();
     await userEvent.click(toggleButton);
-    await expect(canvas.queryByRole("listbox")).not.toBeInTheDocument();
+    await expect(canvas.queryByRole("menu")).not.toBeInTheDocument();
 
     // Keyboard interaction: tab to the button, open menu, navigate and select
     toggleButton.blur();
     await userEvent.tab();
     await expect(toggleButton).toHaveFocus();
     await userEvent.keyboard("[Enter]");
-    const keyboardMenu = await canvas.findByRole("listbox");
+    const keyboardMenu = await canvas.findByRole("menu");
     await expect(keyboardMenu).toBeVisible();
     await userEvent.keyboard("[ArrowDown]");
     await userEvent.keyboard("[Enter]");
-    await expect(canvas.queryByRole("listbox")).not.toBeInTheDocument();
+    await expect(canvas.queryByRole("menu")).not.toBeInTheDocument();
   },
 };
 
@@ -123,7 +136,7 @@ export const Transparent: Story = {
   },
   args: {
     variant: "transparent",
-    label: "Button",
+    label: "Toggle menu",
     possibleValues: baseOptions,
   },
 };
@@ -134,7 +147,7 @@ export const Disabled: Story = {
   },
   args: {
     variant: "outlined",
-    label: "Button",
+    label: "Toggle menu",
     disabled: true,
     possibleValues: baseOptions,
   },
@@ -144,7 +157,7 @@ export const Disabled: Story = {
 
     await userEvent.click(toggleButton);
 
-    const menu = canvas.queryByRole("listbox");
+    const menu = canvas.queryByRole("menu");
     await expect(menu).not.toBeInTheDocument();
   },
 };
@@ -186,6 +199,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       leadingIcon: [undefined, "placeholder"],
       trailingIcon: [undefined, "placeholder"],
       possibleValues: [baseOptions],
+      placement: ["bottom-left"],
     },
     {
       size: kdsButtonSizes,
@@ -197,6 +211,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       leadingIcon: ["placeholder"],
       ariaLabel: ["Icon only button"],
       possibleValues: [baseOptions],
+      placement: ["bottom-left"],
     },
   ],
   pseudoStates: ["hover", "active", "focus-visible"],
