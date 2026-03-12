@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useTemplateRef } from "vue";
+import { computed, ref, useAttrs, useTemplateRef } from "vue";
 
 import { KdsMenuContainer } from "../../overlays/MenuContainer";
 import { KdsPopover } from "../../overlays/Popover";
@@ -7,19 +7,31 @@ import { KdsToggleButton } from "../KdsToggleButton";
 
 import type { KdsMenuButtonProps } from "./types";
 
-const props = withDefaults(defineProps<KdsMenuButtonProps>(), {
-  variant: "outlined",
+defineOptions({
+  inheritAttrs: false,
 });
 
-const toggleButtonProps = computed(() => {
-  const { possibleValues: _possibleValues, ...rest } = props;
-  return rest;
+const props = withDefaults(defineProps<KdsMenuButtonProps>(), {
+  variant: "outlined",
+  placement: "bottom-left",
 });
+
+const attrs = useAttrs();
 
 const emit = defineEmits<{
   /** Emitted when item is clicked */
   itemClick: [id: string];
 }>();
+
+const toggleButtonProps = computed(() => {
+  const {
+    possibleValues: _possibleValues,
+    placement: _placement,
+    ...rest
+  } = props;
+
+  return { ...attrs, ...rest };
+});
 
 const isMenuOpen = ref<boolean>(false);
 const popoverEl = useTemplateRef("popoverEl");
@@ -43,7 +55,8 @@ const onItemClick = (event: string) => {
   <KdsPopover
     ref="popoverEl"
     v-model="isMenuOpen"
-    placement="bottom-left"
+    role="menu"
+    :placement="placement"
     popover-aria-label="Menu items"
   >
     <KdsMenuContainer

@@ -10,6 +10,7 @@ import {
 
 import KdsListItem from "./KdsListItem.vue";
 import { dataTypeAccessory, demoAccessories } from "./demo-accessories.ts";
+import { kdsListItemRoles } from "./enums.ts";
 
 const meta: Meta<typeof KdsListItem> = {
   component: KdsListItem,
@@ -39,7 +40,8 @@ const meta: Meta<typeof KdsListItem> = {
       table: { category: "props" },
     },
     role: {
-      control: "text",
+      control: "select",
+      options: kdsListItemRoles,
       description: "Role of the item for the list item.",
       table: { category: "props" },
     },

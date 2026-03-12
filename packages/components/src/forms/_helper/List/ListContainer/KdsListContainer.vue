@@ -250,7 +250,7 @@ defineExpose<KdsListContainerExpose>({
     <div
       v-if="selectableValues.length === 0"
       :id="emptyOptionId"
-      role="option"
+      :role="props.isMenu ? 'menuitem' : 'option'"
       aria-disabled="true"
       aria-selected="false"
       class="kds-list-container-empty"

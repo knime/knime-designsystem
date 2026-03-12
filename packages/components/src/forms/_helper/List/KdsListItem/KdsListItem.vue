@@ -56,7 +56,7 @@ const { isTruncated: isSubtextTruncated } = useKdsIsTruncated(subtextEl);
   <div
     :id="props.id"
     :role="props.role"
-    :aria-selected="props.selected"
+    :aria-selected="props.role === 'option' ? props.selected : undefined"
     :aria-disabled="props.disabled"
     :class="[
       'kds-list-item',
