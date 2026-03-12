@@ -51,9 +51,9 @@ const meta = {
   render: (args) => ({
     components: { KdsToggleButton, KdsPopover, KdsMenuContainer },
     setup() {
-      const popoverRef = useTemplateRef("popoverRef");
+      const menuContainerEl = useTemplateRef("menuContainerEl");
       const isMenuOpen = ref<boolean>(false);
-      return { args, popoverRef, isMenuOpen };
+      return { args, menuContainerEl, isMenuOpen };
     },
     template: `
         <KdsToggleButton
@@ -62,22 +62,17 @@ const meta = {
           variant="outlined"
           aria-haspopup="menu"
           :aria-expanded="isMenuOpen"
-          :aria-controls="popoverRef?.popoverId"
-          :style="popoverRef?.anchorStyle"
+          :aria-controls="menuContainerEl?.popoverEl?.popoverId"
+          :style="menuContainerEl?.popoverEl?.anchorStyle"
         />
 
-        <KdsPopover
-          ref="popoverRef"
+        <KdsMenuContainer
+          ref="menuContainerEl"
           v-model="isMenuOpen"
-          role="menu"
+          :items="args.items"
           placement="bottom-left"
-          popover-aria-label="Menu items"
-        >
-          <KdsMenuContainer
-            :items="args.items"
-            @item-click="isMenuOpen = false"
-          />
-        </KdsPopover>
+          @item-click="isMenuOpen = false"
+        />
       `,
   }),
 } satisfies Meta<typeof KdsMenuContainer>;

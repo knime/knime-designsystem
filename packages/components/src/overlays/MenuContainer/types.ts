@@ -4,6 +4,7 @@ import type {
   KdsIconAccessory,
   KdsLiveStatusAccessory,
 } from "../../forms/_helper/List/ListItemAccessory/types";
+import type { KdsPopoverProps } from "../Popover";
 
 type KdsMenuItemAccessory =
   | KdsIconAccessory
@@ -14,6 +15,6 @@ export type KdsMenuItem = KdsListOption & {
   accessory?: KdsMenuItemAccessory;
 };
 
-export type KdsMenuContainerProps = {
+export type KdsMenuContainerProps = Pick<KdsPopoverProps, "placement"> & {
   items: KdsMenuItem[];
 };

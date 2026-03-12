@@ -50,6 +50,10 @@ const isFocused = ref(false);
 
 const containerEl = useTemplateRef("containerEl");
 
+const listItemRole = computed(() => {
+  return props.isMenu ? "menuitem" : "option";
+});
+
 function scrollToView() {
   if (!activeId.value || !containerEl.value) {
     return;
@@ -66,7 +70,9 @@ const onMouseLeave = () => {
 };
 
 const onMousemove = (event: MouseEvent) => {
-  const target = (event.target as HTMLElement)?.closest?.('[role="option"]');
+  const target = (event.target as HTMLElement)?.closest?.(
+    `[role="${listItemRole.value}"]`,
+  );
   if (
     target instanceof HTMLElement &&
     target.id &&
@@ -239,7 +245,7 @@ defineExpose<KdsListContainerExpose>({
         :special="item.special"
         :missing="item.missing"
         :trailing-icon="item.selected ? 'checkmark' : undefined"
-        :role="props.isMenu ? 'menuitem' : 'option'"
+        :role="listItemRole"
         @mousedown="props.controlledExternally && $event.preventDefault()"
         @click.stop="emit('itemClick', toOptionId(item.id))"
       />
@@ -252,7 +258,7 @@ defineExpose<KdsListContainerExpose>({
     <div
       v-if="selectableValues.length === 0"
       :id="emptyOptionId"
-      :role="props.isMenu ? 'menuitem' : 'option'"
+      :role="listItemRole"
       aria-disabled="true"
       aria-selected="false"
       class="kds-list-container-empty"

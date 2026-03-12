@@ -9,7 +9,6 @@ import {
 } from "vue";
 
 import KdsMenuContainer from "../../overlays/MenuContainer/KdsMenuContainer.vue";
-import KdsPopover from "../../overlays/Popover/KdsPopover.vue";
 import KdsToggleButton from "../KdsToggleButton/KdsToggleButton.vue";
 
 import type { KdsMenuButtonProps } from "./types";
@@ -43,7 +42,6 @@ const toggleButtonProps = computed(() => {
 });
 
 const isMenuOpen = ref<boolean>(false);
-const popoverEl = useTemplateRef("popoverEl");
 const menuContainerEl = useTemplateRef("menuContainerEl");
 
 const onItemClick = (event: string) => {
@@ -65,23 +63,17 @@ watchEffect(() => {
     v-bind="toggleButtonProps"
     aria-haspopup="menu"
     :aria-expanded="isMenuOpen"
-    :aria-controls="popoverEl?.popoverId"
-    :style="popoverEl?.anchorStyle"
+    :aria-controls="menuContainerEl?.popoverEl?.popoverId"
+    :style="menuContainerEl?.popoverEl?.anchorStyle"
   />
 
-  <KdsPopover
-    ref="popoverEl"
+  <KdsMenuContainer
+    ref="menuContainerEl"
     v-model="isMenuOpen"
-    role="menu"
+    :items="items"
     :placement="placement"
-    popover-aria-label="Menu items"
-  >
-    <KdsMenuContainer
-      ref="menuContainerEl"
-      :items="items"
-      @item-click="onItemClick"
-    />
-  </KdsPopover>
+    @item-click="onItemClick"
+  />
 </template>
 
 <style scoped></style>
