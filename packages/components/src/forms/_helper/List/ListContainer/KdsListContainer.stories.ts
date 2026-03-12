@@ -10,6 +10,7 @@ import {
 import BaseInput from "../../../inputs/BaseInput.vue";
 
 import KdsListContainer from "./KdsListContainer.vue";
+import { kdsListContainerRoles } from "./enums";
 import type { KdsListOption } from "./types";
 
 type Story = StoryObj<typeof KdsListContainer>;
@@ -67,6 +68,11 @@ const meta = {
       control: "boolean",
       table: { category: "props" },
     },
+    role: {
+      control: "select",
+      options: kdsListContainerRoles,
+      table: { category: "props" },
+    },
     onItemClick: {
       table: { disable: true },
     },
@@ -77,6 +83,7 @@ const meta = {
     emptyText: "No entries found",
     loading: false,
     controlledExternally: false,
+    role: "listbox",
     onItemClick: fn(),
   },
 } satisfies Meta<typeof KdsListContainer>;

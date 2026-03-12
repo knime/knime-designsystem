@@ -41,9 +41,9 @@ const listContainerEl = useTemplateRef("listContainerEl");
 
 const menuId = useId();
 
-const onItemClick = (event: string) => {
+const onItemClick = (itemId: string) => {
   isMenuOpen.value = false;
-  emit("itemClick", event);
+  emit("itemClick", itemId);
 };
 </script>
 
@@ -73,7 +73,7 @@ const onItemClick = (event: string) => {
         :possible-values="items"
         empty-text="Menu is empty"
         aria-label="Actions"
-        is-menu
+        role="menu"
         controlled-externally
         @item-click="onItemClick"
       />
