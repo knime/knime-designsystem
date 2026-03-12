@@ -170,6 +170,17 @@ export const TextOverflow: Story = {
   args: {
     label:
       "A very long text that gives comprehensive information about the menu",
+    items: [
+      {
+        id: "long",
+        text: "A very very very very very long option label that should overflow",
+        accessory: { type: "icon", name: "placeholder" },
+      },
+      {
+        id: "short",
+        text: "Short",
+      },
+    ],
   },
 };
 
