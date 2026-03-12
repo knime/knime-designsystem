@@ -10,7 +10,7 @@ import {
 
 import { elementOverflowsHorizontally } from "../../util/useKdsIsTruncated";
 
-import type { KdsTab } from "./types";
+import type { KdsTabBarItem } from "./types";
 /**
  * Computes whether icons in TabBar items should be hidden.
  *
@@ -27,7 +27,7 @@ export const useTabBarIconHiding = ({
    * Potentially available width to render tabs
    */
   width: Ref<number>;
-  tabs: Ref<readonly KdsTab[]>;
+  tabs: Ref<readonly KdsTabBarItem[]>;
   /**
    * Container element that holds the tab items.
    * Used to determine whether the tab bar overflows horizontally.
@@ -65,7 +65,7 @@ export const useTabBarIconHiding = ({
 
   const anyItemHasEllipsis = () =>
     tabs.value.some((tab) => {
-      if (!tab.icon) {
+      if (!tab.trailingIcon) {
         return false;
       }
 
