@@ -36,7 +36,7 @@ const countFractionDigits = (value: number) => {
   //  - 1.23e-4 => 6 (0.000123)
   //  - 1e+3 => 0
   const exp = value.toExponential();
-  const match = new RegExp(/^[-+]?(\d+)(?:\.(\d+))?e([+-]?\d+)$/i).exec(exp);
+  const match = /^[-+]?(\d+)(?:\.(\d+))?e([+-]?\d+)$/i.exec(exp);
   if (!match) {
     return 0;
   }
