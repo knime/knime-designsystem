@@ -5,15 +5,11 @@ import { useKdsIsTruncated } from "../../util";
 
 import type { KdsLiveStatusProps } from "./types";
 
-const props = withDefaults(defineProps<KdsLiveStatusProps>(), {
-  status: "red",
-  size: "medium",
-  label: "",
-  title: undefined,
-});
+const { status = "red", size = "medium", label = "", title } =
+  defineProps<KdsLiveStatusProps>();
 
 const accessibleTitle = computed(
-  () => props.title?.trim() || `Status is ${props.status}`,
+  () => title?.trim() || `Status is ${status}`,
 );
 
 const labelEl = useTemplateRef("labelEl");
@@ -22,19 +18,19 @@ const { isTruncated } = useKdsIsTruncated(labelEl);
 
 <template>
   <span
-    :class="['kds-live-status', props.status, `size-${props.size}`]"
+    :class="['kds-live-status', status, `size-${size}`]"
     role="img"
     :title="accessibleTitle"
     :aria-label="accessibleTitle"
   >
     <span class="dot" />
     <span
-      v-if="props.label"
+      v-if="label"
       ref="labelEl"
       class="label"
-      :title="isTruncated ? props.label : undefined"
+      :title="isTruncated ? label : undefined"
     >
-      {{ props.label }}
+      {{ label }}
     </span>
   </span>
 </template>

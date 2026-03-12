@@ -3,17 +3,15 @@ import { useId } from "vue";
 
 import type { KdsRadioButtonProps } from "./types.ts";
 
-const props = withDefaults(defineProps<KdsRadioButtonProps>(), {
-  disabled: false,
-  error: false,
-});
+const { disabled = false, error = false, text, helperText } =
+  defineProps<KdsRadioButtonProps>();
 
 const modelValue = defineModel<boolean>({ default: false });
 
 const id = useId();
 
 const handleClick = () => {
-  if (props.disabled) {
+  if (disabled) {
     return;
   }
   // Radio buttons do not toggle off when clicked; they only set to selected
@@ -26,15 +24,15 @@ const handleClick = () => {
 <template>
   <button
     :aria-checked="modelValue"
-    :aria-describedby="props.helperText ? `${id}-helper` : undefined"
-    :aria-invalid="props.error"
+    :aria-describedby="helperText ? `${id}-helper` : undefined"
+    :aria-invalid="error"
     :class="{
       radio: true,
       selected: modelValue,
-      disabled: props.disabled,
-      error: props.error,
+      disabled: disabled,
+      error: error,
     }"
-    :disabled="props.disabled"
+    :disabled="disabled"
     role="radio"
     type="button"
     @click="handleClick"
@@ -51,9 +49,9 @@ const handleClick = () => {
       </svg>
     </div>
     <div class="content">
-      <div class="label">{{ props.text }}</div>
-      <div v-if="props.helperText" :id="`${id}-helper`" class="helper-text">
-        {{ props.helperText }}
+      <div class="label">{{ text }}</div>
+      <div v-if="helperText" :id="`${id}-helper`" class="helper-text">
+        {{ helperText }}
       </div>
     </div>
   </button>

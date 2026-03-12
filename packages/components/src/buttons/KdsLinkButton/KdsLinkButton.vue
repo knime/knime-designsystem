@@ -6,15 +6,10 @@ import BaseButton from "../BaseButton.vue";
 
 import type { KdsLinkButtonProps } from "./types";
 
-const props = withDefaults(defineProps<KdsLinkButtonProps>(), {
-  variant: "filled",
-  download: undefined,
-  rel: null,
-  target: null,
-});
+const { disabled } = defineProps<KdsLinkButtonProps>();
 
 const component = computed(() => {
-  if (props.disabled) {
+  if (disabled) {
     return "button";
   }
   return resolveNuxtLinkComponent();
@@ -27,7 +22,7 @@ const emit = defineEmits<{
 
 <template>
   <BaseButton
-    v-bind="props"
+    v-bind="$props"
     :component="component"
     @click="emit('click', $event)"
   />

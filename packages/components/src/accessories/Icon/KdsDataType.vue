@@ -19,14 +19,14 @@ const DATA_TYPE_SIZE_TO_ICON_SIZE: Record<KdsDataTypeSize, DataTypeIconSize> = {
   small: "xsmall",
 } as const;
 
-const props = withDefaults(defineProps<KdsDataTypeProps>(), {
-  iconName: "unknown-datatype",
-  iconTitle: "Unknown Data Type",
-  size: "medium",
-  disabled: false,
-});
+const {
+  iconName: iconNameProp = "unknown-datatype",
+  iconTitle = "Unknown Data Type",
+  size = "medium",
+  disabled = false,
+} = defineProps<KdsDataTypeProps>();
 
-const iconSize = computed(() => DATA_TYPE_SIZE_TO_ICON_SIZE[props.size]);
+const iconSize = computed(() => DATA_TYPE_SIZE_TO_ICON_SIZE[size]);
 
 const isIconName = (value: string): value is KdsTypeIconName =>
   kdsTypeIconNames.includes(value as KdsTypeIconName);
@@ -35,13 +35,13 @@ const isTypeId = (value: string): value is TypeId =>
   Object.keys(ID_TO_ICON_MAP).includes(value);
 
 const iconName = computed<KdsTypeIconName>(() => {
-  if (isIconName(props.iconName)) {
-    return props.iconName;
+  if (isIconName(iconNameProp)) {
+    return iconNameProp;
   }
-  if (isTypeId(props.iconName)) {
-    return ID_TO_ICON_MAP[props.iconName];
+  if (isTypeId(iconNameProp)) {
+    return ID_TO_ICON_MAP[iconNameProp];
   }
-  return props.iconName.startsWith("org.knime")
+  return iconNameProp.startsWith("org.knime")
     ? "default-extension-datatype"
     : "unknown-datatype";
 });
@@ -55,7 +55,7 @@ const iconComponent = useIcon({
 <template>
   <div
     :class="['kds-data-type-icon-container', size, { disabled }]"
-    :title="props.iconTitle"
+    :title="iconTitle"
   >
     <component
       :is="iconComponent"

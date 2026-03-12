@@ -13,14 +13,14 @@ import { normalizeHexColor } from "./colorUtils";
 import type { KdsColorInputProps } from "./types";
 import { useColorInputValidationOnFocusOut } from "./useColorInputValidationOnFocusOut";
 
-const props = withDefaults(defineProps<KdsColorInputProps>(), {
-  placeholder: "#FFFFFF",
-  disabled: false,
-  error: false,
-  validating: false,
-  preserveSubTextSpace: false,
-  autocomplete: undefined,
-});
+const {
+  placeholder = "#FFFFFF",
+  disabled = false,
+  error = false,
+  validating = false,
+  preserveSubTextSpace = false,
+  autocomplete,
+} = defineProps<KdsColorInputProps>();
 
 const modelValue = defineModel<string>({ default: "" });
 const open = ref(false);
@@ -41,16 +41,16 @@ const onClickColorSwatch = () => {
 </script>
 
 <template>
-  <BaseFormFieldWrapper v-bind="props">
+  <BaseFormFieldWrapper v-bind="$props">
     <template #default="slotProps">
       <div :style="popoverEl?.anchorStyle" @focusout="handleFocusOut">
         <BaseInput
           v-bind="slotProps"
           v-model="modelValue"
-          :placeholder="props.placeholder"
-          :disabled="props.disabled"
-          :error="props.error"
-          :autocomplete="props.autocomplete"
+          :placeholder="placeholder"
+          :disabled="disabled"
+          :error="error"
+          :autocomplete="autocomplete"
         >
           <template #leading>
             <KdsColorSwatch
@@ -70,7 +70,7 @@ const onClickColorSwatch = () => {
               aria-label="Open color picker"
               :aria-controls="popoverEl?.popoverId"
               aria-haspopup="dialog"
-              :disabled="props.disabled"
+              :disabled="disabled"
               :title="open ? 'Close color picker' : 'Open color picker'"
             />
           </template>

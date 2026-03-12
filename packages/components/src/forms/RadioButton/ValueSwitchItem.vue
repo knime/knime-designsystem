@@ -6,12 +6,18 @@ import { useKdsIsTruncated } from "../../util";
 
 import type { KdsValueSwitchItemProps } from "./types";
 
-const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
-  disabled: false,
-  size: "medium",
-  variant: "default",
-  tabIndex: undefined,
-});
+const {
+  disabled = false,
+  size = "medium",
+  variant = "default",
+  tabIndex,
+  text,
+  title,
+  leadingIcon,
+  trailingIcon,
+  selected,
+  hideIcons,
+} = defineProps<KdsValueSwitchItemProps>();
 
 const optionTextEl = useTemplateRef("optionTextEl");
 const { isTruncated } = useKdsIsTruncated(optionTextEl);
@@ -20,31 +26,31 @@ const { isTruncated } = useKdsIsTruncated(optionTextEl);
 <template>
   <button
     role="radio"
-    :aria-checked="props.selected"
-    :aria-label="props.text ? undefined : props.title"
+    :aria-checked="selected"
+    :aria-label="text ? undefined : title"
     :class="{
       option: true,
-      selected: props.selected,
-      disabled: props.disabled,
-      'variant-muted': props.variant === 'muted',
-      'size-small': props.size === 'small',
+      selected: selected,
+      disabled: disabled,
+      'variant-muted': variant === 'muted',
+      'size-small': size === 'small',
     }"
-    :disabled="props.disabled"
-    :tabindex="props.tabIndex"
-    :title="props.title ?? (isTruncated && props.text ? props.text : undefined)"
+    :disabled="disabled"
+    :tabindex="tabIndex"
+    :title="title ?? (isTruncated && text ? text : undefined)"
   >
     <KdsIcon
-      v-if="props.leadingIcon && (!props.hideIcons || !props.text)"
-      :name="props.leadingIcon"
-      :size="props.size"
+      v-if="leadingIcon && (!hideIcons || !text)"
+      :name="leadingIcon"
+      :size="size"
     />
-    <span v-if="props.text" ref="optionTextEl" class="option-label">
-      {{ props.text }}
+    <span v-if="text" ref="optionTextEl" class="option-label">
+      {{ text }}
     </span>
     <KdsIcon
-      v-if="props.trailingIcon && !props.hideIcons"
-      :name="props.trailingIcon"
-      :size="props.size"
+      v-if="trailingIcon && !hideIcons"
+      :name="trailingIcon"
+      :size="size"
     />
   </button>
 </template>

@@ -10,17 +10,23 @@ import type { KdsValueSwitchOption, KdsValueSwitchProps } from "./types";
 import { useRadioSelection } from "./useRadioSelection";
 import { useValueSwitchIconHiding } from "./useValueSwitchIconHiding";
 
-const props = withDefaults(defineProps<KdsValueSwitchProps>(), {
-  disabled: false,
-  size: "medium",
-  variant: "default",
-});
+const {
+  disabled = false,
+  size = "medium",
+  variant = "default",
+  possibleValues,
+  id,
+  label,
+  subText,
+  error,
+  preserveSubTextSpace,
+} = defineProps<KdsValueSwitchProps>();
 
 const modelValue = defineModel<string>();
 
 const options = computed(
   () =>
-    props.possibleValues.map((o) => {
+    possibleValues.map((o) => {
       if (typeof o === "string") {
         return { text: o, id: o };
       }
@@ -44,27 +50,27 @@ const optionContainer = useTemplateRef("optionContainer");
 const { tabIndexForOption, handleClick, handleKeyDown } = useRadioSelection({
   selectedId: modelValue,
   options,
-  globalDisable: computed(() => props.disabled),
+  globalDisable: computed(() => disabled),
   optionContainer,
 });
 </script>
 
 <template>
   <div
-    :id="props.id"
+    :id="id"
     ref="availableWidthContainer"
     role="radiogroup"
     :class="{
       'value-switch': true,
-      'size-small': props.size === 'small',
+      'size-small': size === 'small',
     }"
-    :aria-invalid="props.error || undefined"
-    :aria-labelledby="props.label ? labelId : undefined"
-    :aria-describedby="props.subText ? descriptionId : undefined"
+    :aria-invalid="error || undefined"
+    :aria-labelledby="label ? labelId : undefined"
+    :aria-describedby="subText ? descriptionId : undefined"
   >
-    <KdsLabel v-if="props.label" :id="labelId" :label="props.label" />
+    <KdsLabel v-if="label" :id="labelId" :label="label" />
 
-    <div ref="optionContainer" :class="{ options: true, error: props.error }">
+    <div ref="optionContainer" :class="{ options: true, error: error }">
       <ValueSwitchItem
         v-for="(option, index) in options"
         :key="option.id"
@@ -72,9 +78,9 @@ const { tabIndexForOption, handleClick, handleKeyDown } = useRadioSelection({
         v-bind="option"
         :hide-icons="shouldHideIcons"
         :selected="modelValue === option.id"
-        :disabled="props.disabled || option.disabled"
-        :size="props.size"
-        :variant="props.variant"
+        :disabled="disabled || option.disabled"
+        :size="size"
+        :variant="variant"
         :tab-index="tabIndexForOption(index)"
         :title="option.title"
         @click="() => handleClick(index)"
@@ -84,9 +90,9 @@ const { tabIndexForOption, handleClick, handleKeyDown } = useRadioSelection({
 
     <KdsSubText
       :id="descriptionId"
-      :sub-text="props.subText"
-      :preserve-sub-text-space="props.preserveSubTextSpace"
-      :error="props.error"
+      :sub-text="subText"
+      :preserve-sub-text-space="preserveSubTextSpace"
+      :error="error"
     />
   </div>
 </template>

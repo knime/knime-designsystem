@@ -1,10 +1,8 @@
 <script lang="ts" setup>
 import type { KdsLoadingSpinnerProps } from "./types";
 
-withDefaults(defineProps<KdsLoadingSpinnerProps>(), {
-  variant: "onSurface",
-  size: "medium",
-});
+const { variant = "onSurface", size = "medium" } =
+  defineProps<KdsLoadingSpinnerProps>();
 </script>
 
 <template>

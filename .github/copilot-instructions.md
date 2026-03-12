@@ -92,7 +92,7 @@ packages/
 - i18n is currently not planned in this repo. Hardcoded English strings are OK (e.g., labels, aria-labels, titles, helper texts).
 - Prefer using well-known utilities from `@vueuse/core` over custom implementations (e.g. timers via `useTimeoutFn`, debouncing/throttling via `watchDebounced` / `refDebounced`, observers via `useResizeObserver`, etc.). This improves consistency and reduces the risk of missing cleanup on unmount.
 - Use Composition API with `<script setup lang="ts">`
-- Type all props with `defineProps<T>()` or `withDefaults(defineProps<T>(), {})`
+- Type all props with `defineProps<T>()` using reactive props destructuring for defaults: `const { x = defaultValue } = defineProps<T>()`
 - Type all emits with `defineEmits<T>()`
 - Use `defineModel()` for v-model bindings - do NOT manually emit `update:modelValue` events or include `modelValue` in props
 - Use `type` instead of `interface`
