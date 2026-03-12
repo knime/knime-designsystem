@@ -1,6 +1,19 @@
-import type { KdsListContainerProps } from "../../forms/_helper/List/ListContainer";
+import type { KdsListOption } from "../../forms/_helper/List/ListContainer";
+import type {
+  KdsAvatarAccessory,
+  KdsIconAccessory,
+  KdsLiveStatusAccessory,
+} from "../../forms/_helper/List/ListItemAccessory/types";
 
-export type KdsMenuContainerProps = Pick<
-  KdsListContainerProps,
-  "possibleValues"
->;
+type KdsMenuItemAccessory =
+  | KdsIconAccessory
+  | KdsLiveStatusAccessory
+  | KdsAvatarAccessory;
+
+export type KdsMenuItem = KdsListOption & {
+  accessory?: KdsMenuItemAccessory;
+};
+
+export type KdsMenuContainerProps = {
+  items: KdsMenuItem[];
+};

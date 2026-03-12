@@ -24,11 +24,7 @@ const emit = defineEmits<{
 }>();
 
 const toggleButtonProps = computed(() => {
-  const {
-    possibleValues: _possibleValues,
-    placement: _placement,
-    ...rest
-  } = props;
+  const { items: _items, placement: _placement, ...rest } = props;
 
   const {
     modelValue: _modelValue,
@@ -65,10 +61,7 @@ const onItemClick = (event: string) => {
     :placement="placement"
     popover-aria-label="Menu items"
   >
-    <KdsMenuContainer
-      :possible-values="possibleValues"
-      @item-click="onItemClick"
-    />
+    <KdsMenuContainer :items="items" @item-click="onItemClick" />
   </KdsPopover>
 </template>
 
