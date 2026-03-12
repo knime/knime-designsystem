@@ -2,26 +2,24 @@
 import KdsIcon from "../../accessories/Icon/KdsIcon.vue";
 import KdsButton from "../../buttons/KdsButton/KdsButton.vue";
 
-import { kdsModalLayoutPropsDefault } from "./enums";
+import { kdsModalVariant } from "./enums";
 import type { KdsModalLayoutProps } from "./types";
 
-const props = withDefaults(
-  defineProps<KdsModalLayoutProps>(),
-  kdsModalLayoutPropsDefault,
-);
+const { title = "", variant = kdsModalVariant.PADDED, overflow = "auto", icon, onClose } =
+  defineProps<KdsModalLayoutProps>();
 defineOptions({ inheritAttrs: false });
 </script>
 
 <template>
   <header class="modal-header">
-    <KdsIcon v-if="props.icon" :name="props.icon" size="medium" />
-    <div class="modal-header-title">{{ props.title }}</div>
+    <KdsIcon v-if="icon" :name="icon" size="medium" />
+    <div class="modal-header-title">{{ title }}</div>
     <KdsButton
       leading-icon="x-close"
       variant="transparent"
       size="medium"
       title="Close"
-      @click="props.onClose"
+      @click="onClose"
     />
   </header>
 

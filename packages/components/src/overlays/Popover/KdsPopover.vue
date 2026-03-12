@@ -3,11 +3,8 @@ import { useId, useTemplateRef, watchEffect } from "vue";
 
 import type { KdsPopoverExpose, KdsPopoverProps } from "./types";
 
-const props = withDefaults(defineProps<KdsPopoverProps>(), {
-  placement: "bottom-left",
-  role: "dialog",
-  fullWidth: false,
-});
+const { placement = "bottom-left", role = "dialog", fullWidth = false, popoverAriaLabel, content } =
+  defineProps<KdsPopoverProps>();
 
 const open = defineModel<boolean>({ default: false });
 const popoverEl = useTemplateRef("popoverEl");
@@ -34,19 +31,19 @@ defineExpose<KdsPopoverExpose>({ anchorStyle, popoverId });
     :id="popoverId"
     ref="popoverEl"
     class="kds-popover"
-    :class="['floating', props.placement, { 'full-width': props.fullWidth }]"
+    :class="['floating', placement, { 'full-width': fullWidth }]"
     popover="auto"
     :style="{ 'position-anchor': anchorName }"
-    :role="props.role"
-    :aria-label="props.popoverAriaLabel"
+    :role="role"
+    :aria-label="popoverAriaLabel"
     @toggle="open = $event.newState === 'open'"
   >
     <slot v-if="open">
       <div
-        v-if="props.content?.trim().length"
+        v-if="content?.trim().length"
         class="kds-popover-default-content"
       >
-        {{ props.content }}
+        {{ content }}
       </div>
     </slot>
   </div>

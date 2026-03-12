@@ -4,10 +4,24 @@ import { nextTick, ref, useTemplateRef, watch } from "vue";
 import { sleep } from "@knime/utils";
 
 import KdsModalLayout from "./KdsModalLayout.vue";
-import { kdsModalPropsDefault } from "./enums";
+import {
+  kdsModalClosedBy,
+  kdsModalHeight,
+  kdsModalVariant,
+  kdsModalWidth,
+} from "./enums";
 import type { KdsModalProps } from "./types";
 
-const props = withDefaults(defineProps<KdsModalProps>(), kdsModalPropsDefault);
+const {
+  active = false,
+  height = kdsModalHeight.AUTO,
+  width = kdsModalWidth.MEDIUM,
+  closedby = kdsModalClosedBy.CLOSEREQUEST,
+  title = "",
+  variant = kdsModalVariant.PADDED,
+  overflow = "auto",
+  icon,
+} = defineProps<KdsModalProps>();
 
 const emit = defineEmits<{
   /** request to close of the dialog */
@@ -23,7 +37,7 @@ const onClose = (event?: Event) => {
 };
 
 watch(
-  () => props.active,
+  () => active,
   async (active) => {
     if (active) {
       await nextTick();
@@ -35,7 +49,7 @@ watch(
   { immediate: true },
 );
 
-const renderDialog = ref(props.active);
+const renderDialog = ref(active);
 
 const removeDialog = () => {
   if (!renderDialog.value) {
@@ -46,7 +60,7 @@ const removeDialog = () => {
 };
 
 watch(
-  () => props.active,
+  () => active,
   async (value, lastValue) => {
     // on close wait until the animation has run
     if (value === false && lastValue === true) {

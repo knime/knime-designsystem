@@ -37,9 +37,7 @@ type Props = {
   wrapperStyle?: StyleValue;
 };
 
-const props = withDefaults(defineProps<Props>(), {
-  wrapperStyle: undefined,
-});
+const { designsToCompare, component, wrapperStyle } = defineProps<Props>();
 
 const defaultOpacity = 0.5;
 const opacity = ref(defaultOpacity);
@@ -71,12 +69,12 @@ async function fetchFigmaImages() {
     return;
   }
 
-  if (!props.designsToCompare) {
+  if (!designsToCompare) {
     console.error("No designs to compare provided."); // eslint-disable-line no-console
     return;
   }
 
-  const figmaUrls = Object.values(props.designsToCompare).flatMap((design) =>
+  const figmaUrls = Object.values(designsToCompare).flatMap((design) =>
     Object.keys(design.variants),
   );
 
@@ -172,7 +170,7 @@ function onPaste(event: ClipboardEvent) {
 
     <div class="groups">
       <div
-        v-for="(set, groupName) in props.designsToCompare"
+        v-for="(set, groupName) in designsToCompare"
         :key="groupName"
         class="group"
       >
@@ -196,7 +194,7 @@ function onPaste(event: ClipboardEvent) {
             <div
               :style="[
                 { width: 'fit-content', height: 'fit-content', lineHeight: 0 },
-                props.wrapperStyle,
+                wrapperStyle,
               ]"
               :class="{
                 'pseudo-hover-all': Boolean(
@@ -214,8 +212,8 @@ function onPaste(event: ClipboardEvent) {
               }"
             >
               <component
-                :is="props.component"
-                v-if="props.component"
+                :is="component"
+                v-if="component"
                 v-bind="{ ...set.props, ...omitParameters(variantProps) }"
               />
             </div>

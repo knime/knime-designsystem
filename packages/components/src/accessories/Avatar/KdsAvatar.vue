@@ -4,41 +4,38 @@ import { computed, ref, watch } from "vue";
 import { kdsAvatarSize } from "./enums";
 import type { KdsAvatarProps } from "./types";
 
-const props = withDefaults(defineProps<KdsAvatarProps>(), {
-  title: undefined,
-  src: undefined,
-  size: kdsAvatarSize.XLARGE,
-});
+const { src, size = kdsAvatarSize.XLARGE, initials, title } =
+  defineProps<KdsAvatarProps>();
 
 const imageLoadFailed = ref(false);
 
 watch(
-  () => props.src,
+  () => src,
   () => {
     imageLoadFailed.value = false;
   },
 );
 
 const shouldShowImage = computed(
-  () => Boolean(props.src) && !imageLoadFailed.value,
+  () => Boolean(src) && !imageLoadFailed.value,
 );
 
 const onImageError = () => {
   imageLoadFailed.value = true;
 };
 
-const accessibleTitle = computed(() => props.title?.trim() ?? "");
+const accessibleTitle = computed(() => title?.trim() ?? "");
 const hasTitle = computed(() => accessibleTitle.value.length > 0);
 
 const displayedInitials = computed(() =>
-  props.initials.trim().slice(0, 2).toUpperCase(),
+  initials.trim().slice(0, 2).toUpperCase(),
 );
 </script>
 
 <template>
   <div
     class="kds-avatar"
-    :class="props.size"
+    :class="size"
     :role="hasTitle ? 'img' : 'presentation'"
     :title="hasTitle ? accessibleTitle : undefined"
     :aria-hidden="!hasTitle ? 'true' : undefined"
@@ -47,7 +44,7 @@ const displayedInitials = computed(() =>
     <img
       v-if="shouldShowImage"
       class="kds-avatar-image"
-      :src="props.src"
+      :src="src"
       alt=""
       aria-hidden="true"
       @error="onImageError"

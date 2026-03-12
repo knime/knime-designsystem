@@ -11,17 +11,22 @@ import type {
   KdsCheckboxValue,
 } from "./types";
 
-const props = withDefaults(defineProps<KdsCheckboxGroupProps>(), {
-  disabled: false,
-  error: false,
-  alignment: "vertical",
-});
+const {
+  disabled = false,
+  error = false,
+  alignment = "vertical",
+  possibleValues: possibleValuesProp,
+  label,
+  subText,
+  id,
+  preserveSubTextSpace,
+} = defineProps<KdsCheckboxGroupProps>();
 
 const modelValue = defineModel<string[]>({ default: [] });
 
 const possibleValues = computed(
   () =>
-    props.possibleValues.map((o) => {
+    possibleValuesProp.map((o) => {
       if (typeof o === "string") {
         return { text: o, id: o };
       }
@@ -33,12 +38,12 @@ const labelId = useId();
 const descriptionId = useId();
 
 const isOptionDisabled = (index: number) =>
-  props.disabled || possibleValues.value[index]?.disabled === true;
+  disabled || possibleValues.value[index]?.disabled === true;
 
-const isHorizontal = computed(() => props.alignment === "horizontal");
+const isHorizontal = computed(() => alignment === "horizontal");
 
 const hasError = computed(
-  () => props.error || possibleValues.value.some((o) => o.error),
+  () => error || possibleValues.value.some((o) => o.error),
 );
 
 const isChecked = (id: string) => modelValue.value.includes(id);
@@ -60,13 +65,13 @@ const handleCheckboxChange = (index: number, checked: KdsCheckboxValue) => {
 
 <template>
   <div
-    :id="props.id"
+    :id="id"
     class="checkbox-group"
     role="group"
-    :aria-labelledby="props.label ? labelId : undefined"
-    :aria-describedby="props.subText ? descriptionId : undefined"
+    :aria-labelledby="label ? labelId : undefined"
+    :aria-describedby="subText ? descriptionId : undefined"
   >
-    <KdsLabel v-if="props.label" :id="labelId" :label="props.label" />
+    <KdsLabel v-if="label" :id="labelId" :label="label" />
 
     <div :class="{ options: true, horizontal: isHorizontal }">
       <div
@@ -75,7 +80,7 @@ const handleCheckboxChange = (index: number, checked: KdsCheckboxValue) => {
         class="option"
       >
         <BaseCheckbox
-          :disabled="props.disabled || option.disabled"
+          :disabled="disabled || option.disabled"
           :error="option.error"
           :helper-text="option.helperText"
           :label="option.text"
@@ -89,8 +94,8 @@ const handleCheckboxChange = (index: number, checked: KdsCheckboxValue) => {
 
     <KdsSubText
       :id="descriptionId"
-      :sub-text="props.subText"
-      :preserve-sub-text-space="props.preserveSubTextSpace"
+      :sub-text="subText"
+      :preserve-sub-text-space="preserveSubTextSpace"
       :error="hasError"
     />
   </div>

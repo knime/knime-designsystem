@@ -8,11 +8,14 @@ import BaseButton from "../BaseButton.vue";
 
 import type { KdsProgressButtonProps, KdsProgressButtonState } from "./types";
 
-const props = withDefaults(defineProps<KdsProgressButtonProps>(), {
-  variant: "filled",
-  size: "medium",
-  disabled: false,
-});
+const {
+  variant = "filled",
+  size = "medium",
+  disabled = false,
+  ariaLabel,
+  label,
+  leadingIcon,
+} = defineProps<KdsProgressButtonProps>();
 
 const emit = defineEmits<{
   /**
@@ -29,10 +32,10 @@ const state = defineModel<KdsProgressButtonState>("state", {
 });
 
 const iconSize = computed<KdsIconSize>(() => {
-  if (props.size === "xsmall") {
+  if (size === "xsmall") {
     return "small";
   }
-  return props.size;
+  return size;
 });
 
 function onClick(event: MouseEvent) {
@@ -46,15 +49,15 @@ function onClick(event: MouseEvent) {
 }
 
 const baseButtonProps = computed(() => ({
-  variant: props.variant,
-  size: props.size,
-  disabled: props.disabled,
+  variant: variant,
+  size: size,
+  disabled: disabled,
   success: state.value === "success",
   error: state.value === "error",
-  title: props.ariaLabel,
-  label: props.label,
-  leadingIcon: props.leadingIcon,
-  ariaLabel: props.ariaLabel,
+  title: ariaLabel,
+  label: label,
+  leadingIcon: leadingIcon,
+  ariaLabel: ariaLabel,
 }));
 </script>
 
@@ -68,12 +71,12 @@ const baseButtonProps = computed(() => ({
     <template #leading>
       <span :class="['leading', iconSize]">
         <span class="leading-icon" :data-visible="state !== 'progress'">
-          <KdsIcon :name="props.leadingIcon" :size="iconSize" />
+          <KdsIcon :name="leadingIcon" :size="iconSize" />
         </span>
         <span class="spinner" :data-visible="state === 'progress'">
           <KdsLoadingSpinner
             :size="iconSize"
-            :variant="props.variant === 'filled' ? 'onPrimary' : 'onSurface'"
+            :variant="variant === 'filled' ? 'onPrimary' : 'onSurface'"
           />
         </span>
       </span>

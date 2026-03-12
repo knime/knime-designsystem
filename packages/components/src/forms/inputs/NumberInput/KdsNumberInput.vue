@@ -9,14 +9,20 @@ import BaseInput from "../BaseInput.vue";
 import { createKdsNumberParser } from "./numberParser";
 import type { KdsNumberInputProps } from "./types";
 
-const props = withDefaults(defineProps<KdsNumberInputProps>(), {
-  disabled: false,
-  error: false,
-  validating: false,
-  preserveSubTextSpace: false,
-  unit: "",
-  step: 1,
-});
+const {
+  disabled = false,
+  error = false,
+  validating = false,
+  preserveSubTextSpace = false,
+  unit = "",
+  step = 1,
+  min,
+  max,
+  placeholder,
+  autocomplete,
+  label,
+  ariaLabel,
+} = defineProps<KdsNumberInputProps>();
 
 const modelValue = defineModel<number>({ default: Number.NaN });
 
@@ -32,7 +38,7 @@ const isFocused = ref(false);
 const localValue = ref<string>("");
 
 const numberParser = computed(() =>
-  createKdsNumberParser({ locale: "en-US", step: props.step }),
+  createKdsNumberParser({ locale: "en-US", step: step }),
 );
 
 const ariaValuenow = computed(() =>
@@ -55,11 +61,11 @@ const clamp = (value: number) => {
 
   let result = value;
 
-  if (props.min !== undefined && !Number.isNaN(props.min)) {
-    result = Math.max(props.min, result);
+  if (min !== undefined && !Number.isNaN(min)) {
+    result = Math.max(min, result);
   }
-  if (props.max !== undefined && !Number.isNaN(props.max)) {
-    result = Math.min(props.max, result);
+  if (max !== undefined && !Number.isNaN(max)) {
+    result = Math.min(max, result);
   }
 
   return result;
@@ -78,11 +84,11 @@ watch(
 );
 
 const canDecrease = computed(() => {
-  if (props.disabled) {
+  if (disabled) {
     return false;
   }
 
-  if (props.min === undefined || Number.isNaN(props.min)) {
+  if (min === undefined || Number.isNaN(min)) {
     return true;
   }
 
@@ -90,15 +96,15 @@ const canDecrease = computed(() => {
     return true;
   }
 
-  return modelValue.value > props.min;
+  return modelValue.value > min;
 });
 
 const canIncrease = computed(() => {
-  if (props.disabled) {
+  if (disabled) {
     return false;
   }
 
-  if (props.max === undefined || Number.isNaN(props.max)) {
+  if (max === undefined || Number.isNaN(max)) {
     return true;
   }
 
@@ -106,11 +112,11 @@ const canIncrease = computed(() => {
     return true;
   }
 
-  return modelValue.value < props.max;
+  return modelValue.value < max;
 });
 
 const adjustByStep = (direction: -1 | 1) => {
-  if (props.step <= 0) {
+  if (step <= 0) {
     return;
   }
 
@@ -118,7 +124,7 @@ const adjustByStep = (direction: -1 | 1) => {
     ? modelValue.value
     : numberParser.value.parseFromInput(localValue.value);
 
-  const nextRaw = Number.isFinite(base) ? base + direction * props.step : 0;
+  const nextRaw = Number.isFinite(base) ? base + direction * step : 0;
   // Round due to precision issues that can arise when adding steps to certain numbers, e.g. 0.1 + 0.1 + 0.1.
   const rounded = numberParser.value.roundToStep(nextRaw);
   const next = clamp(rounded);
@@ -128,7 +134,7 @@ const adjustByStep = (direction: -1 | 1) => {
 };
 
 const handleKeydown = (event: KeyboardEvent) => {
-  if (props.disabled) {
+  if (disabled) {
     return;
   }
 
@@ -167,23 +173,23 @@ defineExpose<KdsFormFieldExpose>({
 </script>
 
 <template>
-  <BaseFormFieldWrapper v-bind="props">
+  <BaseFormFieldWrapper v-bind="$props">
     <template #default="slotProps">
       <BaseInput
         ref="baseInput"
         v-bind="slotProps"
         :model-value="localValue"
         type="text"
-        :inputmode="props.step >= 1 ? 'numeric' : 'decimal'"
-        :placeholder="props.placeholder"
-        :disabled="props.disabled"
-        :error="props.error"
-        :autocomplete="props.autocomplete"
-        :unit="props.unit"
+        :inputmode="step >= 1 ? 'numeric' : 'decimal'"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        :error="error"
+        :autocomplete="autocomplete"
+        :unit="unit"
         role="spinbutton"
         :aria-valuenow="ariaValuenow"
-        :aria-valuemin="props.min"
-        :aria-valuemax="props.max"
+        :aria-valuemin="min"
+        :aria-valuemax="max"
         :aria-valuetext="ariaValuetext"
         @update:model-value="handleUpdateModelValue"
         @keydown="handleKeydown"
@@ -196,7 +202,7 @@ defineExpose<KdsFormFieldExpose>({
             size="xsmall"
             variant="outlined"
             leading-icon="minus"
-            :aria-label="`Decrease ${props.label ?? props.ariaLabel}`"
+            :aria-label="`Decrease ${label ?? ariaLabel}`"
             :disabled="!canDecrease"
             @click="adjustByStep(-1)"
           />
@@ -205,7 +211,7 @@ defineExpose<KdsFormFieldExpose>({
             size="xsmall"
             variant="outlined"
             leading-icon="plus"
-            :aria-label="`Increase ${props.label ?? props.ariaLabel}`"
+            :aria-label="`Increase ${label ?? ariaLabel}`"
             :disabled="!canIncrease"
             @click="adjustByStep(1)"
           />

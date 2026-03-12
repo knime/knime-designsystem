@@ -7,12 +7,14 @@ import BaseInput from "../BaseInput.vue";
 
 import type { KdsTextInputProps } from "./types";
 
-const props = withDefaults(defineProps<KdsTextInputProps>(), {
-  disabled: false,
-  error: false,
-  validating: false,
-  preserveSubTextSpace: false,
-});
+const {
+  disabled = false,
+  error = false,
+  validating = false,
+  preserveSubTextSpace = false,
+  placeholder,
+  autocomplete,
+} = defineProps<KdsTextInputProps>();
 
 const modelValue = defineModel<string>({ default: "" });
 
@@ -24,17 +26,17 @@ defineExpose<KdsFormFieldExpose>({
 </script>
 
 <template>
-  <BaseFormFieldWrapper v-bind="props">
+  <BaseFormFieldWrapper v-bind="$props">
     <template #default="slotProps">
       <BaseInput
         ref="baseInput"
         v-bind="slotProps"
         v-model="modelValue"
         type="text"
-        :placeholder="props.placeholder"
-        :disabled="props.disabled"
-        :error="props.error"
-        :autocomplete="props.autocomplete"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        :error="error"
+        :autocomplete="autocomplete"
       />
     </template>
   </BaseFormFieldWrapper>

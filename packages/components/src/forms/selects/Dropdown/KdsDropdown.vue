@@ -15,13 +15,19 @@ import BaseDropdown from "./BaseDropdown.vue";
 import DropdownContainer from "./DropdownContainer.vue";
 import type { KdsDropdownProps } from "./types.ts";
 
-const props = withDefaults(defineProps<KdsDropdownProps>(), {
-  placeholder: "Select",
-  disabled: false,
-  error: false,
-  validating: false,
-  preserveSubTextSpace: false,
-});
+const {
+  placeholder = "Select",
+  disabled = false,
+  error = false,
+  validating = false,
+  preserveSubTextSpace = false,
+  possibleValues,
+  id,
+  label,
+  ariaLabel,
+  description,
+  subText,
+} = defineProps<KdsDropdownProps>();
 
 const modelValue = defineModel<string | null>({ default: null });
 
@@ -30,7 +36,7 @@ const popoverEl = useTemplateRef("popoverEl");
 const dropdownContainerEl = useTemplateRef("dropdownContainerEl");
 
 const selectedOption = computed(() =>
-  props.possibleValues.find((o) => o.id === modelValue.value),
+  possibleValues.find((o) => o.id === modelValue.value),
 );
 
 /** Focus search field on opening of dropdown */
@@ -50,14 +56,14 @@ watch(modelValue, () => {
 
 <template>
   <BaseFormFieldWrapper
-    :id="props.id"
-    :label="props.label"
-    :aria-label="props.ariaLabel"
-    :description="props.description"
-    :sub-text="props.subText"
-    :error="props.error"
-    :validating="props.validating"
-    :preserve-sub-text-space="props.preserveSubTextSpace"
+    :id="id"
+    :label="label"
+    :aria-label="ariaLabel"
+    :description="description"
+    :sub-text="subText"
+    :error="error"
+    :validating="validating"
+    :preserve-sub-text-space="preserveSubTextSpace"
   >
     <template #default="slotProps">
       <BaseDropdown
@@ -68,9 +74,9 @@ watch(modelValue, () => {
             ? `(Missing) ${modelValue}`
             : selectedOption?.text
         "
-        :placeholder="props.placeholder"
-        :disabled="props.disabled"
-        :error="props.error"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        :error="error"
         :missing="modelValue !== null && !selectedOption"
         :accessory="selectedOption?.accessory"
         :style="popoverEl?.anchorStyle"
@@ -89,7 +95,7 @@ watch(modelValue, () => {
         <DropdownContainer
           ref="dropdownContainerEl"
           v-model="modelValue"
-          :possible-values="props.possibleValues"
+          :possible-values="possibleValues"
           empty-text="No entries found"
         />
       </KdsPopover>

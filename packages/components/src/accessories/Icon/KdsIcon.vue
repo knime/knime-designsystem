@@ -9,25 +9,22 @@ import { toRef } from "vue";
 import type { KdsIconProps } from "./types";
 import useIcon from "./useIcon";
 
-const props = withDefaults(defineProps<KdsIconProps>(), {
-  size: "medium",
-  disabled: false,
-});
+const { name, size = "medium", disabled = false } = defineProps<KdsIconProps>();
 
-const iconComponent = useIcon({ name: toRef(props, "name"), folder: "icons" });
+const iconComponent = useIcon({ name: toRef(() => name), folder: "icons" });
 </script>
 
 <template>
   <component
     :is="iconComponent"
     v-if="iconComponent"
-    :class="['kds-icon', props.size, { disabled }]"
+    :class="['kds-icon', size, { disabled }]"
     aria-hidden="true"
     focusable="false"
   />
   <span
     v-else
-    :class="['kds-icon', props.size, { disabled }]"
+    :class="['kds-icon', size, { disabled }]"
     aria-hidden="true"
     focusable="false"
   />

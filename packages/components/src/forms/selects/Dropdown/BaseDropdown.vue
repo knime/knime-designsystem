@@ -6,41 +6,41 @@ import ListItemAccessory from "../../_helper/List/ListItemAccessory/ListItemAcce
 
 import type { BaseDropdownProps } from "./types";
 
-const props = withDefaults(defineProps<BaseDropdownProps>(), {
-  text: undefined,
-  disabled: false,
-  error: false,
-  missing: false,
-  accessory: undefined,
-
-  id: undefined,
-  ariaLabelledby: undefined,
-  ariaDescribedby: undefined,
-  ariaLabel: undefined,
-  ariaInvalid: undefined,
-  popoverId: undefined,
-});
+const {
+  text,
+  disabled = false,
+  error = false,
+  missing = false,
+  accessory,
+  id,
+  ariaLabelledby: ariaLabelledbyProp,
+  ariaDescribedby,
+  ariaLabel,
+  ariaInvalid,
+  popoverId,
+  placeholder,
+} = defineProps<BaseDropdownProps>();
 
 const open = defineModel<boolean>("open", { default: false });
 
 const valueTextId = useId();
 
 const ariaLabelledby = computed(() => {
-  if (props.ariaLabel) {
+  if (ariaLabel) {
     return undefined;
   }
-  if (!props.ariaLabelledby) {
+  if (!ariaLabelledbyProp) {
     return valueTextId;
   }
-  return `${props.ariaLabelledby} ${valueTextId}`;
+  return `${ariaLabelledbyProp} ${valueTextId}`;
 });
 
 const effectiveAriaLabel = computed(() => {
-  if (!props.ariaLabel) {
+  if (!ariaLabel) {
     return undefined;
   }
-  const displayText = props.text ?? props.placeholder;
-  return `${props.ariaLabel}, ${displayText}`;
+  const displayText = text ?? placeholder;
+  return `${ariaLabel}, ${displayText}`;
 });
 
 const emit = defineEmits<{
@@ -49,7 +49,7 @@ const emit = defineEmits<{
 }>();
 
 const onKeydown = (event: KeyboardEvent) => {
-  if (props.disabled) {
+  if (disabled) {
     return;
   }
 
@@ -69,34 +69,34 @@ const onKeydown = (event: KeyboardEvent) => {
 
 <template>
   <button
-    :id="props.id"
+    :id="id"
     class="kds-dropdown-trigger-button"
     type="button"
     :aria-expanded="open"
     :aria-labelledby="ariaLabelledby"
-    :aria-describedby="props.ariaDescribedby"
+    :aria-describedby="ariaDescribedby"
     :aria-label="effectiveAriaLabel"
-    :aria-invalid="props.ariaInvalid"
-    :aria-controls="props.popoverId"
+    :aria-invalid="ariaInvalid"
+    :aria-controls="popoverId"
     aria-haspopup="dialog"
-    :disabled="props.disabled"
-    :class="{ error: props.error }"
-    @click="!props.disabled && emit('click')"
+    :disabled="disabled"
+    :class="{ error: error }"
+    @click="!disabled && emit('click')"
     @keydown="onKeydown"
   >
-    <span v-if="props.accessory" class="leading" aria-hidden="true">
-      <ListItemAccessory :accessory="props.accessory" size="medium" />
+    <span v-if="accessory" class="leading" aria-hidden="true">
+      <ListItemAccessory :accessory="accessory" size="medium" />
     </span>
 
     <span
       :id="valueTextId"
       class="text"
       :class="{
-        placeholder: !props.text,
-        missing: props.missing,
+        placeholder: !text,
+        missing: missing,
       }"
     >
-      {{ props.text ?? props.placeholder }}
+      {{ text ?? placeholder }}
     </span>
 
     <span class="trailing" aria-hidden="true">

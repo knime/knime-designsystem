@@ -6,10 +6,15 @@ import KdsSubText from "../_helper/KdsSubText.vue";
 
 import type { BaseCheckboxProps, KdsCheckboxValue } from "./types";
 
-const props = withDefaults(defineProps<BaseCheckboxProps>(), {
-  disabled: false,
-  error: false,
-});
+const {
+  disabled = false,
+  error = false,
+  label,
+  helperText,
+  subText,
+  title,
+  preserveSubTextSpace,
+} = defineProps<BaseCheckboxProps>();
 
 const modelValue = defineModel<KdsCheckboxValue>({ default: false });
 
@@ -38,11 +43,11 @@ const ariaChecked = computed(() => {
 const ariaDescribedBy = computed(() => {
   const ids: string[] = [];
 
-  if (props.helperText) {
+  if (helperText) {
     ids.push(helperId);
   }
 
-  if (props.subText) {
+  if (subText) {
     ids.push(descriptionId);
   }
 
@@ -50,7 +55,7 @@ const ariaDescribedBy = computed(() => {
 });
 
 const handleClick = () => {
-  if (props.disabled) {
+  if (disabled) {
     return;
   }
 
@@ -65,15 +70,15 @@ const handleClick = () => {
         checkbox: true,
         checked: isChecked,
         indeterminate: isIndeterminate,
-        disabled: props.disabled,
-        error: props.error,
+        disabled: disabled,
+        error: error,
       }"
-      :disabled="props.disabled"
-      :title="props.title"
-      :aria-label="props.title"
+      :disabled="disabled"
+      :title="title"
+      :aria-label="title"
       :aria-checked="ariaChecked"
       :aria-describedby="ariaDescribedBy"
-      :aria-invalid="props.error"
+      :aria-invalid="error"
       type="button"
       role="checkbox"
       @click="handleClick"
@@ -81,22 +86,22 @@ const handleClick = () => {
       <div class="control">
         <Icon v-if="icon" :name="icon" class="icon" size="xsmall" />
       </div>
-      <div v-if="props.label || props.helperText" class="content">
-        <div class="label">{{ props.label }}</div>
-        <div v-if="props.helperText" :id="helperId" class="helper-text">
-          {{ props.helperText }}
+      <div v-if="label || helperText" class="content">
+        <div class="label">{{ label }}</div>
+        <div v-if="helperText" :id="helperId" class="helper-text">
+          {{ helperText }}
         </div>
       </div>
     </button>
     <div
-      v-if="props.subText || props.preserveSubTextSpace"
+      v-if="subText || preserveSubTextSpace"
       class="subtext-wrapper"
     >
       <KdsSubText
         :id="descriptionId"
-        :sub-text="props.subText"
-        :preserve-sub-text-space="props.preserveSubTextSpace"
-        :error="props.error"
+        :sub-text="subText"
+        :preserve-sub-text-space="preserveSubTextSpace"
+        :error="error"
       />
     </div>
   </div>
