@@ -2,7 +2,6 @@ import { ref, useTemplateRef } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
 import KdsToggleButton from "../../buttons/KdsToggleButton/KdsToggleButton.vue";
-import KdsPopover from "../Popover/KdsPopover.vue";
 
 import KdsMenuContainer from "./KdsMenuContainer.vue";
 import { kdsMenuContainerPlacements } from "./enums";
@@ -53,9 +52,10 @@ const meta = {
   },
   args: {
     items: baseOptions,
+    placement: "bottom-left",
   },
   render: (args) => ({
-    components: { KdsToggleButton, KdsPopover, KdsMenuContainer },
+    components: { KdsToggleButton, KdsMenuContainer },
     setup() {
       const menuContainerEl = useTemplateRef("menuContainerEl");
       const isMenuOpen = ref<boolean>(false);
@@ -70,13 +70,16 @@ const meta = {
           :aria-expanded="isMenuOpen"
           :aria-controls="menuContainerEl?.popoverEl?.popoverId"
           :style="menuContainerEl?.popoverEl?.anchorStyle"
+          @keydown="menuContainerEl?.listContainerEl?.onKeydown?.($event)"
+          @focus="menuContainerEl?.listContainerEl?.onFocus?.($event)"
+          @blur="menuContainerEl?.listContainerEl?.onBlur?.($event)"
         />
 
         <KdsMenuContainer
           ref="menuContainerEl"
           v-model="isMenuOpen"
           :items="args.items"
-          placement="bottom-left"
+          :placement="args.placement"
           @item-click="isMenuOpen = false"
         />
       `,

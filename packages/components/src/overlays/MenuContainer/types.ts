@@ -11,7 +11,7 @@ type KdsMenuItemAccessory =
   | KdsLiveStatusAccessory
   | KdsAvatarAccessory;
 
-export type KdsMenuItem = KdsListOption & {
+export type KdsMenuItem = Omit<KdsListOption, "accessory"> & {
   accessory?: KdsMenuItemAccessory;
 };
 
