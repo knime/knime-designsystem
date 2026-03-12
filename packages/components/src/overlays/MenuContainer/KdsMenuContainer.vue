@@ -14,7 +14,7 @@ const emit = defineEmits<{
 <template>
   <div class="kds-menu-container">
     <KdsListContainer
-      :possible-values="possibleValues"
+      :possible-values="items"
       empty-text="Menu is empty"
       aria-label="Menu"
       is-menu

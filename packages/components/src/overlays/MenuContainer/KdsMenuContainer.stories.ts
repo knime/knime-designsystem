@@ -3,17 +3,17 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { fn } from "storybook/test";
 
 import KdsToggleButton from "../../buttons/KdsToggleButton/KdsToggleButton.vue";
-import type { KdsListOption } from "../../forms/_helper/List/ListContainer";
 import KdsPopover from "../Popover/KdsPopover.vue";
 
 import KdsMenuContainer from "./KdsMenuContainer.vue";
+import type { KdsMenuItem } from "./types";
 
 type Story = StoryObj<typeof KdsMenuContainer>;
 
 function options(
   length: number,
-  generator: (idx: number) => Partial<KdsListOption>,
-): KdsListOption[] {
+  generator: (idx: number) => Partial<KdsMenuItem>,
+): KdsMenuItem[] {
   return Array.from({ length }, (_, idx) => ({
     id: `option-${idx + 1}`,
     text: `Label ${idx + 1}`,
@@ -41,7 +41,7 @@ const meta = {
     },
   },
   argTypes: {
-    possibleValues: {
+    items: {
       control: "object",
       table: { category: "props" },
     },
@@ -50,7 +50,7 @@ const meta = {
     },
   },
   args: {
-    possibleValues: baseOptions,
+    items: baseOptions,
     onItemClick: fn(),
   },
   render: (args) => ({
@@ -79,7 +79,7 @@ const meta = {
           popover-aria-label="Menu items"
         >
           <KdsMenuContainer
-            :possible-values="args.possibleValues"
+            :items="args.items"
             @item-click="isMenuOpen = false"
           />
         </KdsPopover>
@@ -93,7 +93,7 @@ export const Default: Story = {};
 
 export const WithDisabledOptions: Story = {
   args: {
-    possibleValues: [
+    items: [
       { id: "1", text: "Disabled first", selected: false, disabled: true },
       { id: "2", text: "Enabled option", selected: false },
       { id: "3", text: "Disabled middle", selected: false, disabled: true },
@@ -105,27 +105,17 @@ export const WithDisabledOptions: Story = {
 
 export const NoEntries: Story = {
   args: {
-    possibleValues: [],
+    items: [],
   },
 };
 
 export const WithAccessories: Story = {
   args: {
-    possibleValues: [
+    items: [
       {
         id: "1",
         text: "Icon option",
         accessory: { type: "icon", name: "placeholder" },
-      },
-      {
-        id: "2",
-        text: "Data type option",
-        accessory: { type: "dataType", name: "string-datatype" },
-      },
-      {
-        id: "3",
-        text: "Color swatch option",
-        accessory: { type: "colorSwatch", color: "#C7DA3E" },
       },
       {
         id: "4",
