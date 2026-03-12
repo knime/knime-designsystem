@@ -263,6 +263,84 @@ export const WithAccessories: Story = {
   },
 };
 
+export const WithSectionTitles: Story = {
+  args: {
+    possibleValues: [
+      {
+        id: "fruits-header",
+        text: "Fruits",
+        sectionHeadline: true,
+      },
+      {
+        id: "1",
+        text: "Apple",
+        accessory: { type: "icon", name: "placeholder" },
+      },
+      {
+        id: "2",
+        text: "Banana",
+        accessory: { type: "icon", name: "placeholder" },
+      },
+      {
+        id: "3",
+        text: "Cherry",
+        accessory: { type: "icon", name: "placeholder" },
+        separator: true,
+      },
+      {
+        id: "recently-used-header",
+        text: "Recently used",
+        sectionHeadline: true,
+      },
+      {
+        id: "4",
+        text: "Banana",
+        accessory: { type: "icon", name: "placeholder" },
+      },
+      {
+        id: "5",
+        text: "Cherry",
+        accessory: { type: "icon", name: "placeholder" },
+      },
+    ],
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+
+    // Section titles are rendered
+    await expect(canvas.getByText("Fruits")).toBeInTheDocument();
+    await expect(canvas.getByText("Recently used")).toBeInTheDocument();
+
+    // Divider is rendered between groups
+    await expect(
+      canvasElement.querySelector(".kds-list-item-divider"),
+    ).toBeInTheDocument();
+
+    // Only option items are rendered as options (not section titles/dividers)
+    await expect(canvas.getAllByRole("option")).toHaveLength(5);
+
+    // Keyboard navigation skips section titles and dividers
+    const listbox = canvas.getByRole("listbox");
+    await userEvent.click(listbox);
+    const firstOption = canvas.getByRole("option", { name: "Apple" });
+    await expect(firstOption).toHaveClass("active");
+
+    // ArrowDown navigates through all options across groups
+    await userEvent.keyboard("{ArrowDown}");
+    const bananaOptions = canvas.getAllByRole("option", { name: /^Banana/ });
+    await expect(bananaOptions[0]).toHaveClass("active");
+
+    // End jumps to last option (in the second group)
+    await userEvent.keyboard("{End}");
+    const lastOption = canvas.getAllByRole("option", { name: /^Cherry/ })[1];
+    await expect(lastOption).toHaveClass("active");
+
+    // Click emits itemClick with correct id
+    await userEvent.click(firstOption);
+    await expect(args.onItemClick).toHaveBeenCalledWith("1");
+  },
+};
+
 export const WithExternalControlEl: Story = {
   args: {
     controlledExternally: true,

@@ -3,8 +3,14 @@ import { computed, nextTick, ref, useId, useTemplateRef, watch } from "vue";
 
 import KdsEmptyState from "../../../../layouts/EmptyState/KdsEmptyState.vue";
 import { KdsListItem } from "../KdsListItem";
+import ListItemDivider from "../ListItemDivider/ListItemDivider.vue";
+import ListItemSectionTitle from "../ListItemSectionTitle/ListItemSectionTitle.vue";
 
-import type { KdsListContainerExpose, KdsListContainerProps } from "./types";
+import type {
+  KdsListContainerExpose,
+  KdsListContainerProps,
+  KdsListOption,
+} from "./types";
 
 const props = withDefaults(defineProps<KdsListContainerProps>(), {
   emptyText: "",
@@ -20,8 +26,13 @@ const toOptionId = (elementId: string) => elementId.slice(idPrefix.length + 1);
 const emptyOptionId = `${idPrefix}-empty`;
 
 /** possibleValues with prefixed ids to avoid DOM id collisions */
-const prefixedValues = computed(() =>
+const prefixedValues = computed<KdsListOption[]>(() =>
   props.possibleValues.map((o) => ({ ...o, id: `${idPrefix}-${o.id}` })),
+);
+
+/** Only selectable (non-section-headline) items */
+const selectableValues = computed(() =>
+  prefixedValues.value.filter((o) => !o.sectionHeadline),
 );
 
 /** active item id (prefixed) via keyboard or mouseover */
@@ -57,11 +68,13 @@ const onMousemove = (event: MouseEvent) => {
     target.getAttribute("aria-disabled") !== "true"
   ) {
     activeId.value = target.id;
+  } else if (!isFocused.value) {
+    activeId.value = undefined;
   }
 };
 
 const enabledValues = computed(() =>
-  prefixedValues.value.filter((o) => !o.disabled),
+  selectableValues.value.filter((o) => !o.disabled),
 );
 
 /** Reset activeId/lastActiveId when possibleValues change and current id no longer exists */
@@ -77,7 +90,7 @@ watch(enabledValues, (values) => {
       // When items exist but are all disabled, leave activeId undefined to
       // avoid aria-activedescendant referencing a non-existent DOM element.
       activeId.value =
-        prefixedValues.value.length === 0 ? emptyOptionId : undefined;
+        selectableValues.value.length === 0 ? emptyOptionId : undefined;
     }
   }
   if (!isValid(lastActiveId.value)) {
@@ -194,24 +207,37 @@ defineExpose<KdsListContainerExpose>({
           }
     "
   >
-    <KdsListItem
-      v-for="item in prefixedValues"
-      :id="item.id"
-      :key="item.id"
-      :accessory="item.accessory"
-      :label="item.text"
-      :sub-text="item.subText"
-      :selected="item.selected"
-      :disabled="item.disabled"
-      :active="activeId === item.id"
-      :special="item.special"
-      :missing="item.missing"
-      :trailing-icon="item.selected ? 'checkmark' : undefined"
-      @mousedown="props.controlledExternally && $event.preventDefault()"
-      @click.stop="emit('itemClick', toOptionId(item.id))"
-    />
+    <template v-for="(item, index) in prefixedValues" :key="item.id">
+      <ListItemSectionTitle
+        v-if="item.sectionHeadline"
+        :label="item.text"
+        :leading-icon="item.sectionHeadlineIcon"
+        role="presentation"
+        aria-hidden="true"
+      />
+      <KdsListItem
+        v-else
+        :id="item.id"
+        :accessory="item.accessory"
+        :label="item.text"
+        :sub-text="item.subText"
+        :selected="item.selected"
+        :disabled="item.disabled"
+        :active="activeId === item.id"
+        :special="item.special"
+        :missing="item.missing"
+        :trailing-icon="item.selected ? 'checkmark' : undefined"
+        @mousedown="props.controlledExternally && $event.preventDefault()"
+        @click.stop="emit('itemClick', toOptionId(item.id))"
+      />
+      <ListItemDivider
+        v-if="item.separator && index < prefixedValues.length - 1"
+        role="presentation"
+        aria-hidden="true"
+      />
+    </template>
     <div
-      v-if="prefixedValues.length === 0"
+      v-if="selectableValues.length === 0"
       :id="emptyOptionId"
       role="option"
       aria-disabled="true"
@@ -227,6 +253,7 @@ defineExpose<KdsListContainerExpose>({
 .kds-list-container {
   display: flex;
   flex-direction: column;
+  gap: var(--kds-spacing-container-0-10x);
   padding: var(--kds-spacing-container-0-25x);
   overflow-y: auto;
 

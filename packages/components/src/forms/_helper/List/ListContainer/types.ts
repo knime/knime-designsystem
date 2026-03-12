@@ -1,5 +1,6 @@
 import type { Ref } from "vue";
 
+import type { KdsIconName } from "../../../../accessories";
 import type { KdsListItemAccessory } from "../ListItemAccessory/types";
 
 export type KdsListOption = {
@@ -17,10 +18,24 @@ export type KdsListOption = {
   disabled?: boolean;
   /** Shows the option as missing in the list */
   missing?: boolean;
+  /**
+   * When true, the item is rendered as a non-selectable section headline
+   * (styled as a section title row). Section headline items are skipped
+   * during keyboard navigation and cannot be clicked.
+   */
+  sectionHeadline?: boolean;
+  /** Optional leading icon shown before a section headline */
+  sectionHeadlineIcon?: KdsIconName;
+  /** Show a separator below the item if it's not the last in the list */
+  separator?: boolean;
 };
 
 export type KdsListContainerProps = {
-  /** Possible values to show in the list */
+  /**
+   * Options to show in the list.
+   * Items with `sectionHeadline: true` are rendered as non-selectable
+   * section titles. Items with `separator: true` show a divider below them.
+   */
   possibleValues: KdsListOption[];
   /** Text shown when no entries are provided */
   emptyText?: string;
