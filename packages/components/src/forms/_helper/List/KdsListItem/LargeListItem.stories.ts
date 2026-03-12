@@ -39,12 +39,6 @@ const meta: Meta<typeof KdsListItem> = {
       description: "Unique identifier for the list item.",
       table: { category: "props" },
     },
-    role: {
-      control: "select",
-      options: kdsListItemRoles,
-      description: "Role of the item for the list item.",
-      table: { category: "props" },
-    },
     accessory: {
       control: "select",
       options: Object.keys(demoAccessories),
@@ -101,6 +95,12 @@ const meta: Meta<typeof KdsListItem> = {
       description: "Disables interaction and dims the content.",
       table: { category: "props" },
     },
+    role: {
+      control: "select",
+      options: kdsListItemRoles,
+      description: "Role of the item for the list item.",
+      table: { category: "props" },
+    },
   },
   args: {
     id: "list-item-1",
@@ -115,6 +115,7 @@ const meta: Meta<typeof KdsListItem> = {
     selected: false,
     missing: false,
     disabled: false,
+    role: "option",
     onClick: fn(),
   },
 };
