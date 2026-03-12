@@ -80,6 +80,7 @@ const onClickColorSwatch = () => {
           ref="popoverEl"
           v-model="open"
           placement="bottom-right"
+          role="dialog"
           popover-aria-label="Color picker"
         >
           <ColorPicker v-model="modelValue" />
