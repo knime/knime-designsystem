@@ -10,3 +10,4 @@ The following component props have been renamed:
 - `KdsInlineMessage`: `title` → `headline`
 - `KdsInlineMessage`: `message` → `description`
 - `KdsModal`: `icon` → `leadingIcon`
+- `KdsModal`: `title` → `headline`

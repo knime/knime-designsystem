@@ -15,7 +15,7 @@ defineOptions({ inheritAttrs: false });
 <template>
   <header class="modal-header">
     <KdsIcon v-if="props.leadingIcon" :name="props.leadingIcon" size="medium" />
-    <div class="modal-header-title">{{ props.title }}</div>
+    <div class="modal-header-headline">{{ props.headline }}</div>
     <KdsButton
       leading-icon="x-close"
       variant="transparent"
@@ -44,7 +44,7 @@ defineOptions({ inheritAttrs: false });
   font: var(--kds-font-base-title-medium-strong);
   color: var(--kds-color-text-and-icon-neutral);
 
-  & .modal-header-title {
+  & .modal-header-headline {
     flex: 1 1 auto;
   }
 }

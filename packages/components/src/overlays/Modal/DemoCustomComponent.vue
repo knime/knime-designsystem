@@ -10,14 +10,14 @@ import type { KdsDynamicModalPropsAPI } from "./useKdsDynamicModal";
 const props = defineProps<KdsDynamicModalPropsAPI>();
 const checked = ref<boolean | "indeterminate">(false);
 
-const title = "Can you see this?";
+const headline = "Can you see this?";
 const leadingIcon = "ai-general";
 
-props.updateConfig({ title, leadingIcon });
+props.updateConfig({ headline, leadingIcon });
 
 watch(checked, (value) => {
   props.updateConfig({
-    title: title + (value ? " (checked)" : ""),
+    headline: headline + (value ? " (checked)" : ""),
     leadingIcon: value ? "checkmark" : leadingIcon,
   });
 });

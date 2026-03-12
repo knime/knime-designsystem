@@ -85,14 +85,14 @@ watch(
     @cancel.prevent="onClose"
   >
     <slot
-      :title="title"
+      :headline="headline"
       :leading-icon="leadingIcon"
       :variant="variant"
       :overflow="overflow"
       :on-close="onClose"
     >
       <KdsModalLayout
-        :title="title"
+        :headline="headline"
         :leading-icon="leadingIcon"
         :variant="variant"
         :overflow="overflow"

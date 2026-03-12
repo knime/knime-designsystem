@@ -73,7 +73,7 @@ export const Confirmation: Story = {
 
       const showModal = () => {
         askConfirmation({
-          title: "Sure?",
+          headline: "Sure?",
           message: "Are you sure?",
           doNotAskAgain: {
             label: "Do not ask again",
@@ -125,7 +125,7 @@ export const ConfirmationWithTemplate: Story = {
 
       const showModal = () => {
         askConfirmation({
-          title: "Can you see this?",
+          headline: "Can you see this?",
           leadingIcon: "list-bulletpoint",
           closedby: "any",
           component: h("div", [
@@ -176,7 +176,7 @@ export const WithCustomComponentAndLayout: Story = {
 
       const showModal = () => {
         showByTemplate({
-          title: "Can you see this?",
+          headline: "Can you see this?",
           leadingIcon: "list-bulletpoint",
           closedby: "any",
           component: markRaw(DemoCustomComponent),
@@ -209,7 +209,7 @@ export const WithCustomComponentWithoutLayout: Story = {
 
       const showModal = () => {
         showByTemplate({
-          title: "Can you see this?",
+          headline: "Can you see this?",
           leadingIcon: "list-bulletpoint",
           closedby: "any",
           context: {
