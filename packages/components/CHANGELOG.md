@@ -1,5 +1,23 @@
 # @knime/kds-components
 
+## 0.16.0
+
+### Minor Changes
+
+- ddc7917: Apply consistent naming convention for component props.
+
+  BREAKING CHANGE: The following component props have been renamed:
+  - `KdsBadge`: `icon` → `leadingIcon`
+  - `KdsInlineMessage`: `title` → `headline`
+  - `KdsInlineMessage`: `message` → `description`
+  - `KdsModal`: `icon` → `leadingIcon`
+  - `KdsModal`: `title` → `headline`
+
+### Patch Changes
+
+- 38660e2: KdsEmptyState: Add loading spinner support
+  - @knime/kds-styles@0.16.0
+
 ## 0.15.1
 
 ### Patch Changes
