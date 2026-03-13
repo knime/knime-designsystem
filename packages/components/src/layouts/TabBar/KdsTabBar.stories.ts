@@ -23,7 +23,7 @@ const meta: Meta<typeof KdsTabBar> = {
         component:
           "Use `KdsTabBar` to provide a horizontal navigation for switching between different views or content sections. Each tab can have an optional icon and can be disabled individually or as a whole.\n\n" +
           "**How it works**\n" +
-          "- Provide an array of `tabs`, where each tab has an `id`, `value`, `label`, `panelId`, optional `trailingIcon`, and optional `disabled` state.\n" +
+          "- Provide an array of `tabs`, where each tab has an `id`, `value`, `label`, `panelId`, optional `accessory` (icon or live status), and optional `disabled` state.\n" +
           "- Control the currently selected tab via the `modelValue` prop, which should match the `value` of one of the tabs.\n" +
           "- The `size` prop controls the overall size of the tab bar, while the `fullWidth` prop determines whether tabs should stretch to fill the container.\n\n" +
           "**Example**\n\n" +
@@ -31,11 +31,11 @@ const meta: Meta<typeof KdsTabBar> = {
           "```vue\n" +
           "<KdsTabBar\n" +
           '  :tabs="[\n' +
-          "    { id: 'tab-localfilesystem', value: 'localfilesystem', label: 'Local Filesystem', panelId: 'panel-localfilesystem', trailingIcon: 'local-filesystem' },\n" +
-          "    { id: 'tab-myknimehub', value: 'myknimehub', label: 'My KNIME Hub', panelId: 'panel-myknimehub', trailingIcon: 'cloud-knime' },\n" +
-          "    { id: 'tab-oracledatabase', value: 'oracledatabase', label: 'Oracle Database', panelId: 'panel-oracledatabase', trailingIcon: 'db-database' },\n" +
-          "    { id: 'tab-box', value: 'box', label: 'Box', panelId: 'panel-box', trailingIcon: 'cloud-download' },\n" +
-          "    { id: 'tab-disabled', value: 'disabled', label: 'Disabled', panelId: 'panel-disabled', trailingIcon: 'cloud-download', disabled: true },\n" +
+          "    { id: 'tab-localfilesystem', value: 'localfilesystem', label: 'Local Filesystem', panelId: 'panel-localfilesystem', accessory: { type: 'icon', name: 'local-filesystem' } },\n" +
+          "    { id: 'tab-myknimehub', value: 'myknimehub', label: 'My KNIME Hub', panelId: 'panel-myknimehub', accessory: { type: 'icon', name: 'cloud-knime' } },\n" +
+          "    { id: 'tab-oracledatabase', value: 'oracledatabase', label: 'Oracle Database', panelId: 'panel-oracledatabase', accessory: { type: 'icon', name: 'db-database' } },\n" +
+          "    { id: 'tab-box', value: 'box', label: 'Box', panelId: 'panel-box', accessory: { type: 'icon', name: 'cloud-download' } },\n" +
+          "    { id: 'tab-disabled', value: 'disabled', label: 'Disabled', panelId: 'panel-disabled', accessory: { type: 'icon', name: 'cloud-download' }, disabled: true },\n" +
           '  ]"\n' +
           '  size="large"\n' +
           '  :full-width="false"\n' +
@@ -71,7 +71,7 @@ const meta: Meta<typeof KdsTabBar> = {
     tabs: {
       control: "object",
       description:
-        "Array of tab objects, where each tab has an `id`, `value`, `label`, `panelId`, optional `trailingIcon`, and optional `disabled` state",
+        "Array of tab objects, where each tab has an `id`, `value`, `label`, `panelId`, optional `accessory` (icon or live status), and optional `disabled` state",
       table: { category: "props" },
     },
     modelValue: {
@@ -126,35 +126,35 @@ const sampleTabs: KdsTabBarItem[] = [
     value: "localfilesystem",
     label: "Local Filesystem",
     panelId: "panel-localfilesystem",
-    trailingIcon: "local-filesystem",
+    accessory: { type: "icon", name: "local-filesystem" },
   },
   {
     id: "tab-myknimehub",
     value: "myknimehub",
     label: "My KNIME Hub",
     panelId: "panel-myknimehub",
-    trailingIcon: "cloud-knime",
+    accessory: { type: "icon", name: "cloud-knime" },
   },
   {
     id: "tab-oracledatabase",
     value: "oracledatabase",
     label: "Oracle Database",
     panelId: "panel-oracledatabase",
-    trailingIcon: "db-database",
+    accessory: { type: "icon", name: "db-database" },
   },
   {
     id: "tab-box",
     value: "box",
     label: "Box",
     panelId: "panel-box",
-    trailingIcon: "cloud-download",
+    accessory: { type: "icon", name: "cloud-download" },
   },
   {
     id: "tab-disabled",
     value: "disabled",
     label: "Disabled",
     panelId: "panel-disabled",
-    trailingIcon: "cloud-download",
+    accessory: { type: "icon", name: "cloud-download" },
     disabled: true,
   },
 ];
@@ -166,35 +166,35 @@ const extraTabs: KdsTabBarItem[] = [
     value: "folder",
     label: "Folder",
     panelId: "panel-folder",
-    trailingIcon: "folder",
+    accessory: { type: "icon", name: "folder" },
   },
   {
     id: "tab-settings",
     value: "settings",
     label: "Settings",
     panelId: "panel-settings",
-    trailingIcon: "settings",
+    accessory: { type: "icon", name: "settings" },
   },
   {
     id: "tab-component",
     value: "component",
     label: "Component",
     panelId: "panel-component",
-    trailingIcon: "component",
+    accessory: { type: "icon", name: "component" },
   },
   {
     id: "tab-workflow",
     value: "workflow",
     label: "Workflow",
     panelId: "panel-workflow",
-    trailingIcon: "workflow",
+    accessory: { type: "icon", name: "workflow" },
   },
   {
     id: "tab-data-table",
     value: "data-table",
     label: "Data Table",
     panelId: "panel-data-table",
-    trailingIcon: "db-table",
+    accessory: { type: "icon", name: "db-table" },
   },
 ];
 
@@ -326,6 +326,85 @@ export const WithManyTabs: Story = {
   },
 };
 
+export const WithLiveStatus: Story = {
+  args: {
+    tabs: [
+      {
+        id: "tab-server1",
+        value: "server1",
+        label: "Production",
+        panelId: "panel-server1",
+        accessory: { type: "liveStatus", status: "green" },
+      },
+      {
+        id: "tab-server2",
+        value: "server2",
+        label: "Staging",
+        panelId: "panel-server2",
+        accessory: { type: "liveStatus", status: "orange" },
+      },
+      {
+        id: "tab-server3",
+        value: "server3",
+        label: "Development",
+        panelId: "panel-server3",
+        accessory: { type: "liveStatus", status: "red" },
+      },
+      {
+        id: "tab-server4",
+        value: "server4",
+        label: "Offline",
+        panelId: "panel-server4",
+        accessory: { type: "liveStatus", status: "disabled" },
+        disabled: true,
+      },
+    ],
+    size: "small",
+    fullWidth: false,
+    disabled: false,
+    modelValue: "server1",
+  },
+};
+
+export const MixedAccessories: Story = {
+  args: {
+    tabs: [
+      {
+        id: "tab-local",
+        value: "local",
+        label: "Local Filesystem",
+        panelId: "panel-local",
+        accessory: { type: "icon", name: "local-filesystem" },
+      },
+      {
+        id: "tab-hub",
+        value: "hub",
+        label: "My KNIME Hub",
+        panelId: "panel-hub",
+        accessory: { type: "liveStatus", status: "green" },
+      },
+      {
+        id: "tab-db",
+        value: "db",
+        label: "Oracle Database",
+        panelId: "panel-db",
+        accessory: { type: "icon", name: "db-database" },
+      },
+      {
+        id: "tab-cloud",
+        value: "cloud",
+        label: "Cloud Service",
+        panelId: "panel-cloud",
+        accessory: { type: "liveStatus", status: "orange" },
+      },
+    ],
+    size: "small",
+    fullWidth: false,
+    disabled: false,
+    modelValue: "local",
+  },
+};
+
 export const DisabledEntireTabBar: Story = {
   args: {
     tabs: sampleTabs,
@@ -346,14 +425,14 @@ export const TextOverflow: Story = {
         value: "long1",
         label: "This is a very long tab label that should overflow",
         panelId: "panel-long1",
-        trailingIcon: "workflow",
+        accessory: { type: "icon", name: "workflow" },
       },
       {
         id: "tab-long2",
         value: "long2",
         label: "Another extremely long tab label for testing",
         panelId: "panel-long2",
-        trailingIcon: "component",
+        accessory: { type: "icon", name: "component" },
       },
       {
         id: "tab-short",

@@ -16,7 +16,7 @@ vi.mock("../../../util/useKdsIsTruncated", () => ({
 
 const createTab = (
   value: string,
-  extras: Partial<Pick<KdsTabBarItem, "trailingIcon" | "disabled">> = {},
+  extras: Partial<Pick<KdsTabBarItem, "accessory" | "disabled">> = {},
 ): KdsTabBarItem => ({
   id: `${value}-id`,
   value,
@@ -50,8 +50,8 @@ const createMockContainer = ({
 describe("useTabBarIconHiding", () => {
   it("returns shouldHideIcons as false when no items overflow", async () => {
     const tabs = ref([
-      createTab("a", { trailingIcon: "search" }),
-      createTab("b", { trailingIcon: "folder" }),
+      createTab("a", { accessory: { type: "icon", name: "search" } }),
+      createTab("b", { accessory: { type: "icon", name: "folder" } }),
     ]);
 
     const { shouldHideIcons, setItemEl } = useTabBarIconHiding({
@@ -72,8 +72,8 @@ describe("useTabBarIconHiding", () => {
 
   it("returns shouldHideIcons as true when a text+icon item has label ellipsis", async () => {
     const tabs = ref([
-      createTab("a", { trailingIcon: "search" }),
-      createTab("b", { trailingIcon: "folder" }),
+      createTab("a", { accessory: { type: "icon", name: "search" } }),
+      createTab("b", { accessory: { type: "icon", name: "folder" } }),
     ]);
 
     const { shouldHideIcons, setItemEl } = useTabBarIconHiding({
@@ -93,8 +93,8 @@ describe("useTabBarIconHiding", () => {
 
   it("ignores tabs without icons when checking for ellipsis", async () => {
     const tabs = ref([
-      createTab("a"), // no icon
-      createTab("b", { trailingIcon: "folder" }),
+      createTab("a"), // no accessory
+      createTab("b", { accessory: { type: "icon", name: "folder" } }),
     ]);
 
     const { shouldHideIcons, setItemEl } = useTabBarIconHiding({
@@ -115,8 +115,8 @@ describe("useTabBarIconHiding", () => {
 
   it("returns shouldHideIcons as true when the container overflows horizontally", async () => {
     const tabs = ref([
-      createTab("a", { trailingIcon: "search" }),
-      createTab("b", { trailingIcon: "folder" }),
+      createTab("a", { accessory: { type: "icon", name: "search" } }),
+      createTab("b", { accessory: { type: "icon", name: "folder" } }),
     ]);
 
     const { shouldHideIcons, setItemEl } = useTabBarIconHiding({
@@ -137,7 +137,9 @@ describe("useTabBarIconHiding", () => {
   });
 
   it("does not consider sub-pixel overflow as real overflow (tolerance)", async () => {
-    const tabs = ref([createTab("a", { trailingIcon: "search" })]);
+    const tabs = ref([
+      createTab("a", { accessory: { type: "icon", name: "search" } }),
+    ]);
 
     const { shouldHideIcons, setItemEl } = useTabBarIconHiding({
       width: ref(500),
@@ -158,7 +160,9 @@ describe("useTabBarIconHiding", () => {
 
   it("re-evaluates when width changes", async () => {
     const width = ref(500);
-    const tabs = ref([createTab("a", { trailingIcon: "search" })]);
+    const tabs = ref([
+      createTab("a", { accessory: { type: "icon", name: "search" } }),
+    ]);
 
     const { shouldHideIcons, setItemEl } = useTabBarIconHiding({
       width,
@@ -183,7 +187,9 @@ describe("useTabBarIconHiding", () => {
   });
 
   it("handles null containerEl gracefully", async () => {
-    const tabs = ref([createTab("a", { trailingIcon: "search" })]);
+    const tabs = ref([
+      createTab("a", { accessory: { type: "icon", name: "search" } }),
+    ]);
 
     const { shouldHideIcons, setItemEl } = useTabBarIconHiding({
       width: ref(500),
@@ -201,7 +207,9 @@ describe("useTabBarIconHiding", () => {
   });
 
   it("handles setItemEl with Vue component instances ($el)", async () => {
-    const tabs = ref([createTab("a", { trailingIcon: "search" })]);
+    const tabs = ref([
+      createTab("a", { accessory: { type: "icon", name: "search" } }),
+    ]);
 
     const { shouldHideIcons, setItemEl } = useTabBarIconHiding({
       width: ref(500),
@@ -218,7 +226,9 @@ describe("useTabBarIconHiding", () => {
   });
 
   it("handles missing element gracefully", async () => {
-    const tabs = ref([createTab("a", { trailingIcon: "search" })]);
+    const tabs = ref([
+      createTab("a", { accessory: { type: "icon", name: "search" } }),
+    ]);
 
     const { shouldHideIcons } = useTabBarIconHiding({
       width: ref(500),
@@ -233,7 +243,9 @@ describe("useTabBarIconHiding", () => {
   });
 
   it("ignores non-HTMLButtonElement values in setItemEl", async () => {
-    const tabs = ref([createTab("a", { trailingIcon: "search" })]);
+    const tabs = ref([
+      createTab("a", { accessory: { type: "icon", name: "search" } }),
+    ]);
 
     const { shouldHideIcons, setItemEl } = useTabBarIconHiding({
       width: ref(500),
@@ -252,8 +264,8 @@ describe("useTabBarIconHiding", () => {
 
   it("hides icons when either ellipsis or overflow is detected", async () => {
     const tabs = ref([
-      createTab("a", { trailingIcon: "search" }),
-      createTab("b", { trailingIcon: "folder" }),
+      createTab("a", { accessory: { type: "icon", name: "search" } }),
+      createTab("b", { accessory: { type: "icon", name: "folder" } }),
     ]);
 
     // Container overflows AND label has ellipsis
