@@ -14,11 +14,8 @@ import type {
 
 const props = withDefaults(defineProps<KdsListContainerProps>(), {
   emptyText: "",
-<<<<<<< HEAD
   loading: false,
-=======
   role: "listbox",
->>>>>>> bf71a79 (KDS-532: More suggestions)
 });
 
 const emit = defineEmits<{
