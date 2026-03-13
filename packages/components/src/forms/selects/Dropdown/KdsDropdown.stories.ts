@@ -197,7 +197,9 @@ export const Default: Story = {
 
     // --- Clicking the same option keeps it selected ---
     await userEvent.click(trigger);
-    await userEvent.click(await canvas.findByText("Option B"));
+    await userEvent.click(
+      await canvas.findByText("Option B", { selector: ".text" }),
+    );
     await expect(trigger).toHaveTextContent("Option B");
   },
 };

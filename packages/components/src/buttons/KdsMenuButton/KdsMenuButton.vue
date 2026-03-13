@@ -72,7 +72,6 @@ const onItemClick = (itemId: string) => {
     aria-haspopup="menu"
     :aria-expanded="isMenuOpen"
     :aria-controls="menuId"
-    :aria-activedescendant="listContainerEl?.activeDescendant"
     :style="popoverEl?.anchorStyle"
     @focus="listContainerEl?.handleFocus"
     @keydown="listContainerEl?.handleKeydown"
