@@ -48,9 +48,11 @@ export const formatDateToString = (date: Date | string | null): string => {
     return "";
   }
   const d = date instanceof Date ? date : new Date(date);
-  if (!d) {
+
+  if (Number.isNaN(d.getTime())) {
     return "";
   }
+
   return [d.getFullYear(), d.getMonth() + 1, d.getDate()]
     .map((n) => String(n).padStart(2, "0"))
     .join("-");
