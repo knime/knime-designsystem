@@ -13,7 +13,6 @@ defineOptions({
 
 const props = withDefaults(defineProps<KdsMenuButtonProps>(), {
   variant: "outlined",
-  placement: "bottom-left",
 });
 
 const attrs = useAttrs();
@@ -24,7 +23,7 @@ const emit = defineEmits<{
 }>();
 
 const toggleButtonProps = computed(() => {
-  const { items: _items, placement: _placement, ...rest } = props;
+  const { items: _items, ...rest } = props;
 
   const {
     modelValue: _modelValue,
@@ -64,7 +63,7 @@ const onItemClick = (itemId: string) => {
   <KdsPopover
     ref="popoverEl"
     v-model="isMenuOpen"
-    :placement="placement"
+    placement="bottom-left"
     popover-aria-label="Menu"
   >
     <div class="kds-menu-container">
