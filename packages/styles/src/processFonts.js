@@ -138,6 +138,8 @@ consola.log(
 );
 sortedFonts.forEach(([fontFamily, variants]) => {
   consola.log(
-    `   ${styleText(["cyan"], fontFamily)}: ${Array.from(variants).sort().join(", ")}`,
+    `   ${styleText(["cyan"], fontFamily)}: ${Array.from(variants)
+      .sort((a, b) => a.localeCompare(b))
+      .join(", ")}`,
   );
 });
