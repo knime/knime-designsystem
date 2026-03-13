@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, toRef, useTemplateRef, watch } from "vue";
-import { useElementSize } from "@vueuse/core";
+import { useElementSize, useTemplateRefsList } from "@vueuse/core";
 
 import { elementOverflowsHorizontally } from "../../util/useKdsIsTruncated";
 
@@ -20,14 +20,11 @@ const emit = defineEmits<{
   tabSelect: [tab: KdsTabBarItem];
 }>();
 
-const tabRefs = ref<Map<string | number, HTMLButtonElement>>(new Map());
+const tabEls = useTemplateRefsList<HTMLButtonElement>();
 
-const setTabRef = (value: string | number, el: unknown) => {
-  if (el instanceof HTMLButtonElement) {
-    tabRefs.value.set(value, el);
-  } else {
-    tabRefs.value.delete(value);
-  }
+const getTabEl = (value: string | number) => {
+  const idx = props.tabs.findIndex((t) => t.value === value);
+  return tabEls.value[idx];
 };
 
 const isTabDisabled = (tab: KdsTabBarItem) => props.disabled || tab.disabled;
@@ -41,37 +38,41 @@ const selectTab = (tab: KdsTabBarItem) => {
 
 const getEnabledTabs = () => props.tabs.filter((tab) => !isTabDisabled(tab));
 
+const focusAndSelect = (tab: KdsTabBarItem) => {
+  selectTab(tab);
+  getTabEl(tab.value)?.focus();
+};
+
 const handleKeydown = (event: KeyboardEvent, currentTab: KdsTabBarItem) => {
   const enabledTabs = getEnabledTabs();
   const currentIndex = enabledTabs.findIndex(
     (tab) => tab.value === currentTab.value,
   );
 
-  let targetIndex: number | null = null;
-
   switch (event.key) {
-    case "ArrowLeft":
-      targetIndex =
+    case "ArrowLeft": {
+      event.preventDefault();
+      const prevIndex =
         currentIndex > 0 ? currentIndex - 1 : enabledTabs.length - 1;
+      focusAndSelect(enabledTabs[prevIndex]);
       break;
-    case "ArrowRight":
-      targetIndex =
+    }
+    case "ArrowRight": {
+      event.preventDefault();
+      const nextIndex =
         currentIndex < enabledTabs.length - 1 ? currentIndex + 1 : 0;
+      focusAndSelect(enabledTabs[nextIndex]);
       break;
+    }
     case "Home":
-      targetIndex = 0;
+      event.preventDefault();
+      focusAndSelect(enabledTabs[0]);
       break;
     case "End":
-      targetIndex = enabledTabs.length - 1;
+      event.preventDefault();
+      focusAndSelect(enabledTabs[enabledTabs.length - 1]);
       break;
-    default:
-      return;
   }
-
-  event.preventDefault();
-  const targetTab = enabledTabs[targetIndex];
-  selectTab(targetTab);
-  tabRefs.value.get(targetTab.value)?.focus();
 };
 
 const availableWidthContainer = useTemplateRef<HTMLElement>(
@@ -110,10 +111,11 @@ watch(
   async () => {
     await nextTick();
     const newSet = new Set<string | number>();
-    for (const [value, el] of tabRefs.value) {
-      const label = el.querySelector<HTMLElement>(".kds-tab-label");
+    for (let i = 0; i < props.tabs.length; i++) {
+      const el = tabEls.value[i];
+      const label = el?.querySelector<HTMLElement>(".kds-tab-label");
       if (elementOverflowsHorizontally(label)) {
-        newSet.add(value);
+        newSet.add(props.tabs[i].value);
       }
     }
     truncatedTabs.value = newSet;
@@ -153,8 +155,8 @@ watch(
       :key="tab.value"
       :ref="
         (el) => {
+          tabEls.set(el as object | null);
           setItemEl(tab.value, el);
-          setTabRef(tab.value, el);
         }
       "
       type="button"
@@ -197,30 +199,6 @@ watch(
   white-space: nowrap;
 }
 
-/* Size-dependent overrides — must precede .kds-tab for ascending specificity */
-.kds-tab-bar-small .kds-tab-icon {
-  width: var(--kds-dimension-component-width-1x);
-  height: var(--kds-dimension-component-height-1x);
-}
-
-.kds-tab-bar-large .kds-tab-icon {
-  width: var(--kds-dimension-component-width-1-25x);
-  height: var(--kds-dimension-component-height-1-25x);
-}
-
-.kds-tab-bar-large .kds-tab-label {
-  font: var(--kds-font-base-interactive-large-strong);
-}
-
-.kds-tab-bar-small .kds-tab-selected .kds-tab-icon,
-.kds-tab-bar-large .kds-tab-selected .kds-tab-icon {
-  color: var(--kds-color-text-and-icon-selected);
-}
-
-.kds-tab-bar-large .kds-tab-selected .kds-tab-label {
-  font: var(--kds-font-base-title-large);
-}
-
 .kds-tab {
   position: relative;
   display: flex;
@@ -253,7 +231,7 @@ watch(
       right: 0;
       bottom: calc(-1 * var(--kds-core-border-width-m));
       left: 0;
-      z-index: -1;
+      z-index: 1;
       height: var(--kds-dimension-component-height-0-125x);
       background: var(--kds-color-background-selected-bold-initial);
       border: var(--kds-border-action-selected);
@@ -279,6 +257,34 @@ watch(
   &:not(.kds-tab-bar-full-width) .kds-tab {
     flex: 0 1 auto;
     min-width: var(--kds-dimension-component-width-4x);
+  }
+
+  /* Size-dependent overrides */
+  &-small .kds-tab-icon {
+    width: var(--kds-dimension-component-width-1x);
+    height: var(--kds-dimension-component-height-1x);
+  }
+
+  &-large {
+    & .kds-tab-icon {
+      width: var(--kds-dimension-component-width-1-25x);
+      height: var(--kds-dimension-component-height-1-25x);
+    }
+
+    & .kds-tab-label {
+      font: var(--kds-font-base-interactive-large-strong);
+    }
+
+    & .kds-tab-selected .kds-tab-label {
+      font: var(--kds-font-base-title-large);
+    }
+  }
+
+  &-small,
+  &-large {
+    & .kds-tab-selected .kds-tab-icon {
+      color: var(--kds-color-text-and-icon-selected);
+    }
   }
 
   &.kds-tab-bar-small .kds-tab {

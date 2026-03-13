@@ -19,7 +19,6 @@
 - 240843d: KdsDropdown, KdsListContainer: Add loading state
   - @knime/kds-styles@0.16.0
 
-
 ## 0.15.1
 
 ### Patch Changes
