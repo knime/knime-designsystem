@@ -40,6 +40,16 @@ const listContainerEl = useTemplateRef("listContainerEl");
 
 const menuId = useId();
 
+const onKeyDown = (event: KeyboardEvent) => {
+  // Toggle the button value on space
+  if (event.code === "Space") {
+    return;
+  }
+
+  // Otherwise, let the list container handle the event
+  listContainerEl.value?.handleKeydown(event);
+};
+
 const onItemClick = (itemId: string) => {
   isMenuOpen.value = false;
   emit("itemClick", itemId);
@@ -56,7 +66,7 @@ const onItemClick = (itemId: string) => {
     :aria-activedescendant="listContainerEl?.activeDescendant"
     :style="popoverEl?.anchorStyle"
     @focus="listContainerEl?.handleFocus"
-    @keydown="listContainerEl?.handleKeydown"
+    @keydown="onKeyDown"
     @blur="isMenuOpen = false"
   />
 
