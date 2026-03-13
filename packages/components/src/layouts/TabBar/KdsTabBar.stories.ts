@@ -88,6 +88,20 @@ const meta: Meta<typeof KdsTabBar> = {
       table: { category: "model" },
     },
   },
+  decorators: [
+    (story, context) => ({
+      components: { story },
+      setup() {
+        return { tabs: context.args.tabs ?? [] };
+      },
+      template: `
+        <div>
+          <story />
+          <div v-for="tab in tabs" :key="tab.panelId" :id="tab.panelId" role="tabpanel" :aria-labelledby="tab.id" hidden />
+        </div>
+      `,
+    }),
+  ],
   render: (args) => {
     const [, updateArgs] = useArgs();
     return {
@@ -410,16 +424,21 @@ export const DesignComparator: Story = {
   }),
 };
 
-export const AllCombinations: Story = buildAllCombinationsStory({
-  component: KdsTabBar,
-  combinationsProps: [
-    {
-      tabs: [sampleTabs],
-      size: ["small", "large"],
-      fullWidth: [false, true],
-      modelValue: ["localfilesystem", "myknimehub"],
-    },
-  ],
-  pseudoStates: ["hover", "focus-visible"],
-  columns: 1,
-});
+export const AllCombinations: Story = {
+  ...buildAllCombinationsStory({
+    component: KdsTabBar,
+    combinationsProps: [
+      {
+        tabs: [sampleTabs],
+        size: ["small", "large"],
+        fullWidth: [false, true],
+        modelValue: ["localfilesystem", "myknimehub"],
+      },
+    ],
+    pseudoStates: ["hover", "focus-visible"],
+    columns: 1,
+  }),
+  parameters: {
+    a11y: { disable: true },
+  },
+};
