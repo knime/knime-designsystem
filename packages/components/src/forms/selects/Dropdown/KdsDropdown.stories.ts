@@ -293,7 +293,8 @@ export const Loading: Story = {
 
     await userEvent.click(trigger);
 
-    await expect(canvas.getByText("Loading entries")).toBeVisible();
+    const loadingText = await canvas.findByText("Loading entries");
+    await expect(loadingText).toBeVisible();
     await expect(canvas.queryByRole("option", { name: "Option A" })).toBeNull();
   },
 };
