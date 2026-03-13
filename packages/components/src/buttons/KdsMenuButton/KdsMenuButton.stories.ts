@@ -26,7 +26,6 @@ function options(
   return Array.from({ length }, (_, idx) => ({
     id: `option-${idx + 1}`,
     text: `Label ${idx + 1}`,
-    selected: false,
     ...generator(idx),
   }));
 }
