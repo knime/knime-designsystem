@@ -16,7 +16,9 @@
 ### Patch Changes
 
 - 38660e2: KdsEmptyState: Add loading spinner support
+- 240843d: KdsDropdown, KdsListContainer: Add loading state
   - @knime/kds-styles@0.16.0
+
 
 ## 0.15.1
 
