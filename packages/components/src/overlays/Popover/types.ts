@@ -21,7 +21,7 @@ export type KdsPopoverProps = {
   /**
    * Role of the popover element (for accessibility).
    *
-   * Defaults to "dialog".
+   * Defaults to undefined.
    */
   role?: KdsPopoverRole;
 
