@@ -59,6 +59,10 @@ const meta = {
       control: "text",
       table: { category: "props" },
     },
+    loading: {
+      control: "boolean",
+      table: { category: "props" },
+    },
     controlledExternally: {
       control: "boolean",
       table: { category: "props" },
@@ -71,6 +75,7 @@ const meta = {
     ariaLabel: "List container",
     possibleValues: baseOptions,
     emptyText: "No entries found",
+    loading: false,
     controlledExternally: false,
     onItemClick: fn(),
   },
@@ -226,6 +231,23 @@ export const NoEntries: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText("Nothing to show")).toBeVisible();
+  },
+};
+
+export const Loading: Story = {
+  args: {
+    loading: true,
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText("Loading entries")).toBeVisible();
+    await expect(canvas.queryByRole("option", { name: "Label 1" })).toBeNull();
+
+    const listbox = canvas.getByRole("listbox");
+    await userEvent.click(listbox);
+    await userEvent.keyboard("{Enter}");
+    await expect(args.onItemClick).not.toHaveBeenCalled();
   },
 };
 

@@ -65,6 +65,10 @@ const meta: Meta<typeof DropdownContainer> = {
       control: "object",
       table: { category: "props" },
     },
+    loading: {
+      control: "boolean",
+      table: { category: "props" },
+    },
     emptyText: {
       control: "text",
       table: { category: "props" },
@@ -73,6 +77,7 @@ const meta: Meta<typeof DropdownContainer> = {
   args: {
     modelValue: null,
     possibleValues: options(5, () => ({})),
+    loading: false,
     emptyText: "No entries found",
   },
   render: (args) => {
@@ -164,6 +169,19 @@ export const NoEntriesText: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText("Nothing matches")).toBeVisible();
+  },
+};
+
+export const Loading: Story = {
+  args: {
+    loading: true,
+    possibleValues: [],
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText("Loading entries")).toBeVisible();
+    await expect(canvas.queryByRole("option", { name: "Label 1" })).toBeNull();
   },
 };
 
@@ -456,36 +474,60 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           },
       },
     },
+    "Content=Loading": {
+      props: {
+        loading: true,
+        emptyText: "No entries found",
+        possibleValues: [],
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6016-530816":
+          {
+            parameters: { figmaOffset: { x: -20, y: -20 } },
+          },
+      },
+    },
   },
 });
 
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: DropdownContainer,
-  combinationsProps: [
-    {
-      modelValue: [null, "option-id-1", "missing"],
+  combinationsProps: {
+    default: {
+      modelValue: [],
       emptyText: ["No entries found"],
-      possibleValues: [
-        options(3, () => ({})),
-        options(3, (idx) => ({
-          accessory: { type: "dataType", name: kdsTypeIconNames[idx] },
-        })),
-        options(3, () => ({ special: true })),
-        options(3, (idx) => ({
-          accessory: { type: "colorSwatch", color: kdsColorSwatchTypes[idx] },
-        })),
-        options(3, (idx) => ({
-          subText: `Subtext ${idx + 1}`,
-        })),
-        options(3, (idx) => ({
-          accessory: { type: "icon", name: kdsIconNames[idx] },
-          subText: `Subtext ${idx + 1}`,
-        })),
-        options(3, (idx) => ({
-          accessory: { type: "liveStatus", status: kdsLiveStatusStatuses[idx] },
-        })),
-      ],
+      possibleValues: [[]],
+      loading: [false],
     },
-  ],
+    combinations: [
+      { modelValue: [null], loading: [true] },
+      {
+        modelValue: [null, "option-id-1", "missing"],
+        possibleValues: [
+          options(3, () => ({})),
+          options(3, (idx) => ({
+            accessory: { type: "dataType", name: kdsTypeIconNames[idx] },
+          })),
+          options(3, () => ({ special: true })),
+          options(3, (idx) => ({
+            accessory: { type: "colorSwatch", color: kdsColorSwatchTypes[idx] },
+          })),
+          options(3, (idx) => ({
+            subText: `Subtext ${idx + 1}`,
+          })),
+          options(3, (idx) => ({
+            accessory: { type: "icon", name: kdsIconNames[idx] },
+            subText: `Subtext ${idx + 1}`,
+          })),
+          options(3, (idx) => ({
+            accessory: {
+              type: "liveStatus",
+              status: kdsLiveStatusStatuses[idx],
+            },
+          })),
+        ],
+      },
+    ],
+  },
   pseudoStates: ["hover", "focus"],
 });

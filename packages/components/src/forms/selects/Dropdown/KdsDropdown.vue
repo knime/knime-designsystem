@@ -18,6 +18,7 @@ import type { KdsDropdownProps } from "./types.ts";
 const props = withDefaults(defineProps<KdsDropdownProps>(), {
   placeholder: "Select",
   disabled: false,
+  loading: false,
   error: false,
   validating: false,
   preserveSubTextSpace: false,
@@ -90,6 +91,7 @@ watch(modelValue, () => {
           ref="dropdownContainerEl"
           v-model="modelValue"
           :possible-values="props.possibleValues"
+          :loading="props.loading"
           empty-text="No entries found"
         />
       </KdsPopover>

@@ -14,6 +14,7 @@ import type {
 
 const props = withDefaults(defineProps<KdsListContainerProps>(), {
   emptyText: "",
+  loading: false,
 });
 
 const emit = defineEmits<{
@@ -24,10 +25,14 @@ const emit = defineEmits<{
 const idPrefix = useId();
 const toOptionId = (elementId: string) => elementId.slice(idPrefix.length + 1);
 const emptyOptionId = `${idPrefix}-empty`;
+const loadingStateText = "Loading entries";
 
 /** possibleValues with prefixed ids to avoid DOM id collisions */
 const prefixedValues = computed<KdsListOption[]>(() =>
-  props.possibleValues.map((o) => ({ ...o, id: `${idPrefix}-${o.id}` })),
+  (props.loading ? [] : props.possibleValues).map((o) => ({
+    ...o,
+    id: `${idPrefix}-${o.id}`,
+  })),
 );
 
 /** Only selectable (non-section-headline) items */
@@ -78,7 +83,7 @@ const enabledValues = computed(() =>
 );
 
 /** Reset activeId/lastActiveId when possibleValues change and current id no longer exists */
-watch(enabledValues, (values) => {
+watch([enabledValues, () => props.loading], ([values, loading]) => {
   const isValid = (id: string | undefined) =>
     id !== undefined && values.some((o) => o.id === id);
 
@@ -95,6 +100,9 @@ watch(enabledValues, (values) => {
   }
   if (!isValid(lastActiveId.value)) {
     lastActiveId.value = undefined;
+  }
+  if (loading) {
+    activeId.value = emptyOptionId;
   }
   nextTick(scrollToView);
 });
@@ -187,8 +195,10 @@ defineExpose<KdsListContainerExpose>({
 
 <template>
   <div
+    v-bind="$attrs"
     ref="containerEl"
     role="listbox"
+    :aria-busy="props.loading"
     :aria-label="props.ariaLabel"
     :aria-activedescendant="
       !props.controlledExternally && activeId ? activeId : undefined
@@ -241,10 +251,13 @@ defineExpose<KdsListContainerExpose>({
       :id="emptyOptionId"
       role="option"
       aria-disabled="true"
-      :aria-selected="undefined"
+      aria-selected="false"
       class="kds-list-container-empty"
     >
-      <KdsEmptyState :headline="props.emptyText" />
+      <KdsEmptyState
+        :headline="props.loading ? loadingStateText : props.emptyText"
+        :loading-spinner="props.loading"
+      />
     </div>
   </div>
 </template>
