@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { computed, ref, useAttrs, useId, useTemplateRef } from "vue";
+import {
+  type StyleValue,
+  computed,
+  ref,
+  useAttrs,
+  useId,
+  useTemplateRef,
+} from "vue";
 
 import KdsListContainer from "../../forms/_helper/List/ListContainer/KdsListContainer.vue";
 import KdsPopover from "../../overlays/Popover/KdsPopover.vue";
@@ -13,6 +20,7 @@ defineOptions({
 
 const props = withDefaults(defineProps<KdsMenuButtonProps>(), {
   variant: "outlined",
+  menuMaxHeight: undefined,
 });
 
 const attrs = useAttrs();
@@ -40,6 +48,17 @@ const listContainerEl = useTemplateRef("listContainerEl");
 
 const menuId = useId();
 
+const maxHeightStyle = computed<StyleValue>(() => {
+  if (!props.menuMaxHeight) {
+    return {};
+  }
+
+  return {
+    maxHeight: props.menuMaxHeight,
+    overflowY: "auto",
+  };
+});
+
 const onItemClick = (itemId: string) => {
   isMenuOpen.value = false;
   emit("itemClick", itemId);
@@ -66,7 +85,7 @@ const onItemClick = (itemId: string) => {
     placement="bottom-left"
     popover-aria-label="Menu"
   >
-    <div class="kds-menu-container">
+    <div class="kds-menu-container" :style="maxHeightStyle">
       <KdsListContainer
         :id="menuId"
         ref="listContainerEl"
