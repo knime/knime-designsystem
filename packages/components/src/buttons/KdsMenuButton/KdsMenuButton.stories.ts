@@ -80,6 +80,7 @@ const meta: Meta<typeof KdsMenuButton> = {
       control: "object",
       table: { category: "props" },
     },
+    menuMaxHeight: { control: "text", table: { category: "props" } },
   },
   args: {
     label: "{Label}",
@@ -153,6 +154,17 @@ export const Disabled: Story = {
 
     const menu = canvas.queryByRole("menu");
     await expect(menu).not.toBeInTheDocument();
+  },
+};
+
+export const WithMenuMaxHeight: Story = {
+  parameters: {
+    docs: false,
+  },
+  args: {
+    label: "Toggle menu",
+    items: baseOptions,
+    menuMaxHeight: "100px",
   },
 };
 

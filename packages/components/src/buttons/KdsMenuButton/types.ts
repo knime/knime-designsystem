@@ -34,4 +34,5 @@ export type KdsMenuItem = {
 
 export type KdsMenuButtonProps = KdsToggleButtonProps & {
   items: KdsMenuItem[];
+  menuMaxHeight?: string;
 };
