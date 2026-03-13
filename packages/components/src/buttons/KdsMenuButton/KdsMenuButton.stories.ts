@@ -16,7 +16,6 @@ import {
 import { kdsButtonSizes } from "../enums";
 
 import KdsMenuButton from "./KdsMenuButton.vue";
-import { kdsMenuButtonPopoverPlacements } from "./enums";
 import type { KdsMenuItem } from "./types";
 
 function options(
@@ -81,17 +80,11 @@ const meta: Meta<typeof KdsMenuButton> = {
       control: "object",
       table: { category: "props" },
     },
-    placement: {
-      control: { type: "select" },
-      options: kdsMenuButtonPopoverPlacements,
-      table: { category: "props" },
-    },
   },
   args: {
     label: "{Label}",
     variant: "outlined",
     items: baseOptions,
-    placement: "bottom-left",
   },
 };
 export default meta;
@@ -211,7 +204,6 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       leadingIcon: [undefined, "placeholder"],
       trailingIcon: [undefined, "placeholder"],
       items: [baseOptions],
-      placement: ["bottom-left"],
     },
     {
       size: kdsButtonSizes,
@@ -223,7 +215,6 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       leadingIcon: ["placeholder"],
       ariaLabel: ["Icon only button"],
       items: [baseOptions],
-      placement: ["bottom-left"],
     },
   ],
   pseudoStates: ["hover", "active", "focus-visible"],

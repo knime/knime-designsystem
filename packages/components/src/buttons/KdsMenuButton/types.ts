@@ -6,11 +6,6 @@ import type {
 } from "../../forms/_helper/List/ListItemAccessory/types";
 import type { KdsToggleButtonProps } from "../KdsToggleButton";
 
-import type { kdsMenuButtonPopoverPlacement } from "./enums";
-
-export type KdsMenuButtonPopoverPlacement =
-  (typeof kdsMenuButtonPopoverPlacement)[keyof typeof kdsMenuButtonPopoverPlacement];
-
 type KdsMenuItemAccessory =
   | KdsIconAccessory
   | KdsLiveStatusAccessory
@@ -39,5 +34,4 @@ export type KdsMenuItem = {
 
 export type KdsMenuButtonProps = KdsToggleButtonProps & {
   items: KdsMenuItem[];
-  placement?: KdsMenuButtonPopoverPlacement;
 };
