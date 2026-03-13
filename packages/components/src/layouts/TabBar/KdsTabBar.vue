@@ -2,9 +2,9 @@
 import { computed, nextTick, ref, toRef, useTemplateRef, watch } from "vue";
 import { useElementSize } from "@vueuse/core";
 
-import KdsIcon from "../../accessories/Icon/KdsIcon.vue";
 import { elementOverflowsHorizontally } from "../../util/useKdsIsTruncated";
 
+import TabBarItemAccessory from "./TabBarItemAccessory.vue";
 import type { KdsTabBarItem, KdsTabBarProps } from "./types";
 import { useTabBarIconHiding } from "./useTabBarIconHiding";
 
@@ -171,10 +171,12 @@ watch(
       @click="selectTab(tab)"
       @keydown="handleKeydown($event, tab)"
     >
-      <KdsIcon
-        v-if="tab.trailingIcon && !shouldHideIcons"
-        :name="tab.trailingIcon"
-        class="kds-tab-icon"
+      <TabBarItemAccessory
+        v-if="
+          tab.accessory && !(tab.accessory.type === 'icon' && shouldHideIcons)
+        "
+        :accessory="tab.accessory"
+        :disabled="isTabDisabled(tab)"
       />
       <span class="kds-tab-label">{{ tab.label }}</span>
       <span v-if="modelValue === tab.value" class="kds-tab-indicator" />

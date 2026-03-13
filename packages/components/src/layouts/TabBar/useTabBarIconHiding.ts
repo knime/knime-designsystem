@@ -65,7 +65,7 @@ export const useTabBarIconHiding = ({
 
   const anyItemHasEllipsis = () =>
     tabs.value.some((tab) => {
-      if (!tab.trailingIcon) {
+      if (tab.accessory?.type !== "icon") {
         return false;
       }
 

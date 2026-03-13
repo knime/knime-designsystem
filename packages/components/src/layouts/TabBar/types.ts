@@ -1,8 +1,23 @@
 import type { KdsIconName } from "../../accessories/Icon/types";
+import type { KdsLiveStatusStatus } from "../../accessories/LiveStatus/types";
 
 import { kdsTabBarSize } from "./enums";
 
 export type KdsTabBarSize = (typeof kdsTabBarSize)[keyof typeof kdsTabBarSize];
+
+export type KdsTabBarIconAccessory = {
+  type: "icon";
+  name: KdsIconName;
+};
+
+export type KdsTabBarLiveStatusAccessory = {
+  type: "liveStatus";
+  status: KdsLiveStatusStatus;
+};
+
+export type KdsTabBarItemAccessory =
+  | KdsTabBarIconAccessory
+  | KdsTabBarLiveStatusAccessory;
 
 export type KdsTabBarItem = {
   /** Unique HTML id attribute for the tab button element that should be linked to the panel by `aria-labelledby`. */
@@ -13,8 +28,8 @@ export type KdsTabBarItem = {
   label: string;
   /** The id of the associated tab panel element, used for `aria-controls`. */
   panelId: string;
-  /** Optional icon displayed before the label. Hidden automatically when the container is too narrow. */
-  trailingIcon?: KdsIconName;
+  /** Optional accessory (icon or live status) displayed before the label. Icon accessories are hidden automatically when the container is too narrow. */
+  accessory?: KdsTabBarItemAccessory;
   /** Optional tooltip text. Falls back to `label` when not provided. */
   title?: string;
   /** Whether this individual tab is disabled. */
@@ -55,7 +70,15 @@ propTypeTester<KdsTabBarItem>({
   value: "tab1",
   label: "Tab 1",
   panelId: "panel1",
-  trailingIcon: "home",
+  accessory: { type: "icon", name: "home" },
   title: "Go to home",
   disabled: false,
+});
+
+propTypeTester<KdsTabBarItem>({
+  id: "tab2-id",
+  value: "tab2",
+  label: "Tab 2",
+  panelId: "panel2",
+  accessory: { type: "liveStatus", status: "green" },
 });

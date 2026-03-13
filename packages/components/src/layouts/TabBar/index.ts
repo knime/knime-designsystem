@@ -4,4 +4,11 @@ export { default as KdsTabBar } from "./KdsTabBar.vue";
 export { kdsTabBarSize, kdsTabBarSizes } from "./enums";
 
 // Shared types
-export type { KdsTabBarItem, KdsTabBarProps, KdsTabBarSize } from "./types";
+export type {
+  KdsTabBarIconAccessory,
+  KdsTabBarItem,
+  KdsTabBarItemAccessory,
+  KdsTabBarLiveStatusAccessory,
+  KdsTabBarProps,
+  KdsTabBarSize,
+} from "./types";
