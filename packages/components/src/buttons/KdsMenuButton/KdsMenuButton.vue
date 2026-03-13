@@ -31,7 +31,7 @@ const emit = defineEmits<{
 }>();
 
 const toggleButtonProps = computed(() => {
-  const { items: _items, ...rest } = props;
+  const { items: _items, menuMaxHeight: _menuMaxHeight, ...rest } = props;
 
   const {
     modelValue: _modelValue,
