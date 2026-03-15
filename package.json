@@ -32,7 +32,7 @@
     "type-check": "vue-tsc --build"
   },
   "devDependencies": {
-    "@changesets/cli": "2.29.8",
+    "@changesets/cli": "2.30.0",
     "@knime/eslint-config": "9.5.3",
     "@knime/licenses": "^1.4.0",
     "@knime/utils": "^1.9.2",
