@@ -10,7 +10,11 @@ import type {
   KdsListItemAccessorySize,
 } from "./types.ts";
 
-const { accessory, size, disabled = false } = defineProps<{
+const {
+  accessory,
+  size,
+  disabled = false,
+} = defineProps<{
   accessory: KdsListItemAccessory;
   size: KdsListItemAccessorySize;
   disabled?: boolean;

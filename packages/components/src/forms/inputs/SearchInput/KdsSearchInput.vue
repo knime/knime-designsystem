@@ -11,8 +11,6 @@ const {
   placeholder = "Search",
   disabled = false,
   error = false,
-  validating = false,
-  preserveSubTextSpace = false,
   autocomplete,
 } = defineProps<KdsSearchInputProps>();
 

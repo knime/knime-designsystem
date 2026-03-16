@@ -17,8 +17,6 @@ const {
   placeholder = "#FFFFFF",
   disabled = false,
   error = false,
-  validating = false,
-  preserveSubTextSpace = false,
   autocomplete,
 } = defineProps<KdsColorInputProps>();
 

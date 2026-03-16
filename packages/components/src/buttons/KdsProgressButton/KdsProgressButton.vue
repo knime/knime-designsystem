@@ -49,15 +49,15 @@ function onClick(event: MouseEvent) {
 }
 
 const baseButtonProps = computed(() => ({
-  variant: variant,
-  size: size,
-  disabled: disabled,
+  variant,
+  size,
+  disabled,
   success: state.value === "success",
   error: state.value === "error",
   title: ariaLabel,
-  label: label,
-  leadingIcon: leadingIcon,
-  ariaLabel: ariaLabel,
+  label,
+  leadingIcon,
+  ariaLabel,
 }));
 </script>
 

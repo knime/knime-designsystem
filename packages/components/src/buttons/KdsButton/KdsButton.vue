@@ -3,9 +3,8 @@ import BaseButton from "../BaseButton.vue";
 
 import type { KdsButtonProps } from "./types";
 
-const props = withDefaults(defineProps<KdsButtonProps>(), {
-  variant: "filled",
-});
+// Sets the "filled" default for $props.variant, used via v-bind="$props" in the template.
+const { variant: _variant = "filled" } = defineProps<KdsButtonProps>();
 
 const emit = defineEmits<{
   click: [event: MouseEvent];
@@ -13,5 +12,5 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <BaseButton v-bind="props" @click="emit('click', $event)" />
+  <BaseButton v-bind="$props" @click="emit('click', $event)" />
 </template>

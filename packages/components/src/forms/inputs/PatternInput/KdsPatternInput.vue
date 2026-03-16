@@ -15,8 +15,6 @@ import type { KdsPatternInputProps } from "./types";
 const {
   disabled = false,
   error = false,
-  validating = false,
-  preserveSubTextSpace = false,
   placeholder,
   autocomplete,
 } = defineProps<KdsPatternInputProps>();

@@ -3,8 +3,12 @@ import { useId } from "vue";
 
 import type { KdsRadioButtonProps } from "./types.ts";
 
-const { disabled = false, error = false, text, helperText } =
-  defineProps<KdsRadioButtonProps>();
+const {
+  disabled = false,
+  error = false,
+  text,
+  helperText,
+} = defineProps<KdsRadioButtonProps>();
 
 const modelValue = defineModel<boolean>({ default: false });
 

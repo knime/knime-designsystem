@@ -4,8 +4,11 @@ import { computed } from "vue";
 import { kdsColorSwatchSize } from "./enums";
 import type { KdsColorSwatchProps, KdsColorSwatchType } from "./types";
 
-const { color, size = kdsColorSwatchSize.SMALL, title } =
-  defineProps<KdsColorSwatchProps>();
+const {
+  color,
+  size = kdsColorSwatchSize.SMALL,
+  title,
+} = defineProps<KdsColorSwatchProps>();
 
 const typeToTokenColor: Record<KdsColorSwatchType, string> = {
   learner: "var(--kds-color-nodes-and-variables-learner)",

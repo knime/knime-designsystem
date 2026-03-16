@@ -12,8 +12,6 @@ const {
   rows = 3,
   disabled = false,
   error = false,
-  validating = false,
-  preserveSubTextSpace = false,
   autocomplete,
 } = defineProps<KdsTextareaProps>();
 

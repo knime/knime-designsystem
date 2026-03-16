@@ -12,8 +12,6 @@ import type { KdsNumberInputProps } from "./types";
 const {
   disabled = false,
   error = false,
-  validating = false,
-  preserveSubTextSpace = false,
   unit = "",
   step = 1,
   min,
@@ -38,7 +36,7 @@ const isFocused = ref(false);
 const localValue = ref<string>("");
 
 const numberParser = computed(() =>
-  createKdsNumberParser({ locale: "en-US", step: step }),
+  createKdsNumberParser({ locale: "en-US", step }),
 );
 
 const ariaValuenow = computed(() =>

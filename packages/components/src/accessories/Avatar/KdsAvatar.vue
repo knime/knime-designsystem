@@ -4,8 +4,12 @@ import { computed, ref, watch } from "vue";
 import { kdsAvatarSize } from "./enums";
 import type { KdsAvatarProps } from "./types";
 
-const { src, size = kdsAvatarSize.XLARGE, initials, title } =
-  defineProps<KdsAvatarProps>();
+const {
+  src,
+  size = kdsAvatarSize.XLARGE,
+  initials,
+  title,
+} = defineProps<KdsAvatarProps>();
 
 const imageLoadFailed = ref(false);
 
@@ -16,9 +20,7 @@ watch(
   },
 );
 
-const shouldShowImage = computed(
-  () => Boolean(src) && !imageLoadFailed.value,
-);
+const shouldShowImage = computed(() => Boolean(src) && !imageLoadFailed.value);
 
 const onImageError = () => {
   imageLoadFailed.value = true;

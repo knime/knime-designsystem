@@ -5,12 +5,14 @@ import { useKdsIsTruncated } from "../../util";
 
 import type { KdsLiveStatusProps } from "./types";
 
-const { status = "red", size = "medium", label = "", title } =
-  defineProps<KdsLiveStatusProps>();
+const {
+  status = "red",
+  size = "medium",
+  label = "",
+  title,
+} = defineProps<KdsLiveStatusProps>();
 
-const accessibleTitle = computed(
-  () => title?.trim() || `Status is ${status}`,
-);
+const accessibleTitle = computed(() => title?.trim() || `Status is ${status}`);
 
 const labelEl = useTemplateRef("labelEl");
 const { isTruncated } = useKdsIsTruncated(labelEl);
