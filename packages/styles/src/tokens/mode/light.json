@@ -960,7 +960,7 @@
         },
         "inactiveBorder": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.250}",
+          "$value": "{kds.core.color.neutral.275}",
           "$description": "State-based color for Nodes."
         }
       },

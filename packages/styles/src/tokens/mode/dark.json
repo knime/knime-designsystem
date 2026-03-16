@@ -974,7 +974,7 @@
       "node-state": {
         "error": {
           "$type": "color",
-          "$value": "{kds.core.color.red.800}",
+          "$value": "{kds.core.color.red.650}",
           "$description": "State-based color for Nodes."
         },
         "errorBorder": {
@@ -984,17 +984,17 @@
         },
         "warning": {
           "$type": "color",
-          "$value": "{kds.core.color.yellow.725}",
+          "$value": "{kds.core.color.yellow.650}",
           "$description": "State-based color for Nodes."
         },
         "warningBorder": {
           "$type": "color",
-          "$value": "{kds.core.color.yellow.250}",
+          "$value": "{kds.core.color.yellow.400}",
           "$description": "State-based color for Nodes."
         },
         "executed": {
           "$type": "color",
-          "$value": "{kds.core.color.green.650}",
+          "$value": "{kds.core.color.green.475}",
           "$description": "State-based color for Nodes."
         },
         "executedBorder": {
@@ -1014,7 +1014,7 @@
         },
         "inactiveBorder": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.400}",
+          "$value": "{kds.core.color.neutral.325}",
           "$description": "State-based color for Nodes."
         }
       },
