@@ -118,6 +118,7 @@ catalogs:
       version: 4.0.18
 
 overrides:
+  '@vitest/eslint-plugin>@typescript-eslint/utils': 8.54.0
   ajv@>=7.0.0-alpha.0 <8.18.0: '>=8.18.0'
   minimatch@<3.1.4: '>=3.1.4'
   minimatch@>=9.0.0 <9.0.7: '>=9.0.7'
@@ -7553,7 +7554,7 @@ snapshots:
   '@vitest/eslint-plugin@1.6.6(eslint@9.39.2)(typescript@5.9.3)(vitest@4.0.18)':
     dependencies:
       '@typescript-eslint/scope-manager': 8.54.0
-      '@typescript-eslint/utils': 8.57.0(eslint@9.39.2)(typescript@5.9.3)
+      '@typescript-eslint/utils': 8.54.0(eslint@9.39.2)(typescript@5.9.3)
       eslint: 9.39.2
     optionalDependencies:
       typescript: 5.9.3
