@@ -288,7 +288,8 @@ defineExpose({
   align-items: center;
   width: 100%;
   height: var(--kds-dimension-component-height-1-75x);
-  padding: 0 var(--kds-spacing-container-0-25x);
+  padding: 0
+    calc(var(--kds-spacing-container-0-25x) - var(--kds-core-border-width-xs));
   cursor: text;
   background: var(--kds-color-background-input-initial);
   border: var(--kds-border-action-input);
