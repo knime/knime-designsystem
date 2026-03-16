@@ -8,7 +8,7 @@ import {
 } from "../../test-utils/storybook";
 
 import KdsLoadingSkeleton from "./KdsLoadingSkeleton.vue";
-import { kdsLoadingSkeletonVariants } from "./types";
+import { kdsLoadingSkeletonVariants } from "./enums";
 
 const meta: Meta<typeof KdsLoadingSkeleton> = {
   title: "Accessories/LoadingSkeleton",

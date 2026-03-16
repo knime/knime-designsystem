@@ -8,8 +8,6 @@ const defaultWidth = "100%";
 const defaultHeight = "var(--kds-spacing-container-1-25x)";
 const defaultVariant: Variant = "default";
 const defaultRepeat = 1;
-const defaultRepeatGap = "var(--kds-spacing-container-1-25x)";
-const cardDefaultRepeatGap = "var(--kds-spacing-container-0-75x)";
 const defaultBorderRadius = "var(--kds-border-radius-container-pill)";
 
 const presetClassByVariant: Partial<Record<Variant, string>> = {
@@ -30,15 +28,7 @@ export const useKdsLoadingSkeleton = (props: KdsLoadingSkeletonProps) => {
   const variant = computed<Variant>(() => props.variant ?? defaultVariant);
   const loading = computed(() => props.loading ?? true);
   const repeat = computed(() => props.repeat ?? defaultRepeat);
-  const repeatGap = computed(() => {
-    if (props.repeatGap) {
-      return props.repeatGap;
-    }
-
-    return variant.value === "card-default"
-      ? cardDefaultRepeatGap
-      : defaultRepeatGap;
-  });
+  const repeatGap = computed(() => props.repeatGap);
 
   const sizeMultiplier = computed(() =>
     props.size && props.size > 0 && Number.isFinite(props.size)
