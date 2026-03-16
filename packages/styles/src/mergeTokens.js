@@ -216,7 +216,7 @@ const mergeTokens = ({ basePath, varPattern, propsPattern }) => {
     const legacyProps = filterLegacyVariables(legacyPropsRaw);
 
     const message = `Filtered ${Object.keys(legacyVars).length} legacy color variables from ${Object.keys(legacyVarsRaw).length} total variables`;
-    console.log(`🏛��� ${styleText(["yellow"], message)}`);
+    console.log(`🏛️ ${styleText(["yellow"], message)}`);
 
     const uniqueToLightVars = Object.keys(lightVars).filter(
       (key) => !(key in darkVars),
