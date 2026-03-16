@@ -1,4 +1,10 @@
-import { type DefineComponent, type Ref, shallowRef, watch } from "vue";
+import {
+  type DefineComponent,
+  type Ref,
+  type ShallowRef,
+  shallowRef,
+  watch,
+} from "vue";
 
 function useIcon({
   name,
@@ -6,7 +12,7 @@ function useIcon({
 }: {
   name: Ref<string>;
   folder: "icons" | "type-icons";
-}): Readonly<typeof iconComponent> {
+}): Readonly<ShallowRef<DefineComponent | null, DefineComponent | null>> {
   const iconCache = new Map<string, DefineComponent>();
 
   const iconComponent = shallowRef<DefineComponent | null>(null);
