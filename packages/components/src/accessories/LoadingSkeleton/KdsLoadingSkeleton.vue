@@ -153,15 +153,17 @@ const {
 .wrapper {
   display: block;
   width: 100%;
+  padding: 0;
 }
 
 .repeat-items {
   display: flex;
   flex-direction: column;
   gap: var(--kds-spacing-container-1x);
-  align-items: flex-start;
+  align-items: stretch;
   align-self: stretch;
   width: 100%;
+  padding: 0;
 }
 
 .combined-layout {
@@ -335,14 +337,19 @@ const {
   }
 
   &.card-preset-default {
-    --kds-loading-skeleton-default-radius: var(
-      --kds-border-radius-container-0-50x
+    --kds-loading-skeleton-default-radius: calc(
+      var(--kds-border-radius-container-0-37x) * v-bind(sizeMultiplier)
     );
 
-    width: 100%;
-    height: calc(
-      var(--kds-dimension-component-height-1-75x) * v-bind(sizeMultiplier)
-    );
+    box-sizing: border-box;
+    align-self: stretch !important;
+    width: 100% !important;
+    min-width: 107.1% !important;
+    height: auto !important;
+    min-height: calc(
+      var(--kds-dimension-component-height-2-5x) * 3.79 * v-bind(sizeMultiplier)
+    ) !important;
+    margin: 0;
   }
 }
 
