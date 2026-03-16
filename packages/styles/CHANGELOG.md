@@ -1,5 +1,11 @@
 # @knime/kds-styles
 
+## 0.16.1
+
+### Patch Changes
+
+- a0f4960: Add KdsMenuButton
+
 ## 0.16.0
 
 ## 0.15.1
