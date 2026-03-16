@@ -2,6 +2,10 @@
 import type { KdsLoadingSkeletonProps } from "./types";
 import { useKdsLoadingSkeleton } from "./useKdsLoadingSkeleton";
 
+defineOptions({
+  inheritAttrs: false,
+});
+
 const props = withDefaults(defineProps<KdsLoadingSkeletonProps>(), {
   width: "100%",
   height: "var(--kds-spacing-container-1-25x)",
@@ -26,14 +30,13 @@ const {
 </script>
 
 <template>
-  <div v-if="loading" class="wrapper">
+  <div v-if="loading" class="wrapper" v-bind="$attrs">
     <div class="repeat-items" :style="repeatContainerStyles">
       <template v-if="isVariant('combined')">
         <div
           v-for="index in repeat"
           :key="`combined-${index}`"
           class="combined-layout"
-          v-bind="$attrs"
           :style="combinedLayoutStyles"
         >
           <div class="skeleton-item combined-icon" />
@@ -48,7 +51,6 @@ const {
           v-for="index in repeat"
           :key="`headline-${index}`"
           class="headline-with-paragraph"
-          v-bind="$attrs"
           :style="contentWidthStyles"
         >
           <div class="skeleton-item headline-line" />
@@ -64,7 +66,6 @@ const {
           v-for="index in repeat"
           :key="`input-field-${index}`"
           class="input-field-layout"
-          v-bind="$attrs"
           :style="contentWidthStyles"
         >
           <div class="skeleton-item input-field-label" />
@@ -76,7 +77,6 @@ const {
           v-for="index in repeat"
           :key="`list-item-large-${index}`"
           class="list-item-layout list-item-layout-large"
-          v-bind="$attrs"
           :style="contentWidthStyles"
         >
           <div class="skeleton-item list-item-icon-large" />
@@ -88,7 +88,6 @@ const {
           v-for="index in repeat"
           :key="`list-item-large-with-subtext-${index}`"
           class="list-item-layout list-item-layout-large-with-subtext"
-          v-bind="$attrs"
           :style="contentWidthStyles"
         >
           <div class="skeleton-item list-item-icon-large" />
@@ -103,7 +102,6 @@ const {
           v-for="index in repeat"
           :key="`list-item-small-${index}`"
           class="list-item-layout list-item-layout-small"
-          v-bind="$attrs"
           :style="contentWidthStyles"
         >
           <div class="skeleton-item list-item-icon-small" />
@@ -115,7 +113,6 @@ const {
           v-for="index in repeat"
           :key="`list-item-small-with-subtext-${index}`"
           class="list-item-layout list-item-layout-small-with-subtext"
-          v-bind="$attrs"
           :style="contentWidthStyles"
         >
           <div class="skeleton-item list-item-icon-small" />
@@ -130,13 +127,14 @@ const {
           v-for="index in repeat"
           :key="index"
           :class="['skeleton-item', presetClass]"
-          v-bind="$attrs"
           :style="styles"
         />
       </template>
     </div>
   </div>
-  <slot v-else v-bind="$attrs" />
+  <div v-else v-bind="$attrs">
+    <slot />
+  </div>
 </template>
 
 <style scoped>
@@ -351,13 +349,15 @@ const {
     );
 
     box-sizing: border-box;
-    align-self: stretch !important;
-    width: 100% !important;
-    min-width: 107.1% !important;
-    height: auto !important;
+    align-self: stretch;
+    width: 100%;
+    min-width: 100%;
+    height: auto;
+
+    /* Minimum height approximates a typical card layout (headline + ~3 lines) */
     min-height: calc(
       var(--kds-dimension-component-height-2-5x) * 3.79 * v-bind(sizeMultiplier)
-    ) !important;
+    );
     margin: 0;
   }
 }

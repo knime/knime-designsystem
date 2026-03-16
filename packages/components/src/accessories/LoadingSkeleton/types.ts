@@ -1,25 +1,7 @@
-export const kdsLoadingSkeletonVariants = [
-  "default",
-  "text-default",
-  "text-headline-with-paragraph",
-  "icon-large",
-  "icon-medium",
-  "icon-small",
-  "button-large",
-  "button-medium",
-  "button-small",
-  "button-xsmall",
-  "input-field",
-  "list-item-large",
-  "list-item-large-with-subtext",
-  "list-item-small",
-  "list-item-small-with-subtext",
-  "card-default",
-  "combined",
-] as const;
+import { kdsLoadingSkeletonVariant } from "./enums";
 
 export type KdsLoadingSkeletonVariant =
-  (typeof kdsLoadingSkeletonVariants)[number];
+  (typeof kdsLoadingSkeletonVariant)[keyof typeof kdsLoadingSkeletonVariant];
 
 type KdsLoadingSkeletonCssLength = `${number}%` | `var(--${string})`;
 
