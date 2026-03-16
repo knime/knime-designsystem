@@ -1,4 +1,4 @@
-import type { KdsIconName } from "../../accessories/Icon/types";
+import type { KdsIconName } from "../../accessories";
 
 import {
   kdsRadioButtonGroupAlignment,
@@ -56,7 +56,7 @@ type KdsValueSwitchItemContent =
       text: string;
       leadingIcon?: KdsIconName;
       trailingIcon?: KdsIconName;
-      title?: undefined;
+      title?: never;
     }
   | {
       text?: never;
