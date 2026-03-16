@@ -52,9 +52,11 @@ const {
           :style="contentWidthStyles"
         >
           <div class="skeleton-item headline-line" />
-          <div class="skeleton-item paragraph-line paragraph-line-1" />
-          <div class="skeleton-item paragraph-line paragraph-line-2" />
-          <div class="skeleton-item paragraph-line paragraph-line-3" />
+          <div class="paragraph-lines">
+            <div class="skeleton-item paragraph-line paragraph-line-1" />
+            <div class="skeleton-item paragraph-line paragraph-line-2" />
+            <div class="skeleton-item paragraph-line paragraph-line-3" />
+          </div>
         </div>
       </template>
       <template v-else-if="isVariant('input-field')">
@@ -149,7 +151,7 @@ const {
 }
 
 .wrapper {
-  display: contents;
+  display: block;
   width: 100%;
 }
 
@@ -179,6 +181,13 @@ const {
 }
 
 .headline-with-paragraph {
+  display: grid;
+  gap: var(--kds-spacing-container-1-25x);
+  width: 100%;
+  max-width: 87%;
+}
+
+.paragraph-lines {
   display: grid;
   gap: var(--kds-spacing-container-0-75x);
   width: 100%;
@@ -351,11 +360,11 @@ const {
 }
 
 .paragraph-line-1 {
-  width: 100%;
+  width: 103%;
 }
 
 .paragraph-line-2 {
-  width: 75%;
+  width: 76%;
 }
 
 .paragraph-line-3 {
