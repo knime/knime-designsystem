@@ -17,10 +17,10 @@ const {
   height = kdsModalHeight.AUTO,
   width = kdsModalWidth.MEDIUM,
   closedby = kdsModalClosedBy.CLOSEREQUEST,
-  title = "",
+  headline = "",
   variant = kdsModalVariant.PADDED,
   overflow = "auto",
-  icon,
+  leadingIcon,
 } = defineProps<KdsModalProps>();
 
 const emit = defineEmits<{
