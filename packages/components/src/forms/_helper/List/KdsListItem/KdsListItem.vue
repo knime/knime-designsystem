@@ -141,7 +141,6 @@ const { isTruncated: isSubtextTruncated } = useKdsIsTruncated(subtextEl);
   }
 
   &.large {
-    min-height: var(--kds-dimension-component-height-2-5x);
     font: var(--kds-font-base-interactive-small-strong);
 
     .accessory {
@@ -154,12 +153,20 @@ const { isTruncated: isSubtextTruncated } = useKdsIsTruncated(subtextEl);
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
+    gap: var(--kds-spacing-container-0-12x);
     min-width: 0;
+
+    .large & {
+      justify-content: center;
+      min-height: calc(
+        var(--kds-dimension-component-height-2-5x) - 2 *
+          var(--kds-spacing-container-0-25x)
+      );
+    }
 
     .label {
       overflow: hidden;
       text-overflow: ellipsis;
-      font: inherit;
       white-space: nowrap;
 
       .prefix {

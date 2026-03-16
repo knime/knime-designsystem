@@ -71,7 +71,9 @@ defineExpose<KdsFormFieldExpose>({
 textarea {
   box-sizing: border-box;
   width: 100%;
-  padding: var(--kds-spacing-container-0-5x);
+  padding: calc(
+    var(--kds-spacing-container-0-5x) - var(--kds-core-border-width-xs)
+  );
   overflow: hidden;
   font: var(--kds-font-base-body-small);
   color: var(--kds-color-text-and-icon-neutral);

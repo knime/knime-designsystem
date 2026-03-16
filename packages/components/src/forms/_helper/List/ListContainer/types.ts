@@ -1,6 +1,7 @@
 import type { Ref } from "vue";
 
 import type { KdsIconName } from "../../../../accessories";
+import type { KdsListItemVariant } from "../KdsListItem";
 import type { KdsListItemAccessory } from "../ListItemAccessory/types";
 
 import { kdsListContainerRole } from "./enums";
@@ -42,6 +43,8 @@ export type KdsListContainerProps = {
    * section titles. Items with `separator: true` show a divider below them.
    */
   possibleValues: KdsListOption[];
+  /** Visual size variant of the list items. Defaults to "small". */
+  variant?: KdsListItemVariant;
   /** Text shown when no entries are provided */
   emptyText?: string;
   /** Whether the list is in loading state */

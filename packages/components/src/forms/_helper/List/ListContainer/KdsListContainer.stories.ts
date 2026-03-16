@@ -56,6 +56,11 @@ const meta = {
       control: "object",
       table: { category: "props" },
     },
+    variant: {
+      control: "select",
+      options: ["small", "large"],
+      table: { category: "props" },
+    },
     emptyText: {
       control: "text",
       table: { category: "props" },
@@ -80,6 +85,7 @@ const meta = {
   args: {
     ariaLabel: "List container",
     possibleValues: baseOptions,
+    variant: "small",
     emptyText: "No entries found",
     loading: false,
     controlledExternally: false,
@@ -505,9 +511,11 @@ export const DesignComparator: Story = {
 
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsListContainer,
+  columns: 2,
   combinationsProps: [
     {
       ariaLabel: ["Options"],
+      variant: ["small", "large"],
       emptyText: ["No entries found"],
       possibleValues: [options(3, () => ({})), []],
     },

@@ -111,7 +111,8 @@ const onKeydown = (event: KeyboardEvent) => {
   align-items: center;
   width: 100%;
   height: var(--kds-dimension-component-height-1-75x);
-  padding: 0 var(--kds-spacing-container-0-25x);
+  padding: 0
+    calc(var(--kds-spacing-container-0-25x) - var(--kds-core-border-width-xs));
   font: var(--kds-font-base-body-small);
   color: var(--kds-color-text-and-icon-neutral);
   cursor: pointer;
@@ -172,6 +173,8 @@ const onKeydown = (event: KeyboardEvent) => {
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  padding-right: var(--kds-spacing-container-0-12x);
+  padding-right: calc(
+    var(--kds-spacing-container-0-12x) + 2 * var(--kds-core-border-width-xs)
+  );
 }
 </style>
