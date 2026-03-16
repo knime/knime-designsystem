@@ -50,9 +50,8 @@ processedDirs.forEach(({ input, output, typeName }) => {
     const svg = dom.window.document.querySelector("svg");
 
     if (!svg) {
-      throw new Error(
-        `❌ ${styleText(["white", "bold", "bgRed"], `SVG ${filePath} does not contain an SVG element.`)}`,
-      );
+      const message = `SVG ${filePath} does not contain an SVG element.`;
+      throw new Error(`❌ ${styleText(["white", "bold", "bgRed"], message)}`);
     }
 
     // Check width, height, and viewBox
@@ -61,9 +60,8 @@ processedDirs.forEach(({ input, output, typeName }) => {
       svg.getAttribute("height") !== "12" ||
       svg.getAttribute("viewBox") !== "0 0 12 12"
     ) {
-      throw new Error(
-        `❌ ${styleText(["white", "bold", "bgRed"], `SVG ${filePath} does not have the correct dimensions or viewBox.`)}`,
-      );
+      const message = `SVG ${filePath} does not have the correct dimensions or viewBox.`;
+      throw new Error(`❌ ${styleText(["white", "bold", "bgRed"], message)}`);
     }
 
     // Find the first element to use for stroke and fill attribute checks
@@ -71,9 +69,8 @@ processedDirs.forEach(({ input, output, typeName }) => {
       "path, line, circle, rect, ellipse, polygon, polyline",
     );
     if (!firstElement) {
-      throw new Error(
-        `❌ ${styleText(["white", "bold", "bgRed"], `SVG ${filePath} does not contain a valid element for stroke and fill attributes.`)}`,
-      );
+      const message = `SVG ${filePath} does not contain a valid element for stroke and fill attributes.`;
+      throw new Error(`❌ ${styleText(["white", "bold", "bgRed"], message)}`);
     }
 
     // Copy stroke-related attributes from the first element to the svg element
@@ -163,6 +160,5 @@ export type ${typeName} = typeof ${iconListName}[number];
   fs.writeFileSync(path.join(outputDir, "def.ts"), iconsTsContent, "utf-8");
 });
 
-consola.log(
-  `✅ ${styleText(["green", "bold"], `Successfully processed ${processedCount} SVG icons!`)}`,
-);
+const message = `Successfully processed ${processedCount} SVG icons!`;
+consola.log(`✅ ${styleText(["green", "bold"], message)}`);
