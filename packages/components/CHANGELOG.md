@@ -1,5 +1,14 @@
 # @knime/kds-components
 
+## 0.16.1
+
+### Patch Changes
+
+- a0f4960: Add KdsMenuButton
+- 7cec5ea: Allow opening the color picker by clicking the color swatch
+- Updated dependencies [a0f4960]
+  - @knime/kds-styles@0.16.1
+
 ## 0.16.0
 
 ### Minor Changes
