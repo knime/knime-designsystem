@@ -57,7 +57,8 @@
     "vite-plugin-lib-inject-css": "catalog:",
     "vite-svg-loader": "catalog:",
     "vue": "catalog:",
-    "vue-tsc": "catalog:"
+    "vue-tsc": "catalog:",
+    "v-calendar": "catalog:patch"
   },
   "engines": {
     "node": "24.10.0",

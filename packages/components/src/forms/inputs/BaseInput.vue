@@ -15,13 +15,13 @@ type BaseInputProps = {
    */
   type?: "text" | "email" | "password" | "number" | "tel" | "url" | "search";
   /**
-   * Minimum allowed value (relevant for type="number")
+   * Minimum allowed value (relevant for type="number" and type="date")
    */
-  min?: number;
+  min?: number | string;
   /**
-   * Maximum allowed value (relevant for type="number")
+   * Maximum allowed value (relevant for type="number" and type="date")
    */
-  max?: number;
+  max?: number | string;
   /**
    * Step size (relevant for type="number")
    */
@@ -114,6 +114,11 @@ type BaseInputProps = {
    * Whether to show a clear button when the input has a value.
    */
   clearable?: boolean;
+  /**
+   * Pattern attribute for the input element, used for client-side validation
+   * of text inputs. Should be a valid regular expression.
+   */
+  pattern?: string;
 };
 
 const props = withDefaults(defineProps<BaseInputProps>(), {
@@ -141,6 +146,7 @@ const props = withDefaults(defineProps<BaseInputProps>(), {
   unit: undefined,
   inputmode: undefined,
   clearable: false,
+  pattern: undefined,
 });
 
 type BaseInputEmits = {
@@ -235,6 +241,7 @@ defineExpose({
       :aria-describedby="props.ariaDescribedby"
       :aria-invalid="props.ariaInvalid"
       :role="props.role"
+      :pattern="props.pattern"
       :aria-valuenow="props.ariaValuenow"
       :aria-valuemin="props.ariaValuemin"
       :aria-valuemax="props.ariaValuemax"
