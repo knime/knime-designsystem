@@ -185,8 +185,8 @@ const {
 .headline-with-paragraph {
   display: grid;
   gap: var(--kds-spacing-container-1-25x);
-  width: 100%;
-  max-width: 87%;
+  width: calc(100% + var(--kds-spacing-container-0-25x));
+  max-width: 100%;
 }
 
 .paragraph-lines {
@@ -198,22 +198,29 @@ const {
 .input-field-layout {
   display: grid;
   gap: var(--kds-spacing-container-0-75x);
-  width: 100%;
+  width: calc(100% + var(--kds-spacing-container-0-25x));
 }
 
 .list-item-layout {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto minmax(0, 1fr);
   gap: var(--kds-spacing-container-0-75x);
+  align-items: center !important;
   width: 100%;
+  padding-block-start: var(--kds-dimension-component-height-0-25x);
+  padding-inline-start: var(--kds-dimension-component-width-0-75x);
 }
 
 .list-item-layout-large {
-  align-items: start;
+  align-items: center !important;
+  padding-block-start: var(--kds-dimension-component-height-0-75x);
+  padding-inline-start: var(--kds-dimension-component-width-0-75x);
 }
 
 .list-item-layout-large-with-subtext {
-  align-items: center;
+  align-items: center !important;
+  padding-block-start: var(--kds-dimension-component-height-0-75x);
+  padding-inline-start: var(--kds-dimension-component-width-0-75x);
 }
 
 .list-item-layout-small {
@@ -226,7 +233,9 @@ const {
 
 .list-item-lines {
   display: grid;
-  gap: var(--kds-spacing-container-0-75x);
+  gap: var(--kds-spacing-container-0-25x);
+  width: 100%;
+  min-width: 0;
 }
 
 .skeleton-item {
@@ -416,6 +425,7 @@ const {
 
 .list-item-text-large {
   width: 100%;
+  min-width: 0;
   height: calc(
     var(--kds-dimension-component-height-0-88x) * v-bind(sizeMultiplier)
   );
@@ -423,6 +433,7 @@ const {
 
 .list-item-text-small {
   width: 100%;
+  min-width: 0;
   height: calc(
     var(--kds-dimension-component-height-0-75x) * v-bind(sizeMultiplier)
   );

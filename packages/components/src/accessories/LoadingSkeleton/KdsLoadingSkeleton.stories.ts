@@ -256,6 +256,92 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           },
       },
     },
+    InputFieldPreset: {
+      props: {
+        variant: "input-field",
+        width: "100%",
+        repeat: 1,
+        loading: true,
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18994-118243":
+          {},
+      },
+    },
+    HeadlineWithParagraph: {
+      props: {
+        variant: "text-headline-with-paragraph",
+        width: "100%",
+        repeat: 1,
+        loading: true,
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18994-118241":
+          {},
+      },
+    },
+    ListItemLarge: {
+      props: {
+        variant: "list-item-large",
+        width: "100%",
+        repeat: 1,
+        loading: true,
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18994-118251":
+          {
+            parameters: {
+              figmaOffset: {
+                x: 0,
+                y: 0,
+              },
+            },
+          },
+      },
+    },
+    ListItemLargeWithSubtext: {
+      props: {
+        variant: "list-item-large-with-subtext",
+        width: "100%",
+        repeat: 1,
+        loading: true,
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18996-118257":
+          {
+            parameters: {
+              figmaOffset: {
+                x: 0,
+                y: 0,
+              },
+            },
+          },
+      },
+    },
+    ListItemSmall: {
+      props: {
+        variant: "list-item-small",
+        width: "100%",
+        repeat: 1,
+        loading: true,
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18996-118264":
+          {},
+      },
+    },
+    ListItemSmallWithSubtext: {
+      props: {
+        variant: "list-item-small-with-subtext",
+        width: "100%",
+        repeat: 1,
+        loading: true,
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18996-118270":
+          {},
+      },
+    },
   },
 });
 
