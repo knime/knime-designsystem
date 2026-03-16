@@ -3,6 +3,11 @@ import type { Ref } from "vue";
 import type { KdsIconName } from "../../../../accessories";
 import type { KdsListItemAccessory } from "../ListItemAccessory/types";
 
+import { kdsListContainerRole } from "./enums";
+
+export type KdsListContainerRole =
+  (typeof kdsListContainerRole)[keyof typeof kdsListContainerRole];
+
 export type KdsListOption = {
   id: string;
   text: string;
@@ -41,10 +46,12 @@ export type KdsListContainerProps = {
   emptyText?: string;
   /** Whether the list is in loading state */
   loading?: boolean;
-  /** Accessible label for the listbox */
+  /** Accessible label for the list container */
   ariaLabel?: string;
   /** When true, the list is controlled externally (e.g. by a search input). The list will not be focusable and the parent must forward events via the exposed handleKeydown/handleFocus/handleBlur methods. */
   controlledExternally?: boolean;
+  /** ARIA role applied to the root element. */
+  role?: KdsListContainerRole;
 };
 
 export type KdsListContainerExpose = {

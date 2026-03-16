@@ -5,11 +5,18 @@ import { useArgs } from "storybook/preview-api";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
-import { buildAllCombinationsStory } from "../../test-utils/storybook";
+import {
+  buildAllCombinationsStory,
+  buildDesignComparatorStory,
+  buildTextOverflowStory,
+} from "../../test-utils/storybook";
 import { kdsButtonSizes } from "../enums";
 
 import KdsToggleButton from "./KdsToggleButton.vue";
 import { kdsToggleButtonVariant, kdsToggleButtonVariants } from "./enums";
+
+const figmaBaseUrl =
+  "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components";
 
 const vModelExampleCode = `html
 <script setup lang="ts">
@@ -40,7 +47,7 @@ const meta: Meta<typeof KdsToggleButton> = {
     },
     design: {
       type: "figma",
-      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=5958-176469",
+      url: `${figmaBaseUrl}?node-id=5958-176469`,
     },
   },
   argTypes: {
@@ -118,47 +125,53 @@ export const Disabled: Story = {
   },
 };
 
-export const AllCombinationsOutlined: Story = buildAllCombinationsStory({
+export const TextOverflow: Story = {
+  ...buildTextOverflowStory({
+    component: KdsToggleButton,
+    width: 120,
+  }),
+  args: {
+    label:
+      "A very long text that gives comprehensive information about the menu",
+  },
+};
+
+export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsToggleButton,
-  combinationsProps: [
-    {
-      size: kdsButtonSizes,
-      variant: [kdsToggleButtonVariant.OUTLINED],
-      disabled: [false, true],
-      label: ["Button"],
-      leadingIcon: [undefined, "ai-general"],
-      trailingIcon: [undefined, "ai-general"],
-      modelValue: [false, true],
+  designsToCompare: {
+    Types: {
+      props: { label: "{Label}" },
+      variants: {
+        [`${figmaBaseUrl}?node-id=11433-153541`]: { variant: "outlined" },
+        [`${figmaBaseUrl}?node-id=11433-153550`]: { variant: "transparent" },
+      },
     },
-    {
-      size: kdsButtonSizes,
-      variant: [kdsToggleButtonVariant.OUTLINED],
-      disabled: [false, true],
-      leadingIcon: ["ai-general"],
-      ariaLabel: ["Icon only button"],
-      modelValue: [false, true],
-    },
-  ],
-  pseudoStates: ["hover", "active", "focus-visible"],
+  },
 });
 
-export const AllCombinationsTransparent: Story = buildAllCombinationsStory({
+export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsToggleButton,
   combinationsProps: [
     {
       size: kdsButtonSizes,
-      variant: [kdsToggleButtonVariant.TRANSPARENT],
+      variant: [
+        kdsToggleButtonVariant.OUTLINED,
+        kdsToggleButtonVariant.TRANSPARENT,
+      ],
       disabled: [false, true],
       label: ["Button"],
-      leadingIcon: [undefined, "ai-general"],
-      trailingIcon: [undefined, "ai-general"],
+      leadingIcon: [undefined, "placeholder"],
+      trailingIcon: [undefined, "placeholder"],
       modelValue: [false, true],
     },
     {
       size: kdsButtonSizes,
-      variant: [kdsToggleButtonVariant.TRANSPARENT],
+      variant: [
+        kdsToggleButtonVariant.OUTLINED,
+        kdsToggleButtonVariant.TRANSPARENT,
+      ],
       disabled: [false, true],
-      leadingIcon: ["ai-general"],
+      leadingIcon: ["placeholder"],
       ariaLabel: ["Icon only button"],
       modelValue: [false, true],
     },

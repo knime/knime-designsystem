@@ -5,7 +5,7 @@ import type { KdsPopoverExpose, KdsPopoverProps } from "./types";
 
 const props = withDefaults(defineProps<KdsPopoverProps>(), {
   placement: "bottom-left",
-  role: "dialog",
+  role: undefined,
   fullWidth: false,
 });
 
@@ -41,7 +41,7 @@ defineExpose<KdsPopoverExpose>({ anchorStyle, popoverId });
     :aria-label="props.popoverAriaLabel"
     @toggle="open = $event.newState === 'open'"
   >
-    <slot v-if="open">
+    <slot>
       <div
         v-if="props.content?.trim().length"
         class="kds-popover-default-content"

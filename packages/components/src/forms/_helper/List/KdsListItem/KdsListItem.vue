@@ -20,6 +20,7 @@ const props = withDefaults(defineProps<KdsListItemProps>(), {
   active: false,
   missing: false,
   disabled: false,
+  role: "option",
 });
 
 const emit = defineEmits<{
@@ -54,8 +55,8 @@ const { isTruncated: isSubtextTruncated } = useKdsIsTruncated(subtextEl);
 <template>
   <div
     :id="props.id"
-    role="option"
-    :aria-selected="props.selected"
+    :role="props.role"
+    :aria-selected="props.role === 'option' ? props.selected : undefined"
     :aria-disabled="props.disabled"
     :class="[
       'kds-list-item',
@@ -117,6 +118,7 @@ const { isTruncated: isSubtextTruncated } = useKdsIsTruncated(subtextEl);
   gap: var(--kds-spacing-container-0-5x);
   align-items: center;
   width: 100%;
+  min-width: var(--kds-dimension-component-width-12x);
   padding: var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-5x);
   color: var(--kds-color-text-and-icon-neutral);
   cursor: pointer;

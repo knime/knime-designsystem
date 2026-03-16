@@ -15,6 +15,7 @@ import type {
 const props = withDefaults(defineProps<KdsListContainerProps>(), {
   emptyText: "",
   loading: false,
+  role: "listbox",
 });
 
 const emit = defineEmits<{
@@ -50,6 +51,10 @@ const isFocused = ref(false);
 
 const containerEl = useTemplateRef("containerEl");
 
+const listItemRole = computed(() => {
+  return props.role === "listbox" ? "option" : "menuitem";
+});
+
 function scrollToView() {
   if (!activeId.value || !containerEl.value) {
     return;
@@ -66,7 +71,9 @@ const onMouseLeave = () => {
 };
 
 const onMousemove = (event: MouseEvent) => {
-  const target = (event.target as HTMLElement)?.closest?.('[role="option"]');
+  const target = (event.target as HTMLElement)?.closest?.(
+    `[role="${listItemRole.value}"]`,
+  );
   if (
     target instanceof HTMLElement &&
     target.id &&
@@ -150,6 +157,13 @@ const handleKeydown = (event: KeyboardEvent) => {
       break;
     }
     case "Enter":
+      if (
+        event.target instanceof HTMLElement &&
+        ["BUTTON"].includes(event.target.tagName) &&
+        event.target.ariaExpanded === "false"
+      ) {
+        break;
+      }
       if (activeId.value) {
         emit("itemClick", toOptionId(activeId.value));
         event.preventDefault();
@@ -159,6 +173,13 @@ const handleKeydown = (event: KeyboardEvent) => {
       if (
         event.target instanceof HTMLElement &&
         ["INPUT", "TEXTAREA", "SELECT"].includes(event.target.tagName)
+      ) {
+        break;
+      }
+      if (
+        event.target instanceof HTMLElement &&
+        ["BUTTON"].includes(event.target.tagName) &&
+        event.target.ariaExpanded === "false"
       ) {
         break;
       }
@@ -197,7 +218,7 @@ defineExpose<KdsListContainerExpose>({
   <div
     v-bind="$attrs"
     ref="containerEl"
-    role="listbox"
+    :role="props.role"
     :aria-busy="props.loading"
     :aria-label="props.ariaLabel"
     :aria-activedescendant="
@@ -237,6 +258,7 @@ defineExpose<KdsListContainerExpose>({
         :special="item.special"
         :missing="item.missing"
         :trailing-icon="item.selected ? 'checkmark' : undefined"
+        :role="listItemRole"
         @mousedown="props.controlledExternally && $event.preventDefault()"
         @click.stop="emit('itemClick', toOptionId(item.id))"
       />
@@ -249,7 +271,7 @@ defineExpose<KdsListContainerExpose>({
     <div
       v-if="selectableValues.length === 0"
       :id="emptyOptionId"
-      role="option"
+      :role="listItemRole"
       aria-disabled="true"
       aria-selected="false"
       class="kds-list-container-empty"
@@ -267,6 +289,7 @@ defineExpose<KdsListContainerExpose>({
   display: flex;
   flex-direction: column;
   gap: var(--kds-spacing-container-0-10x);
+  min-width: var(--kds-dimension-component-width-12x);
   padding: var(--kds-spacing-container-0-25x);
   overflow-y: auto;
 

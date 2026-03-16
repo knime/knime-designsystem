@@ -252,6 +252,11 @@
             "$value": "{kds.core.size.scale} * 4",
             "$description": "Extra large component width (64px). Use for large interactive elements."
           },
+          "12x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 12",
+            "$description": "Container width (192px). Use for listContainer and menuContainer."
+          },
           "16x": {
             "$type": "dimension",
             "$value": "{kds.core.size.scale} * 16",
