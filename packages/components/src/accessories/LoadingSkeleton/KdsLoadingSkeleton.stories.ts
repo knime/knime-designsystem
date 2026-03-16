@@ -234,19 +234,26 @@ export const TextOverflow: Story = {
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsLoadingSkeleton,
   wrapperStyle: {
-    width: "calc(var(--kds-dimension-component-width-4x) * 6)",
+    width: "calc(var(--kds-dimension-component-width-4x) * 5)",
   },
   designsToCompare: {
-    HeadlineWithParagraph: {
+    CardDefault: {
       props: {
-        variant: "text-headline-with-paragraph",
+        variant: "card-default",
         width: "100%",
         repeat: 1,
         loading: true,
       },
       variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18999-432":
-          {},
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=18996-118279":
+          {
+            parameters: {
+              figmaOffset: {
+                x: 0,
+                y: 0,
+              },
+            },
+          },
       },
     },
   },
