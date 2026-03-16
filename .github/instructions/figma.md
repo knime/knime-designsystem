@@ -20,9 +20,6 @@ These rules define how to translate Figma inputs into code and must be followed 
 7. Translate the output (usually React + Tailwind) into this project's conventions, styles and framework. Reuse the project's color tokens, components, and typography wherever possible. Remove unnecessary wrappers and divs.
 8. Match the component props to the Figma component properties as closely as possible.
 9. Match the icon names precisely, all icons used in Figma are available in this codebase! Double-check in case you can't find the icon.
-10. IMPORTANT! If an element has a border and padding, set the padding as follows as otherwise it doesn't match the Figma design: `padding: calc(
-  var({{design-token}}) - var(--kds-core-border-width-xs)
-);`
 
 ### Implementation rules
 

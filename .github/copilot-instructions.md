@@ -102,6 +102,7 @@ packages/
 - Use `<style scoped>` - do NOT use `lang="postcss"`
 - IMPORTANT: Don't use BEM! Use CSS nesting to NOT duplicate selectors.
 - IMPORTANT: Don't use `:deep()` selectors. Prefer styling via dedicated wrapper elements, component props, or slots.
+- IMPORTANT! If an element has a border and padding, set the padding as follows as otherwise it doesn't match the Figma design: `padding: calc(var(--kds-spacing-…) - var(--kds-core-border-width-xs));`
 - Style ONLY with CSS custom properties from design tokens - never hardcode colors/spacing/typography!
 - Export components and types in `packages/components/src/index.ts`
 - Follow WCAG accessibility requirements
