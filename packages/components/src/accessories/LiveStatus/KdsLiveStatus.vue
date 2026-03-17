@@ -41,7 +41,8 @@ const { isTruncated } = useKdsIsTruncated(labelEl);
 
 <style scoped>
 .kds-live-status {
-  --dot-color: var(--kds-color-text-and-icon-disabled);
+  --dot-color: var(--kds-color-state-disabled);
+  --dot-border-color: var(--kds-color-state-disabled-border);
 
   display: inline-flex;
   flex-shrink: 0;
@@ -51,15 +52,18 @@ const { isTruncated } = useKdsIsTruncated(labelEl);
   line-height: 0;
 
   &.red {
-    --dot-color: var(--kds-color-text-and-icon-danger);
+    --dot-color: var(--kds-color-state-error);
+    --dot-border-color: var(--kds-color-state-error-border);
   }
 
   &.orange {
-    --dot-color: var(--kds-color-text-and-icon-warning);
+    --dot-color: var(--kds-color-state-warning);
+    --dot-border-color: var(--kds-color-state-warning-border);
   }
 
   &.green {
-    --dot-color: var(--kds-color-text-and-icon-success);
+    --dot-color: var(--kds-color-state-success);
+    --dot-border-color: var(--kds-color-state-success-border);
   }
 
   .dot {
@@ -76,6 +80,9 @@ const { isTruncated } = useKdsIsTruncated(labelEl);
       height: 50%;
       content: "";
       background-color: var(--dot-color);
+      border-color: var(--dot-border-color);
+      border-style: solid;
+      border-width: var(--kds-border-width-icon-stroke-l);
       border-radius: var(--kds-border-radius-container-pill);
     }
   }
@@ -94,6 +101,10 @@ const { isTruncated } = useKdsIsTruncated(labelEl);
       height: var(--kds-dimension-icon-1x);
     }
 
+    &::after {
+      border-width: var(--kds-border-width-icon-stroke-m);
+    }
+
     .label {
       font: var(--kds-font-base-subtext-small);
     }
@@ -103,6 +114,10 @@ const { isTruncated } = useKdsIsTruncated(labelEl);
     .dot {
       width: var(--kds-dimension-icon-0-75x);
       height: var(--kds-dimension-icon-0-75x);
+    }
+
+    &::after {
+      border-width: var(--kds-border-width-icon-stroke-s);
     }
 
     .label {

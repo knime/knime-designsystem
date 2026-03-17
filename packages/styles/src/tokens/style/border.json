@@ -235,16 +235,16 @@
         "empty": {
           "$type": "border",
           "$value": {
-            "color": "{kds.color.node-state.inactiveBorder}",
+            "color": "{kds.color.state.inactive-border}",
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
           "$description": "Border around node status."
         },
-        "idle": {
+        "error": {
           "$type": "border",
           "$value": {
-            "color": "{kds.color.node-state.errorBorder}",
+            "color": "{kds.color.state.error-border}",
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
@@ -253,16 +253,16 @@
         "warning": {
           "$type": "border",
           "$value": {
-            "color": "{kds.color.node-state.warningBorder}",
+            "color": "{kds.color.state.warning-border}",
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
           "$description": "Border around node status."
         },
-        "executed": {
+        "success": {
           "$type": "border",
           "$value": {
-            "color": "{kds.color.node-state.executedBorder}",
+            "color": "{kds.color.state.success-border}",
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
