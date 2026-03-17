@@ -917,7 +917,7 @@
           "$description": "Specific color for Annotations."
         }
       },
-      "node-state": {
+      "state": {
         "error": {
           "$type": "color",
           "$value": "{kds.core.color.red.550}",
@@ -950,7 +950,7 @@
         },
         "executing": {
           "$type": "color",
-          "$value": "{kds.core.color.blue.550}",
+          "$value": "{kds.core.color.blue.650}",
           "$description": "State-based color for Nodes."
         },
         "inactive": {
@@ -960,12 +960,22 @@
         },
         "inactiveBorder": {
           "$type": "color",
+          "$value": "{kds.core.color.neutral.175}",
+          "$description": "State-based color for Nodes."
+        },
+        "disabled": {
+          "$type": "color",
           "$value": "{kds.core.color.neutral.250}",
+          "$description": "State-based color for Nodes."
+        },
+        "disabledBorder": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.325}",
           "$description": "State-based color for Nodes."
         },
         "background": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.250}",
+          "$value": "{kds.core.color.neutral.175}",
           "$description": "State-based color for Nodes."
         }
       },

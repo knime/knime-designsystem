@@ -235,7 +235,7 @@
         "empty": {
           "$type": "border",
           "$value": {
-            "color": "{kds.color.node-state.inactiveBorder}",
+            "color": "{kds.color.state.inactiveBorder}",
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
@@ -244,7 +244,7 @@
         "idle": {
           "$type": "border",
           "$value": {
-            "color": "{kds.color.node-state.errorBorder}",
+            "color": "{kds.color.state.errorBorder}",
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
@@ -253,7 +253,7 @@
         "warning": {
           "$type": "border",
           "$value": {
-            "color": "{kds.color.node-state.warningBorder}",
+            "color": "{kds.color.state.warningBorder}",
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },
@@ -262,7 +262,7 @@
         "executed": {
           "$type": "border",
           "$value": {
-            "color": "{kds.color.node-state.executedBorder}",
+            "color": "{kds.color.state.executedBorder}",
             "width": "{kds.core.border-width.xs}",
             "style": "solid"
           },

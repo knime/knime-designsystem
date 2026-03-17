@@ -1004,7 +1004,7 @@
         },
         "executing": {
           "$type": "color",
-          "$value": "{kds.core.color.blue.400}",
+          "$value": "{kds.core.color.blue.175}",
           "$description": "State-based color for Nodes."
         },
         "inactive": {
@@ -1014,12 +1014,17 @@
         },
         "inactiveBorder": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.325}",
+          "$value": "{kds.core.color.neutral.400}",
           "$description": "State-based color for Nodes."
         },
         "background": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.475}",
+          "$value": "{kds.core.color.neutral.400}",
+          "$description": "State-based color for Nodes."
+        },
+        "disabled": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.25}",
           "$description": "State-based color for Nodes."
         }
       },
