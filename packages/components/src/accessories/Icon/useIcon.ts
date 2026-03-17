@@ -1,12 +1,18 @@
-import { type DefineComponent, type Ref, shallowRef, watch } from "vue";
+import {
+  type DefineComponent,
+  type Ref,
+  type ShallowRef,
+  shallowRef,
+  watch,
+} from "vue";
 
-export default ({
+function useIcon({
   name,
   folder,
 }: {
   name: Ref<string>;
   folder: "icons" | "type-icons";
-}) => {
+}): Readonly<ShallowRef<DefineComponent | null, DefineComponent | null>> {
   const iconCache = new Map<string, DefineComponent>();
 
   const iconComponent = shallowRef<DefineComponent | null>(null);
@@ -25,12 +31,20 @@ export default ({
         );
         iconCache.set(newName, module.default);
         iconComponent.value = module.default;
-      } catch (_error) {
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(
+          `Failed to load icon "${newName}" from folder "${folder}":`,
+          error,
+        );
+
         iconComponent.value = null;
       }
     },
     { immediate: true },
   );
 
-  return iconComponent as Readonly<typeof iconComponent>;
-};
+  return iconComponent;
+}
+
+export default useIcon;

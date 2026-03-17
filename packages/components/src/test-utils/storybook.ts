@@ -35,7 +35,7 @@ function generateCombinations<Props extends Record<string, unknown>>(
 
     results = results.flatMap((acc) =>
       values.map((value) => {
-        const next = { ...acc } as PropsCombination<Props>;
+        const next: PropsCombination<Props> = { ...acc };
         next[key] = value;
         return next;
       }),
