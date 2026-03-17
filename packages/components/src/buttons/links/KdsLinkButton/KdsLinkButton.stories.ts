@@ -4,7 +4,7 @@ import { fn } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
-import { kdsButtonSizes, kdsButtonVariants } from "../enums";
+import { kdsButtonSizes, kdsButtonVariants } from "../../enums";
 
 import KdsLinkButton from "./KdsLinkButton.vue";
 

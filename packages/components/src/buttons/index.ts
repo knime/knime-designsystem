@@ -1,8 +1,11 @@
 export * from "./KdsButton";
 export type * from "./KdsButton";
 
-export * from "./KdsLinkButton";
-export type * from "./KdsLinkButton";
+export * from "./links/KdsLinkButton";
+export type * from "./links/KdsLinkButton";
+
+export * from "./links/KdsLink";
+export type * from "./links/KdsLink";
 
 export * from "./KdsToggleButton";
 export type * from "./KdsToggleButton";
