@@ -47,23 +47,27 @@ export const useKdsLoadingSkeleton = (props: KdsLoadingSkeletonProps) => {
   const presetClass = computed(
     () => presetClassByVariant[variant.value] ?? null,
   );
+  const borderRadiusVar = computed(() => props.borderRadius?.trim());
 
   const styles = computed(() => {
     const hasPreset =
       Boolean(presetClass.value) || isVariant("text-headline-with-paragraph");
-    const borderRadiusVar = props.borderRadius?.trim();
 
     return {
-      ...(borderRadiusVar
-        ? { "--kds-loading-skeleton-border-radius": borderRadiusVar }
+      ...(borderRadiusVar.value
+        ? { "--kds-loading-skeleton-border-radius": borderRadiusVar.value }
         : {}),
       width: hasPreset ? "" : scaledLength(width.value),
       height: hasPreset ? "" : scaledLength(height.value),
-      borderRadius: borderRadiusVar ?? (hasPreset ? "" : defaultBorderRadius),
+      borderRadius:
+        borderRadiusVar.value ?? (hasPreset ? "" : defaultBorderRadius),
     };
   });
 
   const repeatContainerStyles = computed(() => ({
+    ...(borderRadiusVar.value
+      ? { "--kds-loading-skeleton-border-radius": borderRadiusVar.value }
+      : {}),
     gap: repeat.value > 1 ? repeatGap.value : "0px",
   }));
 
@@ -72,12 +76,8 @@ export const useKdsLoadingSkeleton = (props: KdsLoadingSkeletonProps) => {
   }));
 
   const combinedLayoutStyles = computed(() => {
-    const borderRadiusVar = props.borderRadius?.trim();
     const combinedStyles: Record<string, string> = {
       width: scaledLength(width.value),
-      ...(borderRadiusVar
-        ? { "--kds-loading-skeleton-border-radius": borderRadiusVar }
-        : {}),
     };
 
     if (props.height !== undefined) {
