@@ -3,7 +3,7 @@ import { computed } from "vue";
 
 import KdsLoadingSpinner from "../../accessories/LoadingSpinner/KdsLoadingSpinner.vue";
 import KdsButton from "../../buttons/KdsButton/KdsButton.vue";
-import KdsLinkButton from "../../buttons/KdsLinkButton/KdsLinkButton.vue";
+import KdsLinkButton from "../../buttons/links/KdsLinkButton/KdsLinkButton.vue";
 
 import type { KdsEmptyStateProps } from "./types";
 
