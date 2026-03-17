@@ -121,6 +121,7 @@ defineExpose<KdsFormFieldExpose>({
             popover-aria-label="Date picker"
           >
             <DatePicker
+              v-if="popoverIsVisible"
               :model-value="datePickerValue"
               :is-dark="isDarkMode"
               class="v-calendar-date-picker"
@@ -242,6 +243,8 @@ defineExpose<KdsFormFieldExpose>({
   }
 
   .vc-focus:focus-within {
+    outline: var(--kds-border-action-focused);
+    outline-offset: var(--kds-spacing-offset-focus);
     box-shadow: none;
   }
 }
