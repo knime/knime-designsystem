@@ -923,7 +923,7 @@
           "$value": "{kds.core.color.red.550}",
           "$description": "State-based color for Nodes."
         },
-        "errorBorder": {
+        "error-border": {
           "$type": "color",
           "$value": "{kds.core.color.red.800}",
           "$description": "State-based color for Nodes."
@@ -933,22 +933,22 @@
           "$value": "{kds.core.color.yellow.175}",
           "$description": "State-based color for Nodes."
         },
-        "warningBorder": {
+        "warning-border": {
           "$type": "color",
           "$value": "{kds.core.color.orange.650}",
           "$description": "State-based color for Nodes."
         },
-        "executed": {
+        "success": {
           "$type": "color",
           "$value": "{kds.core.color.green.325}",
           "$description": "State-based color for Nodes."
         },
-        "executedBorder": {
+        "success-border": {
           "$type": "color",
           "$value": "{kds.core.color.green.650}",
           "$description": "State-based color for Nodes."
         },
-        "executing": {
+        "loading": {
           "$type": "color",
           "$value": "{kds.core.color.blue.650}",
           "$description": "State-based color for Nodes."
@@ -958,7 +958,7 @@
           "$value": "{kds.core.color.neutral.25}",
           "$description": "State-based color for Nodes."
         },
-        "inactiveBorder": {
+        "inactive-border": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.175}",
           "$description": "State-based color for Nodes."
@@ -968,7 +968,7 @@
           "$value": "{kds.core.color.neutral.250}",
           "$description": "State-based color for Nodes."
         },
-        "disabledBorder": {
+        "disabled-border": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.325}",
           "$description": "State-based color for Nodes."
