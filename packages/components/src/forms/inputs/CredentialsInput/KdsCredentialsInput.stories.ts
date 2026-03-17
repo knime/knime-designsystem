@@ -59,20 +59,16 @@ const meta: Meta<typeof KdsCredentialsInput> = {
       control: "text",
       table: { category: "props" },
     },
-    usernameAriaDescribedby: {
-      control: "text",
+    usernameField: {
+      control: "object",
       table: { category: "props" },
     },
-    passwordAriaDescribedby: {
-      control: "text",
+    passwordField: {
+      control: "object",
       table: { category: "props" },
     },
-    keyAriaDescribedby: {
-      control: "text",
-      table: { category: "props" },
-    },
-    keyName: {
-      control: "text",
+    keyField: {
+      control: "object",
       table: { category: "props" },
     },
     showUsername: {
@@ -95,42 +91,6 @@ const meta: Meta<typeof KdsCredentialsInput> = {
       control: "boolean",
       table: { category: "props" },
     },
-    usernameSubText: {
-      control: "text",
-      table: { category: "props" },
-    },
-    passwordSubText: {
-      control: "text",
-      table: { category: "props" },
-    },
-    keySubText: {
-      control: "text",
-      table: { category: "props" },
-    },
-    usernameError: {
-      control: "boolean",
-      table: { category: "props" },
-    },
-    passwordError: {
-      control: "boolean",
-      table: { category: "props" },
-    },
-    keyError: {
-      control: "boolean",
-      table: { category: "props" },
-    },
-    usernameValidating: {
-      control: "boolean",
-      table: { category: "props" },
-    },
-    passwordValidating: {
-      control: "boolean",
-      table: { category: "props" },
-    },
-    keyValidating: {
-      control: "boolean",
-      table: { category: "props" },
-    },
     preserveSubTextSpace: {
       control: "boolean",
       table: { category: "props" },
@@ -147,24 +107,36 @@ const meta: Meta<typeof KdsCredentialsInput> = {
     ariaLabel: "Credentials",
     ariaLabelledby: "",
     ariaDescribedby: "",
-    usernameAriaDescribedby: "",
-    passwordAriaDescribedby: "",
-    keyAriaDescribedby: "",
-    keyName: "Key",
+    usernameField: {
+      placeholder: "Username",
+      autocomplete: "username",
+      subText: "",
+      error: false,
+      validating: false,
+      ariaDescribedby: "",
+    },
+    passwordField: {
+      placeholder: "Password",
+      autocomplete: "current-password",
+      subText: "",
+      error: false,
+      validating: false,
+      ariaDescribedby: "",
+    },
+    keyField: {
+      name: "Key",
+      placeholder: "",
+      autocomplete: "off",
+      subText: "",
+      error: false,
+      validating: false,
+      ariaDescribedby: "",
+    },
     showUsername: true,
     showPassword: true,
     showKey: true,
     disabled: false,
     showVisibilityToggle: true,
-    usernameSubText: "",
-    passwordSubText: "",
-    keySubText: "",
-    usernameError: false,
-    passwordError: false,
-    keyError: false,
-    usernameValidating: false,
-    passwordValidating: false,
-    keyValidating: false,
     preserveSubTextSpace: false,
   },
   render: (args) => {
@@ -280,12 +252,9 @@ export const Error: Story = {
       password: "•••••••••••••",
       key: "•••••••••••••",
     },
-    usernameError: true,
-    passwordError: true,
-    keyError: true,
-    usernameSubText: "{Error message}",
-    passwordSubText: "{Error message}",
-    keySubText: "{Error message}",
+    usernameField: { error: true, subText: "{Error message}" },
+    passwordField: { error: true, subText: "{Error message}" },
+    keyField: { name: "Key", error: true, subText: "{Error message}" },
   },
 };
 
@@ -296,12 +265,13 @@ export const Validating: Story = {
       password: "•••••••••••••",
       key: "•••••••••••••",
     },
-    usernameValidating: true,
-    passwordValidating: true,
-    keyValidating: true,
-    usernameSubText: "{Validation message}",
-    passwordSubText: "{Validation message}",
-    keySubText: "{Validation message}",
+    usernameField: { validating: true, subText: "{Validation message}" },
+    passwordField: { validating: true, subText: "{Validation message}" },
+    keyField: {
+      name: "Key",
+      validating: true,
+      subText: "{Validation message}",
+    },
   },
 };
 
@@ -312,9 +282,9 @@ export const TextOverflow: Story = {
   }),
   args: {
     label: "Very long credentials group label that should truncate gracefully",
-    usernamePlaceholder: "Very long username placeholder text",
-    passwordPlaceholder: "Very long password placeholder text",
-    keyPlaceholder: "Very long key placeholder text",
+    usernameField: { placeholder: "Very long username placeholder text" },
+    passwordField: { placeholder: "Very long password placeholder text" },
+    keyField: { name: "Key", placeholder: "Very long key placeholder text" },
   },
 };
 
@@ -358,12 +328,9 @@ export const DesignComparator: Story = buildDesignComparatorStory({
               password: "•••••••••••••",
               key: "•••••••••••••",
             },
-            usernameError: true,
-            passwordError: true,
-            keyError: true,
-            usernameSubText: "{Error message}",
-            passwordSubText: "{Error message}",
-            keySubText: "{Error message}",
+            usernameField: { error: true, subText: "{Error message}" },
+            passwordField: { error: true, subText: "{Error message}" },
+            keyField: { name: "Key", error: true, subText: "{Error message}" },
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=5351-35950":
           {
@@ -372,12 +339,19 @@ export const DesignComparator: Story = buildDesignComparatorStory({
               password: "•••••••••••••",
               key: "•••••••••••••",
             },
-            usernameValidating: true,
-            passwordValidating: true,
-            keyValidating: true,
-            usernameSubText: "{Validation message}",
-            passwordSubText: "{Validation message}",
-            keySubText: "{Validation message}",
+            usernameField: {
+              validating: true,
+              subText: "{Validation message}",
+            },
+            passwordField: {
+              validating: true,
+              subText: "{Validation message}",
+            },
+            keyField: {
+              name: "Key",
+              validating: true,
+              subText: "{Validation message}",
+            },
           },
       },
     },
@@ -396,6 +370,14 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       showVisibilityToggle: [true],
       disabled: [false],
       preserveSubTextSpace: [false],
+      usernameField: [{ placeholder: "Username", autocomplete: "username" }],
+      passwordField: [
+        {
+          placeholder: "Password",
+          autocomplete: "current-password",
+        },
+      ],
+      keyField: [{ name: "Key", autocomplete: "off" }],
       modelValue: [{ username: "", password: "", key: "" }],
     },
     combinations: [
@@ -410,20 +392,26 @@ export const AllCombinations: Story = buildAllCombinationsStory({
         ],
       },
       {
-        usernameError: [true],
-        passwordError: [true],
-        keyError: [true],
-        usernameSubText: ["{Error message}"],
-        passwordSubText: ["{Error message}"],
-        keySubText: ["{Error message}"],
+        usernameField: [{ error: true, subText: "{Error message}" }],
+        passwordField: [{ error: true, subText: "{Error message}" }],
+        keyField: [{ name: "Key", error: true, subText: "{Error message}" }],
       },
       {
-        usernameValidating: [true],
-        passwordValidating: [true],
-        keyValidating: [true],
-        usernameSubText: ["{Validation message}"],
-        passwordSubText: ["{Validation message}"],
-        keySubText: ["{Validation message}"],
+        usernameField: [
+          {
+            validating: true,
+            subText: "{Validation message}",
+          },
+        ],
+        passwordField: [
+          {
+            validating: true,
+            subText: "{Validation message}",
+          },
+        ],
+        keyField: [
+          { name: "Key", validating: true, subText: "{Validation message}" },
+        ],
       },
       { showUsername: [false] },
       { showPassword: [false], showKey: [false] },
