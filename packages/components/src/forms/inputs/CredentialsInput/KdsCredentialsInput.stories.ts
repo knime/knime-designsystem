@@ -87,10 +87,6 @@ const meta: Meta<typeof KdsCredentialsInput> = {
       control: "boolean",
       table: { category: "props" },
     },
-    showVisibilityToggle: {
-      control: "boolean",
-      table: { category: "props" },
-    },
     preserveSubTextSpace: {
       control: "boolean",
       table: { category: "props" },
@@ -136,7 +132,6 @@ const meta: Meta<typeof KdsCredentialsInput> = {
     showPassword: true,
     showKey: true,
     disabled: false,
-    showVisibilityToggle: true,
     preserveSubTextSpace: false,
   },
   render: (args) => {
@@ -209,6 +204,33 @@ export const KeyboardNavigation: Story = {
 export const PasswordAndKey: Story = {
   args: {
     showUsername: false,
+  },
+};
+
+export const SplitVisibilityToggle: Story = {
+  args: {
+    showUsername: false,
+    passwordField: {
+      placeholder: "Password",
+      autocomplete: "current-password",
+      showVisibilityToggle: true,
+    },
+    keyField: {
+      name: "Key",
+      autocomplete: "off",
+      showVisibilityToggle: false,
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await userEvent.click(canvas.getByLabelText("Password"));
+    await expect(
+      canvas.getByRole("button", { name: "Show password" }),
+    ).toBeInTheDocument();
+    await expect(
+      canvas.queryByRole("button", { name: "Show key" }),
+    ).not.toBeInTheDocument();
   },
 };
 
@@ -367,7 +389,6 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       showUsername: [true],
       showPassword: [true],
       showKey: [true],
-      showVisibilityToggle: [true],
       disabled: [false],
       preserveSubTextSpace: [false],
       usernameField: [{ placeholder: "Username", autocomplete: "username" }],

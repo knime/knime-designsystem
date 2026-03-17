@@ -1,42 +1,34 @@
 import type { KdsIconName } from "../../../../accessories/Icon/types";
+import type { KdsInputFieldProps } from "../../types";
+import type { KdsSecretAutocomplete } from "../types";
 
-export type PasswordInputProps = {
+type PasswordInputBaseProps = Pick<
+  KdsInputFieldProps,
+  "id" | "placeholder" | "error" | "disabled"
+> & {
   /**
-   * ID for the input element.
+   * Autocomplete value for secret inputs.
    */
-  id?: string;
+  autocomplete?: KdsSecretAutocomplete;
+  /**
+   * Accessible label override for the input.
+   */
+  ariaLabel?: KdsInputFieldProps["ariaLabel"];
+  /**
+   * ID of element that describes this input.
+   */
+  ariaDescribedby?: string;
+};
+
+export type PasswordInputProps = PasswordInputBaseProps & {
   /**
    * Name used for accessibility labels on the input and toggle button.
    */
   fieldName: string;
   /**
-   * Placeholder text shown when input is empty.
-   */
-  placeholder?: string;
-  /**
-   * Autocomplete value for the input element.
-   */
-  autocomplete?: string;
-  /**
    * Leading icon shown in the input field.
    */
   leadingIcon: KdsIconName;
-  /**
-   * ID of element that describes this input.
-   */
-  ariaDescribedby?: string;
-  /**
-   * Accessible label override for the input.
-   */
-  ariaLabel?: string;
-  /**
-   * Whether this input has an error state.
-   */
-  error?: boolean;
-  /**
-   * Whether this input is disabled.
-   */
-  disabled?: boolean;
   /**
    * Whether to show the visibility toggle button.
    */

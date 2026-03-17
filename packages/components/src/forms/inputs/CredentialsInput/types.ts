@@ -32,42 +32,53 @@ type KdsCredentialsVisibilityProps =
       showKey?: true;
     };
 
-type KdsCredentialsFieldProps = {
+type KdsCredentialsFieldProps = Pick<
+  KdsInputFieldProps,
+  "placeholder" | "subText" | "error" | "validating"
+> & {
   /**
    * ID of element that describes this input.
    */
   ariaDescribedby?: string;
-  /**
-   * Placeholder shown when the field is empty.
-   */
-  placeholder?: string;
-  /**
-   * Autocomplete value for this field.
-   */
-  autocomplete?: string;
-  /**
-   * Subtext shown below the field.
-   */
-  subText?: string;
-  /**
-   * Error state for this field.
-   */
-  error?: boolean;
-  /**
-   * Validating state for this field.
-   */
-  validating?: boolean;
 };
 
-export type KdsCredentialsUsernameProps = KdsCredentialsFieldProps;
+export type KdsSecretAutocomplete =
+  | "new-password"
+  | "current-password"
+  | "one-time-code"
+  | "off";
 
-export type KdsCredentialsPasswordProps = KdsCredentialsFieldProps;
+export type KdsCredentialsUsernameProps = KdsCredentialsFieldProps & {
+  /**
+   * Autocomplete value for the username field.
+   */
+  autocomplete?: KdsInputFieldProps["autocomplete"];
+};
+
+export type KdsCredentialsPasswordProps = KdsCredentialsFieldProps & {
+  /**
+   * Autocomplete value for the password field.
+   */
+  autocomplete?: KdsSecretAutocomplete;
+  /**
+   * Whether to show the visibility toggle for the password field.
+   */
+  showVisibilityToggle?: boolean;
+};
 
 export type KdsCredentialsKeyProps = KdsCredentialsFieldProps & {
+  /**
+   * Autocomplete value for the key field.
+   */
+  autocomplete?: KdsSecretAutocomplete;
   /**
    * Accessible/display name of the key field used for aria labels and toggle text.
    */
   name?: string;
+  /**
+   * Whether to show the visibility toggle for the key field.
+   */
+  showVisibilityToggle?: boolean;
 };
 
 type KdsUsernameConfigProps =
@@ -113,10 +124,6 @@ export type KdsCredentialsInputProps = {
    * Reserve subtext space to avoid layout shifts.
    */
   preserveSubTextSpace?: boolean;
-  /**
-   * Whether to show the visibility toggle on secret fields.
-   */
-  showVisibilityToggle?: boolean;
 } & Pick<KdsInputFieldProps, "id" | "label" | "ariaLabel" | "disabled"> &
   KdsCredentialsVisibilityProps &
   KdsUsernameConfigProps &
@@ -146,6 +153,14 @@ propTypeTester<KdsCredentialsInputProps>({
   disabled: false,
 });
 
+propTypeTester<KdsCredentialsInputProps>({
+  showUsername: true,
+  showPassword: true,
+  showKey: true,
+  passwordField: { autocomplete: "one-time-code" },
+  keyField: { autocomplete: "off" },
+});
+
 // @ts-expect-error - at least one field must be enabled
 propTypeTester<KdsCredentialsInputProps>({
   showUsername: false,
@@ -173,4 +188,19 @@ propTypeTester<KdsCredentialsInputProps>({
   showPassword: true,
   showKey: false,
   keyField: { name: "Token" },
+});
+
+propTypeTester<KdsCredentialsInputProps>({
+  showUsername: true,
+  showPassword: true,
+  // @ts-expect-error - password autocomplete must use secret-specific values
+  passwordField: { autocomplete: "username" },
+});
+
+propTypeTester<KdsCredentialsInputProps>({
+  showUsername: true,
+  showPassword: true,
+  showKey: true,
+  // @ts-expect-error - key autocomplete must use secret-specific values
+  keyField: { autocomplete: "email" },
 });

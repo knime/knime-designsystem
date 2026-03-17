@@ -9,6 +9,8 @@ import PasswordInput from "./_helper/PasswordInput.vue";
 import type {
   KdsCredentialsInputProps,
   KdsCredentialsInputValue,
+  KdsCredentialsKeyProps,
+  KdsCredentialsPasswordProps,
 } from "./types";
 
 const props = defineProps<KdsCredentialsInputProps>();
@@ -18,7 +20,6 @@ const showPassword = computed(() => props.showPassword ?? true);
 const showKey = computed(() => props.showKey ?? false);
 
 const disabled = computed(() => props.disabled ?? false);
-const showVisibilityToggle = computed(() => props.showVisibilityToggle ?? true);
 const preserveSubTextSpace = computed(
   () => props.preserveSubTextSpace ?? false,
 );
@@ -32,22 +33,24 @@ const usernameField = computed(() => ({
   ...props.usernameField,
 }));
 
-const passwordField = computed(() => ({
+const passwordField = computed<KdsCredentialsPasswordProps>(() => ({
   placeholder: "Password",
   autocomplete: "current-password",
   subText: undefined,
   error: false,
   validating: false,
+  showVisibilityToggle: false,
   ...props.passwordField,
 }));
 
-const keyField = computed(() => ({
+const keyField = computed<KdsCredentialsKeyProps>(() => ({
   name: "Key",
   placeholder: undefined,
   autocomplete: "off",
   subText: undefined,
   error: false,
   validating: false,
+  showVisibilityToggle: false,
   ...props.keyField,
 }));
 
@@ -210,7 +213,7 @@ defineExpose<KdsFormFieldExpose>({
           :error="passwordField.error"
           :autocomplete="passwordField.autocomplete"
           leading-icon="lock"
-          :show-visibility-toggle="showVisibilityToggle"
+          :show-visibility-toggle="passwordField.showVisibilityToggle"
         />
         <KdsSubText
           :id="passwordSubTextId"
@@ -234,7 +237,7 @@ defineExpose<KdsFormFieldExpose>({
           :error="keyField.error"
           :autocomplete="keyField.autocomplete"
           leading-icon="key"
-          :show-visibility-toggle="showVisibilityToggle"
+          :show-visibility-toggle="keyField.showVisibilityToggle"
         />
         <KdsSubText
           :id="keySubTextId"
@@ -290,7 +293,7 @@ defineExpose<KdsFormFieldExpose>({
         :error="passwordField.error"
         :autocomplete="passwordField.autocomplete"
         leading-icon="lock"
-        :show-visibility-toggle="showVisibilityToggle"
+        :show-visibility-toggle="passwordField.showVisibilityToggle"
       />
       <KdsSubText
         :id="passwordSubTextId"
@@ -316,7 +319,7 @@ defineExpose<KdsFormFieldExpose>({
         :error="keyField.error"
         :autocomplete="keyField.autocomplete"
         leading-icon="key"
-        :show-visibility-toggle="showVisibilityToggle"
+        :show-visibility-toggle="keyField.showVisibilityToggle"
       />
       <KdsSubText
         :id="keySubTextId"
