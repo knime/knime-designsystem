@@ -75,7 +75,7 @@ const meta: Meta<typeof DropdownContainer> = {
     },
   },
   args: {
-    modelValue: null,
+    modelValue: "",
     possibleValues: options(5, () => ({})),
     loading: false,
     emptyText: "No entries found",
@@ -86,8 +86,8 @@ const meta: Meta<typeof DropdownContainer> = {
     return {
       components: { DropdownContainer },
       setup() {
-        const modelValue = ref<string | null>(args.modelValue ?? null);
-        watchEffect(() => (modelValue.value = args.modelValue ?? null));
+        const modelValue = ref<string>(args.modelValue ?? "");
+        watchEffect(() => (modelValue.value = args.modelValue ?? ""));
         watchEffect(() => updateArgs({ modelValue: modelValue.value }));
         return { args, modelValue };
       },
@@ -500,9 +500,9 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       loading: [false],
     },
     combinations: [
-      { modelValue: [null], loading: [true] },
+      { modelValue: [""], loading: [true] },
       {
-        modelValue: [null, "option-id-1", "missing"],
+        modelValue: ["", "option-id-1", "missing"],
         possibleValues: [
           options(3, () => ({})),
           options(3, (idx) => ({
