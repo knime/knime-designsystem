@@ -930,7 +930,7 @@
         },
         "warning": {
           "$type": "color",
-          "$value": "{kds.core.color.yellow.250}",
+          "$value": "{kds.core.color.yellow.175}",
           "$description": "State-based color for Nodes."
         },
         "warningBorder": {
@@ -960,7 +960,12 @@
         },
         "inactiveBorder": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.275}",
+          "$value": "{kds.core.color.neutral.250}",
+          "$description": "State-based color for Nodes."
+        },
+        "background": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.250}",
           "$description": "State-based color for Nodes."
         }
       },

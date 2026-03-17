@@ -974,12 +974,12 @@
       "node-state": {
         "error": {
           "$type": "color",
-          "$value": "{kds.core.color.red.650}",
+          "$value": "{kds.core.color.red.725}",
           "$description": "State-based color for Nodes."
         },
         "errorBorder": {
           "$type": "color",
-          "$value": "{kds.core.color.red.435}",
+          "$value": "{kds.core.color.red.325}",
           "$description": "State-based color for Nodes."
         },
         "warning": {
@@ -1015,6 +1015,11 @@
         "inactiveBorder": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.325}",
+          "$description": "State-based color for Nodes."
+        },
+        "background": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.475}",
           "$description": "State-based color for Nodes."
         }
       },
