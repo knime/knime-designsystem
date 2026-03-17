@@ -11,12 +11,13 @@ import type { KdsVariableToggleButtonProps } from "./types.ts";
  * @slot default - Custom content for the popover. When provided, overrides the `content` prop.
  */
 
-const props = withDefaults(defineProps<KdsVariableToggleButtonProps>(), {
-  inSet: false,
-  outSet: false,
-  error: false,
-  hidden: false,
-});
+const {
+  inSet = false,
+  outSet = false,
+  error = false,
+  hidden = false,
+  content,
+} = defineProps<KdsVariableToggleButtonProps>();
 
 const modelValue = defineModel<boolean>({ default: false });
 const popoverEl = useTemplateRef("popoverEl");
@@ -24,15 +25,15 @@ const isHovered = ref(false);
 const isFocused = ref(false);
 
 const iconState = computed(() => {
-  if (props.inSet && props.outSet) {
+  if (inSet && outSet) {
     return "in-out" as const;
   }
 
-  if (props.inSet) {
+  if (inSet) {
     return "in" as const;
   }
 
-  if (props.outSet) {
+  if (outSet) {
     return "out" as const;
   }
 
@@ -68,7 +69,7 @@ const errorTitleByState: Partial<Record<typeof iconState.value, string>> = {
 
 const title = computed(() => {
   const baseTitle = baseTitleByState[iconState.value];
-  if (!props.error) {
+  if (!error) {
     return baseTitle;
   }
   return errorTitleByState[iconState.value] ?? baseTitle;
@@ -80,9 +81,9 @@ const title = computed(() => {
     v-bind="$attrs"
     :class="{
       'variable-toggle-button': true,
-      error: props.error,
-      'pressed-or-set': modelValue || props.inSet || props.outSet,
-      hidden: props.hidden && !modelValue && !isHovered && !isFocused,
+      error: error,
+      'pressed-or-set': modelValue || inSet || outSet,
+      hidden: hidden && !modelValue && !isHovered && !isFocused,
     }"
     :title="title"
     :aria-label="title"
@@ -108,7 +109,7 @@ const title = computed(() => {
     role="dialog"
     popover-aria-label="Flow Variable settings"
   >
-    <VariablePopover v-if="modelValue" :content="props.content">
+    <VariablePopover v-if="modelValue" :content="content">
       <slot />
     </VariablePopover>
   </KdsPopover>

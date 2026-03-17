@@ -4,11 +4,12 @@ import { KdsIcon, type KdsIconSize } from "../Icon";
 import { kdsBadgeSize, kdsBadgeVariant } from "./enums";
 import type { KdsBadgeProps, KdsBadgeSize } from "./types";
 
-withDefaults(defineProps<KdsBadgeProps>(), {
-  variant: kdsBadgeVariant.NEUTRAL,
-  size: kdsBadgeSize.XSMALL,
-  leadingIcon: undefined,
-});
+const {
+  variant = kdsBadgeVariant.NEUTRAL,
+  size = kdsBadgeSize.XSMALL,
+  leadingIcon,
+  label,
+} = defineProps<KdsBadgeProps>();
 
 const sizeToIconSize: Record<KdsBadgeSize, KdsIconSize> = {
   xxsmall: "xsmall",

@@ -13,12 +13,15 @@ import type {
   KdsListOption,
 } from "./types";
 
-const props = withDefaults(defineProps<KdsListContainerProps>(), {
-  emptyText: "",
-  variant: kdsListItemVariant.SMALL,
-  loading: false,
-  role: "listbox",
-});
+const {
+  emptyText = "",
+  variant = kdsListItemVariant.SMALL,
+  loading = false,
+  role = "listbox",
+  possibleValues,
+  ariaLabel,
+  controlledExternally,
+} = defineProps<KdsListContainerProps>();
 
 const emit = defineEmits<{
   /** Emitted when item is clicked */
@@ -32,7 +35,7 @@ const loadingStateText = "Loading entries";
 
 /** possibleValues with prefixed ids to avoid DOM id collisions */
 const prefixedValues = computed<KdsListOption[]>(() =>
-  (props.loading ? [] : props.possibleValues).map((o) => ({
+  (loading ? [] : possibleValues).map((o) => ({
     ...o,
     id: `${idPrefix}-${o.id}`,
   })),
@@ -54,7 +57,7 @@ const isFocused = ref(false);
 const containerEl = useTemplateRef("containerEl");
 
 const listItemRole = computed(() => {
-  return props.role === "listbox" ? "option" : "menuitem";
+  return role === "listbox" ? "option" : "menuitem";
 });
 
 function scrollToView() {
@@ -92,7 +95,7 @@ const enabledValues = computed(() =>
 );
 
 /** Reset activeId/lastActiveId when possibleValues change and current id no longer exists */
-watch([enabledValues, () => props.loading], ([values, loading]) => {
+watch([enabledValues, () => loading], ([values, loading]) => {
   const isValid = (id: string | undefined) =>
     id !== undefined && values.some((o) => o.id === id);
 
@@ -220,16 +223,16 @@ defineExpose<KdsListContainerExpose>({
   <div
     v-bind="$attrs"
     ref="containerEl"
-    :role="props.role"
-    :aria-busy="props.loading"
-    :aria-label="props.ariaLabel"
+    :role="role"
+    :aria-busy="loading"
+    :aria-label="ariaLabel"
     :aria-activedescendant="
-      !props.controlledExternally && activeId ? activeId : undefined
+      !controlledExternally && activeId ? activeId : undefined
     "
-    :class="['kds-list-container', { standalone: !props.controlledExternally }]"
-    :tabindex="props.controlledExternally ? undefined : 0"
+    :class="['kds-list-container', { standalone: !controlledExternally }]"
+    :tabindex="controlledExternally ? undefined : 0"
     v-on="
-      props.controlledExternally
+      controlledExternally
         ? { mousemove: onMousemove, mouseleave: onMouseLeave }
         : {
             keydown: handleKeydown,
@@ -259,10 +262,10 @@ defineExpose<KdsListContainerExpose>({
         :active="activeId === item.id"
         :special="item.special"
         :missing="item.missing"
-        :variant="props.variant"
+        :variant="variant"
         :trailing-icon="item.selected ? 'checkmark' : undefined"
         :role="listItemRole"
-        @mousedown="props.controlledExternally && $event.preventDefault()"
+        @mousedown="controlledExternally && $event.preventDefault()"
         @click.stop="emit('itemClick', toOptionId(item.id))"
       />
       <ListItemDivider
@@ -280,8 +283,8 @@ defineExpose<KdsListContainerExpose>({
       class="kds-list-container-empty"
     >
       <KdsEmptyState
-        :headline="props.loading ? loadingStateText : props.emptyText"
-        :loading-spinner="props.loading"
+        :headline="loading ? loadingStateText : emptyText"
+        :loading-spinner="loading"
       />
     </div>
   </div>

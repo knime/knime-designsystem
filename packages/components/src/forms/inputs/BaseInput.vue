@@ -121,33 +121,33 @@ type BaseInputProps = {
   pattern?: string;
 };
 
-const props = withDefaults(defineProps<BaseInputProps>(), {
-  id: undefined,
-  type: "text",
-  min: undefined,
-  max: undefined,
-  step: undefined,
-  placeholder: undefined,
-  disabled: false,
-  leadingIcon: undefined,
-  trailingIcon: undefined,
-  error: false,
-  autocomplete: undefined,
-  ariaLabel: undefined,
-  ariaLabelledby: undefined,
-  ariaDescribedby: undefined,
-  ariaInvalid: undefined,
-  role: undefined,
-  ariaValuenow: undefined,
-  ariaValuemin: undefined,
-  ariaValuemax: undefined,
-  ariaValuetext: undefined,
-  ariaActivedescendant: undefined,
-  unit: undefined,
-  inputmode: undefined,
-  clearable: false,
-  pattern: undefined,
-});
+const {
+  id = undefined,
+  type = "text",
+  min = undefined,
+  max = undefined,
+  step = undefined,
+  placeholder = undefined,
+  disabled = false,
+  leadingIcon = undefined,
+  trailingIcon = undefined,
+  error = false,
+  autocomplete = undefined,
+  ariaLabel = undefined,
+  ariaLabelledby = undefined,
+  ariaDescribedby = undefined,
+  ariaInvalid = undefined,
+  role = undefined,
+  ariaValuenow = undefined,
+  ariaValuemin = undefined,
+  ariaValuemax = undefined,
+  ariaValuetext = undefined,
+  ariaActivedescendant = undefined,
+  unit = undefined,
+  inputmode = undefined,
+  clearable = false,
+  pattern = undefined,
+} = defineProps<BaseInputProps>();
 
 type BaseInputEmits = {
   /** Native focus event forwarded from the input element. */
@@ -171,7 +171,7 @@ const inputRef = useTemplateRef("input");
 const hasValue = computed(() => modelValue.value.length > 0);
 
 const showUnitPlaceholder = computed(
-  () => Boolean(props.unit) && modelValue.value.trim().length === 0,
+  () => Boolean(unit) && modelValue.value.trim().length === 0,
 );
 
 const handleInput = (event: Event) => {
@@ -211,13 +211,13 @@ defineExpose({
   <div
     :class="{
       container: true,
-      error: props.error,
-      disabled: props.disabled,
+      error: error,
+      disabled: disabled,
     }"
     @click="handleContainerClick"
   >
-    <div v-if="props.leadingIcon" class="icon-wrapper leading">
-      <KdsIcon v-if="props.leadingIcon" :name="props.leadingIcon" />
+    <div v-if="leadingIcon" class="icon-wrapper leading">
+      <KdsIcon v-if="leadingIcon" :name="leadingIcon" />
     </div>
 
     <div v-if="$slots.leading" class="leading-slot">
@@ -225,28 +225,28 @@ defineExpose({
     </div>
 
     <input
-      :id="props.id"
+      :id="id"
       ref="input"
       :value="modelValue"
-      :type="props.type"
-      :inputmode="props.inputmode"
-      :placeholder="props.placeholder"
-      :disabled="props.disabled"
-      :autocomplete="props.autocomplete"
-      :min="props.min"
-      :max="props.max"
-      :step="props.step"
-      :aria-label="props.ariaLabel"
-      :aria-labelledby="props.ariaLabelledby"
-      :aria-describedby="props.ariaDescribedby"
-      :aria-invalid="props.ariaInvalid"
-      :role="props.role"
-      :pattern="props.pattern"
-      :aria-valuenow="props.ariaValuenow"
-      :aria-valuemin="props.ariaValuemin"
-      :aria-valuemax="props.ariaValuemax"
-      :aria-valuetext="props.ariaValuetext"
-      :aria-activedescendant="props.ariaActivedescendant"
+      :type="type"
+      :inputmode="inputmode"
+      :placeholder="placeholder"
+      :disabled="disabled"
+      :autocomplete="autocomplete"
+      :min="min"
+      :max="max"
+      :step="step"
+      :aria-label="ariaLabel"
+      :aria-labelledby="ariaLabelledby"
+      :aria-describedby="ariaDescribedby"
+      :aria-invalid="ariaInvalid"
+      :role="role"
+      :pattern="pattern"
+      :aria-valuenow="ariaValuenow"
+      :aria-valuemin="ariaValuemin"
+      :aria-valuemax="ariaValuemax"
+      :aria-valuetext="ariaValuetext"
+      :aria-activedescendant="ariaActivedescendant"
       :class="{ 'input-field': true, 'has-value': hasValue }"
       @input="handleInput"
       @focus="emit('focus', $event)"
@@ -256,25 +256,25 @@ defineExpose({
     />
 
     <span
-      v-if="props.unit"
+      v-if="unit"
       :class="{
         unit: true,
         placeholder: showUnitPlaceholder,
-        disabled: props.disabled,
+        disabled: disabled,
       }"
-      :aria-disabled="props.disabled || undefined"
+      :aria-disabled="disabled || undefined"
     >
-      {{ props.unit }}
+      {{ unit }}
     </span>
 
     <KdsButton
-      v-if="props.clearable && hasValue && !props.disabled"
+      v-if="clearable && hasValue && !disabled"
       class="clear-button"
       type="button"
       size="xsmall"
       variant="transparent"
       leading-icon="x-close"
-      aria-label="Clear"
+      :aria-label="'Clear'"
       title="Clear"
       @click.stop="clearAndFocusInput"
     />
@@ -283,8 +283,8 @@ defineExpose({
       <slot name="trailing" />
     </div>
 
-    <div v-if="props.trailingIcon" class="icon-wrapper trailing">
-      <KdsIcon :name="props.trailingIcon" />
+    <div v-if="trailingIcon" class="icon-wrapper trailing">
+      <KdsIcon :name="trailingIcon" />
     </div>
   </div>
 </template>
