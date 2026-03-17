@@ -123,7 +123,7 @@ const meta: Meta<typeof KdsDropdown> = {
     },
   },
   args: {
-    modelValue: null,
+    modelValue: "",
     id: "",
     label: "Label",
     ariaLabel: undefined,
@@ -314,7 +314,7 @@ export const InModal: Story = {
     components: { KdsButton, KdsModal, KdsModalLayout, KdsDropdown },
     setup() {
       const isActive = ref(false);
-      const modelValue = ref<string | null>(args.modelValue ?? null);
+      const modelValue = ref<string>(args.modelValue ?? "");
 
       const open = () => {
         isActive.value = true;
@@ -402,12 +402,12 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3594-15392":
           {
             placeholder: "Label",
-            modelValue: null,
+            modelValue: "",
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3594-15391":
           {
             placeholder: "Label",
-            modelValue: null,
+            modelValue: "",
             parameters: { pseudo: { hover: true } },
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=16518-76137":
@@ -511,7 +511,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   combinationsProps: [
     {
       label: ["Label"],
-      modelValue: [null, "a", "c"],
+      modelValue: ["", "a", "c"],
       placeholder: ["{text}"],
       disabled: [false, true],
       error: [false, true],

@@ -31,11 +31,6 @@ export type KdsDropdownProps = {
 
 /* ---- Internal types (not re-exported from index.ts) ---- */
 
-export type DropdownOptionWithMissing = KdsDropdownOption & {
-  /** Whether the option represents a missing value */
-  missing?: boolean;
-};
-
 export type DropdownContainerProps = {
   /** Text shown when the list is empty (no entries or no search results) */
   emptyText: string;

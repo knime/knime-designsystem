@@ -24,7 +24,7 @@ const props = withDefaults(defineProps<KdsDropdownProps>(), {
   preserveSubTextSpace: false,
 });
 
-const modelValue = defineModel<string | null>({ default: null });
+const modelValue = defineModel<string>({ default: "" });
 
 const open = ref(false);
 const popoverEl = useTemplateRef("popoverEl");
@@ -65,14 +65,14 @@ watch(modelValue, () => {
         v-bind="slotProps"
         v-model:open="open"
         :text="
-          modelValue !== null && !selectedOption
+          modelValue && !selectedOption
             ? `(Missing) ${modelValue}`
             : selectedOption?.text
         "
         :placeholder="props.placeholder"
         :disabled="props.disabled"
         :error="props.error"
-        :missing="modelValue !== null && !selectedOption"
+        :missing="!!modelValue && !selectedOption"
         :accessory="selectedOption?.accessory"
         :style="popoverEl?.anchorStyle"
         :popover-id="popoverEl?.popoverId"
