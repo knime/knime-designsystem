@@ -74,7 +74,6 @@ const meta: Meta<typeof KdsSplitButton> = {
   },
   args: {
     "onClick:primary": fn(),
-    "onClick:secondary": fn(),
     "onClick:alternative": fn(),
     "onUpdate:selectedActionId": fn(),
     alternativeActions: [
@@ -174,12 +173,12 @@ export const PrimaryAndAlternativeActions: Story = {
     await userEvent.click(secondaryButton);
 
     const contextMenu = await canvas.findByRole("menu", {
-      name: "Alternative actions",
+      name: "Actions",
     });
     await expect(contextMenu).toBeVisible();
 
     // Click on "Run selected" action
-    const runSelectedAction = await canvas.findByRole("option", {
+    const runSelectedAction = await canvas.findByRole("menuitem", {
       name: "Run selected",
     });
     await userEvent.click(runSelectedAction);
