@@ -971,7 +971,7 @@
           "$description": "Specific color for Annotations."
         }
       },
-      "node-state": {
+      "state": {
         "error": {
           "$type": "color",
           "$value": "{kds.core.color.red.725}",
@@ -1024,7 +1024,7 @@
         },
         "disabled": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.25}",
+          "$value": "{kds.core.color.neutral.475}",
           "$description": "State-based color for Nodes."
         }
       },

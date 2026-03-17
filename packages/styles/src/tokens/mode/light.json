@@ -935,7 +935,7 @@
         },
         "warningBorder": {
           "$type": "color",
-          "$value": "{kds.core.color.yellow.725}",
+          "$value": "{kds.core.color.orange.650}",
           "$description": "State-based color for Nodes."
         },
         "executed": {
