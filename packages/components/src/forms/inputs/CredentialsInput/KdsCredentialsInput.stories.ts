@@ -39,11 +39,39 @@ const meta: Meta<typeof KdsCredentialsInput> = {
       description: "v-model binding for the credentials object",
       table: { category: "model" },
     },
+    id: {
+      control: "text",
+      table: { category: "props" },
+    },
     label: {
       control: "text",
       table: { category: "props" },
     },
     ariaLabel: {
+      control: "text",
+      table: { category: "props" },
+    },
+    ariaLabelledby: {
+      control: "text",
+      table: { category: "props" },
+    },
+    ariaDescribedby: {
+      control: "text",
+      table: { category: "props" },
+    },
+    usernameAriaDescribedby: {
+      control: "text",
+      table: { category: "props" },
+    },
+    passwordAriaDescribedby: {
+      control: "text",
+      table: { category: "props" },
+    },
+    keyAriaDescribedby: {
+      control: "text",
+      table: { category: "props" },
+    },
+    keyName: {
       control: "text",
       table: { category: "props" },
     },
@@ -114,8 +142,15 @@ const meta: Meta<typeof KdsCredentialsInput> = {
       password: "",
       key: "",
     } satisfies KdsCredentialsInputValue,
+    id: "",
     label: "",
     ariaLabel: "Credentials",
+    ariaLabelledby: "",
+    ariaDescribedby: "",
+    usernameAriaDescribedby: "",
+    passwordAriaDescribedby: "",
+    keyAriaDescribedby: "",
+    keyName: "Key",
     showUsername: true,
     showPassword: true,
     showKey: true,
@@ -209,6 +244,26 @@ export const UsernameOnly: Story = {
   args: {
     showPassword: false,
     showKey: false,
+  },
+};
+
+export const KeyOnlyAutoGroup: Story = {
+  args: {
+    ariaLabel: "Token entry",
+    showUsername: false,
+    showPassword: false,
+    showKey: true,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(
+      canvasElement.querySelector("fieldset"),
+    ).not.toBeInTheDocument();
+    await expect(
+      canvas.getByRole("textbox", { name: "Token entry" }),
+    ).toBeInTheDocument();
+    await expect(canvas.getByPlaceholderText("Key")).toBeInTheDocument();
   },
 };
 

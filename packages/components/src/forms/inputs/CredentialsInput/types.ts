@@ -1,3 +1,5 @@
+import type { KdsInputFieldProps } from "../types";
+
 export type KdsCredentialsInputValue = {
   /**
    * Username value.
@@ -32,13 +34,25 @@ type KdsCredentialsVisibilityProps =
 
 export type KdsCredentialsInputProps = {
   /**
-   * Visible group label rendered as legend.
+   * ID of element that labels this credentials input.
    */
-  label?: string;
+  ariaLabelledby?: string;
   /**
-   * Accessible label for the fieldset when no visible label is rendered.
+   * ID of element that describes this credentials input.
    */
-  ariaLabel?: string;
+  ariaDescribedby?: string;
+  /**
+   * ID of element that describes the username input.
+   */
+  usernameAriaDescribedby?: string;
+  /**
+   * ID of element that describes the password input.
+   */
+  passwordAriaDescribedby?: string;
+  /**
+   * ID of element that describes the key input.
+   */
+  keyAriaDescribedby?: string;
   /**
    * Placeholder for the username field.
    */
@@ -51,6 +65,10 @@ export type KdsCredentialsInputProps = {
    * Placeholder for the key field.
    */
   keyPlaceholder?: string;
+  /**
+   * Accessible/display name of the key field used for aria labels and toggle text.
+   */
+  keyName?: string;
   /**
    * Autocomplete value for the username field.
    */
@@ -104,20 +122,20 @@ export type KdsCredentialsInputProps = {
    */
   preserveSubTextSpace?: boolean;
   /**
-   * Whether all fields are disabled.
-   */
-  disabled?: boolean;
-  /**
    * Whether to show the visibility toggle on secret fields.
    */
   showVisibilityToggle?: boolean;
-} & KdsCredentialsVisibilityProps;
+} & Pick<KdsInputFieldProps, "id" | "label" | "ariaLabel" | "disabled"> &
+  KdsCredentialsVisibilityProps;
 
 /**
  * Testers
  */
 propTypeTester<KdsCredentialsInputProps>({
+  id: "credentials-group",
   ariaLabel: "Credentials",
+  ariaDescribedby: "credentials-help",
+  keyName: "API token",
   showUsername: true,
   showPassword: true,
   showKey: true,
