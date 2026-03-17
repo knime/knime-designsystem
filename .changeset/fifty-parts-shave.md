@@ -2,4 +2,4 @@
 "@knime/kds-components": minor
 ---
 
-Improve LoadingSkeleton Storybook coverage and design comparator variants
+Add the new `KdsLoadingSkeleton` component with variant presets and Storybook documentation

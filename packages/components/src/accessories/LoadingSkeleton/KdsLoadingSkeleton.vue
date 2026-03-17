@@ -6,15 +6,7 @@ defineOptions({
   inheritAttrs: false,
 });
 
-const props = withDefaults(defineProps<KdsLoadingSkeletonProps>(), {
-  width: "100%",
-  height: "var(--kds-spacing-container-1-25x)",
-  size: 1,
-  variant: "default",
-  repeat: 1,
-  loading: true,
-  repeatGap: "var(--kds-spacing-container-1-25x)",
-});
+const props = defineProps<KdsLoadingSkeletonProps>();
 
 const {
   combinedLayoutStyles,
@@ -30,19 +22,34 @@ const {
 </script>
 
 <template>
-  <div v-if="loading" class="wrapper" v-bind="$attrs">
-    <div class="repeat-items" :style="repeatContainerStyles">
+  <div
+    v-if="loading"
+    class="kds-loading-skeleton"
+    v-bind="$attrs"
+    aria-hidden="true"
+  >
+    <div
+      class="kds-loading-skeleton-repeat-items"
+      :style="repeatContainerStyles"
+      role="presentation"
+    >
       <template v-if="isVariant('combined')">
         <div
           v-for="index in repeat"
           :key="`combined-${index}`"
-          class="combined-layout"
+          class="kds-loading-skeleton-combined-layout"
           :style="combinedLayoutStyles"
         >
-          <div class="skeleton-item combined-icon" />
-          <div class="combined-lines">
-            <div class="skeleton-item combined-line" />
-            <div class="skeleton-item combined-line" />
+          <div
+            class="kds-loading-skeleton-item kds-loading-skeleton-combined-icon"
+          />
+          <div class="kds-loading-skeleton-combined-lines">
+            <div
+              class="kds-loading-skeleton-item kds-loading-skeleton-combined-line"
+            />
+            <div
+              class="kds-loading-skeleton-item kds-loading-skeleton-combined-line"
+            />
           </div>
         </div>
       </template>
@@ -50,14 +57,22 @@ const {
         <div
           v-for="index in repeat"
           :key="`headline-${index}`"
-          class="headline-with-paragraph"
+          class="kds-loading-skeleton-headline-with-paragraph"
           :style="contentWidthStyles"
         >
-          <div class="skeleton-item headline-line" />
-          <div class="paragraph-lines">
-            <div class="skeleton-item paragraph-line paragraph-line-1" />
-            <div class="skeleton-item paragraph-line paragraph-line-2" />
-            <div class="skeleton-item paragraph-line paragraph-line-3" />
+          <div
+            class="kds-loading-skeleton-item kds-loading-skeleton-headline-line"
+          />
+          <div class="kds-loading-skeleton-paragraph-lines">
+            <div
+              class="kds-loading-skeleton-item kds-loading-skeleton-paragraph-line kds-loading-skeleton-paragraph-line-1"
+            />
+            <div
+              class="kds-loading-skeleton-item kds-loading-skeleton-paragraph-line kds-loading-skeleton-paragraph-line-2"
+            />
+            <div
+              class="kds-loading-skeleton-item kds-loading-skeleton-paragraph-line kds-loading-skeleton-paragraph-line-3"
+            />
           </div>
         </div>
       </template>
@@ -65,35 +80,49 @@ const {
         <div
           v-for="index in repeat"
           :key="`input-field-${index}`"
-          class="input-field-layout"
+          class="kds-loading-skeleton-input-field-layout"
           :style="contentWidthStyles"
         >
-          <div class="skeleton-item input-field-label" />
-          <div class="skeleton-item input-field-card" />
+          <div
+            class="kds-loading-skeleton-item kds-loading-skeleton-input-field-label"
+          />
+          <div
+            class="kds-loading-skeleton-item kds-loading-skeleton-input-field-card"
+          />
         </div>
       </template>
       <template v-else-if="isVariant('list-item-large')">
         <div
           v-for="index in repeat"
           :key="`list-item-large-${index}`"
-          class="list-item-layout list-item-layout-large"
+          class="kds-loading-skeleton-list-item-layout kds-loading-skeleton-list-item-layout-large"
           :style="contentWidthStyles"
         >
-          <div class="skeleton-item list-item-icon-large" />
-          <div class="skeleton-item list-item-text-large" />
+          <div
+            class="kds-loading-skeleton-item kds-loading-skeleton-list-item-icon-large"
+          />
+          <div
+            class="kds-loading-skeleton-item kds-loading-skeleton-list-item-text-large"
+          />
         </div>
       </template>
       <template v-else-if="isVariant('list-item-large-with-subtext')">
         <div
           v-for="index in repeat"
           :key="`list-item-large-with-subtext-${index}`"
-          class="list-item-layout list-item-layout-large-with-subtext"
+          class="kds-loading-skeleton-list-item-layout kds-loading-skeleton-list-item-layout-large-with-subtext"
           :style="contentWidthStyles"
         >
-          <div class="skeleton-item list-item-icon-large" />
-          <div class="list-item-lines">
-            <div class="skeleton-item list-item-text-small" />
-            <div class="skeleton-item list-item-text-small" />
+          <div
+            class="kds-loading-skeleton-item kds-loading-skeleton-list-item-icon-large"
+          />
+          <div class="kds-loading-skeleton-list-item-lines">
+            <div
+              class="kds-loading-skeleton-item kds-loading-skeleton-list-item-text-small"
+            />
+            <div
+              class="kds-loading-skeleton-item kds-loading-skeleton-list-item-text-small"
+            />
           </div>
         </div>
       </template>
@@ -101,24 +130,34 @@ const {
         <div
           v-for="index in repeat"
           :key="`list-item-small-${index}`"
-          class="list-item-layout list-item-layout-small"
+          class="kds-loading-skeleton-list-item-layout kds-loading-skeleton-list-item-layout-small"
           :style="contentWidthStyles"
         >
-          <div class="skeleton-item list-item-icon-small" />
-          <div class="skeleton-item list-item-text-small" />
+          <div
+            class="kds-loading-skeleton-item kds-loading-skeleton-list-item-icon-small"
+          />
+          <div
+            class="kds-loading-skeleton-item kds-loading-skeleton-list-item-text-small"
+          />
         </div>
       </template>
       <template v-else-if="isVariant('list-item-small-with-subtext')">
         <div
           v-for="index in repeat"
           :key="`list-item-small-with-subtext-${index}`"
-          class="list-item-layout list-item-layout-small-with-subtext"
+          class="kds-loading-skeleton-list-item-layout kds-loading-skeleton-list-item-layout-small-with-subtext"
           :style="contentWidthStyles"
         >
-          <div class="skeleton-item list-item-icon-small" />
-          <div class="list-item-lines">
-            <div class="skeleton-item list-item-text-small" />
-            <div class="skeleton-item list-item-text-small" />
+          <div
+            class="kds-loading-skeleton-item kds-loading-skeleton-list-item-icon-small"
+          />
+          <div class="kds-loading-skeleton-list-item-lines">
+            <div
+              class="kds-loading-skeleton-item kds-loading-skeleton-list-item-text-small"
+            />
+            <div
+              class="kds-loading-skeleton-item kds-loading-skeleton-list-item-text-small"
+            />
           </div>
         </div>
       </template>
@@ -126,7 +165,7 @@ const {
         <div
           v-for="index in repeat"
           :key="index"
-          :class="['skeleton-item', presetClass]"
+          :class="['kds-loading-skeleton-item', presetClass]"
           :style="styles"
         />
       </template>
@@ -148,13 +187,13 @@ const {
   }
 }
 
-.wrapper {
+.kds-loading-skeleton {
   display: block;
   width: 100%;
   padding: 0;
 }
 
-.repeat-items {
+.kds-loading-skeleton-repeat-items {
   display: flex;
   flex-direction: column;
   gap: var(--kds-spacing-container-1x);
@@ -164,7 +203,7 @@ const {
   padding: 0;
 }
 
-.combined-layout {
+.kds-loading-skeleton-combined-layout {
   display: flex;
   gap: var(--kds-spacing-container-0-75x);
   align-items: center;
@@ -173,70 +212,70 @@ const {
   max-width: 100%;
 }
 
-.combined-lines {
+.kds-loading-skeleton-combined-lines {
   display: grid;
   flex: 1;
   gap: var(--kds-spacing-container-0-5x);
   min-width: 0;
 }
 
-.headline-with-paragraph {
+.kds-loading-skeleton-headline-with-paragraph {
   display: grid;
   gap: var(--kds-spacing-container-1-25x);
   width: calc(100% + var(--kds-spacing-container-0-25x));
   max-width: 100%;
 }
 
-.paragraph-lines {
+.kds-loading-skeleton-paragraph-lines {
   display: grid;
   gap: var(--kds-spacing-container-0-75x);
   width: 100%;
 }
 
-.input-field-layout {
+.kds-loading-skeleton-input-field-layout {
   display: grid;
   gap: var(--kds-spacing-container-0-75x);
   width: calc(100% + var(--kds-spacing-container-0-25x));
 }
 
-.list-item-layout {
+.kds-loading-skeleton-list-item-layout {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   gap: var(--kds-spacing-container-0-75x);
-  align-items: center !important;
+  align-items: center;
   width: 100%;
   padding-block-start: var(--kds-dimension-component-height-0-25x);
   padding-inline-start: var(--kds-dimension-component-width-0-75x);
 }
 
-.list-item-layout-large {
-  align-items: center !important;
+.kds-loading-skeleton-list-item-layout-large {
+  align-items: center;
   padding-block-start: var(--kds-dimension-component-height-0-75x);
   padding-inline-start: var(--kds-dimension-component-width-0-75x);
 }
 
-.list-item-layout-large-with-subtext {
-  align-items: center !important;
+.kds-loading-skeleton-list-item-layout-large-with-subtext {
+  align-items: center;
   padding-block-start: var(--kds-dimension-component-height-0-75x);
   padding-inline-start: var(--kds-dimension-component-width-0-75x);
 }
 
-.list-item-layout-small {
+.kds-loading-skeleton-list-item-layout-small {
   align-items: center;
 }
 
-.list-item-layout-small-with-subtext {
+.kds-loading-skeleton-list-item-layout-small-with-subtext {
   align-items: start;
 }
 
-.list-item-lines {
+.kds-loading-skeleton-list-item-lines {
   display: grid;
   gap: var(--kds-spacing-container-0-25x);
   width: 100%;
   min-width: 0;
 }
 
-.skeleton-item {
+.kds-loading-skeleton-item {
   background-color: var(--kds-color-border-subtle);
   background-image: linear-gradient(
     90deg,
@@ -354,47 +393,47 @@ const {
     min-width: 100%;
     height: auto;
 
-    /* Minimum height approximates a typical card layout (headline + ~3 lines) */
+    /* Minimum height approximates a typical card skeleton (headline + ~3 lines). */
     min-height: calc(
-      var(--kds-dimension-component-height-2-5x) * 3.79 * v-bind(sizeMultiplier)
+      var(--kds-dimension-component-height-2-5x) * 4 * v-bind(sizeMultiplier)
     );
     margin: 0;
   }
 }
 
-.headline-line {
+.kds-loading-skeleton-headline-line {
   width: 50%;
   height: calc(
     var(--kds-dimension-component-height-1x) * v-bind(sizeMultiplier)
   );
 }
 
-.paragraph-line {
+.kds-loading-skeleton-paragraph-line {
   height: calc(
     var(--kds-dimension-component-height-0-75x) * v-bind(sizeMultiplier)
   );
 }
 
-.paragraph-line-1 {
+.kds-loading-skeleton-paragraph-line-1 {
   width: 103%;
 }
 
-.paragraph-line-2 {
+.kds-loading-skeleton-paragraph-line-2 {
   width: 76%;
 }
 
-.paragraph-line-3 {
+.kds-loading-skeleton-paragraph-line-3 {
   width: 50%;
 }
 
-.input-field-label {
+.kds-loading-skeleton-input-field-label {
   width: 35%;
   height: calc(
     var(--kds-dimension-component-height-0-75x) * v-bind(sizeMultiplier)
   );
 }
 
-.input-field-card {
+.kds-loading-skeleton-input-field-card {
   --kds-loading-skeleton-default-radius: var(
     --kds-border-radius-container-0-37x
   );
@@ -405,7 +444,7 @@ const {
   );
 }
 
-.list-item-icon-large {
+.kds-loading-skeleton-list-item-icon-large {
   width: calc(
     var(--kds-dimension-component-width-1-25x) * v-bind(sizeMultiplier)
   );
@@ -414,7 +453,7 @@ const {
   );
 }
 
-.list-item-icon-small {
+.kds-loading-skeleton-list-item-icon-small {
   width: calc(
     var(--kds-dimension-component-width-0-75x) * v-bind(sizeMultiplier)
   );
@@ -423,7 +462,7 @@ const {
   );
 }
 
-.list-item-text-large {
+.kds-loading-skeleton-list-item-text-large {
   width: 100%;
   min-width: 0;
   height: calc(
@@ -431,7 +470,7 @@ const {
   );
 }
 
-.list-item-text-small {
+.kds-loading-skeleton-list-item-text-small {
   width: 100%;
   min-width: 0;
   height: calc(
@@ -439,7 +478,7 @@ const {
   );
 }
 
-.combined-icon {
+.kds-loading-skeleton-combined-icon {
   --kds-loading-skeleton-default-radius: var(
     --kds-border-radius-container-pill
   );
@@ -455,7 +494,7 @@ const {
   );
 }
 
-.combined-line {
+.kds-loading-skeleton-combined-line {
   --kds-loading-skeleton-default-radius: var(
     --kds-border-radius-container-0-25x
   );
