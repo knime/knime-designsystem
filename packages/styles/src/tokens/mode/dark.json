@@ -1024,7 +1024,7 @@
         },
         "disabled-border": {
           "$type": "color",
-          "$value": "{kds.core.color.neutral.475}",
+          "$value": "{kds.core.color.neutral.325}",
           "$description": "State-based color for Nodes."
         },
         "background": {
