@@ -219,11 +219,11 @@ export const ManyOptions: Story = {
       canvas.getByRole("option", { name: "Label 5" }),
     ).toHaveAttribute("aria-selected", "true");
 
-    // Re-focus search and verify keyboard navigation still works
+    // Re-focus search and verify keyboard navigation still works.
     await userEvent.click(filterInput);
-    await userEvent.keyboard("{ArrowDown}{Enter}");
+    await userEvent.keyboard("{Home}{ArrowDown}{Enter}");
     await expect(
-      canvas.getByRole("option", { name: "Label 6" }),
+      canvas.getByRole("option", { name: "Label 2" }),
     ).toHaveAttribute("aria-selected", "true");
   },
 };

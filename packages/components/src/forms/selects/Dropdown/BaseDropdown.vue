@@ -92,7 +92,7 @@ const onKeydown = (event: KeyboardEvent) => {
       :id="valueTextId"
       class="text"
       :class="{
-        placeholder: !props.text,
+        placeholder: !props.text && !props.disabled,
         missing: props.missing,
       }"
     >

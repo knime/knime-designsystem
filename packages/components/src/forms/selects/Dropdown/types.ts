@@ -29,6 +29,11 @@ export type KdsDropdownProps = {
   possibleValues: KdsDropdownOption[];
 } & KdsFormFieldProps;
 
+export type KdsMultiSelectDropdownProps = KdsDropdownProps & {
+  /** When true, allows adding and selecting new values via the search field (combo box behavior). */
+  allowNewValues?: boolean;
+};
+
 /* ---- Internal types (not re-exported from index.ts) ---- */
 
 export type DropdownContainerProps = {
@@ -38,6 +43,11 @@ export type DropdownContainerProps = {
   loading?: boolean;
   /** Values shown in the dropdown list */
   possibleValues: KdsDropdownOption[];
+};
+
+export type KdsMultiSelectDropdownContainerProps = DropdownContainerProps & {
+  /** When true, allows adding and selecting new values via the search field (combo box behavior). */
+  allowNewValues?: boolean;
 };
 
 export type BaseDropdownProps = {
