@@ -77,6 +77,10 @@ const summary = computed(() => {
     return `(Missing) ${missingIds.value[0]}`;
   }
 
+  if (modelValue.value.length === 1) {
+    return optionById.value.get(modelValue.value[0])?.text;
+  }
+
   return `Selected (${modelValue.value.length}/${allPossibleValues.value.length})`;
 });
 

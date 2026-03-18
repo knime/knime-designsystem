@@ -139,7 +139,7 @@ export const Default: Story = {
     // Mouse: open dropdown and select an option
     await userEvent.click(trigger);
     await userEvent.click(canvas.getByRole("option", { name: "Label" }));
-    await expect(trigger).toHaveTextContent("Selected (1/5)");
+    await expect(trigger).toHaveTextContent("Label");
 
     // Keyboard: navigate and select inside the open dropdown
     const filterInput = canvas.getByRole("searchbox", {
@@ -217,8 +217,8 @@ export const AllowNewValues: Story = {
     const addOption = canvas.getByRole("option", { name: "New item" });
     await userEvent.click(addOption);
 
-    // Trigger should show selected count (new item is added as a real option)
-    await expect(trigger).toHaveTextContent("Selected (1/6)");
+    // Trigger should show selected value text (new item is added as a real option)
+    await expect(trigger).toHaveTextContent("New item");
   },
 };
 
