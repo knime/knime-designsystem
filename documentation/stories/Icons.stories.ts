@@ -65,6 +65,7 @@ export const Search = () => {
         filteredIcons,
         copiedName,
         copyToClipboard,
+        allIconNames,
       };
     },
     template: `
@@ -80,11 +81,9 @@ export const Search = () => {
           <KdsSearchInput
             v-model="searchQuery"
             placeholder="Search icons by name or keyword…"
-            aria-label="Search icons"
+            label="Search icon"
+            :subText="filteredIcons.length + ' of ' + allIconNames.length + ' icons'"
           />
-          <div style="margin-top: 8px; font-size: 13px; color: var(--kds-color-text-and-icon-secondary, #888);">
-            {{ filteredIcons.length }} of {{ ${allIconNames.length} }} icons
-          </div>
         </div>
 
         <div
