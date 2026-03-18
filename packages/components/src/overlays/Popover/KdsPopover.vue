@@ -6,6 +6,7 @@ import type { KdsPopoverExpose, KdsPopoverProps } from "./types";
 const props = withDefaults(defineProps<KdsPopoverProps>(), {
   placement: "bottom-left",
   role: undefined,
+  popoverType: "auto",
   fullWidth: false,
 });
 
@@ -26,6 +27,10 @@ watchEffect(() => {
 
 const anchorStyle = { "anchor-name": anchorName };
 
+const onToggle = (event: ToggleEvent) => {
+  open.value = event.newState === "open";
+};
+
 defineExpose<KdsPopoverExpose>({ anchorStyle, popoverId });
 </script>
 
@@ -35,11 +40,11 @@ defineExpose<KdsPopoverExpose>({ anchorStyle, popoverId });
     ref="popoverEl"
     class="kds-popover"
     :class="['floating', props.placement, { 'full-width': props.fullWidth }]"
-    popover="auto"
+    :popover="props.popoverType"
     :style="{ 'position-anchor': anchorName }"
     :role="props.role"
     :aria-label="props.popoverAriaLabel"
-    @toggle="open = $event.newState === 'open'"
+    @toggle="onToggle"
   >
     <slot>
       <div

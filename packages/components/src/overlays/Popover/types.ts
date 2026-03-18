@@ -1,10 +1,13 @@
-import { kdsPopoverPlacement, kdsPopoverRole } from "./enums";
+import { kdsPopoverPlacement, kdsPopoverRole, kdsPopoverType } from "./enums";
 
 export type KdsPopoverPlacement =
   (typeof kdsPopoverPlacement)[keyof typeof kdsPopoverPlacement];
 
 export type KdsPopoverRole =
   (typeof kdsPopoverRole)[keyof typeof kdsPopoverRole];
+
+export type KdsPopoverType =
+  (typeof kdsPopoverType)[keyof typeof kdsPopoverType];
 
 export type KdsPopoverProps = {
   /**
@@ -24,6 +27,13 @@ export type KdsPopoverProps = {
    * Defaults to undefined.
    */
   role?: KdsPopoverRole;
+
+  /**
+   * Type of popover element's popover functionality.
+   *
+   * Defaults to "auto".
+   */
+  popoverType?: KdsPopoverType;
 
   /**
    * When true, enforces the popover's minimum width to match the anchor element's width.

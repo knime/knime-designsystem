@@ -195,6 +195,11 @@
             "$value": "{kds.core.size.scale} * 20",
             "$description": "Intended for max-height on elements"
           },
+          "25x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 25",
+            "$description": "Intended for max-height on elements"
+          },
           "45x": {
             "$type": "dimension",
             "$value": "{kds.core.size.scale} * 45",
