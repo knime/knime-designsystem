@@ -77,18 +77,16 @@ export const Search = () => {
           <em>"typography"</em>. Click any icon card to copy its name.
         </p>
 
-        <div style="position: sticky; top: 0; z-index: 10; padding: var(--kds-spacing-container-1x) 0; background: var(--kds-color-page-elevated, #fff);">
-          <KdsSearchInput
-            v-model="searchQuery"
-            placeholder="Search icons by name or keyword…"
-            label="Search icon"
-            :subText="filteredIcons.length + ' of ' + allIconNames.length + ' icons'"
-          />
-        </div>
+        <KdsSearchInput
+          v-model="searchQuery"
+          placeholder="Search icons by name or keyword…"
+          label="Search icon"
+          :subText="filteredIcons.length + ' of ' + allIconNames.length + ' icons'"
+        />
 
         <div
           v-if="filteredIcons.length === 0"
-          style="text-align: center; padding: 48px 0; color: var(--kds-color-text-and-icon-secondary, #888);"
+          style="text-align: center; padding: 48px 0;"
         >
           <p style="font-size: 18px;">No icons found for "{{ searchQuery }}"</p>
           <p style="font-size: 14px; margin-top: 8px;">Try a different search term</p>
