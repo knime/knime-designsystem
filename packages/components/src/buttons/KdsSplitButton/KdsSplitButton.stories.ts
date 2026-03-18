@@ -1,11 +1,8 @@
 import type { FunctionalComponent } from "vue";
-import { ref, watchEffect } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { useArgs } from "storybook/preview-api";
 import { expect, fn, userEvent, within } from "storybook/test";
 
-import { iconNames } from "@knime/kds-styles/img/icons/def";
-
+import { kdsIconNames } from "../../accessories";
 import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
@@ -46,11 +43,7 @@ const meta: Meta<typeof KdsSplitButton> = {
     },
     leadingIcon: {
       control: { type: "select" },
-      options: [undefined, ...iconNames],
-      table: { category: "props" },
-    },
-    title: {
-      control: "text",
+      options: kdsIconNames,
       table: { category: "props" },
     },
     primaryAriaLabel: {
@@ -65,52 +58,29 @@ const meta: Meta<typeof KdsSplitButton> = {
       control: "object",
       table: { category: "props" },
     },
-    selectedActionId: {
-      control: "text",
-      description:
-        "The ID of the currently selected action. When set, the primary button displays this action's label and icon.",
-      table: { category: "model" },
-    },
   },
   args: {
+    size: "medium",
+    variant: "filled",
+    disabled: false,
+    label: "{Label}",
+    leadingIcon: undefined,
+    title: "",
+    primaryAriaLabel: "",
+    contextMenuAriaLabel: "",
+    menuMaxHeight: undefined,
     "onClick:primary": fn(),
-    "onClick:alternative": fn(),
-    "onUpdate:selectedActionId": fn(),
+    "onClick:alternativeAction": fn(),
     alternativeActions: [
       { id: "duplicate", label: "Duplicate" },
       { id: "rename", label: "Rename" },
       { id: "delete", label: "Delete", leadingIcon: "trash" },
     ],
-    selectedActionId: undefined,
   },
 };
 export default meta;
 
 type Story = StoryObj<typeof KdsSplitButton>;
-
-export const Filled: Story = {
-  args: {
-    variant: "filled",
-    size: "medium",
-    label: "{Label}",
-  },
-};
-
-export const Outlined: Story = {
-  args: {
-    variant: "outlined",
-    size: "medium",
-    label: "{Label}",
-  },
-};
-
-export const Transparent: Story = {
-  args: {
-    variant: "transparent",
-    size: "medium",
-    label: "{Label}",
-  },
-};
 
 export const WithIcon: Story = {
   args: {
@@ -135,33 +105,16 @@ export const PrimaryAndAlternativeActions: Story = {
     variant: "filled",
     size: "medium",
     label: "Run",
-    selectedActionId: undefined,
     alternativeActions: [
       { id: "run-all", label: "Run all" },
       { id: "run-selected", label: "Run selected" },
       { id: "schedule", label: "Schedule", leadingIcon: "circle-success" },
     ],
   },
-  render: (args) => {
-    const [, updateArgs] = useArgs();
-    return {
-      components: { KdsSplitButton },
-      setup() {
-        const selectedActionId = ref(args.selectedActionId);
-        watchEffect(() => (selectedActionId.value = args.selectedActionId));
-        watchEffect(() =>
-          updateArgs({ selectedActionId: selectedActionId.value }),
-        );
-        return { args, selectedActionId };
-      },
-      template:
-        '<KdsSplitButton v-bind="args" v-model:selected-action-id="selectedActionId" />',
-    };
-  },
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
 
-    // Initially, primary button shows default label
+    // Primary button always shows original label
     const primaryButton = canvas.getByRole("button", { name: "Run" });
     await userEvent.click(primaryButton);
     await expect(args["onClick:primary"]).toHaveBeenCalledOnce();
@@ -172,9 +125,7 @@ export const PrimaryAndAlternativeActions: Story = {
     });
     await userEvent.click(secondaryButton);
 
-    const contextMenu = await canvas.findByRole("menu", {
-      name: "Actions",
-    });
+    const contextMenu = await canvas.findByRole("menu");
     await expect(contextMenu).toBeVisible();
 
     // Click on "Run selected" action
@@ -183,16 +134,68 @@ export const PrimaryAndAlternativeActions: Story = {
     });
     await userEvent.click(runSelectedAction);
 
-    await expect(args["onClick:alternative"]).toHaveBeenCalledOnce();
-    await expect(args["onUpdate:selectedActionId"]).toHaveBeenCalledWith(
+    await expect(args["onClick:alternativeAction"]).toHaveBeenCalledWith(
       "run-selected",
     );
 
-    // After selection, the primary button should now show "Run selected"
-    const updatedPrimaryButton = await canvas.findByRole("button", {
-      name: "Run selected",
+    // Primary button label should NOT change
+    await expect(primaryButton).toHaveTextContent("Run");
+  },
+};
+
+export const WithLinkActions: Story = {
+  args: {
+    variant: "outlined",
+    size: "medium",
+    label: "Open",
+    alternativeActions: [
+      { id: "docs", label: "Documentation", href: "https://example.com/docs" },
+      { id: "settings", label: "Settings", to: "/settings" },
+      { id: "export", label: "Export" },
+    ],
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+
+    // Open the menu
+    const secondaryButton = canvas.getByRole("button", {
+      name: "Change option",
     });
-    await expect(updatedPrimaryButton).toBeInTheDocument();
+    await userEvent.click(secondaryButton);
+
+    const contextMenu = await canvas.findByRole("menu");
+    await expect(contextMenu).toBeVisible();
+
+    // Click on a non-link action and verify the event is emitted
+    const exportAction = await canvas.findByRole("menuitem", {
+      name: "Export",
+    });
+    await userEvent.click(exportAction);
+
+    await expect(args["onClick:alternativeAction"]).toHaveBeenCalledWith(
+      "export",
+    );
+  },
+};
+
+export const MenuWithLotsofActions: Story = {
+  args: {
+    variant: "transparent",
+    size: "medium",
+    label: "Open Menu",
+    menuMaxHeight: "150px",
+    alternativeActions: [
+      { id: "option-1", label: "Option 1" },
+      { id: "option-2", label: "Option 2" },
+      { id: "option-3", label: "Option 3" },
+      { id: "option-4", label: "Option 4" },
+      { id: "option-5", label: "Option 5" },
+      { id: "option-6", label: "Option 6" },
+      { id: "option-7", label: "Option 7" },
+      { id: "option-8", label: "Option 8" },
+      { id: "option-9", label: "Option 9" },
+      { id: "option-10", label: "Option 10" },
+    ],
   },
 };
 
