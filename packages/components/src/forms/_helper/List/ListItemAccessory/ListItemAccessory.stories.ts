@@ -52,7 +52,7 @@ const accessoryOptions: Record<string, KdsListItemAccessory> = {
 
 const meta: Meta<typeof ListItemAccessory> = {
   component: ListItemAccessory,
-  title: "Form Fields/_Helper/ListItemAccessory",
+  title: "Form Fields/_Helper/ListItem/Accessory",
   tags: ["autodocs"],
   parameters: {
     docs: {

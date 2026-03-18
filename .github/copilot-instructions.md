@@ -236,7 +236,7 @@ export type { KdsButtonVariant } from "./types";
 - Provide arg values for all props, e.g. false for boolean and "" for string props in the same order.
 - Provide stories for important prop combinations in the same order (if possible).
 - Test the desired behavior (e.g. disabled state) via storybook play function.
-- Always test **both mouse and keyboard interaction** in play tests. If a component cannot be reset to its initial state after one interaction method (e.g. a radio button that cannot be unselected), test mouse in one story and keyboard in another.
+- Always test **both mouse and keyboard interaction** in the **Default story's** play test. Only split mouse and keyboard into separate stories when the component cannot be reset to its initial state after one interaction method (e.g. a radio button that cannot be unselected).
 - Do not allow stories witch violate accessibility rules. Rewrite the story accordingly (e.g. no label story -> use a custom label story).
 - Always add the following three stories **last** (in this order):
   1. **TextOverflow** (third-to-last): Use `buildTextOverflowStory()` from `test-utils/storybook` and provide long text to test text overflow behavior. You can omit with a comment `// TextOverflow story does not apply here` when no text or layout is involved.

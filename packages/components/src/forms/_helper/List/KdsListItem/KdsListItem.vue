@@ -97,7 +97,7 @@ const { isTruncated: isSubtextTruncated } = useKdsIsTruncated(subtextEl);
       </span>
     </span>
 
-    <span v-if="props.shortcut || props.trailingIcon" class="trailing-item">
+    <span class="trailing-item">
       <span v-if="props.shortcut" class="shortcut">
         {{ props.shortcut }}
       </span>
@@ -107,6 +107,7 @@ const { isTruncated: isSubtextTruncated } = useKdsIsTruncated(subtextEl);
         :name="props.trailingIcon"
         size="small"
       />
+      <span v-else class="trailing-item-reserve-space" />
     </span>
   </div>
 </template>
@@ -203,6 +204,10 @@ const { isTruncated: isSubtextTruncated } = useKdsIsTruncated(subtextEl);
       color: var(--kds-color-text-and-icon-muted);
       text-align: right;
       white-space: nowrap;
+    }
+
+    .trailing-item-reserve-space {
+      width: var(--kds-dimension-icon-0-75x);
     }
   }
 

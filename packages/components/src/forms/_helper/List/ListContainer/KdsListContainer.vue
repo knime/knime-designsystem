@@ -91,28 +91,48 @@ const enabledValues = computed(() =>
   selectableValues.value.filter((o) => !o.disabled),
 );
 
-/** Reset activeId/lastActiveId when possibleValues change and current id no longer exists */
-watch([enabledValues, () => props.loading], ([values, loading]) => {
-  const isValid = (id: string | undefined) =>
-    id !== undefined && values.some((o) => o.id === id);
+/** Tracks the set of enabled item ids to detect real list changes (e.g. search filtering) vs. cosmetic changes (e.g. selection toggling). */
+const enabledIds = computed(() => enabledValues.value.map((o) => o.id));
+let prevEnabledIds: string[] = [];
 
-  if (activeId.value !== undefined && !isValid(activeId.value)) {
-    if (values.length > 0) {
-      activeId.value = values[0].id;
-    } else {
-      // Only point to the empty-state element when the list is truly empty.
-      // When items exist but are all disabled, leave activeId undefined to
-      // avoid aria-activedescendant referencing a non-existent DOM element.
-      activeId.value =
-        selectableValues.value.length === 0 ? emptyOptionId : undefined;
-    }
+const firstEnabledOrEmpty = (values: KdsListOption[]) => {
+  if (values.length > 0) {
+    return values[0].id;
   }
-  if (!isValid(lastActiveId.value)) {
+  // Only point to the empty-state element when the list is truly empty.
+  // When items exist but are all disabled, leave activeId undefined to
+  // avoid aria-activedescendant referencing a non-existent DOM element.
+  return selectableValues.value.length === 0 ? emptyOptionId : undefined;
+};
+
+const idsChanged = (a: string[], b: string[]) =>
+  a.length !== b.length || a.some((id, i) => id !== b[i]);
+
+const getResetActiveId = (values: KdsListOption[]) => {
+  if (activeId.value === undefined) {
+    return activeId.value;
+  }
+  // While focused and the visible items actually changed (e.g. during search
+  // filtering), always jump to the first enabled value so the highlight
+  // follows the top result. Skip when only selection/cosmetic state changed.
+  if (isFocused.value && idsChanged(enabledIds.value, prevEnabledIds)) {
+    return firstEnabledOrEmpty(values);
+  }
+  const stillValid = values.some((o) => o.id === activeId.value);
+  return stillValid ? activeId.value : firstEnabledOrEmpty(values);
+};
+
+/** Reset activeId/lastActiveId when possibleValues change */
+watch([enabledValues, () => props.loading], ([values, loading]) => {
+  activeId.value = loading ? emptyOptionId : getResetActiveId(values);
+
+  const lastIdStillValid = values.some((o) => o.id === lastActiveId.value);
+  if (!lastIdStillValid) {
     lastActiveId.value = undefined;
   }
-  if (loading) {
-    activeId.value = emptyOptionId;
-  }
+
+  prevEnabledIds = enabledIds.value;
+
   nextTick(scrollToView);
 });
 
@@ -228,17 +248,11 @@ defineExpose<KdsListContainerExpose>({
     "
     :class="['kds-list-container', { standalone: !props.controlledExternally }]"
     :tabindex="props.controlledExternally ? undefined : 0"
-    v-on="
-      props.controlledExternally
-        ? { mousemove: onMousemove, mouseleave: onMouseLeave }
-        : {
-            keydown: handleKeydown,
-            focus: handleFocus,
-            blur: handleBlur,
-            mousemove: onMousemove,
-            mouseleave: onMouseLeave,
-          }
-    "
+    @keydown="handleKeydown"
+    @focus="handleFocus"
+    @blur="handleBlur"
+    @mousemove="onMousemove"
+    @mouseleave="onMouseLeave"
   >
     <template v-for="(item, index) in prefixedValues" :key="item.id">
       <ListItemSectionTitle
@@ -260,10 +274,16 @@ defineExpose<KdsListContainerExpose>({
         :special="item.special"
         :missing="item.missing"
         :variant="props.variant"
-        :trailing-icon="item.selected ? 'checkmark' : undefined"
+        :trailing-icon="
+          item.missing && !item.disabled
+            ? 'trash'
+            : item.selected
+              ? 'checkmark'
+              : undefined
+        "
         :role="listItemRole"
         @mousedown="props.controlledExternally && $event.preventDefault()"
-        @click.stop="emit('itemClick', toOptionId(item.id))"
+        @click="!item.disabled && emit('itemClick', toOptionId(item.id))"
       />
       <ListItemDivider
         v-if="item.separator && index < prefixedValues.length - 1"
@@ -289,6 +309,7 @@ defineExpose<KdsListContainerExpose>({
 
 <style scoped>
 .kds-list-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--kds-spacing-container-0-10x);
