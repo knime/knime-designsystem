@@ -120,13 +120,7 @@ export const Search = () => {
               position: relative;
             ">
               <KdsIcon :name="iconName" size="large" />
-              <span style="
-                font-size: 11px;
-                text-align: center;
-                word-break: break-word;
-                line-height: 1.3;
-                color: var(--kds-color-text-and-icon-default, #333);
-              ">
+              <span style="text-align: center">
                 {{ iconName }}
               </span>
               <span
