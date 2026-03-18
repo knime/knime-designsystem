@@ -209,7 +209,7 @@ export const PasswordAndKey: Story = {
   },
 };
 
-export const SplitVisibilityToggle: Story = {
+export const VisibilityToggle: Story = {
   args: {
     showUsername: false,
     passwordField: {
@@ -243,7 +243,7 @@ export const UsernameOnly: Story = {
   },
 };
 
-export const KeyOnlyAutoGroup: Story = {
+export const KeyOnly: Story = {
   args: {
     ariaLabel: "Token entry",
     showUsername: false,
@@ -334,25 +334,128 @@ export const TextOverflow: Story = {
 
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsCredentialsInput,
-  wrapperStyle: "width: 218px",
+  wrapperStyle: "width: 218px; min-height: 116px",
   designsToCompare: {
-    ".Credentials": {
-      props: {},
+    "1. Default": {
+      props: {
+        ariaLabel: "Credentials",
+        showUsername: true,
+        showPassword: true,
+        showKey: true,
+        modelValue: {
+          username: "",
+          password: "",
+          key: "",
+        },
+        usernameField: {
+          placeholder: "Username",
+          autocomplete: "username",
+        },
+        passwordField: {
+          placeholder: "Password",
+          autocomplete: "current-password",
+        },
+        keyField: {
+          name: "Key",
+          autocomplete: "off",
+        },
+      },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4935-116283":
           {},
+      },
+    },
+    "2. Hover": {
+      props: {
+        ariaLabel: "Credentials",
+        showUsername: true,
+        showPassword: true,
+        showKey: true,
+        modelValue: {
+          username: "",
+          password: "",
+          key: "",
+        },
+        usernameField: {
+          placeholder: "Username",
+          autocomplete: "username",
+        },
+        passwordField: {
+          placeholder: "Password",
+          autocomplete: "current-password",
+          showVisibilityToggle: false,
+        },
+        keyField: {
+          name: "Key",
+          autocomplete: "off",
+          showVisibilityToggle: false,
+        },
+      },
+      variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4935-116436":
           {
             parameters: { pseudo: { hover: true } },
           },
+      },
+    },
+    "3. Focused Username": {
+      props: {
+        ariaLabel: "Credentials",
+        showUsername: true,
+        showPassword: true,
+        showKey: true,
+        modelValue: {
+          username: "|",
+          password: "",
+          key: "",
+        },
+        usernameField: {
+          placeholder: "Username",
+          autocomplete: "username",
+        },
+        passwordField: {
+          placeholder: "Password",
+          autocomplete: "current-password",
+          showVisibilityToggle: false,
+        },
+        keyField: {
+          name: "Key",
+          autocomplete: "off",
+          showVisibilityToggle: false,
+        },
+      },
+      variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4935-116499":
           {
-            modelValue: { username: "|", password: "", key: "" },
             parameters: {
-              pseudo: { focus: true },
               figmaOffset: { x: -3, y: -3 },
+              pseudo: { focus: true },
             },
           },
+      },
+    },
+    "4. Filled": {
+      props: {
+        ariaLabel: "Credentials",
+        showUsername: true,
+        showPassword: true,
+        showKey: true,
+        usernameField: {
+          placeholder: "Username",
+          autocomplete: "username",
+        },
+        passwordField: {
+          placeholder: "Password",
+          autocomplete: "current-password",
+          showVisibilityToggle: true,
+        },
+        keyField: {
+          name: "Key",
+          autocomplete: "off",
+          showVisibilityToggle: true,
+        },
+      },
+      variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4935-116566":
           {
             modelValue: {
@@ -361,10 +464,63 @@ export const DesignComparator: Story = buildDesignComparatorStory({
               key: "•••••••••••••",
             },
           },
+      },
+    },
+    "5. Disabled": {
+      props: {
+        ariaLabel: "Credentials",
+        showUsername: true,
+        showPassword: true,
+        showKey: true,
+        modelValue: {
+          username: "",
+          password: "",
+          key: "",
+        },
+        usernameField: {
+          placeholder: "Username",
+          autocomplete: "username",
+        },
+        passwordField: {
+          placeholder: "Password",
+          autocomplete: "current-password",
+          showVisibilityToggle: true,
+        },
+        keyField: {
+          name: "Key",
+          autocomplete: "off",
+          showVisibilityToggle: true,
+        },
+      },
+      variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4935-116732":
           {
             disabled: true,
           },
+      },
+    },
+    "6. Error": {
+      props: {
+        ariaLabel: "Credentials",
+        showUsername: true,
+        showPassword: true,
+        showKey: true,
+        usernameField: {
+          placeholder: "Username",
+          autocomplete: "username",
+        },
+        passwordField: {
+          placeholder: "Password",
+          autocomplete: "current-password",
+          showVisibilityToggle: true,
+        },
+        keyField: {
+          name: "Key",
+          autocomplete: "off",
+          showVisibilityToggle: true,
+        },
+      },
+      variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4935-116649":
           {
             modelValue: {
@@ -373,9 +529,42 @@ export const DesignComparator: Story = buildDesignComparatorStory({
               key: "•••••••••••••",
             },
             usernameField: { error: true, subText: "{Error message}" },
-            passwordField: { error: true, subText: "{Error message}" },
-            keyField: { name: "Key", error: true, subText: "{Error message}" },
+            passwordField: {
+              error: true,
+              subText: "{Error message}",
+              showVisibilityToggle: true,
+            },
+            keyField: {
+              name: "Key",
+              error: true,
+              subText: "{Error message}",
+              showVisibilityToggle: true,
+            },
           },
+      },
+    },
+    "7. Validating": {
+      props: {
+        ariaLabel: "Credentials",
+        showUsername: true,
+        showPassword: true,
+        showKey: true,
+        usernameField: {
+          placeholder: "Username",
+          autocomplete: "username",
+        },
+        passwordField: {
+          placeholder: "Password",
+          autocomplete: "current-password",
+          showVisibilityToggle: true,
+        },
+        keyField: {
+          name: "Key",
+          autocomplete: "off",
+          showVisibilityToggle: true,
+        },
+      },
+      variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=5351-35950":
           {
             modelValue: {
@@ -390,11 +579,13 @@ export const DesignComparator: Story = buildDesignComparatorStory({
             passwordField: {
               validating: true,
               subText: "{Validation message}",
+              showVisibilityToggle: true,
             },
             keyField: {
               name: "Key",
               validating: true,
               subText: "{Validation message}",
+              showVisibilityToggle: true,
             },
           },
       },
