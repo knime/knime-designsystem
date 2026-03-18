@@ -12,7 +12,7 @@ export type KdsSearchResult = {
    * during keyboard navigation and cannot be clicked.
    */
   sectionHeadline?: boolean;
-  /** Optional leading accessory (icon, data type, or color swatch) shown before the text */
+  /** Optional leading accessory (icon only) shown before the text */
   accessory?: KdsIconAccessory;
   text: string;
   /** Optional subtext shown below the main label (multiline list item layout) */

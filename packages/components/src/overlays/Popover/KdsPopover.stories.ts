@@ -149,6 +149,7 @@ export const Default: Story = {
         :placement="args.placement"
         :content="args.content"
         :role="args.role"
+        :popover-type="args.popoverType"
         :full-width="args.fullWidth"
         :popover-aria-label="args.popoverAriaLabel"
         data-testid="popover"
@@ -216,6 +217,7 @@ export const DifferentPlacement: Story = {
         :placement="args.placement"
         :content="args.content"
         :role="args.role"
+        :popover-type="args.popoverType"
         :full-width="args.fullWidth"
         :popover-aria-label="args.popoverAriaLabel"
       />

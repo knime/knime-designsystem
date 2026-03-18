@@ -7,7 +7,9 @@ import {
   useTemplateRef,
 } from "vue";
 
+import type { KdsPopoverExpose } from "../../../overlays/Popover";
 import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
+import type { KdsListContainerExpose } from "../../_helper/List/ListContainer";
 import type { KdsFormFieldExpose } from "../../types.ts";
 import BaseInput from "../BaseInput.vue";
 
@@ -44,8 +46,8 @@ const emit = defineEmits<{
 
 const baseInput = useTemplateRef("baseInput");
 
-const popoverEl = useTemplateRef("popover");
-const listContainerEl = useTemplateRef("listContainer");
+const popoverEl = useTemplateRef<KdsPopoverExpose>("popover");
+const listContainerEl = useTemplateRef<KdsListContainerExpose>("listContainer");
 const resultsOpen = ref(false);
 
 const onKeyDown = (event: KeyboardEvent) => {
@@ -90,6 +92,7 @@ const maxHeightStyle = computed<StyleValue>(() => {
 
 const onResultClick = (itemId: string) => {
   resultsOpen.value = false;
+  listContainerEl.value?.handleBlur();
   emit("resultClick", itemId);
 };
 
