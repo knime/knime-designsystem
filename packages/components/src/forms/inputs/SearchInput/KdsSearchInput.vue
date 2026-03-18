@@ -76,6 +76,7 @@ const onBlur = (event: FocusEvent) => {
 const onClick = () => {
   if (props.results && !resultsOpen.value) {
     resultsOpen.value = true;
+    listContainerEl.value?.handleFocus();
   }
 };
 
