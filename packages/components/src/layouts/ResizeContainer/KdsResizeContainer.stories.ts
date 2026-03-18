@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { expect, fn, userEvent, within } from "storybook/test";
+import { expect, fn, userEvent, waitFor, within } from "storybook/test";
 
 import type { KdsListOption } from "../../forms/_helper/List/ListContainer";
 import KdsListContainer from "../../forms/_helper/List/ListContainer/KdsListContainer.vue";
@@ -135,9 +135,10 @@ export const WithMinAndMaxHeight: Story = {
     );
 
     await userEvent.dblClick(handle);
-    await expect(content).toHaveStyle({
-      blockSize: "fit-content",
-      maxBlockSize: "400px",
+    await waitFor(() => {
+      const el = content as HTMLElement;
+      expect(el.style.blockSize).toBe("fit-content");
+      expect(el.style.maxBlockSize).toBe("400px");
     });
   },
 };
@@ -218,25 +219,26 @@ export const TwoLists: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // List is rendered inside the container
-    const listbox = canvas.getByRole("listbox");
-    await expect(listbox).toBeInTheDocument();
+    // Lists are rendered inside the container
+    const listboxes = canvas.getAllByRole("listbox");
+    await expect(listboxes).toHaveLength(2);
 
     // Resize handle is present and focusable
-    const handle = canvas.getByRole("button", {
+    const handles = canvas.getAllByRole("button", {
       name: "Resize vertically",
     });
-    await userEvent.click(handle);
-    await expect(handle).toHaveFocus();
+    await userEvent.click(handles[0]);
+    await expect(handles[0]).toHaveFocus();
 
     // List items are visible and navigable
-    handle.blur();
-    await userEvent.click(listbox);
-    const firstOption = canvas.getByRole("option", { name: "Option 1" });
+    handles[0].blur();
+    const firstList = within(listboxes[0]);
+    await userEvent.click(listboxes[0]);
+    const firstOption = firstList.getByRole("option", { name: "Option 1" });
     await expect(firstOption).toHaveClass("active");
 
     await userEvent.keyboard("{ArrowDown}");
-    const secondOption = canvas.getByRole("option", { name: "Option 2" });
+    const secondOption = firstList.getByRole("option", { name: "Option 2" });
     await expect(secondOption).toHaveClass("active");
   },
 };

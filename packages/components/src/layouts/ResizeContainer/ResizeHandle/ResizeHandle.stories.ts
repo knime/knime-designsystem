@@ -5,7 +5,7 @@ import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
   buildTextOverflowStory,
-} from "../../../test-utils/storybook.ts";
+} from "../../../test-utils/storybook";
 
 import ResizeHandle from "./ResizeHandle.vue";
 

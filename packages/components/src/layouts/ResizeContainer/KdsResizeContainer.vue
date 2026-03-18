@@ -95,7 +95,7 @@ const contentStyle = computed<CSSProperties>(() => ({
     <ResizeHandle
       :number-of-handles="numberOfHandles"
       :handle-gap="handleGap"
-      @pointerdown.prevent="onPointerDown"
+      @pointerdown="onPointerDown"
       @pointermove.prevent="onPointerMove"
       @pointerup="onPointerUp"
       @pointercancel="onPointerUp"
