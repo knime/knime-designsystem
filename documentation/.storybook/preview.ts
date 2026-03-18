@@ -26,22 +26,22 @@ setup((app) => {
 
 const globalStyles = `
   h1 {
-    font: var(--kds-font-dataapps-h1);
+    font: var(--kds-font-dataapp-h1);
   }
   h2 {
-    font: var(--kds-font-dataapps-h2);
+    font: var(--kds-font-dataapp-h2);
   }
   h3 {
-    font: var(--kds-font-dataapps-h3);
+    font: var(--kds-font-dataapp-h3);
   }
   h4 {
-    font: var(--kds-font-dataapps-h4);
+    font: var(--kds-font-dataapp-h4);
   }
   h5 {
-    font: var(--kds-font-dataapps-h5);
+    font: var(--kds-font-dataapp-h5);
   }
   h6 {
-    font: var(--kds-font-dataapps-h6);
+    font: var(--kds-font-dataapp-h6);
   }
 `;
 
