@@ -248,6 +248,7 @@ defineExpose<KdsFormFieldExpose>({
             @pointerdown="startRepeating(-1)"
             @pointerup="stopRepeating"
             @pointerleave="stopRepeating"
+            @pointercancel="stopRepeating"
           />
           <KdsButton
             type="button"
@@ -260,6 +261,7 @@ defineExpose<KdsFormFieldExpose>({
             @pointerdown="startRepeating(1)"
             @pointerup="stopRepeating"
             @pointerleave="stopRepeating"
+            @pointercancel="stopRepeating"
           />
         </template>
       </BaseInput>
