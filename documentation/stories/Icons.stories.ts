@@ -1,4 +1,4 @@
-import { computed, ref } from "vue";
+import { computed, onBeforeUnmount, ref } from "vue";
 import type { Meta } from "@storybook/vue3-vite";
 
 import KdsIcon from "../../packages/components/src/accessories/Icon/KdsIcon.vue";
@@ -30,6 +30,7 @@ export default {
 export const Search = () => {
   const searchQuery = ref("");
   const copiedName = ref("");
+  let copiedNameResetTimeout: ReturnType<typeof setTimeout> | undefined;
 
   const filteredIcons = computed(() => {
     const query = searchQuery.value.toLowerCase().trim();
@@ -47,10 +48,20 @@ export const Search = () => {
     });
   });
 
-  const copyToClipboard = (name: string) => {
-    navigator.clipboard.writeText(name);
+  const copyToClipboard = async (name: string) => {
+    if (!navigator.clipboard) {
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(name);
+    } catch {
+      return;
+    }
+
+    clearTimeout(copiedNameResetTimeout);
     copiedName.value = name;
-    setTimeout(() => {
+    copiedNameResetTimeout = setTimeout(() => {
       if (copiedName.value === name) {
         copiedName.value = "";
       }
@@ -60,6 +71,10 @@ export const Search = () => {
   return {
     components: { KdsCardClickable, KdsIcon, KdsSearchInput },
     setup() {
+      onBeforeUnmount(() => {
+        clearTimeout(copiedNameResetTimeout);
+      });
+
       return {
         searchQuery,
         filteredIcons,

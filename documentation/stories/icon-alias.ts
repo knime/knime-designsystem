@@ -1,3 +1,5 @@
+import type { KdsIconName } from "../../packages/components/src/accessories/Icon/types";
+
 /**
  * Semantic keyword mapping for icons. Each icon name maps to a list of
  * additional search terms so users can find icons by intent / concept
@@ -8,7 +10,7 @@
  * searchable by its file name. To improve discoverability, add an entry here
  * with relevant synonyms / concepts.
  */
-export const keywordMap: Record<string, string[]> = {
+export const keywordMap: Record<KdsIconName, readonly string[]> = {
   "add-user": ["person", "account", "new", "create", "member", "invite"],
   "ai-general": ["artificial intelligence", "machine learning", "ml", "robot"],
   "annotation-mode": ["note", "comment", "annotate", "markup"],
