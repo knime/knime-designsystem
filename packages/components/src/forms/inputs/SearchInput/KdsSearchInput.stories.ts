@@ -11,6 +11,41 @@ import {
 } from "../../../test-utils/storybook.ts";
 
 import KdsSearchInput from "./KdsSearchInput.vue";
+import type { KdsSearchResult } from "./types.ts";
+
+function options(
+  length: number,
+  prefix: string,
+  generator: (idx: number) => Partial<KdsSearchResult>,
+): KdsSearchResult[] {
+  return Array.from({ length }, (_, idx) => ({
+    id: `${prefix}-result-${idx + 1}`,
+    text: `Result ${idx + 1}`,
+    ...generator(idx),
+    separator: length === idx + 1,
+  }));
+}
+
+const baseOptions = options(5, "base", () => ({
+  accessory: { type: "icon", name: "placeholder" },
+}));
+
+const additionalOptions = options(5, "additional", () => ({
+  accessory: { type: "icon", name: "placeholder" },
+  subText: "Sub text - additional information",
+}));
+
+const headline = (idx: number): KdsSearchResult => ({
+  id: `headline-id-${idx}`,
+  text: `Headline ${idx}`,
+  sectionHeadline: true,
+});
+
+const button: KdsSearchResult = {
+  id: "button-id",
+  text: "Static action button",
+  accessory: { type: "icon", name: "search" },
+};
 
 type Story = StoryObj<typeof KdsSearchInput>;
 
@@ -23,7 +58,7 @@ const meta: Meta<typeof KdsSearchInput> = {
       description: {
         component:
           "A search input field component with built-in search icon and a clear button that appears when the input has a value. " +
-          "Supports validation states, helper/error text, and keyboard accessible clearing.",
+          "Supports validation states, helper/error text, keyboard accessible clearing, and instant search results dropdown.",
       },
     },
     design: {
@@ -90,6 +125,16 @@ const meta: Meta<typeof KdsSearchInput> = {
       control: "boolean",
       table: { category: "props" },
     },
+    results: {
+      control: "object",
+      description: "Results to show in the search results container",
+      table: { category: "props" },
+    },
+    resultsMaxHeight: {
+      control: "text",
+      description: "Max height of the search results container",
+      table: { category: "props" },
+    },
   },
   args: {
     modelValue: "",
@@ -104,6 +149,8 @@ const meta: Meta<typeof KdsSearchInput> = {
     validating: false,
     subText: "",
     preserveSubTextSpace: false,
+    results: undefined,
+    resultsMaxHeight: undefined,
   },
   render: (args) => {
     const [, updateArgs] = useArgs();
@@ -281,6 +328,42 @@ export const ProgrammaticFocus: Story = {
     await expect(input).not.toHaveFocus();
     await userEvent.click(button);
     await expect(input).toHaveFocus();
+  },
+};
+
+export const WithResults: Story = {
+  args: {
+    label: "Search",
+    ariaLabel: undefined,
+    results: [
+      headline(1),
+      ...baseOptions,
+      headline(2),
+      ...additionalOptions,
+      button,
+    ],
+    resultsMaxHeight: "var(--kds-dimension-component-height-25x)",
+  },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("searchbox", { name: "Search" });
+    const results = await canvas.findByRole("listbox", { hidden: true });
+    const option = await canvas.findByRole("option", {
+      name: "Result 1",
+      hidden: true,
+    });
+
+    await step("Open search results on focus", async () => {
+      await userEvent.click(input);
+      await expect(results).toBeVisible();
+      await expect(option).toBeVisible();
+    });
+
+    await step("Close search results on result click", async () => {
+      await userEvent.click(option);
+      await expect(results).not.toBeVisible();
+      await expect(option).not.toBeVisible();
+    });
   },
 };
 

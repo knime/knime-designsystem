@@ -1,11 +1,25 @@
 <script setup lang="ts">
-import { useTemplateRef } from "vue";
+import {
+  type StyleValue,
+  computed,
+  defineAsyncComponent,
+  ref,
+  useTemplateRef,
+} from "vue";
 
 import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
 import type { KdsFormFieldExpose } from "../../types.ts";
 import BaseInput from "../BaseInput.vue";
 
 import type { KdsSearchInputProps } from "./types";
+
+const KdsPopover = defineAsyncComponent(
+  () => import("../../../overlays/Popover/KdsPopover.vue"),
+);
+
+const KdsListContainer = defineAsyncComponent(
+  () => import("../../_helper/List/ListContainer/KdsListContainer.vue"),
+);
 
 const props = withDefaults(defineProps<KdsSearchInputProps>(), {
   placeholder: "Search",
@@ -24,9 +38,60 @@ const emit = defineEmits<{
   blur: [event: FocusEvent];
   /** Native keydown event forwarded from the input element. */
   keydown: [event: KeyboardEvent];
+  /** Emitted when a result is clicked */
+  resultClick: [id: string];
 }>();
 
 const baseInput = useTemplateRef("baseInput");
+
+const popoverEl = useTemplateRef("popover");
+const listContainerEl = useTemplateRef("listContainer");
+const resultsOpen = ref(false);
+
+const onKeyDown = (event: KeyboardEvent) => {
+  if (resultsOpen.value) {
+    listContainerEl.value?.handleKeydown(event);
+  }
+  emit("keydown", event);
+};
+
+const onFocus = (event: FocusEvent) => {
+  if (props.results?.length) {
+    resultsOpen.value = true;
+    listContainerEl.value?.handleFocus();
+  }
+  emit("focus", event);
+};
+
+const onBlur = (event: FocusEvent) => {
+  if (resultsOpen.value) {
+    resultsOpen.value = false;
+    listContainerEl.value?.handleBlur();
+  }
+  emit("blur", event);
+};
+
+const onClick = () => {
+  if (props.results?.length && !resultsOpen.value) {
+    resultsOpen.value = true;
+  }
+};
+
+const maxHeightStyle = computed<StyleValue>(() => {
+  if (!props.resultsMaxHeight) {
+    return {};
+  }
+
+  return {
+    maxHeight: props.resultsMaxHeight,
+    overflowY: "auto",
+  };
+});
+
+const onResultClick = (itemId: string) => {
+  resultsOpen.value = false;
+  emit("resultClick", itemId);
+};
 
 defineExpose<KdsFormFieldExpose>({
   focus: () => baseInput.value?.focus(),
@@ -34,23 +99,63 @@ defineExpose<KdsFormFieldExpose>({
 </script>
 
 <template>
-  <BaseFormFieldWrapper v-bind="props">
+  <BaseFormFieldWrapper
+    :label="label"
+    :aria-label="ariaLabel"
+    :description="description"
+    :sub-text="subText"
+    :error="error"
+    :validating="validating"
+    :preserve-sub-text-space="preserveSubTextSpace"
+  >
     <template #default="slotProps">
       <BaseInput
         ref="baseInput"
         v-bind="slotProps"
         v-model="modelValue"
         type="search"
-        :placeholder="props.placeholder"
-        :disabled="props.disabled"
-        :error="props.error"
-        :autocomplete="props.autocomplete"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        :error="error"
+        :autocomplete="autocomplete"
         leading-icon="search"
         :clearable="true"
-        @focus="emit('focus', $event)"
-        @blur="emit('blur', $event)"
-        @keydown="emit('keydown', $event)"
+        :style="popoverEl?.anchorStyle"
+        :aria-activedescendant="
+          results ? listContainerEl?.activeDescendant : undefined
+        "
+        @keydown="onKeyDown"
+        @focus="onFocus"
+        @blur="onBlur"
+        @click="onClick"
       />
+
+      <KdsPopover
+        v-if="results"
+        ref="popover"
+        v-model="resultsOpen"
+        full-width
+        popover-type="manual"
+        popover-aria-label="Instant search results"
+      >
+        <div class="kds-search-results-container" :style="maxHeightStyle">
+          <KdsListContainer
+            ref="listContainer"
+            variant="large"
+            :possible-values="results"
+            controlled-externally
+            @item-click="onResultClick"
+          />
+        </div>
+      </KdsPopover>
     </template>
   </BaseFormFieldWrapper>
 </template>
+
+<style scoped>
+.kds-search-results-container {
+  background-color: var(--kds-color-surface-default);
+  border-radius: var(--kds-border-radius-container-0-50x);
+  box-shadow: var(--kds-elevation-level-3);
+}
+</style>

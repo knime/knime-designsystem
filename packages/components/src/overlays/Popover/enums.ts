@@ -14,3 +14,10 @@ export const kdsPopoverRole = {
 } as const;
 
 export const kdsPopoverRoles = Object.values(kdsPopoverRole);
+
+export const kdsPopoverType = {
+  AUTO: "auto",
+  MANUAL: "manual",
+} as const;
+
+export const kdsPopoverTypes = Object.values(kdsPopoverType);
