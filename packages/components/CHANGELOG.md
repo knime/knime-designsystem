@@ -1,5 +1,13 @@
 # @knime/kds-components
 
+## 0.17.1
+
+### Patch Changes
+
+- b426967: Export DateInput
+- bf0687a: KdsMultiSelectDropdown: Show label when only one was selected
+  - @knime/kds-styles@0.17.1
+
 ## 0.17.0
 
 ### Minor Changes
