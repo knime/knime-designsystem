@@ -332,5 +332,15 @@ html.kds-legacy {
       border-color 200ms ease-out,
       color 200ms ease-out;
   }
+
+  &.remove-border-radius-left {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  &.remove-border-radius-right {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 }
 </style>
