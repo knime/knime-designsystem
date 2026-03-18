@@ -1,5 +1,12 @@
 # @knime/kds-components
 
+## 0.17.2
+
+### Patch Changes
+
+- f74783c: Add `results` and `resultsMaxHeight` props to `KdsSearchInput`
+  - @knime/kds-styles@0.17.2
+
 ## 0.17.1
 
 ### Patch Changes
