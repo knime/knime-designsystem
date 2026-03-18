@@ -13,6 +13,9 @@ export type * from "./PatternInput";
 export * from "./SearchInput";
 export type * from "./SearchInput";
 
+export * from "./TimeInput";
+export type * from "./TimeInput";
+
 export * from "./TextInput";
 export type * from "./TextInput";
 
