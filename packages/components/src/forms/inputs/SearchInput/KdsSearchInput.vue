@@ -103,6 +103,7 @@ defineExpose<KdsFormFieldExpose>({
 
 <template>
   <BaseFormFieldWrapper
+    :id="id"
     :label="label"
     :aria-label="ariaLabel"
     :description="description"
@@ -139,7 +140,7 @@ defineExpose<KdsFormFieldExpose>({
         v-model="resultsOpen"
         full-width
         popover-type="manual"
-        popover-aria-label="Instant search results"
+        popover-aria-label="Search results container"
       >
         <div class="kds-search-results-container" :style="maxHeightStyle">
           <KdsListContainer
@@ -147,6 +148,7 @@ defineExpose<KdsFormFieldExpose>({
             variant="large"
             :possible-values="results"
             controlled-externally
+            aria-label="Search results list"
             @item-click="onResultClick"
           />
         </div>

@@ -40,7 +40,7 @@ defineExpose<KdsPopoverExpose>({ anchorStyle, popoverId });
     ref="popoverEl"
     class="kds-popover"
     :class="['floating', props.placement, { 'full-width': props.fullWidth }]"
-    :popover="popoverType"
+    :popover="props.popoverType"
     :style="{ 'position-anchor': anchorName }"
     :role="props.role"
     :aria-label="props.popoverAriaLabel"
