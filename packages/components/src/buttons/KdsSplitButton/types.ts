@@ -1,9 +1,5 @@
 import type { KdsIconName } from "../../accessories/Icon/types";
-import { kdsButtonSize, kdsButtonVariant } from "../enums";
-
-export type KdsButtonSize = (typeof kdsButtonSize)[keyof typeof kdsButtonSize];
-export type KdsButtonVariant =
-  (typeof kdsButtonVariant)[keyof typeof kdsButtonVariant];
+import type { KdsButtonCommonProps } from "../types";
 
 export type KdsSplitButtonAlternativeAction = {
   /**
@@ -30,38 +26,33 @@ export type KdsSplitButtonAlternativeAction = {
    * Whether the action is disabled.
    */
   disabled?: boolean;
+
+  /**
+   * Optional URL. When provided, clicking the menu item navigates to this URL.
+   */
+  href?: string;
+
+  /**
+   * Optional route location. When provided, clicking the menu item navigates
+   * using RouterLink/NuxtLink if available, otherwise falls back to an anchor.
+   */
+  to?: string | Record<string, unknown>;
 };
 
 /**
  * KdsSplitButton component props
  */
-export type KdsSplitButtonProps = {
+export type KdsSplitButtonProps = KdsButtonCommonProps & {
   /**
-   * The size of the button
-   */
-  size?: KdsButtonSize;
-  /**
-   * The variant of the button (filled, outlined, transparent)
-   */
-  variant?: KdsButtonVariant;
-  /**
-   * Whether the button is disabled
-   */
-  disabled?: boolean;
-  /**
-   * The label of the primary button (used when no action is selected)
+   * The label of the primary button.
    */
   label: string;
   /**
-   * The optional leading icon in the primary button (used when no action is selected)
+   * The optional leading icon in the primary button.
    */
   leadingIcon?: KdsIconName;
   /**
-   * Optional title attribute for accessibility
-   */
-  title?: string;
-  /**
-   * Optional aria-label for the primary button
+   * Optional aria-label for the primary button.
    */
   primaryAriaLabel?: string;
 
@@ -76,8 +67,34 @@ export type KdsSplitButtonProps = {
   contextMenuAriaLabel?: string;
 
   /**
-   * The ID of the currently selected action from alternativeActions.
-   * When set, the primary button will display this action's label and icon.
+   * Optional maximum height for the context menu dropdown (CSS value, e.g. "200px").
    */
-  selectedActionId?: string;
+  menuMaxHeight?: string;
 };
+
+/**
+ * Testers
+ */
+
+// minimal: just a label
+propTypeTester<KdsSplitButtonProps>({ label: "Save" });
+
+// with all optional props
+propTypeTester<KdsSplitButtonProps>({
+  label: "Save",
+  variant: "outlined",
+  size: "large",
+  disabled: true,
+  leadingIcon: "placeholder",
+  primaryAriaLabel: "Save workflow",
+  alternativeActions: [
+    { id: "save-as", label: "Save as" },
+    { id: "docs", label: "Docs", href: "https://example.com" },
+    { id: "settings", label: "Settings", to: "/settings" },
+  ],
+  contextMenuAriaLabel: "Save options",
+  menuMaxHeight: "200px",
+});
+
+// @ts-expect-error - label is required
+propTypeTester<KdsSplitButtonProps>({});

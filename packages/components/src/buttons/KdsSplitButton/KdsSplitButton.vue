@@ -1,40 +1,30 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import {
+  computed,
+  nextTick,
+  ref,
+  useId,
+  useTemplateRef,
+  watchEffect,
+} from "vue";
 
+import KdsPopover from "../../overlays/Popover/KdsPopover.vue";
 import BaseButton from "../BaseButton.vue";
-import KdsMenuButton from "../KdsMenuButton/KdsMenuButton.vue";
+import KdsMenuContainer from "../KdsMenuButton/MenuContainer/KdsMenuContainer.vue";
 
-import type {
-  KdsSplitButtonAlternativeAction,
-  KdsSplitButtonProps,
-} from "./types";
+import type { KdsSplitButtonProps } from "./types";
 
 const props = withDefaults(defineProps<KdsSplitButtonProps>(), {
   variant: "filled",
   size: "medium",
   alternativeActions: () => [],
-  selectedActionId: undefined,
+  contextMenuAriaLabel: "Menu",
 });
 
 const emit = defineEmits<{
   "click:primary": [event: MouseEvent];
-  "click:alternative": [action: KdsSplitButtonAlternativeAction];
-  "update:selectedActionId": [actionId: string];
+  "click:alternativeAction": [id: string];
 }>();
-
-const selectedAction = computed(() =>
-  props.alternativeActions?.find(
-    (action) => action.id === props.selectedActionId,
-  ),
-);
-
-const primaryButtonLabel = computed(
-  () => selectedAction.value?.label ?? props.label,
-);
-
-const primaryButtonIcon = computed(
-  () => selectedAction.value?.leadingIcon ?? props.leadingIcon,
-);
 
 const buttonClasses = computed(() => ({
   "kds-split-button": true,
@@ -56,9 +46,13 @@ const menuItems = computed(() =>
       ? { type: "icon" as const, name: action.leadingIcon }
       : undefined,
     disabled: action.disabled,
-    selected: action.id === props.selectedActionId,
   })),
 );
+
+const isMenuOpen = ref(false);
+const popoverEl = useTemplateRef("popoverEl");
+const menuContainer = useTemplateRef("menuContainer");
+const menuId = useId();
 
 function handlePrimaryClick(e: MouseEvent) {
   if (!props.disabled) {
@@ -66,15 +60,32 @@ function handlePrimaryClick(e: MouseEvent) {
   }
 }
 
-function handleMenuItemClick(actionId: string) {
-  const action = props.alternativeActions.find((a) => a.id === actionId);
+function handleSecondaryClick() {
+  if (!props.disabled) {
+    isMenuOpen.value = !isMenuOpen.value;
+  }
+}
+
+function onItemClick(itemId: string) {
+  isMenuOpen.value = false;
+
+  const action = props.alternativeActions.find((a) => a.id === itemId);
   if (!action || props.disabled) {
     return;
   }
 
-  emit("update:selectedActionId", action.id);
-  emit("click:alternative", action);
+  if (action.href) {
+    window.location.assign(action.href);
+  }
+
+  emit("click:alternativeAction", action.id);
 }
+
+watchEffect(() => {
+  if (isMenuOpen.value) {
+    nextTick(() => menuContainer.value?.focus());
+  }
+});
 </script>
 
 <template>
@@ -85,36 +96,44 @@ function handleMenuItemClick(actionId: string) {
       :variant="props.variant"
       :disabled="props.disabled"
       :title="props.title"
-      :label="primaryButtonLabel"
-      :leading-icon="primaryButtonIcon"
+      :label="props.label"
+      :leading-icon="props.leadingIcon"
       :aria-label="props.primaryAriaLabel"
+      remove-border-radius="right"
       @click="handlePrimaryClick"
     />
 
-    <KdsMenuButton
-      class="kds-split-button-secondary"
-      leading-icon="chevron-down"
-      :size="props.size"
-      :variant="props.variant"
-      :disabled="props.disabled"
-      aria-label="Change option"
-      :items="menuItems"
-      :style="{
-        width: 'var(--kds-split-secondary-width)',
-        borderRadius: 'var(--kds-split-secondary-border-radius)',
-        gap: '0',
-        '--kds-color-text-and-icon-selected':
-          'var(--kds-split-secondary-text-color)',
-        '--kds-color-background-selected-initial':
-          'var(--kds-split-secondary-bg)',
-        '--kds-color-background-selected-hover':
-          'var(--kds-split-secondary-bg-hover)',
-        '--kds-color-background-selected-active':
-          'var(--kds-split-secondary-bg-active)',
-        '--kds-border-action-selected': 'var(--kds-split-secondary-border)',
-      }"
-      @item-click="handleMenuItemClick"
-    />
+    <div class="kds-split-button-secondary-anchor">
+      <BaseButton
+        class="kds-split-button-secondary"
+        remove-border-radius="left"
+        :size="props.size"
+        :variant="props.variant"
+        leading-icon="chevron-down"
+        :disabled="props.disabled"
+        aria-label="Change option"
+        aria-haspopup="menu"
+        :aria-expanded="isMenuOpen"
+        :aria-controls="menuId"
+        :style="popoverEl?.anchorStyle"
+        @click="handleSecondaryClick"
+      />
+
+      <KdsPopover
+        ref="popoverEl"
+        v-model="isMenuOpen"
+        placement="bottom-left"
+        :popover-aria-label="props.contextMenuAriaLabel"
+      >
+        <KdsMenuContainer
+          :id="menuId"
+          ref="menuContainer"
+          :items="menuItems"
+          :menu-max-height="props.menuMaxHeight"
+          @item-click="onItemClick"
+        />
+      </KdsPopover>
+    </div>
   </div>
 </template>
 
@@ -124,132 +143,27 @@ function handleMenuItemClick(actionId: string) {
 
   &.filled {
     gap: var(--kds-spacing-container-0-10x);
-
-    /* Override toggled colors so secondary button keeps filled appearance */
-    --kds-split-secondary-text-color: var(
-      --kds-color-text-and-icon-primary-inverted
-    );
-    --kds-split-secondary-bg: var(--kds-color-background-primary-bold-active);
-    --kds-split-secondary-bg-hover: var(
-      --kds-color-background-primary-bold-hover
-    );
-    --kds-split-secondary-bg-active: var(
-      --kds-color-background-primary-bold-active
-    );
-    --kds-split-secondary-border: var(--kds-border-action-transparent);
   }
 
   &.outlined {
     gap: var(--kds-spacing-container-none);
-
-    --kds-split-secondary-text-color: var(--kds-color-text-and-icon-neutral);
-    --kds-split-secondary-bg: var(--kds-color-background-neutral-active);
-    --kds-split-secondary-bg-hover: var(--kds-color-background-neutral-hover);
-    --kds-split-secondary-bg-active: var(--kds-color-background-neutral-active);
-    --kds-split-secondary-border: var(--kds-border-action-default);
-  }
-
-  &.transparent {
-    --kds-split-secondary-text-color: var(--kds-color-text-and-icon-neutral);
-    --kds-split-secondary-bg: var(--kds-color-background-neutral-active);
-    --kds-split-secondary-bg-hover: var(--kds-color-background-neutral-hover);
-    --kds-split-secondary-bg-active: var(--kds-color-background-neutral-active);
-    --kds-split-secondary-border: var(--kds-border-action-transparent);
   }
 
   &.disabled {
     cursor: default;
+  }
+
+  & .kds-split-button-primary.outlined {
+    border-right: none;
   }
 }
 
 .kds-split-button-primary {
   flex-shrink: 1;
   min-width: 0;
-
-  &.outlined {
-    /* Override BaseButton's border to prevent double borders in outlined variant */
-    border-right: none !important;
-  }
 }
 
 .kds-split-button-secondary {
   flex-shrink: 0;
-}
-
-/* Size-specific styling */
-.kds-split-button.xsmall {
-  --kds-split-secondary-width: var(--kds-dimension-component-height-1-25x);
-  --kds-split-secondary-border-radius: 0
-    var(--kds-border-radius-container-0-25x)
-    var(--kds-border-radius-container-0-25x) 0;
-
-  .kds-split-button-primary {
-    gap: var(--kds-spacing-container-0-12x);
-    height: var(--kds-dimension-component-height-1-25x);
-    padding-right: var(--kds-spacing-container-0-25x);
-    padding-left: var(--kds-spacing-container-0-25x);
-    font: var(--kds-font-base-interactive-xsmall-strong);
-    border-radius: var(--kds-border-radius-container-0-25x)
-      var(--kds-border-radius-container-none)
-      var(--kds-border-radius-container-none)
-      var(--kds-border-radius-container-0-25x);
-  }
-}
-
-.kds-split-button.small {
-  --kds-split-secondary-width: var(--kds-dimension-component-height-1-5x);
-  --kds-split-secondary-border-radius: 0
-    var(--kds-border-radius-container-0-37x)
-    var(--kds-border-radius-container-0-37x) 0;
-
-  .kds-split-button-primary {
-    gap: var(--kds-spacing-container-0-12x);
-    height: var(--kds-dimension-component-height-1-5x);
-    padding-right: var(--kds-spacing-container-0-37x);
-    padding-left: var(--kds-spacing-container-0-37x);
-    font: var(--kds-font-base-interactive-small-strong);
-    border-radius: var(--kds-border-radius-container-0-37x)
-      var(--kds-border-radius-container-none)
-      var(--kds-border-radius-container-none)
-      var(--kds-border-radius-container-0-37x);
-  }
-}
-
-.kds-split-button.medium {
-  --kds-split-secondary-width: var(--kds-dimension-component-height-1-75x);
-  --kds-split-secondary-border-radius: 0
-    var(--kds-border-radius-container-0-37x)
-    var(--kds-border-radius-container-0-37x) 0;
-
-  .kds-split-button-primary {
-    gap: var(--kds-spacing-container-0-12x);
-    height: var(--kds-dimension-component-height-1-75x);
-    padding-right: var(--kds-spacing-container-0-37x);
-    padding-left: var(--kds-spacing-container-0-37x);
-    font: var(--kds-font-base-interactive-medium-strong);
-    border-radius: var(--kds-border-radius-container-0-37x)
-      var(--kds-border-radius-container-none)
-      var(--kds-border-radius-container-none)
-      var(--kds-border-radius-container-0-37x);
-  }
-}
-
-.kds-split-button.large {
-  --kds-split-secondary-width: var(--kds-dimension-component-height-2-25x);
-  --kds-split-secondary-border-radius: 0
-    var(--kds-border-radius-container-0-50x)
-    var(--kds-border-radius-container-0-50x) 0;
-
-  .kds-split-button-primary {
-    gap: var(--kds-spacing-container-none);
-    height: var(--kds-dimension-component-height-2-25x);
-    padding-right: var(--kds-spacing-container-0-5x);
-    padding-left: var(--kds-spacing-container-0-5x);
-    font: var(--kds-font-base-interactive-large-strong);
-    border-radius: var(--kds-border-radius-container-0-50x)
-      var(--kds-border-radius-container-none)
-      var(--kds-border-radius-container-none)
-      var(--kds-border-radius-container-0-50x);
-  }
 }
 </style>
