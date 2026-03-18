@@ -58,7 +58,7 @@ const onKeyDown = (event: KeyboardEvent) => {
 };
 
 const onFocus = (event: FocusEvent) => {
-  if (props.results?.length) {
+  if (props.results) {
     resultsOpen.value = true;
     listContainerEl.value?.handleFocus();
   }
@@ -74,7 +74,7 @@ const onBlur = (event: FocusEvent) => {
 };
 
 const onClick = () => {
-  if (props.results?.length && !resultsOpen.value) {
+  if (props.results && !resultsOpen.value) {
     resultsOpen.value = true;
   }
 };
@@ -126,7 +126,7 @@ defineExpose<KdsFormFieldExpose>({
         :clearable="true"
         :style="popoverEl?.anchorStyle"
         :aria-activedescendant="
-          results ? listContainerEl?.activeDescendant : undefined
+          resultsOpen ? listContainerEl?.activeDescendant : undefined
         "
         @keydown="onKeyDown"
         @focus="onFocus"
@@ -148,6 +148,7 @@ defineExpose<KdsFormFieldExpose>({
             variant="large"
             :possible-values="results"
             controlled-externally
+            empty-text="No search results"
             aria-label="Search results list"
             @item-click="onResultClick"
           />

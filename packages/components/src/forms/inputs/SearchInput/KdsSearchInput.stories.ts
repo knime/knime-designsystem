@@ -47,6 +47,14 @@ const button: KdsSearchResult = {
   accessory: { type: "icon", name: "search" },
 };
 
+const results = [
+  headline(1),
+  ...baseOptions,
+  headline(2),
+  ...additionalOptions,
+  button,
+];
+
 type Story = StoryObj<typeof KdsSearchInput>;
 
 const meta: Meta<typeof KdsSearchInput> = {
@@ -335,13 +343,7 @@ export const WithResults: Story = {
   args: {
     label: "Search",
     ariaLabel: undefined,
-    results: [
-      headline(1),
-      ...baseOptions,
-      headline(2),
-      ...additionalOptions,
-      button,
-    ],
+    results,
     resultsMaxHeight: "var(--kds-dimension-component-height-25x)",
   },
   play: async ({ canvasElement, step }) => {
@@ -364,6 +366,38 @@ export const WithResults: Story = {
       await expect(results).not.toBeVisible();
       await expect(option).not.toBeVisible();
     });
+
+    await step(
+      "Close search results on Enter key when option is selected",
+      async () => {
+        await userEvent.click(input);
+        await expect(results).toBeVisible();
+        await expect(option).toBeVisible();
+
+        await userEvent.keyboard("{ArrowDown}{Enter}");
+        await expect(results).not.toBeVisible();
+        await expect(option).not.toBeVisible();
+      },
+    );
+  },
+};
+
+export const WithEmptyResults: Story = {
+  args: {
+    label: "Search",
+    ariaLabel: undefined,
+    results: [],
+  },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("searchbox", { name: "Search" });
+    const results = await canvas.findByRole("listbox", { hidden: true });
+
+    await step("Shows empty message", async () => {
+      await userEvent.click(input);
+      await expect(results).toBeVisible();
+      await expect(results).toHaveTextContent("No search results");
+    });
   },
 };
 
@@ -379,6 +413,11 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       error: [false],
       validating: [false],
       subText: [undefined, "Message"],
+      results: [undefined, results],
+      resultsMaxHeight: [
+        undefined,
+        "var(--kds-dimension-component-height-25x)",
+      ],
     },
     combinations: [
       { validating: [true], subText: ["Validation message"] },
