@@ -213,7 +213,6 @@ defineExpose({
 
 .kds-multi-select-dropdown-search {
   padding: var(--kds-spacing-container-0-25x);
-  background: var(--kds-color-surface-default);
   border-bottom: var(--kds-border-base-subtle);
 }
 
@@ -226,9 +225,7 @@ defineExpose({
 }
 
 .kds-multi-select-dropdown-footer {
-  display: flex;
   padding: var(--kds-spacing-container-0-25x);
-  background: var(--kds-color-surface-default);
   border-top: var(--kds-border-base-subtle);
 }
 </style>
