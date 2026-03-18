@@ -55,11 +55,11 @@ const keyField = computed<KdsCredentialsKeyProps>(() => ({
 }));
 
 const modelValue = defineModel<KdsCredentialsInputValue>({
-  default: {
+  default: () => ({
     username: "",
     password: "",
     key: "",
-  },
+  }),
 });
 
 const usernameValue = computed({

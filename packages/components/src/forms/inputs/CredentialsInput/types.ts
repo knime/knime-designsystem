@@ -17,19 +17,19 @@ export type KdsCredentialsInputValue = {
 
 type KdsCredentialsVisibilityProps =
   | {
-      showUsername?: true;
+      showUsername: true;
       showPassword?: boolean;
       showKey?: boolean;
     }
   | {
       showUsername?: boolean;
-      showPassword?: true;
+      showPassword: true;
       showKey?: boolean;
     }
   | {
       showUsername?: boolean;
       showPassword?: boolean;
-      showKey?: true;
+      showKey: true;
     };
 
 type KdsCredentialsFieldProps = Pick<
@@ -166,6 +166,11 @@ propTypeTester<KdsCredentialsInputProps>({
   showUsername: false,
   showPassword: false,
   showKey: false,
+});
+
+// @ts-expect-error - at least one field must be enabled
+propTypeTester<KdsCredentialsInputProps>({
+  showUsername: false,
 });
 
 // @ts-expect-error - username config requires showUsername to be enabled
