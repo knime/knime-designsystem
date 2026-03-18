@@ -68,7 +68,7 @@ const onKeydown = (event: KeyboardEvent) => {
     currentHeight.value = clamp(renderedHeight - KEYBOARD_RESIZE_STEP);
     isMaximized.value = false;
     event.preventDefault();
-  } else if (event.key === "Enter" || event.key === "Space") {
+  } else if (event.key === "Enter" || event.key === " ") {
     onDoubleClick();
   }
 };
