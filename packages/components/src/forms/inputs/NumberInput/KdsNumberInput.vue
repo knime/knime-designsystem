@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useTemplateRef, watch } from "vue";
+import { computed, onBeforeUnmount, ref, useTemplateRef, watch } from "vue";
 
 import KdsButton from "../../../buttons/KdsButton/KdsButton.vue";
 import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
@@ -148,7 +148,22 @@ const handleUpdateModelValue = (value: string) => {
   modelValue.value = numberParser.value.parseFromInput(value);
 };
 
+const baseInput = useTemplateRef("baseInput");
+
+const REPEAT_INITIAL_DELAY_MS = 400;
+const REPEAT_INTERVAL_MS = 100;
+
+let repeatTimer: ReturnType<typeof setTimeout> | null = null;
+let isStepping = false;
+
 const handleBlur = () => {
+  // When a step button is clicked, the input briefly loses focus. Skip
+  // normalization and restore focus so the user does not see a focus blink.
+  if (isStepping) {
+    baseInput.value?.focus();
+    return;
+  }
+
   isFocused.value = false;
 
   // Normalize, round to step, and clamp only when leaving the field.
@@ -159,7 +174,38 @@ const handleBlur = () => {
   localValue.value = numberParser.value.formatForDisplay(normalized);
 };
 
-const baseInput = useTemplateRef("baseInput");
+const stopRepeating = () => {
+  if (repeatTimer !== null) {
+    clearTimeout(repeatTimer);
+    repeatTimer = null;
+  }
+  isStepping = false;
+};
+
+const startRepeating = (direction: -1 | 1) => {
+  stopRepeating();
+  isStepping = true;
+  adjustByStep(direction);
+
+  repeatTimer = setTimeout(function tick() {
+    adjustByStep(direction);
+    repeatTimer = setTimeout(tick, REPEAT_INTERVAL_MS);
+  }, REPEAT_INITIAL_DELAY_MS);
+};
+
+onBeforeUnmount(stopRepeating);
+
+/**
+ * Handles keyboard-initiated button clicks (Enter / Space).
+ * Pointer clicks are already handled by `startRepeating` via `@pointerdown`,
+ * so we skip them here (keyboard clicks have `event.detail === 0`).
+ */
+const handleButtonClick = (direction: -1 | 1, event: MouseEvent) => {
+  if (event.detail !== 0) {
+    return;
+  }
+  adjustByStep(direction);
+};
 
 defineExpose<KdsFormFieldExpose>({
   focus: () => baseInput.value?.focus(),
@@ -174,7 +220,7 @@ defineExpose<KdsFormFieldExpose>({
         v-bind="slotProps"
         :model-value="localValue"
         type="text"
-        :inputmode="props.step >= 1 ? 'numeric' : 'decimal'"
+        :inputmode="Number.isInteger(props.step) ? 'numeric' : 'decimal'"
         :placeholder="props.placeholder"
         :disabled="props.disabled"
         :error="props.error"
@@ -198,7 +244,10 @@ defineExpose<KdsFormFieldExpose>({
             leading-icon="minus"
             :aria-label="`Decrease ${props.label ?? props.ariaLabel}`"
             :disabled="!canDecrease"
-            @click="adjustByStep(-1)"
+            @click="handleButtonClick(-1, $event)"
+            @pointerdown="startRepeating(-1)"
+            @pointerup="stopRepeating"
+            @pointerleave="stopRepeating"
           />
           <KdsButton
             type="button"
@@ -207,7 +256,10 @@ defineExpose<KdsFormFieldExpose>({
             leading-icon="plus"
             :aria-label="`Increase ${props.label ?? props.ariaLabel}`"
             :disabled="!canIncrease"
-            @click="adjustByStep(1)"
+            @click="handleButtonClick(1, $event)"
+            @pointerdown="startRepeating(1)"
+            @pointerup="stopRepeating"
+            @pointerleave="stopRepeating"
           />
         </template>
       </BaseInput>
