@@ -467,27 +467,17 @@
         "chart-0": {
           "$type": "color",
           "$value": "{kds.core.color.neutral.400}",
-          "$description": "Color used for charts (Empty)."
+          "$description": "Color used for charts (Track color, Empty Value)."
         },
         "chart-1": {
           "$type": "color",
-          "$value": "{kds.core.color.blue.550}",
-          "$description": "Color used for charts (color 1)."
+          "$value": "{kds.core.color.teal.475}",
+          "$description": "Color used for charts (Value 1 color)."
         },
         "chart-2": {
           "$type": "color",
-          "$value": "{kds.core.color.green.475}",
-          "$description": "Color used for charts (color 2)."
-        },
-        "chart-3": {
-          "$type": "color",
-          "$value": "{kds.core.color.red.550}",
-          "$description": "Color used for charts (color 3)."
-        },
-        "chart-4": {
-          "$type": "color",
-          "$value": "{kds.core.color.yellow.475}",
-          "$description": "Color used for charts (color 4)."
+          "$value": "{kds.core.color.teal.650}",
+          "$description": "Color used for charts (Value 2 color)."
         }
       },
       "text-and-icon": {
