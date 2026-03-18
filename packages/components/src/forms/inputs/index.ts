@@ -1,6 +1,9 @@
 export * from "./ColorInput";
 export type * from "./ColorInput";
 
+export * from "./DateInput";
+export type * from "./DateInput";
+
 export * from "./DateTimeFormatInput";
 export type * from "./DateTimeFormatInput";
 
