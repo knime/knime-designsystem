@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import "v-calendar/dist/style.css";
 
-import { computed, ref, useTemplateRef } from "vue";
+import { computed, ref, useTemplateRef, watch } from "vue";
 import { DatePicker } from "v-calendar";
 
 import KdsToggleButton from "../../../buttons/KdsToggleButton/KdsToggleButton.vue";
@@ -30,13 +30,28 @@ const {
 
 const { isDarkMode } = useKdsDarkMode();
 
-const modelValue = defineModel<string>({ default: "" });
+const modelValue = defineModel<Date | string | null>({ default: null });
+
+// Internal string representation for the text input to allow intermediate typing states
+const inputText = ref(
+  modelValue.value instanceof Date
+    ? formatDateToString(modelValue.value)
+    : (modelValue.value ?? ""),
+);
+
 const baseInput = useTemplateRef("baseInput");
 const popoverIsVisible = ref(false);
 const legacyDateFormat = "yyyy-MM-dd";
 const popoverRef = useTemplateRef("popoverRef");
 
 const inputError = ref(false);
+
+// Sync inputText when model is updated externally
+watch(modelValue, (newVal) => {
+  inputText.value =
+    newVal instanceof Date ? formatDateToString(newVal) : (newVal ?? "");
+  inputError.value = false;
+});
 
 const invalidDateFormatMessage =
   "Invalid date format. The expected date format is yyyy-MM-dd (e.g. 2026-03-11).";
@@ -46,27 +61,35 @@ const effectiveSubText = computed(() =>
 );
 
 const datePickerValue = computed(() => {
-  if (typeof modelValue.value !== "string") {
-    return null;
+  const value = modelValue.value;
+  if (value instanceof Date) {
+    return value;
   }
-  return parseDateString(modelValue.value);
+  if (typeof value === "string") {
+    return parseDateString(value);
+  }
+  return null;
 });
 
 const onDatePickerInput = (date: Date | string | null) => {
-  modelValue.value = formatDateToString(date);
+  const dateObj = date instanceof Date ? date : null;
+  modelValue.value = dateObj;
+  inputText.value = dateObj ? formatDateToString(dateObj) : "";
   inputError.value = false;
   popoverIsVisible.value = false;
 };
 
 const onTextInputBlur = () => {
-  if (!modelValue.value) {
+  if (!inputText.value) {
+    modelValue.value = null;
     inputError.value = false;
     return;
   }
-  const parsed = tryParseAnyDate(modelValue.value);
+  const parsed = tryParseAnyDate(inputText.value);
 
   if (parsed) {
-    modelValue.value = formatDateToString(parsed);
+    modelValue.value = parsed;
+    inputText.value = formatDateToString(parsed);
     inputError.value = false;
   } else {
     inputError.value = true;
@@ -88,7 +111,7 @@ defineExpose<KdsFormFieldExpose>({
       <BaseInput
         ref="baseInput"
         v-bind="slotProps"
-        v-model="modelValue"
+        v-model="inputText"
         type="text"
         :placeholder
         :disabled
