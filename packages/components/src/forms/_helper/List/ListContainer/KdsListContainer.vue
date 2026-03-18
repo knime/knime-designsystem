@@ -233,6 +233,10 @@ defineExpose<KdsListContainerExpose>({
   /** Notify the list that its controlling element lost focus */
   handleBlur,
   activeDescendant: activeId,
+  /** Moves focus to the list container element */
+  focus: () => {
+    containerEl.value?.focus();
+  },
 });
 </script>
 
