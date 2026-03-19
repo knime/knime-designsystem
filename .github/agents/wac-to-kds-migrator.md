@@ -30,6 +30,7 @@ Your responsibilities:
 | `FunctionButton` with `active` prop    | `KdsToggleButton`     | see above + `active` → `v-model`                                                                                                             | see above                                                                  |
 | `Checkbox`                             | `KdsCheckbox`         | `invalid` → `error`                                                                                                                          | default slot → `label` prop                                                |
 | `Modal`                                | `KdsModal`            |                                                                                                                                              |                                                                            |
+| `InlineMessage`                        | `KdsInlineMessage`    | `type` → `variant`<br> `title` → `headline`                                                                                                  | default slot → `description` prop as long as there is no markup            |
 
 ## Icons
 
