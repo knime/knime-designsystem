@@ -427,12 +427,12 @@
         "chart-1": {
           "$type": "color",
           "$value": "{kds.core.color.teal.650}",
-          "$description": "Color used for charts (Value 1 color)."
+          "$description": "Color used for donut charts (Current Value)."
         },
         "chart-2": {
           "$type": "color",
           "$value": "{kds.core.color.teal.400}",
-          "$description": "Color used for charts (Value 2 color)."
+          "$description": "Color used for donut charts (Added Value)."
         }
       },
       "text-and-icon": {
