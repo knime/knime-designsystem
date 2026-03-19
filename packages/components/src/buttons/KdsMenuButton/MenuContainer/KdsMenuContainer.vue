@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useId, useTemplateRef } from "vue";
+import { useTemplateRef } from "vue";
 
 import KdsListContainer from "../../../forms/_helper/List/ListContainer/KdsListContainer.vue";
 
@@ -13,8 +13,6 @@ const emit = defineEmits<{
 }>();
 
 const listContainerEl = useTemplateRef("listContainerEl");
-
-const menuId = useId();
 
 const onItemClick = (itemId: string) => {
   emit("itemClick", itemId);
@@ -30,7 +28,7 @@ defineExpose<KdsMenuContainerExpose>({
 <template>
   <div class="kds-menu-container">
     <KdsListContainer
-      :id="menuId"
+      :id="props.id"
       ref="listContainerEl"
       :possible-values="props.items"
       empty-text="Menu is empty"
