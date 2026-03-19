@@ -1,13 +1,5 @@
 <script setup lang="ts">
-import {
-  computed,
-  getCurrentInstance,
-  nextTick,
-  ref,
-  useId,
-  useTemplateRef,
-  watch,
-} from "vue";
+import { computed, nextTick, ref, useId, useTemplateRef, watch } from "vue";
 
 import type { KdsPopoverExpose } from "../../overlays/Popover";
 import KdsPopover from "../../overlays/Popover/KdsPopover.vue";
@@ -26,6 +18,9 @@ const props = withDefaults(defineProps<KdsSplitButtonProps>(), {
 const emit = defineEmits<{
   "click:primary": [event: MouseEvent];
   "click:alternativeAction": [id: string];
+  "navigate:alternativeAction": [
+    payload: { id: string; to?: unknown; href?: string },
+  ];
 }>();
 
 const buttonClasses = computed(() => ({
@@ -54,7 +49,6 @@ const menuItems = computed(() =>
 const isMenuOpen = ref(false);
 const popoverEl = useTemplateRef<KdsPopoverExpose>("popoverEl");
 const menuContainer = useTemplateRef("menuContainer");
-const secondaryButton = useTemplateRef("secondaryButton");
 const menuId = useId();
 
 function handlePrimaryClick(e: MouseEvent) {
@@ -65,8 +59,6 @@ function handleSecondaryClick() {
   isMenuOpen.value = !isMenuOpen.value;
 }
 
-const router = getCurrentInstance()?.appContext.config.globalProperties.$router;
-
 function onItemClick(itemId: string) {
   isMenuOpen.value = false;
 
@@ -75,27 +67,16 @@ function onItemClick(itemId: string) {
     return;
   }
 
-  if (action.to) {
-    if (router) {
-      router.push(action.to);
-      return;
-    }
-    if (typeof action.to === "string" && typeof window !== "undefined") {
-      window.location.assign(action.to);
-      return;
-    }
+  if (action.to || action.href) {
+    emit("navigate:alternativeAction", {
+      id: action.id,
+      ...(action.to ? { to: action.to } : {}),
+      ...(action.href ? { href: action.href } : {}),
+    });
+
     emit("click:alternativeAction", action.id);
     return;
   }
-
-  if (action.href) {
-    if (typeof window !== "undefined") {
-      window.location.assign(action.href);
-    }
-    emit("click:alternativeAction", action.id);
-    return;
-  }
-
   emit("click:alternativeAction", action.id);
 }
 
@@ -103,7 +84,7 @@ watch(isMenuOpen, (open) => {
   if (open) {
     nextTick(() => menuContainer.value?.focus());
   } else {
-    nextTick(() => secondaryButton.value?.focus());
+    // No-op on close: avoid calling focus() on a component instance that does not expose it.
   }
 });
 </script>
