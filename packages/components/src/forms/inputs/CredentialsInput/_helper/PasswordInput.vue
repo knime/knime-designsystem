@@ -22,18 +22,34 @@ const modelValue = defineModel<string>({ default: "" });
 
 const isFocused = ref(false);
 const showValue = ref(false);
+let isTogglingVisibility = false;
 
-const inputType = computed(() => (showValue.value ? "text" : "password"));
+const input = useTemplateRef("input");
+
 const showToggle = computed(
   () =>
     props.showVisibilityToggle &&
-    (isFocused.value || modelValue.value.length > 0),
+    (isFocused.value || modelValue.value.length > 0 || showValue.value),
 );
+
+const handleBlur = () => {
+  if (isTogglingVisibility) {
+    input.value?.focus();
+    return;
+  }
+  isFocused.value = false;
+};
+
+const handleTogglePointerdown = () => {
+  isTogglingVisibility = true;
+};
+
+const handleToggleClick = () => {
+  isTogglingVisibility = false;
+};
 
 const showLabel = computed(() => `Show ${props.fieldName}`);
 const hideLabel = computed(() => `Hide ${props.fieldName}`);
-
-const input = useTemplateRef("input");
 
 defineExpose<KdsFormFieldExpose>({
   focus: () => input.value?.focus(),
@@ -45,7 +61,7 @@ defineExpose<KdsFormFieldExpose>({
     :id="props.id"
     ref="input"
     v-model="modelValue"
-    :type="inputType"
+    :type="showValue ? 'text' : 'password'"
     :leading-icon="props.leadingIcon"
     :placeholder="props.placeholder"
     :aria-label="props.ariaLabel || props.fieldName"
@@ -55,7 +71,7 @@ defineExpose<KdsFormFieldExpose>({
     :error="props.error"
     :autocomplete="props.autocomplete"
     @focus="isFocused = true"
-    @blur="isFocused = false"
+    @blur="handleBlur"
   >
     <template #trailing>
       <KdsToggleButton
@@ -67,6 +83,8 @@ defineExpose<KdsFormFieldExpose>({
         :aria-label="showValue ? hideLabel : showLabel"
         :title="showValue ? hideLabel : showLabel"
         :disabled="props.disabled"
+        @pointerdown="handleTogglePointerdown"
+        @click="handleToggleClick"
       />
     </template>
   </BaseInput>
