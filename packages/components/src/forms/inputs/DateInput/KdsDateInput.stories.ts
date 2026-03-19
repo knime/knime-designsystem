@@ -35,8 +35,8 @@ const meta: Meta<typeof KdsDateInput> = {
   },
   argTypes: {
     modelValue: {
-      control: "text",
-      description: "v-model binding for the date value in yyyy-MM-dd format",
+      control: "date",
+      description: "v-model binding for the date",
       table: { category: "model" },
     },
     label: {
@@ -62,12 +62,12 @@ const meta: Meta<typeof KdsDateInput> = {
       table: { category: "props" },
     },
     datePickerMin: {
-      control: "text",
+      control: "date",
       description: "Minimum selectable date passed to the date picker",
       table: { category: "props" },
     },
     datePickerMax: {
-      control: "text",
+      control: "date",
       description: "Maximum selectable date passed to the date picker",
       table: { category: "props" },
     },
