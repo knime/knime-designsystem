@@ -4,6 +4,7 @@ import {
   computed,
   defineAsyncComponent,
   ref,
+  useId,
   useTemplateRef,
 } from "vue";
 
@@ -49,6 +50,7 @@ const baseInput = useTemplateRef("baseInput");
 const popoverEl = useTemplateRef<KdsPopoverExpose>("popover");
 const listContainerEl = useTemplateRef<KdsListContainerExpose>("listContainer");
 const resultsOpen = ref(false);
+const resultsId = useId();
 
 const onKeyDown = (event: KeyboardEvent) => {
   if (resultsOpen.value) {
@@ -129,6 +131,9 @@ defineExpose<KdsFormFieldExpose>({
         :aria-activedescendant="
           resultsOpen ? listContainerEl?.activeDescendant : undefined
         "
+        aria-haspopup="listbox"
+        :aria-controls="resultsId"
+        :aria-expanded="resultsOpen"
         @keydown="onKeyDown"
         @focus="onFocus"
         @blur="onBlur"
@@ -145,6 +150,7 @@ defineExpose<KdsFormFieldExpose>({
       >
         <div class="kds-search-results-container" :style="maxHeightStyle">
           <KdsListContainer
+            :id="resultsId"
             ref="listContainer"
             variant="large"
             :possible-values="results"

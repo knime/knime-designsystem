@@ -94,6 +94,16 @@ type BaseInputProps = {
    */
   ariaActivedescendant?: string;
   /**
+   * Indicates the type of popup element controlled by this input (for aria-haspopup).
+   * Used when the input triggers a listbox, menu, dialog, etc.
+   */
+  ariaHaspopup?: "listbox" | "menu" | "dialog" | "grid" | "tree" | "true";
+  /**
+   * ID of the popup element controlled by this input (for aria-controls).
+   * Used together with aria-haspopup to link the input to its popup.
+   */
+  ariaControls?: string;
+  /**
    * Unit shown next to the input value
    */
   unit?: string;
@@ -143,6 +153,8 @@ const props = withDefaults(defineProps<BaseInputProps>(), {
   ariaValuemax: undefined,
   ariaValuetext: undefined,
   ariaActivedescendant: undefined,
+  ariaHaspopup: undefined,
+  ariaControls: undefined,
   unit: undefined,
   inputmode: undefined,
   clearable: false,
@@ -247,6 +259,8 @@ defineExpose({
       :aria-valuemax="props.ariaValuemax"
       :aria-valuetext="props.ariaValuetext"
       :aria-activedescendant="props.ariaActivedescendant"
+      :aria-haspopup="props.ariaHaspopup"
+      :aria-controls="props.ariaControls"
       :class="{ 'input-field': true, 'has-value': hasValue }"
       @input="handleInput"
       @focus="emit('focus', $event)"
