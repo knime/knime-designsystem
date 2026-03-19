@@ -52,7 +52,7 @@ watch(activePointerId, (id) => {
   }
 });
 
-const onDoubleClick = () => {
+const toggleMaximized = () => {
   isMaximized.value = !isMaximized.value;
 };
 
@@ -69,7 +69,8 @@ const onKeydown = (event: KeyboardEvent) => {
     isMaximized.value = false;
     event.preventDefault();
   } else if (event.key === "Enter" || event.key === " ") {
-    onDoubleClick();
+    event.preventDefault();
+    toggleMaximized();
   }
 };
 
@@ -95,7 +96,7 @@ const contentStyle = computed<CSSProperties>(() => ({
       @pointerup="onPointerUp"
       @pointercancel="onPointerUp"
       @keydown="onKeydown"
-      @dblclick="onDoubleClick"
+      @dblclick="toggleMaximized"
     />
   </div>
 </template>

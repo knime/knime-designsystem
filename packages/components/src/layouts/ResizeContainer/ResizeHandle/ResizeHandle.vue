@@ -10,10 +10,15 @@ const props = withDefaults(defineProps<ResizeHandleProps>(), {
 
 const isHovered = ref(false);
 
-const hasMultipleHandles = computed(() => props.numberOfHandles > 1);
+const normalizedNumberOfHandles = computed(() => {
+  const raw = Math.floor(props.numberOfHandles);
+  return Math.max(1, raw || 1);
+});
+
+const hasMultipleHandles = computed(() => normalizedNumberOfHandles.value > 1);
 
 const handleWidth = computed(() => {
-  const n = props.numberOfHandles;
+  const n = normalizedNumberOfHandles.value;
   const gap = props.handleGap;
   return `calc((100% - ${n - 1} * ${gap}) / ${2 * n})`;
 });
@@ -26,7 +31,7 @@ const handleWidth = computed(() => {
     @mouseleave="isHovered = false"
   >
     <button
-      v-for="i in props.numberOfHandles"
+      v-for="i in normalizedNumberOfHandles"
       :key="i"
       :class="[
         'kds-resize-handle',
@@ -34,7 +39,7 @@ const handleWidth = computed(() => {
           'kds-resize-handle-sibling-hover': hasMultipleHandles && isHovered,
         },
       ]"
-      aria-label="Resize vertically"
+      :aria-label="hasMultipleHandles ? `Resize vertically (handle ${i} of ${props.numberOfHandles})` : 'Resize vertically'"
       type="button"
     >
       <span class="kds-resize-handle-line" />
