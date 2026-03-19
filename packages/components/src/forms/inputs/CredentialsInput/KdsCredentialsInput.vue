@@ -168,20 +168,22 @@ defineExpose<KdsFormFieldExpose>({
 }
 
 .kds-credentials-input-legend {
+  display: block;
+  max-width: 100%;
+  min-height: var(--kds-dimension-component-height-0-75x);
   padding: 0;
+  padding-bottom: var(--kds-spacing-input-label-spacing-bottom);
   margin-bottom: 0;
-  font: var(--kds-font-base-body-medium);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font: var(--kds-font-base-title-small-strong);
   color: var(--kds-color-text-and-icon-neutral);
+  white-space: nowrap;
 }
 
 .kds-credentials-input-fields {
   display: flex;
   flex-direction: column;
   gap: var(--kds-spacing-container-0-25x);
-}
-
-.kds-credentials-input-field {
-  display: flex;
-  flex-direction: column;
 }
 </style>
