@@ -58,6 +58,10 @@ const meta: Meta<typeof KdsSplitButton> = {
       control: "object",
       table: { category: "props" },
     },
+    menuMaxHeight: {
+      control: "text",
+      table: { category: "props" },
+    },
   },
   args: {
     size: "medium",
@@ -65,9 +69,8 @@ const meta: Meta<typeof KdsSplitButton> = {
     disabled: false,
     label: "{Label}",
     leadingIcon: undefined,
-    title: "",
-    primaryAriaLabel: "",
-    contextMenuAriaLabel: "",
+    primaryAriaLabel: undefined,
+    contextMenuAriaLabel: undefined,
     menuMaxHeight: undefined,
     "onClick:primary": fn(),
     "onClick:alternativeAction": fn(),
@@ -81,6 +84,61 @@ const meta: Meta<typeof KdsSplitButton> = {
 export default meta;
 
 type Story = StoryObj<typeof KdsSplitButton>;
+
+export const Default: Story = {
+  args: {
+    variant: "filled",
+    size: "medium",
+    label: "Save",
+    alternativeActions: [
+      { id: "save-as", label: "Save as" },
+      { id: "save-all", label: "Save all" },
+      { id: "export", label: "Export", leadingIcon: "file-export" },
+    ],
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+
+    // --- Mouse interaction ---
+
+    // Click primary button
+    const primaryButton = canvas.getByRole("button", { name: "Save" });
+    await userEvent.click(primaryButton);
+    await expect(args["onClick:primary"]).toHaveBeenCalledOnce();
+
+    // Open menu via mouse click on secondary button
+    const secondaryButton = canvas.getByRole("button", {
+      name: "Change option",
+    });
+    await userEvent.click(secondaryButton);
+    const menu = await canvas.findByRole("menu");
+    await expect(menu).toBeVisible();
+
+    // Select an item via mouse
+    const saveAsItem = await canvas.findByRole("menuitem", {
+      name: "Save as",
+    });
+    await userEvent.click(saveAsItem);
+    await expect(args["onClick:alternativeAction"]).toHaveBeenCalledWith(
+      "save-as",
+    );
+    // Menu should close after selection
+    await expect(canvas.queryByRole("menu")).not.toBeInTheDocument();
+
+    // --- Keyboard interaction ---
+
+    // After menu close, focus returns to secondary button
+    await expect(secondaryButton).toHaveFocus();
+    await userEvent.keyboard("[Enter]");
+    const keyboardMenu = await canvas.findByRole("menu");
+    await expect(keyboardMenu).toBeVisible();
+
+    // Navigate and select with keyboard
+    await userEvent.keyboard("[ArrowDown]");
+    await userEvent.keyboard("[Enter]");
+    await expect(canvas.queryByRole("menu")).not.toBeInTheDocument();
+  },
+};
 
 export const WithIcon: Story = {
   args: {
@@ -178,7 +236,7 @@ export const WithLinkActions: Story = {
   },
 };
 
-export const MenuWithLotsofActions: Story = {
+export const MenuWithManyActions: Story = {
   args: {
     variant: "transparent",
     size: "medium",

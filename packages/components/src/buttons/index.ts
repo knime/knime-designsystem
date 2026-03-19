@@ -10,6 +10,9 @@ export type * from "./KdsToggleButton";
 export * from "./KdsProgressButton";
 export type * from "./KdsProgressButton";
 
+export * from "./KdsMenuButton";
+export type * from "./KdsMenuButton";
+
 export * from "./KdsSplitButton";
 export type * from "./KdsSplitButton";
 

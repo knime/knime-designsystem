@@ -250,7 +250,10 @@ defineExpose<KdsListContainerExpose>({
     :aria-activedescendant="
       !props.controlledExternally && activeId ? activeId : undefined
     "
-    :class="['kds-list-container', { standalone: !props.controlledExternally }]"
+    :class="[
+      'kds-list-container',
+      { standalone: !props.controlledExternally, menu: props.role === 'menu' },
+    ]"
     :tabindex="props.controlledExternally ? undefined : 0"
     @keydown="handleKeydown"
     @focus="handleFocus"
@@ -324,6 +327,10 @@ defineExpose<KdsListContainerExpose>({
   &.standalone {
     border: var(--kds-border-base-subtle);
     border-radius: var(--kds-border-radius-container-0-31x);
+  }
+
+  &.menu {
+    border: none;
   }
 
   &:focus-visible {

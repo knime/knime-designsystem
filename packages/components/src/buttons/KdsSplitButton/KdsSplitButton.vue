@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import {
   computed,
+  getCurrentInstance,
   nextTick,
   ref,
   useId,
   useTemplateRef,
-  watchEffect,
+  watch,
 } from "vue";
 
+import type { KdsPopoverExpose } from "../../overlays/Popover";
 import KdsPopover from "../../overlays/Popover/KdsPopover.vue";
 import BaseButton from "../BaseButton.vue";
 import KdsMenuContainer from "../KdsMenuButton/MenuContainer/KdsMenuContainer.vue";
@@ -50,21 +52,20 @@ const menuItems = computed(() =>
 );
 
 const isMenuOpen = ref(false);
-const popoverEl = useTemplateRef("popoverEl");
+const popoverEl = useTemplateRef<KdsPopoverExpose>("popoverEl");
 const menuContainer = useTemplateRef("menuContainer");
+const secondaryButton = useTemplateRef("secondaryButton");
 const menuId = useId();
 
 function handlePrimaryClick(e: MouseEvent) {
-  if (!props.disabled) {
-    emit("click:primary", e);
-  }
+  emit("click:primary", e);
 }
 
 function handleSecondaryClick() {
-  if (!props.disabled) {
-    isMenuOpen.value = !isMenuOpen.value;
-  }
+  isMenuOpen.value = !isMenuOpen.value;
 }
+
+const router = getCurrentInstance()?.appContext.config.globalProperties.$router;
 
 function onItemClick(itemId: string) {
   isMenuOpen.value = false;
@@ -74,16 +75,35 @@ function onItemClick(itemId: string) {
     return;
   }
 
+  if (action.to) {
+    if (router) {
+      router.push(action.to);
+      return;
+    }
+    if (typeof action.to === "string" && typeof window !== "undefined") {
+      window.location.assign(action.to);
+      return;
+    }
+    emit("click:alternativeAction", action.id);
+    return;
+  }
+
   if (action.href) {
-    window.location.assign(action.href);
+    if (typeof window !== "undefined") {
+      window.location.assign(action.href);
+    }
+    emit("click:alternativeAction", action.id);
+    return;
   }
 
   emit("click:alternativeAction", action.id);
 }
 
-watchEffect(() => {
-  if (isMenuOpen.value) {
+watch(isMenuOpen, (open) => {
+  if (open) {
     nextTick(() => menuContainer.value?.focus());
+  } else {
+    nextTick(() => secondaryButton.value?.focus());
   }
 });
 </script>
@@ -105,6 +125,7 @@ watchEffect(() => {
 
     <div class="kds-split-button-secondary-anchor">
       <BaseButton
+        ref="secondaryButton"
         class="kds-split-button-secondary"
         remove-border-radius="left"
         :size="props.size"
