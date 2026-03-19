@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { computed, useId, useTemplateRef } from "vue";
 
-import KdsSubText from "../../_helper/KdsSubText.vue";
 import type { KdsFormFieldExpose } from "../../types";
-import BaseInput from "../BaseInput.vue";
 
-import PasswordInput from "./_helper/PasswordInput.vue";
+import CredentialsFields from "./_helper/CredentialsFields.vue";
 import type {
   KdsCredentialsInputProps,
   KdsCredentialsInputValue,
@@ -61,36 +59,8 @@ const modelValue = defineModel<KdsCredentialsInputValue>({
     key: "",
   }),
 });
-
-const usernameValue = computed({
-  get: () => modelValue.value.username,
-  set: (value: string) => {
-    modelValue.value = { ...modelValue.value, username: value };
-  },
-});
-
-const passwordValue = computed({
-  get: () => modelValue.value.password,
-  set: (value: string) => {
-    modelValue.value = { ...modelValue.value, password: value };
-  },
-});
-
-const keyValue = computed({
-  get: () => modelValue.value.key,
-  set: (value: string) => {
-    modelValue.value = { ...modelValue.value, key: value };
-  },
-});
-
-const keyName = computed(() => keyField.value.name || "Key");
-const keyPlaceholder = computed(
-  () => keyField.value.placeholder || keyName.value,
-);
-
-const usernameInput = useTemplateRef("usernameInput");
-const passwordInput = useTemplateRef("passwordInput");
-const keyInput = useTemplateRef("keyInput");
+const credentialsFields =
+  useTemplateRef<KdsFormFieldExpose>("credentialsFields");
 const idPrefix = useId();
 
 const visibleFieldCount = computed(
@@ -113,46 +83,8 @@ const usernameSubTextId = computed(() => `${usernameInputId.value}-subtext`);
 const passwordSubTextId = computed(() => `${passwordInputId.value}-subtext`);
 const keySubTextId = computed(() => `${keyInputId.value}-subtext`);
 
-const buildAriaDescribedby = (externalId?: string, internalId?: string) =>
-  [externalId, internalId].filter(Boolean).join(" ") || undefined;
-
-const usernameAriaDescribedby = computed(() =>
-  buildAriaDescribedby(
-    usernameField.value.ariaDescribedby,
-    usernameField.value.subText ? usernameSubTextId.value : undefined,
-  ),
-);
-
-const passwordAriaDescribedby = computed(() =>
-  buildAriaDescribedby(
-    passwordField.value.ariaDescribedby,
-    passwordField.value.subText ? passwordSubTextId.value : undefined,
-  ),
-);
-
-const keyAriaDescribedby = computed(() =>
-  buildAriaDescribedby(
-    keyField.value.ariaDescribedby,
-    keyField.value.subText ? keySubTextId.value : undefined,
-  ),
-);
-
 defineExpose<KdsFormFieldExpose>({
-  focus: () => {
-    if (showUsername.value) {
-      usernameInput.value?.focus();
-      return;
-    }
-
-    if (showPassword.value) {
-      passwordInput.value?.focus();
-      return;
-    }
-
-    if (showKey.value) {
-      keyInput.value?.focus();
-    }
-  },
+  focus: () => credentialsFields.value?.focus(),
 });
 </script>
 
@@ -176,159 +108,51 @@ defineExpose<KdsFormFieldExpose>({
     </legend>
 
     <div class="kds-credentials-input-fields">
-      <div v-if="showUsername" class="kds-credentials-input-field">
-        <BaseInput
-          :id="usernameInputId"
-          ref="usernameInput"
-          v-model="usernameValue"
-          type="text"
-          leading-icon="user"
-          :placeholder="usernameField.placeholder"
-          :aria-label="usernameField.placeholder"
-          :aria-describedby="usernameAriaDescribedby"
-          :aria-invalid="usernameField.error || undefined"
-          :disabled="disabled"
-          :error="usernameField.error"
-          :autocomplete="usernameField.autocomplete"
-        />
-        <KdsSubText
-          :id="usernameSubTextId"
-          :sub-text="usernameField.subText"
-          :error="usernameField.error"
-          :validating="usernameField.validating"
-          :preserve-sub-text-space="preserveSubTextSpace"
-        />
-      </div>
-
-      <div v-if="showPassword" class="kds-credentials-input-field">
-        <PasswordInput
-          :id="passwordInputId"
-          ref="passwordInput"
-          v-model="passwordValue"
-          field-name="Password"
-          :placeholder="passwordField.placeholder"
-          :aria-label="passwordField.placeholder"
-          :aria-describedby="passwordAriaDescribedby"
-          :disabled="disabled"
-          :error="passwordField.error"
-          :autocomplete="passwordField.autocomplete"
-          leading-icon="lock"
-          :show-visibility-toggle="passwordField.showVisibilityToggle"
-        />
-        <KdsSubText
-          :id="passwordSubTextId"
-          :sub-text="passwordField.subText"
-          :error="passwordField.error"
-          :validating="passwordField.validating"
-          :preserve-sub-text-space="preserveSubTextSpace"
-        />
-      </div>
-
-      <div v-if="showKey" class="kds-credentials-input-field">
-        <PasswordInput
-          :id="keyInputId"
-          ref="keyInput"
-          v-model="keyValue"
-          :field-name="keyName"
-          :placeholder="keyPlaceholder"
-          :aria-label="keyName"
-          :aria-describedby="keyAriaDescribedby"
-          :disabled="disabled"
-          :error="keyField.error"
-          :autocomplete="keyField.autocomplete"
-          leading-icon="key"
-          :show-visibility-toggle="keyField.showVisibilityToggle"
-        />
-        <KdsSubText
-          :id="keySubTextId"
-          :sub-text="keyField.subText"
-          :error="keyField.error"
-          :validating="keyField.validating"
-          :preserve-sub-text-space="preserveSubTextSpace"
-        />
-      </div>
+      <CredentialsFields
+        ref="credentialsFields"
+        v-model="modelValue"
+        inside-fieldset
+        :show-username="showUsername"
+        :show-password="showPassword"
+        :show-key="showKey"
+        :disabled="disabled"
+        :preserve-sub-text-space="preserveSubTextSpace"
+        :username-field="usernameField"
+        :password-field="passwordField"
+        :key-field="keyField"
+        :username-input-id="usernameInputId"
+        :password-input-id="passwordInputId"
+        :key-input-id="keyInputId"
+        :username-sub-text-id="usernameSubTextId"
+        :password-sub-text-id="passwordSubTextId"
+        :key-sub-text-id="keySubTextId"
+      />
     </div>
   </fieldset>
 
   <template v-else>
-    <div v-if="showUsername" class="kds-credentials-input-field">
-      <BaseInput
-        :id="usernameInputId"
-        ref="usernameInput"
-        v-model="usernameValue"
-        type="text"
-        leading-icon="user"
-        :placeholder="usernameField.placeholder"
-        :aria-label="props.ariaLabel || usernameField.placeholder"
-        :aria-labelledby="props.ariaLabelledby"
-        :aria-describedby="
-          buildAriaDescribedby(props.ariaDescribedby, usernameAriaDescribedby)
-        "
-        :aria-invalid="usernameField.error || undefined"
-        :disabled="disabled"
-        :error="usernameField.error"
-        :autocomplete="usernameField.autocomplete"
-      />
-      <KdsSubText
-        :id="usernameSubTextId"
-        :sub-text="usernameField.subText"
-        :error="usernameField.error"
-        :validating="usernameField.validating"
-        :preserve-sub-text-space="preserveSubTextSpace"
-      />
-    </div>
-
-    <div v-if="showPassword" class="kds-credentials-input-field">
-      <PasswordInput
-        :id="passwordInputId"
-        ref="passwordInput"
-        v-model="passwordValue"
-        field-name="Password"
-        :placeholder="passwordField.placeholder"
-        :aria-label="props.ariaLabel || passwordField.placeholder"
-        :aria-describedby="
-          buildAriaDescribedby(props.ariaDescribedby, passwordAriaDescribedby)
-        "
-        :disabled="disabled"
-        :error="passwordField.error"
-        :autocomplete="passwordField.autocomplete"
-        leading-icon="lock"
-        :show-visibility-toggle="passwordField.showVisibilityToggle"
-      />
-      <KdsSubText
-        :id="passwordSubTextId"
-        :sub-text="passwordField.subText"
-        :error="passwordField.error"
-        :validating="passwordField.validating"
-        :preserve-sub-text-space="preserveSubTextSpace"
-      />
-    </div>
-
-    <div v-if="showKey" class="kds-credentials-input-field">
-      <PasswordInput
-        :id="keyInputId"
-        ref="keyInput"
-        v-model="keyValue"
-        :field-name="keyName"
-        :placeholder="keyPlaceholder"
-        :aria-label="props.ariaLabel || keyName"
-        :aria-describedby="
-          buildAriaDescribedby(props.ariaDescribedby, keyAriaDescribedby)
-        "
-        :disabled="disabled"
-        :error="keyField.error"
-        :autocomplete="keyField.autocomplete"
-        leading-icon="key"
-        :show-visibility-toggle="keyField.showVisibilityToggle"
-      />
-      <KdsSubText
-        :id="keySubTextId"
-        :sub-text="keyField.subText"
-        :error="keyField.error"
-        :validating="keyField.validating"
-        :preserve-sub-text-space="preserveSubTextSpace"
-      />
-    </div>
+    <CredentialsFields
+      ref="credentialsFields"
+      v-model="modelValue"
+      :inside-fieldset="false"
+      :group-aria-label="props.ariaLabel"
+      :group-aria-labelledby="props.ariaLabelledby"
+      :group-aria-describedby="props.ariaDescribedby"
+      :show-username="showUsername"
+      :show-password="showPassword"
+      :show-key="showKey"
+      :disabled="disabled"
+      :preserve-sub-text-space="preserveSubTextSpace"
+      :username-field="usernameField"
+      :password-field="passwordField"
+      :key-field="keyField"
+      :username-input-id="usernameInputId"
+      :password-input-id="passwordInputId"
+      :key-input-id="keyInputId"
+      :username-sub-text-id="usernameSubTextId"
+      :password-sub-text-id="passwordSubTextId"
+      :key-sub-text-id="keySubTextId"
+    />
   </template>
 </template>
 
