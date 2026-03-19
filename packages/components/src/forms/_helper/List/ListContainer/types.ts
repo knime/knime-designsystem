@@ -1,6 +1,13 @@
 import type { Ref } from "vue";
 
+import type { KdsIconName } from "../../../../accessories";
+import type { KdsListItemVariant } from "../KdsListItem";
 import type { KdsListItemAccessory } from "../ListItemAccessory/types";
+
+import { kdsListContainerRole } from "./enums";
+
+export type KdsListContainerRole =
+  (typeof kdsListContainerRole)[keyof typeof kdsListContainerRole];
 
 export type KdsListOption = {
   id: string;
@@ -17,17 +24,37 @@ export type KdsListOption = {
   disabled?: boolean;
   /** Shows the option as missing in the list */
   missing?: boolean;
+  /**
+   * When true, the item is rendered as a non-selectable section headline
+   * (styled as a section title row). Section headline items are skipped
+   * during keyboard navigation and cannot be clicked.
+   */
+  sectionHeadline?: boolean;
+  /** Optional leading icon shown before a section headline */
+  sectionHeadlineIcon?: KdsIconName;
+  /** Show a separator below the item if it's not the last in the list */
+  separator?: boolean;
 };
 
 export type KdsListContainerProps = {
-  /** Possible values to show in the list */
+  /**
+   * Options to show in the list.
+   * Items with `sectionHeadline: true` are rendered as non-selectable
+   * section titles. Items with `separator: true` show a divider below them.
+   */
   possibleValues: KdsListOption[];
+  /** Visual size variant of the list items. Defaults to "small". */
+  variant?: KdsListItemVariant;
   /** Text shown when no entries are provided */
   emptyText?: string;
-  /** Accessible label for the listbox */
+  /** Whether the list is in loading state */
+  loading?: boolean;
+  /** Accessible label for the list container */
   ariaLabel?: string;
   /** When true, the list is controlled externally (e.g. by a search input). The list will not be focusable and the parent must forward events via the exposed handleKeydown/handleFocus/handleBlur methods. */
   controlledExternally?: boolean;
+  /** ARIA role applied to the root element. */
+  role?: KdsListContainerRole;
 };
 
 export type KdsListContainerExpose = {

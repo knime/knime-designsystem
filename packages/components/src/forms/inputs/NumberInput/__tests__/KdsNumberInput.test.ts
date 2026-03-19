@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { VueWrapper, flushPromises, mount } from "@vue/test-utils";
 
 import KdsNumberInput from "../KdsNumberInput.vue";
@@ -11,6 +11,11 @@ const getDecreaseButton = (wrapper: VueWrapper) =>
 
 const getIncreaseButton = (wrapper: VueWrapper) =>
   wrapper.find("button[aria-label*='Increase']");
+
+const stopPointerRepeating = async (wrapper: VueWrapper) => {
+  await getIncreaseButton(wrapper).trigger("pointerup");
+  await getDecreaseButton(wrapper).trigger("pointerup");
+};
 
 describe("KdsNumberInput", () => {
   describe("rendering", () => {
@@ -158,36 +163,40 @@ describe("KdsNumberInput", () => {
   });
 
   describe("step buttons", () => {
-    it("increases value when clicking increase button", async () => {
+    it("increases value when pressing increase button", async () => {
       const wrapper = mount(KdsNumberInput, {
         props: { modelValue: 5, label: "Amount" },
       });
-      await getIncreaseButton(wrapper).trigger("click");
+      await getIncreaseButton(wrapper).trigger("pointerdown");
       expect(wrapper.emitted("update:modelValue")!.pop()).toEqual([6]);
+      await stopPointerRepeating(wrapper);
     });
 
-    it("decreases value when clicking decrease button", async () => {
+    it("decreases value when pressing decrease button", async () => {
       const wrapper = mount(KdsNumberInput, {
         props: { modelValue: 5, label: "Amount" },
       });
-      await getDecreaseButton(wrapper).trigger("click");
+      await getDecreaseButton(wrapper).trigger("pointerdown");
       expect(wrapper.emitted("update:modelValue")!.pop()).toEqual([4]);
+      await stopPointerRepeating(wrapper);
     });
 
     it("uses custom step value", async () => {
       const wrapper = mount(KdsNumberInput, {
         props: { modelValue: 0, step: 0.5, label: "Amount" },
       });
-      await getIncreaseButton(wrapper).trigger("click");
+      await getIncreaseButton(wrapper).trigger("pointerdown");
       expect(wrapper.emitted("update:modelValue")!.pop()).toEqual([0.5]);
+      await stopPointerRepeating(wrapper);
     });
 
     it("starts from 0 when current value is NaN", async () => {
       const wrapper = mount(KdsNumberInput, {
         props: { modelValue: NaN, label: "Amount" },
       });
-      await getIncreaseButton(wrapper).trigger("click");
+      await getIncreaseButton(wrapper).trigger("pointerdown");
       expect(wrapper.emitted("update:modelValue")!.pop()).toEqual([0]);
+      await stopPointerRepeating(wrapper);
     });
 
     it("respects min boundary for decrease button", () => {
@@ -208,8 +217,98 @@ describe("KdsNumberInput", () => {
       const wrapper = mount(KdsNumberInput, {
         props: { modelValue: 99, step: 5, max: 100, label: "Amount" },
       });
-      await getIncreaseButton(wrapper).trigger("click");
+      await getIncreaseButton(wrapper).trigger("pointerdown");
       expect(wrapper.emitted("update:modelValue")!.pop()).toEqual([100]);
+      await stopPointerRepeating(wrapper);
+    });
+
+    it("continuously increases value when holding increase button", async () => {
+      vi.useFakeTimers();
+      const wrapper = mount(KdsNumberInput, {
+        props: { modelValue: 0, step: 1, label: "Amount" },
+      });
+      try {
+        await getIncreaseButton(wrapper).trigger("pointerdown");
+        // First step fires immediately
+        expect(wrapper.emitted("update:modelValue")!.length).toBe(1);
+
+        // After initial delay (400ms), repeated steps fire
+        vi.advanceTimersByTime(400);
+        expect(wrapper.emitted("update:modelValue")!.length).toBe(2);
+
+        vi.advanceTimersByTime(100);
+        expect(wrapper.emitted("update:modelValue")!.length).toBe(3);
+
+        // Releasing stops repeating
+        await getIncreaseButton(wrapper).trigger("pointerup");
+        vi.advanceTimersByTime(500);
+        expect(wrapper.emitted("update:modelValue")!.length).toBe(3);
+      } finally {
+        await stopPointerRepeating(wrapper);
+        wrapper.unmount();
+        vi.clearAllTimers();
+        vi.useRealTimers();
+      }
+    });
+
+    it("stops repeating when pointer leaves button", async () => {
+      vi.useFakeTimers();
+      const wrapper = mount(KdsNumberInput, {
+        props: { modelValue: 0, step: 1, label: "Amount" },
+      });
+      try {
+        await getIncreaseButton(wrapper).trigger("pointerdown");
+        expect(wrapper.emitted("update:modelValue")!.length).toBe(1);
+
+        await getIncreaseButton(wrapper).trigger("pointerleave");
+        vi.advanceTimersByTime(600);
+        expect(wrapper.emitted("update:modelValue")!.length).toBe(1);
+      } finally {
+        await stopPointerRepeating(wrapper);
+        wrapper.unmount();
+        vi.clearAllTimers();
+        vi.useRealTimers();
+      }
+    });
+
+    it("does not normalize value on blur while stepping", async () => {
+      const wrapper = mount(KdsNumberInput, {
+        props: { modelValue: NaN, min: 0, max: 10, label: "Amount" },
+      });
+
+      const input = getInput(wrapper);
+      await input.trigger("focus");
+      await input.setValue("abc");
+
+      // Start stepping (sets isStepping = true)
+      await getIncreaseButton(wrapper).trigger("pointerdown");
+
+      // Simulate the blur that happens when the button steals focus
+      await input.trigger("blur");
+
+      // localValue should NOT have been normalized by the blur handler
+      // (blur was suppressed because isStepping was true)
+      expect(getInput(wrapper).element.value).not.toBe("");
+      await stopPointerRepeating(wrapper);
+    });
+
+    it("adjusts value via keyboard-initiated click (Enter/Space)", async () => {
+      const wrapper = mount(KdsNumberInput, {
+        props: { modelValue: 5, label: "Amount" },
+      });
+
+      // Keyboard clicks have detail === 0
+      getIncreaseButton(wrapper).element.dispatchEvent(
+        new MouseEvent("click", { detail: 0, bubbles: true }),
+      );
+      await flushPromises();
+      expect(wrapper.emitted("update:modelValue")!.pop()).toEqual([6]);
+
+      getDecreaseButton(wrapper).element.dispatchEvent(
+        new MouseEvent("click", { detail: 0, bubbles: true }),
+      );
+      await flushPromises();
+      expect(wrapper.emitted("update:modelValue")!.pop()).toEqual([5]);
     });
   });
 
@@ -257,23 +356,25 @@ describe("KdsNumberInput", () => {
       const wrapper = mount(KdsNumberInput, {
         props: { modelValue: 0, step: 0.01, label: "Amount" },
       });
-      await getIncreaseButton(wrapper).trigger("click");
-      await getIncreaseButton(wrapper).trigger("click");
-      await getIncreaseButton(wrapper).trigger("click");
+      await getIncreaseButton(wrapper).trigger("pointerdown");
+      await getIncreaseButton(wrapper).trigger("pointerdown");
+      await getIncreaseButton(wrapper).trigger("pointerdown");
 
       // Should avoid floating point issues like 0.030000000000000002
       expect(wrapper.emitted("update:modelValue")!.pop()).toEqual([0.03]);
+      await stopPointerRepeating(wrapper);
     });
 
     it("handles floating point precision correctly", async () => {
       const wrapper = mount(KdsNumberInput, {
         props: { modelValue: 0.1, step: 0.1, label: "Amount" },
       });
-      await getIncreaseButton(wrapper).trigger("click");
-      await getIncreaseButton(wrapper).trigger("click");
+      await getIncreaseButton(wrapper).trigger("pointerdown");
+      await getIncreaseButton(wrapper).trigger("pointerdown");
 
       // 0.1 + 0.1 + 0.1 should be 0.3, not 0.30000000000000004
       expect(wrapper.emitted("update:modelValue")!.pop()).toEqual([0.3]);
+      await stopPointerRepeating(wrapper);
     });
 
     it("supports scientific-notation steps", async () => {
@@ -281,8 +382,9 @@ describe("KdsNumberInput", () => {
         props: { modelValue: 1.234, step: 1e-3, label: "Amount" },
       });
 
-      await getIncreaseButton(wrapper).trigger("click");
+      await getIncreaseButton(wrapper).trigger("pointerdown");
       expect(wrapper.emitted("update:modelValue")!.pop()).toEqual([1.235]);
+      await stopPointerRepeating(wrapper);
 
       const input = getInput(wrapper);
       await input.trigger("keydown", { key: "ArrowDown" });
@@ -292,7 +394,7 @@ describe("KdsNumberInput", () => {
   });
 
   describe("inputmode attribute", () => {
-    it("sets inputmode to numeric for step >= 1", () => {
+    it("sets inputmode to numeric for integer step", () => {
       const wrapper = mount(KdsNumberInput, {
         props: { step: 1, ariaLabel: "Test" },
       });
@@ -302,6 +404,13 @@ describe("KdsNumberInput", () => {
     it("sets inputmode to decimal for step < 1", () => {
       const wrapper = mount(KdsNumberInput, {
         props: { step: 0.5, ariaLabel: "Test" },
+      });
+      expect(getInput(wrapper).attributes("inputmode")).toBe("decimal");
+    });
+
+    it("sets inputmode to decimal for non-integer step >= 1", () => {
+      const wrapper = mount(KdsNumberInput, {
+        props: { step: 1.5, ariaLabel: "Test" },
       });
       expect(getInput(wrapper).attributes("inputmode")).toBe("decimal");
     });

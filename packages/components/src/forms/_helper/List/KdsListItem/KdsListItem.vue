@@ -20,6 +20,7 @@ const props = withDefaults(defineProps<KdsListItemProps>(), {
   active: false,
   missing: false,
   disabled: false,
+  role: "option",
 });
 
 const emit = defineEmits<{
@@ -54,8 +55,8 @@ const { isTruncated: isSubtextTruncated } = useKdsIsTruncated(subtextEl);
 <template>
   <div
     :id="props.id"
-    role="option"
-    :aria-selected="props.selected"
+    :role="props.role"
+    :aria-selected="props.role === 'option' ? props.selected : undefined"
     :aria-disabled="props.disabled"
     :class="[
       'kds-list-item',
@@ -96,7 +97,7 @@ const { isTruncated: isSubtextTruncated } = useKdsIsTruncated(subtextEl);
       </span>
     </span>
 
-    <span v-if="props.shortcut || props.trailingIcon" class="trailing-item">
+    <span class="trailing-item">
       <span v-if="props.shortcut" class="shortcut">
         {{ props.shortcut }}
       </span>
@@ -106,6 +107,7 @@ const { isTruncated: isSubtextTruncated } = useKdsIsTruncated(subtextEl);
         :name="props.trailingIcon"
         size="small"
       />
+      <span v-else class="trailing-item-reserve-space" />
     </span>
   </div>
 </template>
@@ -117,6 +119,7 @@ const { isTruncated: isSubtextTruncated } = useKdsIsTruncated(subtextEl);
   gap: var(--kds-spacing-container-0-5x);
   align-items: center;
   width: 100%;
+  min-width: var(--kds-dimension-component-width-12x);
   padding: var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-5x);
   color: var(--kds-color-text-and-icon-neutral);
   cursor: pointer;
@@ -139,7 +142,6 @@ const { isTruncated: isSubtextTruncated } = useKdsIsTruncated(subtextEl);
   }
 
   &.large {
-    min-height: var(--kds-dimension-component-height-2-5x);
     font: var(--kds-font-base-interactive-small-strong);
 
     .accessory {
@@ -152,12 +154,20 @@ const { isTruncated: isSubtextTruncated } = useKdsIsTruncated(subtextEl);
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
+    gap: var(--kds-spacing-container-0-12x);
     min-width: 0;
+
+    .large & {
+      justify-content: center;
+      min-height: calc(
+        var(--kds-dimension-component-height-2-5x) - 2 *
+          var(--kds-spacing-container-0-25x)
+      );
+    }
 
     .label {
       overflow: hidden;
       text-overflow: ellipsis;
-      font: inherit;
       white-space: nowrap;
 
       .prefix {
@@ -194,6 +204,10 @@ const { isTruncated: isSubtextTruncated } = useKdsIsTruncated(subtextEl);
       color: var(--kds-color-text-and-icon-muted);
       text-align: right;
       white-space: nowrap;
+    }
+
+    .trailing-item-reserve-space {
+      width: var(--kds-dimension-icon-0-75x);
     }
   }
 

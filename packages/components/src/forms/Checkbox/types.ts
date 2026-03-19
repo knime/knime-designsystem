@@ -31,7 +31,7 @@ type LabelOrTitle =
       title?: never;
     }
   | {
-      label?: "" | undefined | never;
+      label?: never;
       /**
        * Used when no visible label is provided (required for accessibility).
        */

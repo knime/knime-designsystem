@@ -104,6 +104,10 @@ const meta: Meta<typeof KdsDropdown> = {
       control: "boolean",
       table: { category: "props" },
     },
+    loading: {
+      control: "boolean",
+      table: { category: "props" },
+    },
     error: {
       control: "boolean",
       table: { category: "props" },
@@ -119,7 +123,7 @@ const meta: Meta<typeof KdsDropdown> = {
     },
   },
   args: {
-    modelValue: null,
+    modelValue: "",
     id: "",
     label: "Label",
     ariaLabel: undefined,
@@ -128,6 +132,7 @@ const meta: Meta<typeof KdsDropdown> = {
     possibleValues: baseOptions,
     subText: "",
     disabled: false,
+    loading: false,
     error: false,
     validating: false,
     preserveSubTextSpace: false,
@@ -192,7 +197,9 @@ export const Default: Story = {
 
     // --- Clicking the same option keeps it selected ---
     await userEvent.click(trigger);
-    await userEvent.click(await canvas.findByText("Option B"));
+    await userEvent.click(
+      await canvas.findByText("Option B", { selector: ".text" }),
+    );
     await expect(trigger).toHaveTextContent("Option B");
   },
 };
@@ -277,6 +284,23 @@ export const Disabled: Story = {
   },
 };
 
+export const Loading: Story = {
+  args: {
+    loading: true,
+    possibleValues: [],
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole("button", { name: /Label/ });
+
+    await userEvent.click(trigger);
+
+    const loadingText = await canvas.findByText("Loading entries");
+    await expect(loadingText).toBeVisible();
+    await expect(canvas.queryByRole("option", { name: "Option A" })).toBeNull();
+  },
+};
+
 export const InModal: Story = {
   parameters: {
     docs: {
@@ -290,7 +314,7 @@ export const InModal: Story = {
     components: { KdsButton, KdsModal, KdsModalLayout, KdsDropdown },
     setup() {
       const isActive = ref(false);
-      const modelValue = ref<string | null>(args.modelValue ?? null);
+      const modelValue = ref<string>(args.modelValue ?? "");
 
       const open = () => {
         isActive.value = true;
@@ -313,7 +337,7 @@ export const InModal: Story = {
         <KdsButton label="Open modal" variant="filled" @click="open" />
 
         <KdsModal :active="isActive" @close="close">
-          <KdsModalLayout title="Modal title" :on-close="close">
+          <KdsModalLayout headline="Modal title" :on-close="close">
             <template #body>
               <KdsDropdown
                 v-bind="args"
@@ -378,12 +402,12 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3594-15392":
           {
             placeholder: "Label",
-            modelValue: null,
+            modelValue: "",
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3594-15391":
           {
             placeholder: "Label",
-            modelValue: null,
+            modelValue: "",
             parameters: { pseudo: { hover: true } },
           },
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=16518-76137":
@@ -487,7 +511,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   combinationsProps: [
     {
       label: ["Label"],
-      modelValue: [null, "a", "c"],
+      modelValue: ["", "a", "c"],
       placeholder: ["{text}"],
       disabled: [false, true],
       error: [false, true],

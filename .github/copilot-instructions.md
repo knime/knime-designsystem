@@ -102,6 +102,7 @@ packages/
 - Use `<style scoped>` - do NOT use `lang="postcss"`
 - IMPORTANT: Don't use BEM! Use CSS nesting to NOT duplicate selectors.
 - IMPORTANT: Don't use `:deep()` selectors. Prefer styling via dedicated wrapper elements, component props, or slots.
+- IMPORTANT! If an element has a border and padding, set the padding as follows as otherwise it doesn't match the Figma design: `padding: calc(var(--kds-spacing-…) - var(--kds-core-border-width-xs));`
 - Style ONLY with CSS custom properties from design tokens - never hardcode colors/spacing/typography!
 - Export components and types in `packages/components/src/index.ts`
 - Follow WCAG accessibility requirements
@@ -148,6 +149,20 @@ import { kdsButtonVariant } from "./enums";
 export type KdsButtonVariant =
   (typeof kdsButtonVariant)[keyof typeof kdsButtonVariant];
 ```
+
+### Naming Conventions for component props
+
+- Use `modelValue` for v-model bindings (e.g. `KdsToggleButton`, `KdsSelect`)
+- Use `disabled` for disabled state (boolean)
+- Use `variant` for visual variants (string union, e.g. `KdsButton`)
+- Use `size` for size variants (string union, e.g. `KdsAvatar`)
+- Use `label` for the main label of an input component (string)
+- Use `subText` for the secondary text of an input component (string)
+- Use `headline` for the main text of a non-input component (string)
+- Use `description` for the secondary text of a non-input component (string)
+- Always use `leadingIcon` and `trailingIcon` props for icons of components (don't use single `icon` prop).
+- Use `accessory` for interchangeable supporting content (e.g. avatar or icon in a list item)
+- Only use `title` prop for tooltips and similar content that appears on hover/focus, never for main labels or headlines.
 
 ### Component Folder Structure
 
@@ -221,7 +236,7 @@ export type { KdsButtonVariant } from "./types";
 - Provide arg values for all props, e.g. false for boolean and "" for string props in the same order.
 - Provide stories for important prop combinations in the same order (if possible).
 - Test the desired behavior (e.g. disabled state) via storybook play function.
-- Always test **both mouse and keyboard interaction** in play tests. If a component cannot be reset to its initial state after one interaction method (e.g. a radio button that cannot be unselected), test mouse in one story and keyboard in another.
+- Always test **both mouse and keyboard interaction** in the **Default story's** play test. Only split mouse and keyboard into separate stories when the component cannot be reset to its initial state after one interaction method (e.g. a radio button that cannot be unselected).
 - Do not allow stories witch violate accessibility rules. Rewrite the story accordingly (e.g. no label story -> use a custom label story).
 - Always add the following three stories **last** (in this order):
   1. **TextOverflow** (third-to-last): Use `buildTextOverflowStory()` from `test-utils/storybook` and provide long text to test text overflow behavior. You can omit with a comment `// TextOverflow story does not apply here` when no text or layout is involved.

@@ -52,7 +52,7 @@ const meta: Meta<typeof KdsBadge> = {
       description: "Size of the badge.",
       table: { category: "props" },
     },
-    icon: {
+    leadingIcon: {
       control: "select",
       options: kdsIconNames,
       description: "Icon next to the text.",
@@ -81,7 +81,7 @@ export const WithIcon: Story = {
   args: {
     label: "Badge",
     variant: "neutral",
-    icon: "placeholder",
+    leadingIcon: "placeholder",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -104,7 +104,7 @@ export const TextOverflow: Story = {
     label:
       "A very long text that gives comprehensive information about an item",
     variant: "neutral",
-    icon: "placeholder",
+    leadingIcon: "placeholder",
   },
 };
 
@@ -112,7 +112,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsBadge,
   designsToCompare: {
     Types: {
-      props: { label: "{Label}", icon: "placeholder" },
+      props: { label: "{Label}", leadingIcon: "placeholder" },
       variants: {
         [`${figmaBaseUrl}?node-id=972-2164`]: { variant: "neutral" },
         [`${figmaBaseUrl}?node-id=973-2651`]: { variant: "info" },
@@ -132,7 +132,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       label: ["Badge"],
       variant: kdsBadgeVariants,
       size: kdsBadgeSizes,
-      icon: [undefined, "placeholder"],
+      leadingIcon: [undefined, "placeholder"],
     },
   ],
 });

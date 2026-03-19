@@ -5,7 +5,11 @@ import { expect, userEvent, within } from "storybook/test";
 import { KdsToggleButton } from "../../buttons";
 
 import KdsPopover from "./KdsPopover.vue";
-import { kdsPopoverPlacements, kdsPopoverRoles } from "./enums";
+import {
+  kdsPopoverPlacements,
+  kdsPopoverRoles,
+  kdsPopoverTypes,
+} from "./enums";
 
 const meta: Meta<typeof KdsPopover> = {
   title: "Overlays/Popover",
@@ -24,6 +28,11 @@ const meta: Meta<typeof KdsPopover> = {
       control: { type: "select" },
       options: kdsPopoverRoles,
       description: "ARIA role of the popover element.",
+    },
+    popoverType: {
+      control: { type: "select" },
+      options: kdsPopoverTypes,
+      description: "Type of popover element's popover functionality.",
     },
     content: {
       control: { type: "text" },
@@ -52,6 +61,7 @@ const meta: Meta<typeof KdsPopover> = {
     content: "This is a basic popover example.",
     placement: "bottom-left",
     role: "dialog",
+    popoverType: "auto",
     fullWidth: false,
     popoverAriaLabel: "Popover",
   },
@@ -139,6 +149,7 @@ export const Default: Story = {
         :placement="args.placement"
         :content="args.content"
         :role="args.role"
+        :popover-type="args.popoverType"
         :full-width="args.fullWidth"
         :popover-aria-label="args.popoverAriaLabel"
         data-testid="popover"
@@ -206,6 +217,7 @@ export const DifferentPlacement: Story = {
         :placement="args.placement"
         :content="args.content"
         :role="args.role"
+        :popover-type="args.popoverType"
         :full-width="args.fullWidth"
         :popover-aria-label="args.popoverAriaLabel"
       />

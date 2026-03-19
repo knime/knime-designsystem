@@ -65,14 +65,19 @@ const meta: Meta<typeof DropdownContainer> = {
       control: "object",
       table: { category: "props" },
     },
+    loading: {
+      control: "boolean",
+      table: { category: "props" },
+    },
     emptyText: {
       control: "text",
       table: { category: "props" },
     },
   },
   args: {
-    modelValue: null,
+    modelValue: "",
     possibleValues: options(5, () => ({})),
+    loading: false,
     emptyText: "No entries found",
   },
   render: (args) => {
@@ -81,8 +86,8 @@ const meta: Meta<typeof DropdownContainer> = {
     return {
       components: { DropdownContainer },
       setup() {
-        const modelValue = ref<string | null>(args.modelValue ?? null);
-        watchEffect(() => (modelValue.value = args.modelValue ?? null));
+        const modelValue = ref<string>(args.modelValue ?? "");
+        watchEffect(() => (modelValue.value = args.modelValue ?? ""));
         watchEffect(() => updateArgs({ modelValue: modelValue.value }));
         return { args, modelValue };
       },
@@ -167,6 +172,19 @@ export const NoEntriesText: Story = {
   },
 };
 
+export const Loading: Story = {
+  args: {
+    loading: true,
+    possibleValues: [],
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText("Loading entries")).toBeVisible();
+    await expect(canvas.queryByRole("option", { name: "Label 1" })).toBeNull();
+  },
+};
+
 export const ManyOptions: Story = {
   args: {
     possibleValues: options(100, () => ({})),
@@ -201,11 +219,11 @@ export const ManyOptions: Story = {
       canvas.getByRole("option", { name: "Label 5" }),
     ).toHaveAttribute("aria-selected", "true");
 
-    // Re-focus search and verify keyboard navigation still works
+    // Re-focus search and verify keyboard navigation still works.
     await userEvent.click(filterInput);
-    await userEvent.keyboard("{ArrowDown}{Enter}");
+    await userEvent.keyboard("{Home}{ArrowDown}{Enter}");
     await expect(
-      canvas.getByRole("option", { name: "Label 6" }),
+      canvas.getByRole("option", { name: "Label 2" }),
     ).toHaveAttribute("aria-selected", "true");
   },
 };
@@ -456,36 +474,60 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           },
       },
     },
+    "Content=Loading": {
+      props: {
+        loading: true,
+        emptyText: "No entries found",
+        possibleValues: [],
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=6016-530816":
+          {
+            parameters: { figmaOffset: { x: -20, y: -20 } },
+          },
+      },
+    },
   },
 });
 
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: DropdownContainer,
-  combinationsProps: [
-    {
-      modelValue: [null, "option-id-1", "missing"],
+  combinationsProps: {
+    default: {
+      modelValue: [],
       emptyText: ["No entries found"],
-      possibleValues: [
-        options(3, () => ({})),
-        options(3, (idx) => ({
-          accessory: { type: "dataType", name: kdsTypeIconNames[idx] },
-        })),
-        options(3, () => ({ special: true })),
-        options(3, (idx) => ({
-          accessory: { type: "colorSwatch", color: kdsColorSwatchTypes[idx] },
-        })),
-        options(3, (idx) => ({
-          subText: `Subtext ${idx + 1}`,
-        })),
-        options(3, (idx) => ({
-          accessory: { type: "icon", name: kdsIconNames[idx] },
-          subText: `Subtext ${idx + 1}`,
-        })),
-        options(3, (idx) => ({
-          accessory: { type: "liveStatus", status: kdsLiveStatusStatuses[idx] },
-        })),
-      ],
+      possibleValues: [[]],
+      loading: [false],
     },
-  ],
+    combinations: [
+      { modelValue: [""], loading: [true] },
+      {
+        modelValue: ["", "option-id-1", "missing"],
+        possibleValues: [
+          options(3, () => ({})),
+          options(3, (idx) => ({
+            accessory: { type: "dataType", name: kdsTypeIconNames[idx] },
+          })),
+          options(3, () => ({ special: true })),
+          options(3, (idx) => ({
+            accessory: { type: "colorSwatch", color: kdsColorSwatchTypes[idx] },
+          })),
+          options(3, (idx) => ({
+            subText: `Subtext ${idx + 1}`,
+          })),
+          options(3, (idx) => ({
+            accessory: { type: "icon", name: kdsIconNames[idx] },
+            subText: `Subtext ${idx + 1}`,
+          })),
+          options(3, (idx) => ({
+            accessory: {
+              type: "liveStatus",
+              status: kdsLiveStatusStatuses[idx],
+            },
+          })),
+        ],
+      },
+    ],
+  },
   pseudoStates: ["hover", "focus"],
 });

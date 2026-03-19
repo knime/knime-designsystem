@@ -1,5 +1,14 @@
-import { computed, ref } from "vue";
+import { computed, onBeforeUnmount, ref } from "vue";
 import type { Meta } from "@storybook/vue3-vite";
+
+import KdsIcon from "../../packages/components/src/accessories/Icon/KdsIcon.vue";
+import { kdsIconNames } from "../../packages/components/src/accessories/Icon/enums";
+import KdsSearchInput from "../../packages/components/src/forms/inputs/SearchInput/KdsSearchInput.vue";
+import KdsCardClickable from "../../packages/components/src/layouts/KdsCardClickable/KdsCardClickable.vue";
+
+import { keywordMap } from "./icon-alias.ts";
+
+const allIconNames = [...kdsIconNames];
 
 // Import all SVG icons from the dist/icons folder
 // @ts-expect-error - import.meta.glob is a Vite-specific feature
@@ -18,7 +27,140 @@ export default {
   tags: ["!autodocs"],
 } as Meta;
 
-export const Preview = () => {
+export const Search = () => {
+  const searchQuery = ref("");
+  const copiedName = ref("");
+  let copiedNameResetTimeout: ReturnType<typeof setTimeout> | undefined;
+
+  const filteredIcons = computed(() => {
+    const query = searchQuery.value.toLowerCase().trim();
+    if (!query) {
+      return allIconNames;
+    }
+    const terms = query.split(/\s+/);
+    return allIconNames.filter((name) => {
+      const nameMatch = name.toLowerCase();
+      const keywords = (keywordMap[name] ?? []).map((k) => k.toLowerCase());
+      return terms.every(
+        (term) =>
+          nameMatch.includes(term) || keywords.some((kw) => kw.includes(term)),
+      );
+    });
+  });
+
+  const copyToClipboard = async (name: string) => {
+    if (!navigator.clipboard) {
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(name);
+    } catch {
+      return;
+    }
+
+    clearTimeout(copiedNameResetTimeout);
+    copiedName.value = name;
+    copiedNameResetTimeout = setTimeout(() => {
+      if (copiedName.value === name) {
+        copiedName.value = "";
+      }
+    }, 2000);
+  };
+
+  return {
+    components: { KdsCardClickable, KdsIcon, KdsSearchInput },
+    setup() {
+      onBeforeUnmount(() => {
+        clearTimeout(copiedNameResetTimeout);
+      });
+
+      return {
+        searchQuery,
+        filteredIcons,
+        copiedName,
+        copyToClipboard,
+        allIconNames,
+      };
+    },
+    template: `
+      <div style="max-width: 1200px; margin: 0 auto;">
+        <h1 style="margin-bottom: 8px;">Icon Search</h1>
+        <p>
+          Search for icons by name or by concept. For example, try
+          <em>"delete"</em>, <em>"navigate"</em>, <em>"status"</em>, or
+          <em>"typography"</em>. Click any icon card to copy its name.
+        </p>
+
+        <KdsSearchInput
+          v-model="searchQuery"
+          placeholder="Search icons by name or keyword…"
+          label="Search icon"
+          :subText="filteredIcons.length + ' of ' + allIconNames.length + ' icons'"
+        />
+
+        <div
+          v-if="filteredIcons.length === 0"
+          style="text-align: center; padding: 48px 0;"
+        >
+          <p style="font-size: 18px;">No icons found for "{{ searchQuery }}"</p>
+          <p style="font-size: 14px; margin-top: 8px;">Try a different search term</p>
+        </div>
+
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: var(--kds-spacing-container-1x);
+            margin-top: var(--kds-spacing-container-1x);
+          "
+        >
+          <KdsCardClickable
+            v-for="iconName in filteredIcons"
+            :key="iconName"
+            v-bind="{ ariaLabel: 'Copy icon name: ' + iconName }"
+            variant="outlined"
+            @click="copyToClipboard(iconName)"
+          >
+            <div style="
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              gap: 8px;
+              padding: 16px 8px;
+              position: relative;
+            ">
+              <KdsIcon :name="iconName" size="large" />
+              <span style="text-align: center">
+                {{ iconName }}
+              </span>
+              <span
+                v-if="copiedName === iconName"
+                style="
+                  position: absolute;
+                  inset: 0;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  background: var(--kds-color-surface-default, rgba(255,255,255,0.95));
+                  border-radius: 8px;
+                  font-size: 12px;
+                  font-weight: 600;
+                  color: var(--kds-color-text-and-icon-success, green);
+                "
+              >
+                Copied!
+              </span>
+            </div>
+          </KdsCardClickable>
+        </div>
+      </div>
+    `,
+  };
+};
+
+export const SizePreview = () => {
   const searchQuery = ref("");
   const iconNames = Object.keys(icons).map((path) =>
     path.split("/").pop()!.replace(".svg", ""),

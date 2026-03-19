@@ -23,6 +23,7 @@ const meta: Meta<typeof KdsEmptyState> = {
           "Use `KdsEmptyState` to communicate that a view has *no content to show yet* (e.g. an empty list, nothing selected yet).\n\n" +
           "**How it works**\n" +
           "- Provide a `headline` (required) and optionally a `description`.\n" +
+          "- Enable `loadingSpinner` to show a large loading spinner above the headline while content is being prepared.\n" +
           "- Optionally provide a primary next step via the `button` prop, which accepts either `KdsButtonProps` or `KdsLinkButtonProps`.\n" +
           "- If the `button` object contains a `to` property, the component renders a link button; otherwise it renders an action button. In both cases it emits `buttonClick` when the button is clicked.\n\n" +
           "**Example**\n" +
@@ -30,6 +31,7 @@ const meta: Meta<typeof KdsEmptyState> = {
           "<KdsEmptyState\n" +
           '  headline="No entries in this list."\n' +
           '  description="Create your first item to get started."\n' +
+          '  :loading-spinner="true"\n' +
           "  :button=\"{ label: 'Create item', variant: 'outlined' }\"\n" +
           '  @button-click="onCreate"\n' +
           "/>\n" +
@@ -58,6 +60,12 @@ const meta: Meta<typeof KdsEmptyState> = {
         "Optional button configuration. Pass `KdsButtonProps` for an action button or `KdsLinkButtonProps` (with `to`) for a link button.",
       table: { category: "props" },
     },
+    loadingSpinner: {
+      control: "boolean",
+      description:
+        "Shows a loading spinner above the headline to indicate loading state.",
+      table: { category: "props" },
+    },
   },
 };
 
@@ -76,6 +84,7 @@ export const Default: Story = {
     headline: "No entries in this list.",
     description: "",
     button: undefined,
+    loadingSpinner: false,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -148,6 +157,29 @@ export const WithActionButton: Story = {
   },
 };
 
+export const WithLoadingSpinner: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Use when data is still loading and no empty-state content can be shown yet.",
+      },
+    },
+  },
+  args: {
+    headline: "No entries in this list.",
+    description: "Here is a smaller description of the state.",
+    button: { label: "{Label}", variant: "outlined", size: "small" },
+    loadingSpinner: true,
+    onButtonClick: fn(),
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const spinner = await canvas.findByTestId("loading-spinner");
+    await expect(spinner).toBeInTheDocument();
+  },
+};
+
 export const WithLinkButton: Story = {
   parameters: {
     docs: {
@@ -199,7 +231,7 @@ export const LinkButtonOnly: Story = {
 export const TextOverflow: Story = {
   ...buildTextOverflowStory({
     component: KdsEmptyState,
-    width: 280,
+    width: 180,
   }),
   args: {
     headline:
@@ -207,6 +239,7 @@ export const TextOverflow: Story = {
     description:
       "This is a very long helper text that should also overflow and wrap properly when there is not enough space available for the content",
     button: { label: "Create Item", variant: "outlined" },
+    loadingSpinner: true,
   },
 };
 
@@ -229,10 +262,20 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           {
             description: "Here is a smaller description of the state.",
             button: {
-              label: "[Label]",
+              label: "{Label}",
               variant: "outlined",
               size: "small",
             },
+          },
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=19417-80603":
+          {
+            description: "Here is a smaller description of the state.",
+            button: {
+              label: "{Label}",
+              variant: "outlined",
+              size: "small",
+            },
+            loadingSpinner: true,
           },
       },
     },
@@ -245,15 +288,18 @@ export const AllCombinations: Story = buildAllCombinationsStory({
     {
       headline: ["No entries in this list."],
       description: [undefined, "Here is a smaller description of the state."],
+      loadingSpinner: [false, true],
     },
     ...kdsButtonVariants.map((variant) => ({
       headline: ["No entries in this list."],
       description: [undefined, "Here is a smaller description of the state."],
+      loadingSpinner: [false, true],
       button: [{ label: "Create Item", variant }],
     })),
     ...kdsButtonVariants.map((variant) => ({
       headline: ["No entries in this list."],
       description: [undefined, "Here is a smaller description of the state."],
+      loadingSpinner: [false, true],
       button: [
         {
           label: "Learn More",

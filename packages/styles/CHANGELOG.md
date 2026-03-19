@@ -1,5 +1,25 @@
 # @knime/kds-styles
 
+## 0.17.2
+
+## 0.17.1
+
+## 0.17.0
+
+### Patch Changes
+
+- f421a2c: Kds 790 improve colors of live status
+
+## 0.16.1
+
+### Patch Changes
+
+- a0f4960: Add KdsMenuButton
+
+## 0.16.0
+
+## 0.15.1
+
 ## 0.15.0
 
 ## 0.14.0

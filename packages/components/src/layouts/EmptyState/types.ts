@@ -4,6 +4,7 @@ export type KdsEmptyStateProps = {
   headline: string;
   description?: string;
   button?: KdsButtonProps | KdsLinkButtonProps;
+  loadingSpinner?: boolean;
 };
 
 /**
@@ -30,6 +31,11 @@ propTypeTester<KdsEmptyStateProps>({
 propTypeTester<KdsEmptyStateProps>({
   headline: "headline",
   button: { leadingIcon: "placeholder", ariaLabel: "placeholder" },
+});
+// supports headline and loading spinner
+propTypeTester<KdsEmptyStateProps>({
+  headline: "headline",
+  loadingSpinner: true,
 });
 // @ts-expect-error - headline is required
 propTypeTester<KdsEmptyStateProps>({

@@ -54,12 +54,12 @@ const kdsModalProps = computed(() => {
     return {};
   }
 
-  const { icon, title, height, width, variant, overflow, closedby } =
+  const { leadingIcon, headline, height, width, variant, overflow, closedby } =
     config.value.value;
 
   return {
-    icon,
-    title,
+    leadingIcon,
+    headline,
     height,
     width,
     variant,

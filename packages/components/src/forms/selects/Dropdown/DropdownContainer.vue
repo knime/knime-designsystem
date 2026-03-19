@@ -1,27 +1,26 @@
 <script setup lang="ts">
 import { computed, ref, useTemplateRef } from "vue";
 
-import { KdsListContainer } from "../../_helper/List/ListContainer";
 import type { KdsListOption } from "../../_helper/List/ListContainer";
+import { KdsListContainer } from "../../_helper/List/ListContainer";
 import BaseInput from "../../inputs/BaseInput.vue";
 
-import type {
-  DropdownContainerProps,
-  DropdownOptionWithMissing,
-} from "./types";
+import type { DropdownContainerProps, KdsDropdownOption } from "./types";
 
 const props = defineProps<DropdownContainerProps>();
 
-const modelValue = defineModel<string | null>({ default: null });
+const modelValue = defineModel<string>({ default: "" });
 
 const searchValue = ref("");
 
 const searchEl = useTemplateRef("searchEl");
 const listContainerRef = useTemplateRef("listContainer");
 
+type DropdownOptionWithMissing = KdsDropdownOption & { missing?: boolean };
+
 const optionsWithSyntheticMissing = computed<DropdownOptionWithMissing[]>(
   () => {
-    if (modelValue.value === null) {
+    if (!modelValue.value) {
       return props.possibleValues;
     }
 
@@ -100,7 +99,8 @@ defineExpose({
       ref="listContainer"
       class="kds-dropdown-container-list"
       :class="{ multiline: hasMultiline }"
-      :possible-values="listOptions"
+      :possible-values="props.loading ? [] : listOptions"
+      :loading="props.loading"
       :empty-text="props.emptyText"
       controlled-externally
       aria-label="Dropdown options"

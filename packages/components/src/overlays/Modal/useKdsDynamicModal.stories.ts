@@ -15,7 +15,7 @@ const scriptExample = `
 import { useKdsDynamicModal } from "@knime/kds-components";
 
 const { askConfirmation } = useKdsDynamicModal();
-const result = await askConfirmation({ title: "Confirm", message: "A question for you." });
+const result = await askConfirmation({ headline: "Confirm", message: "A question for you." });
 
 if (result.confirmed) {
   // do your thing
@@ -73,7 +73,7 @@ export const Confirmation: Story = {
 
       const showModal = () => {
         askConfirmation({
-          title: "Sure?",
+          headline: "Sure?",
           message: "Are you sure?",
           doNotAskAgain: {
             label: "Do not ask again",
@@ -125,8 +125,8 @@ export const ConfirmationWithTemplate: Story = {
 
       const showModal = () => {
         askConfirmation({
-          title: "Can you see this?",
-          icon: "list-bulletpoint",
+          headline: "Can you see this?",
+          leadingIcon: "list-bulletpoint",
           closedby: "any",
           component: h("div", [
             h("h3", "A Headline"),
@@ -176,8 +176,8 @@ export const WithCustomComponentAndLayout: Story = {
 
       const showModal = () => {
         showByTemplate({
-          title: "Can you see this?",
-          icon: "list-bulletpoint",
+          headline: "Can you see this?",
+          leadingIcon: "list-bulletpoint",
           closedby: "any",
           component: markRaw(DemoCustomComponent),
         });
@@ -209,8 +209,8 @@ export const WithCustomComponentWithoutLayout: Story = {
 
       const showModal = () => {
         showByTemplate({
-          title: "Can you see this?",
-          icon: "list-bulletpoint",
+          headline: "Can you see this?",
+          leadingIcon: "list-bulletpoint",
           closedby: "any",
           context: {
             someData: true,

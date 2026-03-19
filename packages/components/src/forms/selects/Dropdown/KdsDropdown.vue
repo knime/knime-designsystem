@@ -18,12 +18,13 @@ import type { KdsDropdownProps } from "./types.ts";
 const props = withDefaults(defineProps<KdsDropdownProps>(), {
   placeholder: "Select",
   disabled: false,
+  loading: false,
   error: false,
   validating: false,
   preserveSubTextSpace: false,
 });
 
-const modelValue = defineModel<string | null>({ default: null });
+const modelValue = defineModel<string>({ default: "" });
 
 const open = ref(false);
 const popoverEl = useTemplateRef("popoverEl");
@@ -64,14 +65,14 @@ watch(modelValue, () => {
         v-bind="slotProps"
         v-model:open="open"
         :text="
-          modelValue !== null && !selectedOption
+          modelValue && !selectedOption
             ? `(Missing) ${modelValue}`
             : selectedOption?.text
         "
         :placeholder="props.placeholder"
         :disabled="props.disabled"
         :error="props.error"
-        :missing="modelValue !== null && !selectedOption"
+        :missing="!!modelValue && !selectedOption"
         :accessory="selectedOption?.accessory"
         :style="popoverEl?.anchorStyle"
         :popover-id="popoverEl?.popoverId"
@@ -90,6 +91,7 @@ watch(modelValue, () => {
           ref="dropdownContainerEl"
           v-model="modelValue"
           :possible-values="props.possibleValues"
+          :loading="props.loading"
           empty-text="No entries found"
         />
       </KdsPopover>

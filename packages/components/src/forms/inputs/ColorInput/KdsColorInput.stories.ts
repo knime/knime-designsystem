@@ -150,6 +150,22 @@ export const Default: Story = {
       await userEvent.keyboard("{Enter}");
       await expect(body.queryByRole("dialog")).not.toBeInTheDocument();
     });
+
+    await step("Mouse: open and close color picker via swatch", async () => {
+      const swatch = canvasElement.querySelector(".kds-color-swatch");
+      if (!swatch) {
+        throw new Error("Color swatch not found");
+      }
+
+      await expect(body.queryByRole("dialog")).not.toBeInTheDocument();
+      await userEvent.click(swatch);
+
+      const dialog = await body.findByRole("dialog");
+      await expect(dialog).toBeInTheDocument();
+
+      await userEvent.click(swatch);
+      await expect(body.queryByRole("dialog")).not.toBeInTheDocument();
+    });
   },
 };
 
@@ -169,15 +185,27 @@ export const Disabled: Story = {
     modelValue: "#5148E5",
     disabled: true,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByRole("textbox", { name: "Label" });
-    await expect(input).toBeDisabled();
-
     const pickerButton = canvas.getByRole("button", {
       name: /open color picker/i,
     });
-    await expect(pickerButton).toBeDisabled();
+
+    await step("Disabled state is applied", async () => {
+      await expect(input).toBeDisabled();
+      await expect(pickerButton).toBeDisabled();
+    });
+
+    await step("Mouse: swatch does not open color picker", async () => {
+      const swatch = canvasElement.querySelector(".kds-color-swatch");
+      if (!swatch) {
+        throw new Error("Color swatch not found");
+      }
+
+      await userEvent.click(swatch);
+      await expect(canvas.queryByRole("dialog")).not.toBeInTheDocument();
+    });
   },
 };
 

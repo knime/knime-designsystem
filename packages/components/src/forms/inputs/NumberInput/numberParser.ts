@@ -36,13 +36,13 @@ const countFractionDigits = (value: number) => {
   //  - 1.23e-4 => 6 (0.000123)
   //  - 1e+3 => 0
   const exp = value.toExponential();
-  const match = exp.match(/^[-+]?(\d+)(?:\.(\d+))?e([+-]?\d+)$/i);
+  const match = /^[-+]?(\d+)(?:\.(\d+))?e([+-]?\d+)$/i.exec(exp);
   if (!match) {
     return 0;
   }
 
   const fractionDigitsInMantissa = match[2]?.length ?? 0;
-  const exponent = Number.parseInt(match[3]!, 10);
+  const exponent = Number.parseInt(match[3], 10);
 
   if (exponent >= 0) {
     // Shift decimal point to the right -> no additional fraction digits required.
@@ -112,7 +112,7 @@ export const createKdsNumberParser = (params: {
 
   const roundToStep = (value: number) => {
     if (!Number.isFinite(value)) {
-      return NaN;
+      return Number.NaN;
     }
 
     const step = params.step;
@@ -144,6 +144,46 @@ export const createKdsNumberParser = (params: {
     // Note: whitespace is removed earlier; we don't accept grouping separators here.
     /^[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?$/.test(normalized);
 
+  const parseWithLocaleDecimal = (input: string, localeDecimal: string) => {
+    const withoutGrouping = removeGroupingSeparators(input);
+    const normalized = withoutGrouping.split(localeDecimal).join(".");
+    if (!isValidNormalizedNumber(normalized)) {
+      return Number.NaN;
+    }
+    const parsed = Number.parseFloat(normalized);
+    return Number.isFinite(parsed) ? parsed : Number.NaN;
+  };
+
+  const parseWithFallbackDot = (input: string) => {
+    const lastDotIndex = input.lastIndexOf(".");
+    const digitsAfterDot = input.slice(lastDotIndex + 1);
+
+    const looksLikeDecimal =
+      digitsAfterDot.length > 0 && digitsAfterDot.length <= 2;
+
+    const normalized = looksLikeDecimal
+      ? `${removeGroupingSeparators(input.slice(0, lastDotIndex))}.${removeGroupingSeparators(
+          digitsAfterDot,
+        )}`
+      : removeGroupingSeparators(input);
+
+    if (!isValidNormalizedNumber(normalized)) {
+      return Number.NaN;
+    }
+
+    const parsed = Number.parseFloat(normalized);
+    return Number.isFinite(parsed) ? parsed : Number.NaN;
+  };
+
+  const parseWithoutLocaleDecimal = (input: string) => {
+    const normalized = removeGroupingSeparators(input);
+    if (!isValidNormalizedNumber(normalized)) {
+      return Number.NaN;
+    }
+    const parsed = Number.parseFloat(normalized);
+    return Number.isFinite(parsed) ? parsed : Number.NaN;
+  };
+
   /**
    * Parse a localized number string to a number.
    *
@@ -153,10 +193,10 @@ export const createKdsNumberParser = (params: {
    * - Grouped integer without decimal separator (e.g. "1,234" in en-US, "1.234" in de-DE)
    * - "." as a fallback decimal separator when the locale uses "," (common user input)
    */
-  const parseFromInput = (value: string) => {
+  function parseFromInput(value: string) {
     const trimmed = value.trim();
     if (trimmed.length === 0) {
-      return NaN;
+      return Number.NaN;
     }
 
     const localeDecimal = decimalSeparator;
@@ -166,13 +206,7 @@ export const createKdsNumberParser = (params: {
 
     // If the locale decimal separator is present, we can safely remove grouping chars.
     if (hasLocaleDecimal) {
-      const withoutGrouping = removeGroupingSeparators(trimmed);
-      const normalized = withoutGrouping.split(localeDecimal).join(".");
-      if (!isValidNormalizedNumber(normalized)) {
-        return NaN;
-      }
-      const parsed = Number.parseFloat(normalized);
-      return Number.isFinite(parsed) ? parsed : NaN;
+      return parseWithLocaleDecimal(trimmed, localeDecimal);
     }
 
     // No locale decimal separator present.
@@ -180,36 +214,14 @@ export const createKdsNumberParser = (params: {
     // Case A: locale uses ',' as decimal separator (e.g. de-DE). Accept '.' as fallback decimal.
     // While doing so, we still want to support locale grouping separators like '1.234'.
     if (localeDecimal !== "." && trimmed.includes(".")) {
-      const lastDotIndex = trimmed.lastIndexOf(".");
-      const digitsAfterDot = trimmed.slice(lastDotIndex + 1);
-
-      const looksLikeDecimal =
-        digitsAfterDot.length > 0 && digitsAfterDot.length <= 2;
-
-      const normalized = looksLikeDecimal
-        ? `${removeGroupingSeparators(trimmed.slice(0, lastDotIndex))}.${removeGroupingSeparators(
-            digitsAfterDot,
-          )}`
-        : removeGroupingSeparators(trimmed);
-
-      if (!isValidNormalizedNumber(normalized)) {
-        return NaN;
-      }
-
-      const parsed = Number.parseFloat(normalized);
-      return Number.isFinite(parsed) ? parsed : NaN;
+      return parseWithFallbackDot(trimmed);
     }
 
     // Case B: locale uses '.' as decimal separator (e.g. en-US).
     // Remove grouping separators such as ',' and whitespace, so '1,234' => '1234'.
     // Note: we intentionally do NOT treat ',' as a decimal separator here.
-    const normalized = removeGroupingSeparators(trimmed);
-    if (!isValidNormalizedNumber(normalized)) {
-      return NaN;
-    }
-    const parsed = Number.parseFloat(normalized);
-    return Number.isFinite(parsed) ? parsed : NaN;
-  };
+    return parseWithoutLocaleDecimal(trimmed);
+  }
 
   return {
     locale: params.locale,

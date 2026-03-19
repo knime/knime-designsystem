@@ -3,11 +3,21 @@ import { computed, nextTick, ref, useId, useTemplateRef, watch } from "vue";
 
 import KdsEmptyState from "../../../../layouts/EmptyState/KdsEmptyState.vue";
 import { KdsListItem } from "../KdsListItem";
+import { kdsListItemVariant } from "../KdsListItem/enums";
+import ListItemDivider from "../ListItemDivider/ListItemDivider.vue";
+import ListItemSectionTitle from "../ListItemSectionTitle/ListItemSectionTitle.vue";
 
-import type { KdsListContainerExpose, KdsListContainerProps } from "./types";
+import type {
+  KdsListContainerExpose,
+  KdsListContainerProps,
+  KdsListOption,
+} from "./types";
 
 const props = withDefaults(defineProps<KdsListContainerProps>(), {
   emptyText: "",
+  variant: kdsListItemVariant.SMALL,
+  loading: false,
+  role: "listbox",
 });
 
 const emit = defineEmits<{
@@ -18,10 +28,19 @@ const emit = defineEmits<{
 const idPrefix = useId();
 const toOptionId = (elementId: string) => elementId.slice(idPrefix.length + 1);
 const emptyOptionId = `${idPrefix}-empty`;
+const loadingStateText = "Loading entries";
 
 /** possibleValues with prefixed ids to avoid DOM id collisions */
-const prefixedValues = computed(() =>
-  props.possibleValues.map((o) => ({ ...o, id: `${idPrefix}-${o.id}` })),
+const prefixedValues = computed<KdsListOption[]>(() =>
+  (props.loading ? [] : props.possibleValues).map((o) => ({
+    ...o,
+    id: `${idPrefix}-${o.id}`,
+  })),
+);
+
+/** Only selectable (non-section-headline) items */
+const selectableValues = computed(() =>
+  prefixedValues.value.filter((o) => !o.sectionHeadline),
 );
 
 /** active item id (prefixed) via keyboard or mouseover */
@@ -33,6 +52,10 @@ const lastActiveId = ref<string | undefined>(undefined);
 const isFocused = ref(false);
 
 const containerEl = useTemplateRef("containerEl");
+
+const listItemRole = computed(() => {
+  return props.role === "listbox" ? "option" : "menuitem";
+});
 
 function scrollToView() {
   if (!activeId.value || !containerEl.value) {
@@ -50,39 +73,66 @@ const onMouseLeave = () => {
 };
 
 const onMousemove = (event: MouseEvent) => {
-  const target = (event.target as HTMLElement)?.closest?.('[role="option"]');
+  const target = (event.target as HTMLElement)?.closest?.(
+    `[role="${listItemRole.value}"]`,
+  );
   if (
     target instanceof HTMLElement &&
     target.id &&
     target.getAttribute("aria-disabled") !== "true"
   ) {
     activeId.value = target.id;
+  } else if (!isFocused.value) {
+    activeId.value = undefined;
   }
 };
 
 const enabledValues = computed(() =>
-  prefixedValues.value.filter((o) => !o.disabled),
+  selectableValues.value.filter((o) => !o.disabled),
 );
 
-/** Reset activeId/lastActiveId when possibleValues change and current id no longer exists */
-watch(enabledValues, (values) => {
-  const isValid = (id: string | undefined) =>
-    id !== undefined && values.some((o) => o.id === id);
+/** Tracks the set of enabled item ids to detect real list changes (e.g. search filtering) vs. cosmetic changes (e.g. selection toggling). */
+const enabledIds = computed(() => enabledValues.value.map((o) => o.id));
+let prevEnabledIds: string[] = [];
 
-  if (activeId.value !== undefined && !isValid(activeId.value)) {
-    if (values.length > 0) {
-      activeId.value = values[0].id;
-    } else {
-      // Only point to the empty-state element when the list is truly empty.
-      // When items exist but are all disabled, leave activeId undefined to
-      // avoid aria-activedescendant referencing a non-existent DOM element.
-      activeId.value =
-        prefixedValues.value.length === 0 ? emptyOptionId : undefined;
-    }
+const firstEnabledOrEmpty = (values: KdsListOption[]) => {
+  if (values.length > 0) {
+    return values[0].id;
   }
-  if (!isValid(lastActiveId.value)) {
+  // Only point to the empty-state element when the list is truly empty.
+  // When items exist but are all disabled, leave activeId undefined to
+  // avoid aria-activedescendant referencing a non-existent DOM element.
+  return selectableValues.value.length === 0 ? emptyOptionId : undefined;
+};
+
+const idsChanged = (a: string[], b: string[]) =>
+  a.length !== b.length || a.some((id, i) => id !== b[i]);
+
+const getResetActiveId = (values: KdsListOption[]) => {
+  if (activeId.value === undefined) {
+    return activeId.value;
+  }
+  // While focused and the visible items actually changed (e.g. during search
+  // filtering), always jump to the first enabled value so the highlight
+  // follows the top result. Skip when only selection/cosmetic state changed.
+  if (isFocused.value && idsChanged(enabledIds.value, prevEnabledIds)) {
+    return firstEnabledOrEmpty(values);
+  }
+  const stillValid = values.some((o) => o.id === activeId.value);
+  return stillValid ? activeId.value : firstEnabledOrEmpty(values);
+};
+
+/** Reset activeId/lastActiveId when possibleValues change */
+watch([enabledValues, () => props.loading], ([values, loading]) => {
+  activeId.value = loading ? emptyOptionId : getResetActiveId(values);
+
+  const lastIdStillValid = values.some((o) => o.id === lastActiveId.value);
+  if (!lastIdStillValid) {
     lastActiveId.value = undefined;
   }
+
+  prevEnabledIds = enabledIds.value;
+
   nextTick(scrollToView);
 });
 
@@ -129,6 +179,13 @@ const handleKeydown = (event: KeyboardEvent) => {
       break;
     }
     case "Enter":
+      if (
+        event.target instanceof HTMLElement &&
+        ["BUTTON"].includes(event.target.tagName) &&
+        event.target.ariaExpanded === "false"
+      ) {
+        break;
+      }
       if (activeId.value) {
         emit("itemClick", toOptionId(activeId.value));
         event.preventDefault();
@@ -138,6 +195,13 @@ const handleKeydown = (event: KeyboardEvent) => {
       if (
         event.target instanceof HTMLElement &&
         ["INPUT", "TEXTAREA", "SELECT"].includes(event.target.tagName)
+      ) {
+        break;
+      }
+      if (
+        event.target instanceof HTMLElement &&
+        ["BUTTON"].includes(event.target.tagName) &&
+        event.target.ariaExpanded === "false"
       ) {
         break;
       }
@@ -174,61 +238,89 @@ defineExpose<KdsListContainerExpose>({
 
 <template>
   <div
+    v-bind="$attrs"
     ref="containerEl"
-    role="listbox"
+    :role="props.role"
+    :aria-busy="props.loading"
     :aria-label="props.ariaLabel"
     :aria-activedescendant="
       !props.controlledExternally && activeId ? activeId : undefined
     "
-    class="kds-list-container"
+    :class="['kds-list-container', { standalone: !props.controlledExternally }]"
     :tabindex="props.controlledExternally ? undefined : 0"
-    v-on="
-      props.controlledExternally
-        ? { mousemove: onMousemove, mouseleave: onMouseLeave }
-        : {
-            keydown: handleKeydown,
-            focus: handleFocus,
-            blur: handleBlur,
-            mousemove: onMousemove,
-            mouseleave: onMouseLeave,
-          }
-    "
+    @keydown="handleKeydown"
+    @focus="handleFocus"
+    @blur="handleBlur"
+    @mousemove="onMousemove"
+    @mouseleave="onMouseLeave"
   >
-    <KdsListItem
-      v-for="item in prefixedValues"
-      :id="item.id"
-      :key="item.id"
-      :accessory="item.accessory"
-      :label="item.text"
-      :sub-text="item.subText"
-      :selected="item.selected"
-      :disabled="item.disabled"
-      :active="activeId === item.id"
-      :special="item.special"
-      :missing="item.missing"
-      :trailing-icon="item.selected ? 'checkmark' : undefined"
-      @mousedown="props.controlledExternally && $event.preventDefault()"
-      @click.stop="emit('itemClick', toOptionId(item.id))"
-    />
+    <template v-for="(item, index) in prefixedValues" :key="item.id">
+      <ListItemSectionTitle
+        v-if="item.sectionHeadline"
+        :label="item.text"
+        :leading-icon="item.sectionHeadlineIcon"
+        role="presentation"
+        aria-hidden="true"
+      />
+      <KdsListItem
+        v-else
+        :id="item.id"
+        :accessory="item.accessory"
+        :label="item.text"
+        :sub-text="item.subText"
+        :selected="item.selected"
+        :disabled="item.disabled"
+        :active="activeId === item.id"
+        :special="item.special"
+        :missing="item.missing"
+        :variant="props.variant"
+        :trailing-icon="
+          item.missing && !item.disabled
+            ? 'trash'
+            : item.selected
+              ? 'checkmark'
+              : undefined
+        "
+        :role="listItemRole"
+        @mousedown="props.controlledExternally && $event.preventDefault()"
+        @click="!item.disabled && emit('itemClick', toOptionId(item.id))"
+      />
+      <ListItemDivider
+        v-if="item.separator && index < prefixedValues.length - 1"
+        role="presentation"
+        aria-hidden="true"
+      />
+    </template>
     <div
-      v-if="prefixedValues.length === 0"
+      v-if="selectableValues.length === 0"
       :id="emptyOptionId"
-      role="option"
+      :role="listItemRole"
       aria-disabled="true"
-      :aria-selected="undefined"
+      aria-selected="false"
       class="kds-list-container-empty"
     >
-      <KdsEmptyState :headline="props.emptyText" />
+      <KdsEmptyState
+        :headline="props.loading ? loadingStateText : props.emptyText"
+        :loading-spinner="props.loading"
+      />
     </div>
   </div>
 </template>
 
 <style scoped>
 .kds-list-container {
+  position: relative;
   display: flex;
   flex-direction: column;
+  gap: var(--kds-spacing-container-0-10x);
+  min-width: var(--kds-dimension-component-width-12x);
   padding: var(--kds-spacing-container-0-25x);
   overflow-y: auto;
+
+  &.standalone {
+    border: var(--kds-border-base-subtle);
+    border-radius: var(--kds-border-radius-container-0-31x);
+  }
 
   &:focus-visible {
     outline: var(--kds-border-action-focused);
@@ -239,6 +331,8 @@ defineExpose<KdsListContainerExpose>({
 
 .kds-list-container-empty {
   display: flex;
+  flex: 1;
+  align-items: center;
   justify-content: center;
 }
 </style>

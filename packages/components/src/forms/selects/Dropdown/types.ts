@@ -23,22 +23,31 @@ export type KdsDropdownProps = {
   placeholder?: string;
   /** Whether the input is disabled */
   disabled?: boolean;
+  /** Whether the dropdown list is in loading state */
+  loading?: boolean;
   /** Values shown in the dropdown list */
   possibleValues: KdsDropdownOption[];
 } & KdsFormFieldProps;
 
-/* ---- Internal types (not re-exported from index.ts) ---- */
-
-export type DropdownOptionWithMissing = KdsDropdownOption & {
-  /** Whether the option represents a missing value */
-  missing?: boolean;
+export type KdsMultiSelectDropdownProps = KdsDropdownProps & {
+  /** When true, allows adding and selecting new values via the search field (combo box behavior). */
+  allowNewValues?: boolean;
 };
+
+/* ---- Internal types (not re-exported from index.ts) ---- */
 
 export type DropdownContainerProps = {
   /** Text shown when the list is empty (no entries or no search results) */
   emptyText: string;
+  /** Whether the list is in loading state */
+  loading?: boolean;
   /** Values shown in the dropdown list */
   possibleValues: KdsDropdownOption[];
+};
+
+export type KdsMultiSelectDropdownContainerProps = DropdownContainerProps & {
+  /** When true, allows adding and selecting new values via the search field (combo box behavior). */
+  allowNewValues?: boolean;
 };
 
 export type BaseDropdownProps = {

@@ -1,5 +1,70 @@
 # @knime/kds-components
 
+## 0.17.2
+
+### Patch Changes
+
+- f74783c: Add `results` and `resultsMaxHeight` props to `KdsSearchInput`
+  - @knime/kds-styles@0.17.2
+
+## 0.17.1
+
+### Patch Changes
+
+- b426967: Export DateInput
+- bf0687a: KdsMultiSelectDropdown: Show label when only one was selected
+  - @knime/kds-styles@0.17.1
+
+## 0.17.0
+
+### Minor Changes
+
+- 4dc910c: BREAKING CHANGE: KdsDropdown now treats empty string as unselected instead of null.
+
+### Patch Changes
+
+- a13647a: Add KdsDateTimeFormatInput component
+- 7a27ed8: add KdsDateInput
+- 1877bdd: Add new `KdsMultiSelectDropdown` form component.
+- f421a2c: Kds 790 improve colors of live status
+- Updated dependencies [f421a2c]
+  - @knime/kds-styles@0.17.0
+
+## 0.16.1
+
+### Patch Changes
+
+- a0f4960: Add KdsMenuButton
+- 7cec5ea: Allow opening the color picker by clicking the color swatch
+- Updated dependencies [a0f4960]
+  - @knime/kds-styles@0.16.1
+
+## 0.16.0
+
+### Minor Changes
+
+- ddc7917: Apply consistent naming convention for component props.
+
+  BREAKING CHANGE: The following component props have been renamed:
+  - `KdsBadge`: `icon` → `leadingIcon`
+  - `KdsInlineMessage`: `title` → `headline`
+  - `KdsInlineMessage`: `message` → `description`
+  - `KdsModal`: `icon` → `leadingIcon`
+  - `KdsModal`: `title` → `headline`
+
+### Patch Changes
+
+- 38660e2: KdsEmptyState: Add loading spinner support
+- 240843d: KdsDropdown, KdsListContainer: Add loading state
+  - @knime/kds-styles@0.16.0
+
+## 0.15.1
+
+### Patch Changes
+
+- e324127: Add KdsInlineMessage
+  - @knime/kds-styles@0.15.1
+
 ## 0.15.0
 
 ### Minor Changes

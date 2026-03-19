@@ -10,6 +10,7 @@ import {
 import BaseInput from "../../../inputs/BaseInput.vue";
 
 import KdsListContainer from "./KdsListContainer.vue";
+import { kdsListContainerRoles } from "./enums";
 import type { KdsListOption } from "./types";
 
 type Story = StoryObj<typeof KdsListContainer>;
@@ -55,12 +56,26 @@ const meta = {
       control: "object",
       table: { category: "props" },
     },
+    variant: {
+      control: "select",
+      options: ["small", "large"],
+      table: { category: "props" },
+    },
     emptyText: {
       control: "text",
       table: { category: "props" },
     },
+    loading: {
+      control: "boolean",
+      table: { category: "props" },
+    },
     controlledExternally: {
       control: "boolean",
+      table: { category: "props" },
+    },
+    role: {
+      control: "select",
+      options: kdsListContainerRoles,
       table: { category: "props" },
     },
     onItemClick: {
@@ -70,8 +85,11 @@ const meta = {
   args: {
     ariaLabel: "List container",
     possibleValues: baseOptions,
+    variant: "small",
     emptyText: "No entries found",
+    loading: false,
     controlledExternally: false,
+    role: "listbox",
     onItemClick: fn(),
   },
 } satisfies Meta<typeof KdsListContainer>;
@@ -229,6 +247,23 @@ export const NoEntries: Story = {
   },
 };
 
+export const Loading: Story = {
+  args: {
+    loading: true,
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText("Loading entries")).toBeVisible();
+    await expect(canvas.queryByRole("option", { name: "Label 1" })).toBeNull();
+
+    const listbox = canvas.getByRole("listbox");
+    await userEvent.click(listbox);
+    await userEvent.keyboard("{Enter}");
+    await expect(args.onItemClick).not.toHaveBeenCalled();
+  },
+};
+
 export const WithAccessories: Story = {
   args: {
     possibleValues: [
@@ -260,6 +295,84 @@ export const WithAccessories: Story = {
         subText: "stopped",
       },
     ],
+  },
+};
+
+export const WithSectionTitles: Story = {
+  args: {
+    possibleValues: [
+      {
+        id: "fruits-header",
+        text: "Fruits",
+        sectionHeadline: true,
+      },
+      {
+        id: "1",
+        text: "Apple",
+        accessory: { type: "icon", name: "placeholder" },
+      },
+      {
+        id: "2",
+        text: "Banana",
+        accessory: { type: "icon", name: "placeholder" },
+      },
+      {
+        id: "3",
+        text: "Cherry",
+        accessory: { type: "icon", name: "placeholder" },
+        separator: true,
+      },
+      {
+        id: "recently-used-header",
+        text: "Recently used",
+        sectionHeadline: true,
+      },
+      {
+        id: "4",
+        text: "Banana",
+        accessory: { type: "icon", name: "placeholder" },
+      },
+      {
+        id: "5",
+        text: "Cherry",
+        accessory: { type: "icon", name: "placeholder" },
+      },
+    ],
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+
+    // Section titles are rendered
+    await expect(canvas.getByText("Fruits")).toBeInTheDocument();
+    await expect(canvas.getByText("Recently used")).toBeInTheDocument();
+
+    // Divider is rendered between groups
+    await expect(
+      canvasElement.querySelector(".kds-list-item-divider"),
+    ).toBeInTheDocument();
+
+    // Only option items are rendered as options (not section titles/dividers)
+    await expect(canvas.getAllByRole("option")).toHaveLength(5);
+
+    // Keyboard navigation skips section titles and dividers
+    const listbox = canvas.getByRole("listbox");
+    await userEvent.click(listbox);
+    const firstOption = canvas.getByRole("option", { name: "Apple" });
+    await expect(firstOption).toHaveClass("active");
+
+    // ArrowDown navigates through all options across groups
+    await userEvent.keyboard("{ArrowDown}");
+    const bananaOptions = canvas.getAllByRole("option", { name: /^Banana/ });
+    await expect(bananaOptions[0]).toHaveClass("active");
+
+    // End jumps to last option (in the second group)
+    await userEvent.keyboard("{End}");
+    const lastOption = canvas.getAllByRole("option", { name: /^Cherry/ })[1];
+    await expect(lastOption).toHaveClass("active");
+
+    // Click emits itemClick with correct id
+    await userEvent.click(firstOption);
+    await expect(args.onItemClick).toHaveBeenCalledWith("1");
   },
 };
 
@@ -398,9 +511,11 @@ export const DesignComparator: Story = {
 
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsListContainer,
+  columns: 2,
   combinationsProps: [
     {
       ariaLabel: ["Options"],
+      variant: ["small", "large"],
       emptyText: ["No entries found"],
       possibleValues: [options(3, () => ({})), []],
     },

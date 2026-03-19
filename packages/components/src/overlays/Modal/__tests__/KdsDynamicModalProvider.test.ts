@@ -50,7 +50,7 @@ describe("KdsDynamicModalProvider.vue", () => {
       const { wrapper } = doMount();
 
       askConfirmation({
-        title: "This is the title",
+        headline: "This is the title",
         message: "This is the message",
       });
 
@@ -71,7 +71,7 @@ describe("KdsDynamicModalProvider.vue", () => {
       const done = vi.fn();
       expect(isActive.value).toBe(false);
       const promise = askConfirmation({
-        title: "This is the title",
+        headline: "This is the title",
         component: customTemplate,
       });
       promise.then(done);
@@ -91,7 +91,7 @@ describe("KdsDynamicModalProvider.vue", () => {
         expect(isActive.value).toBe(false);
 
         const promise = askConfirmation({
-          title: "This is the title",
+          headline: "This is the title",
           message: "This is the message",
         });
         promise.then(done);
@@ -123,7 +123,7 @@ describe("KdsDynamicModalProvider.vue", () => {
 
         const done = vi.fn();
         askConfirmation({
-          title: "This is the title",
+          headline: "This is the title",
           message: "This is the message",
         }).then(done);
 
@@ -142,7 +142,7 @@ describe("KdsDynamicModalProvider.vue", () => {
 
       const done = vi.fn();
       askConfirmation({
-        title: "This is the title",
+        headline: "This is the title",
         message: "This is the message",
         doNotAskAgain: {
           label: "Do not ask me again",
@@ -167,7 +167,7 @@ describe("KdsDynamicModalProvider.vue", () => {
       const { wrapper } = doMount();
 
       askConfirmation({
-        title: "This is the title",
+        headline: "This is the title",
         message: "This is the message",
         buttons: [
           { label: "Cancel", type: "cancel", flushLeft: true },
@@ -195,7 +195,7 @@ describe("KdsDynamicModalProvider.vue", () => {
       const spy = vi.fn();
 
       const config: KdsDynamicDialogConfirmConfig = {
-        title: "This is the title",
+        headline: "This is the title",
         message: "This is the message",
         buttons: [
           {
@@ -244,7 +244,7 @@ describe("KdsDynamicModalProvider.vue", () => {
       expect(isActive.value).toBe(false);
 
       const promise = showByTemplate({
-        title: "This is the title",
+        headline: "This is the title",
         component: markRaw(DemoCustomComponent),
       });
       promise.then(done);
@@ -271,7 +271,7 @@ describe("KdsDynamicModalProvider.vue", () => {
       expect(isActive.value).toBe(false);
 
       const promise = showByTemplate({
-        title: "This is the title",
+        headline: "This is the title",
         component: (props) =>
           h("div", [
             h("div", "A functional component"),
