@@ -1,0 +1,81 @@
+<script setup lang="ts">
+import { KdsValueSwitch } from "../../RadioButton";
+import { KdsSearchInput } from "../../inputs";
+import { KdsPatternInput } from "../../inputs/PatternInput";
+import { KdsMultiSelectDropdown } from "../Dropdown";
+
+import { kdsTwinListSearchMode } from "./enums";
+import type { KdsTwinListSearchMode, TwinListHeaderProps } from "./types";
+
+const {
+  filterTypes = undefined,
+  enablePatternFilter = false,
+  disabled = false,
+} = defineProps<TwinListHeaderProps>();
+
+const mode = defineModel<KdsTwinListSearchMode>("mode", {
+  default: kdsTwinListSearchMode.MANUAL,
+});
+const pattern = defineModel<string>("pattern", { default: "" });
+const patternRegex = defineModel<string>("patternRegex", { default: "" });
+const searchTerm = defineModel<string>("searchTerm", { default: "" });
+const selectedTypes = defineModel<string[]>("selectedTypes", {
+  default: () => [],
+});
+const caseSensitive = defineModel<boolean>("caseSensitive", { default: false });
+const excludeMatches = defineModel<boolean>("excludeMatches", {
+  default: false,
+});
+const useRegex = defineModel<boolean>("useRegex", { default: false });
+
+const modes = [
+  { id: kdsTwinListSearchMode.MANUAL, text: "Manual" },
+  ...(enablePatternFilter
+    ? [{ id: kdsTwinListSearchMode.PATTERN, text: "Pattern" }]
+    : []),
+  ...(filterTypes ? [{ id: kdsTwinListSearchMode.TYPE, text: "Type" }] : []),
+];
+</script>
+
+<template>
+  <KdsValueSwitch
+    v-if="modes.length > 1"
+    v-model="mode"
+    ariaLabel="Selection mode"
+    :disabled="disabled"
+    size="small"
+    variant="muted"
+    :possible-values="modes"
+  />
+
+  <KdsSearchInput
+    v-if="mode === kdsTwinListSearchMode.MANUAL"
+    ref="searchInputRef"
+    v-model="searchTerm"
+    ariaLabel="Search values"
+    placeholder="Search"
+    :disabled="disabled"
+  />
+
+  <KdsPatternInput
+    v-else-if="mode === kdsTwinListSearchMode.PATTERN"
+    ref="patternInputRef"
+    v-model="patternRegex"
+    v-model:pattern="pattern"
+    v-model:case-sensitive="caseSensitive"
+    v-model:exclude-matches="excludeMatches"
+    v-model:use-regex="useRegex"
+    ariaLabel="Pattern"
+    placeholder="Pattern"
+    :disabled="disabled"
+  />
+
+  <KdsMultiSelectDropdown
+    v-else
+    v-model="selectedTypes"
+    :possible-values="filterTypes ?? []"
+    :loading="filterTypes?.length === 0"
+    ariaLabel="Selected types"
+    :disabled="disabled"
+  />
+</template>

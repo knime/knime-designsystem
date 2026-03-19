@@ -32,6 +32,8 @@ const {
   validating = false,
   preserveSubTextSpace = false,
   useResizeHandle = false,
+  emptyStateLabel = "No entries in this list",
+  loading = false,
   ...props
 } = defineProps<KdsMultiSelectListBoxProps>();
 
@@ -305,10 +307,16 @@ defineExpose({ focus });
               </div>
             </div>
             <div
-              v-if="props.possibleValues.length === 0 && !props.bottomValue"
+              v-if="
+                loading ||
+                (props.possibleValues.length === 0 && !props.bottomValue)
+              "
               class="kds-multiselect-empty"
             >
-              <KdsEmptyState headline="No entries in this list" />
+              <KdsEmptyState
+                :headline="loading ? 'Loading data…' : emptyStateLabel"
+                :loading-spinner="loading"
+              />
             </div>
           </div>
         </template>

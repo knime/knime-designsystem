@@ -14,7 +14,7 @@ export type KdsMultiSelectListBoxOption = {
   missing?: boolean;
 };
 
-export type KdsMultiSelectListBoxProps = {
+export type KdsMultiSelectListBoxProps = KdsFormFieldProps & {
   /** Values shown in the list box */
   possibleValues: KdsMultiSelectListBoxOption[];
   /** Whether the list box is disabled */
@@ -23,4 +23,8 @@ export type KdsMultiSelectListBoxProps = {
   useResizeHandle?: boolean;
   /** Optional item pinned to the bottom of the list, always visible while scrolling. Interacts like a regular item for selection, keyboard navigation, and drag. */
   bottomValue?: KdsMultiSelectListBoxOption;
-} & KdsFormFieldProps;
+  /** Text shown when the list is empty. */
+  emptyStateLabel?: string;
+  /** Whether the list is in a loading state. Shows a spinner in the empty state area. */
+  loading?: boolean;
+};

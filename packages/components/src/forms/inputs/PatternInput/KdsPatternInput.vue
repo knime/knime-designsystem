@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useTemplateRef, watch } from "vue";
+import { computed, useTemplateRef, watch } from "vue";
 
 import KdsToggleButton from "../../../buttons/KdsToggleButton/KdsToggleButton.vue";
 import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
@@ -23,30 +23,57 @@ const {
 // Public API: a single regex string (encoded with options when toggles are used).
 const regex = defineModel<string>({ default: "" });
 
-// Internal UI state. This is derived from the regex model on external updates.
-const uiValue = ref("");
-const caseSensitive = ref(false);
-const excludeMatches = ref(false);
-const useRegex = ref(false);
+// Toggle states exposed as optional v-models for external control.
+const caseSensitive = defineModel<boolean>("caseSensitive", { default: false });
+const excludeMatches = defineModel<boolean>("excludeMatches", {
+  default: false,
+});
+const useRegex = defineModel<boolean>("useRegex", { default: false });
 
-const rebuildRegexFromUi = () => {
-  regex.value = buildRegexFromPatternInput(uiValue.value, {
-    caseSensitive: caseSensitive.value,
-    excludeMatches: excludeMatches.value,
+// Raw UI pattern text exposed as optional v-model:pattern for external control.
+const pattern = defineModel<string>("pattern", { default: "" });
+
+// Guard to break circular updates between the two watches.
+let updatingFromUi = false;
+
+// If regex was provided externally but pattern was not, initialize pattern from
+// the regex so the immediate watch below doesn't overwrite the parent value.
+if (regex.value && !pattern.value) {
+  pattern.value = parseRegexToPatternInputValue(regex.value, {
     useRegex: useRegex.value,
+    excludeMatches: excludeMatches.value,
+    caseSensitive: caseSensitive.value,
   });
-};
+}
 
+// Rebuild the regex whenever the UI inputs change.
+watch(
+  [pattern, caseSensitive, excludeMatches, useRegex],
+  ([pat, cs, em, ur]) => {
+    updatingFromUi = true;
+    regex.value = buildRegexFromPatternInput(pat, {
+      caseSensitive: cs,
+      excludeMatches: em,
+      useRegex: ur,
+    });
+    updatingFromUi = false;
+  },
+  { immediate: true },
+);
+
+// When the regex is set externally, parse it back into the UI pattern.
 watch(
   () => regex.value,
   (newValue) => {
-    uiValue.value = parseRegexToPatternInputValue(newValue, {
+    if (updatingFromUi) {
+      return;
+    }
+    pattern.value = parseRegexToPatternInputValue(newValue, {
       useRegex: useRegex.value,
       excludeMatches: excludeMatches.value,
       caseSensitive: caseSensitive.value,
     });
   },
-  { immediate: true },
 );
 
 const caseSensitiveAriaLabel = computed(() =>
@@ -77,7 +104,7 @@ defineExpose<KdsFormFieldExpose>({
       <BaseInput
         ref="baseInput"
         v-bind="slotProps"
-        v-model="uiValue"
+        v-model="pattern"
         type="text"
         :placeholder="props.placeholder"
         :disabled="disabled"
@@ -85,7 +112,6 @@ defineExpose<KdsFormFieldExpose>({
         :autocomplete="props.autocomplete"
         leading-icon="filter"
         clearable
-        @update:model-value="rebuildRegexFromUi"
       >
         <template #trailing>
           <KdsToggleButton
@@ -96,7 +122,6 @@ defineExpose<KdsFormFieldExpose>({
             :title="caseSensitiveAriaLabel"
             :ariaLabel="caseSensitiveAriaLabel"
             :disabled="disabled"
-            @update:model-value="rebuildRegexFromUi"
           />
 
           <KdsToggleButton
@@ -107,7 +132,6 @@ defineExpose<KdsFormFieldExpose>({
             :title="excludeMatchesAriaLabel"
             :ariaLabel="excludeMatchesAriaLabel"
             :disabled="disabled"
-            @update:model-value="rebuildRegexFromUi"
           />
 
           <KdsToggleButton
@@ -118,7 +142,6 @@ defineExpose<KdsFormFieldExpose>({
             :title="patternModeAriaLabel"
             :ariaLabel="patternModeAriaLabel"
             :disabled="disabled"
-            @update:model-value="rebuildRegexFromUi"
           />
         </template>
       </BaseInput>
