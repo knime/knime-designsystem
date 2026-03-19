@@ -18,11 +18,6 @@ export type KdsSplitButtonAlternativeAction = {
   leadingIcon?: KdsIconName;
 
   /**
-   * Optional aria-label for the menu item.
-   */
-  ariaLabel?: string;
-
-  /**
    * Whether the action is disabled.
    */
   disabled?: boolean;
@@ -58,8 +53,9 @@ export type KdsSplitButtonProps = KdsButtonCommonProps & {
 
   /**
    * Alternative actions rendered in the context menu.
+   * Must contain at least one action; otherwise the secondary menu button would open an empty menu, which is undesirable UX.
    */
-  alternativeActions?: KdsSplitButtonAlternativeAction[];
+  alternativeActions: KdsSplitButtonAlternativeAction[];
 
   /**
    * Accessible label for the context menu.
@@ -76,8 +72,11 @@ export type KdsSplitButtonProps = KdsButtonCommonProps & {
  * Testers
  */
 
-// minimal: just a label
-propTypeTester<KdsSplitButtonProps>({ label: "Save" });
+// minimal: just a label an one alternative action
+propTypeTester<KdsSplitButtonProps>({
+  label: "Save",
+  alternativeActions: [{ id: "save-as", label: "Save as" }],
+});
 
 // with all optional props
 propTypeTester<KdsSplitButtonProps>({
