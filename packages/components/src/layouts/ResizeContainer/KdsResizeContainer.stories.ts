@@ -134,11 +134,13 @@ export const WithMinAndMaxHeight: Story = {
       ".kds-resize-container-content > *",
     ) as HTMLElement;
 
+    await expect(slotContent.style.minBlockSize).toBe("100px");
+    await expect(slotContent.style.blockSize).toBe("200px");
+    await expect(slotContent.style.maxBlockSize).toBe("400px");
     await userEvent.dblClick(handle);
-    await expect(slotContent).toHaveStyle({
-      blockSize: "fit-content",
-      maxBlockSize: "400px",
-    });
+    await expect(slotContent.style.minBlockSize).toBe("100px");
+    await expect(slotContent.style.blockSize).toBe("fit-content");
+    await expect(slotContent.style.maxBlockSize).toBe("400px");
   },
 };
 
