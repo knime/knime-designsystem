@@ -53,6 +53,8 @@ export type KdsListContainerProps = {
   ariaLabel?: string;
   /** When true, the list is controlled externally (e.g. by a search input). The list will not be focusable and the parent must forward events via the exposed handleKeydown/handleFocus/handleBlur methods. */
   controlledExternally?: boolean;
+  /** When true, the active highlight can be cleared so that no item is active. ArrowUp from the first item and ArrowDown from the last item move to the unselected state, and focusing the list does not auto-activate an item. Useful for search result lists where the user may not want any pre-selection. */
+  allowNoSelection?: boolean;
   /** ARIA role applied to the root element. */
   role?: KdsListContainerRole;
 };

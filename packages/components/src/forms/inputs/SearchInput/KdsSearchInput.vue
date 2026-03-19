@@ -155,6 +155,7 @@ defineExpose<KdsFormFieldExpose>({
             variant="large"
             :possible-values="results"
             controlled-externally
+            allow-no-selection
             empty-text="No search results"
             aria-label="Search results list"
             @item-click="onResultClick"

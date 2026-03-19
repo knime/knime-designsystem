@@ -18,6 +18,7 @@ const props = withDefaults(defineProps<KdsListContainerProps>(), {
   variant: kdsListItemVariant.SMALL,
   loading: false,
   role: "listbox",
+  allowNoSelection: false,
 });
 
 const emit = defineEmits<{
@@ -141,7 +142,7 @@ const findEnabledIndex = (id: string | undefined) =>
 
 const handleFocus = () => {
   isFocused.value = true;
-  if (activeId.value === undefined) {
+  if (activeId.value === undefined && !props.allowNoSelection) {
     activeId.value = lastActiveId.value ?? enabledValues.value[0]?.id;
   }
 };
@@ -152,57 +153,57 @@ const handleBlur = () => {
   activeId.value = undefined;
 };
 
+const moveDown = (currentIndex: number) => {
+  if (currentIndex < 0) {
+    return enabledValues.value[0].id;
+  }
+  if (currentIndex >= enabledValues.value.length - 1) {
+    return props.allowNoSelection ? undefined : enabledValues.value[0].id;
+  }
+  return enabledValues.value[currentIndex + 1].id;
+};
+
+const moveUp = (currentIndex: number) => {
+  if (props.allowNoSelection && currentIndex === 0) {
+    return undefined;
+  }
+  if (currentIndex <= 0) {
+    return enabledValues.value[enabledValues.value.length - 1].id;
+  }
+  return enabledValues.value[currentIndex - 1].id;
+};
+
+const isTextInput = (target: EventTarget | null) =>
+  target instanceof HTMLElement &&
+  ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName);
+
 const handleKeydown = (event: KeyboardEvent) => {
   if (enabledValues.value.length === 0) {
+    activeId.value = emptyOptionId;
     return;
   }
 
   const currentIndex = findEnabledIndex(activeId.value);
 
   switch (event.key) {
-    case "ArrowDown": {
-      const nextIndex =
-        currentIndex < 0 || currentIndex >= enabledValues.value.length - 1
-          ? 0
-          : currentIndex + 1;
-      activeId.value = enabledValues.value[nextIndex].id;
+    case "ArrowDown":
+      activeId.value = moveDown(currentIndex);
       scrollToView();
       event.preventDefault();
       break;
-    }
-    case "ArrowUp": {
-      const nextIndex =
-        currentIndex <= 0 ? enabledValues.value.length - 1 : currentIndex - 1;
-      activeId.value = enabledValues.value[nextIndex].id;
+    case "ArrowUp":
+      activeId.value = moveUp(currentIndex);
       scrollToView();
       event.preventDefault();
       break;
-    }
     case "Enter":
-      if (
-        event.target instanceof HTMLElement &&
-        ["BUTTON"].includes(event.target.tagName) &&
-        event.target.ariaExpanded === "false"
-      ) {
-        break;
-      }
       if (activeId.value) {
         emit("itemClick", toOptionId(activeId.value));
         event.preventDefault();
       }
       break;
     case " ":
-      if (
-        event.target instanceof HTMLElement &&
-        ["INPUT", "TEXTAREA", "SELECT"].includes(event.target.tagName)
-      ) {
-        break;
-      }
-      if (
-        event.target instanceof HTMLElement &&
-        ["BUTTON"].includes(event.target.tagName) &&
-        event.target.ariaExpanded === "false"
-      ) {
+      if (isTextInput(event.target)) {
         break;
       }
       if (activeId.value) {
