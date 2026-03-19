@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { expect, fn, userEvent, waitFor, within } from "storybook/test";
+import { expect, fn, userEvent, within } from "storybook/test";
 
 import type { KdsListOption } from "../../forms/_helper/List/ListContainer";
 import KdsListContainer from "../../forms/_helper/List/ListContainer/KdsListContainer.vue";
@@ -130,15 +130,14 @@ export const WithMinAndMaxHeight: Story = {
     const handle = canvas.getByRole("button", {
       name: "Resize vertically",
     });
-    const content = canvasElement.querySelector(
-      ".kds-resize-container-content",
-    );
+    const slotContent = canvasElement.querySelector(
+      ".kds-resize-container-content > *",
+    ) as HTMLElement;
 
     await userEvent.dblClick(handle);
-    await waitFor(() => {
-      const el = content as HTMLElement;
-      expect(el.style.blockSize).toBe("fit-content");
-      expect(el.style.maxBlockSize).toBe("400px");
+    await expect(slotContent).toHaveStyle({
+      blockSize: "fit-content",
+      maxBlockSize: "400px",
     });
   },
 };

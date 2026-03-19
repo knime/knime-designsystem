@@ -82,14 +82,9 @@ const contentStyle = computed<CSSProperties>(() => ({
 
 <template>
   <div
-    class="kds-resize-container"
-    :class="{ dragging: activePointerId !== null }"
+    :class="['kds-resize-container', { dragging: activePointerId !== null }]"
   >
-    <div
-      ref="content"
-      class="kds-resize-container-content"
-      :style="contentStyle"
-    >
+    <div ref="content" class="kds-resize-container-content">
       <slot :content-style="contentStyle" />
     </div>
     <ResizeHandle

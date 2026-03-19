@@ -22,19 +22,19 @@ const handleWidth = computed(() => {
 <template>
   <div
     class="kds-resize-handle-area"
-    :style="{ gap: props.handleGap }"
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"
   >
     <button
       v-for="i in props.numberOfHandles"
       :key="i"
-      class="kds-resize-handle"
-      :class="{
-        'kds-resize-handle-sibling-hover': hasMultipleHandles && isHovered,
-      }"
+      :class="[
+        'kds-resize-handle',
+        {
+          'kds-resize-handle-sibling-hover': hasMultipleHandles && isHovered,
+        },
+      ]"
       aria-label="Resize vertically"
-      :style="{ inlineSize: handleWidth }"
       type="button"
     >
       <span class="kds-resize-handle-line" />
@@ -45,6 +45,7 @@ const handleWidth = computed(() => {
 <style scoped>
 .kds-resize-handle-area {
   display: flex;
+  gap: v-bind("props.handleGap");
   justify-content: space-around;
 }
 
@@ -53,6 +54,7 @@ const handleWidth = computed(() => {
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
+  inline-size: v-bind(handleWidth);
   block-size: calc(2 * var(--kds-spacing-container-0-37x));
   padding: 0;
   appearance: none;
