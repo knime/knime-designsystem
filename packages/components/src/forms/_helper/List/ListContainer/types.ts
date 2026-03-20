@@ -34,6 +34,13 @@ export type KdsListOption = {
   sectionHeadlineIcon?: KdsIconName;
   /** Show a separator below the item if it's not the last in the list */
   separator?: boolean;
+  /** When provided, renders the item as an <a> tag linking to this URL. */
+  href?: string;
+  /**
+   * Optional route location. When provided, the item renders using
+   * RouterLink/NuxtLink if available, otherwise falls back to an <a> tag.
+   */
+  to?: string | Record<string, unknown>;
 };
 
 export type KdsListContainerProps = {
@@ -66,4 +73,6 @@ export type KdsListContainerExpose = {
   handleBlur: () => void;
   /** The DOM id of the currently active (highlighted) option, or undefined. Prefixed to avoid DOM id collisions. */
   activeDescendant: Readonly<Ref<string | undefined>>;
+  /** Moves focus to the list container element */
+  focus: () => void;
 };

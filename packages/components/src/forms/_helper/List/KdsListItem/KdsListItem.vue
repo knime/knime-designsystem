@@ -3,6 +3,7 @@ import { computed, useTemplateRef } from "vue";
 
 import KdsIcon from "../../../../accessories/Icon/KdsIcon.vue";
 import { useKdsIsTruncated } from "../../../../util";
+import { resolveNuxtLinkComponent } from "../../../../util/nuxtComponentResolver";
 import ListItemAccessory from "../ListItemAccessory/ListItemAccessory.vue";
 import { kdsListItemAccessorySize } from "../ListItemAccessory/enums.ts";
 
@@ -45,6 +46,16 @@ const onClick = (event: MouseEvent) => {
   emit("click", event);
 };
 
+const itemComponent = computed(() => {
+  if (props.to) {
+    return resolveNuxtLinkComponent();
+  }
+  if (props.href) {
+    return "a";
+  }
+  return "div";
+});
+
 const labelEl = useTemplateRef("labelEl");
 const { isTruncated: isLabelTruncated } = useKdsIsTruncated(labelEl);
 
@@ -53,8 +64,11 @@ const { isTruncated: isSubtextTruncated } = useKdsIsTruncated(subtextEl);
 </script>
 
 <template>
-  <div
+  <component
+    :is="itemComponent"
     :id="props.id"
+    :href="props.href"
+    :to="props.to"
     :role="props.role"
     :aria-selected="props.role === 'option' ? props.selected : undefined"
     :aria-disabled="props.disabled"
@@ -109,7 +123,7 @@ const { isTruncated: isSubtextTruncated } = useKdsIsTruncated(subtextEl);
       />
       <span v-else class="trailing-item-reserve-space" />
     </span>
-  </div>
+  </component>
 </template>
 
 <style scoped>
@@ -122,6 +136,7 @@ const { isTruncated: isSubtextTruncated } = useKdsIsTruncated(subtextEl);
   min-width: var(--kds-dimension-component-width-12x);
   padding: var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-5x);
   color: var(--kds-color-text-and-icon-neutral);
+  text-decoration: none;
   cursor: pointer;
   user-select: none;
   background: var(--kds-color-background-neutral-initial);

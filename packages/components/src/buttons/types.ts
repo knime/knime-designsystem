@@ -65,6 +65,13 @@ type WithToggled = {
   toggled?: boolean;
 };
 
+type WithCorners = {
+  /**
+   * If set to "left" or "right", the button will have sharp corners on the specified side.
+   */
+  removeBorderRadius?: "left" | "right";
+};
+
 /**
  * Type for BaseButton component which supports all behaviors
  */
@@ -73,7 +80,8 @@ export type BaseButtonProps = KdsButtonCommonProps &
   WithDestructive &
   WithSuccess &
   WithError &
-  WithToggled;
+  WithToggled &
+  WithCorners;
 
 /**
  * Testers
