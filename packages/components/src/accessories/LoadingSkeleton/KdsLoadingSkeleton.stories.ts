@@ -31,15 +31,6 @@ const meta: Meta<typeof KdsLoadingSkeleton> = {
       control: "text",
       table: { category: "props" },
     },
-    size: {
-      control: { type: "number", min: 0.1, step: 0.1 },
-      description: "Multiplies width and height values.",
-      table: { category: "props" },
-    },
-    borderRadius: {
-      control: "text",
-      table: { category: "props" },
-    },
     variant: {
       control: { type: "select" },
       options: kdsLoadingSkeletonVariants,
@@ -63,8 +54,6 @@ const meta: Meta<typeof KdsLoadingSkeleton> = {
   args: {
     width: "100%",
     height: undefined,
-    size: 1,
-    borderRadius: undefined,
     variant: "default",
     loading: true,
     repeat: 1,
@@ -76,56 +65,45 @@ export default meta;
 
 type Story = StoryObj<typeof KdsLoadingSkeleton>;
 
-type VariantValue = (typeof kdsLoadingSkeletonVariants)[number];
-
-type VariantListItem = {
-  label: string;
-  value: VariantValue;
-  repeat?: number;
-};
-
-const buildVariantStory = (variant: VariantValue): Story => ({
-  args: { variant },
-});
-
-const buildVariantListStory = ({
-  items,
-  containerGap,
-  maxWidth,
-}: {
-  items: VariantListItem[];
-  containerGap: string;
-  maxWidth?: string;
-}): Story => ({
-  render: () => ({
-    components: { KdsLoadingSkeleton },
-    setup() {
-      return {
-        items,
-        containerStyle: {
-          display: "grid",
-          gap: containerGap,
-          ...(maxWidth ? { maxWidth } : {}),
-        },
-      };
-    },
-    template: `
-      <div :style="containerStyle">
-        <div
-          v-for="item in items"
-          :key="item.label"
-          style="display: grid; gap: var(--kds-spacing-container-0-25x);"
-        >
-          <div style="font: var(--kds-font-base-label-small-regular);">{{ item.label }}</div>
-          <KdsLoadingSkeleton :variant="item.value" :repeat="item.repeat ?? 1" />
-        </div>
-      </div>
-    `,
-  }),
-});
-
 export const Default: Story = {};
 
+export const HeadlineWithPararaphs: Story = {
+  args: {
+    variant: "text-headline-with-paragraph",
+  },
+};
+
+export const InputWithLabel: Story = {
+  args: {
+    variant: "input-field",
+  },
+};
+
+export const ListItemLarge: Story = {
+  args: {
+    variant: "list-item-large",
+  },
+};
+
+export const ListItemLargeWithSubtext: Story = {
+  args: {
+    variant: "list-item-large-with-subtext",
+  },
+};
+
+export const ListItemSmall: Story = {
+  args: {
+    variant: "list-item-small",
+  },
+};
+
+export const ListItemSmallWithSubtext: Story = {
+  args: {
+    variant: "list-item-small-with-subtext",
+  },
+};
+
+/*
 export const TextPresets: Story = buildVariantListStory({
   items: [
     {
@@ -156,22 +134,6 @@ export const ButtonPresets: Story = buildVariantListStory({
   ],
   containerGap: "var(--kds-spacing-container-0-5x)",
 });
-
-export const InputFieldPresets: Story = buildVariantStory("input-field");
-
-export const ListItemLargePreset: Story = buildVariantStory("list-item-large");
-
-export const ListItemLargeWithSubtextPreset: Story = buildVariantStory(
-  "list-item-large-with-subtext",
-);
-
-export const ListItemSmallPreset: Story = buildVariantStory("list-item-small");
-
-export const ListItemSmallWithSubtextPreset: Story = buildVariantStory(
-  "list-item-small-with-subtext",
-);
-
-export const CardPresets: Story = buildVariantStory("card-default");
 
 export const Backgrounds: Story = {
   render: (args) => ({
@@ -218,6 +180,7 @@ export const Backgrounds: Story = {
     `,
   }),
 };
+*/
 
 export const TextOverflow: Story = {
   ...buildTextOverflowStory({
@@ -226,8 +189,6 @@ export const TextOverflow: Story = {
   }),
   args: {
     variant: "text-headline-with-paragraph",
-    repeat: 1,
-    loading: true,
   },
 };
 
@@ -349,7 +310,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsLoadingSkeleton,
   combinationsProps: [
     {
-      variant: ["default", "combined"],
+      variant: ["default"],
       width: ["75%", "100%"],
       height: [
         "var(--kds-spacing-container-1x)",
@@ -357,11 +318,6 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       ],
       repeat: [1, 3],
       repeatGap: ["var(--kds-spacing-container-0-12x)"],
-      borderRadius: [
-        undefined,
-        "var(--kds-border-radius-container-none)",
-        "var(--kds-border-radius-container-0-25x)",
-      ],
       loading: [true],
     },
     {
@@ -393,5 +349,4 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       loading: [true],
     },
   ],
-  pseudoStates: ["hover"],
 });

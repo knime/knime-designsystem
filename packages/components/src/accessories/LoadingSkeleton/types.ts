@@ -1,9 +1,26 @@
-import { kdsLoadingSkeletonVariant } from "./enums";
+import {
+  kdsLoadingSkeletonItemShape,
+  kdsLoadingSkeletonVariant,
+} from "./enums";
 
 export type KdsLoadingSkeletonVariant =
   (typeof kdsLoadingSkeletonVariant)[keyof typeof kdsLoadingSkeletonVariant];
 
+export type kdsLoadingSkeletonItemShape =
+  (typeof kdsLoadingSkeletonItemShape)[keyof typeof kdsLoadingSkeletonItemShape];
+
 type KdsLoadingSkeletonCssLength = `${number}%` | `var(--${string})`;
+
+export type KdsLoadingSkeletonItemProps = {
+  /** Width in % or token variable. Defaults to 100%. */
+  width?: KdsLoadingSkeletonCssLength;
+
+  /** Height in % or token variable. Defaults to var(--kds-spacing-container-1-25x). */
+  height?: KdsLoadingSkeletonCssLength;
+
+  /** selects the rendered skeleton shape */
+  shape?: kdsLoadingSkeletonItemShape;
+};
 
 export type KdsLoadingSkeletonProps = {
   /** Width in % or token variable. Defaults to 100%. */
@@ -11,12 +28,6 @@ export type KdsLoadingSkeletonProps = {
 
   /** Height in % or token variable. Defaults to var(--kds-spacing-container-1-25x). */
   height?: KdsLoadingSkeletonCssLength;
-
-  /** Multiplies width and height values. Defaults to 1. */
-  size?: number;
-
-  /** Optional border radius value (for example a KDS token variable). Defaults to pill radius. */
-  borderRadius?: string;
 
   /** Main API: selects the rendered skeleton preset/layout. */
   variant?: KdsLoadingSkeletonVariant;
