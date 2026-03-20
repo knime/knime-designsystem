@@ -56,7 +56,7 @@ export type KdsFieldsetProps = {
   ariaLabel?: string;
   /**
    * Optional description displayed in an info popover next to the legend.
-   * The info toggle button is only visible when hovering the fieldset.
+   * The info toggle button is only visible when hovering or focusing the fieldset.
    */
   description?: string;
   /**
