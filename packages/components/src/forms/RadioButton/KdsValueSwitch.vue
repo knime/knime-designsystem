@@ -1,9 +1,8 @@
 <script lang="ts" setup>
-import { computed, useId, useTemplateRef } from "vue";
+import { computed, useTemplateRef } from "vue";
 import { useElementSize } from "@vueuse/core";
 
-import KdsLabel from "../_helper/KdsLabel.vue";
-import KdsSubText from "../_helper/KdsSubText.vue";
+import BaseFieldsetWrapper from "../_helper/BaseFieldsetWrapper.vue";
 
 import ValueSwitchItem from "./ValueSwitchItem.vue";
 import type { KdsValueSwitchOption, KdsValueSwitchProps } from "./types";
@@ -29,13 +28,8 @@ const options = computed(
     }) satisfies KdsValueSwitchOption[],
 );
 
-const labelId = useId();
-const descriptionId = useId();
-
-const availableWidthContainer = useTemplateRef<HTMLElement>(
-  "availableWidthContainer",
-);
-const { width } = useElementSize(availableWidthContainer);
+const fieldsetWrapper = useTemplateRef("fieldsetWrapper");
+const { width } = useElementSize(fieldsetWrapper);
 const { shouldHideIcons, setItemEl } = useValueSwitchIconHiding({
   width,
   options,
@@ -51,20 +45,20 @@ const { tabIndexForOption, handleClick, handleKeyDown } = useRadioSelection({
 </script>
 
 <template>
-  <div
+  <BaseFieldsetWrapper
     :id="props.id"
-    ref="availableWidthContainer"
+    ref="fieldsetWrapper"
+    :label="props.label"
     role="radiogroup"
     :class="{
       'value-switch': true,
       'size-small': size === 'small',
     }"
     :aria-invalid="props.error || undefined"
-    :aria-labelledby="props.label ? labelId : undefined"
-    :aria-describedby="props.subText ? descriptionId : undefined"
+    :sub-text="props.subText"
+    :preserve-sub-text-space="props.preserveSubTextSpace"
+    :error="props.error"
   >
-    <KdsLabel v-if="props.label" :id="labelId" :label="props.label" />
-
     <div ref="optionContainer" :class="{ options: true, error: props.error }">
       <ValueSwitchItem
         v-for="(option, index) in options"
@@ -81,24 +75,12 @@ const { tabIndexForOption, handleClick, handleKeyDown } = useRadioSelection({
         @keydown="handleKeyDown($event, index)"
       />
     </div>
-
-    <KdsSubText
-      :id="descriptionId"
-      :sub-text="props.subText"
-      :preserve-sub-text-space="props.preserveSubTextSpace"
-      :error="props.error"
-    />
-  </div>
+  </BaseFieldsetWrapper>
 </template>
 
 <style scoped>
 .value-switch {
-  display: flex;
-  flex-direction: column;
   align-items: flex-start;
-  padding: 0;
-  margin: 0;
-  border: none;
 }
 
 .options {

@@ -33,6 +33,7 @@ const { isTruncated } = useKdsIsTruncated(legendTextEl);
   <fieldset
     :id="fieldsetId"
     class="kds-fieldset"
+    :role="props.role"
     :aria-label="props.label ? undefined : props.ariaLabel"
     :aria-labelledby="props.label ? legendId : undefined"
     :aria-describedby="props.subText ? subTextId : undefined"
