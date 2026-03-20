@@ -150,6 +150,7 @@ const props = withDefaults(defineProps<BaseInputProps>(), {
   ariaLabel: undefined,
   ariaLabelledby: undefined,
   ariaDescribedby: undefined,
+  ariaExpanded: undefined,
   ariaInvalid: undefined,
   role: undefined,
   ariaValuenow: undefined,

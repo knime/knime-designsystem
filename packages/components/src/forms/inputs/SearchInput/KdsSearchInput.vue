@@ -42,7 +42,7 @@ const emit = defineEmits<{
   /** Native keydown event forwarded from the input element. */
   keydown: [event: KeyboardEvent];
   /** Emitted when a result is clicked */
-  resultClick: [id: string];
+  resultClick: [id?: string];
 }>();
 
 const baseInput = useTemplateRef("baseInput");
@@ -128,6 +128,7 @@ defineExpose<KdsFormFieldExpose>({
         leading-icon="search"
         :clearable="true"
         :style="popoverEl?.anchorStyle"
+        :role="results ? 'combobox' : undefined"
         :aria-activedescendant="
           resultsOpen ? listContainerEl?.activeDescendant : undefined
         "

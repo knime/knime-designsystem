@@ -23,13 +23,19 @@ const props = withDefaults(defineProps<KdsListContainerProps>(), {
 
 const emit = defineEmits<{
   /** Emitted when item is clicked */
-  itemClick: [id: string];
+  itemClick: [id?: string];
 }>();
 
 const idPrefix = useId();
-const toOptionId = (elementId: string) => elementId.slice(idPrefix.length + 1);
 const emptyOptionId = `${idPrefix}-empty`;
 const loadingStateText = "Loading entries";
+
+function toOptionId(elementId?: string) {
+  if (elementId === emptyOptionId) {
+    return undefined;
+  }
+  return elementId?.slice(idPrefix.length + 1);
+}
 
 /** possibleValues with prefixed ids to avoid DOM id collisions */
 const prefixedValues = computed<KdsListOption[]>(() =>
@@ -198,19 +204,15 @@ const handleKeydown = (event: KeyboardEvent) => {
       event.preventDefault();
       break;
     case "Enter":
-      if (activeId.value) {
-        emit("itemClick", toOptionId(activeId.value));
-        event.preventDefault();
-      }
+      emit("itemClick", toOptionId(activeId.value));
+      event.preventDefault();
       break;
     case " ":
       if (isTextInput(event.target)) {
         break;
       }
-      if (activeId.value) {
-        emit("itemClick", toOptionId(activeId.value));
-        event.preventDefault();
-      }
+      emit("itemClick", toOptionId(activeId.value));
+      event.preventDefault();
       break;
     case "Home":
       activeId.value = enabledValues.value[0].id;

@@ -524,9 +524,9 @@ export const AllowNoSelection: Story = {
     await expect(firstOption).not.toHaveClass("active");
     await expect(lastOption).not.toHaveClass("active");
 
-    // --- Enter does nothing when no item is active ---
+    // --- Enter emits event with undefined id
     await userEvent.keyboard("{Enter}");
-    await expect(args.onItemClick).not.toHaveBeenCalled();
+    await expect(args.onItemClick).toHaveBeenCalledWith(undefined);
 
     // --- Navigate to an item and confirm Enter emits ---
     await userEvent.keyboard("{ArrowDown}");

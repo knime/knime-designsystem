@@ -348,7 +348,7 @@ export const WithResults: Story = {
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByRole("searchbox", { name: "Search" });
+    const input = canvas.getByRole("combobox", { name: "Search" });
     const results = await canvas.findByRole("listbox", { hidden: true });
     const option = await canvas.findByRole("option", {
       name: "Result 1",
@@ -390,7 +390,7 @@ export const WithEmptyResults: Story = {
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByRole("searchbox", { name: "Search" });
+    const input = canvas.getByRole("combobox", { name: "Search" });
     const results = await canvas.findByRole("listbox", { hidden: true });
 
     await step("Shows empty message", async () => {

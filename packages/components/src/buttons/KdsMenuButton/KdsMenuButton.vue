@@ -27,7 +27,7 @@ const attrs = useAttrs();
 
 const emit = defineEmits<{
   /** Emitted when item is clicked */
-  itemClick: [id: string];
+  itemClick: [id?: string];
 }>();
 
 const toggleButtonProps = computed(() => {
@@ -74,7 +74,7 @@ const onItemClick = (itemId: string) => {
     :aria-controls="menuId"
     :style="popoverEl?.anchorStyle"
     @focus="listContainerEl?.handleFocus"
-    @keydown="listContainerEl?.handleKeydown"
+    @keydown="isMenuOpen && listContainerEl?.handleKeydown"
     @blur="isMenuOpen = false"
   />
 

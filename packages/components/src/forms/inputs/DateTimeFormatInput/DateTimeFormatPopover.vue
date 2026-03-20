@@ -225,7 +225,7 @@ const possibleFormats = computed<KdsListOption[]>(() => {
       variant="large"
       :possible-values="possibleFormats"
       empty-text="No recently used formats"
-      @item-click="selection = decodeURIComponent($event)"
+      @item-click="$event && (selection = decodeURIComponent($event))"
     />
   </div>
 </template>
