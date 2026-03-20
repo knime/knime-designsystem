@@ -1,3 +1,17 @@
+export const kdsLoadingSkeletonItemShape = {
+  TEXT: "text",
+  LABEL: "label",
+  ICON_LARGE: "icon-large",
+  ICON_MEDIUM: "icon-medium",
+  ICON_SMALL: "icon-small",
+  BUTTON_LARGE: "button-large",
+  BUTTON_MEDIUM: "button-medium",
+  BUTTON_SMALL: "button-small",
+  BUTTON_XSMALL: "button-xsmall",
+  CARD: "card",
+  INPUT: "input",
+} as const;
+
 export const kdsLoadingSkeletonVariant = {
   DEFAULT: "default",
   TEXT_DEFAULT: "text-default",
@@ -15,7 +29,6 @@ export const kdsLoadingSkeletonVariant = {
   LIST_ITEM_SMALL: "list-item-small",
   LIST_ITEM_SMALL_WITH_SUBTEXT: "list-item-small-with-subtext",
   CARD_DEFAULT: "card-default",
-  COMBINED: "combined",
 } as const;
 
 export const kdsLoadingSkeletonVariants = Object.values(
