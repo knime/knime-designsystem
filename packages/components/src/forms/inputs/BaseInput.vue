@@ -23,6 +23,10 @@ type BaseInputProps = {
    */
   max?: number | string;
   /**
+   * Indicates whether an associated popup (e.g. listbox/combobox) is expanded
+   */
+  ariaExpanded?: boolean;
+  /**
    * Step size (relevant for type="number")
    */
   step?: number;
@@ -261,6 +265,7 @@ defineExpose({
       :aria-activedescendant="props.ariaActivedescendant"
       :aria-haspopup="props.ariaHaspopup"
       :aria-controls="props.ariaControls"
+      :aria-expanded="props.ariaExpanded"
       :class="{ 'input-field': true, 'has-value': hasValue }"
       @input="handleInput"
       @focus="emit('focus', $event)"

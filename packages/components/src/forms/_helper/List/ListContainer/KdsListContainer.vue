@@ -179,7 +179,8 @@ const isTextInput = (target: EventTarget | null) =>
 
 const handleKeydown = (event: KeyboardEvent) => {
   if (enabledValues.value.length === 0) {
-    activeId.value = emptyOptionId;
+    activeId.value =
+      selectableValues.value.length === 0 ? emptyOptionId : undefined;
     return;
   }
 

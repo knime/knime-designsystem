@@ -131,9 +131,9 @@ defineExpose<KdsFormFieldExpose>({
         :aria-activedescendant="
           resultsOpen ? listContainerEl?.activeDescendant : undefined
         "
-        aria-haspopup="listbox"
-        :aria-controls="resultsId"
-        :aria-expanded="resultsOpen"
+        :aria-haspopup="results ? 'listbox' : undefined"
+        :aria-controls="results ? resultsId : undefined"
+        :aria-expanded="results ? resultsOpen : undefined"
         @keydown="onKeyDown"
         @focus="onFocus"
         @blur="onBlur"
