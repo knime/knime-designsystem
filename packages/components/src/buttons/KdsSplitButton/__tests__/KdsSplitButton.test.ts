@@ -2,13 +2,17 @@ import { describe, expect, it, vi } from "vitest";
 import { defineComponent } from "vue";
 import { flushPromises, mount } from "@vue/test-utils";
 
+import type { KdsMenuItem } from "../../KdsMenuButton/types";
 import KdsSplitButton from "../KdsSplitButton.vue";
-import type { KdsSplitButtonAlternativeAction } from "../types";
 
-const defaultActions: KdsSplitButtonAlternativeAction[] = [
-  { id: "save-as", label: "Save as" },
-  { id: "export", label: "Export", leadingIcon: "file-export" },
-  { id: "disabled-action", label: "Disabled", disabled: true },
+const defaultActions: KdsMenuItem[] = [
+  { id: "save-as", text: "Save as" },
+  {
+    id: "export",
+    text: "Export",
+    accessory: { type: "icon", name: "file-export" },
+  },
+  { id: "disabled-action", text: "Disabled", disabled: true },
 ];
 
 const KdsPopoverStub = defineComponent({
@@ -21,7 +25,7 @@ const KdsPopoverStub = defineComponent({
 const createMenuContainerStub = (focusFn = vi.fn()) =>
   defineComponent({
     name: "KdsMenuContainer",
-    props: ["id", "items", "menuMaxHeight"],
+    props: ["id", "items", "menuMaxHeight", "ariaLabel"],
     emits: ["item-click"],
     methods: { focus: focusFn },
     template: "<div />",
@@ -63,7 +67,7 @@ describe("KdsSplitButton", () => {
     expect(secondaryButton.attributes("aria-expanded")).toBe("false");
   });
 
-  it("emits click:alternativeAction for a regular action", async () => {
+  it("emits click:alternativeAction when menu item is clicked", async () => {
     const wrapper = mountSplitButton();
     await wrapper.find(".kds-split-button-secondary").trigger("click");
     await flushPromises();
@@ -73,67 +77,6 @@ describe("KdsSplitButton", () => {
     await flushPromises();
 
     expect(wrapper.emitted("click:alternativeAction")).toEqual([["save-as"]]);
-    expect(wrapper.emitted("navigate:alternativeAction")).toBeUndefined();
-  });
-
-  it("does not emit when action id is unknown", async () => {
-    const wrapper = mountSplitButton();
-    await wrapper.find(".kds-split-button-secondary").trigger("click");
-    await flushPromises();
-
-    const menuContainer = wrapper.findComponent({ name: "KdsMenuContainer" });
-    menuContainer.vm.$emit("item-click", "nonexistent");
-    await flushPromises();
-
-    expect(wrapper.emitted("click:alternativeAction")).toBeUndefined();
-  });
-
-  it("does not emit when component is disabled", async () => {
-    const wrapper = mountSplitButton({ disabled: true });
-    await wrapper.find(".kds-split-button-secondary").trigger("click");
-    await flushPromises();
-
-    const menuContainer = wrapper.findComponent({ name: "KdsMenuContainer" });
-    menuContainer.vm.$emit("item-click", "save-as");
-    await flushPromises();
-
-    expect(wrapper.emitted("click:alternativeAction")).toBeUndefined();
-  });
-
-  it("emits navigate:alternativeAction for action with href", async () => {
-    const actions: KdsSplitButtonAlternativeAction[] = [
-      { id: "docs", label: "Docs", href: "https://example.com" },
-    ];
-    const wrapper = mountSplitButton({ alternativeActions: actions });
-    await wrapper.find(".kds-split-button-secondary").trigger("click");
-    await flushPromises();
-
-    const menuContainer = wrapper.findComponent({ name: "KdsMenuContainer" });
-    menuContainer.vm.$emit("item-click", "docs");
-    await flushPromises();
-
-    expect(wrapper.emitted("navigate:alternativeAction")).toEqual([
-      [{ id: "docs", href: "https://example.com" }],
-    ]);
-    expect(wrapper.emitted("click:alternativeAction")).toEqual([["docs"]]);
-  });
-
-  it("emits navigate:alternativeAction for action with to", async () => {
-    const actions: KdsSplitButtonAlternativeAction[] = [
-      { id: "settings", label: "Settings", to: "/settings" },
-    ];
-    const wrapper = mountSplitButton({ alternativeActions: actions });
-    await wrapper.find(".kds-split-button-secondary").trigger("click");
-    await flushPromises();
-
-    const menuContainer = wrapper.findComponent({ name: "KdsMenuContainer" });
-    menuContainer.vm.$emit("item-click", "settings");
-    await flushPromises();
-
-    expect(wrapper.emitted("navigate:alternativeAction")).toEqual([
-      [{ id: "settings", to: "/settings" }],
-    ]);
-    expect(wrapper.emitted("click:alternativeAction")).toEqual([["settings"]]);
   });
 
   it("applies correct CSS classes based on props", () => {
@@ -151,34 +94,12 @@ describe("KdsSplitButton", () => {
     expect(wrapper.find(".kds-split-button").classes()).toContain("disabled");
   });
 
-  it("maps alternativeActions to menu items with icons", () => {
+  it("passes alternativeActions directly as items to menu container", () => {
     const wrapper = mountSplitButton();
     const menuContainer = wrapper.findComponent({ name: "KdsMenuContainer" });
-    const items = menuContainer.props("items") as Array<{
-      id: string;
-      text: string;
-      accessory?: { type: string; name: string };
-      disabled?: boolean;
-    }>;
+    const items = menuContainer.props("items");
 
-    expect(items[0]).toEqual({
-      id: "save-as",
-      text: "Save as",
-      accessory: undefined,
-      disabled: undefined,
-    });
-    expect(items[1]).toEqual({
-      id: "export",
-      text: "Export",
-      accessory: { type: "icon", name: "file-export" },
-      disabled: undefined,
-    });
-    expect(items[2]).toEqual({
-      id: "disabled-action",
-      text: "Disabled",
-      accessory: undefined,
-      disabled: true,
-    });
+    expect(items).toEqual(defaultActions);
   });
 
   it("focuses menu container when menu opens", async () => {

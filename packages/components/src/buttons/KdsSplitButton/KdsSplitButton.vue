@@ -12,72 +12,29 @@ const props = withDefaults(defineProps<KdsSplitButtonProps>(), {
   variant: "filled",
   size: "medium",
   alternativeActions: () => [],
-  contextMenuAriaLabel: "Menu",
 });
 
 const emit = defineEmits<{
   "click:primary": [event: MouseEvent];
   "click:alternativeAction": [id: string];
-  "navigate:alternativeAction": [
-    payload: { id: string; to?: unknown; href?: string },
-  ];
 }>();
-
-const buttonClasses = computed(() => ({
-  "kds-split-button": true,
-  [props.variant]: true,
-  [props.size]: true,
-  disabled: props.disabled,
-}));
-
-const primaryButtonClasses = computed(() => ({
-  "kds-split-button-primary": true,
-  [props.variant]: true,
-}));
-
-const menuItems = computed(() =>
-  props.alternativeActions.map((action) => ({
-    id: action.id,
-    text: action.label,
-    accessory: action.leadingIcon
-      ? { type: "icon" as const, name: action.leadingIcon }
-      : undefined,
-    disabled: action.disabled,
-  })),
-);
 
 const isMenuOpen = ref(false);
 const popoverEl = useTemplateRef<KdsPopoverExpose>("popoverEl");
 const menuContainer = useTemplateRef("menuContainer");
+const secondaryButton = useTemplateRef<HTMLElement>("secondaryButton");
 const menuId = useId();
 
-function handlePrimaryClick(e: MouseEvent) {
-  emit("click:primary", e);
-}
-
-function handleSecondaryClick() {
-  isMenuOpen.value = !isMenuOpen.value;
-}
+const buttonClasses = computed(() => ({
+  "kds-split-button": true,
+  [props.variant ?? "filled"]: true,
+  [props.size ?? "medium"]: true,
+  disabled: props.disabled,
+}));
 
 function onItemClick(itemId: string) {
   isMenuOpen.value = false;
-
-  const action = props.alternativeActions.find((a) => a.id === itemId);
-  if (!action || props.disabled) {
-    return;
-  }
-
-  if (action.to || action.href) {
-    emit("navigate:alternativeAction", {
-      id: action.id,
-      ...(action.to ? { to: action.to } : {}),
-      ...(action.href ? { href: action.href } : {}),
-    });
-
-    emit("click:alternativeAction", action.id);
-    return;
-  }
-  emit("click:alternativeAction", action.id);
+  emit("click:alternativeAction", itemId);
 }
 
 watch(isMenuOpen, (open) => {
@@ -92,50 +49,50 @@ watch(isMenuOpen, (open) => {
 <template>
   <div :class="buttonClasses">
     <BaseButton
-      :class="primaryButtonClasses"
+      class="kds-split-button-primary"
+      :class="[props.variant]"
       :size="props.size"
       :variant="props.variant"
       :disabled="props.disabled"
       :title="props.title"
       :label="props.label"
       :leading-icon="props.leadingIcon"
-      :aria-label="props.primaryAriaLabel"
+      :aria-label="props.ariaLabel"
       remove-border-radius="right"
-      @click="handlePrimaryClick"
+      @click="emit('click:primary', $event)"
     />
 
-    <div class="kds-split-button-secondary-anchor">
-      <BaseButton
-        ref="secondaryButton"
-        class="kds-split-button-secondary"
-        remove-border-radius="left"
-        :size="props.size"
-        :variant="props.variant"
-        leading-icon="chevron-down"
-        :disabled="props.disabled"
-        aria-label="Change option"
-        aria-haspopup="menu"
-        :aria-expanded="isMenuOpen"
-        :aria-controls="menuId"
-        :style="popoverEl?.anchorStyle"
-        @click="handleSecondaryClick"
-      />
+    <BaseButton
+      ref="secondaryButton"
+      class="kds-split-button-secondary"
+      remove-border-radius="left"
+      :size="props.size"
+      :variant="props.variant"
+      leading-icon="chevron-down"
+      :disabled="props.disabled"
+      aria-label="More options"
+      aria-haspopup="menu"
+      :aria-expanded="isMenuOpen"
+      :aria-controls="menuId"
+      :style="popoverEl?.anchorStyle"
+      @click="isMenuOpen = !isMenuOpen"
+    />
 
-      <KdsPopover
-        ref="popoverEl"
-        v-model="isMenuOpen"
-        placement="bottom-left"
-        :popover-aria-label="props.contextMenuAriaLabel"
-      >
-        <KdsMenuContainer
-          :id="menuId"
-          ref="menuContainer"
-          :items="menuItems"
-          :menu-max-height="props.menuMaxHeight"
-          @item-click="onItemClick"
-        />
-      </KdsPopover>
-    </div>
+    <KdsPopover
+      ref="popoverEl"
+      v-model="isMenuOpen"
+      placement="bottom-left"
+      popover-aria-label="Actions"
+    >
+      <KdsMenuContainer
+        :id="menuId"
+        ref="menuContainer"
+        :items="props.alternativeActions"
+        :menu-max-height="props.menuMaxHeight"
+        aria-label="Actions"
+        @item-click="onItemClick"
+      />
+    </KdsPopover>
   </div>
 </template>
 

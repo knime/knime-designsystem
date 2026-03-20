@@ -30,6 +30,13 @@ export type KdsMenuItem = {
   subText?: string;
   /** Show a separator below the item if it's not the last in the list */
   separator?: boolean;
+  /** When provided, renders the item as an <a> tag linking to this URL. */
+  href?: string;
+  /**
+   * Optional route location. When provided, the item renders using
+   * RouterLink/NuxtLink if available, otherwise falls back to an <a> tag.
+   */
+  to?: string | Record<string, unknown>;
 };
 
 export type KdsMenuButtonProps = KdsToggleButtonProps & {

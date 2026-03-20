@@ -46,14 +46,6 @@ const meta: Meta<typeof KdsSplitButton> = {
       options: kdsIconNames,
       table: { category: "props" },
     },
-    primaryAriaLabel: {
-      control: "text",
-      table: { category: "props" },
-    },
-    contextMenuAriaLabel: {
-      control: "text",
-      table: { category: "props" },
-    },
     alternativeActions: {
       control: "object",
       table: { category: "props" },
@@ -69,15 +61,17 @@ const meta: Meta<typeof KdsSplitButton> = {
     disabled: false,
     label: "{Label}",
     leadingIcon: undefined,
-    primaryAriaLabel: undefined,
-    contextMenuAriaLabel: undefined,
     menuMaxHeight: undefined,
     "onClick:primary": fn(),
     "onClick:alternativeAction": fn(),
     alternativeActions: [
-      { id: "duplicate", label: "Duplicate" },
-      { id: "rename", label: "Rename" },
-      { id: "delete", label: "Delete", leadingIcon: "trash" },
+      { id: "duplicate", text: "Duplicate" },
+      { id: "rename", text: "Rename" },
+      {
+        id: "delete",
+        text: "Delete",
+        accessory: { type: "icon", name: "trash" },
+      },
     ],
   },
 };
@@ -91,9 +85,13 @@ export const Default: Story = {
     size: "medium",
     label: "Save",
     alternativeActions: [
-      { id: "save-as", label: "Save as" },
-      { id: "save-all", label: "Save all" },
-      { id: "export", label: "Export", leadingIcon: "file-export" },
+      { id: "save-as", text: "Save as" },
+      { id: "save-all", text: "Save all" },
+      {
+        id: "export",
+        text: "Export",
+        accessory: { type: "icon", name: "file-export" },
+      },
     ],
   },
   play: async ({ canvasElement, args }) => {
@@ -108,7 +106,7 @@ export const Default: Story = {
 
     // Open menu via mouse click on secondary button
     const secondaryButton = canvas.getByRole("button", {
-      name: "Change option",
+      name: "More options",
     });
     await userEvent.click(secondaryButton);
     const menu = await canvas.findByRole("menu");
@@ -164,9 +162,13 @@ export const PrimaryAndAlternativeActions: Story = {
     size: "medium",
     label: "Run",
     alternativeActions: [
-      { id: "run-all", label: "Run all" },
-      { id: "run-selected", label: "Run selected" },
-      { id: "schedule", label: "Schedule", leadingIcon: "circle-success" },
+      { id: "run-all", text: "Run all" },
+      { id: "run-selected", text: "Run selected" },
+      {
+        id: "schedule",
+        text: "Schedule",
+        accessory: { type: "icon", name: "circle-success" },
+      },
     ],
   },
   play: async ({ canvasElement, args }) => {
@@ -179,7 +181,7 @@ export const PrimaryAndAlternativeActions: Story = {
 
     // Open the menu
     const secondaryButton = canvas.getByRole("button", {
-      name: "Change option",
+      name: "More options",
     });
     await userEvent.click(secondaryButton);
 
@@ -207,32 +209,49 @@ export const WithLinkActions: Story = {
     size: "medium",
     label: "Open",
     alternativeActions: [
-      { id: "docs", label: "Documentation", href: "https://example.com/docs" },
-      { id: "settings", label: "Settings", to: "/settings" },
-      { id: "export", label: "Export" },
+      {
+        id: "docs",
+        text: "Documentation",
+        href: "https://example.com/docs",
+      },
+      { id: "settings", text: "Settings", to: "/settings" },
+      { id: "export", text: "Export" },
     ],
   },
-  play: async ({ canvasElement, args }) => {
+  play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
     // Open the menu
     const secondaryButton = canvas.getByRole("button", {
-      name: "Change option",
+      name: "More options",
     });
     await userEvent.click(secondaryButton);
 
     const contextMenu = await canvas.findByRole("menu");
     await expect(contextMenu).toBeVisible();
 
-    // Click on a non-link action and verify the event is emitted
+    // Verify link action with href renders as an <a> tag
+    const docsLink = await canvas.findByRole("menuitem", {
+      name: "Documentation",
+    });
+    await expect(docsLink.tagName).toBe("A");
+    await expect(docsLink).toHaveAttribute("href", "https://example.com/docs");
+
+    // Verify action with `to` also renders as an <a> tag (fallback without router)
+    const settingsLink = await canvas.findByRole("menuitem", {
+      name: "Settings",
+    });
+    await expect(settingsLink.tagName).toBe("A");
+    await expect(settingsLink).toHaveAttribute("href", "/settings");
+
+    // Non-link action renders as a div
     const exportAction = await canvas.findByRole("menuitem", {
       name: "Export",
     });
-    await userEvent.click(exportAction);
+    await expect(exportAction.tagName).toBe("DIV");
 
-    await expect(args["onClick:alternativeAction"]).toHaveBeenCalledWith(
-      "export",
-    );
+    // Close menu
+    await userEvent.click(exportAction);
   },
 };
 
@@ -243,16 +262,16 @@ export const MenuWithManyActions: Story = {
     label: "Open Menu",
     menuMaxHeight: "150px",
     alternativeActions: [
-      { id: "option-1", label: "Option 1" },
-      { id: "option-2", label: "Option 2" },
-      { id: "option-3", label: "Option 3" },
-      { id: "option-4", label: "Option 4" },
-      { id: "option-5", label: "Option 5" },
-      { id: "option-6", label: "Option 6" },
-      { id: "option-7", label: "Option 7" },
-      { id: "option-8", label: "Option 8" },
-      { id: "option-9", label: "Option 9" },
-      { id: "option-10", label: "Option 10" },
+      { id: "option-1", text: "Option 1" },
+      { id: "option-2", text: "Option 2" },
+      { id: "option-3", text: "Option 3" },
+      { id: "option-4", text: "Option 4" },
+      { id: "option-5", text: "Option 5" },
+      { id: "option-6", text: "Option 6" },
+      { id: "option-7", text: "Option 7" },
+      { id: "option-8", text: "Option 8" },
+      { id: "option-9", text: "Option 9" },
+      { id: "option-10", text: "Option 10" },
     ],
   },
 };

@@ -281,6 +281,8 @@ defineExpose<KdsListContainerExpose>({
         :special="item.special"
         :missing="item.missing"
         :variant="props.variant"
+        :href="item.href"
+        :to="item.to"
         :trailing-icon="
           item.missing && !item.disabled
             ? 'trash'

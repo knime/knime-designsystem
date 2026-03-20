@@ -1,10 +1,10 @@
-import type { KdsMenuItem } from "../types.ts";
+import type { KdsMenuItem } from "../types";
 
 export type KdsMenuContainerProps = {
   /** id of the menu to be linked via aria-controls */
   id: string;
-  /** id of the button that opens the menu */
-  ariaLabelledBy?: string;
+  /** Accessible label for the menu */
+  ariaLabel?: string;
   /** Menu items rendered in the list */
   items: KdsMenuItem[];
   /** Limits the height of the menu container */

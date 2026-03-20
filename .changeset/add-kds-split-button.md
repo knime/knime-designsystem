@@ -1,5 +1,5 @@
 ---
-"@knime/kds-components": minor
+"@knime/kds-components": patch
 ---
 
 Added KdsSplitButton component
