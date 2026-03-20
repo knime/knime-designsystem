@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, ref, useTemplateRef } from "vue";
 
-import KdsToggleButton from "../../../../buttons/KdsToggleButton/KdsToggleButton.vue";
-import BaseFormFieldWrapper from "../../../_helper/BaseFormFieldWrapper.vue";
-import type { KdsFormFieldExpose } from "../../../types.ts";
-import BaseInput from "../../BaseInput.vue";
+import KdsToggleButton from "../../../buttons/KdsToggleButton/KdsToggleButton.vue";
+import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
+import type { KdsFormFieldExpose } from "../../types.ts";
+import BaseInput from "../BaseInput.vue";
 
 import type { KdsPasswordInputProps } from "./types";
 

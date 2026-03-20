@@ -1,4 +1,4 @@
-import type { KdsInputFieldProps } from "../../types";
+import type { KdsInputFieldProps } from "../types";
 
 import type { kdsPasswordInputVariant } from "./enums";
 

@@ -7,7 +7,7 @@ import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
   buildTextOverflowStory,
-} from "../../../../test-utils/storybook.ts";
+} from "../../../test-utils/storybook.ts";
 
 import KdsPasswordInput from "./KdsPasswordInput.vue";
 import { kdsPasswordInputVariants } from "./enums";
@@ -15,7 +15,7 @@ import { kdsPasswordInputVariants } from "./enums";
 type Story = StoryObj<typeof KdsPasswordInput>;
 
 const meta: Meta<typeof KdsPasswordInput> = {
-  title: "Form Fields/Credentials/PasswordInput",
+  title: "Form Fields/PasswordInput",
   component: KdsPasswordInput as Meta<typeof KdsPasswordInput>["component"],
   tags: ["autodocs"],
   parameters: {

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useTemplateRef } from "vue";
 
-import BaseFormFieldWrapper from "../../../_helper/BaseFormFieldWrapper.vue";
-import type { KdsFormFieldExpose } from "../../../types.ts";
-import BaseInput from "../../BaseInput.vue";
+import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
+import type { KdsFormFieldExpose } from "../../types.ts";
+import BaseInput from "../BaseInput.vue";
 
 import type { KdsUsernameInputProps } from "./types";
 

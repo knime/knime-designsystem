@@ -7,14 +7,14 @@ import {
   buildAllCombinationsStory,
   buildDesignComparatorStory,
   buildTextOverflowStory,
-} from "../../../../test-utils/storybook.ts";
+} from "../../../test-utils/storybook.ts";
 
 import KdsUsernameInput from "./KdsUsernameInput.vue";
 
 type Story = StoryObj<typeof KdsUsernameInput>;
 
 const meta: Meta<typeof KdsUsernameInput> = {
-  title: "Form Fields/Credentials/UsernameInput",
+  title: "Form Fields/UsernameInput",
   component: KdsUsernameInput as Meta<typeof KdsUsernameInput>["component"],
   tags: ["autodocs"],
   parameters: {
