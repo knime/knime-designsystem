@@ -1,10 +1,33 @@
 // Export form components
+/**
+ * @deprecated Internal component – do not use outside knime-designsystem.
+ * This export will be removed in a future version.
+ * Use the `label` prop on KDS form field components directly instead
+ * (e.g. `KdsTextInput`, `KdsDropdown`, `KdsCheckboxGroup`).
+ */
 export { default as KdsLabel } from "./_helper/KdsLabel.vue";
+/**
+ * @deprecated Internal component – do not use outside knime-designsystem.
+ * This export will be removed in a future version.
+ * Use the `subText`, `error`, `validating`, and `preserveSubTextSpace` props
+ * on KDS form field components directly instead.
+ */
 export { default as KdsSubText } from "./_helper/KdsSubText.vue";
 
 // Export types for form primitives
 export type {
+  /**
+   * @deprecated Internal type – do not use outside knime-designsystem.
+   * This export will be removed in a future version.
+   * Use the `label` prop on KDS form field components directly instead.
+   */
   KdsLabelProps,
+  /**
+   * @deprecated Internal type – do not use outside knime-designsystem.
+   * This export will be removed in a future version.
+   * Use the `subText`, `error`, `validating`, and `preserveSubTextSpace` props
+   * on KDS form field components directly instead.
+   */
   KdsSubTextProps,
   KdsFormFieldExpose,
 } from "./types";
