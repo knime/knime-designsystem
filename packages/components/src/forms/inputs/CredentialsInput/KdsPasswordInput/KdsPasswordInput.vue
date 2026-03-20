@@ -21,7 +21,7 @@ const modelValue = defineModel<string>({ default: "" });
 
 const isFocused = ref(false);
 const showValue = ref(false);
-let isTogglingVisibility = false;
+const isTogglingVisibility = ref(false);
 
 const input = useTemplateRef("input");
 
@@ -40,19 +40,11 @@ const showToggle = computed(
 );
 
 const handleBlur = () => {
-  if (isTogglingVisibility) {
+  if (isTogglingVisibility.value) {
     input.value?.focus();
     return;
   }
   isFocused.value = false;
-};
-
-const handleTogglePointerdown = () => {
-  isTogglingVisibility = true;
-};
-
-const handleToggleClick = () => {
-  isTogglingVisibility = false;
 };
 
 const showLabel = computed(() => `Show ${fieldName.value}`);
@@ -70,7 +62,7 @@ defineExpose<KdsFormFieldExpose>({
         ref="input"
         v-bind="slotProps"
         v-model="modelValue"
-        :type="showValue ? 'text' : 'password'"
+        :type="showValue && props.showVisibilityToggle ? 'text' : 'password'"
         :leading-icon="leadingIcon"
         :placeholder="props.placeholder"
         :disabled="props.disabled"
@@ -83,14 +75,17 @@ defineExpose<KdsFormFieldExpose>({
           <KdsToggleButton
             v-if="showToggle"
             v-model="showValue"
+            type="button"
             variant="outlined"
             size="xsmall"
             leading-icon="eye"
             :aria-label="showValue ? hideLabel : showLabel"
             :title="showValue ? hideLabel : showLabel"
             :disabled="props.disabled"
-            @pointerdown="handleTogglePointerdown"
-            @click="handleToggleClick"
+            @pointerdown="isTogglingVisibility = true"
+            @pointerup="isTogglingVisibility = false"
+            @pointercancel="isTogglingVisibility = false"
+            @click="isTogglingVisibility = false"
           />
         </template>
       </BaseInput>
