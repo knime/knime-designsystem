@@ -10,6 +10,7 @@ import {
 } from "../../../test-utils/storybook.ts";
 
 import KdsUsernameInput from "./KdsUsernameInput.vue";
+import { kdsUsernameInputAutocompletes } from "./enums";
 
 type Story = StoryObj<typeof KdsUsernameInput>;
 
@@ -59,7 +60,8 @@ const meta: Meta<typeof KdsUsernameInput> = {
       table: { category: "props" },
     },
     autocomplete: {
-      control: "text",
+      control: "select",
+      options: kdsUsernameInputAutocompletes,
       table: { category: "props" },
     },
     subText: {

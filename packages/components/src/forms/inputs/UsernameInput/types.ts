@@ -1,3 +1,10 @@
 import type { KdsInputFieldProps } from "../types";
 
-export type KdsUsernameInputProps = KdsInputFieldProps;
+import type { kdsUsernameInputAutocomplete } from "./enums";
+
+export type KdsUsernameInputAutocomplete =
+  (typeof kdsUsernameInputAutocomplete)[keyof typeof kdsUsernameInputAutocomplete];
+
+export type KdsUsernameInputProps = Omit<KdsInputFieldProps, "autocomplete"> & {
+  autocomplete?: KdsUsernameInputAutocomplete;
+};

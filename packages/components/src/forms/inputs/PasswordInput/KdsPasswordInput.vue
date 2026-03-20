@@ -19,36 +19,26 @@ const props = withDefaults(defineProps<KdsPasswordInputProps>(), {
 
 const modelValue = defineModel<string>({ default: "" });
 
-const isFocused = ref(false);
 const showValue = ref(false);
-const isTogglingVisibility = ref(false);
+const preventBlurFromToggle = ref(false);
 
 const input = useTemplateRef("input");
 
-const leadingIcon = computed(() =>
-  props.variant === "second-factor" ? "key" : "lock",
-);
-
-const fieldName = computed(() =>
-  props.variant === "second-factor" ? "Second factor" : "Password",
+const effectiveToggleLabel = computed(
+  () => props.toggleLabel ?? (props.variant === "key" ? "Key" : "Password"),
 );
 
 const showToggle = computed(
   () =>
     props.showVisibilityToggle &&
-    (isFocused.value || modelValue.value.length > 0 || showValue.value),
+    (modelValue.value.length > 0 || showValue.value),
 );
 
 const handleBlur = () => {
-  if (isTogglingVisibility.value) {
+  if (preventBlurFromToggle.value) {
     input.value?.focus();
-    return;
   }
-  isFocused.value = false;
 };
-
-const showLabel = computed(() => `Show ${fieldName.value}`);
-const hideLabel = computed(() => `Hide ${fieldName.value}`);
 
 defineExpose<KdsFormFieldExpose>({
   focus: () => input.value?.focus(),
@@ -63,12 +53,11 @@ defineExpose<KdsFormFieldExpose>({
         v-bind="slotProps"
         v-model="modelValue"
         :type="showValue && props.showVisibilityToggle ? 'text' : 'password'"
-        :leading-icon="leadingIcon"
+        :leading-icon="props.variant === 'key' ? 'key' : 'lock'"
         :placeholder="props.placeholder"
         :disabled="props.disabled"
         :error="props.error"
         :autocomplete="props.autocomplete"
-        @focus="isFocused = true"
         @blur="handleBlur"
       >
         <template #trailing>
@@ -79,13 +68,21 @@ defineExpose<KdsFormFieldExpose>({
             variant="outlined"
             size="xsmall"
             leading-icon="eye"
-            :aria-label="showValue ? hideLabel : showLabel"
-            :title="showValue ? hideLabel : showLabel"
+            :aria-label="
+              showValue
+                ? `Hide ${effectiveToggleLabel}`
+                : `Show ${effectiveToggleLabel}`
+            "
+            :title="
+              showValue
+                ? `Hide ${effectiveToggleLabel}`
+                : `Show ${effectiveToggleLabel}`
+            "
             :disabled="props.disabled"
-            @pointerdown="isTogglingVisibility = true"
-            @pointerup="isTogglingVisibility = false"
-            @pointercancel="isTogglingVisibility = false"
-            @click="isTogglingVisibility = false"
+            @pointerdown="preventBlurFromToggle = true"
+            @pointerup="preventBlurFromToggle = false"
+            @pointercancel="preventBlurFromToggle = false"
+            @click="preventBlurFromToggle = false"
           />
         </template>
       </BaseInput>

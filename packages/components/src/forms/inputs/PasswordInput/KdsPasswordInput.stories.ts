@@ -10,7 +10,10 @@ import {
 } from "../../../test-utils/storybook.ts";
 
 import KdsPasswordInput from "./KdsPasswordInput.vue";
-import { kdsPasswordInputVariants } from "./enums";
+import {
+  kdsPasswordInputAutocompletes,
+  kdsPasswordInputVariants,
+} from "./enums";
 
 type Story = StoryObj<typeof KdsPasswordInput>;
 
@@ -23,7 +26,7 @@ const meta: Meta<typeof KdsPasswordInput> = {
       description: {
         component:
           "A password input with a leading icon, optional visibility toggle, label, and helper/error text support. " +
-          'The `"password"` variant shows a lock icon, `"second-factor"` shows a key icon.',
+          'The `"password"` variant shows a lock icon, `"key"` shows a key icon.',
       },
     },
     design: {
@@ -41,12 +44,19 @@ const meta: Meta<typeof KdsPasswordInput> = {
       control: "select",
       options: kdsPasswordInputVariants,
       description:
-        'Visual variant controlling the leading icon. "password" shows a lock icon, "second-factor" shows a key icon.',
+        'Visual variant controlling the leading icon. "password" shows a lock icon, "key" shows a key icon.',
       table: { category: "props" },
     },
     showVisibilityToggle: {
       control: "boolean",
       description: "Whether to show the visibility toggle button",
+      table: { category: "props" },
+    },
+    toggleLabel: {
+      control: "text",
+      description:
+        "Label used for the visibility toggle button's aria-label. " +
+        'Defaults to "Password" for the password variant and "Key" for key.',
       table: { category: "props" },
     },
     label: {
@@ -72,7 +82,8 @@ const meta: Meta<typeof KdsPasswordInput> = {
       table: { category: "props" },
     },
     autocomplete: {
-      control: "text",
+      control: "select",
+      options: kdsPasswordInputAutocompletes,
       table: { category: "props" },
     },
     subText: {
@@ -107,6 +118,7 @@ const meta: Meta<typeof KdsPasswordInput> = {
     placeholder: "Password",
     autocomplete: "current-password",
     showVisibilityToggle: true,
+    toggleLabel: undefined,
     subText: "",
     disabled: false,
     error: false,
@@ -167,11 +179,11 @@ export const Default: Story = {
   },
 };
 
-export const SecondFactor: Story = {
+export const KeyVariant: Story = {
   args: {
-    variant: "second-factor",
-    placeholder: "Second factor",
-    autocomplete: "one-time-code",
+    variant: "key",
+    placeholder: "Key",
+    autocomplete: "off",
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
@@ -183,7 +195,7 @@ export const SecondFactor: Story = {
       await expect(input).toHaveValue("123456");
 
       const showButton = canvas.getByRole("button", {
-        name: /show second factor/i,
+        name: /show key/i,
       });
       await userEvent.click(showButton);
       await expect(input).toHaveAttribute("type", "text");
@@ -302,10 +314,10 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           {},
       },
     },
-    "2. Default (second-factor)": {
+    "2. Default (key)": {
       props: {
         ariaLabel: "Key",
-        variant: "second-factor",
+        variant: "key",
         placeholder: "Key",
         autocomplete: "off",
       },
@@ -430,7 +442,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       subText: [undefined, "Message"],
     },
     combinations: [
-      { variant: ["second-factor"], placeholder: ["Key"] },
+      { variant: ["key"], placeholder: ["Key"] },
       { showVisibilityToggle: [false] },
       { validating: [true], subText: ["Validation message"] },
       { error: [true], subText: ["Error message"] },
