@@ -1,8 +1,8 @@
 export * from "./ColorInput";
 export type * from "./ColorInput";
 
-export * from "./CredentialsInput";
-export type * from "./CredentialsInput";
+export * from "./Credentials";
+export type * from "./Credentials";
 
 export * from "./DateInput";
 export type * from "./DateInput";

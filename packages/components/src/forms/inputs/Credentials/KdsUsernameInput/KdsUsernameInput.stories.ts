@@ -9,21 +9,20 @@ import {
   buildTextOverflowStory,
 } from "../../../../test-utils/storybook.ts";
 
-import KdsPasswordInput from "./KdsPasswordInput.vue";
-import { kdsPasswordInputVariants } from "./enums";
+import KdsUsernameInput from "./KdsUsernameInput.vue";
 
-type Story = StoryObj<typeof KdsPasswordInput>;
+type Story = StoryObj<typeof KdsUsernameInput>;
 
-const meta: Meta<typeof KdsPasswordInput> = {
-  title: "Form Fields/CredentialsInput/PasswordInput",
-  component: KdsPasswordInput as Meta<typeof KdsPasswordInput>["component"],
+const meta: Meta<typeof KdsUsernameInput> = {
+  title: "Form Fields/Credentials/UsernameInput",
+  component: KdsUsernameInput as Meta<typeof KdsUsernameInput>["component"],
   tags: ["autodocs"],
   parameters: {
     docs: {
       description: {
         component:
-          "A password input with a leading icon, optional visibility toggle, label, and helper/error text support. " +
-          'The `"password"` variant shows a lock icon, `"second-factor"` shows a key icon.',
+          "A text input with a leading user icon, label, and helper/error text support. " +
+          "Intended for username or account name entry within credentials forms.",
       },
     },
     design: {
@@ -36,18 +35,6 @@ const meta: Meta<typeof KdsPasswordInput> = {
       control: "text",
       description: "v-model binding for the input value",
       table: { category: "model" },
-    },
-    variant: {
-      control: "select",
-      options: kdsPasswordInputVariants,
-      description:
-        'Visual variant controlling the leading icon. "password" shows a lock icon, "second-factor" shows a key icon.',
-      table: { category: "props" },
-    },
-    showVisibilityToggle: {
-      control: "boolean",
-      description: "Whether to show the visibility toggle button",
-      table: { category: "props" },
     },
     label: {
       control: "text",
@@ -102,11 +89,9 @@ const meta: Meta<typeof KdsPasswordInput> = {
     modelValue: "",
     label: "Label",
     ariaLabel: undefined,
-    variant: "password",
     description: "",
-    placeholder: "Password",
-    autocomplete: "current-password",
-    showVisibilityToggle: true,
+    placeholder: "Username",
+    autocomplete: "username",
     subText: "",
     disabled: false,
     error: false,
@@ -116,14 +101,14 @@ const meta: Meta<typeof KdsPasswordInput> = {
   render: (args) => {
     const [, updateArgs] = useArgs();
     return {
-      components: { KdsPasswordInput },
+      components: { KdsUsernameInput },
       setup() {
         const modelValue = ref(args.modelValue);
         watchEffect(() => (modelValue.value = args.modelValue));
         watchEffect(() => updateArgs({ modelValue: modelValue.value }));
         return { args, modelValue };
       },
-      template: '<KdsPasswordInput v-bind="args" v-model="modelValue" />',
+      template: '<KdsUsernameInput v-bind="args" v-model="modelValue" />',
     };
   },
 };
@@ -133,91 +118,46 @@ export default meta;
 export const Default: Story = {
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByLabelText("Label");
+    const input = canvas.getByRole("textbox", { name: "Label" });
 
-    await step("Type and show password via mouse", async () => {
+    await step("Type into the input", async () => {
       await userEvent.click(input);
-      await userEvent.type(input, "secret");
-      await expect(input).toHaveValue("secret");
-      await expect(input).toHaveAttribute("type", "password");
+      await userEvent.type(input, "demo-user");
+      await expect(input).toHaveValue("demo-user");
 
-      const showButton = canvas.getByRole("button", {
-        name: /show password/i,
-      });
-      await userEvent.click(showButton);
-      await expect(input).toHaveAttribute("type", "text");
-
-      const hideButton = canvas.getByRole("button", {
-        name: /hide password/i,
-      });
-      await userEvent.click(hideButton);
-      await expect(input).toHaveAttribute("type", "password");
+      await userEvent.clear(input);
+      await expect(input).toHaveValue("");
     });
 
-    await step("Keyboard navigation", async () => {
+    await step("Tab focus", async () => {
       input.blur();
       await userEvent.tab();
       await expect(input).toHaveFocus();
-
-      await userEvent.tab();
-      await expect(
-        canvas.getByRole("button", { name: /show password/i }),
-      ).toHaveFocus();
-    });
-  },
-};
-
-export const SecondFactor: Story = {
-  args: {
-    variant: "second-factor",
-    placeholder: "Second factor",
-    autocomplete: "one-time-code",
-  },
-  play: async ({ canvasElement, step }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByLabelText("Label");
-
-    await step("Type and toggle visibility", async () => {
-      await userEvent.click(input);
-      await userEvent.type(input, "123456");
-      await expect(input).toHaveValue("123456");
-
-      const showButton = canvas.getByRole("button", {
-        name: /show second factor/i,
-      });
-      await userEvent.click(showButton);
-      await expect(input).toHaveAttribute("type", "text");
     });
   },
 };
 
 export const WithValue: Story = {
   args: {
-    modelValue: "•••••••••••••",
+    modelValue: "demo-user",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByLabelText("Label");
-    await expect(input).toHaveValue("•••••••••••••");
-    await expect(
-      canvas.getByRole("button", { name: /show password/i }),
-    ).toBeInTheDocument();
+    const input = canvas.getByRole("textbox", { name: "Label" });
+    await expect(input).toHaveValue("demo-user");
   },
 };
 
-export const WithoutVisibilityToggle: Story = {
+export const CustomLabel: Story = {
   args: {
-    showVisibilityToggle: false,
+    ariaLabel: "Username",
+    label: undefined,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByLabelText("Label");
-
-    await userEvent.click(input);
-    await userEvent.type(input, "secret");
     await expect(
-      canvas.queryByRole("button", { name: /show password/i }),
-    ).not.toBeInTheDocument();
+      canvas.getByRole("textbox", { name: "Username" }),
+    ).toBeInTheDocument();
   },
 };
 
@@ -227,100 +167,88 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByLabelText("Label");
+    const input = canvas.getByRole("textbox", { name: "Label" });
     await expect(input).toBeDisabled();
   },
 };
 
 export const WithSubText: Story = {
   args: {
-    subText: "Must be at least 8 characters",
+    subText: "Enter your account username",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(
-      canvas.getByText("Must be at least 8 characters"),
+      canvas.getByText("Enter your account username"),
     ).toBeInTheDocument();
   },
 };
 
 export const Validating: Story = {
   args: {
-    modelValue: "•••••••••••••",
+    modelValue: "checking-user",
     validating: true,
-    subText: "Verifying credentials...",
+    subText: "Checking availability...",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(
-      canvas.getByText("Verifying credentials..."),
+      canvas.getByText("Checking availability..."),
     ).toBeInTheDocument();
   },
 };
 
 export const WithError: Story = {
   args: {
-    modelValue: "•••••••••••••",
+    modelValue: "invalid user",
     error: true,
-    subText: "Incorrect password",
+    subText: "Username contains invalid characters",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Incorrect password")).toBeInTheDocument();
+    await expect(
+      canvas.getByText("Username contains invalid characters"),
+    ).toBeInTheDocument();
   },
 };
 
 export const TextOverflow: Story = {
   ...buildTextOverflowStory({
-    component: KdsPasswordInput,
+    component: KdsUsernameInput,
     width: 260,
   }),
   args: {
     label:
       "Very long label that should be truncated when the container is too small",
-    modelValue: "BondJamesBond_007_WithALicenceToTypeAndOverflow1234567890",
+    modelValue:
+      "very.long.enterprise.username.with.multiple.segments.for.testing.truncation.behavior",
     placeholder:
-      "Enter the primary credentials password that is required for secure sign-in and policy-compliant verification",
+      "Enter the unique enterprise account username used for cross-system authentication",
     subText:
-      "This helper text is intentionally verbose to verify that long security-related instructions render correctly beneath the password field.",
+      "This helper text is intentionally verbose to verify that long guidance content wraps and truncates consistently beneath the username field.",
   },
 };
 
 export const DesignComparator: Story = buildDesignComparatorStory({
-  component: KdsPasswordInput,
+  component: KdsUsernameInput,
   wrapperStyle: "width: 218px",
   designsToCompare: {
-    "1. Default (password)": {
+    "1. Default": {
       props: {
-        ariaLabel: "Password",
-        variant: "password",
-        placeholder: "Password",
-        autocomplete: "current-password",
+        ariaLabel: "Username",
+        placeholder: "Username",
+        autocomplete: "username",
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4935-116283":
           {},
       },
     },
-    "2. Default (second-factor)": {
+    "2. Hover": {
       props: {
-        ariaLabel: "Key",
-        variant: "second-factor",
-        placeholder: "Key",
-        autocomplete: "off",
-      },
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4935-116283":
-          {},
-      },
-    },
-    "3. Hover": {
-      props: {
-        ariaLabel: "Password",
-        variant: "password",
-        placeholder: "Password",
-        autocomplete: "current-password",
-        showVisibilityToggle: false,
+        ariaLabel: "Username",
+        placeholder: "Username",
+        autocomplete: "username",
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4935-116436":
@@ -329,13 +257,11 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           },
       },
     },
-    "4. Focused": {
+    "3. Focused": {
       props: {
-        ariaLabel: "Password",
-        variant: "password",
-        placeholder: "Password",
-        autocomplete: "current-password",
-        showVisibilityToggle: false,
+        ariaLabel: "Username",
+        placeholder: "Username",
+        autocomplete: "username",
         modelValue: "|",
       },
       variants: {
@@ -348,27 +274,24 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           },
       },
     },
-    "5. Filled with toggle": {
+    "4. Filled": {
       props: {
-        ariaLabel: "Password",
-        variant: "password",
-        placeholder: "Password",
-        autocomplete: "current-password",
-        showVisibilityToggle: true,
+        ariaLabel: "Username",
+        placeholder: "Username",
+        autocomplete: "username",
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4935-116566":
           {
-            modelValue: "•••••••••••••",
+            modelValue: "{Username}",
           },
       },
     },
-    "6. Disabled": {
+    "5. Disabled": {
       props: {
-        ariaLabel: "Password",
-        variant: "password",
-        placeholder: "Password",
-        autocomplete: "current-password",
+        ariaLabel: "Username",
+        placeholder: "Username",
+        autocomplete: "username",
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4935-116732":
@@ -377,35 +300,31 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           },
       },
     },
-    "7. Error": {
+    "6. Error": {
       props: {
-        ariaLabel: "Password",
-        variant: "password",
-        placeholder: "Password",
-        autocomplete: "current-password",
-        showVisibilityToggle: true,
+        ariaLabel: "Username",
+        placeholder: "Username",
+        autocomplete: "username",
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=4935-116649":
           {
-            modelValue: "•••••••••••••",
+            modelValue: "{Username}",
             error: true,
             subText: "{Error message}",
           },
       },
     },
-    "8. Validating": {
+    "7. Validating": {
       props: {
-        ariaLabel: "Password",
-        variant: "password",
-        placeholder: "Password",
-        autocomplete: "current-password",
-        showVisibilityToggle: true,
+        ariaLabel: "Username",
+        placeholder: "Username",
+        autocomplete: "username",
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=5351-35950":
           {
-            modelValue: "•••••••••••••",
+            modelValue: "{Username}",
             validating: true,
             subText: "{Validation message}",
           },
@@ -415,23 +334,19 @@ export const DesignComparator: Story = buildDesignComparatorStory({
 });
 
 export const AllCombinations: Story = buildAllCombinationsStory({
-  component: KdsPasswordInput,
+  component: KdsUsernameInput,
   combinationsProps: {
     default: {
       label: ["Label"],
       ariaLabel: [undefined],
-      variant: ["password"],
-      modelValue: ["", "•••••••••••••"],
-      placeholder: ["Password"],
-      showVisibilityToggle: [true],
+      modelValue: ["", "{Username}"],
+      placeholder: ["Username"],
       disabled: [false],
       error: [false],
       validating: [false],
       subText: [undefined, "Message"],
     },
     combinations: [
-      { variant: ["second-factor"], placeholder: ["Key"] },
-      { showVisibilityToggle: [false] },
       { validating: [true], subText: ["Validation message"] },
       { error: [true], subText: ["Error message"] },
       { disabled: [true] },
