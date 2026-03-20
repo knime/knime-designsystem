@@ -5,7 +5,9 @@ import KdsListContainer from "../../../forms/_helper/List/ListContainer/KdsListC
 
 import type { KdsMenuContainerExpose, KdsMenuContainerProps } from "./types";
 
-const props = defineProps<KdsMenuContainerProps>();
+const props = withDefaults(defineProps<KdsMenuContainerProps>(), {
+  ariaLabel: "Actions",
+});
 
 const emit = defineEmits<{
   /** Emitted when item is clicked */
@@ -32,7 +34,7 @@ defineExpose<KdsMenuContainerExpose>({
       ref="listContainerEl"
       :possible-values="props.items"
       empty-text="Menu is empty"
-      :aria-labelledby="props.ariaLabelledBy"
+      :aria-label="props.ariaLabel"
       role="menu"
       :style="{ maxHeight: props.menuMaxHeight }"
       @item-click="onItemClick"

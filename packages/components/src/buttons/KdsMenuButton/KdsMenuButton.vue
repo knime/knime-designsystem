@@ -10,6 +10,7 @@ import {
   watchEffect,
 } from "vue";
 
+import type { KdsPopoverExpose } from "../../overlays/Popover";
 import KdsPopover from "../../overlays/Popover/KdsPopover.vue";
 import KdsToggleButton from "../KdsToggleButton/KdsToggleButton.vue";
 
@@ -46,10 +47,10 @@ const toggleButtonProps = computed(() => {
 });
 
 const isMenuOpen = ref<boolean>(false);
-const popoverEl = useTemplateRef("popoverEl");
+const popoverEl = useTemplateRef<KdsPopoverExpose>("popoverEl");
 const menuContainer = useTemplateRef("menuContainer");
+const toggleButton = useTemplateRef("toggleButton");
 
-const buttonId = useId();
 const menuId = useId();
 
 watch(isMenuOpen, async (menuOpen) => {
@@ -75,7 +76,7 @@ watchEffect(() => {
 
 <template>
   <KdsToggleButton
-    :id="buttonId"
+    ref="toggleButton"
     v-model="isMenuOpen"
     v-bind="toggleButtonProps"
     aria-haspopup="menu"
