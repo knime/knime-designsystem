@@ -39,7 +39,11 @@ const handleWidth = computed(() => {
           'kds-resize-handle-sibling-hover': hasMultipleHandles && isHovered,
         },
       ]"
-      :aria-label="hasMultipleHandles ? `Resize vertically (handle ${i} of ${props.numberOfHandles})` : 'Resize vertically'"
+      :aria-label="
+        hasMultipleHandles
+          ? `Resize vertically (handle ${i} of ${normalizedNumberOfHandles})`
+          : 'Resize vertically'
+      "
       type="button"
     >
       <span class="kds-resize-handle-line" />

@@ -153,7 +153,7 @@ export const MultipleHandles: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const handles = canvas.getAllByRole("button", {
-      name: "Resize vertically",
+      name: /^Resize vertically/,
     });
 
     await expect(handles).toHaveLength(3);
@@ -226,7 +226,7 @@ export const TwoLists: Story = {
 
     // Resize handle is present and focusable
     const handles = canvas.getAllByRole("button", {
-      name: "Resize vertically",
+      name: /^Resize vertically/,
     });
     await userEvent.click(handles[0]);
     await expect(handles[0]).toHaveFocus();

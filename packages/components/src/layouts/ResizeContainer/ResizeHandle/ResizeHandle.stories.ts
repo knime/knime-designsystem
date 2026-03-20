@@ -79,7 +79,7 @@ export const MultipleHandles: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const handles = canvas.getAllByRole("button", {
-      name: "Resize vertically",
+      name: /^Resize vertically/,
     });
 
     await expect(handles).toHaveLength(3);
