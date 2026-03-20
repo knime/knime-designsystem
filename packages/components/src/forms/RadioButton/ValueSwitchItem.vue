@@ -81,6 +81,10 @@ const { isTruncated } = useKdsIsTruncated(optionTextEl);
     outline: none;
   }
 
+  &:focus:not(.selected) {
+    border: var(--kds-border-action-selected);
+  }
+
   &:hover:not(:disabled) {
     background: var(--kds-color-background-neutral-hover);
   }
