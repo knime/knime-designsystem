@@ -93,7 +93,7 @@ const maxHeightStyle = computed<StyleValue>(() => {
   };
 });
 
-const onResultClick = (itemId: string) => {
+const onResultClick = (itemId?: string) => {
   resultsOpen.value = false;
   listContainerEl.value?.handleBlur();
   emit("resultClick", itemId);

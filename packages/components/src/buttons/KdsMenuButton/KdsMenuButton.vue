@@ -59,7 +59,10 @@ const maxHeightStyle = computed<StyleValue>(() => {
   };
 });
 
-const onItemClick = (itemId: string) => {
+const onItemClick = (itemId?: string) => {
+  if (!itemId) {
+    return;
+  }
   isMenuOpen.value = false;
   emit("itemClick", itemId);
 };
