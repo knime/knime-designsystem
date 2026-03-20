@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed } from "vue";
 
 import type { ResizeHandleProps } from "./types";
 
@@ -7,8 +7,6 @@ const props = withDefaults(defineProps<ResizeHandleProps>(), {
   numberOfHandles: 1,
   handleGap: "0px",
 });
-
-const isHovered = ref(false);
 
 const normalizedNumberOfHandles = computed(() => {
   const raw = Math.floor(props.numberOfHandles);
@@ -25,20 +23,11 @@ const handleWidth = computed(() => {
 </script>
 
 <template>
-  <div
-    class="kds-resize-handle-area"
-    @mouseenter="isHovered = true"
-    @mouseleave="isHovered = false"
-  >
+  <div class="kds-resize-handle-area">
     <button
       v-for="i in normalizedNumberOfHandles"
       :key="i"
-      :class="[
-        'kds-resize-handle',
-        {
-          'kds-resize-handle-sibling-hover': hasMultipleHandles && isHovered,
-        },
-      ]"
+      class="kds-resize-handle"
       :aria-label="
         hasMultipleHandles
           ? `Resize vertically (handle ${i} of ${normalizedNumberOfHandles})`
@@ -86,13 +75,16 @@ const handleWidth = computed(() => {
     border-top: var(--kds-border-resize-handle-initial);
   }
 
-  &:hover > .kds-resize-handle-line,
-  &.kds-resize-handle-sibling-hover > .kds-resize-handle-line {
+  &:hover > .kds-resize-handle-line {
     border-top: var(--kds-border-resize-handle-hover);
   }
 
   &:active > .kds-resize-handle-line {
     border-top: var(--kds-border-resize-handle-active);
   }
+}
+
+.kds-resize-handle-area:hover > .kds-resize-handle > .kds-resize-handle-line {
+  border-top: var(--kds-border-resize-handle-hover);
 }
 </style>
