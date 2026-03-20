@@ -1,5 +1,12 @@
 # @knime/kds-components
 
+## 0.18.1
+
+### Patch Changes
+
+- 920024a: Add UsernameInput and PasswordInput components
+  - @knime/kds-styles@0.18.1
+
 ## 0.18.0
 
 ### Minor Changes
