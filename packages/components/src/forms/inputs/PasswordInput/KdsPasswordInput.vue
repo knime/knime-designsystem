@@ -28,12 +28,6 @@ const effectiveToggleLabel = computed(
   () => props.toggleLabel ?? (props.variant === "key" ? "Key" : "Password"),
 );
 
-const showToggle = computed(
-  () =>
-    props.showVisibilityToggle &&
-    (modelValue.value.length > 0 || showValue.value),
-);
-
 const handleBlur = () => {
   if (preventBlurFromToggle.value) {
     input.value?.focus();
@@ -62,7 +56,7 @@ defineExpose<KdsFormFieldExpose>({
       >
         <template #trailing>
           <KdsToggleButton
-            v-if="showToggle"
+            v-if="props.showVisibilityToggle"
             v-model="showValue"
             type="button"
             variant="outlined"
