@@ -4,6 +4,7 @@ import {
   computed,
   defineAsyncComponent,
   ref,
+  useId,
   useTemplateRef,
 } from "vue";
 
@@ -41,7 +42,7 @@ const emit = defineEmits<{
   /** Native keydown event forwarded from the input element. */
   keydown: [event: KeyboardEvent];
   /** Emitted when a result is clicked */
-  resultClick: [id: string];
+  resultClick: [id?: string];
 }>();
 
 const baseInput = useTemplateRef("baseInput");
@@ -49,6 +50,7 @@ const baseInput = useTemplateRef("baseInput");
 const popoverEl = useTemplateRef<KdsPopoverExpose>("popover");
 const listContainerEl = useTemplateRef<KdsListContainerExpose>("listContainer");
 const resultsOpen = ref(false);
+const resultsId = useId();
 
 const onKeyDown = (event: KeyboardEvent) => {
   if (resultsOpen.value) {
@@ -91,7 +93,7 @@ const maxHeightStyle = computed<StyleValue>(() => {
   };
 });
 
-const onResultClick = (itemId: string) => {
+const onResultClick = (itemId?: string) => {
   resultsOpen.value = false;
   listContainerEl.value?.handleBlur();
   emit("resultClick", itemId);
@@ -126,9 +128,13 @@ defineExpose<KdsFormFieldExpose>({
         leading-icon="search"
         :clearable="true"
         :style="popoverEl?.anchorStyle"
+        :role="results ? 'combobox' : undefined"
         :aria-activedescendant="
           resultsOpen ? listContainerEl?.activeDescendant : undefined
         "
+        :aria-haspopup="results ? 'listbox' : undefined"
+        :aria-controls="results ? resultsId : undefined"
+        :aria-expanded="results ? resultsOpen : undefined"
         @keydown="onKeyDown"
         @focus="onFocus"
         @blur="onBlur"
@@ -145,10 +151,12 @@ defineExpose<KdsFormFieldExpose>({
       >
         <div class="kds-search-results-container" :style="maxHeightStyle">
           <KdsListContainer
+            :id="resultsId"
             ref="listContainer"
             variant="large"
             :possible-values="results"
             controlled-externally
+            allow-no-selection
             empty-text="No search results"
             aria-label="Search results list"
             @item-click="onResultClick"

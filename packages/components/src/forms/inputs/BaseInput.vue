@@ -23,6 +23,10 @@ type BaseInputProps = {
    */
   max?: number | string;
   /**
+   * Indicates whether an associated popup (e.g. listbox/combobox) is expanded
+   */
+  ariaExpanded?: boolean;
+  /**
    * Step size (relevant for type="number")
    */
   step?: number;
@@ -94,6 +98,16 @@ type BaseInputProps = {
    */
   ariaActivedescendant?: string;
   /**
+   * Indicates the type of popup element controlled by this input (for aria-haspopup).
+   * Used when the input triggers a listbox, menu, dialog, etc.
+   */
+  ariaHaspopup?: "listbox" | "menu" | "dialog" | "grid" | "tree" | "true";
+  /**
+   * ID of the popup element controlled by this input (for aria-controls).
+   * Used together with aria-haspopup to link the input to its popup.
+   */
+  ariaControls?: string;
+  /**
    * Unit shown next to the input value
    */
   unit?: string;
@@ -136,6 +150,7 @@ const props = withDefaults(defineProps<BaseInputProps>(), {
   ariaLabel: undefined,
   ariaLabelledby: undefined,
   ariaDescribedby: undefined,
+  ariaExpanded: undefined,
   ariaInvalid: undefined,
   role: undefined,
   ariaValuenow: undefined,
@@ -143,6 +158,8 @@ const props = withDefaults(defineProps<BaseInputProps>(), {
   ariaValuemax: undefined,
   ariaValuetext: undefined,
   ariaActivedescendant: undefined,
+  ariaHaspopup: undefined,
+  ariaControls: undefined,
   unit: undefined,
   inputmode: undefined,
   clearable: false,
@@ -247,6 +264,9 @@ defineExpose({
       :aria-valuemax="props.ariaValuemax"
       :aria-valuetext="props.ariaValuetext"
       :aria-activedescendant="props.ariaActivedescendant"
+      :aria-haspopup="props.ariaHaspopup"
+      :aria-controls="props.ariaControls"
+      :aria-expanded="props.ariaExpanded"
       :class="{ 'input-field': true, 'has-value': hasValue }"
       @input="handleInput"
       @focus="emit('focus', $event)"

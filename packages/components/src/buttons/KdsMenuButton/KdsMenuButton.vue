@@ -27,7 +27,7 @@ const attrs = useAttrs();
 
 const emit = defineEmits<{
   /** Emitted when item is clicked */
-  itemClick: [id: string];
+  itemClick: [id?: string];
 }>();
 
 const toggleButtonProps = computed(() => {
@@ -59,7 +59,10 @@ const maxHeightStyle = computed<StyleValue>(() => {
   };
 });
 
-const onItemClick = (itemId: string) => {
+const onItemClick = (itemId?: string) => {
+  if (!itemId) {
+    return;
+  }
   isMenuOpen.value = false;
   emit("itemClick", itemId);
 };
@@ -74,7 +77,7 @@ const onItemClick = (itemId: string) => {
     :aria-controls="menuId"
     :style="popoverEl?.anchorStyle"
     @focus="listContainerEl?.handleFocus"
-    @keydown="listContainerEl?.handleKeydown"
+    @keydown="isMenuOpen && listContainerEl?.handleKeydown"
     @blur="isMenuOpen = false"
   />
 

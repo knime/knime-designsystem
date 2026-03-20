@@ -73,6 +73,10 @@ const meta = {
       control: "boolean",
       table: { category: "props" },
     },
+    allowNoSelection: {
+      control: "boolean",
+      table: { category: "props" },
+    },
     role: {
       control: "select",
       options: kdsListContainerRoles,
@@ -89,6 +93,7 @@ const meta = {
     emptyText: "No entries found",
     loading: false,
     controlledExternally: false,
+    allowNoSelection: false,
     role: "listbox",
     onItemClick: fn(),
   },
@@ -452,6 +457,81 @@ export const WithExternalControlEl: Story = {
     await expect(firstOption).toHaveClass("active");
     await userEvent.unhover(firstOption);
     await expect(firstOption).toHaveClass("active");
+  },
+};
+
+export const AllowNoSelection: Story = {
+  args: {
+    controlledExternally: true,
+    allowNoSelection: true,
+  },
+  render: (args) => ({
+    components: { KdsListContainer, BaseInput },
+    setup() {
+      const listContainer = useTemplateRef("listContainer");
+      return { args, listContainer };
+    },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <BaseInput
+          placeholder="Focus input to control the list"
+          aria-label="Focus input to control the list"
+          type="search"
+          :aria-activedescendant="listContainer?.activeDescendant"
+          @keydown="listContainer?.handleKeydown($event)"
+          @focus="listContainer?.handleFocus()"
+          @blur="listContainer?.handleBlur()"
+        />
+        <div style="border-radius: var(--kds-border-radius-container-0-37x); box-shadow: var(--kds-elevation-level-3);">
+          <KdsListContainer ref="listContainer" v-bind="args" />
+        </div>
+      </div>
+    `,
+  }),
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("searchbox", {
+      name: "Focus input to control the list",
+    });
+    const firstOption = canvas.getByRole("option", { name: "Label 1" });
+    const lastOption = canvas.getByRole("option", { name: "Label 5" });
+
+    // --- Focus does NOT auto-activate any item ---
+    await userEvent.click(input);
+    await expect(input).toHaveFocus();
+    await expect(firstOption).not.toHaveClass("active");
+    await expect(lastOption).not.toHaveClass("active");
+
+    // --- ArrowDown from no selection activates the first item ---
+    await userEvent.keyboard("{ArrowDown}");
+    await expect(firstOption).toHaveClass("active");
+
+    // --- ArrowDown from the last item clears active (no selection) ---
+    await userEvent.keyboard("{End}");
+    await expect(lastOption).toHaveClass("active");
+    await userEvent.keyboard("{ArrowDown}");
+    await expect(lastOption).not.toHaveClass("active");
+    await expect(firstOption).not.toHaveClass("active");
+
+    // --- ArrowUp from no selection activates the last item ---
+    await userEvent.keyboard("{ArrowUp}");
+    await expect(lastOption).toHaveClass("active");
+
+    // --- ArrowUp from the first item clears active (no selection) ---
+    await userEvent.keyboard("{Home}");
+    await expect(firstOption).toHaveClass("active");
+    await userEvent.keyboard("{ArrowUp}");
+    await expect(firstOption).not.toHaveClass("active");
+    await expect(lastOption).not.toHaveClass("active");
+
+    // --- Enter emits event with undefined id
+    await userEvent.keyboard("{Enter}");
+    await expect(args.onItemClick).toHaveBeenCalledWith(undefined);
+
+    // --- Navigate to an item and confirm Enter emits ---
+    await userEvent.keyboard("{ArrowDown}");
+    await userEvent.keyboard("{Enter}");
+    await expect(args.onItemClick).toHaveBeenCalledWith("option-1");
   },
 };
 
