@@ -41,6 +41,35 @@ export type KdsSubTextProps = {
   preserveSubTextSpace?: boolean;
 };
 
+type KdsFieldsetLabelProps =
+  | {
+      /**
+       * Legend text displayed above the fieldset content.
+       */
+      label: string;
+      ariaLabel?: never;
+      /**
+       * Optional description displayed in an info popover next to the legend.
+       * The info toggle button is only visible when hovering the fieldset.
+       */
+      description?: string;
+    }
+  | {
+      label?: never;
+      /**
+       * Accessible label used when no visible legend is rendered.
+       */
+      ariaLabel: string;
+      description?: never;
+    };
+
+export type KdsFieldsetProps = KdsFieldsetLabelProps & {
+  /**
+   * Fieldset id
+   */
+  id?: string;
+} & Omit<KdsSubTextProps, "id">;
+
 type KdsInputDescriptionProps = {
   /**
    * Optional description displayed in an info popover next to the label.
