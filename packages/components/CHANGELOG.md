@@ -1,5 +1,16 @@
 # @knime/kds-components
 
+## 0.18.0
+
+### Minor Changes
+
+- 7ddea9a: BREAKING CHANGE: KdsSearchInput: Emit result-click with undefined when no result value is selected
+
+### Patch Changes
+
+- fdf7787: KDS-768: Enhance KdsNumberInput component with pointer events for step buttons and keyboard support
+  - @knime/kds-styles@0.18.0
+
 ## 0.17.2
 
 ### Patch Changes
