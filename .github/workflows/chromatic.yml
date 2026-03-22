@@ -75,7 +75,7 @@ jobs:
           ref: ${{ steps.security.outputs.sha }}
           fetch-depth: 0
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v5
         if: steps.security.outputs.allowed == 'true'
       - name: Install Node.js
         if: steps.security.outputs.allowed == 'true'
