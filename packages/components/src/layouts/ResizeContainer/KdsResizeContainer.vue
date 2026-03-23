@@ -93,8 +93,7 @@ const contentStyle = computed<CSSProperties>(() => ({
       :handle-gap="handleGap"
       @pointerdown="onPointerDown"
       @pointermove.prevent="onPointerMove"
-      @pointerup="onPointerUp"
-      @pointercancel="onPointerUp"
+      @lostpointercapture="onPointerUp"
       @keydown="onKeydown"
       @dblclick="toggleMaximized"
     />

@@ -227,8 +227,7 @@ const onHueKeyDown = (event: KeyboardEvent) => {
       tabindex="0"
       @pointerdown.prevent="onColorspacePointerDown"
       @pointermove.prevent="onColorspacePointerMove"
-      @pointerup="onColorspacePointerUp"
-      @pointercancel="onColorspacePointerUp"
+      @lostpointercapture="onColorspacePointerUp"
       @keydown="onColorspaceKeyDown"
     >
       <div class="handle" :style="colorspaceHandleStyle" />
@@ -246,8 +245,7 @@ const onHueKeyDown = (event: KeyboardEvent) => {
       tabindex="0"
       @pointerdown.prevent="onHuePointerDown"
       @pointermove.prevent="onHuePointerMove"
-      @pointerup="onHuePointerUp"
-      @pointercancel="onHuePointerUp"
+      @lostpointercapture="onHuePointerUp"
       @keydown="onHueKeyDown"
     >
       <div class="handle" :style="hueHandleStyle" />
