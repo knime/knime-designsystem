@@ -36,12 +36,24 @@ const filteredSuggestions = computed<KdsListOption[]>(() => {
     return [];
   }
   const query = modelValue.value.trim().toLowerCase();
-  return props.suggestions
+  const filtered = props.suggestions
     .filter((s) => query.length === 0 || s.toLowerCase().includes(query))
     .map((s, index) => ({
       id: String(index),
       text: s,
     }));
+
+  if (!filtered.length) {
+    return [
+      {
+        id: undefined,
+        text: modelValue.value,
+        accessory: { type: "icon", name: "plus" },
+      },
+    ];
+  }
+
+  return filtered;
 });
 
 const onFocus = () => {
@@ -66,22 +78,13 @@ const onKeydown = (event: KeyboardEvent) => {
     return;
   }
 
-  if (!popoverOpen.value) {
-    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
-      popoverOpen.value = true;
-      listContainerRef.value?.handleFocus();
-      listContainerRef.value?.handleKeydown(event);
-      event.preventDefault();
-    }
-    return;
+  if (popoverOpen.value) {
+    listContainerRef.value?.handleKeydown(event);
+  } else {
+    popoverOpen.value = true;
+    listContainerRef.value?.handleFocus();
+    listContainerRef.value?.handleKeydown(event);
   }
-
-  if (event.key === "Escape") {
-    closePopover();
-    event.preventDefault();
-    return;
-  }
-  listContainerRef.value?.handleKeydown(event);
 };
 
 const onItemClick = (id?: string) => {
