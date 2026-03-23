@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
 
+import { usePointerHandler } from "../../../util/usePointerHandler";
 import KdsTextInput from "../TextInput/KdsTextInput.vue";
 
 import {
@@ -11,7 +12,6 @@ import {
   normalizeHexColor,
   rgbToHsv,
 } from "./colorUtils";
-import { usePointerHandler } from "./usePointerHandler";
 
 const DEFAULT_HUE_DEG = 270;
 const DEFAULT_SATURATION = 0.8;
@@ -227,8 +227,7 @@ const onHueKeyDown = (event: KeyboardEvent) => {
       tabindex="0"
       @pointerdown.prevent="onColorspacePointerDown"
       @pointermove.prevent="onColorspacePointerMove"
-      @pointerup="onColorspacePointerUp"
-      @pointercancel="onColorspacePointerUp"
+      @lostpointercapture="onColorspacePointerUp"
       @keydown="onColorspaceKeyDown"
     >
       <div class="handle" :style="colorspaceHandleStyle" />
@@ -246,8 +245,7 @@ const onHueKeyDown = (event: KeyboardEvent) => {
       tabindex="0"
       @pointerdown.prevent="onHuePointerDown"
       @pointermove.prevent="onHuePointerMove"
-      @pointerup="onHuePointerUp"
-      @pointercancel="onHuePointerUp"
+      @lostpointercapture="onHuePointerUp"
       @keydown="onHueKeyDown"
     >
       <div class="handle" :style="hueHandleStyle" />
