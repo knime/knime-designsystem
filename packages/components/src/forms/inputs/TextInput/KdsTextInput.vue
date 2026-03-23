@@ -120,7 +120,6 @@ defineExpose<KdsFormFieldExpose>({
         ref="popoverRef"
         v-model="popoverOpen"
         placement="bottom-left"
-        role="listbox"
         full-width
         popover-type="manual"
         popover-aria-label="Suggestions"
