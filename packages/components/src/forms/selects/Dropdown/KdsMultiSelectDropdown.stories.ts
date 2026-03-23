@@ -24,6 +24,7 @@ const baseOptions: KdsDropdownOption[] = [
   { id: "c", text: "Other" },
   { id: "d", text: "Disabled", disabled: true },
   { id: "e", text: "Fifth option" },
+  { id: "", text: "Option with empty value" },
 ];
 
 const meta: Meta<typeof KdsMultiSelectDropdown> = {
@@ -141,13 +142,19 @@ export const Default: Story = {
     await userEvent.click(canvas.getByRole("option", { name: "Label" }));
     await expect(trigger).toHaveTextContent("Label");
 
+    // Mouse: allow selection of option with empty value
+    await userEvent.click(
+      canvas.getByRole("option", { name: "Option with empty value" }),
+    );
+    await expect(trigger).toHaveTextContent("Selected (2/6)");
+
     // Keyboard: navigate and select inside the open dropdown
     const filterInput = canvas.getByRole("searchbox", {
       name: "Filter options",
     });
     await userEvent.click(filterInput);
     await userEvent.keyboard("{ArrowDown}{ArrowDown}{Enter}");
-    await expect(trigger).toHaveTextContent("Selected (2/5)");
+    await expect(trigger).toHaveTextContent("Selected (3/6)");
   },
 };
 
