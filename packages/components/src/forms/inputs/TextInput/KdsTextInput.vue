@@ -117,6 +117,7 @@ defineExpose<KdsFormFieldExpose>({
 
 <template>
   <BaseFormFieldWrapper
+    :id="props.id"
     :label="props.label"
     :aria-label="props.ariaLabel"
     :description="props.description"
