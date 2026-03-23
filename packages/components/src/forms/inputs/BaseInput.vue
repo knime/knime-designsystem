@@ -108,6 +108,11 @@ type BaseInputProps = {
    */
   ariaControls?: string;
   /**
+   * Indicates whether the input provides an autocomplete experience
+   * (for aria-autocomplete). Used with combobox roles.
+   */
+  ariaAutocomplete?: "none" | "inline" | "list" | "both";
+  /**
    * Unit shown next to the input value
    */
   unit?: string;
@@ -160,6 +165,7 @@ const props = withDefaults(defineProps<BaseInputProps>(), {
   ariaActivedescendant: undefined,
   ariaHaspopup: undefined,
   ariaControls: undefined,
+  ariaAutocomplete: undefined,
   unit: undefined,
   inputmode: undefined,
   clearable: false,
@@ -267,6 +273,7 @@ defineExpose({
       :aria-haspopup="props.ariaHaspopup"
       :aria-controls="props.ariaControls"
       :aria-expanded="props.ariaExpanded"
+      :aria-autocomplete="props.ariaAutocomplete"
       :class="{ 'input-field': true, 'has-value': hasValue }"
       @input="handleInput"
       @focus="emit('focus', $event)"

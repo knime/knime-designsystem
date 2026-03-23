@@ -1,7 +1,14 @@
 <script setup lang="ts">
-import { useTemplateRef } from "vue";
+import { computed, ref, useTemplateRef } from "vue";
 
+import type { KdsPopoverExpose } from "../../../overlays/Popover";
+import KdsPopover from "../../../overlays/Popover/KdsPopover.vue";
 import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
+import type {
+  KdsListContainerExpose,
+  KdsListOption,
+} from "../../_helper/List/ListContainer";
+import { KdsListContainer } from "../../_helper/List/ListContainer";
 import type { KdsFormFieldExpose } from "../../types.ts";
 import BaseInput from "../BaseInput.vue";
 
@@ -17,6 +24,67 @@ const props = withDefaults(defineProps<KdsTextInputProps>(), {
 const modelValue = defineModel<string>({ default: "" });
 
 const baseInput = useTemplateRef("baseInput");
+const popoverRef = useTemplateRef<KdsPopoverExpose>("popoverRef");
+const listContainerRef =
+  useTemplateRef<KdsListContainerExpose>("listContainerRef");
+const popoverOpen = ref(false);
+const isFocused = ref(false);
+
+const filteredSuggestions = computed<KdsListOption[]>(() => {
+  if (!props.suggestions) {
+    return [];
+  }
+  const query = modelValue.value.trim().toLowerCase();
+  return props.suggestions
+    .filter((s) => query.length === 0 || s.toLowerCase().includes(query))
+    .map((s) => ({
+      id: s,
+      text: s,
+    }));
+});
+
+const hasSuggestions = computed(
+  () => props.suggestions?.length && filteredSuggestions.value.length,
+);
+
+const onFocus = () => {
+  isFocused.value = true;
+  if (hasSuggestions.value && filteredSuggestions.value.length > 0) {
+    popoverOpen.value = true;
+    listContainerRef.value?.handleFocus();
+  }
+};
+
+const onBlur = () => {
+  isFocused.value = false;
+  popoverOpen.value = false;
+  listContainerRef.value?.handleBlur();
+};
+
+const closePopover = () => {
+  popoverOpen.value = false;
+  listContainerRef.value?.handleBlur();
+};
+
+const onKeydown = (event: KeyboardEvent) => {
+  if (!hasSuggestions.value || !popoverOpen.value) {
+    popoverOpen.value = true;
+    return;
+  }
+  if (event.key === "Escape") {
+    closePopover();
+    event.preventDefault();
+    return;
+  }
+  listContainerRef.value?.handleKeydown(event);
+};
+
+const onItemClick = (id?: string) => {
+  if (id !== undefined) {
+    modelValue.value = id;
+  }
+  closePopover();
+};
 
 defineExpose<KdsFormFieldExpose>({
   focus: () => baseInput.value?.focus(),
@@ -34,8 +102,49 @@ defineExpose<KdsFormFieldExpose>({
         :placeholder="props.placeholder"
         :disabled="props.disabled"
         :error="props.error"
-        :autocomplete="props.autocomplete"
+        :autocomplete="hasSuggestions ? 'off' : props.autocomplete"
+        :role="hasSuggestions ? 'combobox' : undefined"
+        :aria-haspopup="hasSuggestions ? 'listbox' : undefined"
+        :aria-expanded="hasSuggestions ? popoverOpen : undefined"
+        :aria-autocomplete="hasSuggestions ? 'both' : undefined"
+        :aria-controls="popoverRef?.popoverId"
+        :aria-activedescendant="listContainerRef?.activeDescendant"
+        :style="hasSuggestions ? popoverRef?.anchorStyle : undefined"
+        @focus="onFocus"
+        @blur="onBlur"
+        @keydown="onKeydown"
       />
+
+      <KdsPopover
+        v-if="hasSuggestions"
+        ref="popoverRef"
+        v-model="popoverOpen"
+        placement="bottom-left"
+        role="listbox"
+        full-width
+        popover-type="manual"
+        popover-aria-label="Suggestions"
+      >
+        <KdsListContainer
+          ref="listContainerRef"
+          class="kds-text-input-suggestions"
+          :possible-values="filteredSuggestions"
+          empty-text="No suggestions"
+          allow-no-selection
+          controlled-externally
+          aria-label="Suggestions"
+          @item-click="onItemClick"
+        />
+      </KdsPopover>
     </template>
   </BaseFormFieldWrapper>
 </template>
+
+<style scoped>
+.kds-text-input-suggestions {
+  max-height: var(--kds-dimension-component-height-12x);
+  background-color: var(--kds-color-surface-default);
+  border-radius: var(--kds-border-radius-container-0-50x);
+  box-shadow: var(--kds-elevation-level-3);
+}
+</style>
