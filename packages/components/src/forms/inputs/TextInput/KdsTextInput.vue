@@ -85,13 +85,12 @@ const onKeydown = (event: KeyboardEvent) => {
   }
 
   if (!popoverOpen.value) {
-    popoverOpen.value = true;
-    listContainerRef.value?.handleFocus();
-    listContainerRef.value?.handleKeydown(event);
+    if (event.key !== "Enter" && event.key !== "Escape") {
+      popoverOpen.value = true;
+      listContainerRef.value?.handleFocus();
+    }
     return;
-  }
-
-  if (event.key === "Escape") {
+  } else if (event.key === "Escape") {
     closePopover();
     event.preventDefault();
     return;

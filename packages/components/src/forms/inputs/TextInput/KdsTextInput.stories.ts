@@ -372,8 +372,28 @@ export const WithSuggestions: Story = {
       await userEvent.clear(input);
       await userEvent.type(input, "Kiwi");
       await expect(input).toHaveValue("Kiwi");
-      input.blur();
     });
+
+    await step("Hide popover when no suggestions match free text", async () => {
+      await waitFor(() => {
+        expect(input).toHaveAttribute("aria-expanded", "false");
+      });
+      await expect(canvas.queryByRole("option")).not.toBeInTheDocument();
+    });
+
+    await step(
+      "Reopen popover when clearing to match suggestions again",
+      async () => {
+        await userEvent.clear(input);
+        await waitFor(() => {
+          expect(input).toHaveAttribute("aria-expanded", "true");
+        });
+        await expect(
+          canvas.getByRole("option", { name: "Apple" }),
+        ).toBeInTheDocument();
+        input.blur();
+      },
+    );
   },
 };
 
