@@ -1,4 +1,4 @@
-import type { KdsMenuItem } from "../types";
+import type { KdsMenuItem } from "../../../buttons/KdsMenuButton/types";
 
 export type KdsMenuContainerProps = {
   /** id of the menu to be linked via aria-controls */

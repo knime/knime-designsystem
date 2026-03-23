@@ -9,11 +9,11 @@ import {
   watchEffect,
 } from "vue";
 
+import KdsMenuContainer from "../../forms/_helper/MenuContainer/KdsMenuContainer.vue";
 import type { KdsPopoverExpose } from "../../overlays/Popover";
 import KdsPopover from "../../overlays/Popover/KdsPopover.vue";
 import KdsToggleButton from "../KdsToggleButton/KdsToggleButton.vue";
 
-import KdsMenuContainer from "./MenuContainer/KdsMenuContainer.vue";
 import type { KdsMenuButtonProps } from "./types";
 
 defineOptions({
