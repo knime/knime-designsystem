@@ -167,7 +167,7 @@ export async function convertStoryCodeToSfc(
     const method = objLiteral.getFirstDescendantByKind(
       SyntaxKind.MethodDeclaration,
     );
-    if (method && method.getName() === "setup") {
+    if (method?.getName() === "setup") {
       const bodyText = method.getBodyText();
       if (bodyText) {
         setupBody = bodyText.trim();
@@ -196,7 +196,9 @@ export async function convertStoryCodeToSfc(
   }
 
   if (setupBody) {
-    const returnMatch = setupBody.match(/return\s*{([\s\S]*?)}\s*;?$/);
+    const returnMatch = new RegExp(/return\s*{([\s\S]*?)}\s*;?$/).exec(
+      setupBody,
+    );
     if (returnMatch) {
       setupBody = setupBody.replace(/return\s*{[\s\S]*?}\s*;?$/, "").trim();
     }

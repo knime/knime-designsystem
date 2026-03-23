@@ -68,14 +68,14 @@ fontValues.forEach((fontValue) => {
         .join(" ")
         .replace(/,.*$/, "")
         .trim()
-        .replace(/['"]/g, "");
+        .replaceAll(/['"]/g, "");
       break;
     }
   }
 
   if (fontFamily) {
     // Normalize font family name to package name
-    const packageName = fontFamily.toLowerCase().replace(/\s+/g, "-");
+    const packageName = fontFamily.toLowerCase().replaceAll(/\s+/g, "-");
 
     if (!fontRequirements.has(packageName)) {
       fontRequirements.set(packageName, new Set());
@@ -94,21 +94,19 @@ const sortedFonts = Array.from(fontRequirements.entries()).sort(([a], [b]) =>
 
 // Generate CSS imports
 const imports = [];
-imports.push("/**");
 imports.push(
+  "/**",
   " * Auto-generated font imports based on design tokens in _variables.css",
-);
-imports.push(
   " * DO NOT EDIT MANUALLY - Run `pnpm build:fonts` to regenerate this file",
+  " */",
+  "",
 );
-imports.push(" */");
-imports.push("");
 
 sortedFonts.forEach(([fontFamily, variants]) => {
   const sortedVariants = Array.from(variants).sort((a, b) => {
     // Extract weight number for sorting
-    const weightA = parseInt(a.split("-")[0], 10);
-    const weightB = parseInt(b.split("-")[0], 10);
+    const weightA = Number.parseInt(a.split("-")[0], 10);
+    const weightB = Number.parseInt(b.split("-")[0], 10);
     if (weightA !== weightB) {
       return weightA - weightB;
     }
