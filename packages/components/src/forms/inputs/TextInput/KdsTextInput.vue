@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useTemplateRef } from "vue";
+import { computed, ref, useId, useTemplateRef } from "vue";
 
 import type { KdsPopoverExpose } from "../../../overlays/Popover";
 import KdsPopover from "../../../overlays/Popover/KdsPopover.vue";
@@ -95,6 +95,8 @@ const onItemClick = (id?: string) => {
   closePopover();
 };
 
+const suggestionId = useId();
+
 defineExpose<KdsFormFieldExpose>({
   focus: () => baseInput.value?.focus(),
 });
@@ -116,7 +118,7 @@ defineExpose<KdsFormFieldExpose>({
         :aria-haspopup="hasSuggestions ? 'listbox' : undefined"
         :aria-expanded="hasSuggestions ? popoverOpen : undefined"
         :aria-autocomplete="hasSuggestions ? 'list' : undefined"
-        :aria-controls="popoverRef?.popoverId"
+        :aria-controls="hasSuggestions ? suggestionId : undefined"
         :aria-activedescendant="listContainerRef?.activeDescendant"
         :style="hasSuggestions ? popoverRef?.anchorStyle : undefined"
         @focus="onFocus"
@@ -134,6 +136,7 @@ defineExpose<KdsFormFieldExpose>({
         popover-aria-label="Suggestions"
       >
         <KdsListContainer
+          :id="suggestionId"
           ref="listContainerRef"
           class="kds-text-input-suggestions"
           :possible-values="filteredSuggestions"
