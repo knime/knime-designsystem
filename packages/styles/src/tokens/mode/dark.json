@@ -463,6 +463,16 @@
           "$type": "color",
           "$value": "{kds.core.color.neutral.475}",
           "$description": "Background color for content overlay, like tooltip."
+        },
+        "chart-1": {
+          "$type": "color",
+          "$value": "{kds.core.color.teal.475}",
+          "$description": "Color used for donut charts (Current Value)."
+        },
+        "chart-2": {
+          "$type": "color",
+          "$value": "{kds.core.color.teal.650}",
+          "$description": "Color used for donut charts (Added Value)."
         }
       },
       "text-and-icon": {

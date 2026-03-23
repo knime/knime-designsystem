@@ -175,6 +175,11 @@
             "$value": "{kds.core.size.scale} * 2.25",
             "$description": "Large component height (36px). Use for standard buttons and form inputs."
           },
+          "2_75x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 2.75",
+            "$description": "Component height (44px). Used for donut chart."
+          },
           "2_5x": {
             "$type": "dimension",
             "$value": "{kds.core.size.scale} * 2.5",
@@ -189,6 +194,11 @@
             "$type": "dimension",
             "$value": "{kds.core.size.scale} * 12",
             "$description": "Intended for max-height on elements"
+          },
+          "12_5x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 12.5",
+            "$description": "Intended for donut charts"
           },
           "20x": {
             "$type": "dimension",
@@ -252,6 +262,11 @@
             "$value": "{kds.core.size.scale} * 2.25",
             "$description": "Large component width (36px). Use for square buttons and larger icons."
           },
+          "2_75x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 2.75",
+            "$description": "Component width (44px). Use for donut charts."
+          },
           "4x": {
             "$type": "dimension",
             "$value": "{kds.core.size.scale} * 4",
@@ -261,6 +276,11 @@
             "$type": "dimension",
             "$value": "{kds.core.size.scale} * 12",
             "$description": "Container width (192px). Use for listContainer and menuContainer."
+          },
+          "12_5x": {
+            "$type": "dimension",
+            "$value": "{kds.core.size.scale} * 12.5",
+            "$description": "Intended for donut charts"
           },
           "16x": {
             "$type": "dimension",
