@@ -3,9 +3,9 @@ import { Project } from "ts-morph";
 import { IMPORT_PACKAGE } from "./constants";
 
 export function convertImportsInSfc(vueCode: string) {
-  const scriptMatch = vueCode.match(
+  const scriptMatch = new RegExp(
     /<script\b([^>]*)>([\s\S]*?)<\/script\b[^>]*>/i,
-  );
+  ).exec(vueCode);
 
   if (!scriptMatch) {
     return vueCode;
