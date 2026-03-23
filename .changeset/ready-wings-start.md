@@ -2,4 +2,4 @@
 "@knime/kds-components": patch
 ---
 
-KdsLabel: Click between label and input is treated as click on label now to avoid unclickable area in between
+KdsLabel: Clicking between the label and input is now treated as a click on the label, avoiding an unclickable gap.

@@ -134,6 +134,13 @@ export const Default: Story = {
       await expect(input).toHaveValue("");
     });
 
+    await step("Click label to focus input", async () => {
+      input.blur();
+      const label = canvas.getByText("Label");
+      await userEvent.click(label);
+      await expect(input).toHaveFocus();
+    });
+
     await step("Tab focus", async () => {
       input.blur();
       await userEvent.tab();

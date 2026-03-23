@@ -40,7 +40,7 @@ const { isTruncated } = useKdsIsTruncated(labelEl);
 .kds-label-wrapper {
   display: flex;
   gap: var(--kds-spacing-container-0-12x);
-  align-items: center;
+  align-items: flex-start;
   max-width: 100%;
   min-height: var(--kds-dimension-component-height-0-75x);
 }
