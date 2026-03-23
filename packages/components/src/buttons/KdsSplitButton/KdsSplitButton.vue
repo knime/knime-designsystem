@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, useId, useTemplateRef, watch } from "vue";
 
+import KdsMenuContainer from "../../forms/_helper/MenuContainer/KdsMenuContainer.vue";
 import type { KdsPopoverExpose } from "../../overlays/Popover";
 import KdsPopover from "../../overlays/Popover/KdsPopover.vue";
 import BaseButton from "../BaseButton.vue";
-import KdsMenuContainer from "../KdsMenuButton/MenuContainer/KdsMenuContainer.vue";
 
 import type { KdsSplitButtonProps } from "./types";
 
