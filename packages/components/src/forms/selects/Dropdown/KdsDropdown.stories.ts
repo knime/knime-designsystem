@@ -42,6 +42,10 @@ const baseOptions = [
     id: "e",
     text: "Option E",
   },
+  {
+    id: "",
+    text: "Option F with empty value",
+  },
 ] satisfies KdsDropdownOption[];
 
 const meta: Meta<typeof KdsDropdown> = {
@@ -196,11 +200,16 @@ export const Default: Story = {
     await expect(trigger).toHaveTextContent("Option B");
 
     // --- Clicking the same option keeps it selected ---
-    await userEvent.click(trigger);
     await userEvent.click(
-      await canvas.findByText("Option B", { selector: ".text" }),
+      await canvas.findByRole("option", { name: "Option B" }),
     );
     await expect(trigger).toHaveTextContent("Option B");
+
+    // --- Allow selection of option with empty value ---
+    await userEvent.click(
+      canvas.getByRole("option", { name: "Option F with empty value" }),
+    );
+    await expect(trigger).toHaveTextContent("Option F with empty value");
   },
 };
 

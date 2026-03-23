@@ -104,7 +104,7 @@ defineExpose({
       :empty-text="props.emptyText"
       controlled-externally
       aria-label="Dropdown options"
-      @item-click="$event && (modelValue = $event)"
+      @item-click="$event !== undefined && (modelValue = $event)"
     />
   </div>
 </template>
