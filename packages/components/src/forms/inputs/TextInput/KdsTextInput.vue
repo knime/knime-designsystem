@@ -28,7 +28,8 @@ const popoverRef = useTemplateRef<KdsPopoverExpose>("popoverRef");
 const listContainerRef =
   useTemplateRef<KdsListContainerExpose>("listContainerRef");
 const popoverOpen = ref(false);
-const isFocused = ref(false);
+
+const hasSuggestions = computed(() => Boolean(props.suggestions?.length));
 
 const filteredSuggestions = computed<KdsListOption[]>(() => {
   if (!props.suggestions) {
@@ -37,26 +38,20 @@ const filteredSuggestions = computed<KdsListOption[]>(() => {
   const query = modelValue.value.trim().toLowerCase();
   return props.suggestions
     .filter((s) => query.length === 0 || s.toLowerCase().includes(query))
-    .map((s) => ({
-      id: s,
+    .map((s, index) => ({
+      id: String(index),
       text: s,
     }));
 });
 
-const hasSuggestions = computed(
-  () => props.suggestions?.length && filteredSuggestions.value.length,
-);
-
 const onFocus = () => {
-  isFocused.value = true;
-  if (hasSuggestions.value && filteredSuggestions.value.length > 0) {
+  if (hasSuggestions.value) {
     popoverOpen.value = true;
     listContainerRef.value?.handleFocus();
   }
 };
 
 const onBlur = () => {
-  isFocused.value = false;
   popoverOpen.value = false;
   listContainerRef.value?.handleBlur();
 };
@@ -67,10 +62,20 @@ const closePopover = () => {
 };
 
 const onKeydown = (event: KeyboardEvent) => {
-  if (!hasSuggestions.value || !popoverOpen.value) {
-    popoverOpen.value = true;
+  if (!hasSuggestions.value) {
     return;
   }
+
+  if (!popoverOpen.value) {
+    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+      popoverOpen.value = true;
+      listContainerRef.value?.handleFocus();
+      listContainerRef.value?.handleKeydown(event);
+      event.preventDefault();
+    }
+    return;
+  }
+
   if (event.key === "Escape") {
     closePopover();
     event.preventDefault();
@@ -81,7 +86,10 @@ const onKeydown = (event: KeyboardEvent) => {
 
 const onItemClick = (id?: string) => {
   if (id !== undefined) {
-    modelValue.value = id;
+    const option = filteredSuggestions.value.find((o) => o.id === id);
+    if (option) {
+      modelValue.value = option.text;
+    }
   }
   closePopover();
 };
@@ -106,7 +114,7 @@ defineExpose<KdsFormFieldExpose>({
         :role="hasSuggestions ? 'combobox' : undefined"
         :aria-haspopup="hasSuggestions ? 'listbox' : undefined"
         :aria-expanded="hasSuggestions ? popoverOpen : undefined"
-        :aria-autocomplete="hasSuggestions ? 'both' : undefined"
+        :aria-autocomplete="hasSuggestions ? 'list' : undefined"
         :aria-controls="popoverRef?.popoverId"
         :aria-activedescendant="listContainerRef?.activeDescendant"
         :style="hasSuggestions ? popoverRef?.anchorStyle : undefined"
