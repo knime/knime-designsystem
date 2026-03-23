@@ -177,6 +177,72 @@ export const WithMenuMaxHeight: Story = {
   },
 };
 
+export const WithLinkItems: Story = {
+  parameters: {
+    docs: false,
+  },
+  args: {
+    variant: "outlined",
+    label: "Toggle menu",
+    items: [
+      {
+        id: "docs",
+        text: "Documentation",
+        href: "https://example.com/docs",
+      },
+      { id: "settings", text: "Settings", to: "/settings" },
+      { id: "export", text: "Export" },
+    ],
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const toggleButton = canvas.getByRole("button");
+
+    // Open the menu
+    await userEvent.click(toggleButton);
+    const menu = await canvas.findByRole("menu");
+    await expect(menu).toBeVisible();
+
+    // Verify link item with href renders as an <a> tag
+    const docsLink = await canvas.findByRole("menuitem", {
+      name: "Documentation",
+    });
+    await expect(docsLink.tagName).toBe("A");
+    await expect(docsLink).toHaveAttribute("href", "https://example.com/docs");
+
+    // Verify item with `to` also renders as an <a> tag (fallback without router)
+    const settingsLink = await canvas.findByRole("menuitem", {
+      name: "Settings",
+    });
+    await expect(settingsLink.tagName).toBe("A");
+
+    // Non-link item renders as a div
+    const exportAction = await canvas.findByRole("menuitem", {
+      name: "Export",
+    });
+    await expect(exportAction.tagName).toBe("DIV");
+
+    // Close menu
+    await userEvent.click(toggleButton);
+    await expect(canvas.queryByRole("menu")).not.toBeInTheDocument();
+
+    // Keyboard interaction: open menu and navigate to a link item
+    toggleButton.blur();
+    await userEvent.tab();
+    await expect(toggleButton).toHaveFocus();
+    await userEvent.keyboard("[Enter]");
+    const keyboardMenu = await canvas.findByRole("menu");
+    await expect(keyboardMenu).toBeVisible();
+
+    // Arrow down to the first item (href link) and verify it's active
+    await userEvent.keyboard("[ArrowDown]");
+    const activeDocsLink = await canvas.findByRole("menuitem", {
+      name: "Documentation",
+    });
+    await expect(activeDocsLink.tagName).toBe("A");
+  },
+};
+
 export const TextOverflow: Story = {
   ...buildTextOverflowStory({
     component: KdsMenuButton,
