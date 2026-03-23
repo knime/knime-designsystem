@@ -311,7 +311,7 @@ export const WithSuggestions: Story = {
 
     await step("Open suggestions on focus and select via click", async () => {
       await userEvent.click(input);
-      const option = await canvas.findByText("Cherry");
+      const option = await canvas.findByRole("option", { name: "Cherry" });
       await expect(option).toBeInTheDocument();
       await userEvent.click(option);
       await expect(input).toHaveValue("Cherry");
@@ -320,19 +320,25 @@ export const WithSuggestions: Story = {
     await step("Filter suggestions while typing", async () => {
       await userEvent.clear(input);
       await userEvent.type(input, "Gr");
-      await expect(canvas.getByText("Grape")).toBeInTheDocument();
-      await expect(canvas.queryByText("Apple")).not.toBeInTheDocument();
+      await expect(
+        canvas.getByRole("option", { name: "Grape" }),
+      ).toBeInTheDocument();
+      await expect(
+        canvas.queryByRole("option", { name: "Apple" }),
+      ).not.toBeInTheDocument();
     });
 
     await step("Select via keyboard (ArrowDown + Enter)", async () => {
       await userEvent.clear(input);
       input.blur();
       await userEvent.click(input);
-      await canvas.findByText("Apple");
+      await canvas.findByRole("option", { name: "Apple" });
       await userEvent.type(input, "Ban");
-      await waitFor(() =>
-        expect(canvas.queryByText("Apple")).not.toBeInTheDocument(),
-      );
+      await waitFor(() => {
+        expect(
+          canvas.queryByRole("option", { name: "Apple" }),
+        ).not.toBeInTheDocument();
+      });
       await userEvent.keyboard("{ArrowDown}");
       await userEvent.keyboard("{Enter}");
       await expect(input).toHaveValue("Banana");
@@ -341,14 +347,26 @@ export const WithSuggestions: Story = {
     await step("Close suggestions with Escape", async () => {
       await userEvent.clear(input);
       await userEvent.type(input, "A");
-      await expect(canvas.getByText("Apple")).toBeInTheDocument();
+      await expect(
+        canvas.getByRole("option", { name: "Apple" }),
+      ).toBeInTheDocument();
       await userEvent.keyboard("{Escape}");
       await expect(input).toHaveValue("A");
+      await waitFor(() => {
+        expect(input).toHaveAttribute("aria-expanded", "false");
+      });
+      await waitFor(() => {
+        expect(
+          canvas.queryByRole("option", { name: "Apple" }),
+        ).not.toBeInTheDocument();
+      });
     });
 
     await step("Reopen suggestions when typing after Escape", async () => {
       await userEvent.type(input, "p");
-      await expect(canvas.getByText("Apple")).toBeInTheDocument();
+      await expect(
+        canvas.getByRole("option", { name: "Apple" }),
+      ).toBeInTheDocument();
     });
     await step("Allow free text input", async () => {
       await userEvent.clear(input);

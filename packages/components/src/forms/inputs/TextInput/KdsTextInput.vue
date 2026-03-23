@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useId, useTemplateRef } from "vue";
+import { computed, ref, useId, useTemplateRef, watch } from "vue";
 
 import type { KdsPopoverExpose } from "../../../overlays/Popover";
 import KdsPopover from "../../../overlays/Popover/KdsPopover.vue";
@@ -28,6 +28,7 @@ const popoverRef = useTemplateRef<KdsPopoverExpose>("popoverRef");
 const listContainerRef =
   useTemplateRef<KdsListContainerExpose>("listContainerRef");
 const popoverOpen = ref(false);
+const isFocused = ref(false);
 
 const hasSuggestions = computed(() => Boolean(props.suggestions?.length));
 
@@ -36,19 +37,17 @@ const filteredSuggestions = computed<KdsListOption[]>(() => {
     return [];
   }
   const query = modelValue.value.trim().toLowerCase();
-  const filtered = props.suggestions
+  return props.suggestions
     .filter((s) => query.length === 0 || s.toLowerCase().includes(query))
     .map((s, index) => ({
       id: String(index),
       text: s,
     }));
-
-  if (!filtered.length) {
-    return [{ id: "__free-text__", text: modelValue.value }];
-  }
-
-  return filtered;
 });
+
+const hasFilteredSuggestions = computed(
+  () => filteredSuggestions.value.length > 0,
+);
 
 const closePopover = () => {
   popoverOpen.value = false;
@@ -56,18 +55,32 @@ const closePopover = () => {
 };
 
 const onFocus = () => {
-  if (hasSuggestions.value) {
+  isFocused.value = true;
+  if (hasFilteredSuggestions.value) {
     popoverOpen.value = true;
     listContainerRef.value?.handleFocus();
   }
 };
 
 const onBlur = () => {
+  isFocused.value = false;
   closePopover();
 };
 
+watch(hasFilteredSuggestions, (has) => {
+  if (!isFocused.value) {
+    return;
+  }
+  if (has) {
+    popoverOpen.value = true;
+    listContainerRef.value?.handleFocus();
+  } else {
+    closePopover();
+  }
+});
+
 const onKeydown = (event: KeyboardEvent) => {
-  if (!hasSuggestions.value) {
+  if (!hasFilteredSuggestions.value) {
     return;
   }
 
