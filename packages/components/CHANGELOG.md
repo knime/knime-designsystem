@@ -1,5 +1,13 @@
 # @knime/kds-components
 
+## 0.18.2
+
+### Patch Changes
+
+- 4634bd0: KdsLabel: Clicking between the label and input is now treated as a click on the label, avoiding an unclickable gap.
+- f3abe32: KDS-805: useIcon: change from try/catch to .catch to avoid uncaught AbortError of import()
+  - @knime/kds-styles@0.18.2
+
 ## 0.18.1
 
 ### Patch Changes
