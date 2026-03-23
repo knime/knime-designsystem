@@ -22,7 +22,6 @@ const emit = defineEmits<{
 const isMenuOpen = ref(false);
 const popoverEl = useTemplateRef<KdsPopoverExpose>("popoverEl");
 const menuContainer = useTemplateRef("menuContainer");
-const secondaryButton = useTemplateRef<HTMLElement>("secondaryButton");
 const menuId = useId();
 
 const buttonClasses = computed(() => ({
