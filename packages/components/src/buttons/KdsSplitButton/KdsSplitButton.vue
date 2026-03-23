@@ -77,23 +77,23 @@ watch(isMenuOpen, (open) => {
       :style="popoverEl?.anchorStyle"
       @click="isMenuOpen = !isMenuOpen"
     />
-
-    <KdsPopover
-      ref="popoverEl"
-      v-model="isMenuOpen"
-      placement="bottom-left"
-      popover-aria-label="Actions"
-    >
-      <KdsMenuContainer
-        :id="menuId"
-        ref="menuContainer"
-        :items="props.alternativeActions"
-        :menu-max-height="props.menuMaxHeight"
-        aria-label="Actions"
-        @item-click="onItemClick"
-      />
-    </KdsPopover>
   </div>
+  <KdsPopover
+    ref="popoverEl"
+    v-model="isMenuOpen"
+    placement="bottom-left"
+    popover-aria-label="Actions"
+  >
+    <KdsMenuContainer
+      :id="menuId"
+      ref="menuContainer"
+      :items="props.alternativeActions"
+      :menu-max-height="props.menuMaxHeight"
+      aria-label="Actions"
+      @item-click="onItemClick"
+      @keydown.escape="isMenuOpen = false"
+    />
+  </KdsPopover>
 </template>
 
 <style scoped>
@@ -106,10 +106,6 @@ watch(isMenuOpen, (open) => {
 
   &.outlined {
     gap: var(--kds-spacing-container-none);
-  }
-
-  &.disabled {
-    cursor: default;
   }
 
   & .kds-split-button-primary.outlined {

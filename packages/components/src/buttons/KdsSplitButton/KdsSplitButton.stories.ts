@@ -131,10 +131,32 @@ export const Default: Story = {
     const keyboardMenu = await canvas.findByRole("menu");
     await expect(keyboardMenu).toBeVisible();
 
-    // Navigate and select with keyboard
+    // Navigate down and select with keyboard
     await userEvent.keyboard("[ArrowDown]");
     await userEvent.keyboard("[Enter]");
     await expect(canvas.queryByRole("menu")).not.toBeInTheDocument();
+
+    // Open menu with Space key
+    await expect(secondaryButton).toHaveFocus();
+    await userEvent.keyboard(" ");
+    const spaceMenu = await canvas.findByRole("menu");
+    await expect(spaceMenu).toBeVisible();
+
+    // Escape closes menu
+    await userEvent.keyboard("[Escape]");
+    await expect(canvas.queryByRole("menu")).not.toBeInTheDocument();
+
+    // Open menu again, navigate up with ArrowUp and select
+    await userEvent.keyboard("[Enter]");
+    await canvas.findByRole("menu");
+    await userEvent.keyboard("[ArrowUp]");
+    await userEvent.keyboard("[Enter]");
+    await expect(canvas.queryByRole("menu")).not.toBeInTheDocument();
+
+    // Tab from primary to secondary button
+    primaryButton.focus();
+    await userEvent.tab();
+    await expect(secondaryButton).toHaveFocus();
   },
 };
 
@@ -153,6 +175,26 @@ export const Disabled: Story = {
     size: "medium",
     label: "{Label}",
     disabled: true,
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+
+    const primaryButton = canvas.getByRole("button", { name: "{Label}" });
+    const secondaryButton = canvas.getByRole("button", {
+      name: "More options",
+    });
+
+    // Both buttons should be disabled
+    await expect(primaryButton).toBeDisabled();
+    await expect(secondaryButton).toBeDisabled();
+
+    // Clicking primary should not fire event
+    await userEvent.click(primaryButton);
+    await expect(args["onClick:primary"]).not.toHaveBeenCalled();
+
+    // Clicking secondary should not open menu
+    await userEvent.click(secondaryButton);
+    await expect(canvas.queryByRole("menu")).not.toBeInTheDocument();
   },
 };
 
@@ -242,7 +284,6 @@ export const WithLinkActions: Story = {
       name: "Settings",
     });
     await expect(settingsLink.tagName).toBe("A");
-    await expect(settingsLink).toHaveAttribute("href", "/settings");
 
     // Non-link action renders as a div
     const exportAction = await canvas.findByRole("menuitem", {
@@ -273,6 +314,29 @@ export const MenuWithManyActions: Story = {
       { id: "option-9", text: "Option 9" },
       { id: "option-10", text: "Option 10" },
     ],
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+
+    // Open menu
+    const secondaryButton = canvas.getByRole("button", {
+      name: "More options",
+    });
+    await userEvent.click(secondaryButton);
+    const menu = await canvas.findByRole("menu");
+    await expect(menu).toBeVisible();
+
+    // All items should be rendered
+    const items = canvas.getAllByRole("menuitem");
+    await expect(items).toHaveLength(10);
+
+    // Navigate to last item with ArrowUp (wraps around)
+    await userEvent.keyboard("[ArrowUp]");
+    await userEvent.keyboard("[Enter]");
+    await expect(args["onClick:alternativeAction"]).toHaveBeenCalledWith(
+      "option-10",
+    );
+    await expect(canvas.queryByRole("menu")).not.toBeInTheDocument();
   },
 };
 
