@@ -19,27 +19,38 @@ function useIcon({
 
   watch(
     () => name.value,
-    async (newName) => {
+    (newName) => {
       if (iconCache.has(newName)) {
         iconComponent.value = iconCache.get(newName)!;
         return;
       }
 
-      try {
-        const module = await import(
-          `../../../node_modules/@knime/kds-styles/dist/img/${folder}/${newName}.svg`
-        );
-        iconCache.set(newName, module.default);
-        iconComponent.value = module.default;
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error(
-          `Failed to load icon "${newName}" from folder "${folder}":`,
-          error,
-        );
+      // Do *not* change this code to use try/catch blocks:
+      //   try/catch relies on the async frame being intact when the rejection resumes.
+      //   Which might be gone due to vue teardown.
+      //   `.catch()` registers a reaction on the Promise's internal [[PromiseRejectReactions]]
+      //   slot directly, so it doesn't depend on a live call frame.
+      import(
+        `../../../node_modules/@knime/kds-styles/dist/img/${folder}/${newName}.svg`
+      )
+        .then((module) => {
+          iconCache.set(newName, module.default);
+          iconComponent.value = module.default;
+        })
+        .catch((error) => {
+          // do not log an abort, might happen due to teardown
+          if (error.name === "AbortError") {
+            return;
+          }
 
-        iconComponent.value = null;
-      }
+          // eslint-disable-next-line no-console
+          console.error(
+            `Failed to load icon "${newName}" from folder "${folder}":`,
+            error,
+          );
+
+          iconComponent.value = null;
+        });
     },
     { immediate: true },
   );
