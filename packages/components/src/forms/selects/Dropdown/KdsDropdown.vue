@@ -85,7 +85,7 @@ watch(modelValue, () => {
         placement="bottom-left"
         role="dialog"
         full-width
-        popover-aria-label="Searchable dropdown options"
+        aria-label="Searchable dropdown options"
       >
         <DropdownContainer
           ref="dropdownContainerEl"

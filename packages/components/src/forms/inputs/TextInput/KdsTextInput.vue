@@ -103,7 +103,15 @@ defineExpose<KdsFormFieldExpose>({
 </script>
 
 <template>
-  <BaseFormFieldWrapper v-bind="props">
+  <BaseFormFieldWrapper
+    :label="props.label"
+    :aria-label="props.ariaLabel"
+    :description="props.description"
+    :sub-text="props.subText"
+    :error="props.error"
+    :validating="props.validating"
+    :preserve-sub-text-space="props.preserveSubTextSpace"
+  >
     <template #default="slotProps">
       <BaseInput
         ref="baseInput"
@@ -133,7 +141,6 @@ defineExpose<KdsFormFieldExpose>({
         placement="bottom-left"
         full-width
         popover-type="manual"
-        popover-aria-label="Suggestions"
       >
         <KdsListContainer
           :id="suggestionId"

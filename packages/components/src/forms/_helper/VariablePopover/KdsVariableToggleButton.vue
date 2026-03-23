@@ -106,7 +106,7 @@ const title = computed(() => {
     v-model="modelValue"
     placement="bottom-right"
     role="dialog"
-    popover-aria-label="Flow Variable settings"
+    aria-label="Flow Variable settings"
   >
     <VariablePopover v-if="modelValue" :content="props.content">
       <slot />

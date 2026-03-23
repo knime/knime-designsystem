@@ -53,7 +53,7 @@ const isFocused = ref(false);
     v-model="modelValue"
     placement="top-right"
     role="dialog"
-    popover-aria-label="Description"
+    aria-label="Description"
   >
     <InfoPopover :content="props.content">
       <slot />

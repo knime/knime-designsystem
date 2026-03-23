@@ -81,7 +81,7 @@ const onClickColorSwatch = () => {
           v-model="open"
           placement="bottom-right"
           role="dialog"
-          popover-aria-label="Color picker"
+          aria-label="Color picker"
         >
           <ColorPicker v-model="modelValue" />
         </KdsPopover>

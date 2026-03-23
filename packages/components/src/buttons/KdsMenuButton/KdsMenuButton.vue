@@ -85,7 +85,7 @@ const onItemClick = (itemId?: string) => {
     ref="popoverEl"
     v-model="isMenuOpen"
     placement="bottom-left"
-    popover-aria-label="Menu"
+    aria-label="Menu"
   >
     <div class="kds-menu-container" :style="maxHeightStyle">
       <KdsListContainer

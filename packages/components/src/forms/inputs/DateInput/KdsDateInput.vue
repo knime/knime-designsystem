@@ -118,7 +118,7 @@ defineExpose<KdsFormFieldExpose>({
             v-model="popoverIsVisible"
             placement="bottom-right"
             role="dialog"
-            popover-aria-label="Date picker"
+            aria-label="Date picker"
           >
             <DatePicker
               v-if="popoverIsVisible"

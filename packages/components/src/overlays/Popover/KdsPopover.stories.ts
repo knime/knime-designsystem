@@ -44,11 +44,6 @@ const meta: Meta<typeof KdsPopover> = {
       description:
         "When true, the popover's minimum width matches the anchor element's width.",
     },
-    popoverAriaLabel: {
-      control: { type: "text" },
-      description:
-        "Accessible label for the popover element. Rendered as `aria-label` on the popover. Recommended for all roles (dialog, menu, listbox) when the popover does not have a visible label or accessible name.",
-    },
     default: {
       control: false,
       description:
@@ -63,7 +58,6 @@ const meta: Meta<typeof KdsPopover> = {
     role: "dialog",
     popoverType: "auto",
     fullWidth: false,
-    popoverAriaLabel: "Popover",
   },
   parameters: {
     docs: {
@@ -104,7 +98,7 @@ const popoverRef = useTemplateRef("popoverRef");
   <KdsPopover
     ref="popoverRef"
     v-model="isOpen"
-    popover-aria-label="My popover"
+    aria-label="My popover"
   >
     ...custom popover content here...
   </KdsPopover>
@@ -151,7 +145,7 @@ export const Default: Story = {
         :role="args.role"
         :popover-type="args.popoverType"
         :full-width="args.fullWidth"
-        :popover-aria-label="args.popoverAriaLabel"
+        aria-label="Popover"
         data-testid="popover"
       />
     `,
@@ -164,7 +158,7 @@ export const Default: Story = {
     // Initially popover should not be visible
     await expect(popover).not.toBeVisible();
 
-    // Popover should have the accessible label from the popoverAriaLabel prop
+    // Popover should have the accessible label via aria-label
     await expect(popover).toHaveAttribute("aria-label", "Popover");
 
     // Activator should have correct a11y attributes
@@ -219,7 +213,7 @@ export const DifferentPlacement: Story = {
         :role="args.role"
         :popover-type="args.popoverType"
         :full-width="args.fullWidth"
-        :popover-aria-label="args.popoverAriaLabel"
+        aria-label="Popover"
       />
     `,
   }),
@@ -262,7 +256,7 @@ export const SeparateAnchorElement: Story = {
         v-model="open"
         placement="bottom-left"
         content="This popover is anchored to a separate element."
-        popover-aria-label="Separate anchor popover"
+        aria-label="Separate anchor popover"
         data-testid="popover"
       />
     `,
@@ -351,7 +345,7 @@ export const FullWidth: Story = {
         :placement="args.placement"
         :content="args.content"
         :full-width="args.fullWidth"
-        :popover-aria-label="args.popoverAriaLabel"
+        aria-label="Popover"
         data-testid="popover"
       />
     `,
