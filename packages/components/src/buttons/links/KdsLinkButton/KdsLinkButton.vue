@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-import { resolveNuxtLinkComponent } from "../../util/nuxtComponentResolver";
-import BaseButton from "../BaseButton.vue";
+import { resolveNuxtLinkComponent } from "../../../util/nuxtComponentResolver";
+import BaseButton from "../../BaseButton.vue";
 
 import type { KdsLinkButtonProps } from "./types";
 
