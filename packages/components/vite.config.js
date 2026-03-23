@@ -30,7 +30,7 @@ export default defineConfig({
       formats: ["es"],
       fileName: "index",
     },
-    rollupOptions: {
+    rolldownOptions: {
       external: ["vue", "@vueuse/core"],
       output: {
         globals: {
