@@ -47,7 +47,7 @@ export type KdsPopoverProps = {
    * when focus moves into it (e.g. for `dialog`, `menu`, `listbox` roles).
    * Rendered as `aria-label` on the popover element.
    */
-  popoverAriaLabel: string;
+  popoverAriaLabel?: string;
 
   /**
    * Optional content rendered when no default slot is provided.

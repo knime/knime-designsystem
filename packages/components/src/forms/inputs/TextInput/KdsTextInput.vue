@@ -44,17 +44,16 @@ const filteredSuggestions = computed<KdsListOption[]>(() => {
     }));
 
   if (!filtered.length) {
-    return [
-      {
-        id: "__free-text__",
-        text: modelValue.value,
-        accessory: { type: "icon", name: "plus" },
-      },
-    ];
+    return [{ id: "__free-text__", text: modelValue.value }];
   }
 
   return filtered;
 });
+
+const closePopover = () => {
+  popoverOpen.value = false;
+  listContainerRef.value?.handleBlur();
+};
 
 const onFocus = () => {
   if (hasSuggestions.value) {
@@ -64,8 +63,7 @@ const onFocus = () => {
 };
 
 const onBlur = () => {
-  popoverOpen.value = false;
-  listContainerRef.value?.handleBlur();
+  closePopover();
 };
 
 const onKeydown = (event: KeyboardEvent) => {
@@ -73,13 +71,20 @@ const onKeydown = (event: KeyboardEvent) => {
     return;
   }
 
-  if (popoverOpen.value) {
-    listContainerRef.value?.handleKeydown(event);
-  } else {
+  if (!popoverOpen.value) {
     popoverOpen.value = true;
     listContainerRef.value?.handleFocus();
     listContainerRef.value?.handleKeydown(event);
+    return;
   }
+
+  if (event.key === "Escape") {
+    closePopover();
+    event.preventDefault();
+    return;
+  }
+
+  listContainerRef.value?.handleKeydown(event);
 };
 
 const onItemClick = (id?: string) => {
@@ -87,8 +92,7 @@ const onItemClick = (id?: string) => {
   if (option) {
     modelValue.value = option.text;
   }
-  popoverOpen.value = false;
-  listContainerRef.value?.handleBlur();
+  closePopover();
 };
 
 defineExpose<KdsFormFieldExpose>({
@@ -133,7 +137,6 @@ defineExpose<KdsFormFieldExpose>({
           ref="listContainerRef"
           class="kds-text-input-suggestions"
           :possible-values="filteredSuggestions"
-          allow-no-selection
           controlled-externally
           aria-label="Suggestions"
           @item-click="onItemClick"

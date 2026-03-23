@@ -350,16 +350,6 @@ export const WithSuggestions: Story = {
       await userEvent.type(input, "p");
       await expect(canvas.getByText("Apple")).toBeInTheDocument();
     });
-
-    await step("Enter passes through when no item is highlighted", async () => {
-      await userEvent.clear(input);
-      await userEvent.type(input, "Ba");
-      // Popover is open but no item is highlighted yet (datalist behavior)
-      await userEvent.keyboard("{Enter}");
-      // Value remains as typed — Enter did not select from the list
-      await expect(input).toHaveValue("Ba");
-    });
-
     await step("Allow free text input", async () => {
       await userEvent.clear(input);
       await userEvent.type(input, "Kiwi");
