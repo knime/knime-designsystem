@@ -176,6 +176,7 @@ export const Default: Story = {
 
 export const WithDisabledOptions: Story = {
   args: {
+    onItemClick: fn(),
     possibleValues: [
       { id: "1", text: "Disabled first", selected: false, disabled: true },
       { id: "2", text: "Enabled option", selected: false },
