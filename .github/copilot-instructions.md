@@ -117,6 +117,8 @@ packages/
 - Inline single-line `computed` properties in the template for better readability.
 - Inline one-line functions in the template for better readability.
 - Use composable `useTemplateRef` for type safety when accessing template refs in the script. Then types will be inferred automatically.
+- Prefer [v-bind() in CSS](https://vuejs.org/api/sfc-css-features.html#v-bind-in-css) over inline `:style` bindings for component-owned styling. This keeps all styling in the `<style>` block and improves readability.
+- Don't use both `class` and `:class` on the same element. Merge them into a single `:class` binding (e.g. `:class="['kds-my-class', { conditional: flag }]"`).
 
 ### Enums & Constants
 
