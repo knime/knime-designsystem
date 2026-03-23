@@ -46,7 +46,7 @@ const filteredSuggestions = computed<KdsListOption[]>(() => {
   if (!filtered.length) {
     return [
       {
-        id: undefined,
+        id: "__free-text__",
         text: modelValue.value,
         accessory: { type: "icon", name: "plus" },
       },
@@ -68,11 +68,6 @@ const onBlur = () => {
   listContainerRef.value?.handleBlur();
 };
 
-const closePopover = () => {
-  popoverOpen.value = false;
-  listContainerRef.value?.handleBlur();
-};
-
 const onKeydown = (event: KeyboardEvent) => {
   if (!hasSuggestions.value) {
     return;
@@ -88,13 +83,12 @@ const onKeydown = (event: KeyboardEvent) => {
 };
 
 const onItemClick = (id?: string) => {
-  if (id !== undefined) {
-    const option = filteredSuggestions.value.find((o) => o.id === id);
-    if (option) {
-      modelValue.value = option.text;
-    }
+  const option = filteredSuggestions.value.find((o) => o.id === id);
+  if (option) {
+    modelValue.value = option.text;
   }
-  closePopover();
+  popoverOpen.value = false;
+  listContainerRef.value?.handleBlur();
 };
 
 defineExpose<KdsFormFieldExpose>({
@@ -139,7 +133,6 @@ defineExpose<KdsFormFieldExpose>({
           ref="listContainerRef"
           class="kds-text-input-suggestions"
           :possible-values="filteredSuggestions"
-          empty-text="No suggestions"
           allow-no-selection
           controlled-externally
           aria-label="Suggestions"
