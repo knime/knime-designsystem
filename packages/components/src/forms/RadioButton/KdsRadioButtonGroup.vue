@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import { computed, useId, useTemplateRef } from "vue";
 
-import KdsLabel from "../_helper/KdsLabel.vue";
-import KdsSubText from "../_helper/KdsSubText.vue";
+import BaseFieldsetWrapper from "../_helper/BaseFieldsetWrapper.vue";
 
 import KdsRadioButton from "./KdsRadioButton.vue";
 import type {
@@ -28,8 +27,6 @@ const options = computed(
     }) satisfies KdsRadioButtonGroupOption[],
 );
 
-const labelId = useId();
-const descriptionId = useId();
 const groupName = useId();
 
 const optionContainer = useTemplateRef("optionContainer");
@@ -44,15 +41,14 @@ const { tabIndexForOption, handleClick, handleKeyDown, hasError } =
 </script>
 
 <template>
-  <div
+  <BaseFieldsetWrapper
     :id="props.id"
-    class="radio-button-group"
+    :label="props.label"
     role="radiogroup"
-    :aria-labelledby="props.label ? labelId : undefined"
-    :aria-describedby="props.subText ? descriptionId : undefined"
+    :sub-text="props.subText"
+    :preserve-sub-text-space="props.preserveSubTextSpace"
+    :error="hasError"
   >
-    <KdsLabel v-if="props.label" :id="labelId" :label="props.label" />
-
     <div
       ref="optionContainer"
       :class="{ options: true, horizontal: props.alignment === 'horizontal' }"
@@ -71,23 +67,10 @@ const { tabIndexForOption, handleClick, handleKeyDown, hasError } =
         />
       </div>
     </div>
-
-    <KdsSubText
-      :id="descriptionId"
-      :sub-text="props.subText"
-      :preserve-sub-text-space="props.preserveSubTextSpace"
-      :error="hasError"
-    />
-  </div>
+  </BaseFieldsetWrapper>
 </template>
 
 <style scoped>
-.radio-button-group {
-  padding: 0;
-  margin: 0;
-  border: none;
-}
-
 .options {
   display: flex;
   flex-direction: column;
