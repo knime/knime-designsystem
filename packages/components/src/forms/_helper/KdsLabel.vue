@@ -43,13 +43,13 @@ const { isTruncated } = useKdsIsTruncated(labelEl);
   align-items: center;
   max-width: 100%;
   min-height: var(--kds-dimension-component-height-0-75x);
-  padding-bottom: var(--kds-spacing-input-label-spacing-bottom);
 }
 
 .label {
   display: block;
   flex-grow: 1;
   max-width: 100%;
+  padding-bottom: var(--kds-spacing-input-label-spacing-bottom);
   overflow: hidden;
   text-overflow: ellipsis;
   font: var(--kds-font-base-title-small-strong);
