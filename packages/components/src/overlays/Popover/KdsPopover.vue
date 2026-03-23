@@ -43,7 +43,6 @@ defineExpose<KdsPopoverExpose>({ anchorStyle, popoverId });
     :popover="props.popoverType"
     :style="{ 'position-anchor': anchorName }"
     :role="props.role"
-    :aria-label="props.popoverAriaLabel"
     @toggle="onToggle"
   >
     <slot>

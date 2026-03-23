@@ -1,7 +1,7 @@
 import { ref, useTemplateRef, watchEffect } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
-import { expect, userEvent, within } from "storybook/test";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 
 import KdsButton from "../../../buttons/KdsButton/KdsButton.vue";
 import {
@@ -85,6 +85,13 @@ const meta: Meta<typeof KdsTextInput> = {
       control: "boolean",
       table: { category: "props" },
     },
+    suggestions: {
+      control: "object",
+      description:
+        "Optional list of suggestion strings displayed in a popover. " +
+        "The user can still enter free text; selecting a suggestion fills the input.",
+      table: { category: "props" },
+    },
   },
   args: {
     modelValue: "",
@@ -98,6 +105,7 @@ const meta: Meta<typeof KdsTextInput> = {
     error: false,
     subText: "",
     preserveSubTextSpace: false,
+    suggestions: undefined,
   },
   render: (args) => {
     const [, updateArgs] = useArgs();
@@ -281,6 +289,111 @@ export const ProgrammaticFocus: Story = {
     await expect(input).not.toHaveFocus();
     await userEvent.click(button);
     await expect(input).toHaveFocus();
+  },
+};
+
+export const WithSuggestions: Story = {
+  args: {
+    placeholder: "Start typing a fruit…",
+    suggestions: [
+      "Apple",
+      "Banana",
+      "Cherry",
+      "Date",
+      "Elderberry",
+      "Fig",
+      "Grape",
+    ],
+  },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("combobox", { name: "Label" });
+
+    await step("Open suggestions on focus and select via click", async () => {
+      await userEvent.click(input);
+      const option = await canvas.findByRole("option", { name: "Cherry" });
+      await expect(option).toBeInTheDocument();
+      await userEvent.click(option);
+      await expect(input).toHaveValue("Cherry");
+    });
+
+    await step("Filter suggestions while typing", async () => {
+      await userEvent.clear(input);
+      await userEvent.type(input, "Gr");
+      await expect(
+        canvas.getByRole("option", { name: "Grape" }),
+      ).toBeInTheDocument();
+      await expect(
+        canvas.queryByRole("option", { name: "Apple" }),
+      ).not.toBeInTheDocument();
+    });
+
+    await step("Select via keyboard (ArrowDown + Enter)", async () => {
+      await userEvent.clear(input);
+      input.blur();
+      await userEvent.click(input);
+      await canvas.findByRole("option", { name: "Apple" });
+      await userEvent.type(input, "Ban");
+      await waitFor(() => {
+        expect(
+          canvas.queryByRole("option", { name: "Apple" }),
+        ).not.toBeInTheDocument();
+      });
+      await userEvent.keyboard("{ArrowDown}");
+      await userEvent.keyboard("{Enter}");
+      await expect(input).toHaveValue("Banana");
+    });
+
+    await step("Close suggestions with Escape", async () => {
+      await userEvent.clear(input);
+      await userEvent.type(input, "A");
+      await expect(
+        canvas.getByRole("option", { name: "Apple" }),
+      ).toBeInTheDocument();
+      await userEvent.keyboard("{Escape}");
+      await expect(input).toHaveValue("A");
+      await waitFor(() => {
+        expect(input).toHaveAttribute("aria-expanded", "false");
+      });
+      await waitFor(() => {
+        expect(
+          canvas.queryByRole("option", { name: "Apple" }),
+        ).not.toBeInTheDocument();
+      });
+    });
+
+    await step("Reopen suggestions when typing after Escape", async () => {
+      await userEvent.type(input, "p");
+      await expect(
+        canvas.getByRole("option", { name: "Apple" }),
+      ).toBeInTheDocument();
+    });
+    await step("Allow free text input", async () => {
+      await userEvent.clear(input);
+      await userEvent.type(input, "Kiwi");
+      await expect(input).toHaveValue("Kiwi");
+    });
+
+    await step("Hide popover when no suggestions match free text", async () => {
+      await waitFor(() => {
+        expect(input).toHaveAttribute("aria-expanded", "false");
+      });
+      await expect(canvas.queryByRole("option")).not.toBeInTheDocument();
+    });
+
+    await step(
+      "Reopen popover when clearing to match suggestions again",
+      async () => {
+        await userEvent.clear(input);
+        await waitFor(() => {
+          expect(input).toHaveAttribute("aria-expanded", "true");
+        });
+        await expect(
+          canvas.getByRole("option", { name: "Apple" }),
+        ).toBeInTheDocument();
+        input.blur();
+      },
+    );
   },
 };
 

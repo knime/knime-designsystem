@@ -147,7 +147,7 @@ defineExpose<KdsFormFieldExpose>({
         v-model="resultsOpen"
         full-width
         popover-type="manual"
-        popover-aria-label="Search results container"
+        aria-label="Search results container"
       >
         <div class="kds-search-results-container" :style="maxHeightStyle">
           <KdsListContainer

@@ -61,7 +61,7 @@ const popoverEl = useTemplateRef("popoverEl");
           ref="popoverEl"
           v-model="open"
           placement="bottom-right"
-          popover-aria-label="Date time format selection dialog"
+          aria-label="Date time format selection dialog"
         >
           <DateTimeFormatPopover
             :selection="modelValue"

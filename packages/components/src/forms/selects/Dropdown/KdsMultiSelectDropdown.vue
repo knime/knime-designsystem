@@ -121,7 +121,7 @@ const onAddValue = (text: string) => {
         placement="bottom-left"
         role="dialog"
         full-width
-        popover-aria-label="Multi select dropdown options"
+        aria-label="Multi select dropdown options"
       >
         <MultiSelectDropdownContainer
           ref="dropdownContainerEl"
