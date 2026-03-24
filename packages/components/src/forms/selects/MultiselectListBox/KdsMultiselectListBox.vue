@@ -10,7 +10,12 @@ import type {
   KdsMultiselectListBoxProps,
 } from "./types";
 
-const OPTION_LINE_HEIGHT = 24;
+const OPTION_LINE_HEIGHT =
+  parseFloat(
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--kds-dimension-component-height-1-5x",
+    ),
+  ) || 24; // eslint-disable-line no-magic-numbers
 const CLICK_META_KEY_TIMEOUT = 250;
 
 const props = withDefaults(defineProps<KdsMultiselectListBoxProps>(), {
@@ -293,6 +298,7 @@ const onArrowDown = () => {
   isKeyboardNavigating.value = true;
   navigateTo(currentKeyNavIndex.value + 1, "single");
 };
+
 const onArrowUp = () => {
   if (props.disabled || isOutOfRange(currentKeyNavIndex.value - 1)) {
     return;
@@ -300,6 +306,7 @@ const onArrowUp = () => {
   isKeyboardNavigating.value = true;
   navigateTo(currentKeyNavIndex.value - 1, "single");
 };
+
 const onArrowDownShift = () => {
   if (props.disabled || isOutOfRange(currentKeyNavIndex.value + 1)) {
     return;
@@ -307,6 +314,7 @@ const onArrowDownShift = () => {
   isKeyboardNavigating.value = true;
   navigateTo(currentKeyNavIndex.value + 1, "shift");
 };
+
 const onArrowUpShift = () => {
   if (props.disabled || isOutOfRange(currentKeyNavIndex.value - 1)) {
     return;
@@ -314,6 +322,7 @@ const onArrowUpShift = () => {
   isKeyboardNavigating.value = true;
   navigateTo(currentKeyNavIndex.value - 1, "shift");
 };
+
 const onEndKey = () => {
   if (props.disabled || allValues.value.length === 0) {
     return;
@@ -321,6 +330,7 @@ const onEndKey = () => {
   isKeyboardNavigating.value = true;
   navigateTo(allValues.value.length - 1, "single");
 };
+
 const onHomeKey = () => {
   if (props.disabled || allValues.value.length === 0) {
     return;
@@ -328,6 +338,7 @@ const onHomeKey = () => {
   isKeyboardNavigating.value = true;
   navigateTo(0, "single");
 };
+
 const onEndKeyShift = () => {
   if (props.disabled || allValues.value.length === 0) {
     return;
@@ -335,6 +346,7 @@ const onEndKeyShift = () => {
   isKeyboardNavigating.value = true;
   navigateTo(allValues.value.length - 1, "shift");
 };
+
 const onHomeKeyShift = () => {
   if (props.disabled || allValues.value.length === 0) {
     return;
