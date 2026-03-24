@@ -3,10 +3,7 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
 
-import {
-  buildAllCombinationsStory,
-  buildDesignComparatorStory,
-} from "../../../test-utils/storybook";
+import { buildAllCombinationsStory } from "../../../test-utils/storybook";
 
 import KdsMultiselectListBox from "./KdsMultiselectListBox.vue";
 import type { KdsMultiselectListBoxOption } from "./types";
@@ -177,14 +174,13 @@ export const Disabled: Story = {
   },
 };
 
-export const WithSpecialItems: Story = {
+export const WithAccessory: Story = {
   args: {
     possibleValues: [
       { id: "a", text: "Normal item" },
-      { id: "b", text: "Special item", special: true },
-      { id: "c", text: "Another normal item" },
+      { id: "b", text: "Another normal item" },
       {
-        id: "d",
+        id: "c",
         text: "With icon",
         accessory: { type: "icon", name: "placeholder" },
       },
@@ -243,11 +239,7 @@ export const WithBottomValue: Story = {
 
 // TextOverflow story does not apply here
 
-export const DesignComparator: Story = buildDesignComparatorStory({
-  component: KdsMultiselectListBox,
-  wrapperStyle: { width: "300px" },
-  designsToCompare: {},
-});
+// DesignComparator story disabled - no Figma design yet
 
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsMultiselectListBox,

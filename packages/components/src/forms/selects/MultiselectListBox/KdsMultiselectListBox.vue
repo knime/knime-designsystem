@@ -186,7 +186,7 @@ const onStartDrag = (e: MouseEvent) => {
     draggingInverseMode.value = true;
   }
   const index = getDataOptionIndex(e.target as HTMLElement);
-  if (index) {
+  if (index !== undefined) {
     draggingStartIndex.value = Number(index);
   }
 };
@@ -196,7 +196,7 @@ const onDrag = (e: MouseEvent) => {
     return;
   }
   const dataIndex = getDataOptionIndex(e.target as HTMLElement);
-  if (!dataIndex) {
+  if (dataIndex === undefined) {
     return;
   }
   let sectionValues = getPossibleValuesInSection(
@@ -344,7 +344,6 @@ const getItemProps = (item: KdsMultiselectListBoxOption, index: number) => ({
   accessory: item.accessory,
   "data-option-index": index,
   selected: isCurrentValue(item.id),
-  special: item.special,
   disabled: props.disabled,
   active: isKeyboardNavigating.value && currentKeyNavIndex.value === index,
   "trailing-icon": isCurrentValue(item.id) ? "checkmark" : undefined,
@@ -363,6 +362,10 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   globalThis.removeEventListener("mouseup", onStopDrag);
+  if (metaClickTimer !== null) {
+    clearTimeout(metaClickTimer);
+    metaClickTimer = null;
+  }
 });
 
 defineExpose({ focus });
@@ -373,18 +376,20 @@ defineExpose({ focus });
     :class="['kds-multiselect-list-box', { disabled: props.disabled }]"
     :style="cssStyleSize"
   >
-    <ul
+    <div
       v-bind="containerProps"
       role="listbox"
-      tabindex="0"
+      :tabindex="props.disabled ? undefined : 0"
       aria-multiselectable="true"
       :aria-label="props.ariaLabel"
       :aria-activedescendant="activeDescendantId"
+      :aria-disabled="props.disabled"
       :class="[
         'kds-multiselect-list-box-list',
         { disabled: props.disabled, empty: possibleValues.length === 0 },
       ]"
       @keydown.ctrl.a.prevent.exact="onCtrlA"
+      @keydown.meta.a.prevent.exact="onCtrlA"
       @keydown.up.prevent.exact="onArrowUp"
       @keydown.down.prevent.exact="onArrowDown"
       @keydown.shift.up.prevent.exact="onArrowUpShift"
@@ -417,7 +422,7 @@ defineExpose({ focus });
           @dblclick.exact="handleDblClick(props.bottomValue.id, bottomIndex)"
         />
       </div>
-    </ul>
+    </div>
     <div v-if="possibleValues.length === 0" class="kds-multiselect-empty">
       <KdsEmptyState headline="No entries in this list" />
     </div>
@@ -443,12 +448,10 @@ defineExpose({ focus });
 .kds-multiselect-list-box-list {
   position: relative;
   flex-grow: 1;
-  gap: var(--kds-spacing-container-0-10x);
   min-width: var(--kds-dimension-component-width-12x);
   padding: var(--kds-spacing-container-0-25x);
   margin: 0;
   overflow-y: auto;
-  list-style: none;
   background: var(--kds-color-background-neutral-initial);
 
   &.empty {

@@ -7,10 +7,6 @@ export type KdsMultiselectListBoxOption = {
   text: string;
   /** Optional leading accessory (icon, data type, or color swatch) shown before the text */
   accessory?: KdsListItemAccessory;
-  /** Renders the label with emphasis (italic) for special content */
-  special?: boolean;
-  /** Disables the option in the list */
-  disabled?: boolean;
 };
 
 export type KdsMultiselectListBoxProps = {
@@ -21,7 +17,7 @@ export type KdsMultiselectListBoxProps = {
   /** Accessible label for the list box */
   ariaLabel: string;
   /**
-   * Controls the visible height of the list. Number of visible items (for others user needs to scroll).
+   * Controls the visible height of the list. Number of visible items (additional items require scrolling).
    * 0 means all items are visible.
    */
   size?: number;
