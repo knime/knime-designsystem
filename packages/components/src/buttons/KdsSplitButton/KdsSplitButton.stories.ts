@@ -21,6 +21,12 @@ const meta: Meta<typeof KdsSplitButton> = {
       type: "figma",
       url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=1329-5891",
     },
+    docs: {
+      description: {
+        component:
+          "`KdsSplitButton` combines a primary action button with a dropdown for alternative actions.",
+      },
+    },
   },
   argTypes: {
     size: {
@@ -54,6 +60,8 @@ const meta: Meta<typeof KdsSplitButton> = {
       control: "text",
       table: { category: "props" },
     },
+    "onClick:primary": { table: { disable: true } },
+    "onClick:alternativeAction": { table: { disable: true } },
   },
   args: {
     size: "medium",
@@ -80,6 +88,14 @@ export default meta;
 type Story = StoryObj<typeof KdsSplitButton>;
 
 export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Primary action with a dropdown for alternative actions. Tests both mouse and keyboard interaction.",
+      },
+    },
+  },
   args: {
     variant: "filled",
     size: "medium",
@@ -161,6 +177,13 @@ export const Default: Story = {
 };
 
 export const WithIcon: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: "A split button with a leading icon in the primary part.",
+      },
+    },
+  },
   args: {
     variant: "filled",
     size: "medium",
@@ -170,6 +193,14 @@ export const WithIcon: Story = {
 };
 
 export const Disabled: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Both the primary and secondary buttons are disabled. Neither fires events nor opens the menu.",
+      },
+    },
+  },
   args: {
     variant: "filled",
     size: "medium",
@@ -199,6 +230,14 @@ export const Disabled: Story = {
 };
 
 export const PrimaryAndAlternativeActions: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates that the primary button label stays fixed after selecting an alternative action.",
+      },
+    },
+  },
   args: {
     variant: "filled",
     size: "medium",
@@ -245,58 +284,15 @@ export const PrimaryAndAlternativeActions: Story = {
   },
 };
 
-export const WithLinkActions: Story = {
-  args: {
-    variant: "outlined",
-    size: "medium",
-    label: "Open",
-    alternativeActions: [
-      {
-        id: "docs",
-        text: "Documentation",
-        href: "https://example.com/docs",
-      },
-      { id: "settings", text: "Settings", to: "/settings" },
-      { id: "export", text: "Export" },
-    ],
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Open the menu
-    const secondaryButton = canvas.getByRole("button", {
-      name: "More options",
-    });
-    await userEvent.click(secondaryButton);
-
-    const contextMenu = await canvas.findByRole("menu");
-    await expect(contextMenu).toBeVisible();
-
-    // Verify link action with href renders as an <a> tag
-    const docsLink = await canvas.findByRole("menuitem", {
-      name: "Documentation",
-    });
-    await expect(docsLink.tagName).toBe("A");
-    await expect(docsLink).toHaveAttribute("href", "https://example.com/docs");
-
-    // Verify action with `to` also renders as an <a> tag (fallback without router)
-    const settingsLink = await canvas.findByRole("menuitem", {
-      name: "Settings",
-    });
-    await expect(settingsLink.tagName).toBe("A");
-
-    // Non-link action renders as a div
-    const exportAction = await canvas.findByRole("menuitem", {
-      name: "Export",
-    });
-    await expect(exportAction.tagName).toBe("DIV");
-
-    // Close menu
-    await userEvent.click(exportAction);
-  },
-};
-
 export const MenuWithManyActions: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Uses `menuMaxHeight` to constrain the dropdown height, making the menu scrollable when there are many items.",
+      },
+    },
+  },
   args: {
     variant: "transparent",
     size: "medium",
@@ -341,6 +337,13 @@ export const MenuWithManyActions: Story = {
 };
 
 export const Sizes: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: "All available size variants side by side.",
+      },
+    },
+  },
   render: (args) => ({
     components: { KdsSplitButton },
     setup() {
@@ -364,6 +367,14 @@ export const Sizes: Story = {
 };
 
 export const Variants: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "All visual variants (filled, outlined, transparent) side by side.",
+      },
+    },
+  },
   render: (args) => ({
     components: { KdsSplitButton },
     setup() {

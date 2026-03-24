@@ -2,16 +2,24 @@ import type { KdsMenuItem } from "../KdsMenuButton/types";
 import type { KdsButtonCommonProps, WithLabelAndIcons } from "../types";
 
 /**
+ * A menu item for split button alternative actions.
+ * Link properties (`href`, `to`) are excluded because split button actions
+ * are always handled via the `click:alternativeAction` event.
+ */
+export type KdsSplitButtonActionItem = Omit<KdsMenuItem, "href" | "to">;
+
+/**
  * KdsSplitButton component props
  */
 export type KdsSplitButtonProps = KdsButtonCommonProps &
   WithLabelAndIcons & {
     /**
      * Alternative actions rendered in the context menu.
-     * Items with `href` are rendered as `<a>` tags for native link behavior.
-     * Items with `to` use RouterLink/NuxtLink if available, otherwise fall back to `<a>`.
+     * Only action items are allowed — link items (`href` / `to`) are not
+     * supported because every action is dispatched through the
+     * `click:alternativeAction` event.
      */
-    alternativeActions: KdsMenuItem[];
+    alternativeActions: KdsSplitButtonActionItem[];
 
     /**
      * Optional maximum height for the context menu dropdown (CSS value, e.g. "200px").
@@ -36,7 +44,7 @@ propTypeTester<KdsSplitButtonProps>({
   alternativeActions: [{ id: "save-as", text: "Save as" }],
 });
 
-// with all optional props
+// with all optional props (no href/to allowed)
 propTypeTester<KdsSplitButtonProps>({
   label: "Save",
   variant: "outlined",
@@ -45,11 +53,18 @@ propTypeTester<KdsSplitButtonProps>({
   leadingIcon: "placeholder",
   alternativeActions: [
     { id: "save-as", text: "Save as" },
-    { id: "docs", text: "Docs", href: "https://example.com" },
-    { id: "settings", text: "Settings", to: "/settings" },
+    { id: "export", text: "Export" },
   ],
   menuMaxHeight: "200px",
 });
+
+// prettier-ignore
+// @ts-expect-error - href is not allowed on split button action items
+propTypeTester<KdsSplitButtonActionItem>({ id: "docs", text: "Docs", href: "https://example.com" });
+
+// prettier-ignore
+// @ts-expect-error - to is not allowed on split button action items
+propTypeTester<KdsSplitButtonActionItem>({ id: "settings", text: "Settings", to: "/settings" });
 
 // @ts-expect-error - label or leadingIcon+ariaLabel is required
 propTypeTester<KdsSplitButtonProps>({
