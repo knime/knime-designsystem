@@ -1,5 +1,11 @@
 # @knime/kds-styles
 
+## 0.18.4
+
+### Patch Changes
+
+- d24f2f9: added colors for disabled donut chart in light and dark
+
 ## 0.18.3
 
 ### Patch Changes
