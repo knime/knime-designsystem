@@ -69,10 +69,6 @@ const meta: Meta<typeof KdsMultiselectListBox> = {
       control: { type: "number", min: 0 },
       table: { category: "props" },
     },
-    multiselectByClick: {
-      control: "boolean",
-      table: { category: "props" },
-    },
   },
   args: {
     modelValue: [],
@@ -80,7 +76,6 @@ const meta: Meta<typeof KdsMultiselectListBox> = {
     ariaLabel: "Fruit list",
     disabled: false,
     size: 5,
-    multiselectByClick: false,
   },
   render: (args) => {
     const [, updateArgs] = useArgs();
@@ -109,7 +104,7 @@ export const Default: Story = {
     await userEvent.click(appleOption);
     await expect(appleOption).toHaveAttribute("aria-selected", "true");
 
-    // Mouse: click another item replaces selection (no multiselectByClick)
+    // Mouse: click another item replaces selection
     const bananaOption = canvas.getByRole("option", { name: "Banana" });
     await userEvent.click(bananaOption);
     await expect(bananaOption).toHaveAttribute("aria-selected", "true");
@@ -132,31 +127,6 @@ export const Default: Story = {
 export const WithSelection: Story = {
   args: {
     modelValue: ["apple", "cherry", "grape"],
-  },
-};
-
-export const MultiselectByClick: Story = {
-  args: {
-    multiselectByClick: true,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Click Apple
-    const appleOption = canvas.getByRole("option", { name: "Apple" });
-    await userEvent.click(appleOption);
-    await expect(appleOption).toHaveAttribute("aria-selected", "true");
-
-    // Click Banana — both should now be selected
-    const bananaOption = canvas.getByRole("option", { name: "Banana" });
-    await userEvent.click(bananaOption);
-    await expect(bananaOption).toHaveAttribute("aria-selected", "true");
-    await expect(appleOption).toHaveAttribute("aria-selected", "true");
-
-    // Click Apple again — deselects it
-    await userEvent.click(appleOption);
-    await expect(appleOption).toHaveAttribute("aria-selected", "false");
-    await expect(bananaOption).toHaveAttribute("aria-selected", "true");
   },
 };
 

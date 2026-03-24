@@ -13,7 +13,6 @@ const CLICK_META_KEY_TIMEOUT = 250;
 const props = withDefaults(defineProps<KdsMultiselectListBoxProps>(), {
   disabled: false,
   size: 0,
-  multiselectByClick: false,
 });
 
 const modelValue = defineModel<string[]>({ default: () => [] });
@@ -182,11 +181,8 @@ const handleClick = (event: MouseEvent, value: string, index: number) => {
     handleShiftClick(value, index);
     return;
   }
-  if (!props.multiselectByClick) {
-    modelValue.value = [];
-  }
   currentKeyNavIndex.value = index;
-  toggleSelection(value);
+  setSelected([value]);
 };
 
 const handleDblClick = (id: string, index: number) => {
@@ -254,16 +250,15 @@ const scrollToCurrent = () => {
   if (!el) {
     return;
   }
-  const index = currentKeyNavIndex.value;
-  if (el.scrollHeight > el.clientHeight) {
-    const scrollBottom = el.clientHeight + el.scrollTop;
-    const elementTop = index * OPTION_LINE_HEIGHT;
-    const elementBottom = elementTop + OPTION_LINE_HEIGHT;
-    if (elementTop < el.scrollTop) {
-      el.scrollTop = elementTop;
-    } else if (elementBottom > scrollBottom) {
-      el.scrollTop = elementBottom - el.clientHeight;
-    }
+  const item = props.possibleValues[currentKeyNavIndex.value];
+  if (!item) {
+    return;
+  }
+  const itemEl = el.querySelector(`#${CSS.escape(generateOptionId(item.id))}`);
+  if (itemEl) {
+    itemEl.scrollIntoView({ block: "nearest" });
+  } else {
+    scrollTo(currentKeyNavIndex.value);
   }
 };
 
@@ -342,20 +337,14 @@ const onEndKey = () => {
   const next = props.possibleValues.length - 1;
   setSelectedToIndex(next);
   currentKeyNavIndex.value = next;
-  const el = containerProps.ref.value as HTMLElement | null;
-  if (el) {
-    el.scrollTop = el.scrollHeight;
-  }
+  scrollToCurrent();
 };
 
 const onHomeKey = () => {
   isKeyboardNavigating.value = true;
   setSelectedToIndex(0);
   currentKeyNavIndex.value = 0;
-  const el = containerProps.ref.value as HTMLElement | null;
-  if (el) {
-    el.scrollTop = 0;
-  }
+  scrollToCurrent();
 };
 
 const onArrowLeft = () => {

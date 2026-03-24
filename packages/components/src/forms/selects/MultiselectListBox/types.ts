@@ -25,9 +25,4 @@ export type KdsMultiselectListBoxProps = {
    * 0 means all items are visible.
    */
   size?: number;
-  /**
-   * If enabled, a single click toggles selection without holding Ctrl.
-   * Otherwise multi-selection only works with Ctrl + Click (similar to native <select>).
-   */
-  multiselectByClick?: boolean;
 };
