@@ -20,7 +20,9 @@ const props = defineProps<{
 .kds-variable-popover {
   width: var(--kds-dimension-component-width-25x);
   max-width: 100%;
+  max-height: var(--kds-dimension-component-height-20x);
   padding: var(--kds-spacing-container-0-75x);
+  overflow-y: auto;
   font: var(--kds-font-base-body-small);
   color: var(--kds-color-text-and-icon-neutral);
   white-space: pre-wrap;
