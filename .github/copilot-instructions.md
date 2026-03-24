@@ -291,8 +291,6 @@ await user.click(element);
 await user.keyboard("{/Control}");
 ```
 
-```
-
 **Common patterns**:
 
 - After clicking a toggle: `await canvas.findByRole("button", { name: "New Label" })` to wait for label change
@@ -330,4 +328,3 @@ The merge is done via `pnpm coverage:merge`. Both sources count equally toward t
 ### Migration documentation
 
 - When creating a new component, ask the user if it has an equivalent one in `@knime/components`. If it does, add migration instructions to `.github/agents/wac-to-kds-migrator.md`.
-```

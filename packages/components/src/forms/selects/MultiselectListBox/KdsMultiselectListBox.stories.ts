@@ -105,8 +105,13 @@ export const Default: Story = {
     const user = userEvent.setup();
     const listbox = canvas.getByRole("listbox", { name: "Fruit list" });
 
-    // Mouse: click to select Apple
+    // Keyboard: ArrowDown from initial state selects first item
     const appleOption = canvas.getByRole("option", { name: "Apple" });
+    listbox.focus();
+    await user.keyboard("{ArrowDown}");
+    await expect(appleOption).toHaveAttribute("aria-selected", "true");
+
+    // Mouse: click to select Apple (keeps selection, resets nav index)
     await user.click(appleOption);
     await expect(appleOption).toHaveAttribute("aria-selected", "true");
 
@@ -132,9 +137,11 @@ export const Default: Story = {
     await user.keyboard("{Shift>}{End}{/Shift}");
     await expect(bananaOption).toHaveAttribute("aria-selected", "true");
     await expect(cherryOption).toHaveAttribute("aria-selected", "true");
-    const dateOption = canvas.getByRole("option", { name: "Date" });
+    const dateOption = await canvas.findByRole("option", { name: "Date" });
     await expect(dateOption).toHaveAttribute("aria-selected", "true");
-    const honeydewOption = canvas.getByRole("option", { name: "Honeydew" });
+    const honeydewOption = await canvas.findByRole("option", {
+      name: "Honeydew",
+    });
     await expect(honeydewOption).toHaveAttribute("aria-selected", "true");
     await expect(appleOption).toHaveAttribute("aria-selected", "false");
 
@@ -179,7 +186,7 @@ export const Default: Story = {
     await expect(appleOption).toHaveAttribute("aria-selected", "false");
 
     // Shift+Click again: range extends from banana (anchor), not from date
-    const elderberryOption = canvas.getByRole("option", {
+    const elderberryOption = await canvas.findByRole("option", {
       name: "Elderberry",
     });
     await user.keyboard("{Shift>}");
