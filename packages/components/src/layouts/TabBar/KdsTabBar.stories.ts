@@ -447,55 +447,67 @@ export const TextOverflow: Story = {
   },
 };
 
+const designComparatorTabs: KdsTabBarItem[] = Array.from(
+  { length: 6 },
+  (_, i) => ({
+    id: `tab-${i + 1}`,
+    value: `tab${i + 1}`,
+    label: "{label}",
+    panelId: `panel-${i + 1}`,
+    accessory: { type: "icon" as const, name: "placeholder" },
+  }),
+);
+
 export const DesignComparator: Story = {
   ...buildDesignComparatorStory({
     component: KdsTabBar,
+    wrapperStyle: "width: 978px",
     designsToCompare: {
-      "Small / Left Aligned": {
+      "Large / Left Aligned": {
         props: {
-          tabs: sampleTabs,
-          size: "small",
+          tabs: designComparatorTabs,
+          size: "large",
           fullWidth: false,
-          modelValue: "localfilesystem",
+          modelValue: "tab2",
         },
         variants: {
           "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=431-16858":
             {},
         },
       },
-      "Small / Full Width": {
+      "Small / Left Aligned": {
         props: {
-          tabs: sampleTabs,
+          tabs: designComparatorTabs,
           size: "small",
-          fullWidth: true,
-          modelValue: "localfilesystem",
-        },
-        variants: {
-          "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=431-17006":
-            {},
-        },
-      },
-      "Large / Left Aligned": {
-        props: {
-          tabs: sampleTabs,
-          size: "large",
           fullWidth: false,
-          modelValue: "localfilesystem",
+          modelValue: "tab2",
         },
         variants: {
-          "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=431-16857":
+          "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=431-16865":
             {},
         },
       },
       "Large / Full Width": {
         props: {
-          tabs: sampleTabs,
+          tabs: designComparatorTabs,
           size: "large",
           fullWidth: true,
-          modelValue: "localfilesystem",
+          modelValue: "tab2",
         },
         variants: {
-          "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=431-17005":
+          "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3445-47639":
+            {},
+        },
+      },
+      "Small / Full Width": {
+        props: {
+          tabs: designComparatorTabs,
+          size: "small",
+          fullWidth: true,
+          modelValue: "tab2",
+        },
+        variants: {
+          "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3445-46920":
             {},
         },
       },

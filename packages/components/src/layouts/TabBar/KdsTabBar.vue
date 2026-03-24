@@ -290,15 +290,13 @@ watch(
   &.kds-tab-bar-small .kds-tab {
     gap: var(--kds-spacing-container-0-37x);
     height: var(--kds-dimension-component-height-1-75x);
-    padding: 0
-      calc(var(--kds-spacing-container-0-5x) - var(--kds-core-border-width-m));
+    padding: 0 var(--kds-spacing-container-0-5x);
   }
 
   &.kds-tab-bar-large .kds-tab {
     gap: var(--kds-spacing-container-0-5x);
     height: var(--kds-dimension-component-height-2-25x);
-    padding: 0
-      calc(var(--kds-spacing-container-0-75x) - var(--kds-core-border-width-m));
+    padding: 0 var(--kds-spacing-container-0-75x);
   }
 
   &.kds-tab-bar-full-width .kds-tab {
