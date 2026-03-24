@@ -252,9 +252,12 @@ Use proper auto-waiting in Storybook play tests. **Never** use manual `setTimeou
 
 **Imports**: Use `import { expect, userEvent, within } from "storybook/test";`
 
+**Always use `userEvent.setup()` to create a session** — this ensures modifier key state (Ctrl, Shift, etc.) is maintained across `keyboard()` and `click()` calls. Without a session, holding a modifier via `keyboard("{Control>}")` and then calling `click()` will **not** propagate the modifier to the click event.
+
 **Key rules**:
 
-- Always `await userEvent.*()` for interactions - it waits for events to complete
+- Always create a user session: `const user = userEvent.setup();`
+- Always `await user.*()` for interactions - it waits for events to complete
 - `await expect(...).toBeInTheDocument()` auto-retries until the assertion passes or times out
 - Use `findBy*` (async) for elements that appear **after** a state change (e.g., after a click triggers re-render)
 - Use `getBy*` (sync) for elements that are **already present** in the DOM
@@ -265,12 +268,13 @@ Use proper auto-waiting in Storybook play tests. **Never** use manual `setTimeou
 ```typescript
 play: async ({ canvasElement }) => {
   const canvas = within(canvasElement);
+  const user = userEvent.setup();
 
   // Element already exists - use getBy*
   const input = canvas.getByRole("textbox", { name: "Email" });
-  await userEvent.type(input, "test@example.com");
+  await user.type(input, "test@example.com");
 
-  await userEvent.click(canvas.getByRole("button", { name: "Submit" }));
+  await user.click(canvas.getByRole("button", { name: "Submit" }));
 
   // Element appears after submit - use findBy* (auto-waits)
   const success = await canvas.findByText(/success/i);
@@ -278,11 +282,22 @@ play: async ({ canvasElement }) => {
 };
 ```
 
+**Modifier key + click pattern** (Ctrl+Click, Shift+Click):
+
+```typescript
+// Hold Ctrl, click, release Ctrl — session keeps modifier state
+await user.keyboard("{Control>}");
+await user.click(element);
+await user.keyboard("{/Control}");
+```
+
+```
+
 **Common patterns**:
 
 - After clicking a toggle: `await canvas.findByRole("button", { name: "New Label" })` to wait for label change
 - After clearing input (clear button disappears): click the next element directly instead of relying on tab order
-- To reset focus for tab navigation tests: `element.blur()` then `await userEvent.tab()`
+- To reset focus for tab navigation tests: `element.blur()` then `await user.tab()`
 
 ### Figma Integration (when implementing from Figma)
 
@@ -315,3 +330,4 @@ The merge is done via `pnpm coverage:merge`. Both sources count equally toward t
 ### Migration documentation
 
 - When creating a new component, ask the user if it has an equivalent one in `@knime/components`. If it does, add migration instructions to `.github/agents/wac-to-kds-migrator.md`.
+```
