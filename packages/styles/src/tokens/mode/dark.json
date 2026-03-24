@@ -464,6 +464,11 @@
           "$value": "{kds.core.color.neutral.475}",
           "$description": "Background color for content overlay, like tooltip."
         },
+        "chart-0": {
+          "$type": "color",
+          "$value": "{kds.core.color.neutral.400}",
+          "$description": "Color used for charts (Track color, Empty Value)."
+        },
         "chart-1": {
           "$type": "color",
           "$value": "{kds.core.color.teal.475}",
