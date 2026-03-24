@@ -25,7 +25,7 @@ const baseOptions: KdsMultiselectListBoxOption[] = [
 ];
 
 const manyOptions: KdsMultiselectListBoxOption[] = Array.from(
-  { length: 100 },
+  { length: 1000 },
   (_, i) => ({
     id: `item-${i}`,
     text: `Item ${i + 1}`,
@@ -232,5 +232,5 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       size: [5],
     } as never,
   ],
-  pseudoStates: ["hover", "focus"],
+  pseudoStates: ["hover", "focus-visible"],
 });

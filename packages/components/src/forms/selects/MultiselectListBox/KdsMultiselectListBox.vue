@@ -70,6 +70,7 @@ watch(
 
 // Navigation state
 const currentKeyNavIndex = ref(0);
+const isKeyboardNavigating = ref(false);
 const shiftStartIndex = ref(-1);
 const draggingStartIndex = ref(-1);
 const draggingInverseMode = ref(false);
@@ -82,6 +83,9 @@ const cssStyleSize = computed(() => {
 });
 
 const activeDescendantId = computed(() => {
+  if (!isKeyboardNavigating.value) {
+    return undefined;
+  }
   const item = props.possibleValues[currentKeyNavIndex.value];
   return item ? generateOptionId(item.id) : undefined;
 });
@@ -164,6 +168,7 @@ const handleClick = (event: MouseEvent, value: string, index: number) => {
   if (props.disabled) {
     return;
   }
+  isKeyboardNavigating.value = false;
   event.preventDefault();
   if (event.metaKey) {
     debouncedHandleCtrlClick(value, index);
@@ -207,6 +212,7 @@ const onStartDrag = (e: MouseEvent) => {
   if (props.disabled || e.shiftKey) {
     return;
   }
+  isKeyboardNavigating.value = false;
   if (e.ctrlKey || e.metaKey) {
     draggingInverseMode.value = true;
   }
@@ -269,6 +275,7 @@ const onArrowDown = () => {
   if (props.disabled) {
     return;
   }
+  isKeyboardNavigating.value = true;
   const next = currentKeyNavIndex.value + 1;
   if (isOutOfRange(next)) {
     return;
@@ -282,6 +289,7 @@ const onArrowUp = () => {
   if (props.disabled) {
     return;
   }
+  isKeyboardNavigating.value = true;
   const next = currentKeyNavIndex.value - 1;
   if (isOutOfRange(next)) {
     return;
@@ -295,6 +303,7 @@ const onArrowDownShift = () => {
   if (props.disabled) {
     return;
   }
+  isKeyboardNavigating.value = true;
   if (shiftStartIndex.value === -1) {
     shiftStartIndex.value = currentKeyNavIndex.value;
   }
@@ -313,6 +322,7 @@ const onArrowUpShift = () => {
   if (props.disabled) {
     return;
   }
+  isKeyboardNavigating.value = true;
   if (shiftStartIndex.value === -1) {
     shiftStartIndex.value = currentKeyNavIndex.value;
   }
@@ -328,6 +338,7 @@ const onArrowUpShift = () => {
 };
 
 const onEndKey = () => {
+  isKeyboardNavigating.value = true;
   const next = props.possibleValues.length - 1;
   setSelectedToIndex(next);
   currentKeyNavIndex.value = next;
@@ -338,6 +349,7 @@ const onEndKey = () => {
 };
 
 const onHomeKey = () => {
+  isKeyboardNavigating.value = true;
   setSelectedToIndex(0);
   currentKeyNavIndex.value = 0;
   const el = containerProps.ref.value as HTMLElement | null;
@@ -350,6 +362,7 @@ const onArrowLeft = () => {
   if (props.disabled) {
     return;
   }
+  isKeyboardNavigating.value = true;
   emit("keyArrowLeft", modelValue.value);
 };
 
@@ -357,6 +370,7 @@ const onArrowRight = () => {
   if (props.disabled) {
     return;
   }
+  isKeyboardNavigating.value = true;
   emit("keyArrowRight", modelValue.value);
 };
 
@@ -364,6 +378,7 @@ const onCtrlA = () => {
   if (props.disabled) {
     return;
   }
+  isKeyboardNavigating.value = true;
   setSelected(props.possibleValues.map((x) => x.id));
 };
 
@@ -385,7 +400,7 @@ const hasSelection = () => modelValue.value.length > 0;
 
 // Lifecycle
 onMounted(() => {
-  window.addEventListener("mouseup", onStopDrag);
+  globalThis.addEventListener("mouseup", onStopDrag);
   const lastItem = modelValue.value[modelValue.value.length - 1];
   if (lastItem) {
     const idx = props.possibleValues.findIndex((x) => x.id === lastItem);
@@ -396,7 +411,7 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener("mouseup", onStopDrag);
+  globalThis.removeEventListener("mouseup", onStopDrag);
 });
 
 defineExpose({ focus, clearSelection, hasSelection });
@@ -441,7 +456,7 @@ defineExpose({ focus, clearSelection, hasSelection });
           :selected="isCurrentValue(item.id)"
           :special="item.special"
           :disabled="props.disabled"
-          :active="currentKeyNavIndex === index"
+          :active="isKeyboardNavigating && currentKeyNavIndex === index"
           @click="handleClick($event, item.id, index)"
           @dblclick.shift="handleShiftDblClick()"
           @dblclick.exact="handleDblClick(item.id, index)"
@@ -464,14 +479,9 @@ defineExpose({ focus, clearSelection, hasSelection });
   border: var(--kds-border-base-subtle);
   border-radius: var(--kds-border-radius-container-0-31x);
 
-  &.disabled {
-    opacity: 0.5;
-  }
-
   &:has(:focus-visible) {
     outline: var(--kds-border-action-focused);
     outline-offset: var(--kds-spacing-offset-focus);
-    border-radius: var(--kds-border-radius-container-0-31x);
   }
 }
 
