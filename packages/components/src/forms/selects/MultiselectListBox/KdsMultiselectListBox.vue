@@ -378,15 +378,6 @@ const focus = () => {
   (containerProps.ref.value as HTMLElement | null)?.focus();
 };
 
-const clearSelection = () => {
-  if (props.disabled) {
-    return;
-  }
-  setSelected([]);
-};
-
-const hasSelection = () => modelValue.value.length > 0;
-
 // Lifecycle
 onMounted(() => {
   globalThis.addEventListener("mouseup", onStopDrag);
@@ -403,7 +394,7 @@ onBeforeUnmount(() => {
   globalThis.removeEventListener("mouseup", onStopDrag);
 });
 
-defineExpose({ focus, clearSelection, hasSelection });
+defineExpose({ focus });
 </script>
 
 <template>
@@ -446,6 +437,7 @@ defineExpose({ focus, clearSelection, hasSelection });
           :special="item.special"
           :disabled="props.disabled"
           :active="isKeyboardNavigating && currentKeyNavIndex === index"
+          :trailing-icon="isCurrentValue(item.id) ? 'checkmark' : undefined"
           @click="handleClick($event, item.id, index)"
           @dblclick.shift="handleShiftDblClick()"
           @dblclick.exact="handleDblClick(item.id, index)"
