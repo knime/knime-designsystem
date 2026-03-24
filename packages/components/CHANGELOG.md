@@ -1,5 +1,13 @@
 # @knime/kds-components
 
+## 0.18.3
+
+### Patch Changes
+
+- c7e51c8: VariablePopover: Limit height
+- Updated dependencies [522fb56]
+  - @knime/kds-styles@0.18.3
+
 ## 0.18.2
 
 ### Patch Changes
