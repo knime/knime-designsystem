@@ -42,6 +42,8 @@ const mountComponent = (overrides: {
   modelValue?: string[];
   ariaLabel?: string;
   size?: number;
+  disabled?: boolean;
+  bottomValue?: KdsMultiselectListBoxOption;
 }) => {
   const w = mount(KdsMultiselectListBox, {
     props: {
@@ -156,5 +158,131 @@ describe("KdsMultiselectListBox meta-click debounce", () => {
     // Selection was never applied because the component was unmounted
     expect(wrapper.emitted("update:modelValue")).toBeUndefined();
     vi.useRealTimers();
+  });
+});
+
+describe("KdsMultiselectListBox dynamic prop updates", () => {
+  it("clamps keyboard nav index when possibleValues shrinks", async () => {
+    const wrapper = mountComponent({});
+    const listbox = wrapper.find("[role=listbox]");
+
+    // Navigate to Cherry (index 2)
+    listbox.trigger("keydown", { key: "End" });
+    await wrapper.vm.$nextTick();
+    expect(wrapper.props("modelValue")).toEqual(["cherry"]);
+
+    // Shrink list to only Apple — index 2 is now out of range
+    await wrapper.setProps({
+      possibleValues: [{ id: "apple", text: "Apple" }],
+    });
+
+    // ArrowDown from clamped position should still work without error
+    listbox.trigger("keydown", { key: "End" });
+    await wrapper.vm.$nextTick();
+    expect(wrapper.props("modelValue")).toEqual(["apple"]);
+  });
+
+  it("resets keyboard nav index when possibleValues becomes empty", async () => {
+    const wrapper = mountComponent({});
+    const listbox = wrapper.find("[role=listbox]");
+
+    // Navigate to Banana (index 1)
+    listbox.trigger("keydown", { key: "ArrowDown" });
+    await wrapper.vm.$nextTick();
+    listbox.trigger("keydown", { key: "ArrowDown" });
+    await wrapper.vm.$nextTick();
+
+    // Empty the list
+    await wrapper.setProps({ possibleValues: [] });
+
+    // ArrowDown on empty list should not throw or select anything
+    listbox.trigger("keydown", { key: "ArrowDown" });
+    await wrapper.vm.$nextTick();
+
+    // No options should be rendered
+    expect(wrapper.findAll("[role=option]")).toHaveLength(0);
+  });
+
+  it("blocks interactions after disabled changes to true", async () => {
+    const wrapper = mountComponent({ modelValue: ["apple"] });
+
+    // Initially can click
+    await getOption(wrapper, 1).trigger("click");
+    await wrapper.vm.$nextTick();
+    expect(wrapper.props("modelValue")).toEqual(["banana"]);
+
+    // Disable the component
+    await wrapper.setProps({ disabled: true });
+
+    // Clicking should no longer change selection
+    await getOption(wrapper, 0).trigger("click");
+    await wrapper.vm.$nextTick();
+    expect(wrapper.props("modelValue")).toEqual(["banana"]);
+  });
+
+  it("re-enables interactions after disabled changes from true to false", async () => {
+    const wrapper = mountComponent({ disabled: true });
+
+    // Click should be blocked
+    await getOption(wrapper, 0).trigger("click");
+    await wrapper.vm.$nextTick();
+    expect(wrapper.props("modelValue")).toEqual([]);
+
+    // Re-enable
+    await wrapper.setProps({ disabled: false });
+
+    // Click should now work
+    await getOption(wrapper, 0).trigger("click");
+    await wrapper.vm.$nextTick();
+    expect(wrapper.props("modelValue")).toEqual(["apple"]);
+  });
+
+  it("renders new options when possibleValues changes", async () => {
+    const wrapper = mountComponent({});
+    expect(wrapper.findAll("[role=option]")).toHaveLength(3);
+
+    const newOptions: KdsMultiselectListBoxOption[] = [
+      { id: "x", text: "X" },
+      { id: "y", text: "Y" },
+    ];
+    await wrapper.setProps({ possibleValues: newOptions });
+
+    const options = wrapper.findAll("[role=option]");
+    expect(options).toHaveLength(2);
+    expect(options.at(0)?.text()).toContain("X");
+    expect(options.at(1)?.text()).toContain("Y");
+  });
+
+  it("initializes keyboard nav index from modelValue on mount", async () => {
+    const wrapper = mountComponent({ modelValue: ["cherry"] });
+    const listbox = wrapper.find("[role=listbox]");
+
+    // ArrowDown from Cherry (index 2) should go to nothing (end of list)
+    // But ArrowUp should go to Banana
+    listbox.trigger("keydown", { key: "ArrowUp" });
+    await wrapper.vm.$nextTick();
+    expect(wrapper.props("modelValue")).toEqual(["banana"]);
+  });
+
+  it("shows empty state when possibleValues becomes empty without bottomValue", async () => {
+    const wrapper = mountComponent({});
+    expect(wrapper.text()).not.toContain("No entries in this list");
+
+    await wrapper.setProps({ possibleValues: [] });
+    expect(wrapper.text()).toContain("No entries in this list");
+  });
+
+  it("hides empty state when possibleValues becomes empty with bottomValue", async () => {
+    const wrapper = mountComponent({});
+    await wrapper.setProps({
+      possibleValues: [],
+      bottomValue: { id: "row-id", text: "Row ID" },
+    });
+
+    expect(wrapper.text()).not.toContain("No entries in this list");
+    // Bottom value should still render
+    const options = wrapper.findAll("[role=option]");
+    expect(options).toHaveLength(1);
+    expect(options.at(0)?.text()).toContain("Row ID");
   });
 });
