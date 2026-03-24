@@ -11,7 +11,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="kds-variable-popover">
+  <div class="kds-variable-popover" tabindex="0">
     <slot>{{ props.content }}</slot>
   </div>
 </template>
@@ -29,5 +29,10 @@ const props = defineProps<{
   background-color: var(--kds-color-surface-default);
   border-radius: var(--kds-border-radius-container-0-37x);
   box-shadow: var(--kds-elevation-level-3);
+
+  &:focus-visible {
+    outline: var(--kds-border-action-focused);
+    outline-offset: var(--kds-spacing-offset-focus);
+  }
 }
 </style>
