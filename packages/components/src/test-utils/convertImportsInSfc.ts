@@ -2,10 +2,10 @@ import { Project } from "ts-morph";
 
 import { IMPORT_PACKAGE } from "./constants";
 
+const scriptTagRegex = /<script\b([^>]*)>([\s\S]*?)<\/script\b[^>]*>/i;
+
 export function convertImportsInSfc(vueCode: string) {
-  const scriptMatch = new RegExp(
-    /<script\b([^>]*)>([\s\S]*?)<\/script\b[^>]*>/i,
-  ).exec(vueCode);
+  const scriptMatch = scriptTagRegex.exec(vueCode);
 
   if (!scriptMatch) {
     return vueCode;
