@@ -35,7 +35,7 @@ const emit = defineEmits<{
 const idPrefix = useId();
 
 const generateOptionId = (itemId: string) =>
-  `${idPrefix}-option-${itemId.replace(/[^\w]/gi, "")}`;
+  `${idPrefix}-option-${encodeURIComponent(itemId)}`;
 
 /** All values including the optional bottom value — used for index-based operations */
 const allValues = computed(() =>
@@ -145,10 +145,16 @@ const handleCtrlClick = (value: string, index: number) => {
 };
 
 let metaClickTimer: ReturnType<typeof setTimeout> | null = null;
-const debouncedHandleCtrlClick = (value: string, index: number) => {
+
+const cancelPendingMetaClick = () => {
   if (metaClickTimer !== null) {
     clearTimeout(metaClickTimer);
+    metaClickTimer = null;
   }
+};
+
+const debouncedHandleCtrlClick = (value: string, index: number) => {
+  cancelPendingMetaClick();
   metaClickTimer = setTimeout(() => {
     handleCtrlClick(value, index);
     metaClickTimer = null;
@@ -160,6 +166,7 @@ const handleClick = (event: MouseEvent, value: string, index: number) => {
     return;
   }
   isKeyboardNavigating.value = false;
+  cancelPendingMetaClick();
   event.preventDefault();
   if (event.metaKey) {
     debouncedHandleCtrlClick(value, index);
@@ -171,6 +178,7 @@ const handleClick = (event: MouseEvent, value: string, index: number) => {
   }
   if (event.shiftKey) {
     setSelected(getPossibleValuesInSection(currentKeyNavIndex.value, index));
+    currentKeyNavIndex.value = index;
     return;
   }
   currentKeyNavIndex.value = index;
@@ -383,10 +391,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   globalThis.removeEventListener("mouseup", onStopDrag);
-  if (metaClickTimer !== null) {
-    clearTimeout(metaClickTimer);
-    metaClickTimer = null;
-  }
+  cancelPendingMetaClick();
 });
 
 defineExpose({ focus });
@@ -400,7 +405,7 @@ defineExpose({ focus });
     <div
       v-bind="containerProps"
       role="listbox"
-      :tabindex="props.disabled ? undefined : 0"
+      tabindex="0"
       aria-multiselectable="true"
       :aria-label="props.ariaLabel"
       :aria-activedescendant="activeDescendantId"
@@ -423,6 +428,7 @@ defineExpose({ focus });
       @keydown.shift.end.prevent.exact="onEndKeyShift"
       @mousedown="onStartDrag"
       @mousemove="onDrag"
+      @blur="isKeyboardNavigating = false"
     >
       <div v-bind="wrapperProps">
         <KdsListItem
