@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { nextTick, ref } from "vue";
 
 import type { KdsTabBarItem } from "../types";
-import { useTabBarIconHiding } from "../useTabBarIconHiding";
+import { useTabBarIconHiding } from "../useTabBarAdaptiveLayout";
 
 vi.mock("../../../util/useKdsIsTruncated", () => ({
   elementOverflowsHorizontally: (el: HTMLElement | null) => {
@@ -25,25 +25,54 @@ const createTab = (
   ...extras,
 });
 
-const createButtonWithLabel = (overflowing: boolean) => {
+const createButtonWithLabel = (
+  overflowing: boolean,
+  {
+    naturalWidth,
+    hasAccessory,
+  }: { naturalWidth?: number; hasAccessory?: boolean } = {},
+) => {
   const btn = document.createElement("button");
+  if (hasAccessory) {
+    const accessory = document.createElement("span");
+    accessory.className = "kds-tab-icon";
+    btn.appendChild(accessory);
+  }
   const label = document.createElement("span");
   label.className = "kds-tab-label";
   label.dataset.overflowing = overflowing ? "true" : "false";
   btn.appendChild(label);
+  if (naturalWidth !== undefined) {
+    vi.spyOn(btn, "getBoundingClientRect").mockReturnValue({
+      width: naturalWidth,
+      height: 0,
+      x: 0,
+      y: 0,
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
+      toJSON: () => "",
+    });
+  }
   return btn;
 };
 
 const createMockContainer = ({
   scrollWidth = 100,
   clientWidth = 100,
+  tokenPx,
 }: {
   scrollWidth?: number;
   clientWidth?: number;
+  tokenPx?: number;
 } = {}) => {
   const el = document.createElement("div");
   Object.defineProperty(el, "scrollWidth", { value: scrollWidth });
   Object.defineProperty(el, "clientWidth", { value: clientWidth });
+  if (tokenPx !== undefined) {
+    el.style.setProperty("--kds-test-min-width", `${tokenPx}px`);
+  }
   return el;
 };
 
@@ -284,5 +313,180 @@ describe("useTabBarIconHiding", () => {
     await nextTick();
 
     expect(shouldHideIcons.value).toBe(true);
+  });
+
+  describe("updateTabMinWidths", () => {
+    const MIN_TAB_WIDTH_TOKEN = "--kds-test-min-width";
+
+    it("sets inline min-width for short tabs to their natural width", async () => {
+      const tabs = ref([createTab("a"), createTab("b")]);
+      const container = createMockContainer({ tokenPx: 64 });
+
+      const { setItemEl } = useTabBarIconHiding({
+        width: ref(500),
+        tabs,
+        containerEl: ref(container),
+        minTabWidth: MIN_TAB_WIDTH_TOKEN,
+      });
+
+      const btnA = createButtonWithLabel(false, { naturalWidth: 30 });
+      const btnB = createButtonWithLabel(false, { naturalWidth: 50 });
+      setItemEl("a", btnA);
+      setItemEl("b", btnB);
+
+      await nextTick();
+      await nextTick();
+
+      expect(btnA.style.minWidth).toBe("30px");
+      expect(btnB.style.minWidth).toBe("50px");
+    });
+
+    it("clears inline min-width for tabs wider than the token", async () => {
+      const tabs = ref([createTab("a"), createTab("b")]);
+      const container = createMockContainer({ tokenPx: 64 });
+
+      const { setItemEl } = useTabBarIconHiding({
+        width: ref(500),
+        tabs,
+        containerEl: ref(container),
+        minTabWidth: MIN_TAB_WIDTH_TOKEN,
+      });
+
+      const btnA = createButtonWithLabel(false, { naturalWidth: 100 });
+      const btnB = createButtonWithLabel(false, { naturalWidth: 64 });
+      setItemEl("a", btnA);
+      setItemEl("b", btnB);
+
+      await nextTick();
+      await nextTick();
+
+      expect(btnA.style.minWidth).toBe("");
+      expect(btnB.style.minWidth).toBe("");
+    });
+
+    it("handles mix of short and long tabs", async () => {
+      const tabs = ref([createTab("a"), createTab("b"), createTab("c")]);
+      const container = createMockContainer({ tokenPx: 64 });
+
+      const { setItemEl } = useTabBarIconHiding({
+        width: ref(500),
+        tabs,
+        containerEl: ref(container),
+        minTabWidth: MIN_TAB_WIDTH_TOKEN,
+      });
+
+      const btnA = createButtonWithLabel(false, { naturalWidth: 20 });
+      const btnB = createButtonWithLabel(false, { naturalWidth: 120 });
+      const btnC = createButtonWithLabel(false, { naturalWidth: 45 });
+      setItemEl("a", btnA);
+      setItemEl("b", btnB);
+      setItemEl("c", btnC);
+
+      await nextTick();
+      await nextTick();
+
+      expect(btnA.style.minWidth).toBe("20px");
+      expect(btnB.style.minWidth).toBe("");
+      expect(btnC.style.minWidth).toBe("45px");
+    });
+
+    it("skips min-width adjustment when fullWidth is true", async () => {
+      const tabs = ref([createTab("a")]);
+      const container = createMockContainer({ tokenPx: 64 });
+
+      const { setItemEl } = useTabBarIconHiding({
+        width: ref(500),
+        tabs,
+        containerEl: ref(container),
+        fullWidth: ref(true),
+        minTabWidth: MIN_TAB_WIDTH_TOKEN,
+      });
+
+      const btn = createButtonWithLabel(false, { naturalWidth: 30 });
+      setItemEl("a", btn);
+
+      await nextTick();
+      await nextTick();
+
+      expect(btn.style.minWidth).toBe("");
+    });
+
+    it("skips min-width adjustment when minTabWidth is not provided", async () => {
+      const tabs = ref([createTab("a")]);
+      const container = createMockContainer({ tokenPx: 64 });
+
+      const { setItemEl } = useTabBarIconHiding({
+        width: ref(500),
+        tabs,
+        containerEl: ref(container),
+      });
+
+      const btn = createButtonWithLabel(false, { naturalWidth: 30 });
+      setItemEl("a", btn);
+
+      await nextTick();
+      await nextTick();
+
+      expect(btn.style.minWidth).toBe("");
+    });
+
+    it("hides accessory during measurement so it does not inflate width", async () => {
+      const tabs = ref([createTab("a")]);
+      const container = createMockContainer({ tokenPx: 64 });
+
+      const { setItemEl } = useTabBarIconHiding({
+        width: ref(500),
+        tabs,
+        containerEl: ref(container),
+        minTabWidth: MIN_TAB_WIDTH_TOKEN,
+      });
+
+      const btn = createButtonWithLabel(false, {
+        naturalWidth: 30,
+        hasAccessory: true,
+      });
+      setItemEl("a", btn);
+
+      await nextTick();
+      await nextTick();
+
+      // Accessory visibility should be restored after measurement
+      const accessory = btn.querySelector(".kds-tab-icon") as HTMLElement;
+      expect(accessory.style.display).toBe("");
+      // Min-width based on label-only measurement
+      expect(btn.style.minWidth).toBe("30px");
+    });
+
+    it("restores flex-shrink after measurement", async () => {
+      const tabs = ref([createTab("a")]);
+      const container = createMockContainer({ tokenPx: 64 });
+
+      const { setItemEl } = useTabBarIconHiding({
+        width: ref(500),
+        tabs,
+        containerEl: ref(container),
+        minTabWidth: MIN_TAB_WIDTH_TOKEN,
+      });
+
+      const btn = createButtonWithLabel(false, { naturalWidth: 30 });
+      setItemEl("a", btn);
+
+      await nextTick();
+      await nextTick();
+
+      expect(btn.style.flexShrink).toBe("");
+    });
+
+    it("returns minTabWidth for use in v-bind CSS", () => {
+      const tabs = ref([createTab("a")]);
+      const result = useTabBarIconHiding({
+        width: ref(500),
+        tabs,
+        containerEl: ref(createMockContainer()),
+        minTabWidth: MIN_TAB_WIDTH_TOKEN,
+      });
+
+      expect(result.minTabWidth).toBe(MIN_TAB_WIDTH_TOKEN);
+    });
   });
 });

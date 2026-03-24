@@ -168,6 +168,7 @@ const extraTabs: KdsTabBarItem[] = [
     panelId: "panel-folder",
     accessory: { type: "icon", name: "folder" },
   },
+  { id: "short-tab", value: "1", label: "1", panelId: "panel-1" },
   {
     id: "tab-settings",
     value: "settings",

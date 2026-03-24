@@ -6,7 +6,7 @@ import { elementOverflowsHorizontally } from "../../util/useKdsIsTruncated";
 
 import TabBarItemAccessory from "./TabBarItemAccessory.vue";
 import type { KdsTabBarItem, KdsTabBarProps } from "./types";
-import { useTabBarIconHiding } from "./useTabBarIconHiding";
+import { useTabBarIconHiding } from "./useTabBarAdaptiveLayout";
 
 const props = withDefaults(defineProps<KdsTabBarProps>(), {
   size: "small",
@@ -79,11 +79,17 @@ const availableWidthContainer = useTemplateRef<HTMLElement>(
   "availableWidthContainer",
 );
 const { width } = useElementSize(availableWidthContainer);
-const { shouldHideIcons, setItemEl } = useTabBarIconHiding({
+const MIN_TAB_WIDTH_TOKEN = "--kds-dimension-component-width-4x";
+
+const { shouldHideIcons, setItemEl, minTabWidth } = useTabBarIconHiding({
   width,
   tabs: toRef(props, "tabs"),
   containerEl: availableWidthContainer,
+  fullWidth: toRef(props, "fullWidth"),
+  minTabWidth: MIN_TAB_WIDTH_TOKEN,
 });
+
+const minTabWidthCss = `var(${minTabWidth})`;
 
 const tabBarClass = computed(() => ({
   "kds-tab-bar": true,
@@ -148,42 +154,44 @@ watch(
 </script>
 
 <template>
-  <div ref="availableWidthContainer" :class="tabBarClass" role="tablist">
-    <button
-      v-for="tab in tabs"
-      :id="tab.id"
-      :key="tab.value"
-      :ref="
-        (el) => {
-          tabEls.set(el as object | null);
-          setItemEl(tab.value, el);
-        }
-      "
-      type="button"
-      role="tab"
-      :title="getTabTitle(tab)"
-      :aria-selected="modelValue === tab.value"
-      :aria-controls="tab.panelId"
-      :tabindex="focusableTabValue === tab.value ? 0 : -1"
-      :disabled="isTabDisabled(tab)"
-      :class="{
-        'kds-tab': true,
-        'kds-tab-selected': modelValue === tab.value,
-      }"
-      @click="selectTab(tab)"
-      @keydown="handleKeydown($event, tab)"
-    >
-      <TabBarItemAccessory
-        v-if="
-          tab.accessory && !(tab.accessory.type === 'icon' && shouldHideIcons)
+  <div class="kds-tab-bar-wrapper">
+    <div ref="availableWidthContainer" :class="tabBarClass" role="tablist">
+      <button
+        v-for="tab in tabs"
+        :id="tab.id"
+        :key="tab.value"
+        :ref="
+          (el) => {
+            tabEls.set(el as object | null);
+            setItemEl(tab.value, el);
+          }
         "
-        :accessory="tab.accessory"
-        :icon-size="props.size === 'large' ? 'large' : 'medium'"
+        type="button"
+        role="tab"
+        :title="getTabTitle(tab)"
+        :aria-selected="modelValue === tab.value"
+        :aria-controls="tab.panelId"
+        :tabindex="focusableTabValue === tab.value ? 0 : -1"
         :disabled="isTabDisabled(tab)"
-      />
-      <span class="kds-tab-label">{{ tab.label }}</span>
-      <span v-if="modelValue === tab.value" class="kds-tab-indicator" />
-    </button>
+        :class="{
+          'kds-tab': true,
+          'kds-tab-selected': modelValue === tab.value,
+        }"
+        @click="selectTab(tab)"
+        @keydown="handleKeydown($event, tab)"
+      >
+        <TabBarItemAccessory
+          v-if="
+            tab.accessory && !(tab.accessory.type === 'icon' && shouldHideIcons)
+          "
+          :accessory="tab.accessory"
+          :icon-size="props.size === 'large' ? 'large' : 'medium'"
+          :disabled="isTabDisabled(tab)"
+        />
+        <span class="kds-tab-label">{{ tab.label }}</span>
+        <span v-if="modelValue === tab.value" class="kds-tab-indicator" />
+      </button>
+    </div>
   </div>
 </template>
 
@@ -205,6 +213,7 @@ watch(
   display: flex;
   align-items: center;
   min-width: 0;
+  font: inherit;
   color: var(--kds-color-text-and-icon-neutral);
   cursor: pointer;
   background: var(--kds-color-background-neutral-initial);
@@ -227,7 +236,7 @@ watch(
     & .kds-tab-indicator {
       position: absolute;
       right: 0;
-      bottom: calc(-1 * var(--kds-core-border-width-m));
+      bottom: 0;
       left: 0;
       z-index: 1;
       height: var(--kds-dimension-component-height-0-125x);
@@ -243,12 +252,34 @@ watch(
   }
 }
 
+.kds-tab-bar-wrapper {
+  --focus-ring-space: calc(
+    2px + var(--kds-spacing-offset-focus)
+  ); /* outline-width + outline-offset */
+
+  position: relative;
+  display: flow-root;
+  overflow: visible;
+
+  &::before {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: var(--kds-core-border-width-m);
+    pointer-events: none;
+    content: "";
+    background: var(--kds-color-border-subtle);
+  }
+}
+
 .kds-tab-bar {
   display: flex;
   flex-wrap: nowrap;
+  padding: var(--focus-ring-space);
+  margin: calc(-1 * var(--focus-ring-space));
+  overflow-x: auto;
   scrollbar-width: none;
-  border-bottom: var(--kds-border-base-subtle);
-  border-bottom-width: var(--kds-core-border-width-m);
   border-radius: var(--kds-border-radius-container-none);
 
   &::-webkit-scrollbar {
@@ -257,7 +288,7 @@ watch(
 
   &:not(.kds-tab-bar-full-width) .kds-tab {
     flex: 0 1 auto;
-    min-width: var(--kds-dimension-component-width-4x);
+    min-width: v-bind(minTabWidthCss);
   }
 
   &.kds-tab-bar-large .kds-tab-label {
