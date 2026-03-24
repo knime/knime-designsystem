@@ -1,7 +1,7 @@
 import { ref, watchEffect } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
-import { expect, userEvent, within } from "storybook/test";
+import { expect, fireEvent, userEvent, within } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
@@ -205,6 +205,37 @@ export const Default: Story = {
     await expect(bananaOption).toHaveAttribute("aria-selected", "true");
     await expect(cherryOption).toHaveAttribute("aria-selected", "true");
     await expect(honeydewOption).toHaveAttribute("aria-selected", "true");
+
+    // Keyboard: Home selects first item
+    await user.keyboard("{Home}");
+    await expect(appleOption).toHaveAttribute("aria-selected", "true");
+    await expect(bananaOption).toHaveAttribute("aria-selected", "false");
+
+    // Keyboard: End selects last item
+    await user.keyboard("{End}");
+    await expect(honeydewOption).toHaveAttribute("aria-selected", "true");
+    await expect(appleOption).toHaveAttribute("aria-selected", "false");
+
+    // Keyboard: Shift+ArrowUp extends selection upward
+    await user.keyboard("{Shift>}{ArrowUp}{/Shift}");
+    const grapeOption = await canvas.findByRole("option", { name: "Grape" });
+    await expect(grapeOption).toHaveAttribute("aria-selected", "true");
+    await expect(honeydewOption).toHaveAttribute("aria-selected", "true");
+
+    // Keyboard: Shift+ArrowDown extends selection downward (back to honeydew only)
+    await user.keyboard("{Shift>}{ArrowDown}{/Shift}");
+    await expect(honeydewOption).toHaveAttribute("aria-selected", "true");
+    await expect(grapeOption).toHaveAttribute("aria-selected", "false");
+
+    // aria-activedescendant tracks keyboard nav
+    await expect(listbox).toHaveAttribute(
+      "aria-activedescendant",
+      honeydewOption.id,
+    );
+
+    // Blur resets aria-activedescendant
+    await user.click(canvasElement);
+    await expect(listbox).not.toHaveAttribute("aria-activedescendant");
   },
 };
 
@@ -222,14 +253,38 @@ export const Disabled: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const user = userEvent.setup();
+    const listbox = canvas.getByRole("listbox", { name: "Fruit list" });
+    const appleOption = canvas.getByRole("option", { name: "Apple" });
     const bananaOption = canvas.getByRole("option", { name: "Banana" });
 
-    // Clicking should not change selection when disabled
+    // Mouse: clicking should not change selection when disabled
     await user.click(bananaOption);
     await expect(bananaOption).toHaveAttribute("aria-selected", "false");
-
-    const appleOption = canvas.getByRole("option", { name: "Apple" });
     await expect(appleOption).toHaveAttribute("aria-selected", "true");
+
+    // Keyboard: ArrowDown should not change selection when disabled
+    listbox.focus();
+    await user.keyboard("{ArrowDown}");
+    await expect(appleOption).toHaveAttribute("aria-selected", "true");
+    await expect(bananaOption).toHaveAttribute("aria-selected", "false");
+
+    // Keyboard: Ctrl+A should not select all when disabled
+    await user.keyboard("{Control>}a{/Control}");
+    await expect(bananaOption).toHaveAttribute("aria-selected", "false");
+
+    // Keyboard: Home/End should not change selection when disabled
+    await user.keyboard("{Home}");
+    await expect(appleOption).toHaveAttribute("aria-selected", "true");
+    await user.keyboard("{End}");
+    await expect(appleOption).toHaveAttribute("aria-selected", "true");
+
+    // Keyboard: Shift+ArrowDown should not change selection when disabled
+    await user.keyboard("{Shift>}{ArrowDown}{/Shift}");
+    await expect(appleOption).toHaveAttribute("aria-selected", "true");
+    await expect(bananaOption).toHaveAttribute("aria-selected", "false");
+
+    // aria-disabled should be set on the listbox
+    await expect(listbox).toHaveAttribute("aria-disabled", "true");
   },
 };
 
@@ -258,6 +313,24 @@ export const EmptyList: Story = {
   args: {
     possibleValues: [],
     size: 5,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+    const listbox = canvas.getByRole("listbox", { name: "Fruit list" });
+
+    // Empty state overlay should be visible
+    await expect(
+      canvas.getByText("No entries in this list"),
+    ).toBeInTheDocument();
+
+    // Keyboard nav should not error on empty list
+    listbox.focus();
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard("{Home}");
+    await user.keyboard("{End}");
+    await user.keyboard("{Shift>}{End}{/Shift}");
+    await user.keyboard("{Shift>}{Home}{/Shift}");
   },
 };
 
@@ -294,6 +367,58 @@ export const WithBottomValue: Story = {
     await user.keyboard("{End}");
     await expect(bottomOption).toHaveAttribute("aria-selected", "true");
     await expect(appleOption).toHaveAttribute("aria-selected", "false");
+
+    // Shift+End from Apple includes bottom value
+    await user.keyboard("{Home}");
+    await expect(appleOption).toHaveAttribute("aria-selected", "true");
+    await user.keyboard("{Shift>}{End}{/Shift}");
+    await expect(appleOption).toHaveAttribute("aria-selected", "true");
+    await expect(bottomOption).toHaveAttribute("aria-selected", "true");
+  },
+};
+
+export const EmptyWithBottomValue: Story = {
+  args: {
+    possibleValues: [],
+    bottomValue: { id: "row-id", text: "Row ID" },
+    size: 5,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Bottom value should still be visible
+    const bottomOption = canvas.getByRole("option", { name: "Row ID" });
+    await expect(bottomOption).toBeInTheDocument();
+
+    // Empty state overlay should NOT be shown when bottomValue exists
+    expect(canvas.queryByText("No entries in this list")).toBeNull();
+
+    // Click bottom value works
+    await user.click(bottomOption);
+    await expect(bottomOption).toHaveAttribute("aria-selected", "true");
+  },
+};
+
+export const DragSelection: Story = {
+  args: {
+    possibleValues: baseOptions,
+    ariaLabel: "Fruit list",
+    size: 8,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const appleOption = canvas.getByRole("option", { name: "Apple" });
+    const cherryOption = canvas.getByRole("option", { name: "Cherry" });
+    const bananaOption = canvas.getByRole("option", { name: "Banana" });
+
+    // Drag from Apple to Cherry
+    await fireEvent.mouseDown(appleOption);
+    await fireEvent.mouseMove(cherryOption);
+    await fireEvent.mouseUp(cherryOption);
+    await expect(appleOption).toHaveAttribute("aria-selected", "true");
+    await expect(bananaOption).toHaveAttribute("aria-selected", "true");
+    await expect(cherryOption).toHaveAttribute("aria-selected", "true");
   },
 };
 
