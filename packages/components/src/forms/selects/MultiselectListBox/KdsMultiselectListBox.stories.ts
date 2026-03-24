@@ -43,7 +43,7 @@ const meta: Meta<typeof KdsMultiselectListBox> = {
       description: {
         component:
           "A multiselect list box allowing users to select multiple items from a scrollable list. " +
-          "Supports Ctrl+Click, Shift+Click, drag selection, and keyboard navigation (Arrow keys, Home, End, Ctrl+A).",
+          "Supports Ctrl+Click, Shift+Click, drag selection, and keyboard navigation (Arrow keys, Home, End, Shift+Home, Shift+End, Ctrl+A).",
       },
     },
   },
@@ -121,6 +121,30 @@ export const Default: Story = {
     await userEvent.keyboard("{ArrowUp}");
     await expect(bananaOption).toHaveAttribute("aria-selected", "true");
     await expect(cherryOption).toHaveAttribute("aria-selected", "false");
+
+    // Keyboard: Shift+End — select from Banana (current) to Honeydew (last)
+    await userEvent.keyboard("{Shift>}{End}{/Shift}");
+    await expect(bananaOption).toHaveAttribute("aria-selected", "true");
+    await expect(cherryOption).toHaveAttribute("aria-selected", "true");
+    const dateOption = canvas.getByRole("option", { name: "Date" });
+    await expect(dateOption).toHaveAttribute("aria-selected", "true");
+    const honeydewOption = canvas.getByRole("option", { name: "Honeydew" });
+    await expect(honeydewOption).toHaveAttribute("aria-selected", "true");
+    await expect(appleOption).toHaveAttribute("aria-selected", "false");
+
+    // Reset: click Cherry to select only Cherry
+    await userEvent.click(cherryOption);
+    await expect(cherryOption).toHaveAttribute("aria-selected", "true");
+    await expect(bananaOption).toHaveAttribute("aria-selected", "false");
+    await expect(honeydewOption).toHaveAttribute("aria-selected", "false");
+
+    // Keyboard: Shift+Home — select from Cherry (current) to Apple (first)
+    listbox.focus();
+    await userEvent.keyboard("{Shift>}{Home}{/Shift}");
+    await expect(appleOption).toHaveAttribute("aria-selected", "true");
+    await expect(bananaOption).toHaveAttribute("aria-selected", "true");
+    await expect(cherryOption).toHaveAttribute("aria-selected", "true");
+    await expect(dateOption).toHaveAttribute("aria-selected", "false");
   },
 };
 

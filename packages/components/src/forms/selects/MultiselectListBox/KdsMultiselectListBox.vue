@@ -347,6 +347,35 @@ const onHomeKey = () => {
   scrollToCurrent();
 };
 
+const onEndKeyShift = () => {
+  if (props.disabled) {
+    return;
+  }
+  isKeyboardNavigating.value = true;
+  if (shiftStartIndex.value === -1) {
+    shiftStartIndex.value = currentKeyNavIndex.value;
+  }
+  const next = props.possibleValues.length - 1;
+  setSelectedNoShiftReset(
+    getPossibleValuesInSection(shiftStartIndex.value, next),
+  );
+  currentKeyNavIndex.value = next;
+  scrollToCurrent();
+};
+
+const onHomeKeyShift = () => {
+  if (props.disabled) {
+    return;
+  }
+  isKeyboardNavigating.value = true;
+  if (shiftStartIndex.value === -1) {
+    shiftStartIndex.value = currentKeyNavIndex.value;
+  }
+  setSelectedNoShiftReset(getPossibleValuesInSection(shiftStartIndex.value, 0));
+  currentKeyNavIndex.value = 0;
+  scrollToCurrent();
+};
+
 const onArrowLeft = () => {
   if (props.disabled) {
     return;
@@ -422,6 +451,8 @@ defineExpose({ focus });
       @keydown.right.prevent.exact="onArrowRight"
       @keydown.home.prevent.exact="onHomeKey"
       @keydown.end.prevent.exact="onEndKey"
+      @keydown.shift.home.prevent.exact="onHomeKeyShift"
+      @keydown.shift.end.prevent.exact="onEndKeyShift"
       @mousedown="onStartDrag"
       @mousemove="onDrag"
     >
