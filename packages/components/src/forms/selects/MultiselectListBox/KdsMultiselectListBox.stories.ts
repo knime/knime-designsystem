@@ -69,6 +69,10 @@ const meta: Meta<typeof KdsMultiselectListBox> = {
       control: { type: "number", min: 0 },
       table: { category: "props" },
     },
+    bottomValue: {
+      control: "object",
+      table: { category: "props" },
+    },
   },
   args: {
     modelValue: [],
@@ -76,6 +80,7 @@ const meta: Meta<typeof KdsMultiselectListBox> = {
     ariaLabel: "Fruit list",
     disabled: false,
     size: 5,
+    bottomValue: undefined,
   },
   render: (args) => {
     const [, updateArgs] = useArgs();
@@ -207,6 +212,35 @@ export const AutoSized: Story = {
   },
 };
 
+export const WithBottomValue: Story = {
+  args: {
+    possibleValues: baseOptions,
+    bottomValue: { id: "row-id", text: "Row ID" },
+    size: 5,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Click bottom value — should select it like any other item
+    const bottomOption = canvas.getByRole("option", { name: "Row ID" });
+    await userEvent.click(bottomOption);
+    await expect(bottomOption).toHaveAttribute("aria-selected", "true");
+
+    // Click a scrollable item — should deselect bottom value and select scrollable
+    const appleOption = canvas.getByRole("option", { name: "Apple" });
+    await userEvent.click(appleOption);
+    await expect(appleOption).toHaveAttribute("aria-selected", "true");
+    await expect(bottomOption).toHaveAttribute("aria-selected", "false");
+
+    // Keyboard: navigate down to the end (into bottom value)
+    const listbox = canvas.getByRole("listbox", { name: "Fruit list" });
+    listbox.focus();
+    await userEvent.keyboard("{End}");
+    await expect(bottomOption).toHaveAttribute("aria-selected", "true");
+    await expect(appleOption).toHaveAttribute("aria-selected", "false");
+  },
+};
+
 // TextOverflow story does not apply here
 
 export const DesignComparator: Story = buildDesignComparatorStory({
@@ -224,6 +258,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       ariaLabel: ["Fruit list"],
       disabled: [false, true],
       size: [5],
+      bottomValue: [undefined, { id: "row-id", text: "Row ID" }],
     } as never,
   ],
   pseudoStates: ["hover", "focus-visible"],

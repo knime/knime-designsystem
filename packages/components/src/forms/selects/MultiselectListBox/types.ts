@@ -25,4 +25,6 @@ export type KdsMultiselectListBoxProps = {
    * 0 means all items are visible.
    */
   size?: number;
+  /** Optional item pinned to the bottom of the list, always visible while scrolling. Interacts like a regular item for selection, keyboard navigation, and drag. */
+  bottomValue?: KdsMultiselectListBoxOption;
 };
