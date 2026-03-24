@@ -57,6 +57,9 @@ export const TextOverflow: Story = {
     component: VariablePopover,
     width: 240,
   }),
+  args: {
+    content: SAMPLE_CONTENT.repeat(10),
+  },
 };
 
 export const DesignComparator: Story = buildDesignComparatorStory({
