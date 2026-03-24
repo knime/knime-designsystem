@@ -1,5 +1,11 @@
 # @knime/kds-styles
 
+## 0.18.3
+
+### Patch Changes
+
+- 522fb56: add color and size tokens for donut chart
+
 ## 0.18.2
 
 ## 0.18.1
