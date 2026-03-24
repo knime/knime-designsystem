@@ -32,7 +32,8 @@ const meta: Meta<typeof KdsColorInput> = {
   argTypes: {
     modelValue: {
       control: "text",
-      description: "v-model binding for the hex color value",
+      description:
+        "v-model binding for the hex color value (#RRGGBB or #RRGGBBAA)",
       table: { category: "model" },
     },
     label: {
@@ -171,12 +172,72 @@ export const Default: Story = {
 
 export const WithValue: Story = {
   args: {
-    modelValue: "#5148E5",
+    modelValue: "#5148E5CC",
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByRole("textbox", { name: "Label" });
-    await expect(input).toHaveValue("#5148E5");
+    const INITIAL_VALUE = "#5148E5CC";
+
+    const setValueAndBlur = async (nextValue: string) => {
+      await userEvent.click(input);
+      await userEvent.clear(input);
+      await userEvent.type(input, nextValue);
+      input.blur();
+    };
+
+    await step("Reset to known initial value", async () => {
+      await setValueAndBlur(INITIAL_VALUE);
+      await expect(input).toHaveValue(INITIAL_VALUE);
+    });
+
+    await step("Normalizes 1-digit hex", async () => {
+      await setValueAndBlur("#a");
+      await expect(input).toHaveValue("#AAAAAA");
+    });
+
+    await step("Normalizes 2-digit hex", async () => {
+      await setValueAndBlur("#ab");
+      await expect(input).toHaveValue("#ABABAB");
+    });
+
+    await step("Normalizes 3-digit hex", async () => {
+      await setValueAndBlur("#abc");
+      await expect(input).toHaveValue("#AABBCC");
+    });
+
+    await step("Normalizes 4-digit hex to 8-digit", async () => {
+      await setValueAndBlur("#abcd");
+      await expect(input).toHaveValue("#AABBCCDD");
+    });
+
+    await step("Restores last valid value for 5-digit hex", async () => {
+      await setValueAndBlur("#abc");
+      await setValueAndBlur("#abcde");
+      await expect(input).toHaveValue("#AABBCC");
+    });
+
+    await step("Normalizes 8-digit hex", async () => {
+      await setValueAndBlur("#aabbccdd");
+      await expect(input).toHaveValue("#AABBCCDD");
+    });
+
+    await step("Restores last valid value for 7-digit hex", async () => {
+      await setValueAndBlur("#aabbccdd");
+      // Delete the last character instead of retyping, to avoid passing through a
+      // valid 6-digit state which would update the last valid hex color to #aabbcc.
+      await userEvent.click(input);
+      await userEvent.keyboard("{Backspace}");
+      await input.blur();
+      await expect(input).toHaveValue("#AABBCCDD");
+    });
+
+    await step("Removes alpha from hex when fully opaque", async () => {
+      await setValueAndBlur("#5148E5FC");
+      await expect(input).toHaveValue("#5148E5FC");
+      await setValueAndBlur("#5148E5FF");
+      await expect(input).toHaveValue("#5148E5");
+    });
   },
 };
 
@@ -290,7 +351,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
     {
       label: ["Label"],
       ariaLabel: ["Aria Label"],
-      modelValue: ["", "#5148E5"],
+      modelValue: ["", "#5148E5CC"],
       placeholder: ["#FFFFFF"],
       disabled: [false, true],
       error: [false, true],
@@ -300,7 +361,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
     {
       label: [undefined],
       ariaLabel: ["Aria Label"],
-      modelValue: ["", "#5148E5"],
+      modelValue: ["", "#5148E5CC"],
       placeholder: ["#FFFFFF"],
       disabled: [false, true],
       error: [false, true],

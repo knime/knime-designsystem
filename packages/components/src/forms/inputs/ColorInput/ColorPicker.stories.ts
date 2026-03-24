@@ -20,7 +20,8 @@ const meta: Meta<typeof ColorPicker> = {
   argTypes: {
     modelValue: {
       control: { type: "text" },
-      description: "The selected color as a hex string (e.g. #5148E5)",
+      description:
+        "The selected color as a hex string (e.g. #5148E5 or #5148E5CC)",
       table: { category: "model" },
     },
   },
@@ -52,6 +53,7 @@ export const Default: Story = {
       name: "Color selection",
     });
     const hueSlider = canvas.getByRole("slider", { name: "Hue" });
+    const alphaSlider = canvas.getByRole("slider", { name: "Alpha" });
     const textInput = canvas.getByRole("textbox", {
       name: "Color hex value",
     });
@@ -111,11 +113,35 @@ export const Default: Story = {
       expect(hueAfter).not.toBe(hueBefore);
     });
 
+    await step("Keyboard: adjust alpha", async () => {
+      alphaSlider.focus();
+      await expect(alphaSlider).toHaveFocus();
+
+      const initialAlpha = Number(alphaSlider.getAttribute("aria-valuenow"));
+
+      await userEvent.keyboard("{ArrowLeft}");
+      const updatedAlpha = Number(alphaSlider.getAttribute("aria-valuenow"));
+      expect(updatedAlpha).toBe(Math.max(initialAlpha - 1, 0));
+
+      await userEvent.keyboard("{ArrowRight}");
+      const restoredAlpha = Number(alphaSlider.getAttribute("aria-valuenow"));
+      expect(restoredAlpha).toBe(initialAlpha);
+    });
+
+    await step("Mouse: click on alpha slider", async () => {
+      const alphaBefore = Number(alphaSlider.getAttribute("aria-valuenow"));
+
+      await userEvent.click(alphaSlider);
+
+      const alphaAfter = Number(alphaSlider.getAttribute("aria-valuenow"));
+      expect(alphaAfter).not.toBe(alphaBefore);
+    });
+
     await step("Mouse: type a hex value into the text input", async () => {
       await userEvent.click(textInput);
       await userEvent.clear(textInput);
-      await userEvent.type(textInput, "#FF6600");
-      await expect(textInput).toHaveValue("#FF6600");
+      await userEvent.type(textInput, "#FF660080");
+      await expect(textInput).toHaveValue("#FF660080");
     });
   },
 };
@@ -153,7 +179,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   component: ColorPicker,
   combinationsProps: [
     {
-      modelValue: ["#FF0000", "#00FF00", "#0000FF", ""],
+      modelValue: ["#FF0000", "#00FF0080", "#0000FF1A", ""],
     },
   ],
   pseudoStates: ["hover", "focus"],

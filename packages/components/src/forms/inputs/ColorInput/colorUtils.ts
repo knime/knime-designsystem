@@ -4,6 +4,11 @@ export type KdsRgbColor = {
   b: number;
 };
 
+export type KdsRgbaColor = KdsRgbColor & {
+  /** Alpha */
+  a: number;
+};
+
 export type KdsHsvColor = {
   /** Hue in degrees [0..360) */
   h: number;
@@ -33,6 +38,9 @@ const HEX_PAIR_LENGTH = 2;
 const HEX_RED_START = 1;
 const HEX_GREEN_START = HEX_RED_START + HEX_PAIR_LENGTH;
 const HEX_BLUE_START = HEX_GREEN_START + HEX_PAIR_LENGTH;
+const HEX_ALPHA_START = HEX_BLUE_START + HEX_PAIR_LENGTH;
+
+const FULL_HEX_COLOR_LENGTH = 9; // #RRGGBBAA
 
 export const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
@@ -54,14 +62,24 @@ export const normalizeHexColor = (value: string): string | null => {
     return `#${r}${r}${g}${g}${b}${b}`.toUpperCase();
   }
 
-  if (/^[0-9a-fA-F]{6}$/.test(withoutHash)) {
+  if (/^[0-9a-fA-F]{4}$/.test(withoutHash)) {
+    const [r, g, b, a] = withoutHash.split("") as [
+      string,
+      string,
+      string,
+      string,
+    ];
+    return `#${r}${r}${g}${g}${b}${b}${a}${a}`.toUpperCase();
+  }
+
+  if (/^([0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/.test(withoutHash)) {
     return `#${withoutHash}`.toUpperCase();
   }
 
   return null;
 };
 
-export const hexToRgb = (hex: string): KdsRgbColor | null => {
+export const hexToRgba = (hex: string): KdsRgbaColor | null => {
   const normalized = normalizeHexColor(hex);
   if (!normalized) {
     return null;
@@ -80,7 +98,28 @@ export const hexToRgb = (hex: string): KdsRgbColor | null => {
     HEX_RADIX,
   );
 
-  return { r, g, b };
+  const hasAlpha = normalized.length === FULL_HEX_COLOR_LENGTH;
+  const a = hasAlpha
+    ? Number.parseInt(
+        normalized.slice(HEX_ALPHA_START, HEX_ALPHA_START + HEX_PAIR_LENGTH),
+        HEX_RADIX,
+      ) / RGB_MAX
+    : 1;
+
+  return { r, g, b, a };
+};
+
+export const hexToRgb = (hex: string): KdsRgbColor | null => {
+  const rgba = hexToRgba(hex);
+  if (!rgba) {
+    return null;
+  }
+
+  return {
+    r: rgba.r,
+    g: rgba.g,
+    b: rgba.b,
+  };
 };
 
 export const rgbToHex = ({ r, g, b }: KdsRgbColor): string => {
@@ -89,6 +128,11 @@ export const rgbToHex = ({ r, g, b }: KdsRgbColor): string => {
   const bb = clamp(round(b), 0, RGB_MAX);
 
   return `#${padHex(rr)}${padHex(gg)}${padHex(bb)}`.toUpperCase();
+};
+
+export const rgbaToHex = ({ r, g, b, a }: KdsRgbaColor): string => {
+  const alpha = clamp(round(a * RGB_MAX), 0, RGB_MAX);
+  return `${rgbToHex({ r, g, b })}${padHex(alpha)}`.toUpperCase();
 };
 
 export const rgbToHsv = ({ r, g, b }: KdsRgbColor): KdsHsvColor => {
