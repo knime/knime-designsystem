@@ -178,6 +178,7 @@ watch(
           tab.accessory && !(tab.accessory.type === 'icon' && shouldHideIcons)
         "
         :accessory="tab.accessory"
+        :icon-size="props.size === 'large' ? 'large' : 'medium'"
         :disabled="isTabDisabled(tab)"
       />
       <span class="kds-tab-label">{{ tab.label }}</span>
@@ -208,9 +209,6 @@ watch(
   cursor: pointer;
   background: var(--kds-color-background-neutral-initial);
   border: none;
-  border-bottom: var(--kds-border-base-subtle);
-  border-bottom-width: var(--kds-core-border-width-m);
-  border-radius: var(--kds-border-radius-container-none);
 
   &:disabled {
     color: var(--kds-color-text-and-icon-disabled);
@@ -249,6 +247,9 @@ watch(
   display: flex;
   flex-wrap: nowrap;
   scrollbar-width: none;
+  border-bottom: var(--kds-border-base-subtle);
+  border-bottom-width: var(--kds-core-border-width-m);
+  border-radius: var(--kds-border-radius-container-none);
 
   &::-webkit-scrollbar {
     display: none;
@@ -259,29 +260,16 @@ watch(
     min-width: var(--kds-dimension-component-width-4x);
   }
 
-  /* Size-dependent overrides */
-  &-small .kds-tab-icon {
-    width: var(--kds-dimension-component-width-1x);
-    height: var(--kds-dimension-component-height-1x);
+  &.kds-tab-bar-large .kds-tab-label {
+    font: var(--kds-font-base-interactive-large-strong);
   }
 
-  &-large {
-    & .kds-tab-icon {
-      width: var(--kds-dimension-component-width-1-25x);
-      height: var(--kds-dimension-component-height-1-25x);
-    }
-
-    & .kds-tab-label {
-      font: var(--kds-font-base-interactive-large-strong);
-    }
-
-    & .kds-tab-selected .kds-tab-label {
-      font: var(--kds-font-base-title-large);
-    }
+  &.kds-tab-bar-large .kds-tab-selected .kds-tab-label {
+    font: var(--kds-font-base-title-large);
   }
 
-  &-small,
-  &-large {
+  &.kds-tab-bar-small,
+  &.kds-tab-bar-large {
     & .kds-tab-selected .kds-tab-icon {
       color: var(--kds-color-text-and-icon-selected);
     }

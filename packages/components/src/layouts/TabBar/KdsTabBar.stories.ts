@@ -196,6 +196,55 @@ const extraTabs: KdsTabBarItem[] = [
     panelId: "panel-data-table",
     accessory: { type: "icon", name: "db-table" },
   },
+  {
+    id: "tab-chart",
+    value: "chart",
+    label: "Chart",
+    panelId: "panel-chart",
+    accessory: { type: "icon", name: "data-value-view" },
+  },
+  {
+    id: "tab-api",
+    value: "api",
+    label: "API",
+    panelId: "panel-api",
+    accessory: { type: "icon", name: "service" },
+  },
+  {
+    id: "tab-analytics",
+    value: "analytics",
+    label: "Analytics",
+    panelId: "panel-analytics",
+    accessory: { type: "icon", name: "function-catalog" },
+  },
+  {
+    id: "tab-automation",
+    value: "automation",
+    label: "Automation",
+    panelId: "panel-automation",
+    accessory: { type: "icon", name: "execute-all" },
+  },
+  {
+    id: "tab-collaboration",
+    value: "collaboration",
+    label: "Collaboration",
+    panelId: "panel-collaboration",
+    accessory: { type: "icon", name: "team" },
+  },
+  {
+    id: "tab-security",
+    value: "security",
+    label: "Security",
+    panelId: "panel-security",
+    accessory: { type: "icon", name: "lock" },
+  },
+  {
+    id: "tab-support",
+    value: "support",
+    label: "Support",
+    panelId: "panel-support",
+    accessory: { type: "icon", name: "forum" },
+  },
 ];
 
 export const Default: Story = {
