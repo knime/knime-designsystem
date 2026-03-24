@@ -81,6 +81,21 @@ const shiftStartIndex = ref(-1);
 const draggingStartIndex = ref(-1);
 const draggingInverseMode = ref(false);
 
+watch(
+  () => allValues.value.length,
+  (length) => {
+    const maxIndex = length - 1;
+    if (maxIndex < 0) {
+      currentKeyNavIndex.value = 0;
+    } else {
+      currentKeyNavIndex.value = Math.min(
+        Math.max(currentKeyNavIndex.value, 0),
+        maxIndex,
+      );
+    }
+  },
+);
+
 const isCurrentValue = (id: string) => modelValue.value.includes(id);
 
 const cssStyleSize = computed(() =>
@@ -291,22 +306,28 @@ const onArrowUpShift = () => {
   navigateTo(currentKeyNavIndex.value - 1, "shift");
 };
 const onEndKey = () => {
+  if (props.disabled || allValues.value.length === 0) {
+    return;
+  }
   isKeyboardNavigating.value = true;
   navigateTo(allValues.value.length - 1, "single");
 };
 const onHomeKey = () => {
+  if (props.disabled || allValues.value.length === 0) {
+    return;
+  }
   isKeyboardNavigating.value = true;
   navigateTo(0, "single");
 };
 const onEndKeyShift = () => {
-  if (props.disabled) {
+  if (props.disabled || allValues.value.length === 0) {
     return;
   }
   isKeyboardNavigating.value = true;
   navigateTo(allValues.value.length - 1, "shift");
 };
 const onHomeKeyShift = () => {
-  if (props.disabled) {
+  if (props.disabled || allValues.value.length === 0) {
     return;
   }
   isKeyboardNavigating.value = true;
@@ -386,7 +407,7 @@ defineExpose({ focus });
       :aria-disabled="props.disabled"
       :class="[
         'kds-multiselect-list-box-list',
-        { disabled: props.disabled, empty: possibleValues.length === 0 },
+        { disabled: props.disabled, empty: props.possibleValues.length === 0 },
       ]"
       @keydown.ctrl.a.prevent.exact="onCtrlA"
       @keydown.meta.a.prevent.exact="onCtrlA"
@@ -423,7 +444,7 @@ defineExpose({ focus });
         />
       </div>
     </div>
-    <div v-if="possibleValues.length === 0" class="kds-multiselect-empty">
+    <div v-if="props.possibleValues.length === 0" class="kds-multiselect-empty">
       <KdsEmptyState headline="No entries in this list" />
     </div>
   </div>

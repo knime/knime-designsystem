@@ -3,7 +3,10 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
 import { expect, userEvent, within } from "storybook/test";
 
-import { buildAllCombinationsStory } from "../../../test-utils/storybook";
+import {
+  buildAllCombinationsStory,
+  buildTextOverflowStory,
+} from "../../../test-utils/storybook";
 
 import KdsMultiselectListBox from "./KdsMultiselectListBox.vue";
 import type { KdsMultiselectListBoxOption } from "./types";
@@ -237,7 +240,23 @@ export const WithBottomValue: Story = {
   },
 };
 
-// TextOverflow story does not apply here
+export const TextOverflow: Story = {
+  ...buildTextOverflowStory({
+    component: KdsMultiselectListBox,
+    width: 250,
+  }),
+  args: {
+    possibleValues: [
+      {
+        id: "long",
+        text: "A very very very very very long option label that should overflow and be truncated",
+      },
+      ...baseOptions,
+    ],
+    ariaLabel: "Fruit list",
+    size: 5,
+  },
+};
 
 // DesignComparator story disabled - no Figma design yet
 
