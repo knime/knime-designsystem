@@ -177,8 +177,9 @@ const handleClick = (event: MouseEvent, value: string, index: number) => {
     return;
   }
   if (event.shiftKey) {
-    setSelected(getPossibleValuesInSection(currentKeyNavIndex.value, index));
-    currentKeyNavIndex.value = index;
+    setSelectedNoShiftReset(
+      getPossibleValuesInSection(currentKeyNavIndex.value, index),
+    );
     return;
   }
   currentKeyNavIndex.value = index;

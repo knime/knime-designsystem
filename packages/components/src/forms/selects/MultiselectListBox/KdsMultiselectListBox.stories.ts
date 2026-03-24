@@ -165,7 +165,7 @@ export const Default: Story = {
     await user.keyboard("{/Control}");
     await expect(appleOption).toHaveAttribute("aria-selected", "true");
 
-    // Mouse: Shift+Click to select a range
+    // Mouse: Shift+Click to select a range (anchor stays at initial click)
     await user.click(bananaOption);
     await expect(bananaOption).toHaveAttribute("aria-selected", "true");
     await expect(appleOption).toHaveAttribute("aria-selected", "false");
@@ -176,6 +176,19 @@ export const Default: Story = {
     await expect(bananaOption).toHaveAttribute("aria-selected", "true");
     await expect(cherryOption).toHaveAttribute("aria-selected", "true");
     await expect(dateOption).toHaveAttribute("aria-selected", "true");
+    await expect(appleOption).toHaveAttribute("aria-selected", "false");
+
+    // Shift+Click again: range extends from banana (anchor), not from date
+    const elderberryOption = canvas.getByRole("option", {
+      name: "Elderberry",
+    });
+    await user.keyboard("{Shift>}");
+    await user.click(elderberryOption);
+    await user.keyboard("{/Shift}");
+    await expect(bananaOption).toHaveAttribute("aria-selected", "true");
+    await expect(cherryOption).toHaveAttribute("aria-selected", "true");
+    await expect(dateOption).toHaveAttribute("aria-selected", "true");
+    await expect(elderberryOption).toHaveAttribute("aria-selected", "true");
     await expect(appleOption).toHaveAttribute("aria-selected", "false");
 
     // Keyboard: Ctrl+A to select all
