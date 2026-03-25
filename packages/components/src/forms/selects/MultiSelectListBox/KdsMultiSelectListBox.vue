@@ -302,9 +302,7 @@ defineExpose({ focus });
 
 .kds-multiselect-list-box-list {
   position: relative;
-  display: flex;
   flex-grow: 1;
-  flex-direction: column;
   min-width: var(--kds-dimension-component-width-12x);
   padding: calc(
     var(--kds-spacing-container-0-25x) - var(--kds-core-border-width-xs)
@@ -331,7 +329,6 @@ defineExpose({ focus });
   position: sticky;
   bottom: calc(-1 * var(--kds-spacing-container-0-25x));
   padding: var(--kds-spacing-container-0-25x) 0;
-  margin-top: auto;
   margin-bottom: calc(-1 * var(--kds-spacing-container-0-25x));
   background: var(--kds-color-surface-default);
   border-top: var(--kds-border-base-subtle);
