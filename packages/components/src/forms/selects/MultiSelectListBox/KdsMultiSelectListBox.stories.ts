@@ -571,9 +571,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=22062-19665":
-          {
-            parameters: { figmaOffset: { x: 0, y: -1 } },
-          },
+          {},
       },
     },
   },
