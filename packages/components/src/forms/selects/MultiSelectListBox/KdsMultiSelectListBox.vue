@@ -47,6 +47,8 @@ const emit = defineEmits<{
   keyArrowLeft: [ids: string[]];
   /** Emitted when the right arrow key is pressed */
   keyArrowRight: [ids: string[]];
+  /** Emitted when the enter key is pressed */
+  keyEnter: [ids: string[]];
 }>();
 
 const idPrefix = useId();
@@ -170,6 +172,11 @@ const onArrowRight = () => {
     emit("keyArrowRight", modelValue.value);
   }
 };
+const onEnter = () => {
+  if (!props.disabled) {
+    emit("keyEnter", modelValue.value);
+  }
+};
 
 const focus = () => {
   if (!props.disabled) {
@@ -224,6 +231,7 @@ defineExpose({ focus });
               @keydown.shift.down.prevent.exact="onArrowDownShift"
               @keydown.left.prevent.exact="onArrowLeft"
               @keydown.right.prevent.exact="onArrowRight"
+              @keydown.enter.prevent.exact="onEnter"
               @keydown.home.prevent.exact="onHomeKey"
               @keydown.end.prevent.exact="onEndKey"
               @keydown.shift.home.prevent.exact="onHomeKeyShift"
@@ -248,6 +256,7 @@ defineExpose({ focus });
                     ]"
                     :label="item.text"
                     :accessory="item.accessory"
+                    :missing="item.missing"
                     :data-option-index="index"
                     :selected="isCurrentValue(item.id)"
                     :disabled="props.disabled"
@@ -255,7 +264,11 @@ defineExpose({ focus });
                       isKeyboardNavigating && currentKeyNavIndex === index
                     "
                     :trailing-icon="
-                      isCurrentValue(item.id) ? 'checkmark' : undefined
+                      item.missing && !props.disabled
+                        ? 'trash'
+                        : isCurrentValue(item.id)
+                          ? 'checkmark'
+                          : undefined
                     "
                     @dblclick.exact="handleDblClick(item.id, index)"
                     @click="handleClick($event, item.id, index)"
@@ -310,8 +323,10 @@ defineExpose({ focus });
 .kds-multiselect-list-box {
   position: relative;
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: stretch;
+  min-block-size: 0;
   background: var(--kds-color-surface-default);
   border: var(--kds-border-action-input);
   border-radius: var(--kds-border-radius-container-0-31x);

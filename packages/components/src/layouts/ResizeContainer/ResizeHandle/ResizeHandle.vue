@@ -61,6 +61,7 @@ const handleWidth = computed(() => {
   user-select: none;
   background: none;
   border: none;
+  border-radius: var(--kds-border-radius-container-0-25x);
   -webkit-touch-callout: none;
 
   &:focus-visible {

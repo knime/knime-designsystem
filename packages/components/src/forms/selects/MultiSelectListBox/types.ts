@@ -10,6 +10,8 @@ export type KdsMultiSelectListBoxOption = {
   text: string;
   /** Optional leading accessory (icon, data type, or color swatch) shown before the text */
   accessory?: KdsMultiSelectListBoxOptionAccessory;
+  /** Applies missing/error styling and prepends "(Missing)". Shows a trash icon as trailing icon. */
+  missing?: boolean;
 };
 
 export type KdsMultiSelectListBoxProps = {

@@ -38,22 +38,6 @@ export const useMultiSelectListBoxSelection = ({
   const draggingInverseMode = ref(false);
   const mouseTriggeredFocus = ref(false);
 
-  // Clamp keyboard nav index when the list shrinks
-  watch(
-    () => allValues.value.length,
-    (length) => {
-      const maxIndex = length - 1;
-      if (maxIndex < 0) {
-        currentKeyNavIndex.value = -1;
-      } else {
-        currentKeyNavIndex.value = Math.min(
-          Math.max(currentKeyNavIndex.value, 0),
-          maxIndex,
-        );
-      }
-    },
-  );
-
   const selectedSet = computed(() => new Set(modelValue.value));
 
   const isCurrentValue = (id: string) => selectedSet.value.has(id);
@@ -91,6 +75,26 @@ export const useMultiSelectListBoxSelection = ({
       setSelected([item.id]);
     }
   };
+
+  // Clamp keyboard nav index when the list shrinks and keep the active item
+  // selected so that repeated ArrowRight/ArrowLeft in the TwinList keeps working.
+  watch(
+    () => allValues.value.length,
+    (length) => {
+      const maxIndex = length - 1;
+      if (maxIndex < 0) {
+        currentKeyNavIndex.value = -1;
+      } else {
+        currentKeyNavIndex.value = Math.min(
+          Math.max(currentKeyNavIndex.value, 0),
+          maxIndex,
+        );
+      }
+      if (isKeyboardNavigating.value) {
+        setSelectedToIndex(currentKeyNavIndex.value);
+      }
+    },
+  );
 
   const getPossibleValuesInSection = (first: number, second: number) => {
     const start = Math.max(0, Math.min(first, second));
@@ -292,9 +296,11 @@ export const useMultiSelectListBoxSelection = ({
       return;
     }
     isKeyboardNavigating.value = true;
-    if (currentKeyNavIndex.value < 0 && allValues.value.length > 0) {
-      currentKeyNavIndex.value = 0;
-      setSelected([allValues.value[0].id]);
+    if (allValues.value.length > 0) {
+      if (currentKeyNavIndex.value < 0) {
+        currentKeyNavIndex.value = 0;
+      }
+      setSelected([allValues.value[currentKeyNavIndex.value].id]);
     }
   };
 
