@@ -1,15 +1,13 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref, useId, watch } from "vue";
+import { computed, toRef, useId, watch } from "vue";
 import { useVirtualList } from "@vueuse/core";
 
 import KdsEmptyState from "../../../layouts/EmptyState/KdsEmptyState.vue";
 import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
 import { KdsListItem } from "../../_helper/List/KdsListItem";
 
-import type {
-  KdsMultiSelectListBoxOption,
-  KdsMultiSelectListBoxProps,
-} from "./types";
+import type { KdsMultiSelectListBoxProps } from "./types";
+import { useMultiSelectListBoxSelection } from "./useMultiSelectListBoxSelection";
 
 const OPTION_LINE_HEIGHT =
   (Number.parseFloat(
@@ -22,7 +20,6 @@ const OPTION_LINE_HEIGHT =
         "--kds-spacing-container-0-10x",
       ),
     ) || 1;
-const CLICK_META_KEY_TIMEOUT = 250;
 
 const props = withDefaults(defineProps<KdsMultiSelectListBoxProps>(), {
   disabled: false,
@@ -88,175 +85,11 @@ watch(
   },
 );
 
-const currentKeyNavIndex = ref(-1);
-const isKeyboardNavigating = ref(false);
-const shiftStartIndex = ref(-1);
-const draggingStartIndex = ref(-1);
-const draggingInverseMode = ref(false);
-
-watch(
-  () => allValues.value.length,
-  (length) => {
-    const maxIndex = length - 1;
-    if (maxIndex < 0) {
-      currentKeyNavIndex.value = -1;
-    } else {
-      currentKeyNavIndex.value = Math.min(
-        Math.max(currentKeyNavIndex.value, 0),
-        maxIndex,
-      );
-    }
-  },
-);
-
-const isCurrentValue = (id: string) => modelValue.value.includes(id);
-
-const cssStyleSize = computed(() =>
-  props.size > 0 ? { height: `${props.size * OPTION_LINE_HEIGHT}px` } : {},
-);
-
-const activeDescendantId = computed(() => {
-  if (!isKeyboardNavigating.value) {
-    return undefined;
+const scrollToIndex = (index: number) => {
+  if (index === bottomIndex.value && props.bottomValue) {
+    return;
   }
-  const item = allValues.value[currentKeyNavIndex.value];
-  return item ? generateOptionId(item.id) : undefined;
-});
-
-const setSelectedNoShiftReset = (values: string[]) => {
-  modelValue.value = values;
-};
-
-const setSelected = (values: string[]) => {
-  shiftStartIndex.value = -1;
-  setSelectedNoShiftReset(values);
-};
-
-const toggleSelection = (value: string) => {
-  if (modelValue.value.includes(value)) {
-    setSelected(modelValue.value.filter((v) => v !== value));
-  } else {
-    setSelected([...modelValue.value, value]);
-  }
-};
-
-const setSelectedToIndex = (index: number) => {
   const item = allValues.value[index];
-  if (item) {
-    setSelected([item.id]);
-  }
-};
-
-const getPossibleValuesInSection = (first: number, second: number) => {
-  const start = Math.max(0, Math.min(first, second));
-  const end = Math.max(0, first, second);
-  return allValues.value.slice(start, end + 1).map((x) => x.id);
-};
-
-const handleCtrlClick = (value: string, index: number) => {
-  currentKeyNavIndex.value = index;
-  toggleSelection(value);
-};
-
-let metaClickTimer: ReturnType<typeof setTimeout> | null = null;
-
-const cancelPendingMetaClick = () => {
-  if (metaClickTimer !== null) {
-    clearTimeout(metaClickTimer);
-    metaClickTimer = null;
-  }
-};
-
-const debouncedHandleCtrlClick = (value: string, index: number) => {
-  cancelPendingMetaClick();
-  metaClickTimer = setTimeout(() => {
-    handleCtrlClick(value, index);
-    metaClickTimer = null;
-  }, CLICK_META_KEY_TIMEOUT);
-};
-
-const handleClick = (event: MouseEvent, value: string, index: number) => {
-  if (props.disabled) {
-    return;
-  }
-  isKeyboardNavigating.value = false;
-  cancelPendingMetaClick();
-  event.preventDefault();
-  if (event.metaKey) {
-    debouncedHandleCtrlClick(value, index);
-    return;
-  }
-  if (event.ctrlKey) {
-    handleCtrlClick(value, index);
-    return;
-  }
-  if (event.shiftKey) {
-    setSelectedNoShiftReset(
-      getPossibleValuesInSection(currentKeyNavIndex.value, index),
-    );
-    return;
-  }
-  currentKeyNavIndex.value = index;
-  setSelected([value]);
-};
-
-const handleDblClick = (id: string, index: number) => {
-  if (!props.disabled) {
-    emit("doubleClickOnItem", id, index);
-  }
-};
-const handleShiftDblClick = () => {
-  if (!props.disabled) {
-    emit("doubleClickShift", modelValue.value);
-  }
-};
-
-const getDataOptionIndex = (target: HTMLElement): string | undefined =>
-  (target.closest("[data-option-index]") as HTMLElement | null)?.dataset
-    .optionIndex;
-
-const onStartDrag = (e: MouseEvent) => {
-  if (props.disabled || e.shiftKey) {
-    return;
-  }
-  isKeyboardNavigating.value = false;
-  if (e.ctrlKey || e.metaKey) {
-    draggingInverseMode.value = true;
-  }
-  const index = getDataOptionIndex(e.target as HTMLElement);
-  if (index !== undefined) {
-    draggingStartIndex.value = Number(index);
-  }
-};
-
-const onDrag = (e: MouseEvent) => {
-  if (draggingStartIndex.value === -1) {
-    return;
-  }
-  const dataIndex = getDataOptionIndex(e.target as HTMLElement);
-  if (dataIndex === undefined) {
-    return;
-  }
-  let sectionValues = getPossibleValuesInSection(
-    draggingStartIndex.value,
-    Number(dataIndex),
-  );
-  if (draggingInverseMode.value) {
-    sectionValues = modelValue.value.filter((x) => !sectionValues.includes(x));
-  }
-  setSelected(sectionValues);
-};
-
-const onStopDrag = () => {
-  draggingStartIndex.value = -1;
-  draggingInverseMode.value = false;
-};
-
-const scrollToCurrent = () => {
-  if (currentKeyNavIndex.value === bottomIndex.value && props.bottomValue) {
-    return;
-  }
-  const item = allValues.value[currentKeyNavIndex.value];
   if (!item) {
     return;
   }
@@ -278,108 +111,60 @@ const scrollToCurrent = () => {
       }
     }
   } else {
-    scrollTo(currentKeyNavIndex.value);
+    scrollTo(index);
   }
 };
 
-const isOutOfRange = (index: number) =>
-  index < 0 || index >= allValues.value.length;
+const cssStyleSize = computed(() =>
+  props.size > 0 ? { height: `${props.size * OPTION_LINE_HEIGHT}px` } : {},
+);
 
-const navigateTo = (next: number, select: "single" | "shift") => {
-  if (select === "shift") {
-    if (shiftStartIndex.value === -1) {
-      shiftStartIndex.value = Math.max(0, currentKeyNavIndex.value);
-    }
-    setSelectedNoShiftReset(
-      getPossibleValuesInSection(shiftStartIndex.value, next),
-    );
-  } else {
-    setSelectedToIndex(next);
+const {
+  currentKeyNavIndex,
+  isKeyboardNavigating,
+  isCurrentValue,
+  activeDescendantId,
+  handleClick,
+  onStartDrag,
+  onDrag,
+  onArrowDown,
+  onArrowUp,
+  onArrowDownShift,
+  onArrowUpShift,
+  onEndKey,
+  onHomeKey,
+  onEndKeyShift,
+  onHomeKeyShift,
+  onCtrlA,
+  onBlur,
+} = useMultiSelectListBoxSelection({
+  modelValue,
+  allValues,
+  disabled: toRef(props, "disabled"),
+  generateOptionId,
+  scrollToIndex,
+});
+
+const handleDblClick = (id: string, index: number) => {
+  if (!props.disabled) {
+    emit("doubleClickOnItem", id, index);
   }
-  currentKeyNavIndex.value = next;
-  scrollToCurrent();
 };
 
-const onArrowDown = () => {
-  if (props.disabled || isOutOfRange(currentKeyNavIndex.value + 1)) {
-    return;
+const handleShiftDblClick = () => {
+  if (!props.disabled) {
+    emit("doubleClickShift", modelValue.value);
   }
-  isKeyboardNavigating.value = true;
-  navigateTo(currentKeyNavIndex.value + 1, "single");
-};
-
-const onArrowUp = () => {
-  if (props.disabled || isOutOfRange(currentKeyNavIndex.value - 1)) {
-    return;
-  }
-  isKeyboardNavigating.value = true;
-  navigateTo(currentKeyNavIndex.value - 1, "single");
-};
-
-const onArrowDownShift = () => {
-  if (props.disabled || isOutOfRange(currentKeyNavIndex.value + 1)) {
-    return;
-  }
-  isKeyboardNavigating.value = true;
-  navigateTo(currentKeyNavIndex.value + 1, "shift");
-};
-
-const onArrowUpShift = () => {
-  if (props.disabled || isOutOfRange(currentKeyNavIndex.value - 1)) {
-    return;
-  }
-  isKeyboardNavigating.value = true;
-  navigateTo(currentKeyNavIndex.value - 1, "shift");
-};
-
-const onEndKey = () => {
-  if (props.disabled || allValues.value.length === 0) {
-    return;
-  }
-  isKeyboardNavigating.value = true;
-  navigateTo(allValues.value.length - 1, "single");
-};
-
-const onHomeKey = () => {
-  if (props.disabled || allValues.value.length === 0) {
-    return;
-  }
-  isKeyboardNavigating.value = true;
-  navigateTo(0, "single");
-};
-
-const onEndKeyShift = () => {
-  if (props.disabled || allValues.value.length === 0) {
-    return;
-  }
-  isKeyboardNavigating.value = true;
-  navigateTo(allValues.value.length - 1, "shift");
-};
-
-const onHomeKeyShift = () => {
-  if (props.disabled || allValues.value.length === 0) {
-    return;
-  }
-  isKeyboardNavigating.value = true;
-  navigateTo(0, "shift");
 };
 
 const onArrowLeft = () => {
   if (!props.disabled) {
-    isKeyboardNavigating.value = true;
     emit("keyArrowLeft", modelValue.value);
   }
 };
 const onArrowRight = () => {
   if (!props.disabled) {
-    isKeyboardNavigating.value = true;
     emit("keyArrowRight", modelValue.value);
-  }
-};
-const onCtrlA = () => {
-  if (!props.disabled) {
-    isKeyboardNavigating.value = true;
-    setSelected(allValues.value.map((x) => x.id));
   }
 };
 
@@ -388,33 +173,6 @@ const focus = () => {
     (containerProps.ref.value as HTMLElement | null)?.focus();
   }
 };
-
-const getItemProps = (item: KdsMultiSelectListBoxOption, index: number) => ({
-  id: generateOptionId(item.id),
-  label: item.text,
-  accessory: item.accessory,
-  "data-option-index": index,
-  selected: isCurrentValue(item.id),
-  disabled: props.disabled,
-  active: isKeyboardNavigating.value && currentKeyNavIndex.value === index,
-  trailingIcon: isCurrentValue(item.id) ? "checkmark" : undefined,
-});
-
-onMounted(() => {
-  globalThis.addEventListener("mouseup", onStopDrag);
-  const lastItem = modelValue.value[modelValue.value.length - 1];
-  if (lastItem) {
-    const idx = allValues.value.findIndex((x) => x.id === lastItem);
-    if (idx >= 0) {
-      currentKeyNavIndex.value = idx;
-    }
-  }
-});
-
-onBeforeUnmount(() => {
-  globalThis.removeEventListener("mouseup", onStopDrag);
-  cancelPendingMetaClick();
-});
 
 defineExpose({ focus });
 </script>
@@ -468,14 +226,21 @@ defineExpose({ focus });
           @keydown.shift.end.prevent.exact="onEndKeyShift"
           @mousedown="onStartDrag"
           @mousemove="onDrag"
-          @blur="isKeyboardNavigating = false"
+          @blur="onBlur"
         >
           <div v-bind="wrapperProps">
             <KdsListItem
               v-for="{ data: item, index } of virtualList"
+              :id="generateOptionId(item.id)"
               :key="`listbox-${item.id}`"
               :class="['kds-multiselect-list-box-item', { first: index === 0 }]"
-              v-bind="getItemProps(item, index)"
+              :label="item.text"
+              :accessory="item.accessory"
+              :data-option-index="index"
+              :selected="isCurrentValue(item.id)"
+              :disabled="props.disabled"
+              :active="isKeyboardNavigating && currentKeyNavIndex === index"
+              :trailing-icon="isCurrentValue(item.id) ? 'checkmark' : undefined"
               @dblclick.exact="handleDblClick(item.id, index)"
               @click="handleClick($event, item.id, index)"
               @dblclick.shift="handleShiftDblClick()"
@@ -483,8 +248,19 @@ defineExpose({ focus });
           </div>
           <div v-if="props.bottomValue" class="kds-multiselect-sticky-bottom">
             <KdsListItem
-              v-bind="getItemProps(props.bottomValue, bottomIndex)"
+              :id="generateOptionId(props.bottomValue.id)"
+              :label="props.bottomValue.text"
+              :accessory="props.bottomValue.accessory"
+              :data-option-index="bottomIndex"
+              :selected="isCurrentValue(props.bottomValue.id)"
+              :disabled="props.disabled"
+              :active="
+                isKeyboardNavigating && currentKeyNavIndex === bottomIndex
+              "
               special
+              :trailing-icon="
+                isCurrentValue(props.bottomValue.id) ? 'checkmark' : undefined
+              "
               @click="handleClick($event, props.bottomValue.id, bottomIndex)"
               @dblclick.shift="handleShiftDblClick()"
               @dblclick.exact="
@@ -536,10 +312,6 @@ defineExpose({ focus });
   margin: 0;
   overflow-y: auto;
   background: var(--kds-color-background-neutral-initial);
-
-  &.empty {
-    background: var(--kds-color-surface-default);
-  }
 
   &:focus {
     outline: none;
