@@ -42,6 +42,7 @@ const mountComponent = (overrides: {
   modelValue?: string[];
   ariaLabel?: string;
   disabled?: boolean;
+  useResizeHandle?: boolean;
   bottomValue?: KdsMultiSelectListBoxOption;
 }) => {
   const w = mount(KdsMultiSelectListBox, {
@@ -160,6 +161,18 @@ describe("KdsMultiSelectListBox meta-click debounce", () => {
 });
 
 describe("KdsMultiSelectListBox dynamic prop updates", () => {
+  it("renders a resize handle only when useResizeHandle is true", () => {
+    const withoutResizeHandle = mountComponent({ useResizeHandle: false });
+    expect(
+      withoutResizeHandle.find('[aria-label="Resize vertically"]').exists(),
+    ).toBe(false);
+
+    const withResizeHandle = mountComponent({ useResizeHandle: true });
+    expect(
+      withResizeHandle.find('[aria-label="Resize vertically"]').exists(),
+    ).toBe(true);
+  });
+
   it("clamps keyboard nav index when possibleValues shrinks", async () => {
     const wrapper = mountComponent({});
     const listbox = wrapper.find("[role=listbox]");

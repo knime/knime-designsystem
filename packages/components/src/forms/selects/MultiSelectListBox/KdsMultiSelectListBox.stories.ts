@@ -36,7 +36,8 @@ const meta: Meta<typeof KdsMultiSelectListBox> = {
       description: {
         component:
           "A multiselect list box allowing users to select multiple items from a scrollable list. " +
-          "Supports Ctrl+Click, Shift+Click, drag selection, and keyboard navigation (Arrow keys, Home, End, Shift+Home, Shift+End, Ctrl+A).",
+          "Supports Ctrl+Click, Shift+Click, drag selection, and keyboard navigation (Arrow keys, Home, End, Shift+Home, Shift+End, Ctrl+A). " +
+          "Optionally renders a resize handle below the list so users can adjust its height.",
       },
     },
     design: {
@@ -86,6 +87,10 @@ const meta: Meta<typeof KdsMultiSelectListBox> = {
       control: "boolean",
       table: { category: "props" },
     },
+    useResizeHandle: {
+      control: "boolean",
+      table: { category: "props" },
+    },
     bottomValue: {
       control: "object",
       table: { category: "props" },
@@ -102,6 +107,7 @@ const meta: Meta<typeof KdsMultiSelectListBox> = {
     validating: false,
     preserveSubTextSpace: false,
     disabled: false,
+    useResizeHandle: true,
     bottomValue: undefined,
   },
   render: (args) => {
@@ -562,6 +568,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
         })),
         label: "{Label}",
         description: "Info",
+        useResizeHandle: true,
       },
       variants: {
         "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=22062-19665":
@@ -580,6 +587,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       modelValue: [[], ["apple", "cherry"]],
       ariaLabel: ["Fruit list"],
       disabled: [false, true],
+      useResizeHandle: [true],
       bottomValue: [undefined, { id: "row-id", text: "Row ID" }],
     } as never,
   ],

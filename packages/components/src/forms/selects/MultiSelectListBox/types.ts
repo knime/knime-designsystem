@@ -17,6 +17,8 @@ export type KdsMultiSelectListBoxProps = {
   possibleValues: KdsMultiSelectListBoxOption[];
   /** Whether the list box is disabled */
   disabled?: boolean;
+  /** Whether to render a resize handle below the list box and allow vertical resizing */
+  useResizeHandle?: boolean;
   /** Optional item pinned to the bottom of the list, always visible while scrolling. Interacts like a regular item for selection, keyboard navigation, and drag. */
   bottomValue?: KdsMultiSelectListBoxOption;
 } & KdsFormFieldProps;
