@@ -127,18 +127,22 @@ export const Default: Story = {
     const user = userEvent.setup();
     const listbox = canvas.getByRole("listbox", { name: "Fruit list" });
 
-    // Keyboard: ArrowDown from initial state selects first item
+    // Keyboard: focus activates and selects first item
     const appleOption = canvas.getByRole("option", { name: "Apple" });
     listbox.focus();
-    await user.keyboard("{ArrowDown}");
     await expect(appleOption).toHaveAttribute("aria-selected", "true");
 
-    // Mouse: click to select Apple (keeps selection, resets nav index)
+    // Keyboard: ArrowDown moves to second item
+    const bananaOption = canvas.getByRole("option", { name: "Banana" });
+    await user.keyboard("{ArrowDown}");
+    await expect(bananaOption).toHaveAttribute("aria-selected", "true");
+    await expect(appleOption).toHaveAttribute("aria-selected", "false");
+
+    // Mouse: click to select Apple
     await user.click(appleOption);
     await expect(appleOption).toHaveAttribute("aria-selected", "true");
 
     // Mouse: click another item replaces selection
-    const bananaOption = canvas.getByRole("option", { name: "Banana" });
     await user.click(bananaOption);
     await expect(bananaOption).toHaveAttribute("aria-selected", "true");
     await expect(appleOption).toHaveAttribute("aria-selected", "false");

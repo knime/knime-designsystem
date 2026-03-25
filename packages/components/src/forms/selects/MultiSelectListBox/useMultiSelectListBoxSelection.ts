@@ -36,6 +36,7 @@ export const useMultiSelectListBoxSelection = ({
   const shiftStartIndex = ref(-1);
   const draggingStartIndex = ref(-1);
   const draggingInverseMode = ref(false);
+  const mouseTriggeredFocus = ref(false);
 
   // Clamp keyboard nav index when the list shrinks
   watch(
@@ -153,6 +154,7 @@ export const useMultiSelectListBoxSelection = ({
     if (disabled.value || e.shiftKey) {
       return;
     }
+    mouseTriggeredFocus.value = true;
     isKeyboardNavigating.value = false;
     if (e.ctrlKey || e.metaKey) {
       draggingInverseMode.value = true;
@@ -279,6 +281,18 @@ export const useMultiSelectListBoxSelection = ({
     }
   };
 
+  const onFocus = () => {
+    if (disabled.value || mouseTriggeredFocus.value) {
+      mouseTriggeredFocus.value = false;
+      return;
+    }
+    isKeyboardNavigating.value = true;
+    if (currentKeyNavIndex.value < 0 && allValues.value.length > 0) {
+      currentKeyNavIndex.value = 0;
+      setSelected([allValues.value[0].id]);
+    }
+  };
+
   const onBlur = () => {
     isKeyboardNavigating.value = false;
   };
@@ -318,6 +332,7 @@ export const useMultiSelectListBoxSelection = ({
     onEndKeyShift,
     onHomeKeyShift,
     onCtrlA,
+    onFocus,
     onBlur,
   };
 };

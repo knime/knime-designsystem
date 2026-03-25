@@ -278,3 +278,57 @@ describe("KdsMultiSelectListBox dynamic prop updates", () => {
     expect(options.at(0)?.text()).toContain("Row ID");
   });
 });
+
+describe("KdsMultiSelectListBox keyboard focus activation", () => {
+  it("activates first item on keyboard focus when no item was active", async () => {
+    const wrapper = mountComponent({});
+    const listbox = wrapper.find("[role=listbox]");
+
+    await listbox.trigger("focus");
+
+    // aria-activedescendant should point to the first option
+    const firstOptionId = getOption(wrapper, 0).attributes("id");
+    expect(listbox.attributes("aria-activedescendant")).toBe(firstOptionId);
+  });
+
+  it("keeps current active item on keyboard focus when an item was previously active", async () => {
+    const wrapper = mountComponent({ modelValue: ["cherry"] });
+    const listbox = wrapper.find("[role=listbox]");
+
+    await listbox.trigger("focus");
+
+    // aria-activedescendant should point to Cherry (last selected, initialized on mount)
+    const cherryOptionId = getOption(wrapper, 2).attributes("id");
+    expect(listbox.attributes("aria-activedescendant")).toBe(cherryOptionId);
+  });
+
+  it("does not activate keyboard navigation on mouse-triggered focus", async () => {
+    const wrapper = mountComponent({});
+    const listbox = wrapper.find("[role=listbox]");
+
+    // Simulate mouse-triggered focus: mousedown then focus
+    await listbox.trigger("mousedown");
+    await listbox.trigger("focus");
+
+    // No aria-activedescendant should be set (keyboard nav not active)
+    expect(listbox.attributes("aria-activedescendant")).toBeUndefined();
+  });
+
+  it("does not activate keyboard navigation on focus when disabled", async () => {
+    const wrapper = mountComponent({ disabled: true });
+    const listbox = wrapper.find("[role=listbox]");
+
+    await listbox.trigger("focus");
+
+    expect(listbox.attributes("aria-activedescendant")).toBeUndefined();
+  });
+
+  it("does not activate keyboard navigation on focus when list is empty", async () => {
+    const wrapper = mountComponent({ possibleValues: [] });
+    const listbox = wrapper.find("[role=listbox]");
+
+    await listbox.trigger("focus");
+
+    expect(listbox.attributes("aria-activedescendant")).toBeUndefined();
+  });
+});

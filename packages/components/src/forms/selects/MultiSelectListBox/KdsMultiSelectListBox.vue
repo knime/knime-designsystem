@@ -9,6 +9,7 @@ import { KdsListItem } from "../../_helper/List/KdsListItem";
 import type { KdsMultiSelectListBoxProps } from "./types";
 import { useMultiSelectListBoxSelection } from "./useMultiSelectListBoxSelection";
 
+// TODO KDS-690 use generated token
 const OPTION_LINE_HEIGHT =
   (Number.parseFloat(
     getComputedStyle(document.documentElement).getPropertyValue(
@@ -131,6 +132,7 @@ const {
   onEndKeyShift,
   onHomeKeyShift,
   onCtrlA,
+  onFocus,
   onBlur,
 } = useMultiSelectListBoxSelection({
   modelValue,
@@ -212,6 +214,7 @@ defineExpose({ focus });
           @keydown.shift.end.prevent.exact="onEndKeyShift"
           @mousedown="onStartDrag"
           @mousemove="onDrag"
+          @focus="onFocus"
           @blur="onBlur"
         >
           <div class="kds-multiselect-list-box-content">
