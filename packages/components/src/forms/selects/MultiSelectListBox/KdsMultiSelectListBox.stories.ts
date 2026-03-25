@@ -114,7 +114,7 @@ const meta: Meta<typeof KdsMultiSelectListBox> = {
     validating: false,
     preserveSubTextSpace: false,
     disabled: false,
-    size: 5,
+    size: 0,
     bottomValue: undefined,
   },
   render: (args) => {
@@ -268,6 +268,17 @@ export const Default: Story = {
       honeydewOption.id,
     );
 
+    // Mouse: drag from Apple to Cherry selects the full range
+    const draggedAppleOption = canvas.getByRole("option", { name: "Apple" });
+    const draggedBananaOption = canvas.getByRole("option", { name: "Banana" });
+    const draggedCherryOption = canvas.getByRole("option", { name: "Cherry" });
+    await fireEvent.mouseDown(draggedAppleOption);
+    await fireEvent.mouseMove(draggedCherryOption);
+    await fireEvent.mouseUp(draggedCherryOption);
+    await expect(draggedAppleOption).toHaveAttribute("aria-selected", "true");
+    await expect(draggedBananaOption).toHaveAttribute("aria-selected", "true");
+    await expect(draggedCherryOption).toHaveAttribute("aria-selected", "true");
+
     // Blur resets aria-activedescendant
     await user.click(canvasElement);
     await expect(listbox).not.toHaveAttribute("aria-activedescendant");
@@ -278,69 +289,35 @@ export const WithSelection: Story = {
   args: {
     modelValue: ["apple", "cherry", "grape"],
   },
-};
-
-export const Disabled: Story = {
-  args: {
-    modelValue: ["apple"],
-    disabled: true,
-  },
-  parameters: {
-    a11y: {
-      config: {
-        rules: [{ id: "scrollable-region-focusable", enabled: false }],
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const user = userEvent.setup();
     const listbox = canvas.getByRole("listbox", { name: "Fruit list" });
     const appleOption = canvas.getByRole("option", { name: "Apple" });
     const bananaOption = canvas.getByRole("option", { name: "Banana" });
+    const cherryOption = canvas.getByRole("option", { name: "Cherry" });
+    const grapeOption = canvas.getByRole("option", { name: "Grape" });
 
-    // Mouse: clicking should not change selection when disabled
-    await user.click(bananaOption);
-    await expect(bananaOption).toHaveAttribute("aria-selected", "false");
+    // Initial selected values are rendered correctly
     await expect(appleOption).toHaveAttribute("aria-selected", "true");
+    await expect(cherryOption).toHaveAttribute("aria-selected", "true");
+    await expect(grapeOption).toHaveAttribute("aria-selected", "true");
+    await expect(bananaOption).toHaveAttribute("aria-selected", "false");
 
-    // Keyboard: ArrowDown should not change selection when disabled
+    // Ctrl+Click toggles a preselected value off without affecting others
+    await user.keyboard("{Control>}");
+    await user.click(cherryOption);
+    await user.keyboard("{/Control}");
+    await expect(cherryOption).toHaveAttribute("aria-selected", "false");
+    await expect(appleOption).toHaveAttribute("aria-selected", "true");
+    await expect(grapeOption).toHaveAttribute("aria-selected", "true");
+
+    // Keyboard navigation from the Ctrl+Click position replaces selection with the active item
     listbox.focus();
-    await user.keyboard("{ArrowDown}");
-    await expect(appleOption).toHaveAttribute("aria-selected", "true");
-    await expect(bananaOption).toHaveAttribute("aria-selected", "false");
-
-    // Keyboard: Ctrl+A should not select all when disabled
-    await user.keyboard("{Control>}a{/Control}");
-    await expect(bananaOption).toHaveAttribute("aria-selected", "false");
-
-    // Keyboard: Home/End should not change selection when disabled
-    await user.keyboard("{Home}");
-    await expect(appleOption).toHaveAttribute("aria-selected", "true");
-    await user.keyboard("{End}");
-    await expect(appleOption).toHaveAttribute("aria-selected", "true");
-
-    // Keyboard: Shift+ArrowDown should not change selection when disabled
-    await user.keyboard("{Shift>}{ArrowDown}{/Shift}");
-    await expect(appleOption).toHaveAttribute("aria-selected", "true");
-    await expect(bananaOption).toHaveAttribute("aria-selected", "false");
-
-    // aria-disabled should be set on the listbox
-    await expect(listbox).toHaveAttribute("aria-disabled", "true");
-  },
-};
-
-export const WithAccessory: Story = {
-  args: {
-    possibleValues: [
-      { id: "a", text: "Normal item" },
-      { id: "b", text: "Another normal item" },
-      {
-        id: "c",
-        text: "With icon",
-        accessory: { type: "icon", name: "placeholder" },
-      },
-    ],
+    await user.keyboard("{ArrowUp}");
+    await expect(bananaOption).toHaveAttribute("aria-selected", "true");
+    await expect(appleOption).toHaveAttribute("aria-selected", "false");
+    await expect(grapeOption).toHaveAttribute("aria-selected", "false");
   },
 };
 
@@ -348,37 +325,6 @@ export const ManyItems: Story = {
   args: {
     possibleValues: manyOptions,
     size: 8,
-  },
-};
-
-export const EmptyList: Story = {
-  args: {
-    possibleValues: [],
-    size: 5,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const user = userEvent.setup();
-    const listbox = canvas.getByRole("listbox", { name: "Fruit list" });
-
-    // Empty state overlay should be visible
-    await expect(
-      canvas.getByText("No entries in this list"),
-    ).toBeInTheDocument();
-
-    // Keyboard nav should not error on empty list
-    listbox.focus();
-    await user.keyboard("{ArrowDown}");
-    await user.keyboard("{Home}");
-    await user.keyboard("{End}");
-    await user.keyboard("{Shift>}{End}{/Shift}");
-    await user.keyboard("{Shift>}{Home}{/Shift}");
-  },
-};
-
-export const AutoSized: Story = {
-  args: {
-    size: 0,
   },
 };
 
@@ -442,25 +388,78 @@ export const EmptyWithBottomValue: Story = {
   },
 };
 
-export const DragSelection: Story = {
+export const EmptyList: Story = {
   args: {
-    possibleValues: baseOptions,
-    ariaLabel: "Fruit list",
-    size: 8,
+    possibleValues: [],
+    size: 5,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
+    const listbox = canvas.getByRole("listbox", { name: "Fruit list" });
+
+    // Empty state overlay should be visible
+    await expect(
+      canvas.getByText("No entries in this list"),
+    ).toBeInTheDocument();
+
+    // Keyboard nav should not error on empty list
+    listbox.focus();
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard("{Home}");
+    await user.keyboard("{End}");
+    await user.keyboard("{Shift>}{End}{/Shift}");
+    await user.keyboard("{Shift>}{Home}{/Shift}");
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    modelValue: ["apple"],
+    disabled: true,
+  },
+  parameters: {
+    a11y: {
+      config: {
+        rules: [{ id: "scrollable-region-focusable", enabled: false }],
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+    const listbox = canvas.getByRole("listbox", { name: "Fruit list" });
     const appleOption = canvas.getByRole("option", { name: "Apple" });
-    const cherryOption = canvas.getByRole("option", { name: "Cherry" });
     const bananaOption = canvas.getByRole("option", { name: "Banana" });
 
-    // Drag from Apple to Cherry
-    await fireEvent.mouseDown(appleOption);
-    await fireEvent.mouseMove(cherryOption);
-    await fireEvent.mouseUp(cherryOption);
+    // Mouse: clicking should not change selection when disabled
+    await user.click(bananaOption);
+    await expect(bananaOption).toHaveAttribute("aria-selected", "false");
     await expect(appleOption).toHaveAttribute("aria-selected", "true");
-    await expect(bananaOption).toHaveAttribute("aria-selected", "true");
-    await expect(cherryOption).toHaveAttribute("aria-selected", "true");
+
+    // Keyboard: ArrowDown should not change selection when disabled
+    listbox.focus();
+    await user.keyboard("{ArrowDown}");
+    await expect(appleOption).toHaveAttribute("aria-selected", "true");
+    await expect(bananaOption).toHaveAttribute("aria-selected", "false");
+
+    // Keyboard: Ctrl+A should not select all when disabled
+    await user.keyboard("{Control>}a{/Control}");
+    await expect(bananaOption).toHaveAttribute("aria-selected", "false");
+
+    // Keyboard: Home/End should not change selection when disabled
+    await user.keyboard("{Home}");
+    await expect(appleOption).toHaveAttribute("aria-selected", "true");
+    await user.keyboard("{End}");
+    await expect(appleOption).toHaveAttribute("aria-selected", "true");
+
+    // Keyboard: Shift+ArrowDown should not change selection when disabled
+    await user.keyboard("{Shift>}{ArrowDown}{/Shift}");
+    await expect(appleOption).toHaveAttribute("aria-selected", "true");
+    await expect(bananaOption).toHaveAttribute("aria-selected", "false");
+
+    // aria-disabled should be set on the listbox
+    await expect(listbox).toHaveAttribute("aria-disabled", "true");
   },
 };
 
