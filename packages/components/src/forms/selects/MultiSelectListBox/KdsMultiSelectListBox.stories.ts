@@ -25,14 +25,6 @@ const baseOptions: KdsMultiSelectListBoxOption[] = [
   { id: "honeydew", text: "Honeydew" },
 ];
 
-const manyOptions: KdsMultiSelectListBoxOption[] = Array.from(
-  { length: 1000 },
-  (_, i) => ({
-    id: `item-${i}`,
-    text: `Item ${i + 1}`,
-  }),
-);
-
 const meta: Meta<typeof KdsMultiSelectListBox> = {
   title: "Form Fields/MultiSelectListBox",
   component: KdsMultiSelectListBox as Meta<
@@ -321,10 +313,91 @@ export const WithSelection: Story = {
   },
 };
 
-export const ManyItems: Story = {
+export const ManyItemsWithVirtualScrolling: Story = {
   args: {
-    possibleValues: manyOptions,
+    possibleValues: Array.from({ length: 1000 }, (_, i) => ({
+      id: `item-${i}`,
+      text: `Item ${i + 1}`,
+    })),
     size: 8,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+    const listbox = canvas.getByRole("listbox", { name: "Fruit list" });
+
+    // Virtual scrolling: only a subset of 1000 items should be rendered in the DOM
+    const initialOptions = canvas.getAllByRole("option");
+    await expect(initialOptions.length).toBeLessThan(1000);
+
+    // First item should be visible
+    const item1 = canvas.getByRole("option", { name: "Item 1" });
+    await expect(item1).toBeInTheDocument();
+
+    // Keyboard: End jumps to last item — virtual list must scroll and render it
+    listbox.focus();
+    await user.keyboard("{End}");
+    const item1000 = await canvas.findByRole("option", { name: "Item 1000" });
+    await expect(item1000).toHaveAttribute("aria-selected", "true");
+
+    // Item 1 should no longer be in the DOM (virtualized away)
+    expect(canvas.queryByRole("option", { name: "Item 1" })).toBeNull();
+
+    // Keyboard: Home jumps back to first item
+    await user.keyboard("{Home}");
+    const item1Again = await canvas.findByRole("option", { name: "Item 1" });
+    await expect(item1Again).toHaveAttribute("aria-selected", "true");
+
+    // Item 1000 should no longer be in the DOM
+    expect(canvas.queryByRole("option", { name: "Item 1000" })).toBeNull();
+
+    // Navigate down past the visible area — items scroll into view
+    for (let i = 0; i < 20; i++) {
+      await user.keyboard("{ArrowDown}");
+    }
+    const item21 = await canvas.findByRole("option", { name: "Item 21" });
+    await expect(item21).toHaveAttribute("aria-selected", "true");
+
+    // Shift+End from item 21 selects all items from 21 to 1000
+    await user.keyboard("{Shift>}{End}{/Shift}");
+    const lastItem = await canvas.findByRole("option", { name: "Item 1000" });
+    await expect(lastItem).toHaveAttribute("aria-selected", "true");
+
+    // Navigate back to top, select a mid-range item, then Shift+Click far away
+    await user.keyboard("{Home}");
+    const firstItem = await canvas.findByRole("option", { name: "Item 1" });
+    await expect(firstItem).toHaveAttribute("aria-selected", "true");
+
+    // ArrowDown a few times to item 5, then Shift+End for large shift selection
+    for (let i = 0; i < 4; i++) {
+      await user.keyboard("{ArrowDown}");
+    }
+    const item5 = await canvas.findByRole("option", { name: "Item 5" });
+    await expect(item5).toHaveAttribute("aria-selected", "true");
+
+    await user.keyboard("{Shift>}{End}{/Shift}");
+    const lastItemAgain = await canvas.findByRole("option", {
+      name: "Item 1000",
+    });
+    await expect(lastItemAgain).toHaveAttribute("aria-selected", "true");
+
+    // Go home and verify Ctrl+A selects all 1000 items
+    await user.keyboard("{Home}");
+    await user.keyboard("{Control>}a{/Control}");
+
+    // Scroll to end to verify last item is selected after Ctrl+A
+    await user.keyboard("{End}");
+    const lastAfterCtrlA = await canvas.findByRole("option", {
+      name: "Item 1000",
+    });
+    await expect(lastAfterCtrlA).toHaveAttribute("aria-selected", "true");
+
+    // Scroll to beginning to verify first item is also selected
+    await user.keyboard("{Home}");
+    const firstAfterCtrlA = await canvas.findByRole("option", {
+      name: "Item 1",
+    });
+    await expect(firstAfterCtrlA).toHaveAttribute("aria-selected", "true");
   },
 };
 
