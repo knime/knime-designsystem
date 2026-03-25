@@ -6,6 +6,7 @@ import {
   ref,
   watch,
 } from "vue";
+import { useMousePressed } from "@vueuse/core";
 
 import type { KdsMultiSelectListBoxOption } from "./types";
 
@@ -199,6 +200,12 @@ export const useMultiSelectListBoxSelection = ({
     draggingInverseMode.value = false;
   };
 
+  useMousePressed({
+    touch: false,
+    drag: false,
+    onReleased: onStopDrag,
+  });
+
   // --- Keyboard navigation ---
 
   const isOutOfRange = (index: number) =>
@@ -311,7 +318,6 @@ export const useMultiSelectListBoxSelection = ({
   // --- Lifecycle ---
 
   onMounted(() => {
-    globalThis.addEventListener("mouseup", onStopDrag);
     const lastItem = modelValue.value[modelValue.value.length - 1];
     if (lastItem) {
       const idx = allValues.value.findIndex((x) => x.id === lastItem);
@@ -322,7 +328,6 @@ export const useMultiSelectListBoxSelection = ({
   });
 
   onBeforeUnmount(() => {
-    globalThis.removeEventListener("mouseup", onStopDrag);
     cancelPendingMetaClick();
   });
 
