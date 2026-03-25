@@ -214,45 +214,52 @@ defineExpose({ focus });
           @mousemove="onDrag"
           @blur="onBlur"
         >
-          <div v-bind="wrapperProps">
-            <KdsListItem
-              v-for="{ data: item, index } of virtualList"
-              :id="generateOptionId(item.id)"
-              :key="`listbox-${item.id}`"
-              :class="['kds-multiselect-list-box-item', { first: index === 0 }]"
-              :label="item.text"
-              :accessory="item.accessory"
-              :data-option-index="index"
-              :selected="isCurrentValue(item.id)"
-              :disabled="props.disabled"
-              :active="isKeyboardNavigating && currentKeyNavIndex === index"
-              :trailing-icon="isCurrentValue(item.id) ? 'checkmark' : undefined"
-              @dblclick.exact="handleDblClick(item.id, index)"
-              @click="handleClick($event, item.id, index)"
-              @dblclick.shift="handleShiftDblClick()"
-            />
-          </div>
-          <div v-if="props.bottomValue" class="kds-multiselect-sticky-bottom">
-            <KdsListItem
-              :id="generateOptionId(props.bottomValue.id)"
-              :label="props.bottomValue.text"
-              :accessory="props.bottomValue.accessory"
-              :data-option-index="bottomIndex"
-              :selected="isCurrentValue(props.bottomValue.id)"
-              :disabled="props.disabled"
-              :active="
-                isKeyboardNavigating && currentKeyNavIndex === bottomIndex
-              "
-              special
-              :trailing-icon="
-                isCurrentValue(props.bottomValue.id) ? 'checkmark' : undefined
-              "
-              @click="handleClick($event, props.bottomValue.id, bottomIndex)"
-              @dblclick.shift="handleShiftDblClick()"
-              @dblclick.exact="
-                handleDblClick(props.bottomValue.id, bottomIndex)
-              "
-            />
+          <div class="kds-multiselect-list-box-content">
+            <div v-bind="wrapperProps">
+              <KdsListItem
+                v-for="{ data: item, index } of virtualList"
+                :id="generateOptionId(item.id)"
+                :key="`listbox-${item.id}`"
+                :class="[
+                  'kds-multiselect-list-box-item',
+                  { first: index === 0 },
+                ]"
+                :label="item.text"
+                :accessory="item.accessory"
+                :data-option-index="index"
+                :selected="isCurrentValue(item.id)"
+                :disabled="props.disabled"
+                :active="isKeyboardNavigating && currentKeyNavIndex === index"
+                :trailing-icon="
+                  isCurrentValue(item.id) ? 'checkmark' : undefined
+                "
+                @dblclick.exact="handleDblClick(item.id, index)"
+                @click="handleClick($event, item.id, index)"
+                @dblclick.shift="handleShiftDblClick()"
+              />
+            </div>
+            <div v-if="props.bottomValue" class="kds-multiselect-sticky-bottom">
+              <KdsListItem
+                :id="generateOptionId(props.bottomValue.id)"
+                :label="props.bottomValue.text"
+                :accessory="props.bottomValue.accessory"
+                :data-option-index="bottomIndex"
+                :selected="isCurrentValue(props.bottomValue.id)"
+                :disabled="props.disabled"
+                :active="
+                  isKeyboardNavigating && currentKeyNavIndex === bottomIndex
+                "
+                special
+                :trailing-icon="
+                  isCurrentValue(props.bottomValue.id) ? 'checkmark' : undefined
+                "
+                @click="handleClick($event, props.bottomValue.id, bottomIndex)"
+                @dblclick.shift="handleShiftDblClick()"
+                @dblclick.exact="
+                  handleDblClick(props.bottomValue.id, bottomIndex)
+                "
+              />
+            </div>
           </div>
         </div>
         <div
@@ -306,6 +313,12 @@ defineExpose({ focus });
   &.first {
     margin-top: 0;
   }
+}
+
+.kds-multiselect-list-box-content {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: calc(100% - 2 * var(--kds-core-border-width-xs));
 }
 
 .kds-multiselect-sticky-bottom {
