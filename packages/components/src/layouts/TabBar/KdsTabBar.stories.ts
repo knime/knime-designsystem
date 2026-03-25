@@ -21,27 +21,11 @@ const meta: Meta<typeof KdsTabBar> = {
     docs: {
       description: {
         component:
-          "Use `KdsTabBar` to provide a horizontal navigation for switching between different views or content sections. Each tab can have an optional icon and can be disabled individually or as a whole.\n\n" +
+          "Use `KdsTabBar` to provide a horizontal navigation for switching between different views or content sections. Each tab can have an optional accessory (icon or live status) and can be disabled individually or as a whole. It follows the [WAI-ARIA Tab Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/).\n\n" +
           "**How it works**\n" +
           "- Provide an array of `tabs`, where each tab has an `id`, `value`, `label`, `panelId`, optional `accessory` (icon or live status), and optional `disabled` state.\n" +
           "- Control the currently selected tab via the `modelValue` prop, which should match the `value` of one of the tabs.\n" +
-          "- The `size` prop controls the overall size of the tab bar, while the `fullWidth` prop determines whether tabs should stretch to fill the container.\n\n" +
-          "**Example**\n\n" +
-          "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/\n" +
-          "```vue\n" +
-          "<KdsTabBar\n" +
-          '  :tabs="[\n' +
-          "    { id: 'tab-localfilesystem', value: 'localfilesystem', label: 'Local Filesystem', panelId: 'panel-localfilesystem', accessory: { type: 'icon', name: 'local-filesystem' } },\n" +
-          "    { id: 'tab-myknimehub', value: 'myknimehub', label: 'My KNIME Hub', panelId: 'panel-myknimehub', accessory: { type: 'icon', name: 'cloud-knime' } },\n" +
-          "    { id: 'tab-oracledatabase', value: 'oracledatabase', label: 'Oracle Database', panelId: 'panel-oracledatabase', accessory: { type: 'icon', name: 'db-database' } },\n" +
-          "    { id: 'tab-box', value: 'box', label: 'Box', panelId: 'panel-box', accessory: { type: 'icon', name: 'cloud-download' } },\n" +
-          "    { id: 'tab-disabled', value: 'disabled', label: 'Disabled', panelId: 'panel-disabled', accessory: { type: 'icon', name: 'cloud-download' }, disabled: true },\n" +
-          '  ]"\n' +
-          '  size="large"\n' +
-          '  :full-width="false"\n' +
-          '  modelValue="localfilesystem"\n' +
-          "/>\n" +
-          "```\n",
+          "- The `size` prop controls the overall size of the tab bar, while the `fullWidth` prop determines whether tabs should stretch to fill the container.",
       },
     },
     design: {
