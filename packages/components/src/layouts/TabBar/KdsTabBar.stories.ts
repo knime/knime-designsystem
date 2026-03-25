@@ -21,7 +21,7 @@ const meta: Meta<typeof KdsTabBar> = {
     docs: {
       description: {
         component:
-          "Use `KdsTabBar` to provide a horizontal navigation for switching between different views or content sections. Each tab can have an optional accessory (icon or live status) and can be disabled individually or as a whole. It follows the [WAI-ARIA Tab Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/).\n\n" +
+          "Use `KdsTabBar` to provide a horizontal navigation for switching between different views or content sections. It follows the [WAI-ARIA Tab Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/).\n\n" +
           "**How it works**\n" +
           "- Provide an array of `tabs`, where each tab has an `id`, `value`, `label`, `panelId`, optional `accessory` (icon or live status), and optional `disabled` state.\n" +
           "- Control the currently selected tab via the `modelValue` prop, which should match the `value` of one of the tabs.\n" +
