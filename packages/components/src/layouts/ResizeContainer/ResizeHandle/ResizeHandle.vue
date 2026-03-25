@@ -61,7 +61,6 @@ const handleWidth = computed(() => {
   user-select: none;
   background: none;
   border: none;
-  border-radius: var(--kds-border-radius-container-0-25x);
   -webkit-touch-callout: none;
 
   &:focus-visible {
@@ -73,6 +72,7 @@ const handleWidth = computed(() => {
     inline-size: 100%;
     block-size: 0;
     border-top: var(--kds-border-resize-handle-initial);
+    border-radius: var(--kds-border-radius-container-0-25x);
   }
 
   &:hover > .kds-resize-handle-line {
