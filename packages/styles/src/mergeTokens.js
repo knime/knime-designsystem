@@ -23,7 +23,7 @@ const parseCSSVariables = (cssContent) => {
  */
 const cssVarToCamelCase = (cssVar) => {
   // Remove leading "--"
-  const name = cssVar.replaceAll(/^--/, "");
+  const name = cssVar.replaceAll(/^--/g, "");
   // Replace hyphens between digits with "p" (point) to preserve grouping
   const preserved = name.replaceAll(/(\d)-(\d)/g, "$1p$2");
   // Split on remaining hyphens, then camelCase
