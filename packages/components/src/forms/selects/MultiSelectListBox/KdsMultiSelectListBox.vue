@@ -225,7 +225,7 @@ defineExpose({ focus });
                 :key="`listbox-${item.id}`"
                 :class="[
                   'kds-multiselect-list-box-item',
-                  { first: index === 0 },
+                  { 'kds-multiselect-list-box-item-first': index === 0 },
                 ]"
                 :label="item.text"
                 :accessory="item.accessory"
@@ -313,7 +313,7 @@ defineExpose({ focus });
   height: var(--kds-dimension-component-height-1-5x);
   margin-top: var(--kds-spacing-container-0-10x);
 
-  &.first {
+  &.kds-multiselect-list-box-item-first {
     margin-top: 0;
   }
 }
