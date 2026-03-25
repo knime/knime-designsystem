@@ -16,10 +16,6 @@ const props = withDefaults(defineProps<KdsTabBarProps>(), {
 
 const modelValue = defineModel<string | number>({ required: false });
 
-const emit = defineEmits<{
-  tabSelect: [tab: KdsTabBarItem];
-}>();
-
 const tabEls = useTemplateRefsList<HTMLButtonElement>();
 
 const getTabEl = (value: string | number) => {
@@ -32,7 +28,6 @@ const isTabDisabled = (tab: KdsTabBarItem) => props.disabled || tab.disabled;
 const selectTab = (tab: KdsTabBarItem) => {
   if (!isTabDisabled(tab) && modelValue.value !== tab.value) {
     modelValue.value = tab.value;
-    emit("tabSelect", tab);
   }
 };
 
