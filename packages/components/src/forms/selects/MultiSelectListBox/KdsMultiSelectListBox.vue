@@ -184,7 +184,7 @@ defineExpose({ focus });
     :preserve-sub-text-space="props.preserveSubTextSpace"
   >
     <template #default="slotProps">
-      <div :class="['kds-multiselect-list-box', { disabled: props.disabled }]">
+      <div class="kds-multiselect-list-box">
         <div
           v-bind="containerProps"
           :id="slotProps.id"
