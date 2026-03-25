@@ -11,7 +11,7 @@ import type {
 } from "./types";
 
 const OPTION_LINE_HEIGHT =
-  parseFloat(
+  Number.parseFloat(
     getComputedStyle(document.documentElement).getPropertyValue(
       "--kds-dimension-component-height-1-5x",
     ),
