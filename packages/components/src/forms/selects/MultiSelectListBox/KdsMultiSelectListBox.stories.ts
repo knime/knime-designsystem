@@ -127,9 +127,10 @@ export const Default: Story = {
     const user = userEvent.setup();
     const listbox = canvas.getByRole("listbox", { name: "Fruit list" });
 
-    // Keyboard: focus activates and selects first item
+    // Keyboard: Home selects the first item after the listbox receives focus
     const appleOption = canvas.getByRole("option", { name: "Apple" });
     listbox.focus();
+    await user.keyboard("{Home}");
     await expect(appleOption).toHaveAttribute("aria-selected", "true");
 
     // Keyboard: ArrowDown moves to second item
