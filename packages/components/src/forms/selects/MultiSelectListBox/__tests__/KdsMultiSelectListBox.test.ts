@@ -327,6 +327,16 @@ describe("KdsMultiSelectListBox keyboard focus activation", () => {
     expect(listbox.attributes("aria-activedescendant")).toBeUndefined();
   });
 
+  it("does not activate keyboard navigation on shift-mouse focus", async () => {
+    const wrapper = mountComponent({});
+    const listbox = wrapper.find("[role=listbox]");
+
+    await listbox.trigger("mousedown", { shiftKey: true });
+    await listbox.trigger("focus");
+
+    expect(listbox.attributes("aria-activedescendant")).toBeUndefined();
+  });
+
   it("does not activate keyboard navigation on focus when disabled", async () => {
     const wrapper = mountComponent({ disabled: true });
     const listbox = wrapper.find("[role=listbox]");

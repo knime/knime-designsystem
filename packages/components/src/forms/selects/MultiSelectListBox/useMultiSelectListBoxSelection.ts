@@ -54,7 +54,9 @@ export const useMultiSelectListBoxSelection = ({
     },
   );
 
-  const isCurrentValue = (id: string) => modelValue.value.includes(id);
+  const selectedSet = computed(() => new Set(modelValue.value));
+
+  const isCurrentValue = (id: string) => selectedSet.value.has(id);
 
   const activeDescendantId = computed(() => {
     if (!isKeyboardNavigating.value) {
@@ -76,7 +78,7 @@ export const useMultiSelectListBoxSelection = ({
   };
 
   const toggleSelection = (value: string) => {
-    if (modelValue.value.includes(value)) {
+    if (selectedSet.value.has(value)) {
       setSelected(modelValue.value.filter((v) => v !== value));
     } else {
       setSelected([...modelValue.value, value]);
@@ -151,11 +153,14 @@ export const useMultiSelectListBoxSelection = ({
     target.closest<HTMLElement>("[data-option-index]")?.dataset.optionIndex;
 
   const onStartDrag = (e: MouseEvent) => {
-    if (disabled.value || e.shiftKey) {
+    if (disabled.value) {
       return;
     }
     mouseTriggeredFocus.value = true;
     isKeyboardNavigating.value = false;
+    if (e.shiftKey) {
+      return;
+    }
     if (e.ctrlKey || e.metaKey) {
       draggingInverseMode.value = true;
     }
