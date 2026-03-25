@@ -249,8 +249,11 @@ defineExpose({ focus });
               @focus="onFocus"
               @blur="onBlur"
             >
-              <div class="kds-multiselect-list-box-content">
-                <div v-bind="wrapperProps">
+              <div class="kds-multiselect-list-box-content-grid">
+                <div
+                  class="kds-multiselect-list-box-content"
+                  v-bind="wrapperProps"
+                >
                   <KdsListItem
                     v-for="{ data: item, index } of virtualList"
                     :id="generateOptionId(item.id)"
@@ -325,6 +328,7 @@ defineExpose({ focus });
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  background: var(--kds-color-surface-default);
   border: var(--kds-border-action-input);
   border-radius: var(--kds-border-radius-container-0-31x);
 
@@ -343,7 +347,6 @@ defineExpose({ focus });
   );
   margin: 0;
   overflow-y: auto;
-  background: var(--kds-color-background-neutral-initial);
 
   &:focus {
     outline: none;
@@ -359,10 +362,14 @@ defineExpose({ focus });
   }
 }
 
-.kds-multiselect-list-box-content {
+.kds-multiselect-list-box-content-grid {
   display: grid;
   grid-template-rows: 1fr auto;
   min-height: calc(100% - 2 * var(--kds-core-border-width-xs));
+}
+
+.kds-multiselect-list-box-content {
+  min-width: 0;
 }
 
 .kds-multiselect-sticky-bottom {
