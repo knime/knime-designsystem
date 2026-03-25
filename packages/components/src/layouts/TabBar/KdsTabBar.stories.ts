@@ -278,28 +278,17 @@ export const Default: Story = {
     // Verify disabled tab cannot be clicked
     const disabledTab = canvas.getByRole("tab", { name: "Disabled" });
     await expect(disabledTab).toBeDisabled();
-  },
-};
 
-export const KeyboardNavigation: Story = {
-  args: {
-    tabs: sampleTabs,
-    size: "small",
-    fullWidth: false,
-    disabled: false,
-    modelValue: "localfilesystem",
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+    // Reset to initial state for keyboard tests
+    await userEvent.click(localTab);
+    await expect(localTab).toHaveAttribute("aria-selected", "true");
 
-    // Focus the selected tab
-    const localTab = canvas.getByRole("tab", { name: "Local Filesystem" });
+    // Keyboard interaction: focus the selected tab
     localTab.focus();
     await expect(localTab).toHaveFocus();
 
     // ArrowRight navigates to next tab (skipping disabled)
     await userEvent.keyboard("{ArrowRight}");
-    const hubTab = canvas.getByRole("tab", { name: "My KNIME Hub" });
     await expect(hubTab).toHaveFocus();
     await expect(hubTab).toHaveAttribute("aria-selected", "true");
 

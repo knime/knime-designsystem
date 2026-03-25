@@ -111,7 +111,7 @@ export const useTabBarAdaptiveLayout = ({
     if (!el) {
       return;
     }
-    const tokenPx = parseFloat(
+    const tokenPx = Number.parseFloat(
       getComputedStyle(el).getPropertyValue(minTabWidth),
     );
     if (Number.isNaN(tokenPx) || tokenPx <= 0) {
