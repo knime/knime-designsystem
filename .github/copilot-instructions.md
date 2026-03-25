@@ -38,7 +38,7 @@ In case you cannot see the terminal output, stop and ask the user to clear the t
 ### Versioning & Changesets
 
 - Use Changesets for user-facing changes.
-- While the major version is `0.x.y`, we use **minor** changesets even for breaking changes.
+- While the major version is `0.x.y`, we use **minor** changesets for breaking changes and **patch** changesets for the rest.
 
 ## Project Architecture & Key Locations
 
