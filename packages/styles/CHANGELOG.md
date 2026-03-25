@@ -1,5 +1,12 @@
 # @knime/kds-styles
 
+## 0.19.0
+
+### Patch Changes
+
+- a6ff5a2: Add `db-browse` icon
+- 2448ae0: Add `db-fetch' icon
+
 ## 0.18.4
 
 ### Patch Changes

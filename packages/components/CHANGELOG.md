@@ -1,5 +1,17 @@
 # @knime/kds-components
 
+## 0.19.0
+
+### Minor Changes
+
+- 4f46db6: Add KdsTabBar component for horizontal tab navigation with icon hiding on overflow
+
+### Patch Changes
+
+- Updated dependencies [a6ff5a2]
+- Updated dependencies [2448ae0]
+  - @knime/kds-styles@0.19.0
+
 ## 0.18.4
 
 ### Patch Changes
