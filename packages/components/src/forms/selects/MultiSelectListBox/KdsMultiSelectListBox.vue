@@ -6,8 +6,8 @@ import KdsEmptyState from "../../../layouts/EmptyState/KdsEmptyState.vue";
 import { KdsListItem } from "../../_helper/List/KdsListItem";
 
 import type {
-  KdsMultiselectListBoxOption,
-  KdsMultiselectListBoxProps,
+  KdsMultiSelectListBoxOption,
+  KdsMultiSelectListBoxProps,
 } from "./types";
 
 const OPTION_LINE_HEIGHT =
@@ -18,7 +18,7 @@ const OPTION_LINE_HEIGHT =
   ) || 24; // eslint-disable-line no-magic-numbers
 const CLICK_META_KEY_TIMEOUT = 250;
 
-const props = withDefaults(defineProps<KdsMultiselectListBoxProps>(), {
+const props = withDefaults(defineProps<KdsMultiSelectListBoxProps>(), {
   disabled: false,
   size: 0,
   bottomValue: undefined,
@@ -380,7 +380,7 @@ const focus = () => {
   }
 };
 
-const getItemProps = (item: KdsMultiselectListBoxOption, index: number) => ({
+const getItemProps = (item: KdsMultiSelectListBoxOption, index: number) => ({
   id: generateOptionId(item.id),
   label: item.text,
   accessory: item.accessory,
@@ -418,7 +418,7 @@ defineExpose({ focus });
     <div
       v-bind="containerProps"
       role="listbox"
-      tabindex="0"
+      :tabindex="props.disabled ? -1 : 0"
       aria-multiselectable="true"
       :aria-label="props.ariaLabel"
       :aria-activedescendant="activeDescendantId"
@@ -484,6 +484,10 @@ defineExpose({ focus });
   min-height: var(--kds-dimension-component-height-2-5x);
   border: var(--kds-border-base-subtle);
   border-radius: var(--kds-border-radius-container-0-31x);
+
+  &.disabled {
+    cursor: not-allowed;
+  }
 
   &:has(:focus-visible) {
     outline: var(--kds-border-action-focused);

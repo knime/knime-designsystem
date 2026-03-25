@@ -2,4 +2,4 @@
 "@knime/kds-components": patch
 ---
 
-Add KdsMultiselectListBox component
+Add KdsMultiSelectListBox component

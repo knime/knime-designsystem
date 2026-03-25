@@ -1,17 +1,19 @@
 import type { KdsListItemAccessory } from "../../_helper/List/ListItemAccessory/types";
 
-export type KdsMultiselectListBoxOption = {
+export type KdsMultiSelectListBoxOptionAccessory = KdsListItemAccessory;
+
+export type KdsMultiSelectListBoxOption = {
   /** Unique identifier for the option */
   id: string;
   /** Display text shown in the list item */
   text: string;
   /** Optional leading accessory (icon, data type, or color swatch) shown before the text */
-  accessory?: KdsListItemAccessory;
+  accessory?: KdsMultiSelectListBoxOptionAccessory;
 };
 
-export type KdsMultiselectListBoxProps = {
+export type KdsMultiSelectListBoxProps = {
   /** Values shown in the list box */
-  possibleValues: KdsMultiselectListBoxOption[];
+  possibleValues: KdsMultiSelectListBoxOption[];
   /** Whether the list box is disabled */
   disabled?: boolean;
   /** Accessible label for the list box */
@@ -22,5 +24,5 @@ export type KdsMultiselectListBoxProps = {
    */
   size?: number;
   /** Optional item pinned to the bottom of the list, always visible while scrolling. Interacts like a regular item for selection, keyboard navigation, and drag. */
-  bottomValue?: KdsMultiselectListBoxOption;
+  bottomValue?: KdsMultiSelectListBoxOption;
 };

@@ -2,8 +2,8 @@ import { describe, expect, it, vi } from "vitest";
 import { computed, ref } from "vue";
 import { mount } from "@vue/test-utils";
 
-import KdsMultiselectListBox from "../KdsMultiselectListBox.vue";
-import type { KdsMultiselectListBoxOption } from "../types";
+import KdsMultiSelectListBox from "../KdsMultiSelectListBox.vue";
+import type { KdsMultiSelectListBoxOption } from "../types";
 
 vi.mock("@vueuse/core", async (importOriginal) => {
   const actual = await importOriginal<typeof import("@vueuse/core")>();
@@ -13,7 +13,7 @@ vi.mock("@vueuse/core", async (importOriginal) => {
       const containerRef = ref<HTMLElement | null>(null);
       return {
         list: computed(() =>
-          (source.value as KdsMultiselectListBoxOption[]).map(
+          (source.value as KdsMultiSelectListBoxOption[]).map(
             (data, index) => ({
               data,
               index,
@@ -31,21 +31,21 @@ vi.mock("@vueuse/core", async (importOriginal) => {
   };
 });
 
-const baseOptions: KdsMultiselectListBoxOption[] = [
+const baseOptions: KdsMultiSelectListBoxOption[] = [
   { id: "apple", text: "Apple" },
   { id: "banana", text: "Banana" },
   { id: "cherry", text: "Cherry" },
 ];
 
 const mountComponent = (overrides: {
-  possibleValues?: KdsMultiselectListBoxOption[];
+  possibleValues?: KdsMultiSelectListBoxOption[];
   modelValue?: string[];
   ariaLabel?: string;
   size?: number;
   disabled?: boolean;
-  bottomValue?: KdsMultiselectListBoxOption;
+  bottomValue?: KdsMultiSelectListBoxOption;
 }) => {
-  const w = mount(KdsMultiselectListBox, {
+  const w = mount(KdsMultiSelectListBox, {
     props: {
       possibleValues: baseOptions,
       ariaLabel: "Test list",
@@ -69,7 +69,7 @@ const getOption = (
   return option;
 };
 
-describe("KdsMultiselectListBox meta-click debounce", () => {
+describe("KdsMultiSelectListBox meta-click debounce", () => {
   it("debounces meta-click so selection applies only after timeout", async () => {
     vi.useFakeTimers();
     const wrapper = mountComponent({});
@@ -161,14 +161,13 @@ describe("KdsMultiselectListBox meta-click debounce", () => {
   });
 });
 
-describe("KdsMultiselectListBox dynamic prop updates", () => {
+describe("KdsMultiSelectListBox dynamic prop updates", () => {
   it("clamps keyboard nav index when possibleValues shrinks", async () => {
     const wrapper = mountComponent({});
     const listbox = wrapper.find("[role=listbox]");
 
     // Navigate to Cherry (index 2)
-    listbox.trigger("keydown", { key: "End" });
-    await wrapper.vm.$nextTick();
+    await listbox.trigger("keydown", { key: "End" });
     expect(wrapper.props("modelValue")).toEqual(["cherry"]);
 
     // Shrink list to only Apple — index 2 is now out of range
@@ -177,8 +176,7 @@ describe("KdsMultiselectListBox dynamic prop updates", () => {
     });
 
     // ArrowDown from clamped position should still work without error
-    listbox.trigger("keydown", { key: "End" });
-    await wrapper.vm.$nextTick();
+    await listbox.trigger("keydown", { key: "End" });
     expect(wrapper.props("modelValue")).toEqual(["apple"]);
   });
 
@@ -187,17 +185,14 @@ describe("KdsMultiselectListBox dynamic prop updates", () => {
     const listbox = wrapper.find("[role=listbox]");
 
     // Navigate to Banana (index 1)
-    listbox.trigger("keydown", { key: "ArrowDown" });
-    await wrapper.vm.$nextTick();
-    listbox.trigger("keydown", { key: "ArrowDown" });
-    await wrapper.vm.$nextTick();
+    await listbox.trigger("keydown", { key: "ArrowDown" });
+    await listbox.trigger("keydown", { key: "ArrowDown" });
 
     // Empty the list
     await wrapper.setProps({ possibleValues: [] });
 
     // ArrowDown on empty list should not throw or select anything
-    listbox.trigger("keydown", { key: "ArrowDown" });
-    await wrapper.vm.$nextTick();
+    await listbox.trigger("keydown", { key: "ArrowDown" });
 
     // No options should be rendered
     expect(wrapper.findAll("[role=option]")).toHaveLength(0);
@@ -241,7 +236,7 @@ describe("KdsMultiselectListBox dynamic prop updates", () => {
     const wrapper = mountComponent({});
     expect(wrapper.findAll("[role=option]")).toHaveLength(3);
 
-    const newOptions: KdsMultiselectListBoxOption[] = [
+    const newOptions: KdsMultiSelectListBoxOption[] = [
       { id: "x", text: "X" },
       { id: "y", text: "Y" },
     ];
@@ -259,8 +254,7 @@ describe("KdsMultiselectListBox dynamic prop updates", () => {
 
     // ArrowDown from Cherry (index 2) should go to nothing (end of list)
     // But ArrowUp should go to Banana
-    listbox.trigger("keydown", { key: "ArrowUp" });
-    await wrapper.vm.$nextTick();
+    await listbox.trigger("keydown", { key: "ArrowUp" });
     expect(wrapper.props("modelValue")).toEqual(["banana"]);
   });
 

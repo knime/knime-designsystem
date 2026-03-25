@@ -8,12 +8,12 @@ import {
   buildTextOverflowStory,
 } from "../../../test-utils/storybook";
 
-import KdsMultiselectListBox from "./KdsMultiselectListBox.vue";
-import type { KdsMultiselectListBoxOption } from "./types";
+import KdsMultiSelectListBox from "./KdsMultiSelectListBox.vue";
+import type { KdsMultiSelectListBoxOption } from "./types";
 
-type Story = StoryObj<typeof KdsMultiselectListBox>;
+type Story = StoryObj<typeof KdsMultiSelectListBox>;
 
-const baseOptions: KdsMultiselectListBoxOption[] = [
+const baseOptions: KdsMultiSelectListBoxOption[] = [
   { id: "apple", text: "Apple" },
   { id: "banana", text: "Banana" },
   { id: "cherry", text: "Cherry" },
@@ -24,7 +24,7 @@ const baseOptions: KdsMultiselectListBoxOption[] = [
   { id: "honeydew", text: "Honeydew" },
 ];
 
-const manyOptions: KdsMultiselectListBoxOption[] = Array.from(
+const manyOptions: KdsMultiSelectListBoxOption[] = Array.from(
   { length: 1000 },
   (_, i) => ({
     id: `item-${i}`,
@@ -32,10 +32,10 @@ const manyOptions: KdsMultiselectListBoxOption[] = Array.from(
   }),
 );
 
-const meta: Meta<typeof KdsMultiselectListBox> = {
-  title: "Form Fields/MultiselectListBox",
-  component: KdsMultiselectListBox as Meta<
-    typeof KdsMultiselectListBox
+const meta: Meta<typeof KdsMultiSelectListBox> = {
+  title: "Form Fields/MultiSelectListBox",
+  component: KdsMultiSelectListBox as Meta<
+    typeof KdsMultiSelectListBox
   >["component"],
   tags: ["autodocs"],
   parameters: {
@@ -85,14 +85,14 @@ const meta: Meta<typeof KdsMultiselectListBox> = {
   render: (args) => {
     const [, updateArgs] = useArgs();
     return {
-      components: { KdsMultiselectListBox },
+      components: { KdsMultiSelectListBox },
       setup() {
         const modelValue = ref(args.modelValue);
         watchEffect(() => (modelValue.value = args.modelValue));
         watchEffect(() => updateArgs({ modelValue: modelValue.value }));
         return { args, modelValue };
       },
-      template: '<KdsMultiselectListBox v-bind="args" v-model="modelValue" />',
+      template: '<KdsMultiSelectListBox v-bind="args" v-model="modelValue" />',
     };
   },
 };
@@ -249,6 +249,13 @@ export const Disabled: Story = {
   args: {
     modelValue: ["apple"],
     disabled: true,
+  },
+  parameters: {
+    a11y: {
+      config: {
+        rules: [{ id: "scrollable-region-focusable", enabled: false }],
+      },
+    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -424,7 +431,7 @@ export const DragSelection: Story = {
 
 export const TextOverflow: Story = {
   ...buildTextOverflowStory({
-    component: KdsMultiselectListBox,
+    component: KdsMultiSelectListBox,
     width: 250,
   }),
   args: {
@@ -443,7 +450,7 @@ export const TextOverflow: Story = {
 // DesignComparator story disabled - no Figma design yet
 
 export const AllCombinations: Story = buildAllCombinationsStory({
-  component: KdsMultiselectListBox,
+  component: KdsMultiSelectListBox,
   combinationsProps: [
     {
       possibleValues: [baseOptions],
@@ -455,4 +462,11 @@ export const AllCombinations: Story = buildAllCombinationsStory({
     } as never,
   ],
   pseudoStates: ["hover", "focus-visible"],
+  parameters: {
+    a11y: {
+      config: {
+        rules: [{ id: "scrollable-region-focusable", enabled: false }],
+      },
+    },
+  },
 });
