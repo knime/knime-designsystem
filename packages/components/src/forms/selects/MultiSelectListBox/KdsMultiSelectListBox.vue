@@ -21,6 +21,7 @@ const OPTION_LINE_HEIGHT =
   kdsDimensionComponentHeight1p5x + kdsSpacingContainer0p10x;
 
 const PassThroughResizeContainer = defineComponent({
+  inheritAttrs: false,
   setup(_, { slots }) {
     return () => slots.default?.({ contentStyle: undefined });
   },

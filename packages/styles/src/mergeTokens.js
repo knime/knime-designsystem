@@ -57,11 +57,11 @@ const extractPxConstants = (variables) => {
  * constants. This allows components to use token values in JavaScript without
  * reading them from the DOM at runtime.
  */
-const generateDimensionConstants = ({ constants, outputPath }) => {
+const generatePxTokenConstants = ({ constants, outputPath }) => {
   const comment = `/**
  * Do not edit directly, this file was auto-generated.
  *
- * Numeric px values of design tokens for use in JavaScript/TypeScript.
+ * Numeric px-valued design tokens for use in JavaScript/TypeScript.
  * These values are extracted at build time from the CSS token definitions.
  */\n\n`;
 
@@ -367,7 +367,7 @@ const mergeTokens = ({ basePath, varPattern, propsPattern }) => {
       fs.mkdirSync(tsOutputDir, { recursive: true });
     }
     const outputTsFilePath = path.resolve(tsOutputDir, "_tokens.ts");
-    generateDimensionConstants({
+    generatePxTokenConstants({
       constants: pxConstants,
       outputPath: outputTsFilePath,
     });
@@ -386,7 +386,7 @@ const mergeTokens = ({ basePath, varPattern, propsPattern }) => {
         "\n✅ Successfully merged light/dark tokens and created separate legacy files:\n" +
           `   - ${varPattern}.css and ${propsPattern}.css (light/dark merged)\n` +
           `   - ${varPattern}-legacy.css and ${propsPattern}-legacy.css (filtered legacy)\n` +
-          "   - _tokens.ts (numeric px token values)\n",
+          "   - _tokens.ts (numeric px-valued token constants)\n",
       ),
     );
   } catch (error) {
