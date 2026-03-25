@@ -283,6 +283,7 @@ defineExpose({ focus });
                     :id="generateOptionId(props.bottomValue.id)"
                     :label="props.bottomValue.text"
                     :accessory="props.bottomValue.accessory"
+                    :missing="props.bottomValue.missing"
                     :data-option-index="bottomIndex"
                     :selected="isCurrentValue(props.bottomValue.id)"
                     :disabled="props.disabled"
@@ -291,9 +292,11 @@ defineExpose({ focus });
                     "
                     special
                     :trailing-icon="
-                      isCurrentValue(props.bottomValue.id)
-                        ? 'checkmark'
-                        : undefined
+                      props.bottomValue.missing && !props.disabled
+                        ? 'trash'
+                        : isCurrentValue(props.bottomValue.id)
+                          ? 'checkmark'
+                          : undefined
                     "
                     @click="
                       handleClick($event, props.bottomValue.id, bottomIndex)

@@ -1,7 +1,7 @@
 import { ref, watchEffect } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/preview-api";
-import { expect, fireEvent, userEvent, within } from "storybook/test";
+import { expect, userEvent, within } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
@@ -270,9 +270,12 @@ export const Default: Story = {
     const draggedAppleOption = canvas.getByRole("option", { name: "Apple" });
     const draggedBananaOption = canvas.getByRole("option", { name: "Banana" });
     const draggedCherryOption = canvas.getByRole("option", { name: "Cherry" });
-    await fireEvent.mouseDown(draggedAppleOption);
-    await fireEvent.mouseMove(draggedCherryOption);
-    await fireEvent.mouseUp(draggedCherryOption);
+    await user.pointer([
+      { keys: "[MouseLeft>]", target: draggedAppleOption },
+      { target: draggedBananaOption },
+      { target: draggedCherryOption },
+      { keys: "[/MouseLeft]", target: draggedCherryOption },
+    ]);
     await expect(draggedAppleOption).toHaveAttribute("aria-selected", "true");
     await expect(draggedBananaOption).toHaveAttribute("aria-selected", "true");
     await expect(draggedCherryOption).toHaveAttribute("aria-selected", "true");
