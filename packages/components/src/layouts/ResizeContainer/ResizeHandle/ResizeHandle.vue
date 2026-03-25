@@ -73,6 +73,7 @@ const handleWidth = computed(() => {
     inline-size: 100%;
     block-size: 0;
     border-top: var(--kds-border-resize-handle-initial);
+    border-radius: var(--kds-border-radius-container-0-25x);
   }
 
   &:hover > .kds-resize-handle-line {

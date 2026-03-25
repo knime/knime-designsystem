@@ -13,6 +13,66 @@ const parseCSSVariables = (cssContent) => {
   return variables;
 };
 
+/**
+ * Converts a CSS variable name like `--kds-dimension-component-height-1-5x`
+ * to a camelCase constant name like `kdsDimensionComponentHeight1p5x`.
+ *
+ * Hyphens between digit groups are replaced with `p` (point) to avoid
+ * collisions while staying camelCase-compliant
+ * (e.g. `1-25x` → `1p25x` vs `12-5x` → `12p5x`).
+ */
+const cssVarToCamelCase = (cssVar) => {
+  // Remove leading "--"
+  const name = cssVar.replaceAll(/^--/g, "");
+  // Replace hyphens between digits with "p" (point) to preserve grouping
+  const preserved = name.replaceAll(/(\d)-(\d)/g, "$1p$2");
+  // Split on remaining hyphens, then camelCase
+  return preserved
+    .split("-")
+    .map((part, i) => (i === 0 ? part : part[0].toUpperCase() + part.slice(1)))
+    .join("");
+};
+
+/**
+ * Extracts px-valued tokens from parsed CSS variables and returns them as
+ * { camelCaseName: numericValue } entries. These tokens are theme-independent
+ * (same in light and dark mode), so we only need the light-mode values.
+ */
+const extractPxConstants = (variables) => {
+  const pxRegex = /^(-?\d+(?:\.\d+)?)px$/;
+  const constants = {};
+
+  for (const [cssVar, value] of Object.entries(variables)) {
+    const match = value.match(pxRegex);
+    if (match) {
+      constants[cssVarToCamelCase(cssVar)] = Number.parseFloat(match[1]);
+    }
+  }
+
+  return constants;
+};
+
+/**
+ * Generates a TypeScript file exporting all px-valued design tokens as numeric
+ * constants. This allows components to use token values in JavaScript without
+ * reading them from the DOM at runtime.
+ */
+const generatePxTokenConstants = ({ constants, outputPath }) => {
+  const comment = `/**
+ * Do not edit directly, this file was auto-generated.
+ *
+ * Numeric px-valued design tokens for use in JavaScript/TypeScript.
+ * These values are extracted at build time from the CSS token definitions.
+ */\n\n`;
+
+  const entries = Object.entries(constants)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([name, value]) => `export const ${name} = ${value};`)
+    .join("\n");
+
+  fs.writeFileSync(outputPath, `${comment}${entries}\n`);
+};
+
 const parseCSSProperties = (cssContent) => {
   const regex = /@property\s+--([\w-]+)\s*{([^}]*)}/g;
   const properties = {};
@@ -300,6 +360,18 @@ const mergeTokens = ({ basePath, varPattern, propsPattern }) => {
     fs.writeFileSync(outputLegacyVarsFilePath, outputLegacyCSSVars);
     fs.writeFileSync(outputLegacyPropsFilePath, outputLegacyCSSProps);
 
+    // Generate TypeScript constants for px-valued tokens (theme-independent)
+    const pxConstants = extractPxConstants(lightVars);
+    const tsOutputDir = path.resolve(basePath, "../ts");
+    if (!fs.existsSync(tsOutputDir)) {
+      fs.mkdirSync(tsOutputDir, { recursive: true });
+    }
+    const outputTsFilePath = path.resolve(tsOutputDir, "_tokens.ts");
+    generatePxTokenConstants({
+      constants: pxConstants,
+      outputPath: outputTsFilePath,
+    });
+
     // Remove the original light and dark files
     fs.unlinkSync(lightVarsFilePath);
     fs.unlinkSync(darkVarsFilePath);
@@ -313,7 +385,8 @@ const mergeTokens = ({ basePath, varPattern, propsPattern }) => {
         ["green", "bold"],
         "\n✅ Successfully merged light/dark tokens and created separate legacy files:\n" +
           `   - ${varPattern}.css and ${propsPattern}.css (light/dark merged)\n` +
-          `   - ${varPattern}-legacy.css and ${propsPattern}-legacy.css (filtered legacy)\n`,
+          `   - ${varPattern}-legacy.css and ${propsPattern}-legacy.css (filtered legacy)\n` +
+          "   - _tokens.ts (numeric px-valued token constants)\n",
       ),
     );
   } catch (error) {
