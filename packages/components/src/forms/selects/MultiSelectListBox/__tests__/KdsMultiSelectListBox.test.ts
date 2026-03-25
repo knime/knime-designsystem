@@ -41,7 +41,6 @@ const mountComponent = (overrides: {
   possibleValues?: KdsMultiSelectListBoxOption[];
   modelValue?: string[];
   ariaLabel?: string;
-  size?: number;
   disabled?: boolean;
   bottomValue?: KdsMultiSelectListBoxOption;
 }) => {
@@ -49,7 +48,6 @@ const mountComponent = (overrides: {
     props: {
       possibleValues: baseOptions,
       ariaLabel: "Test list",
-      size: 5,
       modelValue: [],
       "onUpdate:modelValue": (val: string[]) => w.setProps({ modelValue: val }),
       ...overrides,

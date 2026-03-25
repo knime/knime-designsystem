@@ -86,10 +86,6 @@ const meta: Meta<typeof KdsMultiSelectListBox> = {
       control: "boolean",
       table: { category: "props" },
     },
-    size: {
-      control: { type: "number", min: 0 },
-      table: { category: "props" },
-    },
     bottomValue: {
       control: "object",
       table: { category: "props" },
@@ -106,7 +102,6 @@ const meta: Meta<typeof KdsMultiSelectListBox> = {
     validating: false,
     preserveSubTextSpace: false,
     disabled: false,
-    size: 0,
     bottomValue: undefined,
   },
   render: (args) => {
@@ -319,7 +314,6 @@ export const ManyItemsWithVirtualScrolling: Story = {
       id: `item-${i}`,
       text: `Item ${i + 1}`,
     })),
-    size: 8,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -405,7 +399,6 @@ export const WithBottomValue: Story = {
   args: {
     possibleValues: baseOptions,
     bottomValue: { id: "row-id", text: "Row ID" },
-    size: 5,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -442,7 +435,6 @@ export const EmptyWithBottomValue: Story = {
   args: {
     possibleValues: [],
     bottomValue: { id: "row-id", text: "Row ID" },
-    size: 5,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -464,7 +456,6 @@ export const EmptyWithBottomValue: Story = {
 export const EmptyList: Story = {
   args: {
     possibleValues: [],
-    size: 5,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -550,7 +541,6 @@ export const TextOverflow: Story = {
       ...baseOptions,
     ],
     ariaLabel: "Fruit list",
-    size: 5,
   },
 };
 
@@ -566,7 +556,6 @@ export const DesignComparator: Story = buildDesignComparatorStory({
           text: "Label",
         })),
         label: "{Label}",
-        size: 0,
         description: "Info",
       },
       variants: {
@@ -582,11 +571,10 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   combinationsProps: [
     {
       label: ["Label", undefined],
-      possibleValues: [baseOptions],
+      possibleValues: [baseOptions, []],
       modelValue: [[], ["apple", "cherry"]],
       ariaLabel: ["Fruit list"],
       disabled: [false, true],
-      size: [5],
       bottomValue: [undefined, { id: "row-id", text: "Row ID" }],
     } as never,
   ],

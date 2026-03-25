@@ -23,7 +23,6 @@ const OPTION_LINE_HEIGHT =
 
 const props = withDefaults(defineProps<KdsMultiSelectListBoxProps>(), {
   disabled: false,
-  size: 0,
   bottomValue: undefined,
   error: false,
   validating: false,
@@ -115,10 +114,6 @@ const scrollToIndex = (index: number) => {
   }
 };
 
-const cssStyleSize = computed(() =>
-  props.size > 0 ? { height: `${props.size * OPTION_LINE_HEIGHT}px` } : {},
-);
-
 const {
   currentKeyNavIndex,
   isKeyboardNavigating,
@@ -189,10 +184,7 @@ defineExpose({ focus });
     :preserve-sub-text-space="props.preserveSubTextSpace"
   >
     <template #default="slotProps">
-      <div
-        :class="['kds-multiselect-list-box', { disabled: props.disabled }]"
-        :style="cssStyleSize"
-      >
+      <div :class="['kds-multiselect-list-box', { disabled: props.disabled }]">
         <div
           v-bind="containerProps"
           :id="slotProps.id"
@@ -205,13 +197,7 @@ defineExpose({ focus });
           :aria-invalid="slotProps.ariaInvalid"
           :aria-activedescendant="activeDescendantId"
           :aria-disabled="props.disabled"
-          :class="[
-            'kds-multiselect-list-box-list',
-            {
-              disabled: props.disabled,
-              empty: props.possibleValues.length === 0 && !props.bottomValue,
-            },
-          ]"
+          class="kds-multiselect-list-box-list"
           @keydown.ctrl.a.prevent.exact="onCtrlA"
           @keydown.meta.a.prevent.exact="onCtrlA"
           @keydown.up.prevent.exact="onArrowUp"
@@ -286,13 +272,10 @@ defineExpose({ focus });
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  height: var(--kds-dimension-component-height-20x);
   min-height: var(--kds-dimension-component-height-2-5x);
   border: var(--kds-border-action-input);
   border-radius: var(--kds-border-radius-container-0-31x);
-
-  &.disabled {
-    cursor: not-allowed;
-  }
 
   &:has(:focus-visible) {
     outline: var(--kds-border-action-focused);
