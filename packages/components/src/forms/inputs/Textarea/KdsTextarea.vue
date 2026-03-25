@@ -7,16 +7,17 @@ import type { KdsFormFieldExpose } from "../../types.ts";
 
 import type { KdsTextareaProps } from "./types";
 
-const props = withDefaults(defineProps<KdsTextareaProps>(), {
-  placeholder: "",
-  rows: 3,
-  disabled: false,
-  error: false,
-  validating: false,
-  preserveSubTextSpace: false,
-});
+const {
+  placeholder = "",
+  rows = 3,
+  disabled = false,
+  error = false,
+  validating = false,
+  preserveSubTextSpace = false,
+  ...props
+} = defineProps<KdsTextareaProps>();
 
-const normalizedRows = computed(() => Math.max(1, props.rows));
+const normalizedRows = computed(() => Math.max(1, rows));
 
 const modelValue = defineModel<string>({ default: "" });
 
@@ -51,16 +52,21 @@ defineExpose<KdsFormFieldExpose>({
 </script>
 
 <template>
-  <BaseFormFieldWrapper v-bind="props">
+  <BaseFormFieldWrapper
+    v-bind="props"
+    :error="error"
+    :validating="validating"
+    :preserve-sub-text-space="preserveSubTextSpace"
+  >
     <template #default="slotProps">
       <textarea
         v-bind="slotProps"
         ref="textareaElement"
         v-model="modelValue"
-        :class="{ invalid: props.error }"
+        :class="{ invalid: error }"
         :rows="normalizedRows"
-        :placeholder="props.placeholder"
-        :disabled="props.disabled"
+        :placeholder="placeholder"
+        :disabled="disabled"
         :autocomplete="props.autocomplete"
       />
     </template>

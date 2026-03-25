@@ -3,9 +3,7 @@ import BaseButton from "../BaseButton.vue";
 
 import type { KdsToggleButtonProps } from "./types";
 
-const props = withDefaults(defineProps<KdsToggleButtonProps>(), {
-  variant: "outlined",
-});
+const { variant = "outlined", ...props } = defineProps<KdsToggleButtonProps>();
 
 const modelValue = defineModel<boolean>({ default: false });
 </script>
@@ -13,6 +11,7 @@ const modelValue = defineModel<boolean>({ default: false });
 <template>
   <BaseButton
     v-bind="props"
+    :variant="variant"
     :toggled="modelValue"
     :aria-pressed="modelValue"
     @click="modelValue = !modelValue"

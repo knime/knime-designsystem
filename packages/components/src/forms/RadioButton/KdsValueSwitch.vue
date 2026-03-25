@@ -10,11 +10,12 @@ import type { KdsValueSwitchOption, KdsValueSwitchProps } from "./types";
 import { useRadioSelection } from "./useRadioSelection";
 import { useValueSwitchIconHiding } from "./useValueSwitchIconHiding";
 
-const props = withDefaults(defineProps<KdsValueSwitchProps>(), {
-  disabled: false,
-  size: "medium",
-  variant: "default",
-});
+const {
+  disabled = false,
+  size = "medium",
+  variant = "default",
+  ...props
+} = defineProps<KdsValueSwitchProps>();
 
 const modelValue = defineModel<string>();
 
@@ -44,7 +45,7 @@ const optionContainer = useTemplateRef("optionContainer");
 const { tabIndexForOption, handleClick, handleKeyDown } = useRadioSelection({
   selectedId: modelValue,
   options,
-  globalDisable: computed(() => props.disabled),
+  globalDisable: computed(() => disabled),
   optionContainer,
 });
 </script>
@@ -56,7 +57,7 @@ const { tabIndexForOption, handleClick, handleKeyDown } = useRadioSelection({
     role="radiogroup"
     :class="{
       'value-switch': true,
-      'size-small': props.size === 'small',
+      'size-small': size === 'small',
     }"
     :aria-invalid="props.error || undefined"
     :aria-labelledby="props.label ? labelId : undefined"
@@ -72,11 +73,10 @@ const { tabIndexForOption, handleClick, handleKeyDown } = useRadioSelection({
         v-bind="option"
         :hide-icons="shouldHideIcons"
         :selected="modelValue === option.id"
-        :disabled="props.disabled || option.disabled"
-        :size="props.size"
-        :variant="props.variant"
+        :disabled="disabled || option.disabled"
+        :size="size"
+        :variant="variant"
         :tab-index="tabIndexForOption(index)"
-        :title="option.title"
         @click="() => handleClick(index)"
         @keydown="handleKeyDown($event, index)"
       />

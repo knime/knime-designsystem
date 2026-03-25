@@ -103,7 +103,6 @@ const meta: Meta<typeof KdsProgressButton> = {
     state: "default",
     label: "{Label}",
     leadingIcon: "placeholder",
-    ariaLabel: "",
     variant: "filled",
     size: "medium",
     disabled: false,

@@ -12,12 +12,13 @@ import {
 } from "./patternRegex.ts";
 import type { KdsPatternInputProps } from "./types";
 
-const props = withDefaults(defineProps<KdsPatternInputProps>(), {
-  disabled: false,
-  error: false,
-  validating: false,
-  preserveSubTextSpace: false,
-});
+const {
+  disabled = false,
+  error = false,
+  validating = false,
+  preserveSubTextSpace = false,
+  ...props
+} = defineProps<KdsPatternInputProps>();
 
 // Public API: a single regex string (encoded with options when toggles are used).
 const regex = defineModel<string>({ default: "" });
@@ -66,7 +67,12 @@ defineExpose<KdsFormFieldExpose>({
 </script>
 
 <template>
-  <BaseFormFieldWrapper v-bind="props">
+  <BaseFormFieldWrapper
+    v-bind="props"
+    :error="error"
+    :validating="validating"
+    :preserve-sub-text-space="preserveSubTextSpace"
+  >
     <template #default="slotProps">
       <BaseInput
         ref="baseInput"
@@ -74,8 +80,8 @@ defineExpose<KdsFormFieldExpose>({
         v-model="uiValue"
         type="text"
         :placeholder="props.placeholder"
-        :disabled="props.disabled"
-        :error="props.error"
+        :disabled="disabled"
+        :error="error"
         :autocomplete="props.autocomplete"
         leading-icon="filter"
         clearable
@@ -88,8 +94,8 @@ defineExpose<KdsFormFieldExpose>({
             variant="outlined"
             leading-icon="case-sensitive"
             :title="caseSensitiveAriaLabel"
-            :aria-label="caseSensitiveAriaLabel"
-            :disabled="props.disabled"
+            :ariaLabel="caseSensitiveAriaLabel"
+            :disabled="disabled"
             @update:model-value="rebuildRegexFromUi"
           />
 
@@ -99,8 +105,8 @@ defineExpose<KdsFormFieldExpose>({
             variant="outlined"
             leading-icon="arrows-order"
             :title="excludeMatchesAriaLabel"
-            :aria-label="excludeMatchesAriaLabel"
-            :disabled="props.disabled"
+            :ariaLabel="excludeMatchesAriaLabel"
+            :disabled="disabled"
             @update:model-value="rebuildRegexFromUi"
           />
 
@@ -110,8 +116,8 @@ defineExpose<KdsFormFieldExpose>({
             variant="outlined"
             leading-icon="regex"
             :title="patternModeAriaLabel"
-            :aria-label="patternModeAriaLabel"
-            :disabled="props.disabled"
+            :ariaLabel="patternModeAriaLabel"
+            :disabled="disabled"
             @update:model-value="rebuildRegexFromUi"
           />
         </template>

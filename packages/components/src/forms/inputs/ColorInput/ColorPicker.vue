@@ -253,7 +253,7 @@ const onHueKeyDown = (event: KeyboardEvent) => {
 
     <KdsTextInput
       :model-value="modelValue"
-      aria-label="Color hex value"
+      ariaLabel="Color hex value"
       placeholder="#FFFFFF"
       @update:model-value="updateFromTextValue"
     />

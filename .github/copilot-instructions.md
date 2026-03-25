@@ -35,6 +35,14 @@ In case you cannot see the terminal output, stop and ask the user to clear the t
 
 - Stylelint can't find CSS custom properties → Run `pnpm install` to build @knime/kds-styles first
 
+### d.ts verification
+
+After implementing or changing a component, always verify that the generated d.ts files are correct:
+
+1. Run `pnpm build` (this includes `vue-tsc --build` type-checking and `vite build` with `vite-plugin-dts`)
+2. Check the generated `.vue.d.ts` file in `packages/components/dist/src/` for the component — it must declare `DefineComponent<...>` with the actual prop types, **not** `DefineSetupFnComponent<Record<string, any>>`.
+3. If you see `DefineSetupFnComponent` or `Record<string, any>`, the component likely still uses `withDefaults` — convert it to the destructured `defineProps` pattern described above.
+
 ### Versioning & Changesets
 
 - Use Changesets for user-facing changes.
@@ -92,7 +100,17 @@ packages/
 - i18n is currently not planned in this repo. Hardcoded English strings are OK (e.g., labels, aria-labels, titles, helper texts).
 - Prefer using well-known utilities from `@vueuse/core` over custom implementations (e.g. timers via `useTimeoutFn`, debouncing/throttling via `watchDebounced` / `refDebounced`, observers via `useResizeObserver`, etc.). This improves consistency and reduces the risk of missing cleanup on unmount.
 - Use Composition API with `<script setup lang="ts">`
-- Type all props with `defineProps<T>()` or `withDefaults(defineProps<T>(), {})`
+- IMPORTANT: Do NOT use `withDefaults(defineProps<T>(), {})` — it causes `vue-tsc` to emit `DefineSetupFnComponent<Record<string, any>>` instead of proper `DefineComponent<ActualProps>` in d.ts files when the prop type contains a discriminated union. Instead, use **destructured `defineProps` with inline defaults**:
+  ```ts
+  const {
+    disabled = false,
+    error = false,
+    ...props // rest preserves union type correlation
+  } = defineProps<MyComponentProps>();
+  ```
+  In templates, pass the rest object via `v-bind="props"` and reference destructured props directly by name (e.g. `:disabled="disabled"`).
+  When passing props from the rest to a child that also has a discriminated union, always use `v-bind="props"` (not individual `:label="props.label"` / `:ariaLabel="props.ariaLabel"`).
+  Note: our ESLint config has an exception for `ariaLabel` in `vue/attribute-hyphenation` because it must be passed as the Vue prop name (not `aria-label`) to satisfy the discriminated union type check.
 - Type all emits with `defineEmits<T>()`
 - Use `defineModel()` for v-model bindings - do NOT manually emit `update:modelValue` events or include `modelValue` in props
 - Use `type` instead of `interface`

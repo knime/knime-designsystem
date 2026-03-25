@@ -15,15 +15,16 @@ import BaseDropdown from "./BaseDropdown.vue";
 import MultiSelectDropdownContainer from "./MultiSelectDropdownContainer.vue";
 import type { KdsDropdownOption, KdsMultiSelectDropdownProps } from "./types";
 
-const props = withDefaults(defineProps<KdsMultiSelectDropdownProps>(), {
-  placeholder: "Select",
-  disabled: false,
-  loading: false,
-  allowNewValues: false,
-  error: false,
-  validating: false,
-  preserveSubTextSpace: false,
-});
+const {
+  placeholder = "Select",
+  disabled = false,
+  loading = false,
+  allowNewValues = false,
+  error = false,
+  validating = false,
+  preserveSubTextSpace = false,
+  ...props
+} = defineProps<KdsMultiSelectDropdownProps>();
 
 const modelValue = defineModel<string[]>({ default: () => [] });
 
@@ -45,14 +46,11 @@ const addedOptions = ref<KdsDropdownOption[]>([]);
  * change (mirrors the old ComboBox behaviour where allPossibleItems syncs
  * with props). When `allowNewValues` is true the additions persist.
  */
-watch(
-  [() => props.possibleValues, () => props.allowNewValues],
-  ([, allowNew]) => {
-    if (!allowNew) {
-      addedOptions.value = [];
-    }
-  },
-);
+watch([() => props.possibleValues, () => allowNewValues], ([, allowNew]) => {
+  if (!allowNew) {
+    addedOptions.value = [];
+  }
+});
 
 const allPossibleValues = computed(() => {
   const baseIds = new Set(props.possibleValues.map((o) => o.id));
@@ -97,18 +95,18 @@ const onAddValue = (text: string) => {
     :aria-label="props.ariaLabel"
     :description="props.description"
     :sub-text="props.subText"
-    :error="props.error"
-    :validating="props.validating"
-    :preserve-sub-text-space="props.preserveSubTextSpace"
+    :error="error"
+    :validating="validating"
+    :preserve-sub-text-space="preserveSubTextSpace"
   >
     <template #default="slotProps">
       <BaseDropdown
         v-bind="slotProps"
         v-model:open="open"
         :text="summary"
-        :placeholder="props.placeholder"
-        :disabled="props.disabled"
-        :error="props.error"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        :error="error"
         :missing="missingIds.length > 0"
         :style="popoverEl?.anchorStyle"
         :popover-id="popoverEl?.popoverId"
@@ -127,8 +125,8 @@ const onAddValue = (text: string) => {
           ref="dropdownContainerEl"
           v-model="modelValue"
           :possible-values="allPossibleValues"
-          :loading="props.loading"
-          :allow-new-values="props.allowNewValues"
+          :loading="loading"
+          :allow-new-values="allowNewValues"
           empty-text="No entries found"
           @add-value="onAddValue"
         />

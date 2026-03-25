@@ -8,14 +8,15 @@ import BaseInput from "../BaseInput.vue";
 
 import type { KdsPasswordInputProps } from "./types";
 
-const props = withDefaults(defineProps<KdsPasswordInputProps>(), {
-  disabled: false,
-  error: false,
-  validating: false,
-  preserveSubTextSpace: false,
-  variant: "password",
-  showVisibilityToggle: true,
-});
+const {
+  disabled = false,
+  error = false,
+  validating = false,
+  preserveSubTextSpace = false,
+  variant = "password",
+  showVisibilityToggle = true,
+  ...props
+} = defineProps<KdsPasswordInputProps>();
 
 const modelValue = defineModel<string>({ default: "" });
 
@@ -25,7 +26,7 @@ const preventBlurFromToggle = ref(false);
 const input = useTemplateRef("input");
 
 const effectiveToggleLabel = computed(
-  () => props.toggleLabel ?? (props.variant === "key" ? "Key" : "Password"),
+  () => props.toggleLabel ?? (variant === "key" ? "Key" : "Password"),
 );
 
 const handleBlur = () => {
@@ -40,29 +41,34 @@ defineExpose<KdsFormFieldExpose>({
 </script>
 
 <template>
-  <BaseFormFieldWrapper v-bind="props">
+  <BaseFormFieldWrapper
+    v-bind="props"
+    :error="error"
+    :validating="validating"
+    :preserve-sub-text-space="preserveSubTextSpace"
+  >
     <template #default="slotProps">
       <BaseInput
         ref="input"
         v-bind="slotProps"
         v-model="modelValue"
-        :type="showValue && props.showVisibilityToggle ? 'text' : 'password'"
-        :leading-icon="props.variant === 'key' ? 'key' : 'lock'"
+        :type="showValue && showVisibilityToggle ? 'text' : 'password'"
+        :leading-icon="variant === 'key' ? 'key' : 'lock'"
         :placeholder="props.placeholder"
-        :disabled="props.disabled"
-        :error="props.error"
+        :disabled="disabled"
+        :error="error"
         :autocomplete="props.autocomplete"
         @blur="handleBlur"
       >
         <template #trailing>
           <KdsToggleButton
-            v-if="props.showVisibilityToggle"
+            v-if="showVisibilityToggle"
             v-model="showValue"
             type="button"
             variant="outlined"
             size="xsmall"
             leading-icon="eye"
-            :aria-label="
+            :ariaLabel="
               showValue
                 ? `Hide ${effectiveToggleLabel}`
                 : `Show ${effectiveToggleLabel}`
@@ -72,7 +78,7 @@ defineExpose<KdsFormFieldExpose>({
                 ? `Hide ${effectiveToggleLabel}`
                 : `Show ${effectiveToggleLabel}`
             "
-            :disabled="props.disabled"
+            :disabled="disabled"
             @pointerdown="preventBlurFromToggle = true"
             @pointerup="preventBlurFromToggle = false"
             @pointercancel="preventBlurFromToggle = false"

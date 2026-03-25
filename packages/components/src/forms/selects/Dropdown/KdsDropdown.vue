@@ -15,14 +15,15 @@ import BaseDropdown from "./BaseDropdown.vue";
 import DropdownContainer from "./DropdownContainer.vue";
 import type { KdsDropdownProps } from "./types.ts";
 
-const props = withDefaults(defineProps<KdsDropdownProps>(), {
-  placeholder: "Select",
-  disabled: false,
-  loading: false,
-  error: false,
-  validating: false,
-  preserveSubTextSpace: false,
-});
+const {
+  placeholder = "Select",
+  disabled = false,
+  loading = false,
+  error = false,
+  validating = false,
+  preserveSubTextSpace = false,
+  ...props
+} = defineProps<KdsDropdownProps>();
 
 const modelValue = defineModel<string>({ default: "" });
 
@@ -56,9 +57,9 @@ watch(modelValue, () => {
     :aria-label="props.ariaLabel"
     :description="props.description"
     :sub-text="props.subText"
-    :error="props.error"
-    :validating="props.validating"
-    :preserve-sub-text-space="props.preserveSubTextSpace"
+    :error="error"
+    :validating="validating"
+    :preserve-sub-text-space="preserveSubTextSpace"
   >
     <template #default="slotProps">
       <BaseDropdown
@@ -69,9 +70,9 @@ watch(modelValue, () => {
             ? `(Missing) ${modelValue}`
             : selectedOption?.text
         "
-        :placeholder="props.placeholder"
-        :disabled="props.disabled"
-        :error="props.error"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        :error="error"
         :missing="!!modelValue && !selectedOption"
         :accessory="selectedOption?.accessory"
         :style="popoverEl?.anchorStyle"
@@ -91,7 +92,7 @@ watch(modelValue, () => {
           ref="dropdownContainerEl"
           v-model="modelValue"
           :possible-values="props.possibleValues"
-          :loading="props.loading"
+          :loading="loading"
           empty-text="No entries found"
         />
       </KdsPopover>

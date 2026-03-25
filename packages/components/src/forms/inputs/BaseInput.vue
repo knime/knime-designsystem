@@ -301,7 +301,7 @@ defineExpose({
       size="xsmall"
       variant="transparent"
       leading-icon="x-close"
-      aria-label="Clear"
+      ariaLabel="Clear"
       title="Clear"
       @click.stop="clearAndFocusInput"
     />

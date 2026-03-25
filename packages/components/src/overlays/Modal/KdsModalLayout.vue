@@ -21,6 +21,7 @@ defineOptions({ inheritAttrs: false });
       variant="transparent"
       size="medium"
       title="Close"
+      ariaLabel="Close"
       @click="props.onClose"
     />
   </header>

@@ -13,6 +13,7 @@ export default defineConfig({
     svgLoader({ svgo: false }),
     dts({
       tsconfigPath: "./tsconfig.build.json",
+      entryRoot: ".",
       afterDiagnostic: (diagnostics) => {
         if (diagnostics.length > 0) {
           throw new Error(

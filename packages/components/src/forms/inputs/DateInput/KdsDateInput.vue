@@ -105,7 +105,7 @@ defineExpose<KdsFormFieldExpose>({
             size="xsmall"
             variant="outlined"
             leading-icon="calendar"
-            aria-label="Open date picker"
+            ariaLabel="Open date picker"
             :disabled
             :aria-controls="popoverRef?.popoverId"
             aria-haspopup="dialog"

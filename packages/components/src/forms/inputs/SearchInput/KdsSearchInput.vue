@@ -24,13 +24,14 @@ const KdsListContainer = defineAsyncComponent(
   () => import("../../_helper/List/ListContainer/KdsListContainer.vue"),
 );
 
-const props = withDefaults(defineProps<KdsSearchInputProps>(), {
-  placeholder: "Search",
-  disabled: false,
-  error: false,
-  validating: false,
-  preserveSubTextSpace: false,
-});
+const {
+  placeholder = "Search",
+  disabled = false,
+  error = false,
+  validating = false,
+  preserveSubTextSpace = false,
+  ...props
+} = defineProps<KdsSearchInputProps>();
 
 const modelValue = defineModel<string>({ default: "" });
 

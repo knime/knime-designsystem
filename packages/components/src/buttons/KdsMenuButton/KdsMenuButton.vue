@@ -18,10 +18,11 @@ defineOptions({
   inheritAttrs: false,
 });
 
-const props = withDefaults(defineProps<KdsMenuButtonProps>(), {
-  variant: "outlined",
-  menuMaxHeight: undefined,
-});
+const {
+  variant = "outlined",
+  menuMaxHeight,
+  ...props
+} = defineProps<KdsMenuButtonProps>();
 
 const attrs = useAttrs();
 
@@ -31,7 +32,7 @@ const emit = defineEmits<{
 }>();
 
 const toggleButtonProps = computed(() => {
-  const { items: _items, menuMaxHeight: _menuMaxHeight, ...rest } = props;
+  const { items: _items, ...rest } = props;
 
   const {
     modelValue: _modelValue,
@@ -39,7 +40,7 @@ const toggleButtonProps = computed(() => {
     ...safeAttrs
   } = attrs;
 
-  return { ...safeAttrs, ...rest };
+  return { ...safeAttrs, ...rest, variant };
 });
 
 const isMenuOpen = ref<boolean>(false);
@@ -49,12 +50,12 @@ const listContainerEl = useTemplateRef("listContainerEl");
 const menuId = useId();
 
 const maxHeightStyle = computed<StyleValue>(() => {
-  if (!props.menuMaxHeight) {
+  if (!menuMaxHeight) {
     return {};
   }
 
   return {
-    maxHeight: props.menuMaxHeight,
+    maxHeight: menuMaxHeight,
     overflowY: "auto",
   };
 });
