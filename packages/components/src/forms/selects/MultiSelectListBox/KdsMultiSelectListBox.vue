@@ -7,8 +7,7 @@ import {
   kdsDimensionComponentHeight1p5x,
   kdsDimensionComponentHeight20x,
   kdsSpacingContainer0p10x,
-} from "@knime/kds-styles/tokens";
-
+} from "../../../../../styles/dist/tokens/ts/_tokens"; // temporary import until tokens are officially exported in @knime/kds-styles
 import KdsEmptyState from "../../../layouts/EmptyState/KdsEmptyState.vue";
 import KdsResizeContainer from "../../../layouts/ResizeContainer/KdsResizeContainer.vue";
 import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";

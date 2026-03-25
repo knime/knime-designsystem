@@ -45,8 +45,7 @@
     "./kds-properties.css": "./dist/tokens/css/_properties.css",
     "./kds-legacy-theme.css": "./dist/tokens/css/_variables-legacy.css",
     "./img/*": "./dist/img/*.svg",
-    "./img/*/def": "./dist/img/*/def.ts",
-    "./tokens": "./dist/tokens/ts/_tokens.ts"
+    "./img/*/def": "./dist/img/*/def.ts"
   },
   "engines": {
     "node": "24.10.0",
