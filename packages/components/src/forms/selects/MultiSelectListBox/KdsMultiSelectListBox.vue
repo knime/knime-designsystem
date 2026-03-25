@@ -126,6 +126,7 @@ const activeDescendantId = computed(() => {
 const setSelectedNoShiftReset = (values: string[]) => {
   modelValue.value = values;
 };
+
 const setSelected = (values: string[]) => {
   shiftStartIndex.value = -1;
   setSelectedNoShiftReset(values);
@@ -396,7 +397,7 @@ const getItemProps = (item: KdsMultiSelectListBoxOption, index: number) => ({
   selected: isCurrentValue(item.id),
   disabled: props.disabled,
   active: isKeyboardNavigating.value && currentKeyNavIndex.value === index,
-  "trailing-icon": isCurrentValue(item.id) ? "checkmark" : undefined,
+  trailingIcon: isCurrentValue(item.id) ? "checkmark" : undefined,
 });
 
 onMounted(() => {
