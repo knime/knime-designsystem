@@ -6,7 +6,7 @@ import { elementOverflowsHorizontally } from "../../util/useKdsIsTruncated";
 
 import TabBarItemAccessory from "./TabBarItemAccessory.vue";
 import type { KdsTabBarItem, KdsTabBarProps } from "./types";
-import { useTabBarIconHiding } from "./useTabBarAdaptiveLayout";
+import { useTabBarAdaptiveLayout } from "./useTabBarAdaptiveLayout";
 
 const props = withDefaults(defineProps<KdsTabBarProps>(), {
   size: "small",
@@ -81,7 +81,7 @@ const availableWidthContainer = useTemplateRef<HTMLElement>(
 const { width } = useElementSize(availableWidthContainer);
 const MIN_TAB_WIDTH_TOKEN = "--kds-dimension-component-width-4x";
 
-const { shouldHideIcons, setItemEl, minTabWidth } = useTabBarIconHiding({
+const { shouldHideIcons, setItemEl, minTabWidth } = useTabBarAdaptiveLayout({
   width,
   tabs: toRef(props, "tabs"),
   containerEl: availableWidthContainer,

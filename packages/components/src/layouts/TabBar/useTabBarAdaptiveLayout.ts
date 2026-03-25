@@ -18,7 +18,7 @@ import type { KdsTabBarItem } from "./types";
  * 2. **Ellipsis**: labels shrink down to `min(natural label width, minTabWidth)`,
  *    showing an ellipsis when they are larger.
  */
-export const useTabBarIconHiding = ({
+export const useTabBarAdaptiveLayout = ({
   width,
   tabs,
   containerEl,
@@ -118,39 +118,45 @@ export const useTabBarIconHiding = ({
       return;
     }
 
-    const els = [...itemEls.value.values()];
+    const entries = [...itemEls.value.entries()];
+    const tabsByKey = new Map(tabs.value.map((tab) => [tab.value, tab]));
 
     // Temporarily make tabs non-shrinkable with no min-width floor
-    // and hide accessories so we measure label-only content widths
-    // (accessories get hidden before ellipsis starts)
-    for (const tabEl of els) {
+    // and hide icon accessories so we measure label-only content widths
+    // (only icons get hidden before ellipsis; live status stays visible)
+    for (const [key, tabEl] of entries) {
       tabEl.style.flexShrink = "0";
       tabEl.style.minWidth = "0";
-      const accessory = tabEl.firstElementChild;
-      if (
-        accessory instanceof HTMLElement &&
-        !accessory.classList.contains("kds-tab-label")
-      ) {
-        accessory.style.display = "none";
+      if (tabsByKey.get(key)?.accessory?.type === "icon") {
+        const accessory = tabEl.firstElementChild;
+        if (
+          accessory instanceof HTMLElement &&
+          !accessory.classList.contains("kds-tab-label")
+        ) {
+          accessory.style.display = "none";
+        }
       }
     }
-    const naturalWidths = els.map(
-      (tabEl) => tabEl.getBoundingClientRect().width,
+    const naturalWidths = entries.map(
+      ([, tabEl]) => tabEl.getBoundingClientRect().width,
     );
 
     // Restore flex-shrink, accessory visibility; set min-width per tab
-    for (let i = 0; i < els.length; i++) {
-      els[i].style.flexShrink = "";
-      const accessory = els[i].firstElementChild;
-      if (
-        accessory instanceof HTMLElement &&
-        !accessory.classList.contains("kds-tab-label")
-      ) {
-        accessory.style.display = "";
+    for (let i = 0; i < entries.length; i++) {
+      const [key, tabEl] = entries[i];
+      tabEl.style.flexShrink = "";
+      if (tabsByKey.get(key)?.accessory?.type === "icon") {
+        const accessory = tabEl.firstElementChild;
+        if (
+          accessory instanceof HTMLElement &&
+          !accessory.classList.contains("kds-tab-label")
+        ) {
+          accessory.style.display = "";
+        }
       }
       // Short tabs: keep natural width so they don't inflate to the token value
       // Long tabs: clear inline style so CSS min-width (token) applies as the floor
-      els[i].style.minWidth =
+      tabEl.style.minWidth =
         naturalWidths[i] < tokenPx ? `${naturalWidths[i]}px` : "";
     }
   };

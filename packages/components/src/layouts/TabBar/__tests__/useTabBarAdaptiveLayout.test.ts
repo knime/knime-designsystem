@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { nextTick, ref } from "vue";
 
 import type { KdsTabBarItem } from "../types";
-import { useTabBarIconHiding } from "../useTabBarAdaptiveLayout";
+import { useTabBarAdaptiveLayout } from "../useTabBarAdaptiveLayout";
 
 vi.mock("../../../util/useKdsIsTruncated", () => ({
   elementOverflowsHorizontally: (el: HTMLElement | null) => {
@@ -76,14 +76,14 @@ const createMockContainer = ({
   return el;
 };
 
-describe("useTabBarIconHiding", () => {
+describe("useTabBarAdaptiveLayout", () => {
   it("returns shouldHideIcons as false when no items overflow", async () => {
     const tabs = ref([
       createTab("a", { accessory: { type: "icon", name: "search" } }),
       createTab("b", { accessory: { type: "icon", name: "folder" } }),
     ]);
 
-    const { shouldHideIcons, setItemEl } = useTabBarIconHiding({
+    const { shouldHideIcons, setItemEl } = useTabBarAdaptiveLayout({
       width: ref(500),
       tabs,
       containerEl: ref(createMockContainer()),
@@ -105,7 +105,7 @@ describe("useTabBarIconHiding", () => {
       createTab("b", { accessory: { type: "icon", name: "folder" } }),
     ]);
 
-    const { shouldHideIcons, setItemEl } = useTabBarIconHiding({
+    const { shouldHideIcons, setItemEl } = useTabBarAdaptiveLayout({
       width: ref(500),
       tabs,
       containerEl: ref(createMockContainer()),
@@ -126,7 +126,7 @@ describe("useTabBarIconHiding", () => {
       createTab("b", { accessory: { type: "icon", name: "folder" } }),
     ]);
 
-    const { shouldHideIcons, setItemEl } = useTabBarIconHiding({
+    const { shouldHideIcons, setItemEl } = useTabBarAdaptiveLayout({
       width: ref(500),
       tabs,
       containerEl: ref(createMockContainer()),
@@ -148,7 +148,7 @@ describe("useTabBarIconHiding", () => {
       createTab("b", { accessory: { type: "icon", name: "folder" } }),
     ]);
 
-    const { shouldHideIcons, setItemEl } = useTabBarIconHiding({
+    const { shouldHideIcons, setItemEl } = useTabBarAdaptiveLayout({
       width: ref(500),
       tabs,
       containerEl: ref(
@@ -170,7 +170,7 @@ describe("useTabBarIconHiding", () => {
       createTab("a", { accessory: { type: "icon", name: "search" } }),
     ]);
 
-    const { shouldHideIcons, setItemEl } = useTabBarIconHiding({
+    const { shouldHideIcons, setItemEl } = useTabBarAdaptiveLayout({
       width: ref(500),
       tabs,
       containerEl: ref(
@@ -193,7 +193,7 @@ describe("useTabBarIconHiding", () => {
       createTab("a", { accessory: { type: "icon", name: "search" } }),
     ]);
 
-    const { shouldHideIcons, setItemEl } = useTabBarIconHiding({
+    const { shouldHideIcons, setItemEl } = useTabBarAdaptiveLayout({
       width,
       tabs,
       containerEl: ref(createMockContainer()),
@@ -220,7 +220,7 @@ describe("useTabBarIconHiding", () => {
       createTab("a", { accessory: { type: "icon", name: "search" } }),
     ]);
 
-    const { shouldHideIcons, setItemEl } = useTabBarIconHiding({
+    const { shouldHideIcons, setItemEl } = useTabBarAdaptiveLayout({
       width: ref(500),
       tabs,
       containerEl: ref(null),
@@ -240,7 +240,7 @@ describe("useTabBarIconHiding", () => {
       createTab("a", { accessory: { type: "icon", name: "search" } }),
     ]);
 
-    const { shouldHideIcons, setItemEl } = useTabBarIconHiding({
+    const { shouldHideIcons, setItemEl } = useTabBarAdaptiveLayout({
       width: ref(500),
       tabs,
       containerEl: ref(createMockContainer()),
@@ -259,7 +259,7 @@ describe("useTabBarIconHiding", () => {
       createTab("a", { accessory: { type: "icon", name: "search" } }),
     ]);
 
-    const { shouldHideIcons } = useTabBarIconHiding({
+    const { shouldHideIcons } = useTabBarAdaptiveLayout({
       width: ref(500),
       tabs,
       containerEl: ref(createMockContainer()),
@@ -276,7 +276,7 @@ describe("useTabBarIconHiding", () => {
       createTab("a", { accessory: { type: "icon", name: "search" } }),
     ]);
 
-    const { shouldHideIcons, setItemEl } = useTabBarIconHiding({
+    const { shouldHideIcons, setItemEl } = useTabBarAdaptiveLayout({
       width: ref(500),
       tabs,
       containerEl: ref(createMockContainer()),
@@ -298,7 +298,7 @@ describe("useTabBarIconHiding", () => {
     ]);
 
     // Container overflows AND label has ellipsis
-    const { shouldHideIcons, setItemEl } = useTabBarIconHiding({
+    const { shouldHideIcons, setItemEl } = useTabBarAdaptiveLayout({
       width: ref(500),
       tabs,
       containerEl: ref(
@@ -322,7 +322,7 @@ describe("useTabBarIconHiding", () => {
       const tabs = ref([createTab("a"), createTab("b")]);
       const container = createMockContainer({ tokenPx: 64 });
 
-      const { setItemEl } = useTabBarIconHiding({
+      const { setItemEl } = useTabBarAdaptiveLayout({
         width: ref(500),
         tabs,
         containerEl: ref(container),
@@ -345,7 +345,7 @@ describe("useTabBarIconHiding", () => {
       const tabs = ref([createTab("a"), createTab("b")]);
       const container = createMockContainer({ tokenPx: 64 });
 
-      const { setItemEl } = useTabBarIconHiding({
+      const { setItemEl } = useTabBarAdaptiveLayout({
         width: ref(500),
         tabs,
         containerEl: ref(container),
@@ -368,7 +368,7 @@ describe("useTabBarIconHiding", () => {
       const tabs = ref([createTab("a"), createTab("b"), createTab("c")]);
       const container = createMockContainer({ tokenPx: 64 });
 
-      const { setItemEl } = useTabBarIconHiding({
+      const { setItemEl } = useTabBarAdaptiveLayout({
         width: ref(500),
         tabs,
         containerEl: ref(container),
@@ -394,7 +394,7 @@ describe("useTabBarIconHiding", () => {
       const tabs = ref([createTab("a")]);
       const container = createMockContainer({ tokenPx: 64 });
 
-      const { setItemEl } = useTabBarIconHiding({
+      const { setItemEl } = useTabBarAdaptiveLayout({
         width: ref(500),
         tabs,
         containerEl: ref(container),
@@ -415,7 +415,7 @@ describe("useTabBarIconHiding", () => {
       const tabs = ref([createTab("a")]);
       const container = createMockContainer({ tokenPx: 64 });
 
-      const { setItemEl } = useTabBarIconHiding({
+      const { setItemEl } = useTabBarAdaptiveLayout({
         width: ref(500),
         tabs,
         containerEl: ref(container),
@@ -430,11 +430,13 @@ describe("useTabBarIconHiding", () => {
       expect(btn.style.minWidth).toBe("");
     });
 
-    it("hides accessory during measurement so it does not inflate width", async () => {
-      const tabs = ref([createTab("a")]);
+    it("hides icon accessory during measurement so it does not inflate width", async () => {
+      const tabs = ref([
+        createTab("a", { accessory: { type: "icon", name: "search" } }),
+      ]);
       const container = createMockContainer({ tokenPx: 64 });
 
-      const { setItemEl } = useTabBarIconHiding({
+      const { setItemEl } = useTabBarAdaptiveLayout({
         width: ref(500),
         tabs,
         containerEl: ref(container),
@@ -457,11 +459,40 @@ describe("useTabBarIconHiding", () => {
       expect(btn.style.minWidth).toBe("30px");
     });
 
+    it("does not hide live status accessory during measurement", async () => {
+      const tabs = ref([
+        createTab("a", {
+          accessory: { type: "liveStatus", status: "green" },
+        }),
+      ]);
+      const container = createMockContainer({ tokenPx: 64 });
+
+      const { setItemEl } = useTabBarAdaptiveLayout({
+        width: ref(500),
+        tabs,
+        containerEl: ref(container),
+        minTabWidth: MIN_TAB_WIDTH_TOKEN,
+      });
+
+      const btn = createButtonWithLabel(false, {
+        naturalWidth: 30,
+        hasAccessory: true,
+      });
+      setItemEl("a", btn);
+
+      await nextTick();
+      await nextTick();
+
+      // Live status accessory should never be hidden
+      const accessory = btn.querySelector(".kds-tab-icon") as HTMLElement;
+      expect(accessory.style.display).toBe("");
+    });
+
     it("restores flex-shrink after measurement", async () => {
       const tabs = ref([createTab("a")]);
       const container = createMockContainer({ tokenPx: 64 });
 
-      const { setItemEl } = useTabBarIconHiding({
+      const { setItemEl } = useTabBarAdaptiveLayout({
         width: ref(500),
         tabs,
         containerEl: ref(container),
@@ -479,7 +510,7 @@ describe("useTabBarIconHiding", () => {
 
     it("returns minTabWidth for use in v-bind CSS", () => {
       const tabs = ref([createTab("a")]);
-      const result = useTabBarIconHiding({
+      const result = useTabBarAdaptiveLayout({
         width: ref(500),
         tabs,
         containerEl: ref(createMockContainer()),
