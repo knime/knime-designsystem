@@ -2,6 +2,13 @@
 import { computed, defineComponent, toRef, useId, watch } from "vue";
 import { useVirtualList } from "@vueuse/core";
 
+import {
+  kdsDimensionComponentHeight12p5x,
+  kdsDimensionComponentHeight1p5x,
+  kdsDimensionComponentHeight20x,
+  kdsSpacingContainer0p10x,
+} from "@knime/kds-styles/tokens";
+
 import KdsEmptyState from "../../../layouts/EmptyState/KdsEmptyState.vue";
 import KdsResizeContainer from "../../../layouts/ResizeContainer/KdsResizeContainer.vue";
 import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
@@ -10,32 +17,8 @@ import { KdsListItem } from "../../_helper/List/KdsListItem";
 import type { KdsMultiSelectListBoxProps } from "./types";
 import { useMultiSelectListBoxSelection } from "./useMultiSelectListBoxSelection";
 
-// TODO KDS-690 use generated token
-const FALLBACK_OPTION_HEIGHT = 24;
-const FALLBACK_OPTION_GAP = 1;
-const FALLBACK_LIST_BOX_HEIGHT = 320;
-const FALLBACK_MIN_LIST_BOX_HEIGHT = 200;
-
-const getDimensionToken = (tokenName: string, fallback: number) =>
-  Number.parseFloat(
-    getComputedStyle(document.documentElement).getPropertyValue(tokenName),
-  ) || fallback;
-
 const OPTION_LINE_HEIGHT =
-  getDimensionToken(
-    "--kds-dimension-component-height-1-5x",
-    FALLBACK_OPTION_HEIGHT,
-  ) + getDimensionToken("--kds-spacing-container-0-10x", FALLBACK_OPTION_GAP);
-
-const DEFAULT_LIST_BOX_HEIGHT = getDimensionToken(
-  "--kds-dimension-component-height-20x",
-  FALLBACK_LIST_BOX_HEIGHT,
-);
-
-const MIN_LIST_BOX_HEIGHT = getDimensionToken(
-  "--kds-dimension-component-height-12-5x",
-  FALLBACK_MIN_LIST_BOX_HEIGHT,
-);
+  kdsDimensionComponentHeight1p5x + kdsSpacingContainer0p10x;
 
 const PassThroughResizeContainer = defineComponent({
   setup(_, { slots }) {
@@ -214,8 +197,8 @@ defineExpose({ focus });
             ? KdsResizeContainer
             : PassThroughResizeContainer
         "
-        :height="props.useResizeHandle ? DEFAULT_LIST_BOX_HEIGHT : undefined"
-        :min-height="props.useResizeHandle ? MIN_LIST_BOX_HEIGHT : undefined"
+        :height="kdsDimensionComponentHeight20x"
+        :min-height="kdsDimensionComponentHeight12p5x"
       >
         <template #default="{ contentStyle }">
           <div class="kds-multiselect-list-box" :style="contentStyle">
