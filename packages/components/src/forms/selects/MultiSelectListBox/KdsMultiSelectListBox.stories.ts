@@ -5,6 +5,7 @@ import { expect, fireEvent, userEvent, within } from "storybook/test";
 
 import {
   buildAllCombinationsStory,
+  buildDesignComparatorStory,
   buildTextOverflowStory,
 } from "../../../test-utils/storybook";
 
@@ -46,6 +47,10 @@ const meta: Meta<typeof KdsMultiSelectListBox> = {
           "Supports Ctrl+Click, Shift+Click, drag selection, and keyboard navigation (Arrow keys, Home, End, Shift+Home, Shift+End, Ctrl+A).",
       },
     },
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=22062-18302",
+    },
   },
   argTypes: {
     modelValue: {
@@ -57,8 +62,32 @@ const meta: Meta<typeof KdsMultiSelectListBox> = {
       control: "object",
       table: { category: "props" },
     },
+    label: {
+      control: "text",
+      table: { category: "props" },
+    },
     ariaLabel: {
       control: "text",
+      table: { category: "props" },
+    },
+    description: {
+      control: "text",
+      table: { category: "props" },
+    },
+    subText: {
+      control: "text",
+      table: { category: "props" },
+    },
+    error: {
+      control: "boolean",
+      table: { category: "props" },
+    },
+    validating: {
+      control: "boolean",
+      table: { category: "props" },
+    },
+    preserveSubTextSpace: {
+      control: "boolean",
       table: { category: "props" },
     },
     disabled: {
@@ -77,7 +106,13 @@ const meta: Meta<typeof KdsMultiSelectListBox> = {
   args: {
     modelValue: [],
     possibleValues: baseOptions,
-    ariaLabel: "Fruit list",
+    label: "Fruit list",
+    ariaLabel: undefined,
+    description: undefined,
+    subText: "",
+    error: false,
+    validating: false,
+    preserveSubTextSpace: false,
     disabled: false,
     size: 5,
     bottomValue: undefined,
@@ -447,12 +482,36 @@ export const TextOverflow: Story = {
   },
 };
 
-// DesignComparator story disabled - no Figma design yet
+export const DesignComparator: Story = buildDesignComparatorStory({
+  component: KdsMultiSelectListBox,
+  wrapperStyle: { width: "300px" },
+  designsToCompare: {
+    "Wrapped Field": {
+      props: {
+        modelValue: ["label-5", "label-7", "label-8"],
+        possibleValues: Array.from({ length: 13 }, (_, i) => ({
+          id: `label-${i + 1}`,
+          text: "Label",
+        })),
+        label: "{Label}",
+        size: 0,
+        description: "Info",
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=22062-19665":
+          {
+            parameters: { figmaOffset: { x: 0, y: -1 } },
+          },
+      },
+    },
+  },
+});
 
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsMultiSelectListBox,
   combinationsProps: [
     {
+      label: ["Label", undefined],
       possibleValues: [baseOptions],
       modelValue: [[], ["apple", "cherry"]],
       ariaLabel: ["Fruit list"],

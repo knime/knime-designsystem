@@ -1,4 +1,5 @@
 import type { KdsListItemAccessory } from "../../_helper/List/ListItemAccessory/types";
+import type { KdsFormFieldProps } from "../../types";
 
 export type KdsMultiSelectListBoxOptionAccessory = KdsListItemAccessory;
 
@@ -16,8 +17,6 @@ export type KdsMultiSelectListBoxProps = {
   possibleValues: KdsMultiSelectListBoxOption[];
   /** Whether the list box is disabled */
   disabled?: boolean;
-  /** Accessible label for the list box */
-  ariaLabel: string;
   /**
    * Controls the visible height of the list. Number of visible items (additional items require scrolling).
    * 0 means all items are visible.
@@ -25,4 +24,4 @@ export type KdsMultiSelectListBoxProps = {
   size?: number;
   /** Optional item pinned to the bottom of the list, always visible while scrolling. Interacts like a regular item for selection, keyboard navigation, and drag. */
   bottomValue?: KdsMultiSelectListBoxOption;
-};
+} & KdsFormFieldProps;

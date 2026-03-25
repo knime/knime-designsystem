@@ -3,6 +3,7 @@ import { computed, onBeforeUnmount, onMounted, ref, useId, watch } from "vue";
 import { useVirtualList } from "@vueuse/core";
 
 import KdsEmptyState from "../../../layouts/EmptyState/KdsEmptyState.vue";
+import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
 import { KdsListItem } from "../../_helper/List/KdsListItem";
 
 import type {
@@ -11,17 +12,25 @@ import type {
 } from "./types";
 
 const OPTION_LINE_HEIGHT =
-  Number.parseFloat(
+  (Number.parseFloat(
     getComputedStyle(document.documentElement).getPropertyValue(
       "--kds-dimension-component-height-1-5x",
     ),
-  ) || 24; // eslint-disable-line no-magic-numbers
+  ) || 24) + // eslint-disable-line no-magic-numbers
+    Number.parseFloat(
+      getComputedStyle(document.documentElement).getPropertyValue(
+        "--kds-spacing-container-0-10x",
+      ),
+    ) || 1;
 const CLICK_META_KEY_TIMEOUT = 250;
 
 const props = withDefaults(defineProps<KdsMultiSelectListBoxProps>(), {
   disabled: false,
   size: 0,
   bottomValue: undefined,
+  error: false,
+  validating: false,
+  preserveSubTextSpace: false,
 });
 
 const modelValue = defineModel<string[]>({ default: () => [] });
@@ -42,7 +51,6 @@ const idPrefix = useId();
 const generateOptionId = (itemId: string) =>
   `${idPrefix}-option-${encodeURIComponent(itemId)}`;
 
-/** All values including the optional bottom value — used for index-based operations */
 const allValues = computed(() =>
   props.bottomValue
     ? [...props.possibleValues, props.bottomValue]
@@ -255,7 +263,7 @@ const scrollToCurrent = () => {
   if (!el) {
     return;
   }
-  const itemEl = el.querySelector(`#${CSS.escape(generateOptionId(item.id))}`);
+  const itemEl = globalThis.document.getElementById(generateOptionId(item.id));
   if (itemEl) {
     itemEl.scrollIntoView({ block: "nearest" });
     if (props.bottomValue) {
@@ -411,68 +419,88 @@ defineExpose({ focus });
 </script>
 
 <template>
-  <div
-    :class="['kds-multiselect-list-box', { disabled: props.disabled }]"
-    :style="cssStyleSize"
+  <BaseFormFieldWrapper
+    :id="props.id"
+    :label="props.label"
+    :aria-label="props.ariaLabel"
+    :description="props.description"
+    :sub-text="props.subText"
+    :error="props.error"
+    :validating="props.validating"
+    :preserve-sub-text-space="props.preserveSubTextSpace"
   >
-    <div
-      v-bind="containerProps"
-      role="listbox"
-      :tabindex="props.disabled ? -1 : 0"
-      aria-multiselectable="true"
-      :aria-label="props.ariaLabel"
-      :aria-activedescendant="activeDescendantId"
-      :aria-disabled="props.disabled"
-      :class="[
-        'kds-multiselect-list-box-list',
-        {
-          disabled: props.disabled,
-          empty: props.possibleValues.length === 0 && !props.bottomValue,
-        },
-      ]"
-      @keydown.ctrl.a.prevent.exact="onCtrlA"
-      @keydown.meta.a.prevent.exact="onCtrlA"
-      @keydown.up.prevent.exact="onArrowUp"
-      @keydown.down.prevent.exact="onArrowDown"
-      @keydown.shift.up.prevent.exact="onArrowUpShift"
-      @keydown.shift.down.prevent.exact="onArrowDownShift"
-      @keydown.left.prevent.exact="onArrowLeft"
-      @keydown.right.prevent.exact="onArrowRight"
-      @keydown.home.prevent.exact="onHomeKey"
-      @keydown.end.prevent.exact="onEndKey"
-      @keydown.shift.home.prevent.exact="onHomeKeyShift"
-      @keydown.shift.end.prevent.exact="onEndKeyShift"
-      @mousedown="onStartDrag"
-      @mousemove="onDrag"
-      @blur="isKeyboardNavigating = false"
-    >
-      <div v-bind="wrapperProps">
-        <KdsListItem
-          v-for="{ data: item, index } of virtualList"
-          :key="`listbox-${item.id}`"
-          v-bind="getItemProps(item, index)"
-          @click="handleClick($event, item.id, index)"
-          @dblclick.shift="handleShiftDblClick()"
-          @dblclick.exact="handleDblClick(item.id, index)"
-        />
+    <template #default="slotProps">
+      <div
+        :class="['kds-multiselect-list-box', { disabled: props.disabled }]"
+        :style="cssStyleSize"
+      >
+        <div
+          v-bind="containerProps"
+          :id="slotProps.id"
+          role="listbox"
+          :tabindex="props.disabled ? -1 : 0"
+          aria-multiselectable="true"
+          :aria-labelledby="slotProps.ariaLabelledby"
+          :aria-describedby="slotProps.ariaDescribedby"
+          :aria-label="slotProps.ariaLabel"
+          :aria-invalid="slotProps.ariaInvalid"
+          :aria-activedescendant="activeDescendantId"
+          :aria-disabled="props.disabled"
+          :class="[
+            'kds-multiselect-list-box-list',
+            {
+              disabled: props.disabled,
+              empty: props.possibleValues.length === 0 && !props.bottomValue,
+            },
+          ]"
+          @keydown.ctrl.a.prevent.exact="onCtrlA"
+          @keydown.meta.a.prevent.exact="onCtrlA"
+          @keydown.up.prevent.exact="onArrowUp"
+          @keydown.down.prevent.exact="onArrowDown"
+          @keydown.shift.up.prevent.exact="onArrowUpShift"
+          @keydown.shift.down.prevent.exact="onArrowDownShift"
+          @keydown.left.prevent.exact="onArrowLeft"
+          @keydown.right.prevent.exact="onArrowRight"
+          @keydown.home.prevent.exact="onHomeKey"
+          @keydown.end.prevent.exact="onEndKey"
+          @keydown.shift.home.prevent.exact="onHomeKeyShift"
+          @keydown.shift.end.prevent.exact="onEndKeyShift"
+          @mousedown="onStartDrag"
+          @mousemove="onDrag"
+          @blur="isKeyboardNavigating = false"
+        >
+          <div v-bind="wrapperProps">
+            <KdsListItem
+              v-for="{ data: item, index } of virtualList"
+              :key="`listbox-${item.id}`"
+              :class="['kds-multiselect-list-box-item', { first: index === 0 }]"
+              v-bind="getItemProps(item, index)"
+              @dblclick.exact="handleDblClick(item.id, index)"
+              @click="handleClick($event, item.id, index)"
+              @dblclick.shift="handleShiftDblClick()"
+            />
+          </div>
+          <div v-if="props.bottomValue" class="kds-multiselect-sticky-bottom">
+            <KdsListItem
+              v-bind="getItemProps(props.bottomValue, bottomIndex)"
+              special
+              @click="handleClick($event, props.bottomValue.id, bottomIndex)"
+              @dblclick.shift="handleShiftDblClick()"
+              @dblclick.exact="
+                handleDblClick(props.bottomValue.id, bottomIndex)
+              "
+            />
+          </div>
+        </div>
+        <div
+          v-if="props.possibleValues.length === 0 && !props.bottomValue"
+          class="kds-multiselect-empty"
+        >
+          <KdsEmptyState headline="No entries in this list" />
+        </div>
       </div>
-      <div v-if="props.bottomValue" class="kds-multiselect-sticky-bottom">
-        <KdsListItem
-          v-bind="getItemProps(props.bottomValue, bottomIndex)"
-          special
-          @click="handleClick($event, props.bottomValue.id, bottomIndex)"
-          @dblclick.shift="handleShiftDblClick()"
-          @dblclick.exact="handleDblClick(props.bottomValue.id, bottomIndex)"
-        />
-      </div>
-    </div>
-    <div
-      v-if="props.possibleValues.length === 0 && !props.bottomValue"
-      class="kds-multiselect-empty"
-    >
-      <KdsEmptyState headline="No entries in this list" />
-    </div>
-  </div>
+    </template>
+  </BaseFormFieldWrapper>
 </template>
 
 <style scoped>
@@ -482,7 +510,7 @@ defineExpose({ focus });
   flex-direction: column;
   align-items: stretch;
   min-height: var(--kds-dimension-component-height-2-5x);
-  border: var(--kds-border-base-subtle);
+  border: var(--kds-border-action-input);
   border-radius: var(--kds-border-radius-container-0-31x);
 
   &.disabled {
@@ -501,7 +529,9 @@ defineExpose({ focus });
   flex-grow: 1;
   flex-direction: column;
   min-width: var(--kds-dimension-component-width-12x);
-  padding: var(--kds-spacing-container-0-25x);
+  padding: calc(
+    var(--kds-spacing-container-0-25x) - var(--kds-core-border-width-xs)
+  );
   margin: 0;
   overflow-y: auto;
   background: var(--kds-color-background-neutral-initial);
@@ -512,6 +542,15 @@ defineExpose({ focus });
 
   &:focus {
     outline: none;
+  }
+}
+
+.kds-multiselect-list-box-item {
+  height: var(--kds-dimension-component-height-1-5x);
+  margin-top: var(--kds-spacing-container-0-10x);
+
+  &.first {
+    margin-top: 0;
   }
 }
 
