@@ -15,11 +15,14 @@ const {
   disabled = false,
 } = defineProps<TwinListHeaderProps>();
 
+const emit = defineEmits<{
+  regex: [value: string];
+}>();
+
 const mode = defineModel<KdsTwinListSearchMode>("mode", {
   default: kdsTwinListSearchMode.MANUAL,
 });
 const pattern = defineModel<string>("pattern", { default: "" });
-const patternRegex = defineModel<string>("patternRegex", { default: "" });
 const searchTerm = defineModel<string>("searchTerm", { default: "" });
 const selectedTypes = defineModel<string[]>("selectedTypes", {
   default: () => [],
@@ -81,14 +84,14 @@ watch(mode, (newMode, oldMode) => {
   <KdsPatternInput
     v-else-if="mode === kdsTwinListSearchMode.PATTERN"
     ref="patternInputRef"
-    v-model="patternRegex"
-    v-model:pattern="pattern"
+    v-model="pattern"
     v-model:case-sensitive="caseSensitive"
     v-model:exclude-matches="excludeMatches"
     v-model:use-regex="useRegex"
     ariaLabel="Pattern"
     placeholder="Pattern"
     :disabled="disabled"
+    @regex="emit('regex', $event)"
   />
 
   <KdsMultiSelectDropdown

@@ -116,7 +116,6 @@ const effectiveBodyModel = computed<KdsTwinListModelValue>({
         ref="headerRef"
         v-model:mode="mode"
         v-model:pattern="pattern"
-        v-model:pattern-regex="patternRegex"
         v-model:search-term="searchTerm"
         v-model:selected-types="selectedTypes"
         v-model:case-sensitive="caseSensitive"
@@ -125,6 +124,7 @@ const effectiveBodyModel = computed<KdsTwinListModelValue>({
         :disabled="disabled"
         :filter-types="filterTypes"
         :enable-pattern-filter="enablePatternFilter"
+        @regex="patternRegex = $event"
       />
       <TwinListBody
         v-model="effectiveBodyModel"

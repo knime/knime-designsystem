@@ -6,10 +6,7 @@ import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
 import type { KdsFormFieldExpose } from "../../types.ts";
 import BaseInput from "../BaseInput.vue";
 
-import {
-  buildRegexFromPatternInput,
-  parseRegexToPatternInputValue,
-} from "./patternRegex.ts";
+import { buildRegexFromPatternInput } from "./patternRegex.ts";
 import type { KdsPatternInputProps } from "./types";
 
 const {
@@ -20,8 +17,11 @@ const {
   ...props
 } = defineProps<KdsPatternInputProps>();
 
-// Public API: a single regex string (encoded with options when toggles are used).
-const regex = defineModel<string>({ default: "" });
+const emit = defineEmits<{
+  regex: [value: string];
+}>();
+
+const modelValue = defineModel<string>({ default: "" });
 
 // Toggle states exposed as optional v-models for external control.
 const caseSensitive = defineModel<boolean>("caseSensitive", { default: false });
@@ -30,50 +30,19 @@ const excludeMatches = defineModel<boolean>("excludeMatches", {
 });
 const useRegex = defineModel<boolean>("useRegex", { default: false });
 
-// Raw UI pattern text exposed as optional v-model:pattern for external control.
-const pattern = defineModel<string>("pattern", { default: "" });
-
-// Guard to break circular updates between the two watches.
-let updatingFromUi = false;
-
-// If regex was provided externally but pattern was not, initialize pattern from
-// the regex so the immediate watch below doesn't overwrite the parent value.
-if (regex.value && !pattern.value) {
-  pattern.value = parseRegexToPatternInputValue(regex.value, {
-    useRegex: useRegex.value,
-    excludeMatches: excludeMatches.value,
-    caseSensitive: caseSensitive.value,
-  });
-}
-
-// Rebuild the regex whenever the UI inputs change.
 watch(
-  [pattern, caseSensitive, excludeMatches, useRegex],
-  ([pat, cs, em, ur]) => {
-    updatingFromUi = true;
-    regex.value = buildRegexFromPatternInput(pat, {
-      caseSensitive: cs,
-      excludeMatches: em,
-      useRegex: ur,
-    });
-    updatingFromUi = false;
+  [modelValue, caseSensitive, excludeMatches, useRegex],
+  ([value, cs, em, ur]) => {
+    emit(
+      "regex",
+      buildRegexFromPatternInput(value, {
+        caseSensitive: cs,
+        excludeMatches: em,
+        useRegex: ur,
+      }),
+    );
   },
   { immediate: true },
-);
-
-// When the regex is set externally, parse it back into the UI pattern.
-watch(
-  () => regex.value,
-  (newValue) => {
-    if (updatingFromUi) {
-      return;
-    }
-    pattern.value = parseRegexToPatternInputValue(newValue, {
-      useRegex: useRegex.value,
-      excludeMatches: excludeMatches.value,
-      caseSensitive: caseSensitive.value,
-    });
-  },
 );
 
 const caseSensitiveAriaLabel = computed(() =>
@@ -104,7 +73,7 @@ defineExpose<KdsFormFieldExpose>({
       <BaseInput
         ref="baseInput"
         v-bind="slotProps"
-        v-model="pattern"
+        v-model="modelValue"
         type="text"
         :placeholder="props.placeholder"
         :disabled="disabled"

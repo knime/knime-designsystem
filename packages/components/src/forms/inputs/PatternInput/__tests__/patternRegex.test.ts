@@ -1,9 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import {
-  buildRegexFromPatternInput,
-  parseRegexToPatternInputValue,
-} from "../patternRegex.ts";
+import { buildRegexFromPatternInput } from "../patternRegex.ts";
 
 describe("patternRegex", () => {
   const expectParsableRegExp = (pattern: string) => {
@@ -28,26 +25,6 @@ describe("patternRegex", () => {
 
     expectParsableRegExp(insensitive);
     expectParsableRegExp(sensitive);
-  });
-
-  it("parses according to toggles: wildcard + insensitive strips wrapper and converts", () => {
-    expect(
-      parseRegexToPatternInputValue("(?i:(?:a.*))", {
-        useRegex: false,
-        excludeMatches: false,
-        caseSensitive: false,
-      }),
-    ).toBe("a*");
-  });
-
-  it("parses according to toggles: case-sensitive does not strip wrapper", () => {
-    expect(
-      parseRegexToPatternInputValue("(?i:(?:a.*))", {
-        useRegex: true,
-        excludeMatches: false,
-        caseSensitive: true,
-      }),
-    ).toBe("(?i:(?:a.*))");
   });
 
   it("always emits modelValue that can be compiled via RegExp", () => {
@@ -77,16 +54,6 @@ describe("patternRegex", () => {
     for (const value of emitted) {
       expectParsableRegExp(value);
     }
-  });
-
-  it("returns an empty string for empty modelValue", () => {
-    expect(
-      parseRegexToPatternInputValue("", {
-        useRegex: false,
-        excludeMatches: false,
-        caseSensitive: false,
-      }),
-    ).toBe("");
   });
 
   it("case-insensitive wrapper makes matching insensitive without flags", () => {

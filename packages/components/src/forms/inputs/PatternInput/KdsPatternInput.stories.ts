@@ -23,8 +23,8 @@ const meta: Meta<typeof KdsPatternInput> = {
     docs: {
       description: {
         component:
-          "An input field for pattern-based filtering. It exposes a single regex v-model and provides built-in toggles for case sensitivity, include/exclude matches, and wildcard/regex mode. " +
-          "Toggle changes are encoded into the emitted regex so consumers don't need separate option bindings.",
+          "An input field for pattern-based filtering. Its v-model always contains the visible input text, while the `regexp` event emits a compiled regex string based on the current toggles. " +
+          "Consumers can use the optional toggle v-models for external control when needed.",
       },
     },
     design: {
@@ -35,12 +35,7 @@ const meta: Meta<typeof KdsPatternInput> = {
   argTypes: {
     modelValue: {
       control: "text",
-      description: "Regex string (v-model)",
-      table: { category: "model" },
-    },
-    pattern: {
-      control: "text",
-      description: "Raw pattern text bound via v-model:pattern",
+      description: "Visible pattern text",
       table: { category: "model" },
     },
     caseSensitive: {
@@ -103,7 +98,6 @@ const meta: Meta<typeof KdsPatternInput> = {
   },
   args: {
     modelValue: "",
-    pattern: "",
     caseSensitive: false,
     excludeMatches: false,
     useRegex: false,
@@ -124,19 +118,17 @@ const meta: Meta<typeof KdsPatternInput> = {
       components: { KdsPatternInput, PatternDemo },
       setup() {
         const modelValue = ref(args.modelValue);
-        const pattern = ref(args.pattern);
         const caseSensitive = ref(args.caseSensitive);
         const excludeMatches = ref(args.excludeMatches);
         const useRegex = ref(args.useRegex);
+        const regex = ref("");
         watchEffect(() => (modelValue.value = args.modelValue));
-        watchEffect(() => (pattern.value = args.pattern));
         watchEffect(() => (caseSensitive.value = args.caseSensitive));
         watchEffect(() => (excludeMatches.value = args.excludeMatches));
         watchEffect(() => (useRegex.value = args.useRegex));
         watchEffect(() =>
           updateArgs({
             modelValue: modelValue.value,
-            pattern: pattern.value,
             caseSensitive: caseSensitive.value,
             excludeMatches: excludeMatches.value,
             useRegex: useRegex.value,
@@ -145,22 +137,22 @@ const meta: Meta<typeof KdsPatternInput> = {
         return {
           args,
           modelValue,
-          pattern,
           caseSensitive,
           excludeMatches,
           useRegex,
+          regex,
         };
       },
       template: `
         <KdsPatternInput
           v-bind="args"
           v-model="modelValue"
-          v-model:pattern="pattern"
           v-model:case-sensitive="caseSensitive"
           v-model:exclude-matches="excludeMatches"
           v-model:use-regex="useRegex"
+          @regex="regex = $event"
         />
-        <PatternDemo :pattern="modelValue" />
+        <PatternDemo :pattern="regex" />
       `,
     };
   },
@@ -219,7 +211,7 @@ export const Default: Story = {
 
 export const WithValue: Story = {
   args: {
-    pattern: "^column([1-9]|10)$",
+    modelValue: "^column([1-9]|10)$",
     useRegex: true,
   },
   play: async ({ canvasElement }) => {
@@ -231,7 +223,7 @@ export const WithValue: Story = {
 
 export const WithEncodedOptions: Story = {
   args: {
-    pattern: "^column([1-9]|10)$",
+    modelValue: "^column([1-9]|10)$",
     useRegex: true,
     excludeMatches: true,
   },
@@ -244,7 +236,7 @@ export const WithEncodedOptions: Story = {
 
 export const Disabled: Story = {
   args: {
-    pattern: "^column([1-9]|10)$",
+    modelValue: "^column([1-9]|10)$",
     useRegex: true,
     disabled: true,
   },
@@ -285,7 +277,7 @@ export const WithDescription: Story = {
 
 export const WithError: Story = {
   args: {
-    pattern: "(",
+    modelValue: "(",
     useRegex: true,
     error: true,
     subText: "Invalid pattern",
@@ -298,7 +290,7 @@ export const WithError: Story = {
 
 export const Validating: Story = {
   args: {
-    pattern: "^column([1-9]|10)$",
+    modelValue: "^column([1-9]|10)$",
     useRegex: true,
     validating: true,
     subText: "Validating pattern",
@@ -385,8 +377,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
     default: {
       label: ["Pattern"],
       ariaLabel: [undefined],
-      modelValue: [""],
-      pattern: ["", "^column([1-9]|10)$"],
+      modelValue: ["", "^column([1-9]|10)$"],
       useRegex: [false, true],
       caseSensitive: [false],
       excludeMatches: [false],
