@@ -1,6 +1,6 @@
 {
   "name": "@knime/kds-styles",
-  "version": "0.19.0",
+  "version": "0.20.0",
   "description": "Package containing the design tokens and icons for the KNIME Design System",
   "repository": {
     "type": "git",
