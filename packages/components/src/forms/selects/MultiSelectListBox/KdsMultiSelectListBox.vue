@@ -26,14 +26,14 @@ const PassThroughResizeContainer = defineComponent({
   },
 });
 
-const props = withDefaults(defineProps<KdsMultiSelectListBoxProps>(), {
-  disabled: false,
-  bottomValue: undefined,
-  error: false,
-  validating: false,
-  preserveSubTextSpace: false,
-  useResizeHandle: false,
-});
+const {
+  disabled = false,
+  error = false,
+  validating = false,
+  preserveSubTextSpace = false,
+  useResizeHandle = false,
+  ...props
+} = defineProps<KdsMultiSelectListBoxProps>();
 
 const modelValue = defineModel<string[]>({ default: () => [] });
 
@@ -144,41 +144,41 @@ const {
 } = useMultiSelectListBoxSelection({
   modelValue,
   allValues,
-  disabled: toRef(props, "disabled"),
+  disabled: toRef(() => disabled),
   generateOptionId,
   scrollToIndex,
 });
 
 const handleDblClick = (id: string, index: number) => {
-  if (!props.disabled) {
+  if (!disabled) {
     emit("doubleClickOnItem", id, index);
   }
 };
 
 const handleShiftDblClick = () => {
-  if (!props.disabled) {
+  if (!disabled) {
     emit("doubleClickShift", modelValue.value);
   }
 };
 
 const onArrowLeft = () => {
-  if (!props.disabled) {
+  if (!disabled) {
     emit("keyArrowLeft", modelValue.value);
   }
 };
 const onArrowRight = () => {
-  if (!props.disabled) {
+  if (!disabled) {
     emit("keyArrowRight", modelValue.value);
   }
 };
 const onEnter = () => {
-  if (!props.disabled) {
+  if (!disabled) {
     emit("keyEnter", modelValue.value);
   }
 };
 
 const focus = () => {
-  if (!props.disabled) {
+  if (!disabled) {
     (containerProps.ref.value as HTMLElement | null)?.focus();
   }
 };
@@ -193,17 +193,13 @@ defineExpose({ focus });
     :aria-label="props.ariaLabel"
     :description="props.description"
     :sub-text="props.subText"
-    :error="props.error"
-    :validating="props.validating"
-    :preserve-sub-text-space="props.preserveSubTextSpace"
+    :error="error"
+    :validating="validating"
+    :preserve-sub-text-space="preserveSubTextSpace"
   >
     <template #default="slotProps">
       <component
-        :is="
-          props.useResizeHandle
-            ? KdsResizeContainer
-            : PassThroughResizeContainer
-        "
+        :is="useResizeHandle ? KdsResizeContainer : PassThroughResizeContainer"
         :height="kdsDimensionComponentHeight20x"
         :min-height="kdsDimensionComponentHeight12p5x"
       >
@@ -213,14 +209,14 @@ defineExpose({ focus });
               v-bind="containerProps"
               :id="slotProps.id"
               role="listbox"
-              :tabindex="props.disabled ? -1 : 0"
+              :tabindex="disabled ? -1 : 0"
               aria-multiselectable="true"
               :aria-labelledby="slotProps.ariaLabelledby"
               :aria-describedby="slotProps.ariaDescribedby"
               :aria-label="slotProps.ariaLabel"
               :aria-invalid="slotProps.ariaInvalid"
               :aria-activedescendant="activeDescendantId"
-              :aria-disabled="props.disabled"
+              :aria-disabled="disabled"
               class="kds-multiselect-list-box-list"
               @keydown.ctrl.a.prevent.exact="onCtrlA"
               @keydown.meta.a.prevent.exact="onCtrlA"
@@ -258,12 +254,12 @@ defineExpose({ focus });
                     :missing="item.missing"
                     :data-option-index="index"
                     :selected="isCurrentValue(item.id)"
-                    :disabled="props.disabled"
+                    :disabled="disabled"
                     :active="
                       isKeyboardNavigating && currentKeyNavIndex === index
                     "
                     :trailing-icon="
-                      item.missing && !props.disabled
+                      item.missing && !disabled
                         ? 'trash'
                         : isCurrentValue(item.id)
                           ? 'checkmark'
@@ -285,13 +281,13 @@ defineExpose({ focus });
                     :missing="props.bottomValue.missing"
                     :data-option-index="bottomIndex"
                     :selected="isCurrentValue(props.bottomValue.id)"
-                    :disabled="props.disabled"
+                    :disabled="disabled"
                     :active="
                       isKeyboardNavigating && currentKeyNavIndex === bottomIndex
                     "
                     special
                     :trailing-icon="
-                      props.bottomValue.missing && !props.disabled
+                      props.bottomValue.missing && !disabled
                         ? 'trash'
                         : isCurrentValue(props.bottomValue.id)
                           ? 'checkmark'

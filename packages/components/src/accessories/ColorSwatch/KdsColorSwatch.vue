@@ -4,10 +4,8 @@ import { computed } from "vue";
 import { kdsColorSwatchSize } from "./enums";
 import type { KdsColorSwatchProps, KdsColorSwatchType } from "./types";
 
-const props = withDefaults(defineProps<KdsColorSwatchProps>(), {
-  size: kdsColorSwatchSize.SMALL,
-  title: undefined,
-});
+const { size = kdsColorSwatchSize.SMALL, ...props } =
+  defineProps<KdsColorSwatchProps>();
 
 const typeToTokenColor: Record<KdsColorSwatchType, string> = {
   learner: "var(--kds-color-nodes-and-variables-learner)",
@@ -37,7 +35,7 @@ const hasTitle = computed(() => accessibleTitle.value.length > 0);
   <span
     :role="hasTitle ? 'img' : 'presentation'"
     class="kds-color-swatch"
-    :class="props.size"
+    :class="size"
     :title="hasTitle ? accessibleTitle : undefined"
     :style="{ backgroundColor }"
     :aria-hidden="hasTitle ? undefined : 'true'"

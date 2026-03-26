@@ -4,11 +4,7 @@ import { computed, ref, watch } from "vue";
 import { kdsAvatarSize } from "./enums";
 import type { KdsAvatarProps } from "./types";
 
-const props = withDefaults(defineProps<KdsAvatarProps>(), {
-  title: undefined,
-  src: undefined,
-  size: kdsAvatarSize.XLARGE,
-});
+const { size = kdsAvatarSize.XLARGE, ...props } = defineProps<KdsAvatarProps>();
 
 const imageLoadFailed = ref(false);
 
@@ -38,7 +34,7 @@ const displayedInitials = computed(() =>
 <template>
   <div
     class="kds-avatar"
-    :class="props.size"
+    :class="size"
     :role="hasTitle ? 'img' : 'presentation'"
     :title="hasTitle ? accessibleTitle : undefined"
     :aria-hidden="!hasTitle ? 'true' : undefined"

@@ -140,37 +140,15 @@ type BaseInputProps = {
   pattern?: string;
 };
 
-const props = withDefaults(defineProps<BaseInputProps>(), {
-  id: undefined,
-  type: "text",
-  min: undefined,
-  max: undefined,
-  step: undefined,
-  placeholder: undefined,
-  disabled: false,
-  leadingIcon: undefined,
-  trailingIcon: undefined,
-  error: false,
-  autocomplete: undefined,
-  ariaLabel: undefined,
-  ariaLabelledby: undefined,
-  ariaDescribedby: undefined,
-  ariaExpanded: undefined,
-  ariaInvalid: undefined,
-  role: undefined,
-  ariaValuenow: undefined,
-  ariaValuemin: undefined,
-  ariaValuemax: undefined,
-  ariaValuetext: undefined,
-  ariaActivedescendant: undefined,
-  ariaHaspopup: undefined,
-  ariaControls: undefined,
-  ariaAutocomplete: undefined,
-  unit: undefined,
-  inputmode: undefined,
-  clearable: false,
-  pattern: undefined,
-});
+const {
+  type = "text",
+  disabled = false,
+  error = false,
+  clearable = false,
+  ariaExpanded = undefined,
+  ariaInvalid = undefined,
+  ...props
+} = defineProps<BaseInputProps>();
 
 type BaseInputEmits = {
   /** Native focus event forwarded from the input element. */
@@ -234,8 +212,8 @@ defineExpose({
   <div
     :class="{
       container: true,
-      error: props.error,
-      disabled: props.disabled,
+      error,
+      disabled,
     }"
     @click="handleContainerClick"
   >
@@ -251,10 +229,10 @@ defineExpose({
       :id="props.id"
       ref="input"
       :value="modelValue"
-      :type="props.type"
+      :type="type"
       :inputmode="props.inputmode"
       :placeholder="props.placeholder"
-      :disabled="props.disabled"
+      :disabled="disabled"
       :autocomplete="props.autocomplete"
       :min="props.min"
       :max="props.max"
@@ -262,7 +240,7 @@ defineExpose({
       :aria-label="props.ariaLabel"
       :aria-labelledby="props.ariaLabelledby"
       :aria-describedby="props.ariaDescribedby"
-      :aria-invalid="props.ariaInvalid"
+      :aria-invalid="ariaInvalid"
       :role="props.role"
       :pattern="props.pattern"
       :aria-valuenow="props.ariaValuenow"
@@ -272,7 +250,7 @@ defineExpose({
       :aria-activedescendant="props.ariaActivedescendant"
       :aria-haspopup="props.ariaHaspopup"
       :aria-controls="props.ariaControls"
-      :aria-expanded="props.ariaExpanded"
+      :aria-expanded="ariaExpanded"
       :aria-autocomplete="props.ariaAutocomplete"
       :class="{ 'input-field': true, 'has-value': hasValue }"
       @input="handleInput"
@@ -287,21 +265,21 @@ defineExpose({
       :class="{
         unit: true,
         placeholder: showUnitPlaceholder,
-        disabled: props.disabled,
+        disabled,
       }"
-      :aria-disabled="props.disabled || undefined"
+      :aria-disabled="disabled || undefined"
     >
       {{ props.unit }}
     </span>
 
     <KdsButton
-      v-if="props.clearable && hasValue && !props.disabled"
+      v-if="clearable && hasValue && !disabled"
       class="clear-button"
       type="button"
       size="xsmall"
       variant="transparent"
       leading-icon="x-close"
-      aria-label="Clear"
+      ariaLabel="Clear"
       title="Clear"
       @click.stop="clearAndFocusInput"
     />

@@ -9,13 +9,14 @@ import BaseInput from "../BaseInput.vue";
 import DateTimeFormatPopover from "./DateTimeFormatPopover.vue";
 import type { KdsDateTimeFormatInputProps } from "./types";
 
-const props = withDefaults(defineProps<KdsDateTimeFormatInputProps>(), {
-  disabled: false,
-  error: false,
-  validating: false,
-  preserveSubTextSpace: false,
-  placeholder: "Format",
-});
+const {
+  disabled = false,
+  error = false,
+  validating = false,
+  preserveSubTextSpace = false,
+  placeholder = "Format",
+  ...props
+} = defineProps<KdsDateTimeFormatInputProps>();
 
 const modelValue = defineModel<string>({ default: "" });
 const open = ref(false);
@@ -24,17 +25,22 @@ const popoverEl = useTemplateRef("popoverEl");
 </script>
 
 <template>
-  <BaseFormFieldWrapper v-bind="props">
+  <BaseFormFieldWrapper
+    v-bind="props"
+    :error="error"
+    :validating="validating"
+    :preserve-sub-text-space="preserveSubTextSpace"
+  >
     <template #default="slotProps">
       <div :style="popoverEl?.anchorStyle">
         <BaseInput
           v-bind="slotProps"
           v-model="modelValue"
           type="text"
-          :placeholder="props.placeholder"
-          :disabled="props.disabled"
-          :error="props.error"
-          :validating="props.validating"
+          :placeholder="placeholder"
+          :disabled="disabled"
+          :error="error"
+          :validating="validating"
           :autocomplete="props.autocomplete"
         >
           <template #trailing>
@@ -43,11 +49,11 @@ const popoverEl = useTemplateRef("popoverEl");
               size="xsmall"
               variant="outlined"
               leading-icon="date-time"
-              aria-label="Open date/time format picker"
+              ariaLabel="Open date/time format picker"
               :aria-controls="popoverEl?.popoverId"
               :aria-expanded="open"
               aria-haspopup="dialog"
-              :disabled="props.disabled"
+              :disabled="disabled"
               :title="
                 open
                   ? 'Close date/time format picker'

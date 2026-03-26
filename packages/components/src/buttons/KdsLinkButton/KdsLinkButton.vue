@@ -6,12 +6,13 @@ import BaseButton from "../BaseButton.vue";
 
 import type { KdsLinkButtonProps } from "./types";
 
-const props = withDefaults(defineProps<KdsLinkButtonProps>(), {
-  variant: "filled",
-  download: undefined,
-  rel: null,
-  target: null,
-});
+const {
+  variant = "filled",
+  download,
+  rel = null,
+  target = null,
+  ...props
+} = defineProps<KdsLinkButtonProps>();
 
 const component = computed(() => {
   if (props.disabled) {
@@ -28,6 +29,10 @@ const emit = defineEmits<{
 <template>
   <BaseButton
     v-bind="props"
+    :variant="variant"
+    :download="download"
+    :rel="rel"
+    :target="target"
     :component="component"
     @click="emit('click', $event)"
   />

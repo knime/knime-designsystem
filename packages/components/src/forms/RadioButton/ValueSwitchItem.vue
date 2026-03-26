@@ -6,12 +6,13 @@ import { useKdsIsTruncated } from "../../util";
 
 import type { KdsValueSwitchItemProps } from "./types";
 
-const props = withDefaults(defineProps<KdsValueSwitchItemProps>(), {
-  disabled: false,
-  size: "medium",
-  variant: "default",
-  tabIndex: undefined,
-});
+const {
+  disabled = false,
+  size = "medium",
+  variant = "default",
+  tabIndex,
+  ...props
+} = defineProps<KdsValueSwitchItemProps>();
 
 const optionTextEl = useTemplateRef("optionTextEl");
 const { isTruncated } = useKdsIsTruncated(optionTextEl);
@@ -25,18 +26,18 @@ const { isTruncated } = useKdsIsTruncated(optionTextEl);
     :class="{
       option: true,
       selected: props.selected,
-      disabled: props.disabled,
-      'variant-muted': props.variant === 'muted',
-      'size-small': props.size === 'small',
+      disabled,
+      'variant-muted': variant === 'muted',
+      'size-small': size === 'small',
     }"
-    :disabled="props.disabled"
-    :tabindex="props.tabIndex"
+    :disabled="disabled"
+    :tabindex="tabIndex"
     :title="props.title ?? (isTruncated && props.text ? props.text : undefined)"
   >
     <KdsIcon
       v-if="props.leadingIcon && (!props.hideIcons || !props.text)"
       :name="props.leadingIcon"
-      :size="props.size"
+      :size="size"
     />
     <span v-if="props.text" ref="optionTextEl" class="option-label">
       {{ props.text }}
@@ -44,7 +45,7 @@ const { isTruncated } = useKdsIsTruncated(optionTextEl);
     <KdsIcon
       v-if="props.trailingIcon && !props.hideIcons"
       :name="props.trailingIcon"
-      :size="props.size"
+      :size="size"
     />
   </button>
 </template>

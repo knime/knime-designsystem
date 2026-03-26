@@ -3,13 +3,11 @@ import { computed } from "vue";
 
 import type { ResizeHandleProps } from "./types";
 
-const props = withDefaults(defineProps<ResizeHandleProps>(), {
-  numberOfHandles: 1,
-  handleGap: "0px",
-});
+const { numberOfHandles = 1, handleGap = "0px" } =
+  defineProps<ResizeHandleProps>();
 
 const normalizedNumberOfHandles = computed(() => {
-  const raw = Math.floor(props.numberOfHandles);
+  const raw = Math.floor(numberOfHandles);
   return Math.max(1, raw || 1);
 });
 
@@ -17,7 +15,7 @@ const hasMultipleHandles = computed(() => normalizedNumberOfHandles.value > 1);
 
 const handleWidth = computed(() => {
   const n = normalizedNumberOfHandles.value;
-  const gap = props.handleGap;
+  const gap = handleGap;
   return `calc((100% - ${n - 1} * ${gap}) / ${2 * n})`;
 });
 </script>
@@ -43,7 +41,7 @@ const handleWidth = computed(() => {
 <style scoped>
 .kds-resize-handle-area {
   display: flex;
-  gap: v-bind("props.handleGap");
+  gap: v-bind(handleGap);
   justify-content: space-around;
 }
 

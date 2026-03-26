@@ -6,10 +6,11 @@ import KdsSubText from "../_helper/KdsSubText.vue";
 
 import type { BaseCheckboxProps, KdsCheckboxValue } from "./types";
 
-const props = withDefaults(defineProps<BaseCheckboxProps>(), {
-  disabled: false,
-  error: false,
-});
+const {
+  disabled = false,
+  error = false,
+  ...props
+} = defineProps<BaseCheckboxProps>();
 
 const modelValue = defineModel<KdsCheckboxValue>({ default: false });
 
@@ -50,7 +51,7 @@ const ariaDescribedBy = computed(() => {
 });
 
 const handleClick = () => {
-  if (props.disabled) {
+  if (disabled) {
     return;
   }
 
@@ -65,15 +66,15 @@ const handleClick = () => {
         checkbox: true,
         checked: isChecked,
         indeterminate: isIndeterminate,
-        disabled: props.disabled,
-        error: props.error,
+        disabled: disabled,
+        error: error,
       }"
-      :disabled="props.disabled"
+      :disabled="disabled"
       :title="props.title"
       :aria-label="props.title"
       :aria-checked="ariaChecked"
       :aria-describedby="ariaDescribedBy"
-      :aria-invalid="props.error"
+      :aria-invalid="error"
       type="button"
       role="checkbox"
       @click="handleClick"
@@ -96,7 +97,7 @@ const handleClick = () => {
         :id="descriptionId"
         :sub-text="props.subText"
         :preserve-sub-text-space="props.preserveSubTextSpace"
-        :error="props.error"
+        :error="error"
       />
     </div>
   </div>

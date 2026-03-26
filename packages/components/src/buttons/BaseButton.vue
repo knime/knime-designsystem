@@ -9,15 +9,16 @@ type BaseButtonPropsWithComponent = BaseButtonProps & {
   component?: string | Component;
 };
 
-const props = withDefaults(defineProps<BaseButtonPropsWithComponent>(), {
-  component: "button",
-  size: "medium",
-  destructive: false,
-  success: false,
-  error: false,
-  disabled: false,
-  toggled: false,
-});
+const {
+  component = "button",
+  size = "medium",
+  destructive = false,
+  success = false,
+  error = false,
+  disabled = false,
+  toggled = false,
+  ...props
+} = defineProps<BaseButtonPropsWithComponent>();
 
 const emit = defineEmits<{
   click: [event: MouseEvent];
@@ -25,25 +26,25 @@ const emit = defineEmits<{
 
 const classes = computed(() => [
   "button",
-  props.size,
+  size,
   props.variant,
-  { destructive: props.destructive },
-  { disabled: props.disabled },
-  { toggled: props.toggled },
-  { success: props.success },
-  { error: props.error },
+  { destructive },
+  { disabled },
+  { toggled },
+  { success },
+  { error },
 ]);
 
 const iconSize = computed(() => {
-  if (props.size === "xsmall") {
+  if (size === "xsmall") {
     return "small";
   } else {
-    return props.size;
+    return size;
   }
 });
 
 function onClick(e: MouseEvent) {
-  if (!props.disabled) {
+  if (!disabled) {
     emit("click", e);
   }
 }
@@ -53,7 +54,7 @@ function onClick(e: MouseEvent) {
   <Component
     :is="component"
     :class="classes"
-    :disabled="props.disabled"
+    :disabled="disabled"
     :title="props.title"
     :aria-label="props.ariaLabel"
     @click="onClick($event)"

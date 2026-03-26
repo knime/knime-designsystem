@@ -14,12 +14,13 @@ import BaseInput from "../BaseInput.vue";
 
 import type { KdsTextInputProps } from "./types";
 
-const props = withDefaults(defineProps<KdsTextInputProps>(), {
-  disabled: false,
-  error: false,
-  validating: false,
-  preserveSubTextSpace: false,
-});
+const {
+  disabled = false,
+  error = false,
+  validating = false,
+  preserveSubTextSpace = false,
+  ...props
+} = defineProps<KdsTextInputProps>();
 
 const modelValue = defineModel<string>({ default: "" });
 
@@ -121,9 +122,9 @@ defineExpose<KdsFormFieldExpose>({
     :aria-label="props.ariaLabel"
     :description="props.description"
     :sub-text="props.subText"
-    :error="props.error"
-    :validating="props.validating"
-    :preserve-sub-text-space="props.preserveSubTextSpace"
+    :error="error"
+    :validating="validating"
+    :preserve-sub-text-space="preserveSubTextSpace"
   >
     <template #default="slotProps">
       <BaseInput
@@ -132,8 +133,8 @@ defineExpose<KdsFormFieldExpose>({
         v-model="modelValue"
         type="text"
         :placeholder="props.placeholder"
-        :disabled="props.disabled"
-        :error="props.error"
+        :disabled="disabled"
+        :error="error"
         :autocomplete="hasSuggestions ? 'off' : props.autocomplete"
         :role="hasSuggestions ? 'combobox' : undefined"
         :aria-haspopup="hasSuggestions ? 'listbox' : undefined"

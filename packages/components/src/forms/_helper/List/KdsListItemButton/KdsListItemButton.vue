@@ -6,9 +6,7 @@ import { useKdsIsTruncated } from "../../../../util";
 
 import type { KdsListItemButtonProps } from "./types.ts";
 
-const props = withDefaults(defineProps<KdsListItemButtonProps>(), {
-  disabled: false,
-});
+const { disabled = false, ...props } = defineProps<KdsListItemButtonProps>();
 
 const emit = defineEmits<{
   /**
@@ -24,15 +22,11 @@ const { isTruncated: isLabelTruncated } = useKdsIsTruncated(labelEl);
 <template>
   <button
     type="button"
-    :disabled="props.disabled"
+    :disabled="disabled"
     class="kds-list-item-button"
     @click="emit('click', $event)"
   >
-    <KdsIcon
-      :name="props.leadingIcon"
-      size="small"
-      :disabled="props.disabled"
-    />
+    <KdsIcon :name="props.leadingIcon" size="small" :disabled="disabled" />
 
     <span
       ref="labelEl"

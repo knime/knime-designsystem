@@ -13,14 +13,14 @@ import { normalizeHexColor } from "./colorUtils";
 import type { KdsColorInputProps } from "./types";
 import { useColorInputValidationOnFocusOut } from "./useColorInputValidationOnFocusOut";
 
-const props = withDefaults(defineProps<KdsColorInputProps>(), {
-  placeholder: "#FFFFFF",
-  disabled: false,
-  error: false,
-  validating: false,
-  preserveSubTextSpace: false,
-  autocomplete: undefined,
-});
+const {
+  placeholder = "#FFFFFF",
+  disabled = false,
+  error = false,
+  validating = false,
+  preserveSubTextSpace = false,
+  ...props
+} = defineProps<KdsColorInputProps>();
 
 const modelValue = defineModel<string>({ default: "" });
 const open = ref(false);
@@ -34,22 +34,27 @@ const swatchColor = computed<KdsHexColor>(
 const { handleFocusOut } = useColorInputValidationOnFocusOut(modelValue);
 
 const onClickColorSwatch = () => {
-  if (!props.disabled) {
+  if (!disabled) {
     open.value = !open.value;
   }
 };
 </script>
 
 <template>
-  <BaseFormFieldWrapper v-bind="props">
+  <BaseFormFieldWrapper
+    v-bind="props"
+    :error="error"
+    :validating="validating"
+    :preserve-sub-text-space="preserveSubTextSpace"
+  >
     <template #default="slotProps">
       <div :style="popoverEl?.anchorStyle" @focusout="handleFocusOut">
         <BaseInput
           v-bind="slotProps"
           v-model="modelValue"
-          :placeholder="props.placeholder"
-          :disabled="props.disabled"
-          :error="props.error"
+          :placeholder="placeholder"
+          :disabled="disabled"
+          :error="error"
           :autocomplete="props.autocomplete"
         >
           <template #leading>
@@ -57,7 +62,7 @@ const onClickColorSwatch = () => {
               size="large"
               :color="swatchColor"
               :aria-hidden="true"
-              :style="{ cursor: props.disabled ? 'default' : 'pointer' }"
+              :style="{ cursor: disabled ? 'default' : 'pointer' }"
               @click="onClickColorSwatch"
             />
           </template>
@@ -67,10 +72,10 @@ const onClickColorSwatch = () => {
               size="xsmall"
               variant="outlined"
               leading-icon="color-picker"
-              aria-label="Open color picker"
+              ariaLabel="Open color picker"
               :aria-controls="popoverEl?.popoverId"
               aria-haspopup="dialog"
-              :disabled="props.disabled"
+              :disabled="disabled"
               :title="open ? 'Close color picker' : 'Open color picker'"
             />
           </template>

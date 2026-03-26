@@ -24,6 +24,17 @@ export default [
   },
   ...storybook.configs["flat/recommended"],
   {
+    files: ["**/*.vue"],
+    rules: {
+      "vue/require-default-prop": "off",
+      "vue/attribute-hyphenation": [
+        "error",
+        "always",
+        { ignore: ["ariaLabel"] },
+      ],
+    },
+  },
+  {
     files: ["**/*.stories.ts"],
     rules: {
       "max-lines": "off",

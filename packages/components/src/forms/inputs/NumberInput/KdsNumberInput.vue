@@ -9,14 +9,15 @@ import BaseInput from "../BaseInput.vue";
 import { createKdsNumberParser } from "./numberParser";
 import type { KdsNumberInputProps } from "./types";
 
-const props = withDefaults(defineProps<KdsNumberInputProps>(), {
-  disabled: false,
-  error: false,
-  validating: false,
-  preserveSubTextSpace: false,
-  unit: "",
-  step: 1,
-});
+const {
+  disabled = false,
+  error = false,
+  validating = false,
+  preserveSubTextSpace = false,
+  unit = "",
+  step = 1,
+  ...props
+} = defineProps<KdsNumberInputProps>();
 
 const modelValue = defineModel<number>({ default: Number.NaN });
 
@@ -32,7 +33,7 @@ const isFocused = ref(false);
 const localValue = ref<string>("");
 
 const numberParser = computed(() =>
-  createKdsNumberParser({ locale: "en-US", step: props.step }),
+  createKdsNumberParser({ locale: "en-US", step }),
 );
 
 const ariaValuenow = computed(() =>
@@ -78,7 +79,7 @@ watch(
 );
 
 const canDecrease = computed(() => {
-  if (props.disabled) {
+  if (disabled) {
     return false;
   }
 
@@ -94,7 +95,7 @@ const canDecrease = computed(() => {
 });
 
 const canIncrease = computed(() => {
-  if (props.disabled) {
+  if (disabled) {
     return false;
   }
 
@@ -110,7 +111,7 @@ const canIncrease = computed(() => {
 });
 
 const adjustByStep = (direction: -1 | 1) => {
-  if (props.step <= 0) {
+  if (step <= 0) {
     return;
   }
 
@@ -118,7 +119,7 @@ const adjustByStep = (direction: -1 | 1) => {
     ? modelValue.value
     : numberParser.value.parseFromInput(localValue.value);
 
-  const nextRaw = Number.isFinite(base) ? base + direction * props.step : 0;
+  const nextRaw = Number.isFinite(base) ? base + direction * step : 0;
   // Round due to precision issues that can arise when adding steps to certain numbers, e.g. 0.1 + 0.1 + 0.1.
   const rounded = numberParser.value.roundToStep(nextRaw);
   const next = clamp(rounded);
@@ -128,7 +129,7 @@ const adjustByStep = (direction: -1 | 1) => {
 };
 
 const handleKeydown = (event: KeyboardEvent) => {
-  if (props.disabled) {
+  if (disabled) {
     return;
   }
 
@@ -213,19 +214,24 @@ defineExpose<KdsFormFieldExpose>({
 </script>
 
 <template>
-  <BaseFormFieldWrapper v-bind="props">
+  <BaseFormFieldWrapper
+    v-bind="props"
+    :error="error"
+    :validating="validating"
+    :preserve-sub-text-space="preserveSubTextSpace"
+  >
     <template #default="slotProps">
       <BaseInput
         ref="baseInput"
         v-bind="slotProps"
         :model-value="localValue"
         type="text"
-        :inputmode="Number.isInteger(props.step) ? 'numeric' : 'decimal'"
+        :inputmode="Number.isInteger(step) ? 'numeric' : 'decimal'"
         :placeholder="props.placeholder"
-        :disabled="props.disabled"
-        :error="props.error"
+        :disabled="disabled"
+        :error="error"
         :autocomplete="props.autocomplete"
-        :unit="props.unit"
+        :unit="unit"
         role="spinbutton"
         :aria-valuenow="ariaValuenow"
         :aria-valuemin="props.min"
@@ -242,7 +248,7 @@ defineExpose<KdsFormFieldExpose>({
             size="xsmall"
             variant="outlined"
             leading-icon="minus"
-            :aria-label="`Decrease ${props.label ?? props.ariaLabel}`"
+            :ariaLabel="`Decrease ${props.label ?? props.ariaLabel}`"
             :disabled="!canDecrease"
             @click="handleButtonClick(-1, $event)"
             @pointerdown="startRepeating(-1)"
@@ -255,7 +261,7 @@ defineExpose<KdsFormFieldExpose>({
             size="xsmall"
             variant="outlined"
             leading-icon="plus"
-            :aria-label="`Increase ${props.label ?? props.ariaLabel}`"
+            :ariaLabel="`Increase ${props.label ?? props.ariaLabel}`"
             :disabled="!canIncrease"
             @click="handleButtonClick(1, $event)"
             @pointerdown="startRepeating(1)"

@@ -37,9 +37,7 @@ type Props = {
   wrapperStyle?: StyleValue;
 };
 
-const props = withDefaults(defineProps<Props>(), {
-  wrapperStyle: undefined,
-});
+const props = defineProps<Props>();
 
 const defaultOpacity = 0.5;
 const opacity = ref(defaultOpacity);
