@@ -1,5 +1,5 @@
 ---
-applyTo: "**/*.vue,**/*.ts"
+applyTo: "**/*.vue,**/*.ts,**/*.css"
 ---
 
 # KDS Stories — Learn Component Usage from Storybook
