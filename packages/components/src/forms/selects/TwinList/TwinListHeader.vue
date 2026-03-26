@@ -74,7 +74,6 @@ watch(mode, (newMode, oldMode) => {
 
   <KdsSearchInput
     v-if="mode === kdsTwinListSearchMode.MANUAL"
-    ref="searchInputRef"
     v-model="searchTerm"
     ariaLabel="Search values"
     placeholder="Search"
@@ -83,7 +82,6 @@ watch(mode, (newMode, oldMode) => {
 
   <KdsPatternInput
     v-else-if="mode === kdsTwinListSearchMode.PATTERN"
-    ref="patternInputRef"
     v-model="pattern"
     v-model:case-sensitive="caseSensitive"
     v-model:exclude-matches="excludeMatches"

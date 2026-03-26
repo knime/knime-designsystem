@@ -104,7 +104,6 @@ const toListOption = (
 ): KdsListOption => ({
   id: String(item.id),
   text: item.text,
-  subText: item.subText,
   accessory: item.accessory,
   selected: selectedSet.has(String(item.id)),
 });

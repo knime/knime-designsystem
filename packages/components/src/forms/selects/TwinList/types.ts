@@ -8,8 +8,6 @@ export type KdsTwinListPossibleValue = {
   id: string;
   /** Main text shown in the list. */
   text: string;
-  /** Optional secondary text. */
-  subText?: string;
   /** Optional accessory rendered before the label. */
   accessory?: KdsListItemAccessory;
   /** Optional type id used by the type filter mode. */
