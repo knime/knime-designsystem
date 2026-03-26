@@ -54,6 +54,7 @@ export default defineConfig({
       exclude: [
         ...coverageConfigDefaults.exclude,
         "../packages/styles/",
+        "**/dist/**",
         "**/*.d.ts",
         "**/{index,types,enums}.ts",
         "**/*.stories.*",
