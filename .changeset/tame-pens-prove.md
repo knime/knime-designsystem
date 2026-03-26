@@ -4,4 +4,6 @@
 
 BREAKING CHANGE: Change KdsPatternInput so its v-model keeps the visible pattern text and the compiled regex string is emitted via the `update:regex` event.
 
-Migrate v-model="regex" to @update:regex="regex = $event"
+Migrate v-model="regex" to @update:regex="regex = $event".
+
+This release also adds the new KdsTwinList component for moving items between two lists, providing a dedicated UI for selecting and reordering values across source and target lists.

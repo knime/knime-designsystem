@@ -101,23 +101,3 @@ export type KdsTwinListProps = KdsFormFieldProps & {
    */
   loading?: boolean;
 };
-
-/** Full external-facing props including the v-model bindings. */
-export type KdsTwinListAllProps = KdsTwinListProps & {
-  mode?: KdsTwinListSearchMode;
-  manuallyIncluded?: string[];
-  manuallyExcluded?: string[];
-  /**
-   * Whether unknown values are included or excluded.
-   * - `true` – unknown values are on the include side.
-   * - `false` – unknown values are on the exclude side.
-   * - `null` – unknown values handling is disabled entirely (the sticky
-   *   option is hidden).
-   */
-  includeUnknownValues?: boolean | null;
-  pattern?: string;
-  selectedTypes?: string[];
-  caseSensitive?: boolean;
-  excludeMatches?: boolean;
-  useRegex?: boolean;
-};
