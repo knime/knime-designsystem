@@ -1,6 +1,7 @@
-import type { WithAnchorElementAttributes } from "../linkTypes";
-
-export type KdsLinkVariant = "internal" | "external" | "document";
+import type {
+  WithAnchorElementAttributes,
+  WithLinkNavigation,
+} from "../linkTypes";
 
 type KdsLinkBaseProps = {
   /**
@@ -11,7 +12,7 @@ type KdsLinkBaseProps = {
    * Optional base title text shown on hover.
    *
    * The rendered title is variant-aware: internal links are prefixed with
-   * `Open`, document links with `Download`, and external links append
+   * `Open`, download links with `Download`, and external links append
    * ` (opens in a new tab)` when their effective target is `_blank`.
    */
   title?: string;
@@ -21,19 +22,16 @@ type KdsLinkBaseProps = {
   disabled?: boolean;
 } & WithAnchorElementAttributes;
 
-export type KdsLinkProps = KdsLinkBaseProps & {
-  /**
-   * URL or path string to navigate to.
-   */
-  to: string;
-  /**
-   * Optional file size in bytes.
-   *
-   * If provided, the link is rendered in document style and shows the
-   * formatted file size suffix.
-   */
-  fileSize?: number;
-};
+export type KdsLinkProps = WithLinkNavigation &
+  KdsLinkBaseProps & {
+    /**
+     * Optional file size in bytes.
+     *
+     * If provided, the link is rendered in document style and shows the
+     * formatted file size suffix.
+     */
+    fileSize?: number;
+  };
 
 /**
  * Testers

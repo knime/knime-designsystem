@@ -7,42 +7,9 @@ import {
   buildDesignComparatorStory,
   buildTextOverflowStory,
 } from "../../../test-utils/storybook";
+import { buildWrappingComponentDocs } from "../docs";
 
 import KdsLink from "./KdsLink.vue";
-
-const vueExampleCode = `html
-// RouterLinkTextLink.vue
-<script setup lang="ts">
-import type { RouterLinkProps } from "vue-router";
-
-import { KdsLink, type KdsLinkProps } from "@knime/kds-components";
-
-export type RouterLinkTextLinkProps = Omit<KdsLinkProps, "to"> & RouterLinkProps;
-
-const props = defineProps<RouterLinkTextLinkProps>();
-</script>
-
-<template>
-  <KdsLink v-bind="props" />
-</template>
-`.trim();
-
-const nuxtExampleCode = `html
-// NuxtTextLink.vue
-<script setup lang="ts">
-import type { NuxtLinkProps } from "#app";
-
-import { KdsLink, type KdsLinkProps } from "@knime/kds-components";
-
-export type NuxtTextLinkProps = Omit<KdsLinkProps, "to"> & NuxtLinkProps;
-
-const props = defineProps<NuxtTextLinkProps>();
-</script>
-
-<template>
-  <KdsLink v-bind="props" />
-</template>
-`.trim();
 
 const meta: Meta<typeof KdsLink> = {
   title: "Buttons/Link",
@@ -51,16 +18,9 @@ const meta: Meta<typeof KdsLink> = {
   parameters: {
     docs: {
       description: {
-        component:
-          "Inline link component for text-like actions. The component auto-infers " +
-          "internal/external from `to` and infers document style when `download` " +
-          "or `fileSize` is set. Does use `RouterLink`/`NuxtLink` if globally " +
-          "available." +
-          "\n\nFor accurate typing, please wrap it in the consuming app like this:" +
-          "\n#### Vue\n" +
-          `\`\`\`${vueExampleCode}\`\`\`\n` +
-          "#### Nuxt\n" +
-          `\`\`\`${nuxtExampleCode}\`\`\``,
+        component: `Inline link component for text-like links. The component auto-infers internal/external from \`to\`.${buildWrappingComponentDocs(
+          "KdsLink",
+        )}`,
       },
     },
     design: {
@@ -77,13 +37,12 @@ const meta: Meta<typeof KdsLink> = {
     to: {
       control: "text",
       description:
-        "URL or path string to navigate to. For typed route-location objects, wrap this component in your app and pass a string URL/path to `to`.",
+        "URL or path string to navigate to. To support typed routes and route-location objects, please create an app-level wrapper (e.g. with `RouterLink`/`NuxtLink`) as described above.",
       table: { category: "props" },
     },
     fileSize: {
       control: { type: "number", min: 0, step: 1 },
-      description:
-        "Optional file size in bytes. If provided, document link styling is inferred.",
+      description: "Optional file size in bytes.",
       table: { category: "props" },
     },
     disabled: {
@@ -109,7 +68,8 @@ const meta: Meta<typeof KdsLink> = {
     },
     download: {
       control: "boolean",
-      description: "If true, downloads the linked URL.",
+      description:
+        "If true, the link will be downloaded instead of navigating to it.",
       table: { category: "props" },
     },
     onClick: {
@@ -185,7 +145,7 @@ export const External: Story = {
   },
 };
 
-export const Document: Story = {
+export const Download: Story = {
   args: {
     label: "Link.pdf",
     to: "https://www.knime.com/whitepaper.pdf",
@@ -237,15 +197,15 @@ export const AutoInference: Story = {
       "Document via download + fileSize",
     );
 
-    await expect(relative).toHaveClass("type-internal");
-    await expect(hash).toHaveClass("type-internal");
-    await expect(query).toHaveClass("type-internal");
-    await expect(https).toHaveClass("type-external");
-    await expect(protocolRelative).toHaveClass("type-external");
-    await expect(mailto).toHaveClass("type-external");
-    await expect(documentBySize).toHaveClass("type-document");
-    await expect(documentByDownload).toHaveClass("type-document");
-    await expect(documentByDownloadAndSize).toHaveClass("type-document");
+    await expect(relative).toHaveClass("variant-internal");
+    await expect(hash).toHaveClass("variant-internal");
+    await expect(query).toHaveClass("variant-internal");
+    await expect(https).toHaveClass("variant-external");
+    await expect(protocolRelative).toHaveClass("variant-external");
+    await expect(mailto).toHaveClass("variant-external");
+    await expect(documentBySize).toHaveClass("variant-document");
+    await expect(documentByDownload).toHaveClass("variant-document");
+    await expect(documentByDownloadAndSize).toHaveClass("variant-document");
 
     await expect(relative.querySelector(".kds-icon")).toBeNull();
     await expect(hash.querySelector(".kds-icon")).toBeNull();

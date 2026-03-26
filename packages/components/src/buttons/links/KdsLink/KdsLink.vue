@@ -11,7 +11,7 @@ const {
   label,
   to,
   fileSize,
-  title: propTitle = undefined,
+  title = undefined,
   disabled = false,
   download = undefined,
   target = null,
@@ -45,7 +45,7 @@ function inferVariantFromTo(to: KdsLinkProps["to"]): "internal" | "external" {
 
 const variant = computed(() => {
   if (download || fileSize !== undefined) {
-    return "document" as const;
+    return "document";
   }
 
   return inferVariantFromTo(to);
@@ -55,10 +55,8 @@ const effectiveTarget = computed(
   () => target ?? (variant.value === "external" ? "_blank" : undefined),
 );
 
-const effectiveTitle = computed(() => propTitle ?? label);
-
-const title = computed(() => {
-  const baseTitle = effectiveTitle.value.trim();
+const effectiveTitle = computed(() => {
+  const baseTitle = (title ?? label).trim();
   if (!baseTitle) {
     return undefined;
   }
@@ -69,14 +67,24 @@ const title = computed(() => {
       : baseTitle;
   }
 
-  if (variant.value === "document") {
+  if (download === true) {
     return `Download ${baseTitle}`;
   }
 
   return `Open ${baseTitle}`;
 });
 
-function resolveRel(target: string | undefined) {
+const component = computed<string | Component>(() => {
+  if (disabled) {
+    return "span";
+  }
+
+  return linkComponent;
+});
+
+const effectiveTo = computed(() => (disabled ? undefined : to));
+
+const effectiveRel = computed(() => {
   if (target !== "_blank") {
     return rel ?? undefined;
   }
@@ -94,25 +102,7 @@ function resolveRel(target: string | undefined) {
   }
 
   return relTokens.join(" ");
-}
-
-const mappedComponent = computed<string | Component>(() => {
-  if (disabled) {
-    return "span";
-  }
-
-  return linkComponent;
 });
-
-const mappedTo = computed(() => (disabled ? undefined : to));
-
-const mappedTarget = computed(() =>
-  disabled ? undefined : effectiveTarget.value,
-);
-
-const mappedRel = computed(() =>
-  disabled ? undefined : resolveRel(effectiveTarget.value),
-);
 
 const normalizedFileSize = computed(() => {
   if (fileSize === undefined) {
@@ -139,19 +129,19 @@ function onClick(event: MouseEvent) {
 
 <template>
   <Component
-    :is="mappedComponent"
-    :class="['kds-link', `type-${variant}`, { disabled }]"
-    :to="mappedTo"
+    :is="component"
+    :class="['kds-link', `variant-${variant}`, { disabled }]"
+    :to="effectiveTo"
     :download="disabled ? undefined : download"
-    :target="mappedTarget"
-    :rel="mappedRel"
-    :title="title"
+    :target="effectiveTarget"
+    :rel="effectiveRel"
+    :title="effectiveTitle"
     :aria-disabled="disabled ? 'true' : undefined"
     @click="onClick"
   >
     <span class="label">{{ label }}</span>
     <KdsIcon v-if="variant === 'external'" name="external-link" size="xsmall" />
-    <span v-if="variant === 'document' && normalizedFileSize" class="file-size">
+    <span v-if="normalizedFileSize" class="file-size">
       {{ normalizedFileSize }}
     </span>
   </Component>
@@ -187,7 +177,7 @@ function onClick(event: MouseEvent) {
     text-overflow: ellipsis;
   }
 
-  &.type-internal {
+  &.variant-internal {
     color: var(--kds-color-text-and-icon-neutral);
 
     &:not(.disabled) {
@@ -205,11 +195,11 @@ function onClick(event: MouseEvent) {
     }
   }
 
-  &.type-external {
+  &.variant-external {
     gap: var(--kds-spacing-container-0-12x);
   }
 
-  &:is(.type-external, .type-document) {
+  &:is(.variant-external, .variant-document) {
     color: var(--kds-color-text-and-icon-selected);
 
     &:not(.disabled) {
