@@ -200,7 +200,7 @@ export async function convertStoryCodeToSfc(
   if (setupBody) {
     const returnMatch = returnObjectRegex.exec(setupBody);
     if (returnMatch) {
-      setupBody = setupBody.replace(/return\s*{[\s\S]*?}\s*;?$/, "").trim();
+      setupBody = setupBody.replace(returnObjectRegex, "").trim();
     }
     scriptParts.push(setupBody);
   }
