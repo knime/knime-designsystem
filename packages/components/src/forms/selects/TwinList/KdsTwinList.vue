@@ -126,7 +126,6 @@ const effectiveBodyModel = computed<KdsTwinListModelValue>({
   >
     <div class="kds-twin-list">
       <TwinListHeader
-        ref="headerRef"
         v-model:mode="mode"
         v-model:pattern="pattern"
         v-model:search-term="searchTerm"
