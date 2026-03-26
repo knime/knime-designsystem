@@ -253,7 +253,7 @@ jobs:
 
       - name: Get project version
         id: version
-        run: echo "version=$(node -p "require('./packages/components/package.json').version")" >> "$GITHUB_OUTPUT"
+        run: echo "version=$(node -p 'require(\"./packages/components/package.json\").version')" >> "$GITHUB_OUTPUT"
 
       - name: Sonar scan
         uses: SonarSource/sonarqube-scan-action@v7
