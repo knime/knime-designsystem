@@ -11,11 +11,12 @@ import type {
   KdsCheckboxValue,
 } from "./types";
 
-const props = withDefaults(defineProps<KdsCheckboxGroupProps>(), {
-  disabled: false,
-  error: false,
-  alignment: "vertical",
-});
+const {
+  disabled = false,
+  error = false,
+  alignment = "vertical",
+  ...props
+} = defineProps<KdsCheckboxGroupProps>();
 
 const modelValue = defineModel<string[]>({ default: [] });
 
@@ -33,12 +34,12 @@ const labelId = useId();
 const descriptionId = useId();
 
 const isOptionDisabled = (index: number) =>
-  props.disabled || possibleValues.value[index]?.disabled === true;
+  disabled || possibleValues.value[index]?.disabled === true;
 
-const isHorizontal = computed(() => props.alignment === "horizontal");
+const isHorizontal = computed(() => alignment === "horizontal");
 
 const hasError = computed(
-  () => props.error || possibleValues.value.some((o) => o.error),
+  () => error || possibleValues.value.some((o) => o.error),
 );
 
 const isChecked = (id: string) => modelValue.value.includes(id);
@@ -75,7 +76,7 @@ const handleCheckboxChange = (index: number, checked: KdsCheckboxValue) => {
         class="option"
       >
         <BaseCheckbox
-          :disabled="props.disabled || option.disabled"
+          :disabled="disabled || option.disabled"
           :error="option.error"
           :helper-text="option.helperText"
           :label="option.text"

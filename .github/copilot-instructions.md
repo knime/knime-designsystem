@@ -41,7 +41,7 @@ After implementing or changing a component, always verify that the generated d.t
 
 1. Run `pnpm build` (this includes `vue-tsc --build` type-checking and `vite build` with `vite-plugin-dts`)
 2. Check the generated `.vue.d.ts` file in `packages/components/dist/src/` for the component — it must declare `DefineComponent<...>` with the actual prop types, **not** `DefineSetupFnComponent<Record<string, any>>`.
-3. If you see `DefineSetupFnComponent` or `Record<string, any>`, the component likely still uses `withDefaults` — convert it to the destructured `defineProps` pattern described above.
+3. If you see `DefineSetupFnComponent` or `Record<string, any>`, the component likely still uses `withDefaults` — convert it to the destructured `defineProps` pattern described below.
 
 ### Versioning & Changesets
 

@@ -26,6 +26,7 @@ export default [
   {
     files: ["**/*.vue"],
     rules: {
+      "vue/require-default-prop": "off",
       "vue/attribute-hyphenation": [
         "error",
         "always",

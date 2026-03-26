@@ -6,20 +6,13 @@ import ListItemAccessory from "../../_helper/List/ListItemAccessory/ListItemAcce
 
 import type { BaseDropdownProps } from "./types";
 
-const props = withDefaults(defineProps<BaseDropdownProps>(), {
-  text: undefined,
-  disabled: false,
-  error: false,
-  missing: false,
-  accessory: undefined,
-
-  id: undefined,
-  ariaLabelledby: undefined,
-  ariaDescribedby: undefined,
-  ariaLabel: undefined,
-  ariaInvalid: undefined,
-  popoverId: undefined,
-});
+const {
+  disabled = false,
+  error = false,
+  missing = false,
+  ariaInvalid = undefined,
+  ...props
+} = defineProps<BaseDropdownProps>();
 
 const open = defineModel<boolean>("open", { default: false });
 
@@ -49,7 +42,7 @@ const emit = defineEmits<{
 }>();
 
 const onKeydown = (event: KeyboardEvent) => {
-  if (props.disabled) {
+  if (disabled) {
     return;
   }
 
@@ -76,12 +69,12 @@ const onKeydown = (event: KeyboardEvent) => {
     :aria-labelledby="ariaLabelledby"
     :aria-describedby="props.ariaDescribedby"
     :aria-label="effectiveAriaLabel"
-    :aria-invalid="props.ariaInvalid"
+    :aria-invalid="ariaInvalid"
     :aria-controls="props.popoverId"
     aria-haspopup="dialog"
-    :disabled="props.disabled"
-    :class="{ error: props.error }"
-    @click="!props.disabled && emit('click')"
+    :disabled="disabled"
+    :class="{ error }"
+    @click="!disabled && emit('click')"
     @keydown="onKeydown"
   >
     <span v-if="props.accessory" class="leading" aria-hidden="true">
@@ -92,8 +85,8 @@ const onKeydown = (event: KeyboardEvent) => {
       :id="valueTextId"
       class="text"
       :class="{
-        placeholder: !props.text && !props.disabled,
-        missing: props.missing,
+        placeholder: !props.text && !disabled,
+        missing,
       }"
     >
       {{ props.text ?? props.placeholder }}

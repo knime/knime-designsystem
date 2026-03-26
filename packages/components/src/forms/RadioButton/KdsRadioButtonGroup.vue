@@ -11,10 +11,11 @@ import type {
 } from "./types";
 import { useRadioSelection } from "./useRadioSelection";
 
-const props = withDefaults(defineProps<KdsRadioButtonGroupProps>(), {
-  disabled: false,
-  alignment: "vertical",
-});
+const {
+  disabled = false,
+  alignment = "vertical",
+  ...props
+} = defineProps<KdsRadioButtonGroupProps>();
 
 const modelValue = defineModel<string>();
 
@@ -38,7 +39,7 @@ const { tabIndexForOption, handleClick, handleKeyDown, hasError } =
   useRadioSelection({
     selectedId: modelValue,
     options,
-    globalDisable: computed(() => props.disabled),
+    globalDisable: computed(() => disabled),
     optionContainer,
   });
 </script>
@@ -55,11 +56,11 @@ const { tabIndexForOption, handleClick, handleKeyDown, hasError } =
 
     <div
       ref="optionContainer"
-      :class="{ options: true, horizontal: props.alignment === 'horizontal' }"
+      :class="{ options: true, horizontal: alignment === 'horizontal' }"
     >
       <div v-for="(option, index) in options" :key="option.id" class="option">
         <KdsRadioButton
-          :disabled="props.disabled || option.disabled"
+          :disabled="disabled || option.disabled"
           :error="option.error"
           :helper-text="option.helperText"
           :text="option.text"

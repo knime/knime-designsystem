@@ -7,9 +7,11 @@ import type { KdsFormFieldExpose } from "../../types.ts";
 
 import type { KdsTextareaProps } from "./types";
 
+const DEFAULT_ROWS = 3;
+
 const {
   placeholder = "",
-  rows = 3,
+  rows = DEFAULT_ROWS,
   disabled = false,
   error = false,
   validating = false,

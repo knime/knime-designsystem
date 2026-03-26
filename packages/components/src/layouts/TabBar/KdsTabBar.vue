@@ -8,11 +8,12 @@ import TabBarItemAccessory from "./TabBarItemAccessory.vue";
 import type { KdsTabBarItem, KdsTabBarProps } from "./types";
 import { useTabBarAdaptiveLayout } from "./useTabBarAdaptiveLayout";
 
-const props = withDefaults(defineProps<KdsTabBarProps>(), {
-  size: "small",
-  fullWidth: false,
-  disabled: false,
-});
+const {
+  size = "small",
+  fullWidth = false,
+  disabled = false,
+  ...props
+} = defineProps<KdsTabBarProps>();
 
 const modelValue = defineModel<string | number>({ required: false });
 
@@ -23,7 +24,7 @@ const getTabEl = (value: string | number) => {
   return tabEls.value[idx];
 };
 
-const isTabDisabled = (tab: KdsTabBarItem) => props.disabled || tab.disabled;
+const isTabDisabled = (tab: KdsTabBarItem) => disabled || tab.disabled;
 
 const selectTab = (tab: KdsTabBarItem) => {
   if (!isTabDisabled(tab) && modelValue.value !== tab.value) {
@@ -80,7 +81,7 @@ const { shouldHideIcons, setItemEl, minTabWidth } = useTabBarAdaptiveLayout({
   width,
   tabs: toRef(props, "tabs"),
   containerEl: availableWidthContainer,
-  fullWidth: toRef(props, "fullWidth"),
+  fullWidth: toRef(() => fullWidth),
   minTabWidth: MIN_TAB_WIDTH_TOKEN,
 });
 
@@ -88,8 +89,8 @@ const minTabWidthCss = `var(${minTabWidth})`;
 
 const tabBarClass = computed(() => ({
   "kds-tab-bar": true,
-  [`kds-tab-bar-${props.size}`]: true,
-  "kds-tab-bar-full-width": props.fullWidth,
+  [`kds-tab-bar-${size}`]: true,
+  "kds-tab-bar-full-width": fullWidth,
 }));
 
 // The tab that should receive tabindex=0 (keyboard-focusable).
@@ -130,7 +131,7 @@ const getTabTitle = (tab: KdsTabBarItem) =>
 // Auto-select first available tab when current selection is invalid
 // (on mount, when tabs change, or when the selected tab becomes disabled)
 watch(
-  () => [props.tabs, props.disabled, modelValue.value] as const,
+  () => [props.tabs, disabled, modelValue.value] as const,
   () => {
     const enabledTabs = getEnabledTabs();
     const isCurrentSelectionValid = enabledTabs.some(
@@ -180,7 +181,7 @@ watch(
             tab.accessory && !(tab.accessory.type === 'icon' && shouldHideIcons)
           "
           :accessory="tab.accessory"
-          :icon-size="props.size === 'large' ? 'large' : 'medium'"
+          :icon-size="size === 'large' ? 'large' : 'medium'"
           :disabled="isTabDisabled(tab)"
         />
         <span class="kds-tab-label">{{ tab.label }}</span>

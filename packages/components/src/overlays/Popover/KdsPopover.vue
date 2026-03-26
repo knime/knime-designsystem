@@ -3,12 +3,12 @@ import { useId, useTemplateRef, watchEffect } from "vue";
 
 import type { KdsPopoverExpose, KdsPopoverProps } from "./types";
 
-const props = withDefaults(defineProps<KdsPopoverProps>(), {
-  placement: "bottom-left",
-  role: undefined,
-  popoverType: "auto",
-  fullWidth: false,
-});
+const {
+  placement = "bottom-left",
+  popoverType = "auto",
+  fullWidth = false,
+  ...props
+} = defineProps<KdsPopoverProps>();
 
 const open = defineModel<boolean>({ default: false });
 const popoverEl = useTemplateRef("popoverEl");
@@ -39,8 +39,8 @@ defineExpose<KdsPopoverExpose>({ anchorStyle, popoverId });
     :id="popoverId"
     ref="popoverEl"
     class="kds-popover"
-    :class="['floating', props.placement, { 'full-width': props.fullWidth }]"
-    :popover="props.popoverType"
+    :class="['floating', placement, { 'full-width': fullWidth }]"
+    :popover="popoverType"
     :style="{ 'position-anchor': anchorName }"
     :role="props.role"
     @toggle="onToggle"

@@ -13,13 +13,11 @@ import type {
 
 const ADD_NEW_VALUE_ID = `__kds-add-new-${useId()}__`;
 
-const props = withDefaults(
-  defineProps<KdsMultiSelectDropdownContainerProps>(),
-  {
-    loading: false,
-    allowNewValues: false,
-  },
-);
+const {
+  loading = false,
+  allowNewValues = false,
+  ...props
+} = defineProps<KdsMultiSelectDropdownContainerProps>();
 
 const emit = defineEmits<{
   /** Emitted when the user adds a new value via the search field (only when `allowNewValues` is true). The parent must append a matching option to `possibleValues` and add the id to `modelValue`. */
@@ -57,7 +55,7 @@ const filteredOptions = computed<KdsDropdownOption[]>(() => {
 
 const canAddNewValue = computed(() => {
   const trimmed = searchValue.value.trim();
-  if (!props.allowNewValues || trimmed.length === 0) {
+  if (!allowNewValues || trimmed.length === 0) {
     return false;
   }
   const lower = trimmed.toLowerCase();
@@ -179,8 +177,8 @@ defineExpose({
       :class="{
         multiline: props.possibleValues.some((o) => o.subText !== undefined),
       }"
-      :possible-values="props.loading ? [] : listOptions"
-      :loading="props.loading"
+      :possible-values="loading ? [] : listOptions"
+      :loading="loading"
       :empty-text="props.emptyText"
       controlled-externally
       aria-label="Dropdown options"
@@ -188,7 +186,7 @@ defineExpose({
     />
 
     <div
-      v-if="!props.loading && visibleEnabledIds.length > 0"
+      v-if="!loading && visibleEnabledIds.length > 0"
       class="kds-multi-select-dropdown-footer"
     >
       <KdsListItemButton

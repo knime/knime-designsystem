@@ -13,13 +13,14 @@ import type {
   KdsListOption,
 } from "./types";
 
-const props = withDefaults(defineProps<KdsListContainerProps>(), {
-  emptyText: "",
-  variant: kdsListItemVariant.SMALL,
-  loading: false,
-  role: "listbox",
-  allowNoSelection: false,
-});
+const {
+  emptyText = "",
+  variant = kdsListItemVariant.SMALL,
+  loading = false,
+  role = "listbox",
+  allowNoSelection = false,
+  ...props
+} = defineProps<KdsListContainerProps>();
 
 const emit = defineEmits<{
   /** Emitted when item is clicked */
@@ -39,7 +40,7 @@ function toOptionId(elementId?: string) {
 
 /** possibleValues with prefixed ids to avoid DOM id collisions */
 const prefixedValues = computed<KdsListOption[]>(() =>
-  (props.loading ? [] : props.possibleValues).map((o) => ({
+  (loading ? [] : props.possibleValues).map((o) => ({
     ...o,
     id: `${idPrefix}-${o.id}`,
   })),
@@ -61,7 +62,7 @@ const isFocused = ref(false);
 const containerEl = useTemplateRef("containerEl");
 
 const listItemRole = computed(() => {
-  return props.role === "listbox" ? "option" : "menuitem";
+  return role === "listbox" ? "option" : "menuitem";
 });
 
 function scrollToView() {
@@ -130,8 +131,8 @@ const getResetActiveId = (values: KdsListOption[]) => {
 };
 
 /** Reset activeId/lastActiveId when possibleValues change */
-watch([enabledValues, () => props.loading], ([values, loading]) => {
-  activeId.value = loading ? emptyOptionId : getResetActiveId(values);
+watch([enabledValues, () => loading], ([values, isLoading]) => {
+  activeId.value = isLoading ? emptyOptionId : getResetActiveId(values);
 
   const lastIdStillValid = values.some((o) => o.id === lastActiveId.value);
   if (!lastIdStillValid) {
@@ -148,7 +149,7 @@ const findEnabledIndex = (id: string | undefined) =>
 
 const handleFocus = () => {
   isFocused.value = true;
-  if (activeId.value === undefined && !props.allowNoSelection) {
+  if (activeId.value === undefined && !allowNoSelection) {
     activeId.value = lastActiveId.value ?? enabledValues.value[0]?.id;
   }
 };
@@ -164,13 +165,13 @@ const moveDown = (currentIndex: number) => {
     return enabledValues.value[0].id;
   }
   if (currentIndex >= enabledValues.value.length - 1) {
-    return props.allowNoSelection ? undefined : enabledValues.value[0].id;
+    return allowNoSelection ? undefined : enabledValues.value[0].id;
   }
   return enabledValues.value[currentIndex + 1].id;
 };
 
 const moveUp = (currentIndex: number) => {
-  if (props.allowNoSelection && currentIndex === 0) {
+  if (allowNoSelection && currentIndex === 0) {
     return undefined;
   }
   if (currentIndex <= 0) {
@@ -244,8 +245,8 @@ defineExpose<KdsListContainerExpose>({
   <div
     v-bind="$attrs"
     ref="containerEl"
-    :role="props.role"
-    :aria-busy="props.loading"
+    :role="role"
+    :aria-busy="loading"
     :aria-label="props.ariaLabel"
     :aria-activedescendant="
       !props.controlledExternally && activeId ? activeId : undefined
@@ -277,7 +278,7 @@ defineExpose<KdsListContainerExpose>({
         :active="activeId === item.id"
         :special="item.special"
         :missing="item.missing"
-        :variant="props.variant"
+        :variant="variant"
         :trailing-icon="
           item.missing && !item.disabled
             ? 'trash'
@@ -304,8 +305,8 @@ defineExpose<KdsListContainerExpose>({
       class="kds-list-container-empty"
     >
       <KdsEmptyState
-        :headline="props.loading ? loadingStateText : props.emptyText"
-        :loading-spinner="props.loading"
+        :headline="loading ? loadingStateText : emptyText"
+        :loading-spinner="loading"
       />
     </div>
   </div>

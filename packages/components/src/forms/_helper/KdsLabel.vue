@@ -4,10 +4,8 @@ import { defineAsyncComponent, useTemplateRef } from "vue";
 import { useKdsIsTruncated } from "../../util";
 import type { KdsLabelProps } from "../types";
 
-const props = withDefaults(defineProps<KdsLabelProps>(), {
-  description: undefined,
-  showDescriptionButton: false,
-});
+const { showDescriptionButton = false, ...props } =
+  defineProps<KdsLabelProps>();
 
 const KdsInfoToggleButton = defineAsyncComponent(
   () => import("./InfoPopover/KdsInfoToggleButton.vue"),
@@ -31,7 +29,7 @@ const { isTruncated } = useKdsIsTruncated(labelEl);
     <KdsInfoToggleButton
       v-if="props.description"
       :content="props.description"
-      :hidden="!props.showDescriptionButton"
+      :hidden="!showDescriptionButton"
     />
   </div>
 </template>
