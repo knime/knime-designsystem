@@ -111,6 +111,14 @@ packages/
   In templates, pass the rest object via `v-bind="props"` and reference destructured props directly by name (e.g. `:disabled="disabled"`).
   When passing props from the rest to a child that also has a discriminated union, always use `v-bind="props"` (not individual `:label="props.label"` / `:ariaLabel="props.ariaLabel"`).
   Note: our ESLint config has an exception for `ariaLabel` in `vue/attribute-hyphenation` because it must be passed as the Vue prop name (not `aria-label`) to satisfy the discriminated union type check.
+  **Boolean prop coercion caveat:** Vue coerces optional boolean props (`prop?: boolean`) to `false` when no default is given. For props where `undefined` has different semantics than `false` (e.g. ARIA attributes like `ariaExpanded`, `ariaInvalid` — where `undefined` means "attribute absent" vs `false` means `aria-expanded="false"`), you must explicitly destructure them with `= undefined`:
+  ```ts
+  const {
+    disabled = false,
+    ariaExpanded = undefined, // keep absent when not set
+    ...props
+  } = defineProps<MyComponentProps>();
+  ```
 - Type all emits with `defineEmits<T>()`
 - Use `defineModel()` for v-model bindings - do NOT manually emit `update:modelValue` events or include `modelValue` in props
 - Use `type` instead of `interface`
