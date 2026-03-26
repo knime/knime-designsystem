@@ -7,7 +7,8 @@ export type KdsTextInputProps = KdsInputFieldProps & {
    */
   suggestions?: string[];
   /**
-   * An optional headline displayed in the suggestions dropdown popover if suggestions are provided.
+   * An optional headline displayed in the suggestions dropdown popover,
+   * shown only when the dropdown contains at least one suggestion.
    */
   suggestionsHeadline?: string;
 };
