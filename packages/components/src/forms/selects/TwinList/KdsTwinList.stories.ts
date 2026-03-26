@@ -543,7 +543,7 @@ export const MissingValues: Story = {
 
 /**
  * Twinlist in loading state – shown while possible values are being fetched.
- * The header is hidden and a loading indicator is displayed.
+ * The header remains visible while both lists show a loading indicator.
  */
 export const Loading: Story = {
   args: {
@@ -561,6 +561,7 @@ export const Loading: Story = {
     // Both lists show "Loading data…" empty state
     const loadingTexts = canvas.getAllByText("Loading data…");
     await expect(loadingTexts.length).toBe(2);
+    await expect(canvas.queryByRole("option")).not.toBeInTheDocument();
 
     // All move buttons are disabled
     await expect(

@@ -26,6 +26,7 @@ const {
 } = defineProps<TwinListBodyProps>();
 
 const modelValue = defineModel<KdsTwinListModelValue>({ required: true });
+const effectiveDisabled = computed(() => disabled || loading);
 
 const leftSelected = ref<string[]>([]);
 const rightSelected = ref<string[]>([]);
@@ -43,15 +44,12 @@ watch(rightSelected, (ids) => {
 });
 
 // Clear selection when the body becomes disabled.
-watch(
-  () => disabled,
-  (isDisabled) => {
-    if (isDisabled) {
-      leftSelected.value = [];
-      rightSelected.value = [];
-    }
-  },
-);
+watch(effectiveDisabled, (isDisabled) => {
+  if (isDisabled) {
+    leftSelected.value = [];
+    rightSelected.value = [];
+  }
+});
 
 const knownIds = computed(
   () => new Set(props.possibleValues.map((v) => String(v.id))),
@@ -89,7 +87,6 @@ const toMissingOption = (
   id,
   text: id,
   missing: true,
-  disabled,
   selected: selectedSet.has(id),
 });
 
@@ -109,7 +106,6 @@ const toListOption = (
   text: item.text,
   subText: item.subText,
   accessory: item.accessory,
-  disabled: item.disabled || disabled,
   selected: selectedSet.has(String(item.id)),
 });
 
@@ -145,7 +141,7 @@ const showUnknownValues = computed(
 );
 
 const moveRight = (ids: Iterable<string>) => {
-  if (disabled) {
+  if (effectiveDisabled.value) {
     return;
   }
   const idsToMove = new Set([...ids].map(String));
@@ -174,7 +170,7 @@ const moveRight = (ids: Iterable<string>) => {
 };
 
 const moveLeft = (ids: Iterable<string>) => {
-  if (disabled) {
+  if (effectiveDisabled.value) {
     return;
   }
   const idsToMove = new Set([...ids].map(String));
@@ -219,7 +215,7 @@ const moveLeft = (ids: Iterable<string>) => {
             class="kds-list-box"
             :possible-values="leftOptions"
             :ariaLabel="excludeLabel"
-            :disabled="disabled"
+            :disabled="effectiveDisabled"
             :loading="loading"
             :empty-state-label="props.emptyStateLabel"
             :bottom-value="
@@ -240,7 +236,7 @@ const moveLeft = (ids: Iterable<string>) => {
             ariaLabel="Move selected values to include"
             variant="transparent"
             size="small"
-            :disabled="disabled || loading || leftSelected.length === 0"
+            :disabled="effectiveDisabled || leftSelected.length === 0"
             @click="moveRight(leftSelected)"
           />
           <KdsButton
@@ -249,8 +245,7 @@ const moveLeft = (ids: Iterable<string>) => {
             variant="transparent"
             size="small"
             :disabled="
-              disabled ||
-              loading ||
+              effectiveDisabled ||
               (excludedItems.length === 0 &&
                 (!showUnknownValues ||
                   modelValue.includeUnknownValues === true))
@@ -269,7 +264,7 @@ const moveLeft = (ids: Iterable<string>) => {
             ariaLabel="Move selected values to exclude"
             variant="transparent"
             size="small"
-            :disabled="disabled || loading || rightSelected.length === 0"
+            :disabled="effectiveDisabled || rightSelected.length === 0"
             @click="moveLeft(rightSelected)"
           />
           <KdsButton
@@ -278,8 +273,7 @@ const moveLeft = (ids: Iterable<string>) => {
             variant="transparent"
             size="small"
             :disabled="
-              disabled ||
-              loading ||
+              effectiveDisabled ||
               (includedItems.length === 0 &&
                 (!showUnknownValues ||
                   modelValue.includeUnknownValues === false))
@@ -307,7 +301,7 @@ const moveLeft = (ids: Iterable<string>) => {
             class="kds-list-box"
             :possible-values="rightOptions"
             :ariaLabel="includeLabel"
-            :disabled="disabled"
+            :disabled="effectiveDisabled"
             :loading="loading"
             :empty-state-label="props.emptyStateLabel"
             :bottom-value="

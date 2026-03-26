@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed, watch } from "vue";
+
 import { KdsValueSwitch } from "../../RadioButton";
 import { KdsSearchInput } from "../../inputs";
 import { KdsPatternInput } from "../../inputs/PatternInput";
@@ -28,13 +30,32 @@ const excludeMatches = defineModel<boolean>("excludeMatches", {
 });
 const useRegex = defineModel<boolean>("useRegex", { default: false });
 
-const modes = [
+const modes = computed(() => [
   { id: kdsTwinListSearchMode.MANUAL, text: "Manual" },
   ...(enablePatternFilter
     ? [{ id: kdsTwinListSearchMode.PATTERN, text: "Pattern" }]
     : []),
   ...(filterTypes ? [{ id: kdsTwinListSearchMode.TYPE, text: "Type" }] : []),
-];
+]);
+
+watch(
+  [mode, () => enablePatternFilter, () => filterTypes],
+  () => {
+    if (!modes.value.some(({ id }) => id === mode.value)) {
+      mode.value = kdsTwinListSearchMode.MANUAL;
+    }
+  },
+  { immediate: true },
+);
+
+watch(mode, (newMode, oldMode) => {
+  if (
+    oldMode === kdsTwinListSearchMode.MANUAL &&
+    newMode !== kdsTwinListSearchMode.MANUAL
+  ) {
+    searchTerm.value = "";
+  }
+});
 </script>
 
 <template>

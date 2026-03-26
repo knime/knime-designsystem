@@ -38,6 +38,13 @@ const {
 } = defineProps<KdsMultiSelectListBoxProps>();
 
 const modelValue = defineModel<string[]>({ default: () => [] });
+const effectiveDisabled = computed(() => disabled || loading);
+const visiblePossibleValues = computed(() =>
+  loading ? [] : props.possibleValues,
+);
+const visibleBottomValue = computed(() =>
+  loading ? undefined : props.bottomValue,
+);
 
 const emit = defineEmits<{
   /** Emitted when an item is double-clicked */
@@ -58,44 +65,38 @@ const generateOptionId = (itemId: string) =>
   `${idPrefix}-option-${encodeURIComponent(itemId)}`;
 
 const allValues = computed(() =>
-  props.bottomValue
-    ? [...props.possibleValues, props.bottomValue]
-    : props.possibleValues,
+  visibleBottomValue.value
+    ? [...visiblePossibleValues.value, visibleBottomValue.value]
+    : visiblePossibleValues.value,
 );
 
-const bottomIndex = computed(() => props.possibleValues.length);
+const bottomIndex = computed(() => visiblePossibleValues.value.length);
 
 const {
   containerProps,
   wrapperProps,
   list: virtualList,
   scrollTo,
-} = useVirtualList(
-  computed(() => props.possibleValues),
-  { itemHeight: OPTION_LINE_HEIGHT },
-);
+} = useVirtualList(visiblePossibleValues, { itemHeight: OPTION_LINE_HEIGHT });
 
-watch(
-  () => props.possibleValues,
-  () => {
-    const el = containerProps.ref.value as HTMLElement | null;
-    if (!el) {
-      return;
-    }
-    scrollTo(
-      Math.max(
-        Math.min(
-          Math.floor(el.scrollTop / OPTION_LINE_HEIGHT),
-          props.possibleValues.length - 1,
-        ),
-        0,
+watch(visiblePossibleValues, () => {
+  const el = containerProps.ref.value as HTMLElement | null;
+  if (!el) {
+    return;
+  }
+  scrollTo(
+    Math.max(
+      Math.min(
+        Math.floor(el.scrollTop / OPTION_LINE_HEIGHT),
+        visiblePossibleValues.value.length - 1,
       ),
-    );
-  },
-);
+      0,
+    ),
+  );
+});
 
 const scrollToIndex = (index: number) => {
-  if (index === bottomIndex.value && props.bottomValue) {
+  if (index === bottomIndex.value && visibleBottomValue.value) {
     return;
   }
   const item = allValues.value[index];
@@ -109,7 +110,7 @@ const scrollToIndex = (index: number) => {
   const itemEl = globalThis.document.getElementById(generateOptionId(item.id));
   if (itemEl) {
     itemEl.scrollIntoView({ block: "nearest" });
-    if (props.bottomValue) {
+    if (visibleBottomValue.value) {
       const stickyEl = el.querySelector(".kds-multiselect-sticky-bottom");
       if (stickyEl) {
         const itemRect = itemEl.getBoundingClientRect();
@@ -146,41 +147,41 @@ const {
 } = useMultiSelectListBoxSelection({
   modelValue,
   allValues,
-  disabled: toRef(() => disabled),
+  disabled: toRef(() => effectiveDisabled.value),
   generateOptionId,
   scrollToIndex,
 });
 
 const handleDblClick = (id: string, index: number) => {
-  if (!disabled) {
+  if (!effectiveDisabled.value) {
     emit("doubleClickOnItem", id, index);
   }
 };
 
 const handleShiftDblClick = () => {
-  if (!disabled) {
+  if (!effectiveDisabled.value) {
     emit("doubleClickShift", modelValue.value);
   }
 };
 
 const onArrowLeft = () => {
-  if (!disabled) {
+  if (!effectiveDisabled.value) {
     emit("keyArrowLeft", modelValue.value);
   }
 };
 const onArrowRight = () => {
-  if (!disabled) {
+  if (!effectiveDisabled.value) {
     emit("keyArrowRight", modelValue.value);
   }
 };
 const onEnter = () => {
-  if (!disabled) {
+  if (!effectiveDisabled.value) {
     emit("keyEnter", modelValue.value);
   }
 };
 
 const focus = () => {
-  if (!disabled) {
+  if (!effectiveDisabled.value) {
     (containerProps.ref.value as HTMLElement | null)?.focus();
   }
 };
@@ -211,14 +212,14 @@ defineExpose({ focus });
               v-bind="containerProps"
               :id="slotProps.id"
               role="listbox"
-              :tabindex="disabled ? -1 : 0"
+              :tabindex="effectiveDisabled ? -1 : 0"
               aria-multiselectable="true"
               :aria-labelledby="slotProps.ariaLabelledby"
               :aria-describedby="slotProps.ariaDescribedby"
               :aria-label="slotProps.ariaLabel"
               :aria-invalid="slotProps.ariaInvalid"
               :aria-activedescendant="activeDescendantId"
-              :aria-disabled="disabled"
+              :aria-disabled="effectiveDisabled"
               class="kds-multiselect-list-box-list"
               @keydown.ctrl.a.prevent.exact="onCtrlA"
               @keydown.meta.a.prevent.exact="onCtrlA"
@@ -256,12 +257,12 @@ defineExpose({ focus });
                     :missing="item.missing"
                     :data-option-index="index"
                     :selected="isCurrentValue(item.id)"
-                    :disabled="disabled"
+                    :disabled="effectiveDisabled"
                     :active="
                       isKeyboardNavigating && currentKeyNavIndex === index
                     "
                     :trailing-icon="
-                      item.missing && !disabled
+                      item.missing && !effectiveDisabled
                         ? 'trash'
                         : isCurrentValue(item.id)
                           ? 'checkmark'
@@ -273,44 +274,41 @@ defineExpose({ focus });
                   />
                 </div>
                 <div
-                  v-if="props.bottomValue"
+                  v-if="visibleBottomValue"
                   class="kds-multiselect-sticky-bottom"
                 >
                   <KdsListItem
-                    :id="generateOptionId(props.bottomValue.id)"
-                    :label="props.bottomValue.text"
-                    :accessory="props.bottomValue.accessory"
-                    :missing="props.bottomValue.missing"
+                    :id="generateOptionId(visibleBottomValue.id)"
+                    :label="visibleBottomValue.text"
+                    :accessory="visibleBottomValue.accessory"
+                    :missing="visibleBottomValue.missing"
                     :data-option-index="bottomIndex"
-                    :selected="isCurrentValue(props.bottomValue.id)"
-                    :disabled="disabled"
+                    :selected="isCurrentValue(visibleBottomValue.id)"
+                    :disabled="effectiveDisabled"
                     :active="
                       isKeyboardNavigating && currentKeyNavIndex === bottomIndex
                     "
                     special
                     :trailing-icon="
-                      props.bottomValue.missing && !disabled
+                      visibleBottomValue.missing && !effectiveDisabled
                         ? 'trash'
-                        : isCurrentValue(props.bottomValue.id)
+                        : isCurrentValue(visibleBottomValue.id)
                           ? 'checkmark'
                           : undefined
                     "
                     @click="
-                      handleClick($event, props.bottomValue.id, bottomIndex)
+                      handleClick($event, visibleBottomValue.id, bottomIndex)
                     "
                     @dblclick.shift="handleShiftDblClick()"
                     @dblclick.exact="
-                      handleDblClick(props.bottomValue.id, bottomIndex)
+                      handleDblClick(visibleBottomValue.id, bottomIndex)
                     "
                   />
                 </div>
               </div>
             </div>
             <div
-              v-if="
-                loading ||
-                (props.possibleValues.length === 0 && !props.bottomValue)
-              "
+              v-if="visiblePossibleValues.length === 0 && !visibleBottomValue"
               class="kds-multiselect-empty"
             >
               <KdsEmptyState

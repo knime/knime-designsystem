@@ -12,8 +12,6 @@ export type KdsTwinListPossibleValue = {
   subText?: string;
   /** Optional accessory rendered before the label. */
   accessory?: KdsListItemAccessory;
-  /** Disables the value in both lists. */
-  disabled?: boolean;
   /** Optional type id used by the type filter mode. */
   type?: string;
 };
@@ -98,7 +96,8 @@ export type KdsTwinListProps = KdsFormFieldProps & {
   emptyStateLabel?: string;
   /**
    * Whether the twinlist is in a loading state. When true, a loading
-   * indicator is shown instead of the lists and the header is hidden.
+   * indicator is shown instead of the list contents while the header and mode
+   * switcher remain visible.
    */
   loading?: boolean;
 };

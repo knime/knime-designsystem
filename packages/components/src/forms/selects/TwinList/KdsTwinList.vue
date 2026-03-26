@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
+import { computed, ref } from "vue";
 
 import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
 
@@ -50,12 +50,6 @@ const useRegex = defineModel<boolean>("useRegex", { default: false });
 
 const searchTerm = ref("");
 const patternRegex = ref("");
-
-// Reset search term when leaving manual mode – the search filter only applies
-// to manual mode and should not leak to pattern/type modes.
-watch(mode, () => {
-  searchTerm.value = "";
-});
 
 const allIds = computed(() => possibleValues.map(({ id }) => id));
 

@@ -38,6 +38,23 @@ const meta: Meta<typeof KdsPatternInput> = {
       description: "Regex string (v-model)",
       table: { category: "model" },
     },
+    pattern: {
+      control: "text",
+      description: "Raw pattern text bound via v-model:pattern",
+      table: { category: "model" },
+    },
+    caseSensitive: {
+      control: "boolean",
+      table: { category: "model" },
+    },
+    excludeMatches: {
+      control: "boolean",
+      table: { category: "model" },
+    },
+    useRegex: {
+      control: "boolean",
+      table: { category: "model" },
+    },
     ariaLabel: {
       control: "text",
       description: "Accessible label used when no visible label is rendered",
@@ -86,6 +103,10 @@ const meta: Meta<typeof KdsPatternInput> = {
   },
   args: {
     modelValue: "",
+    pattern: "",
+    caseSensitive: false,
+    excludeMatches: false,
+    useRegex: false,
     label: "Pattern",
     description: "",
     ariaLabel: undefined,
@@ -103,12 +124,42 @@ const meta: Meta<typeof KdsPatternInput> = {
       components: { KdsPatternInput, PatternDemo },
       setup() {
         const modelValue = ref(args.modelValue);
+        const pattern = ref(args.pattern);
+        const caseSensitive = ref(args.caseSensitive);
+        const excludeMatches = ref(args.excludeMatches);
+        const useRegex = ref(args.useRegex);
         watchEffect(() => (modelValue.value = args.modelValue));
-        watchEffect(() => updateArgs({ modelValue: modelValue.value }));
-        return { args, modelValue };
+        watchEffect(() => (pattern.value = args.pattern));
+        watchEffect(() => (caseSensitive.value = args.caseSensitive));
+        watchEffect(() => (excludeMatches.value = args.excludeMatches));
+        watchEffect(() => (useRegex.value = args.useRegex));
+        watchEffect(() =>
+          updateArgs({
+            modelValue: modelValue.value,
+            pattern: pattern.value,
+            caseSensitive: caseSensitive.value,
+            excludeMatches: excludeMatches.value,
+            useRegex: useRegex.value,
+          }),
+        );
+        return {
+          args,
+          modelValue,
+          pattern,
+          caseSensitive,
+          excludeMatches,
+          useRegex,
+        };
       },
       template: `
-        <KdsPatternInput v-bind="args" v-model="modelValue" />
+        <KdsPatternInput
+          v-bind="args"
+          v-model="modelValue"
+          v-model:pattern="pattern"
+          v-model:case-sensitive="caseSensitive"
+          v-model:exclude-matches="excludeMatches"
+          v-model:use-regex="useRegex"
+        />
         <PatternDemo :pattern="modelValue" />
       `,
     };
@@ -168,7 +219,8 @@ export const Default: Story = {
 
 export const WithValue: Story = {
   args: {
-    modelValue: "^column([1-9]|10)$",
+    pattern: "^column([1-9]|10)$",
+    useRegex: true,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -179,7 +231,9 @@ export const WithValue: Story = {
 
 export const WithEncodedOptions: Story = {
   args: {
-    modelValue: "^(?!.*^column([1-9]|10)$).*$",
+    pattern: "^column([1-9]|10)$",
+    useRegex: true,
+    excludeMatches: true,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -190,7 +244,8 @@ export const WithEncodedOptions: Story = {
 
 export const Disabled: Story = {
   args: {
-    modelValue: "^column([1-9]|10)$",
+    pattern: "^column([1-9]|10)$",
+    useRegex: true,
     disabled: true,
   },
   play: async ({ canvasElement }) => {
@@ -230,7 +285,8 @@ export const WithDescription: Story = {
 
 export const WithError: Story = {
   args: {
-    modelValue: "(",
+    pattern: "(",
+    useRegex: true,
     error: true,
     subText: "Invalid pattern",
   },
@@ -242,7 +298,8 @@ export const WithError: Story = {
 
 export const Validating: Story = {
   args: {
-    modelValue: "^column([1-9]|10)$",
+    pattern: "^column([1-9]|10)$",
+    useRegex: true,
     validating: true,
     subText: "Validating pattern",
   },
@@ -298,8 +355,9 @@ export const TextOverflow: Story = {
   args: {
     label:
       "Very long label that should be truncated when the container is too small",
-    modelValue:
+    pattern:
       "^a-very-very-very-long-pattern-with-a-lot-of-characters-and-groups([0-9]+)$",
+    useRegex: true,
     subText:
       "Very long helper text that should wrap to multiple lines when needed",
   },
@@ -327,7 +385,11 @@ export const AllCombinations: Story = buildAllCombinationsStory({
     default: {
       label: ["Pattern"],
       ariaLabel: [undefined],
-      modelValue: ["", "^column([1-9]|10)$"],
+      modelValue: [""],
+      pattern: ["", "^column([1-9]|10)$"],
+      useRegex: [false, true],
+      caseSensitive: [false],
+      excludeMatches: [false],
       placeholder: ["", "{pattern}"],
       disabled: [false],
       error: [false],
@@ -342,3 +404,34 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   },
   pseudoStates: ["hover", "focus"],
 });
+
+export const DesignComparator: Story = buildDesignComparatorStory({
+  component: KdsPatternInput,
+  wrapperStyle: "width: 218px",
+  designsToCompare: {
+    ".PatternInput": {
+      props: {},
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3524-11564":
+          {
+            placeholder: "{Pattern}",
+          },
+      },
+    },
+  },
+});
+
+export const TextOverflow: Story = {
+  ...buildTextOverflowStory({
+    component: KdsPatternInput,
+    width: 340,
+  }),
+  args: {
+    label:
+      "Very long label that should be truncated when the container is too small",
+    modelValue:
+      "^a-very-very-very-long-pattern-with-a-lot-of-characters-and-groups([0-9]+)$",
+    subText:
+      "Very long helper text that should wrap to multiple lines when needed",
+  },
+};
