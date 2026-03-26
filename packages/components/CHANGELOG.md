@@ -1,5 +1,16 @@
 # @knime/kds-components
 
+## 0.20.0
+
+### Minor Changes
+
+- b441b9b: BREAKING CHANGE: Fix type emissions, this might surface previously hidden type errors for consumers
+
+### Patch Changes
+
+- 072cb40: Add KdsMultiSelectListBox component
+  - @knime/kds-styles@0.20.0
+
 ## 0.19.0
 
 ### Minor Changes
