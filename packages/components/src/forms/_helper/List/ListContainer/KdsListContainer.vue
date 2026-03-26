@@ -285,6 +285,8 @@ defineExpose<KdsListContainerExpose>({
         :active="activeId === item.id"
         :special="item.special"
         :missing="item.missing"
+        :href="item.href"
+        :to="item.to"
         :variant="variant"
         :trailing-icon="
           item.missing && !item.disabled

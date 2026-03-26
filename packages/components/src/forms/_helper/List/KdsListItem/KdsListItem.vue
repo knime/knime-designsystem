@@ -64,6 +64,8 @@ const { isTruncated: isSubtextTruncated } = useKdsIsTruncated(subtextEl);
   <component
     :is="itemComponent"
     :id="props.id"
+    :href="props.href"
+    :to="props.to"
     :role="role"
     :aria-selected="role === 'option' ? selected : undefined"
     :aria-disabled="disabled"
