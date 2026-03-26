@@ -233,7 +233,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: sonar-results
-          path: .
+          path: test-results
         continue-on-error: true
 
       - name: Download unit coverage
@@ -251,7 +251,13 @@ jobs:
       - name: Merge coverage reports
         run: pnpm run coverage:merge
 
+      - name: Get project version
+        id: version
+        run: echo "version=$(node -p 'require(\"./packages/components/package.json\").version')" >> "$GITHUB_OUTPUT"
+
       - name: Sonar scan
         uses: SonarSource/sonarqube-scan-action@v7
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: -Dsonar.projectVersion=${{ steps.version.outputs.version }}
