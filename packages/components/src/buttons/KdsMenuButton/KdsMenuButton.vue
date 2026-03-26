@@ -10,8 +10,6 @@ import {
 } from "vue";
 
 import KdsMenuContainer from "../../forms/_helper/MenuContainer/KdsMenuContainer.vue";
-import type { KdsMenuContainerExpose } from "../../forms/_helper/MenuContainer/types";
-import type { KdsPopoverExpose } from "../../overlays/Popover";
 import KdsPopover from "../../overlays/Popover/KdsPopover.vue";
 import KdsToggleButton from "../KdsToggleButton/KdsToggleButton.vue";
 
@@ -31,7 +29,7 @@ const attrs = useAttrs();
 
 const emit = defineEmits<{
   /** Emitted when item is clicked */
-  itemClick: [id?: string];
+  itemClick: [id: string];
 }>();
 
 const toggleButtonProps = computed(() => {
@@ -47,8 +45,8 @@ const toggleButtonProps = computed(() => {
 });
 
 const isMenuOpen = ref<boolean>(false);
-const popoverEl = useTemplateRef<KdsPopoverExpose>("popoverEl");
-const menuContainer = useTemplateRef<KdsMenuContainerExpose>("menuContainer");
+const popoverEl = useTemplateRef("popoverEl");
+const menuContainer = useTemplateRef("menuContainer");
 
 const menuId = useId();
 
