@@ -38,12 +38,20 @@ const filteredSuggestions = computed<KdsListOption[]>(() => {
     return [];
   }
   const query = modelValue.value.trim().toLowerCase();
-  return props.suggestions
+  const suggestionOptions: KdsListOption[] = props.suggestions
     .filter((s) => query.length === 0 || s.toLowerCase().includes(query))
     .map((s, index) => ({
       id: String(index),
       text: s,
     }));
+  if (props.suggestionsHeadline && suggestionOptions.length > 0) {
+    suggestionOptions.unshift({
+      id: "suggestion-headline-id",
+      text: props.suggestionsHeadline,
+      sectionHeadline: true,
+    });
+  }
+  return suggestionOptions;
 });
 
 const hasFilteredSuggestions = computed(

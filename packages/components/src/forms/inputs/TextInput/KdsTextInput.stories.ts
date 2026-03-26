@@ -92,6 +92,12 @@ const meta: Meta<typeof KdsTextInput> = {
         "The user can still enter free text; selecting a suggestion fills the input.",
       table: { category: "props" },
     },
+    suggestionsHeadline: {
+      control: "text",
+      description:
+        "An optional headline displayed in the suggestions dropdown popover when at least one filtered suggestion is available.",
+      table: { category: "props" },
+    },
   },
   args: {
     modelValue: "",
@@ -106,6 +112,7 @@ const meta: Meta<typeof KdsTextInput> = {
     subText: "",
     preserveSubTextSpace: false,
     suggestions: undefined,
+    suggestionsHeadline: undefined,
   },
   render: (args) => {
     const [, updateArgs] = useArgs();
@@ -304,22 +311,24 @@ export const WithSuggestions: Story = {
       "Fig",
       "Grape",
     ],
+    suggestionsHeadline: "Suggested fruits",
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const input = canvas.getByRole("combobox", { name: "Label" });
 
     await step("Open suggestions on focus and select via click", async () => {
-      await userEvent.click(input);
+      await user.click(input);
       const option = await canvas.findByRole("option", { name: "Cherry" });
       await expect(option).toBeInTheDocument();
-      await userEvent.click(option);
+      await user.click(option);
       await expect(input).toHaveValue("Cherry");
     });
 
     await step("Filter suggestions while typing", async () => {
-      await userEvent.clear(input);
-      await userEvent.type(input, "Gr");
+      await user.clear(input);
+      await user.type(input, "Gr");
       await expect(
         canvas.getByRole("option", { name: "Grape" }),
       ).toBeInTheDocument();
@@ -328,29 +337,44 @@ export const WithSuggestions: Story = {
       ).not.toBeInTheDocument();
     });
 
+    await step(
+      "Show suggestions headline if suggestions are available",
+      async () => {
+        const headline = await canvas.findByText("Suggested fruits");
+        await expect(headline).toBeInTheDocument();
+        await user.type(input, "X");
+        await waitFor(() => {
+          expect(
+            canvas.queryByText("Suggested fruits"),
+          ).not.toBeInTheDocument();
+        });
+        await user.clear(input);
+      },
+    );
+
     await step("Select via keyboard (ArrowDown + Enter)", async () => {
-      await userEvent.clear(input);
+      await user.clear(input);
       input.blur();
-      await userEvent.click(input);
+      await user.click(input);
       await canvas.findByRole("option", { name: "Apple" });
-      await userEvent.type(input, "Ban");
+      await user.type(input, "Ban");
       await waitFor(() => {
         expect(
           canvas.queryByRole("option", { name: "Apple" }),
         ).not.toBeInTheDocument();
       });
-      await userEvent.keyboard("{ArrowDown}");
-      await userEvent.keyboard("{Enter}");
+      await user.keyboard("{ArrowDown}");
+      await user.keyboard("{Enter}");
       await expect(input).toHaveValue("Banana");
     });
 
     await step("Close suggestions with Escape", async () => {
-      await userEvent.clear(input);
-      await userEvent.type(input, "A");
+      await user.clear(input);
+      await user.type(input, "A");
       await expect(
         canvas.getByRole("option", { name: "Apple" }),
       ).toBeInTheDocument();
-      await userEvent.keyboard("{Escape}");
+      await user.keyboard("{Escape}");
       await expect(input).toHaveValue("A");
       await waitFor(() => {
         expect(input).toHaveAttribute("aria-expanded", "false");
@@ -363,14 +387,14 @@ export const WithSuggestions: Story = {
     });
 
     await step("Reopen suggestions when typing after Escape", async () => {
-      await userEvent.type(input, "p");
+      await user.type(input, "p");
       await expect(
         canvas.getByRole("option", { name: "Apple" }),
       ).toBeInTheDocument();
     });
     await step("Allow free text input", async () => {
-      await userEvent.clear(input);
-      await userEvent.type(input, "Kiwi");
+      await user.clear(input);
+      await user.type(input, "Kiwi");
       await expect(input).toHaveValue("Kiwi");
     });
 
@@ -384,7 +408,7 @@ export const WithSuggestions: Story = {
     await step(
       "Reopen popover when clearing to match suggestions again",
       async () => {
-        await userEvent.clear(input);
+        await user.clear(input);
         await waitFor(() => {
           expect(input).toHaveAttribute("aria-expanded", "true");
         });
