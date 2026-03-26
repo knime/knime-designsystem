@@ -155,6 +155,16 @@ When touching existing code, migrate legacy patterns:
 
 Legacy packages (`@knime/components`, `@knime/styles`) are still present but must NOT be used for new code. When a legacy component has no KDS equivalent (e.g. `NavMenu`, `SubMenu`), keep using it but override its styles with KDS tokens.
 
+### Modernize sub-components too
+
+When modernizing a component, **always check its child/sub-components** for legacy patterns as well. Use `grep` to find all files in the same directory (or imported by the component) that still use `--knime-*` vars or `@knime/styles` imports:
+
+```sh
+grep -rln "\-\-knime-\|@knime/styles" client/components/<directory>/
+```
+
+Migrate all sub-components in the same pass — a partially modernized component tree looks inconsistent.
+
 ## Step 4 — Implement the change
 
 Follow these conventions:
