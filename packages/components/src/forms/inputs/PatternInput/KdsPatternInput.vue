@@ -18,7 +18,7 @@ const {
 } = defineProps<KdsPatternInputProps>();
 
 const emit = defineEmits<{
-  regex: [value: string];
+  "update:regex": [value: string];
 }>();
 
 const modelValue = defineModel<string>({ default: "" });
@@ -34,7 +34,7 @@ watch(
   [modelValue, caseSensitive, excludeMatches, useRegex],
   ([value, cs, em, ur]) => {
     emit(
-      "regex",
+      "update:regex",
       buildRegexFromPatternInput(value, {
         caseSensitive: cs,
         excludeMatches: em,

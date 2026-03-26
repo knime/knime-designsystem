@@ -16,7 +16,7 @@ const {
 } = defineProps<TwinListHeaderProps>();
 
 const emit = defineEmits<{
-  regex: [value: string];
+  "update:regex": [value: string];
 }>();
 
 const mode = defineModel<KdsTwinListSearchMode>("mode", {
@@ -91,7 +91,7 @@ watch(mode, (newMode, oldMode) => {
     ariaLabel="Pattern"
     placeholder="Pattern"
     :disabled="disabled"
-    @regex="emit('regex', $event)"
+    @update:regex="emit('update:regex', $event)"
   />
 
   <KdsMultiSelectDropdown

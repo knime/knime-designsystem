@@ -23,7 +23,7 @@ const meta: Meta<typeof KdsPatternInput> = {
     docs: {
       description: {
         component:
-          "An input field for pattern-based filtering. Its v-model always contains the visible input text, while the `regexp` event emits a compiled regex string based on the current toggles. " +
+          "An input field for pattern-based filtering. Its v-model always contains the visible input text, while the `update:regex` event emits a compiled regex string based on the current toggles. " +
           "Consumers can use the optional toggle v-models for external control when needed.",
       },
     },
@@ -150,7 +150,7 @@ const meta: Meta<typeof KdsPatternInput> = {
           v-model:case-sensitive="caseSensitive"
           v-model:exclude-matches="excludeMatches"
           v-model:use-regex="useRegex"
-          @regex="regex = $event"
+          @update:regex="regex = $event"
         />
         <PatternDemo :pattern="regex" />
       `,

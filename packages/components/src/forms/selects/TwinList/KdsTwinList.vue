@@ -8,7 +8,6 @@ import TwinListHeader from "./TwinListHeader.vue";
 import { kdsTwinListSearchMode } from "./enums";
 import type {
   KdsTwinListModelValue,
-  KdsTwinListPossibleValue,
   KdsTwinListProps,
   KdsTwinListSearchMode,
 } from "./types.ts";
@@ -57,19 +56,29 @@ const effectiveBodyModel = computed<KdsTwinListModelValue>({
   get() {
     switch (mode.value) {
       case kdsTwinListSearchMode.PATTERN: {
-        function patternMatcher(item: KdsTwinListPossibleValue) {
-          if (patternRegex.value.trim() === "") {
-            return false;
-          }
-          try {
-            return new RegExp(`^(?:${patternRegex.value})$`).test(item.text);
-          } catch {
-            return false;
-          }
+        const trimmedPattern = patternRegex.value.trim();
+        if (trimmedPattern === "") {
+          const included: string[] = [];
+          const includedSet = new Set(included);
+          return {
+            includedValues: included,
+            excludedValues: allIds.value.filter((id) => !includedSet.has(id)),
+            includeUnknownValues: null,
+          };
         }
-        const included = possibleValues
-          .filter(patternMatcher)
-          .map(({ id }) => id);
+
+        let regexp: RegExp | null = null;
+        try {
+          regexp = new RegExp(`^(?:${trimmedPattern})$`);
+        } catch {
+          regexp = null;
+        }
+
+        const included = regexp
+          ? possibleValues
+              .filter((item) => regexp.test(item.text))
+              .map(({ id }) => id)
+          : [];
         const includedSet = new Set(included);
         return {
           includedValues: included,
@@ -124,7 +133,7 @@ const effectiveBodyModel = computed<KdsTwinListModelValue>({
         :disabled="disabled"
         :filter-types="filterTypes"
         :enable-pattern-filter="enablePatternFilter"
-        @regex="patternRegex = $event"
+        @update:regex="patternRegex = $event"
       />
       <TwinListBody
         v-model="effectiveBodyModel"
