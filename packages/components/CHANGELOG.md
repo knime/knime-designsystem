@@ -1,5 +1,13 @@
 # @knime/kds-components
 
+## 0.20.1
+
+### Patch Changes
+
+- f61036d: Deprecate use of internal KdsLabel and KdsSubText, use fieldset for CheckboxGroup, RadioGroup and ValueSwitch components
+- c4364a1: Add suggestions headline to KdsTextInput
+  - @knime/kds-styles@0.20.1
+
 ## 0.20.0
 
 ### Minor Changes
