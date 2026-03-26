@@ -92,6 +92,12 @@ const meta: Meta<typeof KdsTextInput> = {
         "The user can still enter free text; selecting a suggestion fills the input.",
       table: { category: "props" },
     },
+    suggestionsHeadline: {
+      control: "text",
+      description:
+        "An optional headline displayed in the suggestions dropdown popover if suggestions are provided.",
+      table: { category: "props" },
+    },
   },
   args: {
     modelValue: "",
@@ -106,6 +112,7 @@ const meta: Meta<typeof KdsTextInput> = {
     subText: "",
     preserveSubTextSpace: false,
     suggestions: undefined,
+    suggestionsHeadline: undefined,
   },
   render: (args) => {
     const [, updateArgs] = useArgs();
@@ -304,6 +311,7 @@ export const WithSuggestions: Story = {
       "Fig",
       "Grape",
     ],
+    suggestionsHeadline: "Suggested fruits",
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
@@ -327,6 +335,17 @@ export const WithSuggestions: Story = {
         canvas.queryByRole("option", { name: "Apple" }),
       ).not.toBeInTheDocument();
     });
+
+    await step(
+      "Show suggestions headline if suggestions are available",
+      async () => {
+        const headline = await canvas.findByText("Suggested fruits");
+        await expect(headline).toBeInTheDocument();
+        await userEvent.type(input, "X");
+        expect(canvas.queryByText("Suggested fruits")).not.toBeInTheDocument();
+        await userEvent.clear(input);
+      },
+    );
 
     await step("Select via keyboard (ArrowDown + Enter)", async () => {
       await userEvent.clear(input);

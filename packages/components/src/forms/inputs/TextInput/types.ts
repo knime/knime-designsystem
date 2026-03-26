@@ -6,4 +6,8 @@ export type KdsTextInputProps = KdsInputFieldProps & {
    * The user can still enter free text; selecting a suggestion fills the input.
    */
   suggestions?: string[];
+  /**
+   * An optional headline displayed in the suggestions dropdown popover if suggestions are provided.
+   */
+  suggestionsHeadline?: string;
 };
