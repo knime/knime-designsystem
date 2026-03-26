@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-import { computed, useId } from "vue";
+import { computed } from "vue";
 
-import KdsLabel from "../_helper/KdsLabel.vue";
-import KdsSubText from "../_helper/KdsSubText.vue";
+import BaseFieldsetWrapper from "../_helper/BaseFieldsetWrapper.vue";
 
 import BaseCheckbox from "./BaseCheckbox.vue";
 import type {
@@ -29,9 +28,6 @@ const possibleValues = computed(
       return o;
     }) satisfies KdsCheckboxGroupOption[],
 );
-
-const labelId = useId();
-const descriptionId = useId();
 
 const isOptionDisabled = (index: number) =>
   disabled || possibleValues.value[index]?.disabled === true;
@@ -60,15 +56,13 @@ const handleCheckboxChange = (index: number, checked: KdsCheckboxValue) => {
 </script>
 
 <template>
-  <div
+  <BaseFieldsetWrapper
     :id="props.id"
-    class="checkbox-group"
-    role="group"
-    :aria-labelledby="props.label ? labelId : undefined"
-    :aria-describedby="props.subText ? descriptionId : undefined"
+    :label="props.label"
+    :sub-text="props.subText"
+    :preserve-sub-text-space="props.preserveSubTextSpace"
+    :error="hasError"
   >
-    <KdsLabel v-if="props.label" :id="labelId" :label="props.label" />
-
     <div :class="{ options: true, horizontal: isHorizontal }">
       <div
         v-for="(option, index) in possibleValues"
@@ -87,23 +81,10 @@ const handleCheckboxChange = (index: number, checked: KdsCheckboxValue) => {
         />
       </div>
     </div>
-
-    <KdsSubText
-      :id="descriptionId"
-      :sub-text="props.subText"
-      :preserve-sub-text-space="props.preserveSubTextSpace"
-      :error="hasError"
-    />
-  </div>
+  </BaseFieldsetWrapper>
 </template>
 
 <style scoped>
-.checkbox-group {
-  padding: 0;
-  margin: 0;
-  border: none;
-}
-
 .options {
   display: flex;
   flex-direction: column;
