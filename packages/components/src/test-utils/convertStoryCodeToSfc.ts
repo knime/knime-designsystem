@@ -14,6 +14,8 @@ import {
 
 import { IMPORT_PACKAGE } from "./constants";
 
+const returnObjectRegex = /return\s*{([\s\S]*?)}\s*;?$/;
+
 /**
  * Convert a Storybook-style docs source with custom render function
  *  into a Vue SFC string.
@@ -167,7 +169,7 @@ export async function convertStoryCodeToSfc(
     const method = objLiteral.getFirstDescendantByKind(
       SyntaxKind.MethodDeclaration,
     );
-    if (method && method.getName() === "setup") {
+    if (method?.getName() === "setup") {
       const bodyText = method.getBodyText();
       if (bodyText) {
         setupBody = bodyText.trim();
@@ -196,9 +198,9 @@ export async function convertStoryCodeToSfc(
   }
 
   if (setupBody) {
-    const returnMatch = setupBody.match(/return\s*{([\s\S]*?)}\s*;?$/);
+    const returnMatch = returnObjectRegex.exec(setupBody);
     if (returnMatch) {
-      setupBody = setupBody.replace(/return\s*{[\s\S]*?}\s*;?$/, "").trim();
+      setupBody = setupBody.replace(returnObjectRegex, "").trim();
     }
     scriptParts.push(setupBody);
   }

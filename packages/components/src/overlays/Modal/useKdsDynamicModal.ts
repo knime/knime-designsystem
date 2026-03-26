@@ -180,44 +180,44 @@ export const internal = {
   updateConfig,
 };
 
-export const useKdsDynamicModal = () => {
-  // function overload to support 2 distinct configurations
-  function askConfirmation(
-    config: PropertyBasedConfirmModalConfig,
-  ): Promise<ConfirmResult>;
+// function overload to support 2 distinct configurations
+function askConfirmation(
+  config: PropertyBasedConfirmModalConfig,
+): Promise<ConfirmResult>;
 
-  // function overload to support 2 distinct configurations
-  function askConfirmation(
-    config: TemplateBasedConfirmModalConfig,
-  ): Promise<ConfirmResult>;
+// function overload to support 2 distinct configurations
+function askConfirmation(
+  config: TemplateBasedConfirmModalConfig,
+): Promise<ConfirmResult>;
 
-  function askConfirmation(
-    config: KdsDynamicDialogConfirmConfig,
-  ): Promise<ConfirmResult> {
-    activeModalConfig.value = {
-      type: "confirm",
-      value: {
-        buttons: [defaultCancelButton, defaultConfirmButton],
-        ...config,
-      },
-    };
-
-    isActive.value = true;
-    return unwrappedPromise.value.promise as Promise<ConfirmResult>;
-  }
-
-  const showByTemplate = <T>(
-    config: KdsDynamicModalTemplateConfig<T>,
-  ): Promise<void> => {
-    activeModalConfig.value = {
-      type: "dynamic",
-      value: config,
-    };
-
-    isActive.value = true;
-    return unwrappedPromise.value.promise as Promise<void>;
+function askConfirmation(
+  config: KdsDynamicDialogConfirmConfig,
+): Promise<ConfirmResult> {
+  activeModalConfig.value = {
+    type: "confirm",
+    value: {
+      buttons: [defaultCancelButton, defaultConfirmButton],
+      ...config,
+    },
   };
 
+  isActive.value = true;
+  return unwrappedPromise.value.promise as Promise<ConfirmResult>;
+}
+
+const showByTemplate = <T>(
+  config: KdsDynamicModalTemplateConfig<T>,
+): Promise<void> => {
+  activeModalConfig.value = {
+    type: "dynamic",
+    value: config,
+  };
+
+  isActive.value = true;
+  return unwrappedPromise.value.promise as Promise<void>;
+};
+
+export const useKdsDynamicModal = () => {
   return {
     askConfirmation,
     showByTemplate,
