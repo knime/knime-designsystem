@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 
-import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
+import BaseFieldsetWrapper from "../../_helper/BaseFieldsetWrapper.vue";
 
 import TwinListBody from "./TwinListBody.vue";
 import TwinListHeader from "./TwinListHeader.vue";
@@ -114,8 +114,12 @@ const effectiveBodyModel = computed<KdsTwinListModelValue>({
 </script>
 
 <template>
-  <BaseFormFieldWrapper
-    v-bind="props"
+  <BaseFieldsetWrapper
+    :id="props.id"
+    :label="props.label"
+    :ariaLabel="props.ariaLabel"
+    :description="props.description"
+    :sub-text="props.subText"
     :error="error"
     :validating="validating"
     :preserve-sub-text-space="preserveSubTextSpace"
@@ -147,7 +151,7 @@ const effectiveBodyModel = computed<KdsTwinListModelValue>({
         :loading="loading"
       />
     </div>
-  </BaseFormFieldWrapper>
+  </BaseFieldsetWrapper>
 </template>
 
 <style scoped>
