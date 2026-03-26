@@ -97,7 +97,70 @@ Available icons are SVGs in:
 
 List them with: `ls .kds/packages/styles/src/img/icons/`
 
-Use via `<KdsIcon name="icon-name" />` (without the `.svg` extension).
+**Import syntax** — use the `@knime/kds-styles` package export, without `.svg` extension:
+
+```ts
+// Correct
+import WorkflowIcon from "@knime/kds-styles/img/icons/workflow";
+import NodeStackIcon from "@knime/kds-styles/img/icons/node-stack";
+
+// WRONG — .svg extension breaks the package export map
+import WorkflowIcon from "@knime/kds-styles/img/icons/workflow.svg";
+
+// WRONG — legacy package
+import WorkflowIcon from "@knime/styles/img/icons/workflow.svg";
+```
+
+The exported icon is a Vue component (SVG). Use directly: `<WorkflowIcon class="icon" />`
+
+## Step 7 — Use design tokens correctly
+
+When writing CSS, always use KDS tokens. Key patterns:
+
+### Typography — use composite `font` tokens
+
+```css
+/* Correct — single shorthand property */
+font: var(--kds-font-base-title-large-strong);
+
+/* WRONG — do not break into separate properties */
+font-size: 16px;
+font-weight: 700;
+line-height: 20px;
+```
+
+Search for font tokens: `grep "kds-font-base" node_modules/@knime/kds-styles/dist/tokens/css/_variables.css`
+
+### Spacing — use `--kds-spacing-container-*`
+
+```css
+padding: var(--kds-spacing-container-1x);          /* 16px */
+gap: var(--kds-spacing-container-0-5x);            /* 8px */
+margin-bottom: var(--kds-spacing-container-0-25x); /* 4px */
+```
+
+### Elevation — use `--kds-elevation-level-*`
+
+```css
+/* Correct */
+box-shadow: var(--kds-elevation-level-1);
+
+/* WRONG — hardcoded shadow */
+box-shadow: 0 2px 13px 0 rgb(130 133 134 / 10%);
+```
+
+### Colors
+
+```css
+background: var(--kds-color-surface-default);
+color: var(--kds-color-text-and-icon-neutral);
+```
+
+### Border radius
+
+```css
+border-radius: var(--kds-border-radius-container-0-50x); /* 8px */
+```
 
 ## Rules
 
