@@ -21,11 +21,7 @@ defineOptions({
   inheritAttrs: false,
 });
 
-const {
-  variant = "outlined",
-  menuMaxHeight,
-  ...props
-} = defineProps<KdsMenuButtonProps>();
+const { variant = "outlined", ...props } = defineProps<KdsMenuButtonProps>();
 
 const attrs = useAttrs();
 

@@ -202,7 +202,7 @@ export const Disabled: Story = {
     },
   },
   args: {
-    variant: "filled",
+    variant: "outlined",
     size: "medium",
     label: "{Label}",
     disabled: true,

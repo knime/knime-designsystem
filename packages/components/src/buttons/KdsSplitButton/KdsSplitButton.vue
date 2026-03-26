@@ -8,11 +8,12 @@ import BaseButton from "../BaseButton.vue";
 
 import type { KdsSplitButtonProps } from "./types";
 
-const props = withDefaults(defineProps<KdsSplitButtonProps>(), {
-  variant: "filled",
-  size: "medium",
-  alternativeActions: () => [],
-});
+const {
+  variant = "filled",
+  size = "medium",
+  alternativeActions = [],
+  ...props
+} = defineProps<KdsSplitButtonProps>();
 
 const emit = defineEmits<{
   "click:primary": [event: MouseEvent];
@@ -26,8 +27,8 @@ const menuId = useId();
 
 const buttonClasses = computed(() => ({
   "kds-split-button": true,
-  [props.variant ?? "filled"]: true,
-  [props.size ?? "medium"]: true,
+  [variant]: true,
+  [size]: true,
   disabled: props.disabled,
 }));
 
@@ -48,15 +49,11 @@ watch(isMenuOpen, (open) => {
 <template>
   <div :class="buttonClasses">
     <BaseButton
+      v-bind="props"
       class="kds-split-button-primary"
-      :class="[props.variant]"
-      :size="props.size"
-      :variant="props.variant"
-      :disabled="props.disabled"
-      :title="props.title"
-      :label="props.label"
-      :leading-icon="props.leadingIcon"
-      :aria-label="props.ariaLabel"
+      :class="[variant]"
+      :size="size"
+      :variant="variant"
       remove-border-radius="right"
       @click="emit('click:primary', $event)"
     />
@@ -65,11 +62,11 @@ watch(isMenuOpen, (open) => {
       ref="secondaryButton"
       class="kds-split-button-secondary"
       remove-border-radius="left"
-      :size="props.size"
-      :variant="props.variant"
+      :size="size"
+      :variant="variant"
       leading-icon="chevron-down"
       :disabled="props.disabled"
-      aria-label="More options"
+      ariaLabel="More options"
       aria-haspopup="menu"
       :aria-expanded="isMenuOpen"
       :aria-controls="menuId"
@@ -86,7 +83,7 @@ watch(isMenuOpen, (open) => {
     <KdsMenuContainer
       :id="menuId"
       ref="menuContainer"
-      :items="props.alternativeActions"
+      :items="alternativeActions"
       :menu-max-height="props.menuMaxHeight"
       aria-label="Actions"
       @item-click="onItemClick"

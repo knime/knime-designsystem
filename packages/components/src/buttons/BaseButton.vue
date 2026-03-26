@@ -17,6 +17,7 @@ const {
   error = false,
   disabled = false,
   toggled = false,
+  removeBorderRadius = undefined,
   ...props
 } = defineProps<BaseButtonPropsWithComponent>();
 
@@ -33,6 +34,7 @@ const classes = computed(() => [
   { toggled },
   { success },
   { error },
+  removeBorderRadius ? `remove-border-radius-${removeBorderRadius}` : undefined,
 ]);
 
 const iconSize = computed(() => {
