@@ -68,4 +68,6 @@ export type KdsListContainerExpose = {
   handleBlur: () => void;
   /** The DOM id of the currently active (highlighted) option, or undefined. Prefixed to avoid DOM id collisions. */
   activeDescendant: Readonly<Ref<string | undefined>>;
+  /** Moves focus to the list container element */
+  focus: () => void;
 };

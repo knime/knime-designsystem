@@ -116,7 +116,6 @@ const { isTruncated: isSubtextTruncated } = useKdsIsTruncated(subtextEl);
   gap: var(--kds-spacing-container-0-5x);
   align-items: center;
   width: 100%;
-  min-width: var(--kds-dimension-component-width-12x);
   padding: var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-5x);
   color: var(--kds-color-text-and-icon-neutral);
   cursor: pointer;

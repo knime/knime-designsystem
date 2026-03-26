@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import {
-  type StyleValue,
   computed,
+  nextTick,
   ref,
   useAttrs,
   useId,
   useTemplateRef,
+  watch,
 } from "vue";
 
-import KdsListContainer from "../../forms/_helper/List/ListContainer/KdsListContainer.vue";
+import KdsMenuContainer from "../../forms/_helper/MenuContainer/KdsMenuContainer.vue";
+import type { KdsMenuContainerExpose } from "../../forms/_helper/MenuContainer/types";
+import type { KdsPopoverExpose } from "../../overlays/Popover";
 import KdsPopover from "../../overlays/Popover/KdsPopover.vue";
 import KdsToggleButton from "../KdsToggleButton/KdsToggleButton.vue";
 
@@ -44,26 +47,21 @@ const toggleButtonProps = computed(() => {
 });
 
 const isMenuOpen = ref<boolean>(false);
-const popoverEl = useTemplateRef("popoverEl");
-const listContainerEl = useTemplateRef("listContainerEl");
+const popoverEl = useTemplateRef<KdsPopoverExpose>("popoverEl");
+const menuContainer = useTemplateRef<KdsMenuContainerExpose>("menuContainer");
 
 const menuId = useId();
 
-const maxHeightStyle = computed<StyleValue>(() => {
-  if (!menuMaxHeight) {
-    return {};
-  }
-
-  return {
-    maxHeight: menuMaxHeight,
-    overflowY: "auto",
-  };
-});
-
-const onItemClick = (itemId?: string) => {
-  if (!itemId) {
+watch(isMenuOpen, async (menuOpen) => {
+  if (!menuOpen) {
     return;
   }
+
+  await nextTick();
+  menuContainer.value?.focus();
+});
+
+const onItemClick = (itemId: string) => {
   isMenuOpen.value = false;
   emit("itemClick", itemId);
 };
@@ -77,9 +75,6 @@ const onItemClick = (itemId?: string) => {
     :aria-expanded="isMenuOpen"
     :aria-controls="menuId"
     :style="popoverEl?.anchorStyle"
-    @focus="listContainerEl?.handleFocus"
-    @keydown="isMenuOpen && listContainerEl?.handleKeydown"
-    @blur="isMenuOpen = false"
   />
 
   <KdsPopover
@@ -88,26 +83,12 @@ const onItemClick = (itemId?: string) => {
     placement="bottom-left"
     aria-label="Menu"
   >
-    <div class="kds-menu-container" :style="maxHeightStyle">
-      <KdsListContainer
-        :id="menuId"
-        ref="listContainerEl"
-        :possible-values="items"
-        empty-text="Menu is empty"
-        aria-label="Actions"
-        role="menu"
-        controlled-externally
-        @item-click="onItemClick"
-      />
-    </div>
+    <KdsMenuContainer
+      :id="menuId"
+      ref="menuContainer"
+      :items="props.items"
+      :menu-max-height="menuMaxHeight"
+      @item-click="onItemClick"
+    />
   </KdsPopover>
 </template>
-
-<style scoped>
-.kds-menu-container {
-  max-width: var(--kds-dimension-component-width-20x);
-  background-color: var(--kds-color-surface-default);
-  border-radius: var(--kds-border-radius-container-0-50x);
-  box-shadow: var(--kds-elevation-level-3);
-}
-</style>
