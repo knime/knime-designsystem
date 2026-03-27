@@ -69,7 +69,9 @@ Here are some of the most important scripts defined in the top-level [`package.j
 
 ## Coding guidelines
 
-See [copilot-instructions.md](.github/copilot-instructions.md).
+- Keep incremental changes to PRs as separate commits to ease review and collaboration
+- Squash to a single commit before merge
+- See [copilot-instructions.md](.github/copilot-instructions.md).
 
 ## Pull Request Commands
 
