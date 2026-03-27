@@ -105,7 +105,11 @@ const effectiveRel = computed(() => {
 });
 
 const normalizedFileSize = computed(() => {
-  if (fileSize === undefined) {
+  if (
+    typeof fileSize !== "number" ||
+    !Number.isFinite(fileSize) ||
+    fileSize < 0
+  ) {
     return "";
   }
 

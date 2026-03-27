@@ -111,6 +111,7 @@ function getRenderedLink(
 export const Default: Story = {
   play: async ({ canvasElement, args }) => {
     const onClick = args.onClick as ReturnType<typeof fn>;
+    const user = userEvent.setup();
     onClick.mockClear();
 
     const canvas = within(canvasElement);
@@ -121,14 +122,14 @@ export const Default: Story = {
       event.preventDefault();
     });
 
-    await userEvent.click(link);
+    await user.click(link);
     await expect(onClick).toHaveBeenCalledTimes(1);
 
     link.blur();
-    await userEvent.tab();
+    await user.tab();
     await expect(link).toHaveFocus();
 
-    await userEvent.keyboard("{Enter}");
+    await user.keyboard("{Enter}");
     await expect(onClick).toHaveBeenCalledTimes(2);
   },
 };
