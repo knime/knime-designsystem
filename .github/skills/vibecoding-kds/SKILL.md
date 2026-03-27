@@ -181,3 +181,5 @@ Follow these conventions:
 4. When modifying existing legacy code, migrate to KDS equivalents
 5. Use the **kds-stories** skill to read canonical usage examples before guessing props
 6. If Figma context is provided, map to existing KDS components first
+7. **Use `<KdsIcon>` for all icons** — never use raw SVG imports via `<Component :is>`. KdsIcon uses `currentColor` so icons automatically adapt to dark/light mode via KDS color tokens. Pass the icon name as a string: `<KdsIcon name="space" size="small" />`. Find available names with `ls .kds/packages/styles/src/img/icons/`.
+8. **Everything must be tokenized for dark/light mode** — all colors, backgrounds, borders, and icon colors must use `--kds-*` tokens. Hard-coded hex values (e.g. `#000`, `stroke="#000"`) will break in dark mode because they don't respond to the color scheme. If a value doesn't come from a `--kds-*` token, it won't switch between light and dark.
