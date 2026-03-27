@@ -74,9 +74,9 @@ defineExpose<KdsPopoverExpose>({ anchorStyle, popoverId });
     inset: auto anchor(right) anchor(top) auto;
     margin: var(--kds-spacing-container-0-25x) 0
       var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x);
-    position-try-fallbacks:
-      --kds-popover-try-top-left, --kds-popover-try-bottom-right,
-      --kds-popover-try-bottom-left, --kds-popover-try-top-right;
+    position-try-fallbacks: --kds-popover-try-top-left,
+      --kds-popover-try-bottom-right, --kds-popover-try-bottom-left,
+      --kds-popover-try-top-right;
   }
 
   /* noinspection CssInvalidFunction,CssInvalidAtRule */
@@ -84,9 +84,9 @@ defineExpose<KdsPopoverExpose>({ anchorStyle, popoverId });
     inset: auto auto anchor(top) anchor(left);
     margin: var(--kds-spacing-container-0-25x)
       var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x) 0;
-    position-try-fallbacks:
-      --kds-popover-try-top-right, --kds-popover-try-bottom-left,
-      --kds-popover-try-bottom-right, --kds-popover-try-top-left;
+    position-try-fallbacks: --kds-popover-try-top-right,
+      --kds-popover-try-bottom-left, --kds-popover-try-bottom-right,
+      --kds-popover-try-top-left;
   }
 
   /* noinspection CssInvalidFunction,CssInvalidAtRule */
@@ -94,9 +94,9 @@ defineExpose<KdsPopoverExpose>({ anchorStyle, popoverId });
     inset: anchor(bottom) anchor(right) auto auto;
     margin: var(--kds-spacing-container-0-25x) 0
       var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x);
-    position-try-fallbacks:
-      --kds-popover-try-bottom-left, --kds-popover-try-top-right,
-      --kds-popover-try-top-left, --kds-popover-try-bottom-right;
+    position-try-fallbacks: --kds-popover-try-bottom-left,
+      --kds-popover-try-top-right, --kds-popover-try-top-left,
+      --kds-popover-try-bottom-right;
   }
 
   /* noinspection CssInvalidFunction,CssInvalidAtRule */
@@ -104,9 +104,9 @@ defineExpose<KdsPopoverExpose>({ anchorStyle, popoverId });
     inset: anchor(bottom) auto auto anchor(left);
     margin: var(--kds-spacing-container-0-25x)
       var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-25x) 0;
-    position-try-fallbacks:
-      --kds-popover-try-bottom-right, --kds-popover-try-top-left,
-      --kds-popover-try-top-right, --kds-popover-try-bottom-left;
+    position-try-fallbacks: --kds-popover-try-bottom-right,
+      --kds-popover-try-top-left, --kds-popover-try-top-right,
+      --kds-popover-try-bottom-left;
   }
 }
 

@@ -40,7 +40,7 @@ const createSetup = (
 
   const hasExplicitSelectedId = "selectedId" in params;
   const selectedId = ref<string | undefined>(
-    hasExplicitSelectedId ? (params.selectedId ?? undefined) : ids[0],
+    hasExplicitSelectedId ? params.selectedId ?? undefined : ids[0],
   );
   const options = createOptions(ids, disabledIds, errorIds);
   const globalDisableRef = ref(globalDisable);

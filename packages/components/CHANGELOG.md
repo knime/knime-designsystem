@@ -50,6 +50,7 @@
 ### Minor Changes
 
 - f6168a5: BREAKING CHANGE: KdsEmptyState grouped button props. Previously, the component exposed multiple prefixed button props (for example `buttonVariant`, `buttonSize`, `buttonDisabled`, `buttonLeadingIcon`, `buttonTrailingIcon`, `buttonAriaLabel`, `buttonLabel`, `buttonTo`, `buttonTitle`, `buttonDestructive`, `buttonTarget`, `buttonRel`, `buttonDownload`). To migrate, replace these props with the new nested `button` prop as follows:
+
   - `buttonVariant` → `button.variant`
   - `buttonSize` → `button.size`
   - `buttonDisabled` → `button.disabled`
@@ -333,6 +334,7 @@
 - 02bba28: Improve dialog api for dynamic/programmatic dialog creation.
 
   BREAKING CHANGE:
+
   - KdsModal now has a `body` slot that is what before was the `default` slot. The new `default` is replacing everything so use `body` now.
   - `useKdsConfirmDialog` has been renamed to `useKdsDynamicModal` and the `KdsConfirmDialog` became `KdsDynamicModalProvider`.
 
@@ -373,6 +375,7 @@
   In particular the following mapping needs to be made to update to this version:
 
   ### Components:
+
   - Button -> KdsButton
   - LinkButton -> KdsLinkButton
   - Checkbox -> KdsCheckbox
@@ -380,10 +383,12 @@
   - DataType -> KdsDataType
 
   ### Utils:
+
   - useDarkMode -> useKdsDarkMode
   - useLegacyMode -> useKdsLegacyMode
 
   ### Constants:
+
   - sizes -> kdsSizes
   - buttonVariants -> kdsButtonVariants
   - iconSizes -> kdsIconSizes
@@ -393,6 +398,7 @@
   - DARK_MODE_STORAGE_KEY -> KDS_DARK_MODE_STORAGE_KEY
 
   ### Types:
+
   - Size -> KdsSize
   - ButtonVariant -> KdsButtonVariant
   - ButtonProps -> KdsButtonProps
@@ -456,6 +462,7 @@
 ### Patch Changes
 
 - 16dfcf7: Improve button component API:
+
   - Remove `icon` prop in favor of `leadingIcon`. Makes prop combinations of Button
     easier to reason about.
 

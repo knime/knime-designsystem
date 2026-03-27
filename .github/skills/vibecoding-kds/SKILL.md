@@ -55,16 +55,16 @@ grep "kds-font-base" node_modules/@knime/kds-styles/dist/tokens/css/_variables.c
 
 Common font tokens and their values:
 
-| Token                                      | Use for                       |
-| ------------------------------------------ | ----------------------------- |
-| `--kds-font-base-display-small`            | Page headings (700 20px/1.3)  |
-| `--kds-font-base-display-medium`           | Section headings (700 24px/1.3) |
-| `--kds-font-base-title-large-strong`       | Card titles (700 16px/1.3)    |
-| `--kds-font-base-title-medium`             | Subtitles (500 14px/1.3)      |
-| `--kds-font-base-body-medium`              | Body text (400 14px/1.5)      |
-| `--kds-font-base-body-small`               | Secondary text (400 12px/1.5) |
-| `--kds-font-base-subtext-medium`           | Captions (400 12px/1.3)       |
-| `--kds-font-base-interactive-medium-strong`| Button labels (500 14px/1.3)  |
+| Token                                       | Use for                         |
+| ------------------------------------------- | ------------------------------- |
+| `--kds-font-base-display-small`             | Page headings (700 20px/1.3)    |
+| `--kds-font-base-display-medium`            | Section headings (700 24px/1.3) |
+| `--kds-font-base-title-large-strong`        | Card titles (700 16px/1.3)      |
+| `--kds-font-base-title-medium`              | Subtitles (500 14px/1.3)        |
+| `--kds-font-base-body-medium`               | Body text (400 14px/1.5)        |
+| `--kds-font-base-body-small`                | Secondary text (400 12px/1.5)   |
+| `--kds-font-base-subtext-medium`            | Captions (400 12px/1.3)         |
+| `--kds-font-base-interactive-medium-strong` | Button labels (500 14px/1.3)    |
 
 Usage: `font: var(--kds-font-base-title-large-strong);` — do NOT break into separate properties.
 
@@ -72,14 +72,14 @@ Usage: `font: var(--kds-font-base-title-large-strong);` — do NOT break into se
 
 All spacing (padding, margin, gap) must use `--kds-spacing-container-*` tokens:
 
-| Token                              | Value |
-| ---------------------------------- | ----- |
-| `--kds-spacing-container-0-25x`    | 4px   |
-| `--kds-spacing-container-0-5x`     | 8px   |
-| `--kds-spacing-container-0-75x`    | 12px  |
-| `--kds-spacing-container-1x`       | 16px  |
-| `--kds-spacing-container-1-5x`     | 24px  |
-| `--kds-spacing-container-2x`       | 32px  |
+| Token                           | Value |
+| ------------------------------- | ----- |
+| `--kds-spacing-container-0-25x` | 4px   |
+| `--kds-spacing-container-0-5x`  | 8px   |
+| `--kds-spacing-container-0-75x` | 12px  |
+| `--kds-spacing-container-1x`    | 16px  |
+| `--kds-spacing-container-1-5x`  | 24px  |
+| `--kds-spacing-container-2x`    | 32px  |
 
 Prefer `gap` over individual margins for flex/grid layouts.
 
@@ -87,31 +87,31 @@ Prefer `gap` over individual margins for flex/grid layouts.
 
 Replace all custom `box-shadow` with KDS elevation:
 
-| Token                    | Use for                    |
-| ------------------------ | -------------------------- |
-| `--kds-elevation-level-0`| Flat / no shadow           |
-| `--kds-elevation-level-1`| Cards, subtle elevation    |
-| `--kds-elevation-level-3`| Hover states, overlays     |
+| Token                     | Use for                 |
+| ------------------------- | ----------------------- |
+| `--kds-elevation-level-0` | Flat / no shadow        |
+| `--kds-elevation-level-1` | Cards, subtle elevation |
+| `--kds-elevation-level-3` | Hover states, overlays  |
 
 #### Colors — surface and text
 
-| Token                                    | Use for                    |
-| ---------------------------------------- | -------------------------- |
-| `--kds-color-surface-default`            | Card/page backgrounds      |
-| `--kds-color-surface-muted`              | Secondary backgrounds      |
-| `--kds-color-surface-subtle`             | Tertiary/disabled areas    |
-| `--kds-color-text-and-icon-neutral`      | Primary text               |
-| `--kds-color-text-and-icon-muted`        | Secondary/description text |
-| `--kds-color-text-and-icon-subtle`       | Tertiary/icon text         |
+| Token                               | Use for                    |
+| ----------------------------------- | -------------------------- |
+| `--kds-color-surface-default`       | Card/page backgrounds      |
+| `--kds-color-surface-muted`         | Secondary backgrounds      |
+| `--kds-color-surface-subtle`        | Tertiary/disabled areas    |
+| `--kds-color-text-and-icon-neutral` | Primary text               |
+| `--kds-color-text-and-icon-muted`   | Secondary/description text |
+| `--kds-color-text-and-icon-subtle`  | Tertiary/icon text         |
 
 #### Border radius
 
-| Token                                      | Value |
-| ------------------------------------------ | ----- |
-| `--kds-border-radius-container-0-25x`      | 4px   |
-| `--kds-border-radius-container-0-50x`      | 8px   |
-| `--kds-border-radius-container-1x`         | 16px  |
-| `--kds-border-radius-container-pill`       | 1000px|
+| Token                                 | Value  |
+| ------------------------------------- | ------ |
+| `--kds-border-radius-container-0-25x` | 4px    |
+| `--kds-border-radius-container-0-50x` | 8px    |
+| `--kds-border-radius-container-1x`    | 16px   |
+| `--kds-border-radius-container-pill`  | 1000px |
 
 ### Icons
 
@@ -141,17 +141,17 @@ The imported icon is a Vue component (SVG). Use it directly: `<WorkflowIcon clas
 
 When touching existing code, migrate legacy patterns:
 
-| Legacy                                      | KDS replacement                                                  |
-| ------------------------------------------- | ---------------------------------------------------------------- |
-| `@knime/components` imports                 | `@knime/kds-components` equivalents                              |
-| `@knime/styles` imports                     | `@knime/kds-styles` equivalents                                  |
-| `@knime/styles/img/icons/foo.svg`           | `@knime/kds-styles/img/icons/foo` (no `.svg` extension)          |
-| `--knime-*` CSS variables                   | `--kds-*` tokens                                                 |
-| `Button` component                          | `KdsButton` or `KdsLinkButton`                                   |
-| Hard-coded `box-shadow`                     | `--kds-elevation-level-*` tokens                                 |
-| Hard-coded colors/spacing                   | `--kds-color-*` / `--kds-spacing-container-*` tokens             |
-| Separate `font-size`/`font-weight`/`line-height` | `font: var(--kds-font-base-*)` shorthand token             |
-| Imported SVG icons from `@knime/styles`     | Import from `@knime/kds-styles/img/icons/<name>` (no extension)  |
+| Legacy                                           | KDS replacement                                                 |
+| ------------------------------------------------ | --------------------------------------------------------------- |
+| `@knime/components` imports                      | `@knime/kds-components` equivalents                             |
+| `@knime/styles` imports                          | `@knime/kds-styles` equivalents                                 |
+| `@knime/styles/img/icons/foo.svg`                | `@knime/kds-styles/img/icons/foo` (no `.svg` extension)         |
+| `--knime-*` CSS variables                        | `--kds-*` tokens                                                |
+| `Button` component                               | `KdsButton` or `KdsLinkButton`                                  |
+| Hard-coded `box-shadow`                          | `--kds-elevation-level-*` tokens                                |
+| Hard-coded colors/spacing                        | `--kds-color-*` / `--kds-spacing-container-*` tokens            |
+| Separate `font-size`/`font-weight`/`line-height` | `font: var(--kds-font-base-*)` shorthand token                  |
+| Imported SVG icons from `@knime/styles`          | Import from `@knime/kds-styles/img/icons/<name>` (no extension) |
 
 Legacy packages (`@knime/components`, `@knime/styles`) are still present but must NOT be used for new code. When a legacy component has no KDS equivalent (e.g. `NavMenu`, `SubMenu`), keep using it but override its styles with KDS tokens.
 

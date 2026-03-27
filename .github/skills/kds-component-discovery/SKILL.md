@@ -134,8 +134,8 @@ Search for font tokens: `grep "kds-font-base" node_modules/@knime/kds-styles/dis
 ### Spacing — use `--kds-spacing-container-*`
 
 ```css
-padding: var(--kds-spacing-container-1x);          /* 16px */
-gap: var(--kds-spacing-container-0-5x);            /* 8px */
+padding: var(--kds-spacing-container-1x); /* 16px */
+gap: var(--kds-spacing-container-0-5x); /* 8px */
 margin-bottom: var(--kds-spacing-container-0-25x); /* 4px */
 ```
 
