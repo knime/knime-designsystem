@@ -2,6 +2,9 @@
 applyTo: "**/*.vue"
 ---
 
-# Figma MCP Integration
+# Figma Integration
 
-When implementing a design from Figma, load the **figma-mcp** skill. It contains the full workflow: MCP setup, token gathering, `get_code` / `get_screenshot` / `get_metadata`, implementation rules, and missing component handling.
+Two skills are available:
+
+- **figma-setup** — Setting up the Figma MCP server (token, `.vscode/mcp.json`, troubleshooting).
+- **figma-mcp** — Inspecting Figma designs, extracting/validating tokens, and implementing UI from Figma links.
