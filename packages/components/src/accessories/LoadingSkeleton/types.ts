@@ -12,10 +12,10 @@ export type kdsLoadingSkeletonItemShape =
 type KdsLoadingSkeletonCssLength = `${number}%` | `var(--${string})`;
 
 export type KdsLoadingSkeletonItemProps = {
-  /** Width in % or token variable. Defaults to 100%. */
+  /** Width in % or token variable. Defaults to 100% or default shape width. */
   width?: KdsLoadingSkeletonCssLength;
 
-  /** Height in % or token variable. Defaults to var(--kds-spacing-container-1-25x). */
+  /** Height in % or token variable. Only possible for `card` variant. */
   height?: KdsLoadingSkeletonCssLength;
 
   /** selects the rendered skeleton shape */
@@ -23,10 +23,10 @@ export type KdsLoadingSkeletonItemProps = {
 };
 
 export type KdsLoadingSkeletonProps = {
-  /** Width in % or token variable. Defaults to 100%. */
+  /** Width in % or token variable. Defaults to 100% or default shape width. */
   width?: KdsLoadingSkeletonCssLength;
 
-  /** Height in % or token variable. Defaults to var(--kds-spacing-container-1-25x). */
+  /** Height in % or token variable. Only possible for `card` variant. */
   height?: KdsLoadingSkeletonCssLength;
 
   /** Main API: selects the rendered skeleton preset/layout. */
@@ -38,6 +38,6 @@ export type KdsLoadingSkeletonProps = {
   /** Number of skeleton items to render. Defaults to 1. */
   repeat?: number;
 
-  /** Gap between repeated skeleton items as token variable. */
+  /** Gap between repeated skeleton items as token variable. Defaults to `var(--kds-spacing-container-1x)`. */
   repeatGap?: `var(--${string})`;
 };

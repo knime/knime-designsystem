@@ -1,26 +1,26 @@
 <script setup lang="ts">
 import KdsLoadingSkeletonItem from "./KdsLoadingSkeletonItem.vue";
-import type { KdsLoadingSkeletonProps } from "./types";
-import { useKdsLoadingSkeleton } from "./useKdsLoadingSkeleton";
+import type {
+  KdsLoadingSkeletonProps,
+  kdsLoadingSkeletonItemShape,
+} from "./types";
 
-defineOptions({
-  inheritAttrs: false,
-});
+const {
+  loading = false,
+  variant = "text",
+  repeat = 1,
+  repeatGap = "var(--kds-spacing-container-1x)",
+  width,
+  height,
+} = defineProps<KdsLoadingSkeletonProps>();
 
-const props = defineProps<KdsLoadingSkeletonProps>();
-
-const { isVariant, loading, repeat } = useKdsLoadingSkeleton(props);
+/* TODO move to layout folder */
 </script>
 
 <template>
-  <div
-    v-if="loading"
-    class="kds-loading-skeleton"
-    v-bind="$attrs"
-    aria-hidden="true"
-  >
+  <div v-if="loading" class="kds-loading-skeleton" aria-hidden="true">
     <div v-for="index in repeat" :key="`skeleton-${index}`" role="presentation">
-      <template v-if="isVariant('text-headline-with-paragraph')">
+      <template v-if="variant == 'text-headline-with-paragraph'">
         <div class="kds-loading-skeleton-headline-with-paragraph">
           <KdsLoadingSkeletonItem shape="text" class="headline" />
           <div class="kds-loading-skeleton-paragraph-lines">
@@ -30,34 +30,25 @@ const { isVariant, loading, repeat } = useKdsLoadingSkeleton(props);
           </div>
         </div>
       </template>
-      <template v-else-if="isVariant('input-field')">
+      <template v-else-if="variant == 'input-field'">
         <div class="kds-loading-skeleton-input-field">
           <KdsLoadingSkeletonItem shape="label" class="label" />
-          <KdsLoadingSkeletonItem shape="input" />
+          <KdsLoadingSkeletonItem shape="input-field" />
         </div>
       </template>
-      <template
-        v-else-if="
-          isVariant('list-item-large') ||
-          isVariant('list-item-large-with-subtext') ||
-          isVariant('list-item-small') ||
-          isVariant('list-item-small-with-subtext')
-        "
-      >
+      <template v-else-if="variant?.startsWith('list-item-')">
         <div
           :class="[
             'kds-loading-skeleton-list-item',
             {
               'kds-loading-skeleton-list-item-small':
-                isVariant('list-item-small') ||
-                isVariant('list-item-small-with-subtext'),
+                variant.startsWith('list-item-small'),
             },
           ]"
         >
           <KdsLoadingSkeletonItem
             :shape="
-              isVariant('list-item-large') ||
-              isVariant('list-item-large-with-subtext')
+              variant.startsWith('list-item-large')
                 ? 'icon-large'
                 : 'icon-small'
             "
@@ -65,17 +56,18 @@ const { isVariant, loading, repeat } = useKdsLoadingSkeleton(props);
           <div class="kds-loading-skeleton-list-item-text">
             <KdsLoadingSkeletonItem shape="text" />
             <KdsLoadingSkeletonItem
-              v-if="
-                isVariant('list-item-large-with-subtext') ||
-                isVariant('list-item-small-with-subtext')
-              "
+              v-if="variant.endsWith('subtext')"
               shape="text"
             />
           </div>
         </div>
       </template>
       <template v-else>
-        <KdsLoadingSkeletonItem :shape="props.variant" />
+        <KdsLoadingSkeletonItem
+          :shape="variant as kdsLoadingSkeletonItemShape"
+          :width="width"
+          :height="height"
+        />
       </template>
     </div>
   </div>
@@ -85,20 +77,10 @@ const { isVariant, loading, repeat } = useKdsLoadingSkeleton(props);
 </template>
 
 <style scoped>
-@keyframes knight-rider {
-  from {
-    background-position-x: 100%;
-  }
-
-  to {
-    background-position-x: -100%;
-  }
-}
-
 .kds-loading-skeleton {
   display: flex;
   flex-direction: column;
-  gap: v-bind(props.repeatGap);
+  gap: v-bind(repeatGap);
 }
 
 .kds-loading-skeleton-headline-with-paragraph {
@@ -135,6 +117,9 @@ const { isVariant, loading, repeat } = useKdsLoadingSkeleton(props);
   gap: var(--kds-spacing-container-0-75x);
   align-items: center;
 
+  /* TODO adjust padding depending on large/small */
+  padding: var(--kds-spacing-container-0-75x);
+
   & .kds-loading-skeleton-list-item-text {
     display: grid;
     gap: var(--kds-spacing-container-0-5x);
@@ -146,6 +131,7 @@ const { isVariant, loading, repeat } = useKdsLoadingSkeleton(props);
 }
 
 .kds-loading-skeleton-list-item-small {
+  /* TODO fix icon/text size */
   align-items: start;
 }
 </style>

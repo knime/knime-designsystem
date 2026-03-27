@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import type { KdsLoadingSkeletonItemProps } from "./types";
 
-const props = withDefaults(defineProps<KdsLoadingSkeletonItemProps>(), {
-  shape: "text",
-});
+const {
+  shape = "text",
+  width,
+  height,
+} = defineProps<KdsLoadingSkeletonItemProps>();
 </script>
 
 <template>
-  <div :class="['kds-loading-skeleton-item', props.shape]" />
+  <div :class="['kds-loading-skeleton-item', shape]" />
 </template>
 
 <style scoped>
@@ -64,7 +66,9 @@ const props = withDefaults(defineProps<KdsLoadingSkeletonItemProps>(), {
   }
 
   &.button-large {
-    width: var(--kds-dimension-component-width-4x);
+    --custom-width: v-bind(width);
+
+    width: calc(var(--custom-width, var(--kds-dimension-component-width-4x)));
     height: var(--kds-dimension-component-height-2-25x);
     border-radius: var(--kds-border-radius-container-0-50x);
   }
@@ -87,7 +91,7 @@ const props = withDefaults(defineProps<KdsLoadingSkeletonItemProps>(), {
     border-radius: var(--kds-border-radius-container-0-25x);
   }
 
-  &.input {
+  &.input-field {
     height: var(--kds-dimension-component-height-1-75x);
     border-radius: var(--kds-border-radius-container-0-37x);
   }
@@ -99,60 +103,14 @@ const props = withDefaults(defineProps<KdsLoadingSkeletonItemProps>(), {
   }
 
   &.card {
-    border-radius: var(--kds-border-radius-container-0-50x);
-  }
+    --custom-width: v-bind(width);
+    --custom-height: v-bind(height);
 
-  /*
-  &.button-preset-large {
-    --kds-loading-skeleton-default-radius: var(
-      --kds-border-radius-container-0-50x
+    width: calc(var(--custom-width, var(--kds-dimension-component-width-4x)));
+    height: calc(
+      var(--custom-height, var(--kds-dimension-component-height-1-75x))
     );
-
-    width: var(--kds-dimension-component-width-4x);
-    height: var(--kds-dimension-component-height-2-25x);
+    border-radius: var(--kds-border-radius-container-0-37x);
   }
-
-  &.button-preset-medium {
-    --kds-loading-skeleton-default-radius: var(
-      --kds-border-radius-container-0-37x
-    );
-
-    width: var(--kds-dimension-component-width-4x);
-    height: var(--kds-dimension-component-height-1-75x);
-  }
-
-  &.button-preset-small {
-    --kds-loading-skeleton-default-radius: var(
-      --kds-border-radius-container-0-37x
-    );
-
-    width: var(--kds-dimension-component-width-4x);
-    height: var(--kds-dimension-component-height-1-5x);
-  }
-
-  &.button-preset-xsmall {
-    --kds-loading-skeleton-default-radius: var(
-      --kds-border-radius-container-0-25x
-    );
-
-    width: var(--kds-dimension-component-width-4x);
-    height: var(--kds-dimension-component-height-1-25x);
-  }
-
-  &.card-preset-default {
-    --kds-loading-skeleton-default-radius: var(
-      --kds-border-radius-container-0-37x
-    );
-
-    box-sizing: border-box;
-    align-self: stretch;
-    width: 100%;
-    min-width: 100%;
-    height: auto;
-
-    min-height: calc(var(--kds-dimension-component-height-2-5x) * 4);
-    margin: 0;
-  }
-  */
 }
 </style>

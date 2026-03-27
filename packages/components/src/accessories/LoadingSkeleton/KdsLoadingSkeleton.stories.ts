@@ -23,14 +23,6 @@ const meta: Meta<typeof KdsLoadingSkeleton> = {
     },
   },
   argTypes: {
-    width: {
-      control: "text",
-      table: { category: "props" },
-    },
-    height: {
-      control: "text",
-      table: { category: "props" },
-    },
     variant: {
       control: { type: "select" },
       options: kdsLoadingSkeletonVariants,
@@ -50,14 +42,23 @@ const meta: Meta<typeof KdsLoadingSkeleton> = {
       control: "text",
       table: { category: "props" },
     },
+    width: {
+      control: "text",
+      table: { category: "props" },
+    },
+    height: {
+      control: "text",
+      table: { category: "props" },
+    },
   },
   args: {
-    width: "100%",
+    width: undefined,
     height: undefined,
-    variant: "default",
+    variant: "text",
     loading: true,
     repeat: 1,
     repeatGap: "var(--kds-spacing-container-1-25x)",
+    default: "Default slot content",
   },
 };
 
@@ -65,7 +66,12 @@ export default meta;
 
 type Story = StoryObj<typeof KdsLoadingSkeleton>;
 
-export const Default: Story = {};
+/* TODO add stories for each basic shape */
+export const Text: Story = {
+  args: {
+    variant: "text",
+  },
+};
 
 export const HeadlineWithPararaphs: Story = {
   args: {
@@ -103,85 +109,6 @@ export const ListItemSmallWithSubtext: Story = {
   },
 };
 
-/*
-export const TextPresets: Story = buildVariantListStory({
-  items: [
-    {
-      label: "Headline with Paragraph",
-      value: "text-headline-with-paragraph",
-      repeat: 1,
-    },
-  ],
-  containerGap: "var(--kds-spacing-container-0-75x)",
-  maxWidth: "28rem",
-});
-
-export const IconPresets: Story = buildVariantListStory({
-  items: [
-    { label: "Large", value: "icon-large" },
-    { label: "Medium", value: "icon-medium" },
-    { label: "Small", value: "icon-small" },
-  ],
-  containerGap: "var(--kds-spacing-container-0-5x)",
-});
-
-export const ButtonPresets: Story = buildVariantListStory({
-  items: [
-    { label: "Large", value: "button-large" },
-    { label: "Medium", value: "button-medium" },
-    { label: "Small", value: "button-small" },
-    { label: "XSmall", value: "button-xsmall" },
-  ],
-  containerGap: "var(--kds-spacing-container-0-5x)",
-});
-
-export const Backgrounds: Story = {
-  render: (args) => ({
-    components: { KdsLoadingSkeleton },
-    setup() {
-      const backgrounds = [
-        {
-          label: "Background Page Default",
-          value: "var(--kds-color-background-page-default)",
-        },
-        {
-          label: "Surface Default",
-          value: "var(--kds-color-surface-default)",
-        },
-        {
-          label: "Surface Muted",
-          value: "var(--kds-color-surface-muted)",
-        },
-        {
-          label: "Surface Subtle",
-          value: "var(--kds-color-surface-subtle)",
-        },
-      ];
-
-      return { args, backgrounds };
-    },
-    template: `
-      <div style="display: grid; gap: var(--kds-spacing-container-0-75x);">
-        <div
-          v-for="background in backgrounds"
-          :key="background.label"
-          :style="{ background: background.value, padding: 'var(--kds-spacing-container-0-75x)' }"
-        >
-          <div style="font: var(--kds-font-base-body-small-strong); margin-bottom: var(--kds-spacing-container-0-5x);">
-            {{ background.label }}
-          </div>
-          <KdsLoadingSkeleton
-            v-bind="args"
-            variant="text-headline-with-paragraph"
-            :repeat="1"
-          />
-        </div>
-      </div>
-    `,
-  }),
-};
-*/
-
 export const TextOverflow: Story = {
   ...buildTextOverflowStory({
     component: KdsLoadingSkeleton,
@@ -200,7 +127,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   designsToCompare: {
     CardDefault: {
       props: {
-        variant: "card-default",
+        variant: "card",
         width: "100%",
         repeat: 1,
         loading: true,
@@ -310,7 +237,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsLoadingSkeleton,
   combinationsProps: [
     {
-      variant: ["default"],
+      variant: ["text"],
       width: ["75%", "100%"],
       height: [
         "var(--kds-spacing-container-1x)",
@@ -321,7 +248,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       loading: [true],
     },
     {
-      variant: ["text-default", "text-headline-with-paragraph"],
+      variant: ["text", "text-headline-with-paragraph"],
       loading: [true],
     },
     {
@@ -344,7 +271,7 @@ export const AllCombinations: Story = buildAllCombinationsStory({
         "list-item-large-with-subtext",
         "list-item-small",
         "list-item-small-with-subtext",
-        "card-default",
+        "card",
       ],
       loading: [true],
     },
