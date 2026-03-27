@@ -48,3 +48,4 @@ storybook-static/
 
 *.local
 .env.development
+.vscode/mcp.json
