@@ -30,25 +30,27 @@ The MCP response contains `globalVars.styles` with raw values (colors, fonts, la
 ### Mapping Figma values to KDS tokens
 
 Search the compiled token file to find the right token:
+
 ```bash
 grep "<value-or-keyword>" node_modules/@knime/kds-styles/dist/tokens/css/_variables.css
 ```
 
 Common mappings from Figma raw values:
 
-| Figma value | What to search | KDS token pattern |
-|---|---|---|
-| `#282828` / dark bg | `color-surface-default` | `--kds-color-surface-default` |
-| `#F0F0F0` / light text on dark | `color-text-and-icon-neutral` | `--kds-color-text-and-icon-neutral` |
-| `Roboto 400 14px` | `font-base-body-medium` | `--kds-font-base-body-medium` |
-| `Roboto 500 14px` | `font-base-title-medium` | `--kds-font-base-title-medium` |
-| `1px solid rgba(252,252,252,0.2)` | `border-base-muted` | `--kds-border-base-muted` |
-| `16×16 icon` | `dimension-icon-1x` | `--kds-dimension-icon-1x` (KdsIcon `size="medium"`) |
-| icon stroke ~1.25px | `border-width-icon-stroke-m` | `--kds-border-width-icon-stroke-m` |
+| Figma value                       | What to search                | KDS token pattern                                   |
+| --------------------------------- | ----------------------------- | --------------------------------------------------- |
+| `#282828` / dark bg               | `color-surface-default`       | `--kds-color-surface-default`                       |
+| `#F0F0F0` / light text on dark    | `color-text-and-icon-neutral` | `--kds-color-text-and-icon-neutral`                 |
+| `Roboto 400 14px`                 | `font-base-body-medium`       | `--kds-font-base-body-medium`                       |
+| `Roboto 500 14px`                 | `font-base-title-medium`      | `--kds-font-base-title-medium`                      |
+| `1px solid rgba(252,252,252,0.2)` | `border-base-muted`           | `--kds-border-base-muted`                           |
+| `16×16 icon`                      | `dimension-icon-1x`           | `--kds-dimension-icon-1x` (KdsIcon `size="medium"`) |
+| icon stroke ~1.25px               | `border-width-icon-stroke-m`  | `--kds-border-width-icon-stroke-m`                  |
 
 ### Token naming conventions
 
 If the user provides Token Studio tokens (from the Tree Inspector plugin), convert directly:
+
 - `kds.spacing.container.0_25x` → `--kds-spacing-container-0-25x`
 - `kds.color.background.primary` → `--kds-color-background-primary`
 - Rule: dots → dashes, underscores in numbers → dashes.
@@ -56,24 +58,26 @@ If the user provides Token Studio tokens (from the Tree Inspector plugin), conve
 ### Validation
 
 Before using a token, verify it exists:
+
 ```bash
 grep "token-name" node_modules/@knime/kds-styles/dist/tokens/css/_variables.css
 ```
+
 If the token doesn't exist, search for alternatives. **Never invent token names.**
 
 ### Token source files
 
 For deeper exploration, tokens are defined as JSON in `.kds/packages/styles/src/tokens/`:
 
-| Category | Source file |
-|---|---|
-| Colors (surfaces, text, backgrounds) | `mode/light.json`, `mode/dark.json` |
-| Core color palette | `core/color.json` |
+| Category                                | Source file                               |
+| --------------------------------------- | ----------------------------------------- |
+| Colors (surfaces, text, backgrounds)    | `mode/light.json`, `mode/dark.json`       |
+| Core color palette                      | `core/color.json`                         |
 | Typography (fonts, sizes, line-heights) | `style/typography.json`, `core/font.json` |
-| Spacing & sizing | `style/size.json`, `core/size.json` |
-| Borders & radii | `style/border.json` |
-| Elevation / shadows | `style/elevation.json` |
-| Component-specific tokens | `components/global.json` |
+| Spacing & sizing                        | `style/size.json`, `core/size.json`       |
+| Borders & radii                         | `style/border.json`                       |
+| Elevation / shadows                     | `style/elevation.json`                    |
+| Component-specific tokens               | `components/global.json`                  |
 
 ## Step 3 — Ask for user-provided tokens (optional)
 
