@@ -181,7 +181,7 @@ export const TextOverflow: Story = {
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsLoadingSkeleton,
   wrapperStyle: {
-    width: "calc(var(--kds-dimension-component-width-4x) * 5)",
+    width: "calc(var(--kds-dimension-component-width-4x) * 5.3333333333)",
   },
   designsToCompare: {
     InputFieldPreset: {

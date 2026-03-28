@@ -58,7 +58,7 @@ const {
               shape="text"
               :height="
                 variant.startsWith('list-item-large')
-                  ? 'var(--kds-dimension-component-height-1x)'
+                  ? 'var(--kds-dimension-component-height-0-88x)'
                   : 'var(--kds-dimension-component-height-0-75x)'
               "
             />
@@ -67,7 +67,7 @@ const {
               shape="text"
               :height="
                 variant.startsWith('list-item-large')
-                  ? 'var(--kds-dimension-component-height-1x)'
+                  ? 'var(--kds-dimension-component-height-0-88x)'
                   : 'var(--kds-dimension-component-height-0-75x)'
               "
             />
