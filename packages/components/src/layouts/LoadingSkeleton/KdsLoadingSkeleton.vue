@@ -41,6 +41,8 @@ const {
             {
               'kds-loading-skeleton-list-item-large':
                 variant.startsWith('list-item-large'),
+              'kds-loading-skeleton-list-item-large-with-subtext':
+                variant == 'list-item-large-with-subtext',
               'kds-loading-skeleton-list-item-small':
                 variant.startsWith('list-item-small'),
             },
@@ -160,7 +162,14 @@ const {
         var(--kds-spacing-container-0-5x) - var(--kds-core-border-width-xs)
       )
       var(--kds-spacing-container-0-5x) var(--kds-spacing-container-0-25x);
+  }
 
+  &.kds-loading-skeleton-list-item-large-with-subtext {
+    align-items: center;
+  }
+
+  &.kds-loading-skeleton-list-item-large-with-subtext,
+  &.kds-loading-skeleton-list-item-small {
     & .kds-loading-skeleton-list-item-text {
       justify-content: flex-start;
     }
