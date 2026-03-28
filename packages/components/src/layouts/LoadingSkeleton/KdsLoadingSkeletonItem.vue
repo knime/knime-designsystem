@@ -40,7 +40,12 @@ const {
   animation: knight-rider 2s linear 200ms infinite;
 
   &.text {
-    height: var(--kds-dimension-component-height-0-75x);
+    --custom-height: v-bind(height);
+
+    width: 100%;
+    height: calc(
+      var(--custom-height, var(--kds-dimension-component-height-0-75x))
+    );
     border-radius: var(--kds-border-radius-container-pill);
   }
 

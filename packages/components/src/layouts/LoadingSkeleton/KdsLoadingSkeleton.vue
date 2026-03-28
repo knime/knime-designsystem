@@ -13,8 +13,6 @@ const {
   width,
   height,
 } = defineProps<KdsLoadingSkeletonProps>();
-
-/* TODO move to layout folder */
 </script>
 
 <template>
@@ -41,6 +39,8 @@ const {
           :class="[
             'kds-loading-skeleton-list-item',
             {
+              'kds-loading-skeleton-list-item-large':
+                variant.startsWith('list-item-large'),
               'kds-loading-skeleton-list-item-small':
                 variant.startsWith('list-item-small'),
             },
@@ -54,10 +54,22 @@ const {
             "
           />
           <div class="kds-loading-skeleton-list-item-text">
-            <KdsLoadingSkeletonItem shape="text" />
+            <KdsLoadingSkeletonItem
+              shape="text"
+              :height="
+                variant.startsWith('list-item-large')
+                  ? 'var(--kds-dimension-component-height-1x)'
+                  : 'var(--kds-dimension-component-height-0-75x)'
+              "
+            />
             <KdsLoadingSkeletonItem
               v-if="variant.endsWith('subtext')"
               shape="text"
+              :height="
+                variant.startsWith('list-item-large')
+                  ? 'var(--kds-dimension-component-height-1x)'
+                  : 'var(--kds-dimension-component-height-0-75x)'
+              "
             />
           </div>
         </div>
@@ -112,26 +124,46 @@ const {
 }
 
 .kds-loading-skeleton-list-item {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: var(--kds-spacing-container-0-75x);
+  display: flex;
+  gap: var(--kds-spacing-container-0-5x);
   align-items: center;
-
-  /* TODO adjust padding depending on large/small */
-  padding: var(--kds-spacing-container-0-75x);
+  width: 100%;
+  min-width: var(--kds-dimension-component-width-12x);
+  padding: var(--kds-spacing-container-0-25x) var(--kds-spacing-container-0-5x);
 
   & .kds-loading-skeleton-list-item-text {
-    display: grid;
-    gap: var(--kds-spacing-container-0-5x);
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: var(--kds-spacing-container-0-25x);
+    min-width: 0;
 
     & .text {
-      height: var(--kds-dimension-component-height-0-88x);
+      width: 100%;
     }
   }
-}
 
-.kds-loading-skeleton-list-item-small {
-  /* TODO fix icon/text size */
-  align-items: start;
+  &.kds-loading-skeleton-list-item-large {
+    & .kds-loading-skeleton-list-item-text {
+      justify-content: center;
+      min-height: calc(
+        var(--kds-dimension-component-height-2-5x) - 2 *
+          var(--kds-spacing-container-0-25x)
+      );
+    }
+  }
+
+  &.kds-loading-skeleton-list-item-small {
+    gap: var(--kds-spacing-container-0-5x);
+    align-items: start;
+    padding: calc(
+        var(--kds-spacing-container-0-5x) - var(--kds-core-border-width-xs)
+      )
+      var(--kds-spacing-container-0-5x) var(--kds-spacing-container-0-25x);
+
+    & .kds-loading-skeleton-list-item-text {
+      justify-content: flex-start;
+    }
+  }
 }
 </style>
