@@ -44,6 +44,11 @@ const meta: Meta<typeof KdsPopover> = {
       description:
         "When true, the popover's minimum width matches the anchor element's width.",
     },
+    maxInlineSize: {
+      control: { type: "text" },
+      description:
+        "Maximum inline size as a CSS value. The container cannot grow above this value. When not set, there is no upper limit.",
+    },
     default: {
       control: false,
       description:
@@ -58,6 +63,7 @@ const meta: Meta<typeof KdsPopover> = {
     role: "dialog",
     popoverType: "auto",
     fullWidth: false,
+    maxInlineSize: undefined,
   },
   parameters: {
     docs: {
