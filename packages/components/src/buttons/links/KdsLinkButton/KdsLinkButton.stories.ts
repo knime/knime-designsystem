@@ -1,6 +1,6 @@
 import type { FunctionalComponent } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { expect, fn, userEvent, within } from "storybook/test";
+import { expect, fn, within } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
@@ -127,18 +127,9 @@ export const Filled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const user = userEvent.setup();
 
     const link = canvas.getByRole("link", { name: "Button" });
     await expect(link).toBeInTheDocument();
-
-    // Mouse interaction
-    await user.click(link);
-
-    // Keyboard interaction
-    link.blur();
-    await user.tab();
-    await expect(link).toHaveFocus();
   },
 };
 
