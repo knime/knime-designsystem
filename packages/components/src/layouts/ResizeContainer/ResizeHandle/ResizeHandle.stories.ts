@@ -56,17 +56,18 @@ type Story = StoryObj<typeof ResizeHandle>;
 export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const button = canvas.getByRole("button", {
       name: "Resize vertically",
     });
 
     // Mouse: click to focus
-    await userEvent.click(button);
+    await user.click(button);
     await expect(button).toHaveFocus();
 
     // Keyboard: tab to focus
     button.blur();
-    await userEvent.tab();
+    await user.tab();
     await expect(button).toHaveFocus();
   },
 };
@@ -78,6 +79,7 @@ export const MultipleHandles: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const handles = canvas.getAllByRole("button", {
       name: /^Resize vertically/,
     });
@@ -85,11 +87,11 @@ export const MultipleHandles: Story = {
     await expect(handles).toHaveLength(3);
 
     // Mouse: click first handle to focus
-    await userEvent.click(handles[0]);
+    await user.click(handles[0]);
     await expect(handles[0]).toHaveFocus();
 
     // Keyboard: tab between handles
-    await userEvent.tab();
+    await user.tab();
     await expect(handles[1]).toHaveFocus();
   },
 };

@@ -135,15 +135,16 @@ export default meta;
 export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const trigger = canvas.getByRole("button", { name: /Select/ });
 
     // Mouse: open dropdown and select an option
-    await userEvent.click(trigger);
-    await userEvent.click(canvas.getByRole("option", { name: "Label" }));
+    await user.click(trigger);
+    await user.click(canvas.getByRole("option", { name: "Label" }));
     await expect(trigger).toHaveTextContent("Label");
 
     // Mouse: allow selection of option with empty value
-    await userEvent.click(
+    await user.click(
       canvas.getByRole("option", { name: "Option with empty value" }),
     );
     await expect(trigger).toHaveTextContent("Selected (2/6)");
@@ -152,8 +153,8 @@ export const Default: Story = {
     const filterInput = canvas.getByRole("searchbox", {
       name: "Filter options",
     });
-    await userEvent.click(filterInput);
-    await userEvent.keyboard("{ArrowDown}{ArrowDown}{Enter}");
+    await user.click(filterInput);
+    await user.keyboard("{ArrowDown}{ArrowDown}{Enter}");
     await expect(trigger).toHaveTextContent("Selected (3/6)");
   },
 };
@@ -170,15 +171,16 @@ export const MissingValue: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const trigger = canvas.getByRole("button", {
       name: /\(Missing\) missing-id/,
     });
 
-    await userEvent.click(trigger);
+    await user.click(trigger);
     const missingOption = canvas.getByRole("option", { name: /missing-id/ });
     await expect(missingOption).toBeInTheDocument();
 
-    await userEvent.click(missingOption);
+    await user.click(missingOption);
     await expect(trigger).toHaveTextContent("Select");
   },
 };
@@ -196,9 +198,10 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const trigger = canvas.getByRole("button", { name: /Select/ });
     await expect(trigger).toBeDisabled();
-    await userEvent.click(trigger);
+    await user.click(trigger);
     await expect(canvas.queryByRole("searchbox")).toBeNull();
   },
 };
@@ -209,20 +212,21 @@ export const AllowNewValues: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const trigger = canvas.getByRole("button", { name: /Select/ });
 
     // Open dropdown
-    await userEvent.click(trigger);
+    await user.click(trigger);
     const filterInput = canvas.getByRole("searchbox", {
       name: "Filter options",
     });
 
     // Type a new value
-    await userEvent.type(filterInput, "New item");
+    await user.type(filterInput, "New item");
 
     // Click the add option inside the list
     const addOption = canvas.getByRole("option", { name: "New item" });
-    await userEvent.click(addOption);
+    await user.click(addOption);
 
     // Trigger should show selected value text (new item is added as a real option)
     await expect(trigger).toHaveTextContent("New item");

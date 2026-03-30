@@ -120,20 +120,21 @@ export default meta;
 export const Default: Story = {
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const input = canvas.getByRole("textbox", { name: "Label" });
 
     await step("Type into the input", async () => {
-      await userEvent.click(input);
-      await userEvent.type(input, "demo-user");
+      await user.click(input);
+      await user.type(input, "demo-user");
       await expect(input).toHaveValue("demo-user");
 
-      await userEvent.clear(input);
+      await user.clear(input);
       await expect(input).toHaveValue("");
     });
 
     await step("Tab focus", async () => {
       input.blur();
-      await userEvent.tab();
+      await user.tab();
       await expect(input).toHaveFocus();
     });
   },

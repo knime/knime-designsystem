@@ -134,20 +134,21 @@ export const Default: Story = {
   },
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const card = canvas.getByRole("button", {
       name: "Demo card for Storybook",
     });
 
     // Test mouse interaction
-    await userEvent.click(card);
+    await user.click(card);
     await expect(args.onClick).toHaveBeenCalledTimes(1);
 
     // Test keyboard interaction
     card.focus();
-    await userEvent.keyboard("{Enter}");
+    await user.keyboard("{Enter}");
     await expect(args.onClick).toHaveBeenCalledTimes(2);
 
-    await userEvent.keyboard(" ");
+    await user.keyboard(" ");
     await expect(args.onClick).toHaveBeenCalledTimes(3);
   },
 };
@@ -171,6 +172,7 @@ export const Selected: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const card = canvas.getByRole("button", {
       name: "Demo card for Storybook",
     });
@@ -178,18 +180,18 @@ export const Selected: Story = {
     await expect(card).toHaveAttribute("aria-pressed", "true");
 
     // Test mouse interaction
-    await userEvent.click(card);
+    await user.click(card);
     await expect(card).toHaveAttribute("aria-pressed", "false");
 
-    await userEvent.click(card);
+    await user.click(card);
     await expect(card).toHaveAttribute("aria-pressed", "true");
 
     // Test keyboard interaction
     card.focus();
-    await userEvent.keyboard("{Enter}");
+    await user.keyboard("{Enter}");
     await expect(card).toHaveAttribute("aria-pressed", "false");
 
-    await userEvent.keyboard(" ");
+    await user.keyboard(" ");
     await expect(card).toHaveAttribute("aria-pressed", "true");
   },
 };
@@ -201,12 +203,13 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const card = canvas.getByRole("button", {
       name: "Demo card for Storybook",
     });
 
     await expect(card).toBeDisabled();
-    await userEvent.click(card);
+    await user.click(card);
     await expect(args.onClick).not.toHaveBeenCalled();
   },
 };

@@ -123,14 +123,15 @@ export const Default: Story = {
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const input = canvas.getByRole("textbox", { name: "Pattern" });
 
     await step("Tab navigation (empty)", async () => {
       input.blur();
-      await userEvent.tab();
+      await user.tab();
       await expect(input).toHaveFocus();
 
-      await userEvent.tab();
+      await user.tab();
       const caseToggle = canvas.getByRole("button", {
         name: "Match case-insensitive",
       });
@@ -138,23 +139,23 @@ export const Default: Story = {
     });
 
     await step("Type, clear, and toggle", async () => {
-      await userEvent.click(input);
-      await userEvent.type(input, "abc");
+      await user.click(input);
+      await user.type(input, "abc");
       await expect(input).toHaveValue("abc");
 
       // Wait for clear button to appear after typing
       const clearButton = await canvas.findByRole("button", { name: "Clear" });
-      await userEvent.tab();
+      await user.tab();
       await expect(clearButton).toHaveFocus();
 
-      await userEvent.keyboard("{Enter}");
+      await user.keyboard("{Enter}");
       await expect(input).toHaveValue("");
 
       // After clearing, the clear button disappears. Wait for toggle to be focusable.
       const caseToggle = await canvas.findByRole("button", {
         name: "Match case-insensitive",
       });
-      await userEvent.click(caseToggle);
+      await user.click(caseToggle);
 
       // Wait for toggle state to update - the name changes when pressed
       const caseToggleActive = await canvas.findByRole("button", {
@@ -209,15 +210,16 @@ export const WithDescription: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
+    const user = userEvent.setup();
     const input = canvas.getByRole("textbox", { name: /pattern/i });
-    await userEvent.hover(input);
+    await user.hover(input);
 
     const infoButton = await canvas.findByRole("button", {
       name: "Click for more information",
     });
     await expect(infoButton).toBeInTheDocument();
 
-    await userEvent.click(infoButton);
+    await user.click(infoButton);
 
     const description = await canvas.findByText(
       /This is a helpful description that explains what this field is for\./i,
@@ -278,14 +280,46 @@ export const ProgrammaticFocus: Story = {
   }),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const button = canvas.getByRole("button", { name: "Focus Pattern Input" });
     const input = canvas.getByRole("textbox", { name: "Pattern" });
 
     await expect(input).not.toHaveFocus();
-    await userEvent.click(button);
+    await user.click(button);
     await expect(input).toHaveFocus();
   },
 };
+
+export const TextOverflow: Story = {
+  ...buildTextOverflowStory({
+    component: KdsPatternInput,
+    width: 340,
+  }),
+  args: {
+    label:
+      "Very long label that should be truncated when the container is too small",
+    modelValue:
+      "^a-very-very-very-long-pattern-with-a-lot-of-characters-and-groups([0-9]+)$",
+    subText:
+      "Very long helper text that should wrap to multiple lines when needed",
+  },
+};
+
+export const DesignComparator: Story = buildDesignComparatorStory({
+  component: KdsPatternInput,
+  wrapperStyle: "width: 218px",
+  designsToCompare: {
+    ".PatternInput": {
+      props: {},
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3524-11564":
+          {
+            placeholder: "{Pattern}",
+          },
+      },
+    },
+  },
+});
 
 export const AllCombinations: Story = buildAllCombinationsStory({
   component: KdsPatternInput,
@@ -308,34 +342,3 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   },
   pseudoStates: ["hover", "focus"],
 });
-
-export const DesignComparator: Story = buildDesignComparatorStory({
-  component: KdsPatternInput,
-  wrapperStyle: "width: 218px",
-  designsToCompare: {
-    ".PatternInput": {
-      props: {},
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3524-11564":
-          {
-            placeholder: "{Pattern}",
-          },
-      },
-    },
-  },
-});
-
-export const TextOverflow: Story = {
-  ...buildTextOverflowStory({
-    component: KdsPatternInput,
-    width: 340,
-  }),
-  args: {
-    label:
-      "Very long label that should be truncated when the container is too small",
-    modelValue:
-      "^a-very-very-very-long-pattern-with-a-lot-of-characters-and-groups([0-9]+)$",
-    subText:
-      "Very long helper text that should wrap to multiple lines when needed",
-  },
-};

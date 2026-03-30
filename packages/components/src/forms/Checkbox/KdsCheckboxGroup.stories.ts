@@ -137,6 +137,7 @@ export default meta;
 export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const group = canvas.getByRole("group");
     const scope = within(group);
 
@@ -148,32 +149,32 @@ export const Default: Story = {
     await expect(optionB).toHaveAttribute("aria-checked", "false");
 
     // Click to check Option B
-    await userEvent.click(optionB);
+    await user.click(optionB);
     await expect(optionB).toHaveAttribute("aria-checked", "true");
     await expect(optionA).toHaveAttribute("aria-checked", "true");
 
     // Click to uncheck Option A
-    await userEvent.click(optionA);
+    await user.click(optionA);
     await expect(optionA).toHaveAttribute("aria-checked", "false");
     await expect(optionB).toHaveAttribute("aria-checked", "true");
 
     // Space key to toggle
     optionA.focus();
-    await userEvent.keyboard(" ");
+    await user.keyboard(" ");
     await expect(optionA).toHaveAttribute("aria-checked", "true");
 
     // Enter key to toggle
-    await userEvent.keyboard("{Enter}");
+    await user.keyboard("{Enter}");
     await expect(optionA).toHaveAttribute("aria-checked", "false");
 
     // Tab navigation between checkboxes
     optionA.focus();
-    await userEvent.tab();
+    await user.tab();
     await expect(optionB).toHaveFocus();
 
     // Reset state
-    await userEvent.click(optionA);
-    await userEvent.click(optionB);
+    await user.click(optionA);
+    await user.click(optionB);
     await expect(optionA).toHaveAttribute("aria-checked", "true");
     await expect(optionB).toHaveAttribute("aria-checked", "false");
   },
@@ -240,6 +241,7 @@ export const DisabledOption: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const group = canvas.getByRole("group");
     const scope = within(group);
 
@@ -253,7 +255,7 @@ export const DisabledOption: Story = {
 
     // Tab navigation should skip the disabled option
     optionB.focus();
-    await userEvent.tab();
+    await user.tab();
     await expect(optionD).toHaveFocus();
   },
 };
@@ -264,6 +266,7 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const group = canvas.getByRole("group");
     const scope = within(group);
 
@@ -274,13 +277,13 @@ export const Disabled: Story = {
     await expect(optionB).toBeDisabled();
 
     // Click should not change selection
-    await userEvent.click(optionB);
+    await user.click(optionB);
     await expect(optionA).toHaveAttribute("aria-checked", "true");
     await expect(optionB).toHaveAttribute("aria-checked", "false");
 
     // Keyboard should not change selection
     optionA.focus();
-    await userEvent.keyboard(" ");
+    await user.keyboard(" ");
     await expect(optionA).toHaveAttribute("aria-checked", "true");
   },
 };

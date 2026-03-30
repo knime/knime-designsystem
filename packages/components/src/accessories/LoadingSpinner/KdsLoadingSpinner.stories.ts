@@ -95,16 +95,7 @@ export const Sizes: Story = {
   }),
 };
 
-export const AllCombinations: Story = buildAllCombinationsStory({
-  component: KdsLoadingSpinner,
-  combinationsProps: [
-    {
-      size: kdsIconSizes,
-      variant: kdsLoadingSpinnerVariants,
-    },
-  ],
-  pseudoStates: [], // no hover/focus/active states for this component
-});
+// TextOverflow story does not apply here
 
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsLoadingSpinner,
@@ -158,4 +149,13 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   },
 });
 
-// There is no text to overflow -> No TextOverflow story for this component
+export const AllCombinations: Story = buildAllCombinationsStory({
+  component: KdsLoadingSpinner,
+  combinationsProps: [
+    {
+      size: kdsIconSizes,
+      variant: kdsLoadingSpinnerVariants,
+    },
+  ],
+  pseudoStates: [], // no hover/focus/active states for this component
+});

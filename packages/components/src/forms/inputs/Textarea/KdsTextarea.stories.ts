@@ -134,12 +134,13 @@ export const Default: Story = {
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const textarea = canvas.getByRole("textbox", { name: "Label" });
 
     await step("Type multiple lines", async () => {
-      await userEvent.click(textarea);
-      await userEvent.clear(textarea);
-      await userEvent.type(textarea, "Hello{enter}World");
+      await user.click(textarea);
+      await user.clear(textarea);
+      await user.type(textarea, "Hello{enter}World");
       await expect(textarea).toHaveValue("Hello\nWorld");
     });
   },
@@ -178,15 +179,16 @@ export const WithDescription: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
+    const user = userEvent.setup();
     const textarea = canvas.getByRole("textbox", { name: /label/i });
-    await userEvent.hover(textarea);
+    await user.hover(textarea);
 
     const infoButton = await canvas.findByRole("button", {
       name: "Click for more information",
     });
     await expect(infoButton).toBeInTheDocument();
 
-    await userEvent.click(infoButton);
+    await user.click(infoButton);
 
     const description = await canvas.findByText(
       /This is a helpful description that explains what this field is for\./i,
@@ -316,37 +318,31 @@ export const ProgrammaticFocus: Story = {
   }),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const button = canvas.getByRole("button", { name: "Focus Textarea" });
     const input = canvas.getByRole("textbox", { name: "Textarea" });
 
     await expect(input).not.toHaveFocus();
-    await userEvent.click(button);
+    await user.click(button);
     await expect(input).toHaveFocus();
   },
 };
 
-export const AllCombinations: Story = buildAllCombinationsStory({
-  component: KdsTextarea,
-  combinationsProps: {
-    default: {
-      label: ["Label"],
-      ariaLabel: [undefined],
-      modelValue: ["", "Value", "Value\nSecond line"],
-      rows: [defaultRows, fourRows],
-      placeholder: ["", "Placeholder"],
-      disabled: [false],
-      error: [false],
-      validating: [false],
-      subText: [undefined, "Message"],
-    },
-    combinations: [
-      { validating: [true], subText: ["Validation message"] },
-      { error: [true], subText: ["Error message"] },
-      { disabled: [true] },
-    ],
+export const TextOverflow: Story = {
+  ...buildTextOverflowStory({
+    component: KdsTextarea,
+    width: 300,
+    height: 220,
+  }),
+  args: {
+    label:
+      "Very long label that should be truncated when the container is too small",
+    modelValue:
+      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+    subText:
+      "Very long helper text that should wrap to multiple lines when needed",
   },
-  pseudoStates: ["hover", "focus"],
-});
+};
 
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsTextarea,
@@ -401,18 +397,25 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   },
 });
 
-export const TextOverflow: Story = {
-  ...buildTextOverflowStory({
-    component: KdsTextarea,
-    width: 300,
-    height: 220,
-  }),
-  args: {
-    label:
-      "Very long label that should be truncated when the container is too small",
-    modelValue:
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
-    subText:
-      "Very long helper text that should wrap to multiple lines when needed",
+export const AllCombinations: Story = buildAllCombinationsStory({
+  component: KdsTextarea,
+  combinationsProps: {
+    default: {
+      label: ["Label"],
+      ariaLabel: [undefined],
+      modelValue: ["", "Value", "Value\nSecond line"],
+      rows: [defaultRows, fourRows],
+      placeholder: ["", "Placeholder"],
+      disabled: [false],
+      error: [false],
+      validating: [false],
+      subText: [undefined, "Message"],
+    },
+    combinations: [
+      { validating: [true], subText: ["Validation message"] },
+      { error: [true], subText: ["Error message"] },
+      { disabled: [true] },
+    ],
   },
-};
+  pseudoStates: ["hover", "focus"],
+});

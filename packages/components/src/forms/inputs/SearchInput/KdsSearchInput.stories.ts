@@ -180,11 +180,12 @@ export default meta;
 export const Default: Story = {
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const input = canvas.getByRole("searchbox", { name: "Search" });
 
     await step("Type search value", async () => {
-      await userEvent.click(input);
-      await userEvent.type(input, "Searchterm");
+      await user.click(input);
+      await user.type(input, "Searchterm");
       await expect(input).toHaveValue("Searchterm");
     });
 
@@ -194,10 +195,10 @@ export const Default: Story = {
         const clearButton = await canvas.findByRole("button", {
           name: "Clear",
         });
-        await userEvent.tab();
+        await user.tab();
         await expect(clearButton).toHaveFocus();
 
-        await userEvent.click(clearButton);
+        await user.click(clearButton);
         await expect(input).toHaveValue("");
         await expect(input).toHaveFocus();
       },
@@ -240,15 +241,16 @@ export const WithDescription: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
+    const user = userEvent.setup();
     const input = canvas.getByRole("searchbox", { name: /search/i });
-    await userEvent.hover(input);
+    await user.hover(input);
 
     const infoButton = await canvas.findByRole("button", {
       name: "Click for more information",
     });
     await expect(infoButton).toBeInTheDocument();
 
-    await userEvent.click(infoButton);
+    await user.click(infoButton);
 
     const description = await canvas.findByText(
       /This is a helpful description that explains what this field is for\./i,
@@ -330,11 +332,12 @@ export const ProgrammaticFocus: Story = {
   }),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const button = canvas.getByRole("button", { name: "Focus Search Input" });
     const input = canvas.getByRole("searchbox", { name: "Search" });
 
     await expect(input).not.toHaveFocus();
-    await userEvent.click(button);
+    await user.click(button);
     await expect(input).toHaveFocus();
   },
 };
@@ -348,6 +351,7 @@ export const WithResults: Story = {
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const input = canvas.getByRole("combobox", { name: "Search" });
     const results = await canvas.findByRole("listbox", { hidden: true });
     const option = await canvas.findByRole("option", {
@@ -356,13 +360,13 @@ export const WithResults: Story = {
     });
 
     await step("Open search results on focus", async () => {
-      await userEvent.click(input);
+      await user.click(input);
       await expect(results).toBeVisible();
       await expect(option).toBeVisible();
     });
 
     await step("Close search results on result click", async () => {
-      await userEvent.click(option);
+      await user.click(option);
       await expect(results).not.toBeVisible();
       await expect(option).not.toBeVisible();
     });
@@ -370,11 +374,11 @@ export const WithResults: Story = {
     await step(
       "Close search results on Enter key when option is selected",
       async () => {
-        await userEvent.click(input);
+        await user.click(input);
         await expect(results).toBeVisible();
         await expect(option).toBeVisible();
 
-        await userEvent.keyboard("{ArrowDown}{Enter}");
+        await user.keyboard("{ArrowDown}{Enter}");
         await expect(results).not.toBeVisible();
         await expect(option).not.toBeVisible();
       },
@@ -390,43 +394,32 @@ export const WithEmptyResults: Story = {
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const input = canvas.getByRole("combobox", { name: "Search" });
     const results = await canvas.findByRole("listbox", { hidden: true });
 
     await step("Shows empty message", async () => {
-      await userEvent.click(input);
+      await user.click(input);
       await expect(results).toBeVisible();
       await expect(results).toHaveTextContent("No search results");
     });
   },
 };
 
-export const AllCombinations: Story = buildAllCombinationsStory({
-  component: KdsSearchInput,
-  combinationsProps: {
-    default: {
-      label: ["Label"],
-      ariaLabel: [undefined],
-      modelValue: ["", "Searchterm"],
-      placeholder: ["", "Search"],
-      disabled: [false],
-      error: [false],
-      validating: [false],
-      subText: [undefined, "Message"],
-      results: [undefined, results],
-      resultsMaxHeight: [
-        undefined,
-        "var(--kds-dimension-component-height-25x)",
-      ],
-    },
-    combinations: [
-      { validating: [true], subText: ["Validation message"] },
-      { error: [true], subText: ["Error message"] },
-      { disabled: [true] },
-    ],
+export const TextOverflow: Story = {
+  ...buildTextOverflowStory({
+    component: KdsSearchInput,
+    width: 300,
+  }),
+  args: {
+    label:
+      "Very long label that should be truncated when the container is too small",
+    placeholder: "Very long placeholder text that should be truncated",
+    modelValue: "Very long value that should be truncated",
+    subText:
+      "Very long helper text that should wrap to multiple lines when needed",
   },
-  pseudoStates: ["hover", "focus"],
-});
+};
 
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsSearchInput,
@@ -478,17 +471,29 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   },
 });
 
-export const TextOverflow: Story = {
-  ...buildTextOverflowStory({
-    component: KdsSearchInput,
-    width: 300,
-  }),
-  args: {
-    label:
-      "Very long label that should be truncated when the container is too small",
-    placeholder: "Very long placeholder text that should be truncated",
-    modelValue: "Very long value that should be truncated",
-    subText:
-      "Very long helper text that should wrap to multiple lines when needed",
+export const AllCombinations: Story = buildAllCombinationsStory({
+  component: KdsSearchInput,
+  combinationsProps: {
+    default: {
+      label: ["Label"],
+      ariaLabel: [undefined],
+      modelValue: ["", "Searchterm"],
+      placeholder: ["", "Search"],
+      disabled: [false],
+      error: [false],
+      validating: [false],
+      subText: [undefined, "Message"],
+      results: [undefined, results],
+      resultsMaxHeight: [
+        undefined,
+        "var(--kds-dimension-component-height-25x)",
+      ],
+    },
+    combinations: [
+      { validating: [true], subText: ["Validation message"] },
+      { error: [true], subText: ["Error message"] },
+      { disabled: [true] },
+    ],
   },
-};
+  pseudoStates: ["hover", "focus"],
+});

@@ -100,22 +100,23 @@ type Story = StoryObj<typeof KdsResizeContainer>;
 export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const handle = canvas.getByRole("button", {
       name: "Resize vertically",
     });
 
     // Mouse: click to focus
-    await userEvent.click(handle);
+    await user.click(handle);
     await expect(handle).toHaveFocus();
 
     // Keyboard: tab to focus
     handle.blur();
-    await userEvent.tab();
+    await user.tab();
     await expect(handle).toHaveFocus();
 
     // Keyboard: ArrowDown / ArrowUp resize the container
-    await userEvent.keyboard("{ArrowDown}");
-    await userEvent.keyboard("{ArrowUp}");
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard("{ArrowUp}");
   },
 };
 
@@ -127,6 +128,7 @@ export const WithMinAndMaxHeight: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const handle = canvas.getByRole("button", {
       name: "Resize vertically",
     });
@@ -137,7 +139,7 @@ export const WithMinAndMaxHeight: Story = {
     await expect(slotContent.style.minBlockSize).toBe("100px");
     await expect(slotContent.style.blockSize).toBe("200px");
     await expect(slotContent.style.maxBlockSize).toBe("400px");
-    await userEvent.dblClick(handle);
+    await user.dblClick(handle);
     await expect(slotContent.style.minBlockSize).toBe("100px");
     await expect(slotContent.style.blockSize).toBe("fit-content");
     await expect(slotContent.style.maxBlockSize).toBe("400px");
@@ -152,6 +154,7 @@ export const MultipleHandles: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const handles = canvas.getAllByRole("button", {
       name: /^Resize vertically/,
     });
@@ -159,11 +162,11 @@ export const MultipleHandles: Story = {
     await expect(handles).toHaveLength(3);
 
     // Mouse: click first handle to focus
-    await userEvent.click(handles[0]);
+    await user.click(handles[0]);
     await expect(handles[0]).toHaveFocus();
 
     // Keyboard: tab between handles
-    await userEvent.tab();
+    await user.tab();
     await expect(handles[1]).toHaveFocus();
   },
 };
@@ -220,6 +223,7 @@ export const TwoLists: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
+    const user = userEvent.setup();
     // Lists are rendered inside the container
     const listboxes = canvas.getAllByRole("listbox");
     await expect(listboxes).toHaveLength(2);
@@ -228,17 +232,17 @@ export const TwoLists: Story = {
     const handles = canvas.getAllByRole("button", {
       name: /^Resize vertically/,
     });
-    await userEvent.click(handles[0]);
+    await user.click(handles[0]);
     await expect(handles[0]).toHaveFocus();
 
     // List items are visible and navigable
     handles[0].blur();
     const firstList = within(listboxes[0]);
-    await userEvent.click(listboxes[0]);
+    await user.click(listboxes[0]);
     const firstOption = firstList.getByRole("option", { name: "Option 1" });
     await expect(firstOption).toHaveClass("active");
 
-    await userEvent.keyboard("{ArrowDown}");
+    await user.keyboard("{ArrowDown}");
     const secondOption = firstList.getByRole("option", { name: "Option 2" });
     await expect(secondOption).toHaveClass("active");
   },

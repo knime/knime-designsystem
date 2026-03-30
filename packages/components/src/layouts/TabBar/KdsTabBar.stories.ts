@@ -251,9 +251,10 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
+    const user = userEvent.setup();
     // Mouse interaction: click a different tab to select it
     const hubTab = canvas.getByRole("tab", { name: "My KNIME Hub" });
-    await userEvent.click(hubTab);
+    await user.click(hubTab);
     await expect(hubTab).toHaveAttribute("aria-selected", "true");
 
     const localTab = canvas.getByRole("tab", { name: "Local Filesystem" });
@@ -264,7 +265,7 @@ export const Default: Story = {
     await expect(disabledTab).toBeDisabled();
 
     // Reset to initial state for keyboard tests
-    await userEvent.click(localTab);
+    await user.click(localTab);
     await expect(localTab).toHaveAttribute("aria-selected", "true");
 
     // Keyboard interaction: focus the selected tab
@@ -272,29 +273,29 @@ export const Default: Story = {
     await expect(localTab).toHaveFocus();
 
     // ArrowRight navigates to next tab (skipping disabled)
-    await userEvent.keyboard("{ArrowRight}");
+    await user.keyboard("{ArrowRight}");
     await expect(hubTab).toHaveFocus();
     await expect(hubTab).toHaveAttribute("aria-selected", "true");
 
     // ArrowRight again
-    await userEvent.keyboard("{ArrowRight}");
+    await user.keyboard("{ArrowRight}");
     const oracleTab = canvas.getByRole("tab", { name: "Oracle Database" });
     await expect(oracleTab).toHaveFocus();
     await expect(oracleTab).toHaveAttribute("aria-selected", "true");
 
     // Home key goes to first enabled tab
-    await userEvent.keyboard("{Home}");
+    await user.keyboard("{Home}");
     await expect(localTab).toHaveFocus();
     await expect(localTab).toHaveAttribute("aria-selected", "true");
 
     // End key goes to last enabled tab
-    await userEvent.keyboard("{End}");
+    await user.keyboard("{End}");
     const boxTab = canvas.getByRole("tab", { name: "Box" });
     await expect(boxTab).toHaveFocus();
     await expect(boxTab).toHaveAttribute("aria-selected", "true");
 
     // ArrowLeft wraps around to last enabled tab
-    await userEvent.keyboard("{ArrowLeft}");
+    await user.keyboard("{ArrowLeft}");
     await expect(oracleTab).toHaveFocus();
   },
 };

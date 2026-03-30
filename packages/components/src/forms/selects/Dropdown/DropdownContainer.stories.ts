@@ -102,29 +102,30 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
+    const user = userEvent.setup();
     // --- Mouse: click selects the first option ---
     const firstOption = canvas.getByRole("option", { name: "Label 1" });
-    await userEvent.click(firstOption);
+    await user.click(firstOption);
     await expect(firstOption).toHaveAttribute("aria-selected", "true");
 
     // Click same option again — stays selected
-    await userEvent.click(firstOption);
+    await user.click(firstOption);
     await expect(firstOption).toHaveAttribute("aria-selected", "true");
 
     // --- Keyboard: ArrowDown + Enter selects ---
     const filterInput = canvas.getByRole("searchbox", {
       name: "Filter options",
     });
-    await userEvent.click(filterInput);
+    await user.click(filterInput);
     await expect(filterInput).toHaveFocus();
 
-    await userEvent.keyboard("{ArrowDown}{Enter}");
+    await user.keyboard("{ArrowDown}{Enter}");
     const secondOption = canvas.getByRole("option", { name: "Label 2" });
     await expect(secondOption).toHaveAttribute("aria-selected", "true");
 
     // --- Search filtering ---
-    await userEvent.clear(filterInput);
-    await userEvent.type(filterInput, "Label 3");
+    await user.clear(filterInput);
+    await user.type(filterInput, "Label 3");
 
     // Only "Label 3" should be visible
     await expect(canvas.getByRole("option", { name: "Label 3" })).toBeVisible();
@@ -133,12 +134,12 @@ export const Default: Story = {
     ).not.toBeInTheDocument();
 
     // --- No entries text ---
-    await userEvent.clear(filterInput);
-    await userEvent.type(filterInput, "zzz");
+    await user.clear(filterInput);
+    await user.type(filterInput, "zzz");
     await expect(canvas.getByText("No entries found")).toBeVisible();
 
     // Clear search to restore all options
-    await userEvent.clear(filterInput);
+    await user.clear(filterInput);
     await expect(canvas.getAllByRole("option")).toHaveLength(5);
   },
 };
@@ -191,6 +192,7 @@ export const ManyOptions: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const list = canvas.getByRole("listbox");
 
     // List height is capped (single-line: 192px) and scrolls independently
@@ -201,10 +203,10 @@ export const ManyOptions: Story = {
     const filterInput = canvas.getByRole("searchbox", {
       name: "Filter options",
     });
-    await userEvent.click(filterInput);
+    await user.click(filterInput);
 
     for (let i = 0; i < 20; i++) {
-      await userEvent.keyboard("{ArrowDown}");
+      await user.keyboard("{ArrowDown}");
     }
 
     const activeOption = canvas.getByRole("option", { name: "Label 21" });
@@ -214,14 +216,14 @@ export const ManyOptions: Story = {
     await expect(itemRect.top).toBeGreaterThanOrEqual(listRect.top - 1);
 
     // Click an item to select it
-    await userEvent.click(canvas.getByRole("option", { name: "Label 5" }));
+    await user.click(canvas.getByRole("option", { name: "Label 5" }));
     await expect(
       canvas.getByRole("option", { name: "Label 5" }),
     ).toHaveAttribute("aria-selected", "true");
 
     // Re-focus search and verify keyboard navigation still works.
-    await userEvent.click(filterInput);
-    await userEvent.keyboard("{Home}{ArrowDown}{Enter}");
+    await user.click(filterInput);
+    await user.keyboard("{Home}{ArrowDown}{Enter}");
     await expect(
       canvas.getByRole("option", { name: "Label 2" }),
     ).toHaveAttribute("aria-selected", "true");
@@ -236,6 +238,7 @@ export const ManyMultilineOptions: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const list = canvas.getByRole("listbox");
 
     // List height is capped (multiline: 320px) and scrolls independently
@@ -246,10 +249,10 @@ export const ManyMultilineOptions: Story = {
     const filterInput = canvas.getByRole("searchbox", {
       name: "Filter options",
     });
-    await userEvent.click(filterInput);
+    await user.click(filterInput);
 
     for (let i = 0; i < 20; i++) {
-      await userEvent.keyboard("{ArrowDown}");
+      await user.keyboard("{ArrowDown}");
     }
 
     const activeOption = canvas.getByRole("option", {
@@ -287,6 +290,7 @@ export const WithDisabledOptions: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
+    const user = userEvent.setup();
     // Disabled option should have aria-disabled
     const disabledOption = canvas.getByRole("option", {
       name: "Disabled option",
@@ -294,22 +298,22 @@ export const WithDisabledOptions: Story = {
     await expect(disabledOption).toHaveAttribute("aria-disabled", "true");
 
     // Clicking a disabled option should not select it
-    await userEvent.click(disabledOption);
+    await user.click(disabledOption);
     await expect(disabledOption).toHaveAttribute("aria-selected", "false");
 
     // Clicking an enabled option should select it
     const enabledOption = canvas.getByRole("option", {
       name: "Enabled option",
     });
-    await userEvent.click(enabledOption);
+    await user.click(enabledOption);
     await expect(enabledOption).toHaveAttribute("aria-selected", "true");
 
     // Keyboard navigation skips the disabled option: ArrowDown from first enabled → second enabled
     const filterInput = canvas.getByRole("searchbox", {
       name: "Filter options",
     });
-    await userEvent.click(filterInput);
-    await userEvent.keyboard("{ArrowDown}{Enter}");
+    await user.click(filterInput);
+    await user.keyboard("{ArrowDown}{Enter}");
     const thirdOption = canvas.getByRole("option", {
       name: "Another enabled option",
     });

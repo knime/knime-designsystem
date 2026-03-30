@@ -137,6 +137,7 @@ export const WithActionButton: Story = {
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
 
+    const user = userEvent.setup();
     // description should be rendered
     await expect(
       canvas.getByText("Here is a smaller description of the state."),
@@ -147,12 +148,12 @@ export const WithActionButton: Story = {
     await expect(button).toBeInTheDocument();
 
     // mouse click emits buttonClick
-    await userEvent.click(button);
+    await user.click(button);
     await expect(args.onButtonClick).toHaveBeenCalledTimes(1);
 
     // keyboard interaction
     button.focus();
-    await userEvent.keyboard("{Enter}");
+    await user.keyboard("{Enter}");
     await expect(args.onButtonClick).toHaveBeenCalledTimes(2);
   },
 };

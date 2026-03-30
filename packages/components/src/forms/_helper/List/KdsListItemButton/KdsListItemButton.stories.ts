@@ -65,19 +65,20 @@ type Story = StoryObj<typeof KdsListItemButton>;
 export const Default: Story = {
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const button = canvas.getByRole("button", { name: "Action" });
 
     await expect(button).toBeEnabled();
     await expect(canvas.getByText("Action")).toBeInTheDocument();
 
     // Mouse interaction
-    await userEvent.click(button);
+    await user.click(button);
     await expect(args.onClick).toHaveBeenCalledOnce();
 
     // Keyboard interaction
     button.blur();
     button.focus();
-    await userEvent.keyboard("{Enter}");
+    await user.keyboard("{Enter}");
     await expect(args.onClick).toHaveBeenCalledTimes(2);
   },
 };
@@ -88,11 +89,12 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup({ pointerEventsCheck: 0 });
     const button = canvas.getByRole("button", { name: "Action" });
 
     await expect(button).toBeDisabled();
 
-    await userEvent.click(button, { pointerEventsCheck: 0 });
+    await user.click(button);
     await expect(args.onClick).not.toHaveBeenCalled();
   },
 };

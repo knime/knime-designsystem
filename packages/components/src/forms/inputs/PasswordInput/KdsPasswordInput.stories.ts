@@ -145,33 +145,34 @@ export default meta;
 export const Default: Story = {
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const input = canvas.getByLabelText("Label");
 
     await step("Type and show password via mouse", async () => {
-      await userEvent.click(input);
-      await userEvent.type(input, "secret");
+      await user.click(input);
+      await user.type(input, "secret");
       await expect(input).toHaveValue("secret");
       await expect(input).toHaveAttribute("type", "password");
 
       const showButton = canvas.getByRole("button", {
         name: /show password/i,
       });
-      await userEvent.click(showButton);
+      await user.click(showButton);
       await expect(input).toHaveAttribute("type", "text");
 
       const hideButton = canvas.getByRole("button", {
         name: /hide password/i,
       });
-      await userEvent.click(hideButton);
+      await user.click(hideButton);
       await expect(input).toHaveAttribute("type", "password");
     });
 
     await step("Keyboard navigation", async () => {
       input.blur();
-      await userEvent.tab();
+      await user.tab();
       await expect(input).toHaveFocus();
 
-      await userEvent.tab();
+      await user.tab();
       await expect(
         canvas.getByRole("button", { name: /show password/i }),
       ).toHaveFocus();
@@ -187,17 +188,18 @@ export const KeyVariant: Story = {
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const input = canvas.getByLabelText("Label");
 
     await step("Type and toggle visibility", async () => {
-      await userEvent.click(input);
-      await userEvent.type(input, "123456");
+      await user.click(input);
+      await user.type(input, "123456");
       await expect(input).toHaveValue("123456");
 
       const showButton = canvas.getByRole("button", {
         name: /show key/i,
       });
-      await userEvent.click(showButton);
+      await user.click(showButton);
       await expect(input).toHaveAttribute("type", "text");
     });
   },
@@ -223,10 +225,11 @@ export const WithoutVisibilityToggle: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const input = canvas.getByLabelText("Label");
 
-    await userEvent.click(input);
-    await userEvent.type(input, "secret");
+    await user.click(input);
+    await user.type(input, "secret");
     await expect(
       canvas.queryByRole("button", { name: /show password/i }),
     ).not.toBeInTheDocument();

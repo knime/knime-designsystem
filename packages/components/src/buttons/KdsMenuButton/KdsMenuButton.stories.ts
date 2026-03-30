@@ -85,7 +85,14 @@ const meta: Meta<typeof KdsMenuButton> = {
   args: {
     label: "{Label}",
     variant: "outlined",
+    size: "medium",
+    disabled: false,
+    leadingIcon: undefined,
+    trailingIcon: undefined,
+    ariaLabel: undefined,
+    title: "",
     items: baseOptions,
+    menuMaxHeight: "",
   },
 };
 export default meta;
@@ -103,24 +110,25 @@ export const Outlined: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const toggleButton = canvas.getByRole("button");
 
     // Mouse interaction: click to open and close the menu
-    await userEvent.click(toggleButton);
+    await user.click(toggleButton);
     const menu = await canvas.findByRole("menu");
     await expect(menu).toBeVisible();
-    await userEvent.click(toggleButton);
+    await user.click(toggleButton);
     await expect(canvas.queryByRole("menu")).not.toBeInTheDocument();
 
     // Keyboard interaction: tab to the button, open menu, navigate and select
     toggleButton.blur();
-    await userEvent.tab();
+    await user.tab();
     await expect(toggleButton).toHaveFocus();
-    await userEvent.keyboard("[Enter]");
+    await user.keyboard("{Enter}");
     const keyboardMenu = await canvas.findByRole("menu");
     await expect(keyboardMenu).toBeVisible();
-    await userEvent.keyboard("[ArrowDown]");
-    await userEvent.keyboard("[Enter]");
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard("{Enter}");
     await expect(canvas.queryByRole("menu")).not.toBeInTheDocument();
   },
 };
@@ -148,9 +156,10 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const toggleButton = canvas.getByRole("button");
 
-    await userEvent.click(toggleButton);
+    await user.click(toggleButton);
 
     const menu = canvas.queryByRole("menu");
     await expect(menu).not.toBeInTheDocument();
