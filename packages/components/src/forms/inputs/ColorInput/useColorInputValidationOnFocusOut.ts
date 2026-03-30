@@ -3,11 +3,13 @@
  * - 1-digit hex -> repeat up to 6 digits (e.g. #a -> #AAAAAA)
  * - 2-digit hex -> repeat up to 6 digits (e.g. #ab -> #ABABAB)
  * - 3-digit hex -> convert to 6-digit representation (e.g. #abc -> #AABBCC)
- * - 4-digit hex -> convert to 6-digit representation (e.g. #abcd -> #AABBCC); we do not support alpha values for
- *   now, so the last digit is ignored
+ * - 4-digit hex -> convert to 8-digit representation (e.g. #abcd -> #AABBCCDD)
  * - 5-digit hex -> unsupported, restore last valid hex
  * - 6-digit hex -> normalize to uppercase (e.g. #aabbcc -> #AABBCC) and add missing hash if needed
  *   (e.g. aabbcc -> #AABBCC)
+ * - 8-digit hex -> normalize to uppercase (e.g. #aabbccdd -> #AABBCCDD) and add missing hash if needed
+ *   (e.g. aabbccdd -> #AABBCCDD). Fully opaque alpha values are canonicalized to 6-digit hex
+ *   (e.g. #AABBCCFF -> #AABBCC)
  */
 
 import { type Ref, ref, watch } from "vue";
@@ -17,6 +19,14 @@ const HEX_LENGTH_2 = 2;
 const HEX_LENGTH_3 = 3;
 const HEX_LENGTH_4 = 4;
 const HEX_LENGTH_6 = 6;
+const HEX_LENGTH_8 = 8;
+const FULLY_OPAQUE_ALPHA_SUFFIX = "FF";
+
+const normalizeOpaqueAlpha = (normalizedHexWithHash: string): string =>
+  normalizedHexWithHash.length === HEX_LENGTH_8 + 1 &&
+  normalizedHexWithHash.endsWith(FULLY_OPAQUE_ALPHA_SUFFIX)
+    ? normalizedHexWithHash.slice(0, HEX_LENGTH_6 + 1)
+    : normalizedHexWithHash;
 
 const normalize = (
   value: string,
@@ -40,16 +50,26 @@ const normalize = (
     return `#${withoutHash.repeat(HEX_LENGTH_3)}`.toUpperCase();
   }
 
-  if (
-    withoutHash.length === HEX_LENGTH_3 ||
-    withoutHash.length === HEX_LENGTH_4
-  ) {
+  if (withoutHash.length === HEX_LENGTH_3) {
     const [r, g, b] = withoutHash;
     return `#${r}${r}${g}${g}${b}${b}`.toUpperCase();
   }
+
+  if (withoutHash.length === HEX_LENGTH_4) {
+    const [r, g, b, a] = withoutHash;
+    return normalizeOpaqueAlpha(
+      `#${r}${r}${g}${g}${b}${b}${a}${a}`.toUpperCase(),
+    );
+  }
+
   if (withoutHash.length === HEX_LENGTH_6) {
     return `#${withoutHash}`.toUpperCase();
   }
+
+  if (withoutHash.length === HEX_LENGTH_8) {
+    return normalizeOpaqueAlpha(`#${withoutHash}`.toUpperCase());
+  }
+
   return fallbackValue;
 };
 
@@ -60,8 +80,14 @@ export const useColorInputValidationOnFocusOut = (modelValue: Ref<string>) => {
     modelValue,
     (value) => {
       const withoutHash = value.startsWith("#") ? value.slice(1) : value;
-      if (/^[0-9a-fA-F]{6}$/.test(withoutHash)) {
-        lastValidHexColor.value = `#${withoutHash.toUpperCase()}`;
+      if (
+        (withoutHash.length === HEX_LENGTH_6 ||
+          withoutHash.length === HEX_LENGTH_8) &&
+        /^[0-9a-fA-F]+$/.test(withoutHash)
+      ) {
+        lastValidHexColor.value = normalizeOpaqueAlpha(
+          `#${withoutHash.toUpperCase()}`,
+        );
       }
     },
     { immediate: true },

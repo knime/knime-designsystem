@@ -4,18 +4,20 @@ import { computed, ref, watch } from "vue";
 import { usePointerHandler } from "../../../util/usePointerHandler";
 import KdsTextInput from "../TextInput/KdsTextInput.vue";
 
+import ColorPickerSlider from "./ColorPickerSlider.vue";
 import {
   clamp,
-  hexToRgb,
-  hsvToHex,
+  hexToRgba,
   hsvToRgb,
   normalizeHexColor,
   rgbToHsv,
+  rgbaToHex,
 } from "./colorUtils";
 
 const DEFAULT_HUE_DEG = 270;
 const DEFAULT_SATURATION = 0.8;
 const DEFAULT_VALUE = 0.9;
+const DEFAULT_ALPHA = 1;
 
 const HUE_MAX_DEG = 360;
 const HUE_MAX_EXCLUSIVE_DEG = 359.999;
@@ -29,11 +31,11 @@ const HUE_KEYBOARD_LARGE_STEP_DEG = 10;
 const modelValue = defineModel<string>({ default: "" });
 
 const colorspaceEl = ref<HTMLElement | null>(null);
-const hueEl = ref<HTMLElement | null>(null);
 
 const hue = ref(DEFAULT_HUE_DEG);
 const saturation = ref(DEFAULT_SATURATION);
 const value = ref(DEFAULT_VALUE);
+const alpha = ref(DEFAULT_ALPHA);
 /**
  * This flag is used to prevent feedback loops when updating the internal HSV state from the external modelValue.
  * When the user updates the color using the UI, we first set this flag to indicate that the next modelValue update is
@@ -44,15 +46,16 @@ const value = ref(DEFAULT_VALUE);
 const hasPendingInternalModelUpdate = ref(false);
 
 const syncFromModelValue = (next: string) => {
-  const rgb = hexToRgb(next);
-  if (!rgb) {
+  const rgba = hexToRgba(next);
+  if (!rgba) {
     return;
   }
 
-  const hsv = rgbToHsv(rgb);
+  const hsv = rgbToHsv(rgba);
   hue.value = hsv.h;
   saturation.value = hsv.s;
   value.value = hsv.v;
+  alpha.value = rgba.a;
 };
 
 watch(
@@ -68,13 +71,24 @@ watch(
   { immediate: true },
 );
 
-const currentHex = computed(() =>
-  hsvToHex({
+const currentRgb = computed(() =>
+  hsvToRgb({
     h: hue.value,
     s: saturation.value,
     v: value.value,
   }),
 );
+
+const currentHex = computed(() => {
+  const hex = rgbaToHex({
+    ...currentRgb.value,
+    a: alpha.value,
+  });
+  // rgbaToHex always returns #RRGGBBAA; for fully opaque colors, omit the alpha suffix
+  return alpha.value === DEFAULT_ALPHA && hex.length === 9
+    ? hex.slice(0, 7)
+    : hex;
+});
 
 const hueRgb = computed(() => hsvToRgb({ h: hue.value, s: 1, v: 1 }));
 
@@ -92,9 +106,16 @@ const colorspaceHandleStyle = computed(() => ({
   top: `${(1 - value.value) * 100}%`,
 }));
 
-const hueHandleStyle = computed(() => ({
-  left: `${(hue.value / HUE_MAX_DEG) * PERCENT}%`,
-}));
+const alphaBackgroundImage = computed(() => {
+  const { r, g, b } = currentRgb.value;
+  return `
+    linear-gradient(to right, rgba(${r}, ${g}, ${b}, 0), rgb(${r}, ${g}, ${b})),
+    repeating-conic-gradient(
+      var(--kds-color-background-neutral-active) 0 25%,
+      var(--kds-color-surface-default) 0 50%
+    )
+  `;
+});
 
 const setModelValueFromHsv = () => {
   hasPendingInternalModelUpdate.value = true;
@@ -117,30 +138,11 @@ const updateFromColorspaceEvent = (event: PointerEvent) => {
   setModelValueFromHsv();
 };
 
-const updateFromHueEvent = (event: PointerEvent) => {
-  const el = hueEl.value;
-  if (!el) {
-    return;
-  }
-
-  const rect = el.getBoundingClientRect();
-  const x = (event.clientX - rect.left) / rect.width;
-  hue.value = Math.min(HUE_MAX_EXCLUSIVE_DEG, Math.max(0, x * HUE_MAX_DEG));
-
-  setModelValueFromHsv();
-};
-
 const {
   onPointerDown: onColorspacePointerDown,
   onPointerMove: onColorspacePointerMove,
   onPointerUp: onColorspacePointerUp,
 } = usePointerHandler(updateFromColorspaceEvent);
-
-const {
-  onPointerDown: onHuePointerDown,
-  onPointerMove: onHuePointerMove,
-  onPointerUp: onHuePointerUp,
-} = usePointerHandler(updateFromHueEvent);
 
 const updateFromTextValue = (next: string) => {
   modelValue.value = next;
@@ -162,6 +164,8 @@ const colorspaceValueText = computed(
 );
 
 const hueValueText = computed(() => `${Math.round(hue.value)} degrees`);
+const alphaPercent = computed(() => Math.round(alpha.value * PERCENT));
+const alphaValueText = computed(() => `${alphaPercent.value} percent`);
 
 const onColorspaceKeyDown = (event: KeyboardEvent) => {
   const step = event.shiftKey ? KEYBOARD_LARGE_STEP : KEYBOARD_STEP;
@@ -179,29 +183,6 @@ const onColorspaceKeyDown = (event: KeyboardEvent) => {
       break;
     case "ArrowDown":
       value.value = clamp(value.value - step, 0, 1);
-      break;
-    default:
-      handled = false;
-  }
-
-  if (handled) {
-    event.preventDefault();
-    setModelValueFromHsv();
-  }
-};
-
-const onHueKeyDown = (event: KeyboardEvent) => {
-  const step = event.shiftKey
-    ? HUE_KEYBOARD_LARGE_STEP_DEG
-    : HUE_KEYBOARD_STEP_DEG;
-  let handled = true;
-
-  switch (event.key) {
-    case "ArrowLeft":
-      hue.value = clamp(hue.value - step, 0, HUE_MAX_EXCLUSIVE_DEG);
-      break;
-    case "ArrowRight":
-      hue.value = clamp(hue.value + step, 0, HUE_MAX_EXCLUSIVE_DEG);
       break;
     default:
       handled = false;
@@ -233,24 +214,35 @@ const onHueKeyDown = (event: KeyboardEvent) => {
       <div class="handle" :style="colorspaceHandleStyle" />
     </div>
 
-    <div
-      ref="hueEl"
+    <ColorPickerSlider
+      v-model="hue"
       class="hue"
-      role="slider"
-      aria-label="Hue"
-      :aria-valuenow="Math.round(hue)"
-      aria-valuemin="0"
-      :aria-valuemax="HUE_MAX_DEG"
-      :aria-valuetext="hueValueText"
-      tabindex="0"
-      @pointerdown.prevent="onHuePointerDown"
-      @pointermove.prevent="onHuePointerMove"
-      @lostpointercapture="onHuePointerUp"
-      @keydown="onHueKeyDown"
-    >
-      <div class="handle" :style="hueHandleStyle" />
-    </div>
+      label="Hue"
+      :value-now="Math.round(hue)"
+      :value-min="0"
+      :value-max="HUE_MAX_DEG"
+      :value-text="hueValueText"
+      :min="0"
+      :max="HUE_MAX_EXCLUSIVE_DEG"
+      :step="HUE_KEYBOARD_STEP_DEG"
+      :large-step="HUE_KEYBOARD_LARGE_STEP_DEG"
+      @update:slider-value="setModelValueFromHsv"
+    />
 
+    <ColorPickerSlider
+      v-model="alpha"
+      class="alpha"
+      label="Alpha"
+      :value-now="alphaPercent"
+      :value-min="0"
+      :value-max="PERCENT"
+      :value-text="alphaValueText"
+      :min="0"
+      :max="1"
+      :step="KEYBOARD_STEP"
+      :large-step="KEYBOARD_LARGE_STEP"
+      @update:slider-value="setModelValueFromHsv"
+    />
     <KdsTextInput
       :model-value="modelValue"
       ariaLabel="Color hex value"
@@ -293,12 +285,17 @@ const onHueKeyDown = (event: KeyboardEvent) => {
   transform: translate(-50%, -50%);
 }
 
-.hue {
-  position: relative;
-  width: 100%;
-  height: var(--kds-dimension-component-height-0-75x);
-  cursor: pointer;
+.colorspace:focus {
   outline: none;
+}
+
+.colorspace:focus .handle,
+.colorspace:focus-visible .handle {
+  outline: var(--kds-border-action-focused);
+  outline-offset: calc(-1 * var(--kds-spacing-offset-focus));
+}
+
+.hue {
   background: linear-gradient(
     90deg,
     hsl(0deg 100% 50%) 0%,
@@ -309,23 +306,13 @@ const onHueKeyDown = (event: KeyboardEvent) => {
     hsl(300deg 100% 50%) 83%,
     hsl(360deg 100% 50%) 100%
   );
-  border-radius: var(--kds-border-radius-container-pill);
-
-  & .handle {
-    top: 50%;
-  }
 }
 
-.colorspace:focus,
-.hue:focus {
-  outline: none;
-}
-
-.colorspace:focus .handle,
-.colorspace:focus-visible .handle,
-.hue:focus .handle,
-.hue:focus-visible .handle {
-  outline: var(--kds-border-action-focused);
-  outline-offset: calc(-1 * var(--kds-spacing-offset-focus));
+.alpha {
+  background-image: v-bind(alphaBackgroundImage);
+  background-size:
+    100% 100%,
+    calc(var(--kds-dimension-component-height-0-75x) / 2)
+      calc(var(--kds-dimension-component-height-0-75x) / 2);
 }
 </style>
