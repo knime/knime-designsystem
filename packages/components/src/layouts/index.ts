@@ -6,3 +6,6 @@ export type * from "./KdsCardClickable";
 
 export * from "./TabBar";
 export type * from "./TabBar";
+
+export * from "./LoadingSkeleton";
+export type * from "./LoadingSkeleton";
