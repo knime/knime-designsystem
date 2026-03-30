@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
 
+import {
+  kdsDimensionComponentHeight1p5x,
+  kdsSpacingContainer0p25x,
+} from "../../../../../styles/dist/tokens/ts/_tokens.ts";
 import { KdsButton } from "../../../buttons/KdsButton";
 import { KdsResizeContainer } from "../../../layouts/ResizeContainer";
 import { type KdsListOption } from "../../_helper/List/ListContainer";
@@ -199,7 +203,12 @@ const moveLeft = (ids: Iterable<string>) => {
 </script>
 
 <template>
-  <KdsResizeContainer :number-of-handles="2" :height="320" :min-height="200">
+  <KdsResizeContainer
+    :number-of-handles="2"
+    :height="320"
+    :min-height="200"
+    :handle-gap="`${kdsSpacingContainer0p25x * 2 + kdsDimensionComponentHeight1p5x}px`"
+  >
     <template #default="{ contentStyle }">
       <div class="kds-twin-list-body" :style="contentStyle">
         <div class="kds-list-column">
