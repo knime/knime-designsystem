@@ -1,5 +1,17 @@
 # @knime/kds-components
 
+## 0.21.0
+
+### Minor Changes
+
+- 78beddc: Add `KdsLink`.
+
+  Also narrow `KdsLinkButton` navigation typing to string `to` values.
+
+### Patch Changes
+
+- @knime/kds-styles@0.21.0
+
 ## 0.20.1
 
 ### Patch Changes
