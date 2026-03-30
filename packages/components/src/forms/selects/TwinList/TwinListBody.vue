@@ -169,7 +169,10 @@ const moveRight = (ids: Iterable<string>) => {
       ),
     ],
   };
-  leftSelected.value = [];
+  rightSelected.value = [
+    ...[...knownToMove],
+    ...(moveUnknown ? [UNKNOWN_VALUE_ID] : []),
+  ];
 };
 
 const moveLeft = (ids: Iterable<string>) => {
@@ -198,7 +201,10 @@ const moveLeft = (ids: Iterable<string>) => {
       ),
     ],
   };
-  rightSelected.value = [];
+  leftSelected.value = [
+    ...[...knownToMove],
+    ...(moveUnknown ? [UNKNOWN_VALUE_ID] : []),
+  ];
 };
 </script>
 
