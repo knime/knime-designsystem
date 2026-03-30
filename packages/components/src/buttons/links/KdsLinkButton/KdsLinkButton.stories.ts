@@ -4,43 +4,10 @@ import { fn } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
-import { kdsButtonSizes, kdsButtonVariants } from "../enums";
+import { kdsButtonSizes, kdsButtonVariants } from "../../enums";
+import { buildWrappingComponentDocs } from "../docs";
 
 import KdsLinkButton from "./KdsLinkButton.vue";
-
-const vueExampleCode = `html
-// RouterLinkButton.vue
-<script setup lang="ts">
-import type { RouterLinkProps } from "vue-router";
-
-import { KdsLinkButton, type KdsLinkButtonProps } from "@knime/kds-components";
-
-export type RouterLinkButtonProps = Omit<KdsLinkButtonProps, "to"> & RouterLinkProps;
-
-const props = defineProps<RouterLinkButtonProps>();
-</script>
-
-<template>
-  <KdsLinkButton v-bind="props" />
-</template>
-`.trim();
-
-const nuxtExampleCode = `html
-// NuxtLinkButton.vue
-<script setup lang="ts">
-import type { NuxtLinkProps } from "#app";
-
-import { KdsLinkButton, type KdsLinkButtonProps } from "@knime/kds-components";
-
-export type NuxtLinkButtonProps = Omit<KdsLinkButtonProps, "to"> & NuxtLinkProps;
-
-const props = defineProps<NuxtLinkButtonProps>();
-</script>
-
-<template>
-  <KdsLinkButton v-bind="props" />
-</template>
-`.trim();
 
 const meta: Meta<typeof KdsLinkButton> = {
   title: "Buttons/LinkButton",
@@ -49,13 +16,9 @@ const meta: Meta<typeof KdsLinkButton> = {
   parameters: {
     docs: {
       description: {
-        component:
-          "Same styles as `KdsButton`, but rendered as an `<a>` element. Does use `RouterLink`/`NuxtLink` if globally available.\n\n" +
-          "For accurate typing, please wrap it in the consuming app like this:\n" +
-          "#### Vue\n" +
-          `\`\`\`${vueExampleCode}\`\`\`\n` +
-          "#### Nuxt\n" +
-          `\`\`\`${nuxtExampleCode}\`\`\``,
+        component: `Same styles as \`KdsButton\`, but rendered as an \`<a>\` element.${buildWrappingComponentDocs(
+          "KdsLinkButton",
+        )}`,
       },
     },
     design: {
@@ -67,29 +30,50 @@ const meta: Meta<typeof KdsLinkButton> = {
     size: {
       control: { type: "select" },
       options: kdsButtonSizes,
+      table: { category: "props" },
     },
     variant: {
       control: { type: "select" },
       options: kdsButtonVariants,
+      table: { category: "props" },
     },
-    destructive: { control: "boolean" },
-    disabled: { control: "boolean" },
-    label: { control: "text" },
+    destructive: { control: "boolean", table: { category: "props" } },
+    disabled: { control: "boolean", table: { category: "props" } },
+    label: { control: "text", table: { category: "props" } },
     leadingIcon: {
       control: { type: "select" },
       options: [undefined, ...iconNames],
+      table: { category: "props" },
     },
     trailingIcon: {
       control: { type: "select" },
       options: [undefined, ...iconNames],
+      table: { category: "props" },
     },
     to: {
       control: "text",
       description:
-        "any URL; passed to RouterLink/NuxtLink component if globally available",
+        "URL or path string to navigate to. To support typed routes and route-location objects, please create an app-level wrapper (e.g. with `RouterLink`/`NuxtLink`) as described above.",
+      table: { category: "props" },
     },
-    ariaLabel: { control: "text" },
-    title: { control: "text" },
+    target: {
+      control: "text",
+      description: "Target browsing context for anchor-based links.",
+      table: { category: "props" },
+    },
+    rel: {
+      control: "text",
+      description: "Relationship of the linked URL.",
+      table: { category: "props" },
+    },
+    download: {
+      control: "boolean",
+      description:
+        "If true, the link will be downloaded instead of navigating to it.",
+      table: { category: "props" },
+    },
+    ariaLabel: { control: "text", table: { category: "props" } },
+    title: { control: "text", table: { category: "props" } },
   },
   args: {
     onClick: fn(),

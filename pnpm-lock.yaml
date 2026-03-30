@@ -131,6 +131,7 @@ overrides:
   minimatch@>=9.0.0 <9.0.7: '>=9.0.7'
   minimatch@>=10.0.0 <10.2.3: '>=10.2.3'
   picomatch@>=4.0.0 <4.0.4: '>=4.0.4'
+  minimatch@>=10.0.0>brace-expansion: 5.0.5
 
 importers:
 
@@ -302,6 +303,9 @@ importers:
       consola:
         specifier: 'catalog:'
         version: 3.4.2
+      pretty-bytes:
+        specifier: ^7.1.0
+        version: 7.1.0
     devDependencies:
       '@storybook/vue3-vite':
         specifier: catalog:storybook
@@ -5012,6 +5016,10 @@ packages:
     resolution: {integrity: sha512-UOnG6LftzbdaHZcKoPFtOcCKztrQ57WkHDeRD9t/PTQtmT0NHSeWWepj6pS0z/N7+08BHFDQVUrfmfMRcZwbMg==}
     engines: {node: '>=14'}
     hasBin: true
+
+  pretty-bytes@7.1.0:
+    resolution: {integrity: sha512-nODzvTiYVRGRqAOvE84Vk5JDPyyxsVk0/fbA/bq7RqlnhksGpset09XTxbpvLTIjoaF7K8Z8DG8yHtKGTPSYRw==}
+    engines: {node: '>=20'}
 
   pretty-format@27.5.1:
     resolution: {integrity: sha512-Qb1gy5OrP5+zDf2Bvnzdl3jsTf1qXVMazbvCoKhtKqVs4/YK4ozX4gKQJJVyNe+cajNPn0KoC0MC3FUmaHWEmQ==}
@@ -11121,6 +11129,8 @@ snapshots:
   prettier@2.8.8: {}
 
   prettier@3.8.1: {}
+
+  pretty-bytes@7.1.0: {}
 
   pretty-format@27.5.1:
     dependencies:

@@ -40,7 +40,8 @@
   "dependencies": {
     "@knime/kds-styles": "workspace:^",
     "@knime/utils": "^1.9.2",
-    "consola": "catalog:"
+    "consola": "catalog:",
+    "pretty-bytes": "^7.1.0"
   },
   "devDependencies": {
     "@storybook/vue3-vite": "catalog:storybook",
