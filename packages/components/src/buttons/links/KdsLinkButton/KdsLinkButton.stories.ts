@@ -30,29 +30,50 @@ const meta: Meta<typeof KdsLinkButton> = {
     size: {
       control: { type: "select" },
       options: kdsButtonSizes,
+      table: { category: "props" },
     },
     variant: {
       control: { type: "select" },
       options: kdsButtonVariants,
+      table: { category: "props" },
     },
-    destructive: { control: "boolean" },
-    disabled: { control: "boolean" },
-    label: { control: "text" },
+    destructive: { control: "boolean", table: { category: "props" } },
+    disabled: { control: "boolean", table: { category: "props" } },
+    label: { control: "text", table: { category: "props" } },
     leadingIcon: {
       control: { type: "select" },
       options: [undefined, ...iconNames],
+      table: { category: "props" },
     },
     trailingIcon: {
       control: { type: "select" },
       options: [undefined, ...iconNames],
+      table: { category: "props" },
     },
     to: {
       control: "text",
       description:
         "URL or path string to navigate to. To support typed routes and route-location objects, please create an app-level wrapper (e.g. with `RouterLink`/`NuxtLink`) as described above.",
+      table: { category: "props" },
     },
-    ariaLabel: { control: "text" },
-    title: { control: "text" },
+    target: {
+      control: "text",
+      description: "Target browsing context for anchor-based links.",
+      table: { category: "props" },
+    },
+    rel: {
+      control: "text",
+      description: "Relationship of the linked URL.",
+      table: { category: "props" },
+    },
+    download: {
+      control: "boolean",
+      description:
+        "If true, the link will be downloaded instead of navigating to it.",
+      table: { category: "props" },
+    },
+    ariaLabel: { control: "text", table: { category: "props" } },
+    title: { control: "text", table: { category: "props" } },
   },
   args: {
     onClick: fn(),

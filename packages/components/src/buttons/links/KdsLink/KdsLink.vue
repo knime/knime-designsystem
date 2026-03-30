@@ -11,11 +11,11 @@ const {
   label,
   to,
   fileSize,
-  title = undefined,
+  title,
   disabled = false,
-  download = undefined,
-  target = null,
-  rel = null,
+  download = false,
+  target,
+  rel,
 } = defineProps<KdsLinkProps>();
 
 const emit = defineEmits<{

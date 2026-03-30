@@ -79,10 +79,6 @@ const meta: Meta<typeof KdsLink> = {
   args: {
     label: "Link",
     to: "https://www.knime.com",
-    disabled: false,
-    target: null,
-    rel: null,
-    download: undefined,
     onClick: fn(),
   },
 };
@@ -296,7 +292,7 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       props: {
         label: "Link.pdf",
         download: true,
-        fileSize: 159744,
+        fileSize: 155744,
         to: "https://www.knime.com/whitepaper.pdf",
       },
       variants: {
