@@ -241,7 +241,8 @@ const moveLeft = (ids: Iterable<string>) => {
         <div class="kds-button-column">
           <KdsButton
             leading-icon="chevron-right"
-            ariaLabel="Move selected values to include"
+            ariaLabel="Move selected values right"
+            title="Move selected values right"
             variant="transparent"
             size="small"
             :disabled="effectiveDisabled || leftSelected.length === 0"
@@ -249,7 +250,8 @@ const moveLeft = (ids: Iterable<string>) => {
           />
           <KdsButton
             leading-icon="chevron-right-double"
-            ariaLabel="Move all values to include"
+            ariaLabel="Move all values right"
+            title="Move all values right"
             variant="transparent"
             size="small"
             :disabled="
@@ -269,7 +271,8 @@ const moveLeft = (ids: Iterable<string>) => {
           />
           <KdsButton
             leading-icon="chevron-left"
-            ariaLabel="Move selected values to exclude"
+            ariaLabel="Move selected values left"
+            title="Move selected values left"
             variant="transparent"
             size="small"
             :disabled="effectiveDisabled || rightSelected.length === 0"
@@ -277,7 +280,8 @@ const moveLeft = (ids: Iterable<string>) => {
           />
           <KdsButton
             leading-icon="chevron-left-double"
-            ariaLabel="Move all values to exclude"
+            ariaLabel="Move all values left"
+            title="Move all values left"
             variant="transparent"
             size="small"
             :disabled="
