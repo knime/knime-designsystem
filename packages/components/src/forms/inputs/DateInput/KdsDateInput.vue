@@ -1,8 +1,8 @@
 <script setup lang="ts">
-// import "v-calendar/dist/style.css"; // Took them out because of error with storybook build. Will add them back once we have a solution for the build issue.
+import "v-calendar/dist/style.css";
 
 import { computed, ref, useTemplateRef } from "vue";
-// import { DatePicker } from "v-calendar"; // Took them out because of error with storybook build. Will add them back once we have a solution for the build issue.
+import { DatePicker } from "v-calendar";
 
 import KdsToggleButton from "../../../buttons/KdsToggleButton/KdsToggleButton.vue";
 import KdsPopover from "../../../overlays/Popover/KdsPopover.vue";
