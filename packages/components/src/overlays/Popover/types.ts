@@ -41,6 +41,12 @@ export type KdsPopoverProps = {
   fullWidth?: boolean;
 
   /**
+   * Maximum inline size as a CSS value. The container cannot grow above this value.
+   * When not set, there is no upper limit.
+   */
+  maxInlineSize?: string;
+
+  /**
    * Optional content rendered when no default slot is provided.
    */
   content?: string;

@@ -147,6 +147,7 @@ defineExpose<KdsFormFieldExpose>({
         ref="popover"
         v-model="resultsOpen"
         full-width
+        max-inline-size="anchor-size(width)"
         popover-type="manual"
         aria-label="Search results container"
       >

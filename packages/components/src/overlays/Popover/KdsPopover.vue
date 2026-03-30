@@ -7,6 +7,7 @@ const {
   placement = "bottom-left",
   popoverType = "auto",
   fullWidth = false,
+  maxInlineSize = undefined,
   ...props
 } = defineProps<KdsPopoverProps>();
 
@@ -41,7 +42,7 @@ defineExpose<KdsPopoverExpose>({ anchorStyle, popoverId });
     class="kds-popover"
     :class="['floating', placement, { 'full-width': fullWidth }]"
     :popover="popoverType"
-    :style="{ 'position-anchor': anchorName }"
+    :style="{ 'position-anchor': anchorName, 'max-inline-size': maxInlineSize }"
     :role="props.role"
     @toggle="onToggle"
   >
