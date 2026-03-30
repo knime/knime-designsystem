@@ -18,7 +18,7 @@ const meta: Meta<typeof KdsLoadingSkeleton> = {
     docs: {
       description: {
         component:
-          "A loading skeleton placeholder component with variant-based presets for text, icons, buttons, list items, cards, and combined layouts.",
+          "A loading skeleton placeholder with basic shapes (text, icons, buttons and card) and combined layouts like list items or input field with label. Can be used as a wrapper around content to conditionally show skeletons or the actual content based on `loading` state. The number of shown skeletons can be modified by setting the `repeat` prop.",
       },
     },
   },
@@ -26,7 +26,7 @@ const meta: Meta<typeof KdsLoadingSkeleton> = {
     variant: {
       control: { type: "select" },
       options: kdsLoadingSkeletonVariants,
-      description: "Primary API for selecting skeleton preset/layout.",
+
       table: { category: "props" },
     },
     loading: {
@@ -35,11 +35,11 @@ const meta: Meta<typeof KdsLoadingSkeleton> = {
     },
     repeat: {
       control: "number",
-      description: "Repeats the currently selected variant layout.",
       table: { category: "props" },
     },
     repeatGap: {
       control: "text",
+
       table: { category: "props" },
     },
     width: {

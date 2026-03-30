@@ -111,9 +111,9 @@ const {
     --custom-width: v-bind(width);
     --custom-height: v-bind(height);
 
-    width: calc(var(--custom-width, var(--kds-dimension-component-width-4x)));
+    width: calc(var(--custom-width, 100%));
     height: calc(
-      var(--custom-height, var(--kds-dimension-component-height-1-75x))
+      var(--custom-height, var(--kds-dimension-component-height-12x))
     );
     border-radius: var(--kds-border-radius-container-0-37x);
   }
