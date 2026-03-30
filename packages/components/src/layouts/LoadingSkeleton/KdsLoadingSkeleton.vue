@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import KdsLoadingSkeletonItem from "./KdsLoadingSkeletonItem.vue";
+import LoadingSkeletonItem from "./LoadingSkeletonItem.vue";
 import type {
   KdsLoadingSkeletonProps,
-  kdsLoadingSkeletonItemShape,
+  LoadingSkeletonItemShape,
 } from "./types";
 
 const {
@@ -20,18 +20,18 @@ const {
     <div v-for="index in repeat" :key="`skeleton-${index}`" role="presentation">
       <template v-if="variant == 'text-headline-with-paragraph'">
         <div class="kds-loading-skeleton-headline-with-paragraph">
-          <KdsLoadingSkeletonItem shape="text" class="headline" />
+          <LoadingSkeletonItem shape="text" class="headline" />
           <div class="kds-loading-skeleton-paragraph-lines">
-            <KdsLoadingSkeletonItem shape="text" />
-            <KdsLoadingSkeletonItem shape="text" />
-            <KdsLoadingSkeletonItem shape="text" />
+            <LoadingSkeletonItem shape="text" />
+            <LoadingSkeletonItem shape="text" />
+            <LoadingSkeletonItem shape="text" />
           </div>
         </div>
       </template>
       <template v-else-if="variant == 'input-field'">
         <div class="kds-loading-skeleton-input-field">
-          <KdsLoadingSkeletonItem shape="label" class="label" />
-          <KdsLoadingSkeletonItem shape="input-field" />
+          <LoadingSkeletonItem shape="label" class="label" />
+          <LoadingSkeletonItem shape="input-field" />
         </div>
       </template>
       <template v-else-if="variant?.startsWith('list-item-')">
@@ -48,7 +48,7 @@ const {
             },
           ]"
         >
-          <KdsLoadingSkeletonItem
+          <LoadingSkeletonItem
             :shape="
               variant.startsWith('list-item-large')
                 ? 'icon-large'
@@ -56,7 +56,7 @@ const {
             "
           />
           <div class="kds-loading-skeleton-list-item-text">
-            <KdsLoadingSkeletonItem
+            <LoadingSkeletonItem
               shape="text"
               :height="
                 variant == 'list-item-large'
@@ -64,7 +64,7 @@ const {
                   : 'var(--kds-dimension-component-height-0-75x)'
               "
             />
-            <KdsLoadingSkeletonItem
+            <LoadingSkeletonItem
               v-if="variant.endsWith('subtext')"
               shape="text"
               :height="
@@ -77,8 +77,8 @@ const {
         </div>
       </template>
       <template v-else>
-        <KdsLoadingSkeletonItem
-          :shape="variant as kdsLoadingSkeletonItemShape"
+        <LoadingSkeletonItem
+          :shape="variant as LoadingSkeletonItemShape"
           :width="width"
           :height="height"
         />

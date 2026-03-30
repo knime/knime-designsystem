@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { KdsLoadingSkeletonItemProps } from "./types";
+import type { LoadingSkeletonItemProps } from "./types";
 
 const {
   shape = "text",
   width,
   height,
-} = defineProps<KdsLoadingSkeletonItemProps>();
+} = defineProps<LoadingSkeletonItemProps>();
 </script>
 
 <template>

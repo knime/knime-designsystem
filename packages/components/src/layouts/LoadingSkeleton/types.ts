@@ -1,25 +1,22 @@
-import {
-  kdsLoadingSkeletonItemShape,
-  kdsLoadingSkeletonVariant,
-} from "./enums";
+import { kdsLoadingSkeletonVariant, loadingSkeletonItemShape } from "./enums";
 
 export type KdsLoadingSkeletonVariant =
   (typeof kdsLoadingSkeletonVariant)[keyof typeof kdsLoadingSkeletonVariant];
 
-export type kdsLoadingSkeletonItemShape =
-  (typeof kdsLoadingSkeletonItemShape)[keyof typeof kdsLoadingSkeletonItemShape];
+export type LoadingSkeletonItemShape =
+  (typeof loadingSkeletonItemShape)[keyof typeof loadingSkeletonItemShape];
 
-type KdsLoadingSkeletonCssLength = `${number}%` | `var(--${string})`;
+type CssLength = `${number}%` | `var(--${string})`;
 
-export type KdsLoadingSkeletonItemProps = {
+export type LoadingSkeletonItemProps = {
   /** Width in % or token variable. Defaults to 100% or default shape width. */
-  width?: KdsLoadingSkeletonCssLength;
+  width?: CssLength;
 
   /** Height in % or token variable. Only possible for `card` variant. */
-  height?: KdsLoadingSkeletonCssLength;
+  height?: CssLength;
 
   /** Selects the rendered skeleton shape */
-  shape?: kdsLoadingSkeletonItemShape;
+  shape?: LoadingSkeletonItemShape;
 };
 
 export type KdsLoadingSkeletonProps = {
@@ -36,8 +33,8 @@ export type KdsLoadingSkeletonProps = {
   repeatGap?: `var(--${string})`;
 
   /** Width in % or CSS token variable. Defaults to 100% or default shape width. */
-  width?: KdsLoadingSkeletonCssLength;
+  width?: CssLength;
 
   /** Height in % or CSS token variable. Only possible for `card` variant. */
-  height?: KdsLoadingSkeletonCssLength;
+  height?: CssLength;
 };

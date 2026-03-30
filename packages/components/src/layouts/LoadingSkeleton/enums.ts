@@ -1,4 +1,4 @@
-export const kdsLoadingSkeletonItemShape = {
+export const loadingSkeletonItemShape = {
   TEXT: "text",
   LABEL: "label",
   ICON_LARGE: "icon-large",
@@ -13,7 +13,7 @@ export const kdsLoadingSkeletonItemShape = {
 } as const;
 
 export const kdsLoadingSkeletonVariant = {
-  ...kdsLoadingSkeletonItemShape,
+  ...loadingSkeletonItemShape,
   TEXT_HEADLINE_WITH_PARAGRAPH: "text-headline-with-paragraph",
   LIST_ITEM_LARGE: "list-item-large",
   LIST_ITEM_LARGE_WITH_SUBTEXT: "list-item-large-with-subtext",
