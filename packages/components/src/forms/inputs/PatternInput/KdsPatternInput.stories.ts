@@ -344,9 +344,8 @@ export const TextOverflow: Story = {
   args: {
     label:
       "Very long label that should be truncated when the container is too small",
-    pattern:
+    modelValue:
       "^a-very-very-very-long-pattern-with-a-lot-of-characters-and-groups([0-9]+)$",
-    useRegex: true,
     subText:
       "Very long helper text that should wrap to multiple lines when needed",
   },
@@ -392,34 +391,3 @@ export const AllCombinations: Story = buildAllCombinationsStory({
   },
   pseudoStates: ["hover", "focus"],
 });
-
-export const DesignComparator: Story = buildDesignComparatorStory({
-  component: KdsPatternInput,
-  wrapperStyle: "width: 218px",
-  designsToCompare: {
-    ".PatternInput": {
-      props: {},
-      variants: {
-        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3524-11564":
-          {
-            placeholder: "{Pattern}",
-          },
-      },
-    },
-  },
-});
-
-export const TextOverflow: Story = {
-  ...buildTextOverflowStory({
-    component: KdsPatternInput,
-    width: 340,
-  }),
-  args: {
-    label:
-      "Very long label that should be truncated when the container is too small",
-    modelValue:
-      "^a-very-very-very-long-pattern-with-a-lot-of-characters-and-groups([0-9]+)$",
-    subText:
-      "Very long helper text that should wrap to multiple lines when needed",
-  },
-};
