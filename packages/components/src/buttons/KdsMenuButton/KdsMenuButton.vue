@@ -7,9 +7,11 @@ import {
   useId,
   useTemplateRef,
   watch,
+  watchEffect,
 } from "vue";
 
 import KdsMenuContainer from "../../forms/_helper/MenuContainer/KdsMenuContainer.vue";
+import type { KdsPopoverExpose } from "../../overlays/Popover";
 import KdsPopover from "../../overlays/Popover/KdsPopover.vue";
 import KdsToggleButton from "../KdsToggleButton/KdsToggleButton.vue";
 
@@ -19,11 +21,7 @@ defineOptions({
   inheritAttrs: false,
 });
 
-const {
-  variant = "outlined",
-  menuMaxHeight,
-  ...props
-} = defineProps<KdsMenuButtonProps>();
+const { variant = "outlined", ...props } = defineProps<KdsMenuButtonProps>();
 
 const attrs = useAttrs();
 
@@ -45,8 +43,9 @@ const toggleButtonProps = computed(() => {
 });
 
 const isMenuOpen = ref<boolean>(false);
-const popoverEl = useTemplateRef("popoverEl");
+const popoverEl = useTemplateRef<KdsPopoverExpose>("popoverEl");
 const menuContainer = useTemplateRef("menuContainer");
+const toggleButton = useTemplateRef("toggleButton");
 
 const menuId = useId();
 
@@ -63,10 +62,17 @@ const onItemClick = (itemId: string) => {
   isMenuOpen.value = false;
   emit("itemClick", itemId);
 };
+
+watchEffect(() => {
+  if (isMenuOpen.value) {
+    nextTick(() => menuContainer.value?.focus());
+  }
+});
 </script>
 
 <template>
   <KdsToggleButton
+    ref="toggleButton"
     v-model="isMenuOpen"
     v-bind="toggleButtonProps"
     aria-haspopup="menu"

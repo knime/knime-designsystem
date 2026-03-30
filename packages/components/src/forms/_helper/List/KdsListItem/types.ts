@@ -48,4 +48,15 @@ export type KdsListItemProps = {
 
   /** Role of the item */
   role?: KdsListItemRole;
+
+  /** When provided, renders the item as an <a> tag linking to this URL. */
+  href?: string;
+
+  /**
+   * Optional route path. When provided, the item renders using
+   * RouterLink/NuxtLink if available, otherwise falls back to an <a> tag.
+   * Only string paths are supported (e.g. "/settings"); route objects are
+   * not accepted because the fallback <a> tag cannot resolve them.
+   */
+  to?: string;
 };
