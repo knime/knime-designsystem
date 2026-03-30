@@ -45,14 +45,14 @@ watch(
   { immediate: true },
 );
 
-const caseSensitiveAriaLabel = computed(() =>
-  caseSensitive.value ? "Match case-sensitive" : "Match case-insensitive",
+const caseSensitiveTitle = computed(() =>
+  caseSensitive.value ? "Match case-insensitive" : "Match case-sensitive",
 );
-const excludeMatchesAriaLabel = computed(() =>
-  excludeMatches.value ? "Exclude matches" : "Include matches",
+const excludeMatchesTitle = computed(() =>
+  excludeMatches.value ? "Include matches" : "Exclude matches",
 );
-const patternModeAriaLabel = computed(() =>
-  useRegex.value ? "Use regex pattern" : "Use wildcard pattern",
+const patternModeTitle = computed(() =>
+  useRegex.value ? "Use wildcard pattern" : "Use regex pattern",
 );
 
 const baseInput = useTemplateRef("baseInput");
@@ -88,8 +88,8 @@ defineExpose<KdsFormFieldExpose>({
             size="xsmall"
             variant="outlined"
             leading-icon="case-sensitive"
-            :title="caseSensitiveAriaLabel"
-            :ariaLabel="caseSensitiveAriaLabel"
+            :title="caseSensitiveTitle"
+            ariaLabel="Case sensitivity"
             :disabled="disabled"
           />
 
@@ -98,8 +98,8 @@ defineExpose<KdsFormFieldExpose>({
             size="xsmall"
             variant="outlined"
             leading-icon="arrows-order"
-            :title="excludeMatchesAriaLabel"
-            :ariaLabel="excludeMatchesAriaLabel"
+            :title="excludeMatchesTitle"
+            ariaLabel="Exclude matches"
             :disabled="disabled"
           />
 
@@ -108,8 +108,8 @@ defineExpose<KdsFormFieldExpose>({
             size="xsmall"
             variant="outlined"
             leading-icon="regex"
-            :title="patternModeAriaLabel"
-            :ariaLabel="patternModeAriaLabel"
+            :title="patternModeTitle"
+            ariaLabel="Regex mode"
             :disabled="disabled"
           />
         </template>

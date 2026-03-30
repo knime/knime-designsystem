@@ -176,7 +176,7 @@ export const Default: Story = {
 
       await user.tab();
       const caseToggle = canvas.getByRole("button", {
-        name: "Match case-insensitive",
+        name: "Case sensitivity",
       });
       await expect(caseToggle).toHaveFocus();
     });
@@ -196,15 +196,12 @@ export const Default: Story = {
 
       // After clearing, the clear button disappears. Wait for toggle to be focusable.
       const caseToggle = await canvas.findByRole("button", {
-        name: "Match case-insensitive",
+        name: "Case sensitivity",
       });
       await user.click(caseToggle);
 
-      // Wait for toggle state to update - the name changes when pressed
-      const caseToggleActive = await canvas.findByRole("button", {
-        name: "Match case-sensitive",
-      });
-      await expect(caseToggleActive).toHaveAttribute("aria-pressed", "true");
+      // The accessible name stays the same; only aria-pressed changes
+      await expect(caseToggle).toHaveAttribute("aria-pressed", "true");
     });
   },
 };
