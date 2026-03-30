@@ -331,7 +331,6 @@ const moveLeft = (ids: Iterable<string>) => {
 .kds-list-column {
   display: flex;
   flex-direction: column;
-  gap: var(--kds-spacing-container-0-37x);
   min-block-size: 0;
 
   & .kds-list-box {
@@ -344,6 +343,7 @@ const moveLeft = (ids: Iterable<string>) => {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
+  margin-bottom: var(--kds-spacing-input-label-spacing-bottom);
 }
 
 .kds-list-label {

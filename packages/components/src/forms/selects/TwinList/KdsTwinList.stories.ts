@@ -81,10 +81,26 @@ const typedPossibleValues: KdsTwinListPossibleValue[] = [
 ];
 
 const filterTypes: KdsTwinListPossibleType[] = [
-  { id: "string", text: "String" },
-  { id: "number", text: "Number" },
-  { id: "boolean", text: "Boolean" },
-  { id: "date-time", text: "Date&Time" },
+  {
+    id: "string",
+    text: "String",
+    accessory: { type: "dataType", name: "string-datatype" },
+  },
+  {
+    id: "number",
+    text: "Number",
+    accessory: { type: "dataType", name: "number-double-datatype" },
+  },
+  {
+    id: "boolean",
+    text: "Boolean",
+    accessory: { type: "dataType", name: "boolean-datatype" },
+  },
+  {
+    id: "date-time",
+    text: "Date&Time",
+    accessory: { type: "dataType", name: "date-time-local-datatype" },
+  },
 ];
 
 // ── Meta ─────────────────────────────────────────────────────────────────────
@@ -752,9 +768,21 @@ export const TextOverflow: Story = {
       "Unknown columns with a very long description text for overflow",
     enablePatternFilter: true,
     filterTypes: [
-      { id: "string", text: "String" },
-      { id: "number", text: "Number" },
-      { id: "boolean", text: "Boolean" },
+      {
+        id: "string",
+        text: "String",
+        accessory: { type: "dataType", name: "string-datatype" },
+      },
+      {
+        id: "number",
+        text: "Number",
+        accessory: { type: "dataType", name: "number-double-datatype" },
+      },
+      {
+        id: "boolean",
+        text: "Boolean",
+        accessory: { type: "dataType", name: "boolean-datatype" },
+      },
     ] satisfies KdsTwinListPossibleType[],
     selectedTypes: [],
     emptyStateLabel: "No entries in this list at all whatsoever",

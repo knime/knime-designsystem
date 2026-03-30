@@ -17,6 +17,7 @@ export type KdsTwinListPossibleValue = {
 export type KdsTwinListPossibleType = {
   id: string;
   text: string;
+  accessory?: KdsListItemAccessory;
 };
 
 export type KdsTwinListSearchMode =
