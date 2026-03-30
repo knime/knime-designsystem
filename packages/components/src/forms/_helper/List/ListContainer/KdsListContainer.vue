@@ -238,6 +238,10 @@ defineExpose<KdsListContainerExpose>({
   /** Notify the list that its controlling element lost focus */
   handleBlur,
   activeDescendant: activeId,
+  /** Moves focus to the list container element */
+  focus: () => {
+    containerEl.value?.focus();
+  },
 });
 </script>
 
@@ -251,7 +255,10 @@ defineExpose<KdsListContainerExpose>({
     :aria-activedescendant="
       !props.controlledExternally && activeId ? activeId : undefined
     "
-    :class="['kds-list-container', { standalone: !props.controlledExternally }]"
+    :class="[
+      'kds-list-container',
+      { standalone: !props.controlledExternally, menu: role === 'menu' },
+    ]"
     :tabindex="props.controlledExternally ? undefined : 0"
     @keydown="handleKeydown"
     @focus="handleFocus"
@@ -325,6 +332,10 @@ defineExpose<KdsListContainerExpose>({
   &.standalone {
     border: var(--kds-border-base-subtle);
     border-radius: var(--kds-border-radius-container-0-31x);
+  }
+
+  &.menu {
+    border: none;
   }
 
   &:focus-visible {

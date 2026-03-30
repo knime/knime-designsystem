@@ -43,7 +43,7 @@ const meta: Meta<typeof KdsMenuButton> = {
       description: {
         component:
           "Displays a menu to the user — such as a set of actions or functions — triggered by a button. " +
-          "It is a combination of a KdsToggleButton with a KdsListContainer within a KdsPopover",
+          "It is a combination of a KdsToggleButton with a reusable KdsMenuContainer inside a KdsPopover",
       },
     },
     design: {
