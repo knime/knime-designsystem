@@ -379,7 +379,7 @@ export const MaxInlineSize: Story = {
     },
   },
   args: {
-    fullWidth: true,
+    maxInlineSize: "anchor-size(width)",
     content:
       "This popover has a maximum inline size set to the anchor's width. It won't grow over the width of its anchor.",
   },
@@ -407,7 +407,7 @@ export const MaxInlineSize: Story = {
         v-model="args.modelValue"
         :placement="args.placement"
         :content="args.content"
-        max-inline-size="anchor-size(width)"
+        :max-inline-size="args.maxInlineSize"
         aria-label="Popover"
         data-testid="popover"
       />
@@ -425,10 +425,10 @@ export const MaxInlineSize: Story = {
     // Popover should have the accessible label
     await expect(popover).toHaveAttribute("aria-label", "Popover");
 
-    // The popover should have the same width as the anchor
+    // The popover should not exceed the width of the anchor
     const anchorWidth = toggleButton.getBoundingClientRect().width;
     const popoverWidth = popover.getBoundingClientRect().width;
-    expect(popoverWidth).toBeGreaterThanOrEqual(anchorWidth);
+    expect(popoverWidth).toBeLessThanOrEqual(anchorWidth);
   },
 };
 
