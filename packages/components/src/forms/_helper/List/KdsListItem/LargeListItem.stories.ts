@@ -127,13 +127,14 @@ type Story = StoryObj<typeof KdsListItem>;
 export const Default: Story = {
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const option = canvas.getByRole("option");
 
     await expect(option).toHaveAttribute("aria-selected", "false");
     await expect(option).not.toHaveAttribute("aria-disabled", "true");
     await expect(canvas.getByText("Label")).toBeInTheDocument();
 
-    await userEvent.click(option);
+    await user.click(option);
     await expect(args.onClick).toHaveBeenCalledOnce();
   },
 };
@@ -228,11 +229,12 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const option = canvas.getByRole("option");
 
     await expect(option).toHaveAttribute("aria-disabled", "true");
 
-    await userEvent.click(option);
+    await user.click(option);
     await expect(args.onClick).not.toHaveBeenCalled();
   },
 };

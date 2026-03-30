@@ -51,29 +51,53 @@ const meta: Meta<typeof KdsToggleButton> = {
     },
   },
   argTypes: {
-    size: {
-      control: { type: "select" },
-      options: kdsButtonSizes,
+    label: {
+      control: "text",
+      table: { category: "props" },
     },
     variant: {
       control: { type: "select" },
       options: kdsToggleButtonVariants,
+      table: { category: "props" },
     },
-    disabled: { control: "boolean" },
-    label: { control: "text" },
+    size: {
+      control: { type: "select" },
+      options: kdsButtonSizes,
+      table: { category: "props" },
+    },
+    disabled: {
+      control: "boolean",
+      table: { category: "props" },
+    },
     leadingIcon: {
       control: { type: "select" },
       options: [undefined, ...iconNames],
+      table: { category: "props" },
     },
     trailingIcon: {
       control: { type: "select" },
       options: [undefined, ...iconNames],
+      table: { category: "props" },
     },
-    ariaLabel: { control: "text" },
-    title: { control: "text" },
+    ariaLabel: {
+      control: "text",
+      table: { category: "props" },
+    },
+    title: {
+      control: "text",
+      table: { category: "props" },
+    },
     modelValue: { control: { type: "boolean" }, table: { category: "model" } },
   },
   args: {
+    label: "Button",
+    variant: "outlined",
+    size: "medium",
+    disabled: false,
+    leadingIcon: undefined,
+    trailingIcon: undefined,
+    ariaLabel: undefined,
+    title: "",
     modelValue: false,
   },
   render: (args) => {

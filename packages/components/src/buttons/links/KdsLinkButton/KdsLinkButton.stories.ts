@@ -1,9 +1,14 @@
 import type { FunctionalComponent } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { fn } from "storybook/test";
+import { expect, fn, within } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
+import {
+  buildAllCombinationsStory,
+  buildDesignComparatorStory,
+  buildTextOverflowStory,
+} from "../../../test-utils/storybook";
 import { kdsButtonSizes, kdsButtonVariants } from "../../enums";
 import { buildWrappingComponentDocs } from "../docs";
 
@@ -27,9 +32,8 @@ const meta: Meta<typeof KdsLinkButton> = {
     },
   },
   argTypes: {
-    size: {
-      control: { type: "select" },
-      options: kdsButtonSizes,
+    label: {
+      control: "text",
       table: { category: "props" },
     },
     variant: {
@@ -37,9 +41,19 @@ const meta: Meta<typeof KdsLinkButton> = {
       options: kdsButtonVariants,
       table: { category: "props" },
     },
-    destructive: { control: "boolean", table: { category: "props" } },
-    disabled: { control: "boolean", table: { category: "props" } },
-    label: { control: "text", table: { category: "props" } },
+    size: {
+      control: { type: "select" },
+      options: kdsButtonSizes,
+      table: { category: "props" },
+    },
+    destructive: {
+      control: "boolean",
+      table: { category: "props" },
+    },
+    disabled: {
+      control: "boolean",
+      table: { category: "props" },
+    },
     leadingIcon: {
       control: { type: "select" },
       options: [undefined, ...iconNames],
@@ -72,10 +86,29 @@ const meta: Meta<typeof KdsLinkButton> = {
         "If true, the link will be downloaded instead of navigating to it.",
       table: { category: "props" },
     },
-    ariaLabel: { control: "text", table: { category: "props" } },
-    title: { control: "text", table: { category: "props" } },
+    ariaLabel: {
+      control: "text",
+      table: { category: "props" },
+    },
+    title: {
+      control: "text",
+      table: { category: "props" },
+    },
   },
   args: {
+    label: "Button",
+    variant: "filled",
+    size: "medium",
+    destructive: false,
+    disabled: false,
+    leadingIcon: undefined,
+    trailingIcon: undefined,
+    to: "#",
+    target: null,
+    rel: null,
+    download: undefined,
+    ariaLabel: undefined,
+    title: "",
     onClick: fn(),
   },
 };
@@ -90,7 +123,13 @@ export const Filled: Story = {
   args: {
     variant: "filled",
     label: "Button",
-    to: "https://www.knime.com",
+    to: "#filled",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const link = canvas.getByRole("link", { name: "Button" });
+    await expect(link).toBeInTheDocument();
   },
 };
 
@@ -105,3 +144,51 @@ export const Disabled: Story = {
     disabled: true,
   },
 };
+
+export const TextOverflow: Story = {
+  ...buildTextOverflowStory({
+    component: KdsLinkButton,
+  }),
+  args: {
+    label: "Link button with veeery loooong label",
+    variant: "outlined",
+    to: "https://www.knime.com",
+    leadingIcon: "placeholder",
+    trailingIcon: "placeholder",
+  },
+};
+
+// DesignComparator reuses the same Figma designs as KdsButton since visuals are identical
+export const DesignComparator: Story = buildDesignComparatorStory({
+  component: KdsLinkButton,
+  designsToCompare: {
+    label: {
+      props: {
+        label: "{Label}",
+        variant: "outlined",
+        to: "https://www.knime.com",
+      },
+      variants: {
+        "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=3804-89976":
+          {
+            size: "medium",
+          },
+      },
+    },
+  },
+});
+
+export const AllCombinations: Story = buildAllCombinationsStory({
+  component: KdsLinkButton,
+  combinationsProps: [
+    {
+      variant: kdsButtonVariants,
+      disabled: [false, true],
+      destructive: [false, true],
+      label: ["Button"],
+      to: ["https://www.knime.com"],
+      leadingIcon: [undefined, "placeholder"],
+    },
+  ],
+  pseudoStates: ["hover", "focus-visible"],
+});

@@ -137,28 +137,29 @@ export const Default: Story = {
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const input = canvas.getByRole("textbox", { name: "Label" });
 
     await step("Type into the input", async () => {
-      await userEvent.click(input);
-      await userEvent.clear(input);
-      await userEvent.type(input, "Hello");
+      await user.click(input);
+      await user.clear(input);
+      await user.type(input, "Hello");
       await expect(input).toHaveValue("Hello");
 
-      await userEvent.clear(input);
+      await user.clear(input);
       await expect(input).toHaveValue("");
     });
 
     await step("Click label to focus input", async () => {
       input.blur();
       const label = canvas.getByText("Label");
-      await userEvent.click(label);
+      await user.click(label);
       await expect(input).toHaveFocus();
     });
 
     await step("Tab focus", async () => {
       input.blur();
-      await userEvent.tab();
+      await user.tab();
       await expect(input).toHaveFocus();
     });
   },
@@ -185,15 +186,16 @@ export const WithDescription: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
+    const user = userEvent.setup();
     const input = canvas.getByRole("textbox", { name: /label/i });
-    await userEvent.hover(input);
+    await user.hover(input);
 
     const infoButton = await canvas.findByRole("button", {
       name: "Click for more information",
     });
     await expect(infoButton).toBeInTheDocument();
 
-    await userEvent.click(infoButton);
+    await user.click(infoButton);
 
     const description = await canvas.findByText(
       /This is a helpful description that explains what this field is for\./i,
@@ -290,11 +292,12 @@ export const ProgrammaticFocus: Story = {
   }),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const button = canvas.getByRole("button", { name: "Focus Text Input" });
     const input = canvas.getByRole("textbox", { name: "Text Input" });
 
     await expect(input).not.toHaveFocus();
-    await userEvent.click(button);
+    await user.click(button);
     await expect(input).toHaveFocus();
   },
 };
@@ -421,27 +424,20 @@ export const WithSuggestions: Story = {
   },
 };
 
-export const AllCombinations: Story = buildAllCombinationsStory({
-  component: KdsTextInput,
-  combinationsProps: {
-    default: {
-      label: ["Label"],
-      ariaLabel: [undefined],
-      modelValue: ["", "Value"],
-      placeholder: ["", "Placeholder"],
-      disabled: [false],
-      error: [false],
-      validating: [false],
-      subText: [undefined, "Message"],
-    },
-    combinations: [
-      { validating: [true], subText: ["Validation message"] },
-      { error: [true], subText: ["Error message"] },
-      { disabled: [true] },
-    ],
+export const TextOverflow: Story = {
+  ...buildTextOverflowStory({
+    component: KdsTextInput,
+    width: 300,
+  }),
+  args: {
+    label:
+      "Very long label that should be truncated when the container is too small",
+    modelValue:
+      "Very long value that should be truncated when the container is too small",
+    subText:
+      "Very long helper text that should wrap to multiple lines when needed",
   },
-  pseudoStates: ["hover", "focus"],
-});
+};
 
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsTextInput,
@@ -493,17 +489,24 @@ export const DesignComparator: Story = buildDesignComparatorStory({
   },
 });
 
-export const TextOverflow: Story = {
-  ...buildTextOverflowStory({
-    component: KdsTextInput,
-    width: 300,
-  }),
-  args: {
-    label:
-      "Very long label that should be truncated when the container is too small",
-    modelValue:
-      "Very long value that should be truncated when the container is too small",
-    subText:
-      "Very long helper text that should wrap to multiple lines when needed",
+export const AllCombinations: Story = buildAllCombinationsStory({
+  component: KdsTextInput,
+  combinationsProps: {
+    default: {
+      label: ["Label"],
+      ariaLabel: [undefined],
+      modelValue: ["", "Value"],
+      placeholder: ["", "Placeholder"],
+      disabled: [false],
+      error: [false],
+      validating: [false],
+      subText: [undefined, "Message"],
+    },
+    combinations: [
+      { validating: [true], subText: ["Validation message"] },
+      { error: [true], subText: ["Error message"] },
+      { disabled: [true] },
+    ],
   },
-};
+  pseudoStates: ["hover", "focus"],
+});

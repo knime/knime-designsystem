@@ -129,6 +129,7 @@ export const Default: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const group = canvas.getByRole("radiogroup");
     const scope = within(group);
 
@@ -140,39 +141,39 @@ export const Default: Story = {
     await expect(optionB).toHaveAttribute("tabindex", "-1");
 
     // Mouse: selection changes
-    await userEvent.click(optionB);
+    await user.click(optionB);
     await expect(optionB).toHaveAttribute("aria-checked", "true");
     await expect(optionA).toHaveAttribute("tabindex", "-1");
 
     // Keyboard: ArrowRight moves selection
     optionB.focus();
-    await userEvent.keyboard("{ArrowRight}");
+    await user.keyboard("{ArrowRight}");
     const optionC = scope.getByRole("radio", { name: "Option C" });
     await expect(optionC).toHaveAttribute("aria-checked", "true");
     await expect(optionC).toHaveFocus();
 
     // ArrowLeft goes back
-    await userEvent.keyboard("{ArrowLeft}");
+    await user.keyboard("{ArrowLeft}");
     await expect(optionB).toHaveAttribute("aria-checked", "true");
     await expect(optionB).toHaveFocus();
 
     // Home -> first option
-    await userEvent.keyboard("{Home}");
+    await user.keyboard("{Home}");
     await expect(optionA).toHaveAttribute("aria-checked", "true");
     await expect(optionA).toHaveFocus();
 
     // End -> last option
-    await userEvent.keyboard("{End}");
+    await user.keyboard("{End}");
     const optionD = scope.getByRole("radio", { name: "Option D" });
     await expect(optionD).toHaveAttribute("aria-checked", "true");
     await expect(optionD).toHaveFocus();
 
     // Space on focused option keeps it selected
-    await userEvent.keyboard(" ");
+    await user.keyboard(" ");
     await expect(optionD).toHaveAttribute("aria-checked", "true");
 
     // Reset state
-    await userEvent.click(optionA);
+    await user.click(optionA);
     await expect(optionA).toHaveAttribute("aria-checked", "true");
   },
 };
@@ -208,6 +209,7 @@ export const IconOnly: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const group = canvas.getByRole("radiogroup");
     const scope = within(group);
 
@@ -217,12 +219,12 @@ export const IconOnly: Story = {
     await expect(cards).toHaveAttribute("aria-checked", "true");
 
     // Mouse: selection changes
-    await userEvent.click(list);
+    await user.click(list);
     await expect(list).toHaveAttribute("aria-checked", "true");
     await expect(cards).toHaveAttribute("aria-checked", "false");
 
     // Reset state
-    await userEvent.click(cards);
+    await user.click(cards);
     await expect(cards).toHaveAttribute("aria-checked", "true");
   },
 };
@@ -248,6 +250,7 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const group = canvas.getByRole("radiogroup");
     const scope = within(group);
 
@@ -258,12 +261,12 @@ export const Disabled: Story = {
     await expect(optionB).toBeDisabled();
 
     // Click should not change selection
-    await userEvent.click(optionB);
+    await user.click(optionB);
     await expect(optionA).toHaveAttribute("aria-checked", "true");
 
     // Keyboard should not change selection
     optionA.focus();
-    await userEvent.keyboard("{ArrowRight}");
+    await user.keyboard("{ArrowRight}");
     await expect(optionA).toHaveAttribute("aria-checked", "true");
   },
 };
@@ -303,6 +306,7 @@ export const WithError: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const group = canvas.getByRole("radiogroup");
     const scope = within(group);
 
@@ -313,19 +317,19 @@ export const WithError: Story = {
     const optionB = scope.getByRole("radio", { name: "Option B" });
 
     // Mouse: selection changes even in error state
-    await userEvent.click(optionB);
+    await user.click(optionB);
     await expect(optionB).toHaveAttribute("aria-checked", "true");
     await expect(optionA).toHaveAttribute("aria-checked", "false");
 
     // Keyboard: ArrowRight moves selection
     optionB.focus();
-    await userEvent.keyboard("{ArrowRight}");
+    await user.keyboard("{ArrowRight}");
     const optionC = scope.getByRole("radio", { name: "Option C" });
     await expect(optionC).toHaveAttribute("aria-checked", "true");
     await expect(optionC).toHaveFocus();
 
     // Reset state
-    await userEvent.click(optionA);
+    await user.click(optionA);
     await expect(optionA).toHaveAttribute("aria-checked", "true");
   },
 };

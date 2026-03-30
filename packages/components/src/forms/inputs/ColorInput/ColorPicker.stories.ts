@@ -48,6 +48,7 @@ export const Default: Story = {
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
 
+    const user = userEvent.setup();
     const colorspaceSlider = canvas.getByRole("slider", {
       name: "Color selection",
     });
@@ -65,12 +66,12 @@ export const Default: Story = {
         const initialValueText =
           colorspaceSlider.getAttribute("aria-valuetext")!;
 
-        await userEvent.keyboard("{ArrowRight}");
+        await user.keyboard("{ArrowRight}");
         await expect(colorspaceSlider.getAttribute("aria-valuetext")).not.toBe(
           initialValueText,
         );
 
-        await userEvent.keyboard("{ArrowDown}");
+        await user.keyboard("{ArrowDown}");
         await expect(colorspaceSlider.getAttribute("aria-valuetext")).not.toBe(
           initialValueText,
         );
@@ -83,11 +84,11 @@ export const Default: Story = {
 
       const initialHue = Number(hueSlider.getAttribute("aria-valuenow"));
 
-      await userEvent.keyboard("{ArrowRight}");
+      await user.keyboard("{ArrowRight}");
       const updatedHue = Number(hueSlider.getAttribute("aria-valuenow"));
       expect(updatedHue).toBe(initialHue + 1);
 
-      await userEvent.keyboard("{ArrowLeft}");
+      await user.keyboard("{ArrowLeft}");
       const restoredHue = Number(hueSlider.getAttribute("aria-valuenow"));
       expect(restoredHue).toBe(initialHue);
     });
@@ -95,7 +96,7 @@ export const Default: Story = {
     await step("Mouse: click on colorspace slider", async () => {
       const valueBefore = colorspaceSlider.getAttribute("aria-valuetext")!;
 
-      await userEvent.click(colorspaceSlider);
+      await user.click(colorspaceSlider);
 
       await expect(colorspaceSlider.getAttribute("aria-valuetext")).not.toBe(
         valueBefore,
@@ -105,16 +106,16 @@ export const Default: Story = {
     await step("Mouse: click on hue slider", async () => {
       const hueBefore = Number(hueSlider.getAttribute("aria-valuenow"));
 
-      await userEvent.click(hueSlider);
+      await user.click(hueSlider);
 
       const hueAfter = Number(hueSlider.getAttribute("aria-valuenow"));
       expect(hueAfter).not.toBe(hueBefore);
     });
 
     await step("Mouse: type a hex value into the text input", async () => {
-      await userEvent.click(textInput);
-      await userEvent.clear(textInput);
-      await userEvent.type(textInput, "#FF6600");
+      await user.click(textInput);
+      await user.clear(textInput);
+      await user.type(textInput, "#FF6600");
       await expect(textInput).toHaveValue("#FF6600");
     });
   },

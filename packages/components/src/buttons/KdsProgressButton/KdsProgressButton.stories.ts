@@ -32,7 +32,7 @@ const meta: Meta<typeof KdsProgressButton> = {
     },
     design: {
       type: "figma",
-      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=278-4918&p=f&m=dev",
+      url: "https://www.figma.com/design/AqT6Q5R4KyYqUb6n5uO2XE/%F0%9F%A7%A9-kds-Components?node-id=278-4918",
     },
   },
   argTypes: {
@@ -140,7 +140,7 @@ export const IconOnly: Story = {
 
 const sleep = (ms: number): Promise<void> =>
   new Promise((resolve) => {
-    window.setTimeout(resolve, ms);
+    globalThis.setTimeout(resolve, ms);
   });
 
 export const ControlledSuccessFlow: Story = {
@@ -173,17 +173,18 @@ export const ControlledSuccessFlow: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const button = canvas.getByRole("button", { name: "Click me" });
 
     await expect(button).toHaveAttribute("data-kds-progress-state", "default");
 
-    await userEvent.click(button);
+    await user.click(button);
     await waitFor(() =>
       expect(button).toHaveAttribute("data-kds-progress-state", "progress"),
     );
 
     // While in progress, subsequent clicks should be ignored.
-    await userEvent.click(button);
+    await user.click(button);
     await expect(button).toHaveAttribute("data-kds-progress-state", "progress");
 
     await waitFor(() =>
@@ -228,11 +229,12 @@ export const ControlledErrorFlow: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const button = canvas.getByRole("button", { name: "Click me" });
 
     await expect(button).toHaveAttribute("data-kds-progress-state", "default");
 
-    await userEvent.click(button);
+    await user.click(button);
     await waitFor(() =>
       expect(button).toHaveAttribute("data-kds-progress-state", "progress"),
     );
@@ -248,29 +250,6 @@ export const ControlledErrorFlow: Story = {
     );
   },
 };
-
-export const AllCombinations: Story = buildAllCombinationsStory({
-  component: KdsProgressButton,
-  combinationsProps: [
-    {
-      size: kdsButtonSizes,
-      variant: kdsButtonVariants,
-      disabled: [false, true],
-      state: ["default"],
-      leadingIcon: ["placeholder"],
-      label: ["{Label}"],
-    },
-    {
-      size: kdsButtonSizes,
-      variant: kdsButtonVariants,
-      disabled: [false, true],
-      state: ["default"],
-      leadingIcon: ["placeholder"],
-      ariaLabel: ["Icon only progress button"],
-    },
-  ],
-  pseudoStates: ["hover", "active", "focus-visible"],
-});
 
 export const TextOverflow: Story = {
   ...buildTextOverflowStory({
@@ -627,4 +606,27 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       variants: buildVariants(figmaVariants.transparent.iconOnly),
     },
   },
+});
+
+export const AllCombinations: Story = buildAllCombinationsStory({
+  component: KdsProgressButton,
+  combinationsProps: [
+    {
+      size: kdsButtonSizes,
+      variant: kdsButtonVariants,
+      disabled: [false, true],
+      state: ["default"],
+      leadingIcon: ["placeholder"],
+      label: ["{Label}"],
+    },
+    {
+      size: kdsButtonSizes,
+      variant: kdsButtonVariants,
+      disabled: [false, true],
+      state: ["default"],
+      leadingIcon: ["placeholder"],
+      ariaLabel: ["Icon only progress button"],
+    },
+  ],
+  pseudoStates: ["hover", "active", "focus-visible"],
 });

@@ -61,6 +61,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const getButton = () =>
       canvas.getByRole("button", {
         name: /flow variable/i,
@@ -68,7 +69,7 @@ export const Default: Story = {
 
     await expect(getButton()).toHaveAttribute("aria-pressed", "false");
 
-    await userEvent.click(getButton());
+    await user.click(getButton());
     await expect(getButton()).toHaveAttribute("aria-pressed", "true");
 
     // Popover should have the accessible label
@@ -78,7 +79,7 @@ export const Default: Story = {
       "Flow Variable settings",
     );
 
-    await userEvent.click(getButton());
+    await user.click(getButton());
     await expect(getButton()).toHaveAttribute("aria-pressed", "false");
   },
 };
@@ -160,18 +161,7 @@ export const IconStateLogic: Story = {
   },
 };
 
-export const AllCombinations: Story = buildAllCombinationsStory({
-  component: KdsVariableToggleButton,
-  combinationsProps: [
-    {
-      inSet: [false, true],
-      outSet: [false, true],
-      error: [false, true],
-      modelValue: [false, true],
-    },
-  ],
-  pseudoStates: ["hover", "active", "focus-visible"],
-});
+// TextOverflow story does not apply here
 
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsVariableToggleButton,
@@ -243,4 +233,17 @@ export const DesignComparator: Story = buildDesignComparatorStory({
       },
     },
   },
+});
+
+export const AllCombinations: Story = buildAllCombinationsStory({
+  component: KdsVariableToggleButton,
+  combinationsProps: [
+    {
+      inSet: [false, true],
+      outSet: [false, true],
+      error: [false, true],
+      modelValue: [false, true],
+    },
+  ],
+  pseudoStates: ["hover", "active", "focus-visible"],
 });

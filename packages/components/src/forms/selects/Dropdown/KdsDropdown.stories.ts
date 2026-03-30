@@ -161,12 +161,13 @@ export default meta;
 export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const trigger = canvas.getByRole("button", { name: /Label/ });
 
     // --- Keyboard: ArrowDown opens dropdown and focuses the search field ---
     trigger.focus();
     await expect(trigger).toHaveFocus();
-    await userEvent.keyboard("{ArrowDown}");
+    await user.keyboard("{ArrowDown}");
 
     const filterInput = await canvas.findByRole("searchbox", {
       name: "Filter options",
@@ -175,11 +176,11 @@ export const Default: Story = {
     await expect(filterInput).toHaveAttribute("aria-activedescendant");
 
     // Enter selects the first active option (Option A)
-    await userEvent.keyboard("{Enter}");
+    await user.keyboard("{Enter}");
     await expect(trigger).toHaveTextContent("Option A");
 
     // --- Mouse: click reopens dropdown, search gets focus ---
-    await userEvent.click(trigger);
+    await user.click(trigger);
 
     const filterInputAfterClick = await canvas.findByRole("searchbox", {
       name: "Filter options",
@@ -190,23 +191,21 @@ export const Default: Story = {
     ).toBeVisible();
 
     // ArrowDown from Option A (active) → Option B, then select
-    await userEvent.keyboard("{ArrowDown}{Enter}");
+    await user.keyboard("{ArrowDown}{Enter}");
     await expect(trigger).toHaveTextContent("Option B");
 
     // --- Reopen and test Escape (selection stays unchanged) ---
-    await userEvent.click(trigger);
+    await user.click(trigger);
     await canvas.findByRole("searchbox", { name: "Filter options" });
-    await userEvent.keyboard("{ArrowDown}{ArrowDown}{Escape}");
+    await user.keyboard("{ArrowDown}{ArrowDown}{Escape}");
     await expect(trigger).toHaveTextContent("Option B");
 
     // --- Clicking the same option keeps it selected ---
-    await userEvent.click(
-      await canvas.findByRole("option", { name: "Option B" }),
-    );
+    await user.click(await canvas.findByRole("option", { name: "Option B" }));
     await expect(trigger).toHaveTextContent("Option B");
 
     // --- Allow selection of option with empty value ---
-    await userEvent.click(
+    await user.click(
       canvas.getByRole("option", { name: "Option F with empty value" }),
     );
     await expect(trigger).toHaveTextContent("Option F with empty value");
@@ -238,20 +237,21 @@ export const MissingValue: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const trigger = canvas.getByRole("button", { name: /Label/ });
 
-    await userEvent.click(trigger);
+    await user.click(trigger);
 
     const missingOption = canvas.getByRole("option", {
       name: /\(Missing\)\s*missing/i,
     });
     await expect(missingOption).toHaveAttribute("aria-disabled", "true");
 
-    await userEvent.click(canvas.getByRole("option", { name: "Option A" }));
+    await user.click(canvas.getByRole("option", { name: "Option A" }));
 
     await expect(trigger).toHaveTextContent("Option A");
 
-    await userEvent.click(trigger);
+    await user.click(trigger);
 
     await expect(
       canvas.queryByRole("option", { name: /\(Missing\)\s*missing/i }),
@@ -285,10 +285,11 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const trigger = canvas.getByRole("button", { name: /Label/ });
 
     await expect(trigger).toBeDisabled();
-    await userEvent.click(trigger);
+    await user.click(trigger);
     await expect(canvas.queryByRole("searchbox")).not.toBeInTheDocument();
   },
 };
@@ -300,9 +301,10 @@ export const Loading: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const trigger = canvas.getByRole("button", { name: /Label/ });
 
-    await userEvent.click(trigger);
+    await user.click(trigger);
 
     const loadingText = await canvas.findByText("Loading entries");
     await expect(loadingText).toBeVisible();
@@ -369,10 +371,11 @@ export const InModal: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await userEvent.click(canvas.getByRole("button", { name: "Open modal" }));
+    const user = userEvent.setup();
+    await user.click(canvas.getByRole("button", { name: "Open modal" }));
 
     const trigger = await canvas.findByRole("button", { name: /Dropdown/ });
-    await userEvent.click(trigger);
+    await user.click(trigger);
 
     await expect(await canvas.findByText("Option A")).toBeInTheDocument();
   },

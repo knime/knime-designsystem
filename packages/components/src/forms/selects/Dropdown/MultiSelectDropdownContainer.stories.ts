@@ -117,31 +117,32 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
+    const user = userEvent.setup();
     const filterInput = canvas.getByRole("searchbox", {
       name: "Filter options",
     });
-    await userEvent.click(filterInput);
+    await user.click(filterInput);
 
     // Keyboard: Enter selects the focused (first) item
-    await userEvent.keyboard("{Enter}");
+    await user.keyboard("{Enter}");
     await expect(canvas.getByRole("option", { name: "Label" })).toHaveAttribute(
       "aria-selected",
       "true",
     );
 
     // Mouse: click deselects
-    await userEvent.click(canvas.getByRole("option", { name: "Label" }));
+    await user.click(canvas.getByRole("option", { name: "Label" }));
     await expect(canvas.getByRole("option", { name: "Label" })).toHaveAttribute(
       "aria-selected",
       "false",
     );
 
     // Search filtering: no results
-    await userEvent.type(filterInput, "zzz");
+    await user.type(filterInput, "zzz");
     await expect(canvas.getByText("No entries found")).toBeVisible();
 
     // Clear search to restore all options
-    await userEvent.clear(filterInput);
+    await user.clear(filterInput);
     await expect(canvas.getAllByRole("option")).toHaveLength(4);
   },
 };
@@ -150,12 +151,13 @@ export const SelectAllAndClearAll: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
+    const user = userEvent.setup();
     // Initially no selection → item shows "Select all"
     const selectAllItem = canvas.getByRole("button", { name: "Select all" });
     await expect(selectAllItem).toBeVisible();
 
     // Click "Select all" → all non-disabled options get selected
-    await userEvent.click(selectAllItem);
+    await user.click(selectAllItem);
 
     // Item label changes to "Clear all"
     const clearAllItem = await canvas.findByRole("button", {
@@ -181,7 +183,7 @@ export const SelectAllAndClearAll: Story = {
     ).toHaveAttribute("aria-selected", "false");
 
     // Click "Clear all" → everything is deselected
-    await userEvent.click(clearAllItem);
+    await user.click(clearAllItem);
 
     // Item label changes back to "Select all"
     await canvas.findByRole("button", { name: "Select all" });
@@ -220,10 +222,11 @@ export const MissingValue: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const missingOption = canvas.getByRole("option", { name: /missing-id/ });
     await expect(missingOption).toHaveAttribute("aria-selected", "true");
 
-    await userEvent.click(missingOption);
+    await user.click(missingOption);
     await expect(
       canvas.queryByRole("option", { name: /missing-id/ }),
     ).toBeNull();
@@ -266,19 +269,20 @@ export const AllowNewValues: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const filterInput = canvas.getByRole("searchbox", {
       name: "Filter options",
     });
 
     // Type a new value that doesn't exist in options
-    await userEvent.type(filterInput, "Brand new");
+    await user.type(filterInput, "Brand new");
 
     // "Add new" item should appear inside the list with the typed text
     const addOption = canvas.getByRole("option", { name: "Brand new" });
     await expect(addOption).toBeVisible();
 
     // Click to add the new value
-    await userEvent.click(addOption);
+    await user.click(addOption);
 
     // The value should now be selected as a normal option (not missing)
     const addedOption = canvas.getByRole("option", { name: "Brand new" });
@@ -289,16 +293,16 @@ export const AllowNewValues: Story = {
     await expect(filterInput).toHaveValue("");
 
     // Typing an existing option name should not show the "add new" item
-    await userEvent.type(filterInput, "Label");
+    await user.type(filterInput, "Label");
     await expect(canvas.getAllByRole("option", { name: "Label" })).toHaveLength(
       1,
     );
 
     // Clear search
-    await userEvent.clear(filterInput);
+    await user.clear(filterInput);
 
     // Typing an already-selected value should not show the "add new" item
-    await userEvent.type(filterInput, "Brand new");
+    await user.type(filterInput, "Brand new");
     await expect(
       canvas.getAllByRole("option", { name: /Brand new/ }),
     ).toHaveLength(1);

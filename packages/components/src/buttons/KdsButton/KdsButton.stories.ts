@@ -1,6 +1,6 @@
 import type { FunctionalComponent } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { fn } from "storybook/test";
+import { expect, fn, userEvent, within } from "storybook/test";
 
 import { iconNames } from "@knime/kds-styles/img/icons/def";
 
@@ -24,29 +24,57 @@ const meta: Meta<typeof KdsButton> = {
     },
   },
   argTypes: {
-    size: {
-      control: { type: "select" },
-      options: kdsButtonSizes,
+    label: {
+      control: "text",
+      table: { category: "props" },
     },
     variant: {
       control: { type: "select" },
       options: kdsButtonVariants,
+      table: { category: "props" },
     },
-    destructive: { control: "boolean" },
-    disabled: { control: "boolean" },
-    label: { control: "text" },
+    size: {
+      control: { type: "select" },
+      options: kdsButtonSizes,
+      table: { category: "props" },
+    },
+    destructive: {
+      control: "boolean",
+      table: { category: "props" },
+    },
+    disabled: {
+      control: "boolean",
+      table: { category: "props" },
+    },
     leadingIcon: {
       control: { type: "select" },
       options: [undefined, ...iconNames],
+      table: { category: "props" },
     },
     trailingIcon: {
       control: { type: "select" },
       options: [undefined, ...iconNames],
+      table: { category: "props" },
     },
-    ariaLabel: { control: "text" },
-    title: { control: "text" },
+    ariaLabel: {
+      control: "text",
+      table: { category: "props" },
+    },
+    title: {
+      control: "text",
+      table: { category: "props" },
+    },
   },
   args: {
+    label: "Button",
+    variant: "filled",
+    size: kdsButtonSize.MEDIUM,
+    destructive: false,
+    disabled: false,
+    leadingIcon: undefined,
+    trailingIcon: undefined,
+    ariaLabel: undefined,
+    title: "",
     onClick: fn(),
   },
 };
@@ -58,6 +86,24 @@ export const Filled: Story = {
   args: {
     variant: "filled",
     label: "Button",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    const button = canvas.getByRole("button", { name: "Button" });
+    await expect(button).toBeInTheDocument();
+
+    // Mouse interaction
+    await user.click(button);
+    await expect(button).toBeInTheDocument();
+
+    // Keyboard interaction
+    button.blur();
+    await user.tab();
+    await expect(button).toHaveFocus();
+    await user.keyboard("{Enter}");
+    await user.keyboard(" ");
   },
 };
 

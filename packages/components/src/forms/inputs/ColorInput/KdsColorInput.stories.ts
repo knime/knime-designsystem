@@ -106,6 +106,7 @@ export const Default: Story = {
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const body = within(document.body);
 
     const input = canvas.getByRole("textbox", { name: "Label" });
@@ -114,40 +115,40 @@ export const Default: Story = {
     });
 
     await step("Mouse: type a hex value into the input", async () => {
-      await userEvent.click(input);
-      await userEvent.clear(input);
-      await userEvent.type(input, "#FF6600");
+      await user.click(input);
+      await user.clear(input);
+      await user.type(input, "#FF6600");
       await expect(input).toHaveValue("#FF6600");
     });
 
     await step("Mouse: open and close color picker", async () => {
-      await userEvent.click(pickerButton);
+      await user.click(pickerButton);
 
       const dialog = await body.findByRole("dialog");
       await expect(dialog).toBeInTheDocument();
 
-      await userEvent.click(pickerButton);
+      await user.click(pickerButton);
       await expect(body.queryByRole("dialog")).not.toBeInTheDocument();
     });
 
     await step("Keyboard: type into the input", async () => {
-      await userEvent.click(input);
+      await user.click(input);
       await expect(input).toHaveFocus();
 
-      await userEvent.clear(input);
-      await userEvent.type(input, "#00FF00");
+      await user.clear(input);
+      await user.type(input, "#00FF00");
       await expect(input).toHaveValue("#00FF00");
     });
 
     await step("Keyboard: tab to picker button and toggle", async () => {
-      await userEvent.tab();
+      await user.tab();
       await expect(pickerButton).toHaveFocus();
 
-      await userEvent.keyboard("{Enter}");
+      await user.keyboard("{Enter}");
       const dialog = await body.findByRole("dialog");
       await expect(dialog).toBeInTheDocument();
 
-      await userEvent.keyboard("{Enter}");
+      await user.keyboard("{Enter}");
       await expect(body.queryByRole("dialog")).not.toBeInTheDocument();
     });
 
@@ -158,12 +159,12 @@ export const Default: Story = {
       }
 
       await expect(body.queryByRole("dialog")).not.toBeInTheDocument();
-      await userEvent.click(swatch);
+      await user.click(swatch);
 
       const dialog = await body.findByRole("dialog");
       await expect(dialog).toBeInTheDocument();
 
-      await userEvent.click(swatch);
+      await user.click(swatch);
       await expect(body.queryByRole("dialog")).not.toBeInTheDocument();
     });
   },
@@ -187,6 +188,7 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const input = canvas.getByRole("textbox", { name: "Label" });
     const pickerButton = canvas.getByRole("button", {
       name: /open color picker/i,
@@ -203,7 +205,7 @@ export const Disabled: Story = {
         throw new Error("Color swatch not found");
       }
 
-      await userEvent.click(swatch);
+      await user.click(swatch);
       await expect(canvas.queryByRole("dialog")).not.toBeInTheDocument();
     });
   },

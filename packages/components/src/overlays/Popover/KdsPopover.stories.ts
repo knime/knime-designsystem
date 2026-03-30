@@ -152,6 +152,7 @@ export const Default: Story = {
   }),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const toggleButton = canvas.getByTestId("toggle-button");
     const popover = canvas.getByTestId("popover");
 
@@ -172,13 +173,13 @@ export const Default: Story = {
     );
 
     // Click to open
-    await userEvent.click(toggleButton);
+    await user.click(toggleButton);
     await expect(popover).toBeVisible();
     await expect(popover).toHaveAttribute("role", "dialog");
     await expect(toggleButton).toHaveAttribute("aria-expanded", "true");
 
     // Click to close
-    await userEvent.click(toggleButton);
+    await user.click(toggleButton);
     await expect(popover).not.toBeVisible();
     await expect(toggleButton).toHaveAttribute("aria-expanded", "false");
   },
@@ -263,6 +264,7 @@ export const SeparateAnchorElement: Story = {
   }),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const toggleButton = canvas.getByTestId("toggle-button");
     const anchorElement = canvas.getByTestId("anchor-element");
     const popover = canvas.getByTestId("popover");
@@ -293,7 +295,7 @@ export const SeparateAnchorElement: Story = {
     expect(anchorElement).not.toHaveAttribute("aria-expanded");
 
     // Click to open
-    await userEvent.click(toggleButton);
+    await user.click(toggleButton);
     await expect(popover).toBeVisible();
     await expect(toggleButton).toHaveAttribute("aria-expanded", "true");
 
@@ -301,7 +303,7 @@ export const SeparateAnchorElement: Story = {
     expect(anchorElement).not.toHaveAttribute("aria-expanded");
 
     // Click to close
-    await userEvent.click(toggleButton);
+    await user.click(toggleButton);
     await expect(popover).not.toBeVisible();
     await expect(toggleButton).toHaveAttribute("aria-expanded", "false");
   },
@@ -352,11 +354,12 @@ export const FullWidth: Story = {
   }),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const toggleButton = canvas.getByTestId("toggle-button");
     const popover = canvas.getByTestId("popover");
 
     // Click to open
-    await userEvent.click(toggleButton);
+    await user.click(toggleButton);
     await expect(popover).toBeVisible();
 
     // Popover should have the accessible label

@@ -91,16 +91,17 @@ export const Default: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const radio = canvas.getByRole("radio", { name: "Label" });
 
     await expect(radio).not.toBeChecked();
 
     // Click selects the radio button
-    await userEvent.click(radio);
+    await user.click(radio);
     await expect(radio).toBeChecked();
 
     // Second click does not unselect
-    await userEvent.click(radio);
+    await user.click(radio);
     await expect(radio).toBeChecked();
   },
 };
@@ -120,17 +121,18 @@ export const WithHelperText: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const radio = canvas.getByRole("radio", { name: "Label Helper text" });
 
     await expect(radio).not.toBeChecked();
 
     // Space selects the radio button
     radio.focus();
-    await userEvent.keyboard(" ");
+    await user.keyboard(" ");
     await expect(radio).toBeChecked();
 
     // Second Space does not unselect
-    await userEvent.keyboard(" ");
+    await user.keyboard(" ");
     await expect(radio).toBeChecked();
   },
 };
@@ -144,18 +146,19 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const radio = canvas.getByRole("radio", { name: "Label Helper text" });
 
     await expect(radio).toBeChecked();
     await expect(radio).toBeDisabled();
 
     // Click should not change state
-    await userEvent.click(radio);
+    await user.click(radio);
     await expect(radio).toBeChecked();
 
     // Keyboard should not change state
     radio.focus();
-    await userEvent.keyboard(" ");
+    await user.keyboard(" ");
     await expect(radio).toBeChecked();
   },
 };

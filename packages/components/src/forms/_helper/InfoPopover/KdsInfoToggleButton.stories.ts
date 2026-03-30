@@ -53,6 +53,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const getButton = () =>
       canvas.getByRole("button", {
         name: "Click for more information",
@@ -60,14 +61,14 @@ export const Default: Story = {
 
     await expect(getButton()).toHaveAttribute("aria-pressed", "false");
 
-    await userEvent.click(getButton());
+    await user.click(getButton());
     await expect(getButton()).toHaveAttribute("aria-pressed", "true");
 
     // Popover should have the accessible label
     const popover = canvas.getByRole("dialog");
     await expect(popover).toHaveAttribute("aria-label", "Description");
 
-    await userEvent.click(getButton());
+    await user.click(getButton());
     await expect(getButton()).toHaveAttribute("aria-pressed", "false");
   },
 };

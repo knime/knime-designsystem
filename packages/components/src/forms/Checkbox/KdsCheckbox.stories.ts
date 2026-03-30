@@ -94,24 +94,25 @@ export const Default: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const checkbox = canvas.getByRole("checkbox", { name: "Label" });
 
     await expect(checkbox).not.toBeChecked();
 
     // Toggle with mouse click
-    await userEvent.click(checkbox);
+    await user.click(checkbox);
     await expect(checkbox).toBeChecked();
 
-    await userEvent.click(checkbox);
+    await user.click(checkbox);
     await expect(checkbox).not.toBeChecked();
 
     // Toggle with keyboard (Space) while focused
     await expect(checkbox).toHaveFocus();
 
-    await userEvent.keyboard(" ");
+    await user.keyboard(" ");
     await expect(checkbox).toBeChecked();
 
-    await userEvent.keyboard(" ");
+    await user.keyboard(" ");
     await expect(checkbox).not.toBeChecked();
   },
 };
@@ -146,18 +147,19 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const checkbox = canvas.getByRole("checkbox", { name: "Label" });
 
     await expect(checkbox).toBeChecked();
     await expect(checkbox).toBeDisabled();
 
     // Click should not change state
-    await userEvent.click(checkbox);
+    await user.click(checkbox);
     await expect(checkbox).toBeChecked();
 
     // Keyboard should not change state
     checkbox.focus();
-    await userEvent.keyboard(" ");
+    await user.keyboard(" ");
     await expect(checkbox).toBeChecked();
   },
 };

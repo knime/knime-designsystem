@@ -131,20 +131,21 @@ export const Default: Story = {
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const input = canvas.getByRole("textbox", { name: /label/i });
 
     await step("Type and clear date values", async () => {
-      await userEvent.click(input);
-      await userEvent.type(input, "2026-03-11");
+      await user.click(input);
+      await user.type(input, "2026-03-11");
       await expect(input).toHaveValue("2026-03-11");
 
-      await userEvent.clear(input);
+      await user.clear(input);
       await expect(input).toHaveValue("");
     });
 
     await step("Test date parsing and normalization", async () => {
-      await userEvent.type(input, "March 11, 2026");
-      await userEvent.tab();
+      await user.type(input, "March 11, 2026");
+      await user.tab();
 
       await expect(input).toHaveValue("2026-03-11");
       await expect(input).not.toHaveAttribute("aria-invalid", "true");
@@ -152,15 +153,15 @@ export const Default: Story = {
 
     await step("Test keyboard navigation", async () => {
       // Clear input and reset focus
-      await userEvent.clear(input);
+      await user.clear(input);
       input.blur();
 
       // Tab should focus the input first
-      await userEvent.tab();
+      await user.tab();
       await expect(input).toHaveFocus();
 
       // Tab again should move to calendar button
-      await userEvent.tab();
+      await user.tab();
       const calendarButton = canvas.getByRole("button", {
         name: "Open date picker",
       });
@@ -185,15 +186,16 @@ export const WithDescription: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
+    const user = userEvent.setup();
     const input = canvas.getByRole("textbox", { name: /label/i });
-    await userEvent.hover(input);
+    await user.hover(input);
 
     const infoButton = await canvas.findByRole("button", {
       name: "Click for more information",
     });
     await expect(infoButton).toBeInTheDocument();
 
-    await userEvent.click(infoButton);
+    await user.click(infoButton);
 
     const description = await canvas.findByText(
       /This is a helpful description that explains what this field is for\./i,
@@ -259,10 +261,11 @@ export const InvalidFormatAutoError: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const input = canvas.getByRole("textbox", { name: /label/i });
 
-    await userEvent.type(input, "its-a-fig-not-a-date");
-    await userEvent.tab();
+    await user.type(input, "its-a-fig-not-a-date");
+    await user.tab();
 
     const errorText = await canvas.findByText(/Invalid date format/i);
 
@@ -277,16 +280,17 @@ export const CalendarPicker: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const calendarButton = canvas.getByRole("button", {
       name: "Open date picker",
     });
 
     await expect(calendarButton).toHaveAttribute("aria-pressed", "false");
 
-    await userEvent.click(calendarButton);
+    await user.click(calendarButton);
     await expect(calendarButton).toHaveAttribute("aria-pressed", "true");
 
-    await userEvent.click(calendarButton);
+    await user.click(calendarButton);
     await expect(calendarButton).toHaveAttribute("aria-pressed", "false");
   },
 };
@@ -319,11 +323,12 @@ export const ProgrammaticFocus: Story = {
   }),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const button = canvas.getByRole("button", { name: "Focus Date Input" });
     const input = canvas.getByRole("textbox", { name: "Date Input" });
 
     await expect(input).not.toHaveFocus();
-    await userEvent.click(button);
+    await user.click(button);
     await expect(input).toHaveFocus();
   },
 };

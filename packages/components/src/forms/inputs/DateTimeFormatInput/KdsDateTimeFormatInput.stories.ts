@@ -356,14 +356,15 @@ export default meta;
 export const Default: Story = {
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     const input = canvas.getByRole("textbox", { name: "Label" });
 
     await step("Type into the input", async () => {
-      await userEvent.click(input);
-      await userEvent.type(input, "yyyy-MM-dd");
+      await user.click(input);
+      await user.type(input, "yyyy-MM-dd");
       await expect(input).toHaveValue("yyyy-MM-dd");
 
-      await userEvent.clear(input);
+      await user.clear(input);
       await expect(input).toHaveValue("");
     });
 
@@ -371,7 +372,7 @@ export const Default: Story = {
       const formatButton = canvas.getByRole("button", {
         name: "Open date/time format picker",
       });
-      await userEvent.click(formatButton);
+      await user.click(formatButton);
 
       const dialog = await canvas.findByRole("listbox", {
         name: "Date/time formats",
@@ -380,10 +381,10 @@ export const Default: Story = {
 
       // Default locale is "Recent" which has no entries → switch to "ISO"
       const isoTab = canvas.getByRole("radio", { name: "ISO" });
-      await userEvent.click(isoTab);
+      await user.click(isoTab);
 
       const firstOption = (await canvas.findAllByRole("option"))[0];
-      await userEvent.click(firstOption);
+      await user.click(firstOption);
 
       // Popover closes and input is updated with the first ISO date format
       await expect(input).toHaveValue("yyyy-MM-dd");
@@ -397,14 +398,14 @@ export const Default: Story = {
       });
       await expect(formatButton).toHaveFocus();
 
-      await userEvent.keyboard("{Enter}");
+      await user.keyboard("{Enter}");
       const listbox = await canvas.findByRole("listbox", {
         name: "Date/time formats",
       });
       await expect(listbox).toBeInTheDocument();
 
       listbox.focus();
-      await userEvent.keyboard("{ArrowDown}{Enter}");
+      await user.keyboard("{ArrowDown}{Enter}");
 
       await expect(input).toHaveValue("yyyy-MM");
       await expect(
@@ -434,15 +435,16 @@ export const WithDescription: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
+    const user = userEvent.setup();
     const input = canvas.getByRole("textbox", { name: /label/i });
-    await userEvent.hover(input);
+    await user.hover(input);
 
     const infoButton = await canvas.findByRole("button", {
       name: "Click for more information",
     });
     await expect(infoButton).toBeInTheDocument();
 
-    await userEvent.click(infoButton);
+    await user.click(infoButton);
 
     const description = await canvas.findByText(
       /Choose a format pattern for parsing and formatting date\/time values\./i,
@@ -521,10 +523,11 @@ export const AllowedFormatsOnlyDate: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
+    const user = userEvent.setup();
     const formatButton = canvas.getByRole("button", {
       name: "Open date/time format picker",
     });
-    await userEvent.click(formatButton);
+    await user.click(formatButton);
 
     // Multiple locales are available for DATE formats, so the locale switch must be rendered.
     const isoLocaleOption = await canvas.findByText("ISO");
@@ -534,7 +537,7 @@ export const AllowedFormatsOnlyDate: Story = {
     await expect(canvas.queryByText("Date & Time")).not.toBeInTheDocument();
 
     // Ensure ISO is selected so the first option should be the built-in ISO date format.
-    await userEvent.click(isoLocaleOption);
+    await user.click(isoLocaleOption);
 
     const options = await canvas.findAllByRole("option");
     await expect(options[0]).toHaveTextContent("yyyy-MM-dd");
@@ -567,10 +570,11 @@ export const OverrideFormats: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
+    const user = userEvent.setup();
     const formatButton = canvas.getByRole("button", {
       name: "Open date/time format picker",
     });
-    await userEvent.click(formatButton);
+    await user.click(formatButton);
 
     // Custom formats should appear in the popover
     const options = await canvas.findAllByRole("option");
