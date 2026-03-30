@@ -44,6 +44,11 @@ const meta: Meta<typeof KdsPopover> = {
       description:
         "When true, the popover's minimum width matches the anchor element's width.",
     },
+    maxInlineSize: {
+      control: { type: "text" },
+      description:
+        "Maximum inline size as a CSS value. The container cannot grow above this value. When not set, there is no upper limit.",
+    },
     default: {
       control: false,
       description:
@@ -58,6 +63,7 @@ const meta: Meta<typeof KdsPopover> = {
     role: "dialog",
     popoverType: "auto",
     fullWidth: false,
+    maxInlineSize: undefined,
   },
   parameters: {
     docs: {
@@ -320,7 +326,7 @@ export const FullWidth: Story = {
   },
   args: {
     fullWidth: true,
-    content: "This popover matches the anchor width.",
+    content: "This popover's minimum width matches the anchor width.",
   },
   render: (args) => ({
     components: { KdsToggleButton, KdsPopover },
@@ -369,6 +375,69 @@ export const FullWidth: Story = {
     const anchorWidth = toggleButton.getBoundingClientRect().width;
     const popoverWidth = popover.getBoundingClientRect().width;
     expect(popoverWidth).toBeGreaterThanOrEqual(anchorWidth);
+  },
+};
+
+export const MaxInlineSize: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "When `maxInlineSize` is provided, the popover's maximum inline size matches the provided value. This is useful when you want to limit the inline size of the popover.",
+      },
+    },
+  },
+  args: {
+    maxInlineSize: "anchor-size(width)",
+    content:
+      "This popover has a maximum inline size set to the anchor's width. It won't grow over the width of its anchor.",
+  },
+  render: (args) => ({
+    components: { KdsToggleButton, KdsPopover },
+    setup() {
+      const popoverRef = useTemplateRef("popoverRef");
+      return { args, popoverRef };
+    },
+    template: `
+      <KdsToggleButton
+        v-model="args.modelValue"
+        label="Wide toggle button as anchor"
+        variant="outlined"
+        style="min-width: 400px;"
+        :style="popoverRef?.anchorStyle"
+        :aria-controls="popoverRef?.popoverId"
+        :aria-expanded="args.modelValue"
+        aria-haspopup="dialog"
+        data-testid="toggle-button"
+      />
+
+      <KdsPopover
+        ref="popoverRef"
+        v-model="args.modelValue"
+        :placement="args.placement"
+        :content="args.content"
+        :max-inline-size="args.maxInlineSize"
+        aria-label="Popover"
+        data-testid="popover"
+      />
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const toggleButton = canvas.getByTestId("toggle-button");
+    const popover = canvas.getByTestId("popover");
+
+    // Click to open
+    await userEvent.click(toggleButton);
+    await expect(popover).toBeVisible();
+
+    // Popover should have the accessible label
+    await expect(popover).toHaveAttribute("aria-label", "Popover");
+
+    // The popover should not exceed the width of the anchor
+    const anchorWidth = toggleButton.getBoundingClientRect().width;
+    const popoverWidth = popover.getBoundingClientRect().width;
+    expect(popoverWidth).toBeLessThanOrEqual(anchorWidth);
   },
 };
 
