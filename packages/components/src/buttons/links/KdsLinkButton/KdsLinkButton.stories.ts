@@ -75,6 +75,17 @@ const meta: Meta<typeof KdsLinkButton> = {
       description: "Target browsing context for anchor-based links.",
       table: { category: "props" },
     },
+    rel: {
+      control: "text",
+      description: "Relationship of the linked URL.",
+      table: { category: "props" },
+    },
+    download: {
+      control: "boolean",
+      description:
+        "If true, the link will be downloaded instead of navigating to it.",
+      table: { category: "props" },
+    },
     ariaLabel: {
       control: "text",
       table: { category: "props" },
@@ -93,6 +104,9 @@ const meta: Meta<typeof KdsLinkButton> = {
     leadingIcon: undefined,
     trailingIcon: undefined,
     to: "#",
+    target: "",
+    rel: "",
+    download: undefined,
     ariaLabel: undefined,
     title: "",
     onClick: fn(),

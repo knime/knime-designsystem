@@ -161,6 +161,8 @@ export const IconStateLogic: Story = {
   },
 };
 
+// TextOverflow story does not apply here
+
 export const DesignComparator: Story = buildDesignComparatorStory({
   component: KdsVariableToggleButton,
   designsToCompare: {
