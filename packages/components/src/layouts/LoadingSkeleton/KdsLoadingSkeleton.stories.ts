@@ -26,7 +26,6 @@ const meta: Meta<typeof KdsLoadingSkeleton> = {
     variant: {
       control: { type: "select" },
       options: kdsLoadingSkeletonVariants,
-
       table: { category: "props" },
     },
     loading: {
@@ -39,7 +38,6 @@ const meta: Meta<typeof KdsLoadingSkeleton> = {
     },
     repeatGap: {
       control: "text",
-
       table: { category: "props" },
     },
     width: {
@@ -55,9 +53,6 @@ const meta: Meta<typeof KdsLoadingSkeleton> = {
     variant: "text",
     loading: true,
     repeat: 1,
-    repeatGap: "var(--kds-spacing-container-1-25x)",
-    width: undefined,
-    height: undefined,
     default: "Default slot content",
   },
 };
