@@ -27,25 +27,25 @@ export class TwinListPage {
 
   get moveRightBtn() {
     return this.canvas.getByRole("button", {
-      name: "Move selected values to include",
+      name: "Move selected values right",
     });
   }
 
   get moveAllRightBtn() {
     return this.canvas.getByRole("button", {
-      name: "Move all values to include",
+      name: "Move all values right",
     });
   }
 
   get moveLeftBtn() {
     return this.canvas.getByRole("button", {
-      name: "Move selected values to exclude",
+      name: "Move selected values left",
     });
   }
 
   get moveAllLeftBtn() {
     return this.canvas.getByRole("button", {
-      name: "Move all values to exclude",
+      name: "Move all values left",
     });
   }
 

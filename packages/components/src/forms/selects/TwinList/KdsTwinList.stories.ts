@@ -581,16 +581,16 @@ export const Loading: Story = {
 
     // All move buttons are disabled
     await expect(
-      canvas.getByRole("button", { name: "Move selected values to include" }),
+      canvas.getByRole("button", { name: "Move selected values right" }),
     ).toBeDisabled();
     await expect(
-      canvas.getByRole("button", { name: "Move all values to include" }),
+      canvas.getByRole("button", { name: "Move all values right" }),
     ).toBeDisabled();
     await expect(
-      canvas.getByRole("button", { name: "Move selected values to exclude" }),
+      canvas.getByRole("button", { name: "Move selected values left" }),
     ).toBeDisabled();
     await expect(
-      canvas.getByRole("button", { name: "Move all values to exclude" }),
+      canvas.getByRole("button", { name: "Move all values left" }),
     ).toBeDisabled();
 
     // Mode switcher is still rendered (with Manual, Pattern, Type)
