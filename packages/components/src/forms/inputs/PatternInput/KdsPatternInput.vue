@@ -1,15 +1,12 @@
 <script setup lang="ts">
-import { computed, ref, useTemplateRef, watch } from "vue";
+import { computed, useTemplateRef, watch } from "vue";
 
 import KdsToggleButton from "../../../buttons/KdsToggleButton/KdsToggleButton.vue";
 import BaseFormFieldWrapper from "../../_helper/BaseFormFieldWrapper.vue";
 import type { KdsFormFieldExpose } from "../../types.ts";
 import BaseInput from "../BaseInput.vue";
 
-import {
-  buildRegexFromPatternInput,
-  parseRegexToPatternInputValue,
-} from "./patternRegex.ts";
+import { buildRegexFromPatternInput } from "./patternRegex.ts";
 import type { KdsPatternInputProps } from "./types";
 
 const {
@@ -20,43 +17,42 @@ const {
   ...props
 } = defineProps<KdsPatternInputProps>();
 
-// Public API: a single regex string (encoded with options when toggles are used).
-const regex = defineModel<string>({ default: "" });
+const emit = defineEmits<{
+  "update:regex": [value: string];
+}>();
 
-// Internal UI state. This is derived from the regex model on external updates.
-const uiValue = ref("");
-const caseSensitive = ref(false);
-const excludeMatches = ref(false);
-const useRegex = ref(false);
+const modelValue = defineModel<string>({ default: "" });
 
-const rebuildRegexFromUi = () => {
-  regex.value = buildRegexFromPatternInput(uiValue.value, {
-    caseSensitive: caseSensitive.value,
-    excludeMatches: excludeMatches.value,
-    useRegex: useRegex.value,
-  });
-};
+// Toggle states exposed as optional v-models for external control.
+const caseSensitive = defineModel<boolean>("caseSensitive", { default: false });
+const excludeMatches = defineModel<boolean>("excludeMatches", {
+  default: false,
+});
+const useRegex = defineModel<boolean>("useRegex", { default: false });
 
 watch(
-  () => regex.value,
-  (newValue) => {
-    uiValue.value = parseRegexToPatternInputValue(newValue, {
-      useRegex: useRegex.value,
-      excludeMatches: excludeMatches.value,
-      caseSensitive: caseSensitive.value,
-    });
+  [modelValue, caseSensitive, excludeMatches, useRegex],
+  ([value, cs, em, ur]) => {
+    emit(
+      "update:regex",
+      buildRegexFromPatternInput(value, {
+        caseSensitive: cs,
+        excludeMatches: em,
+        useRegex: ur,
+      }),
+    );
   },
   { immediate: true },
 );
 
-const caseSensitiveAriaLabel = computed(() =>
-  caseSensitive.value ? "Match case-sensitive" : "Match case-insensitive",
+const caseSensitiveTitle = computed(() =>
+  caseSensitive.value ? "Match case-insensitive" : "Match case-sensitive",
 );
-const excludeMatchesAriaLabel = computed(() =>
-  excludeMatches.value ? "Exclude matches" : "Include matches",
+const excludeMatchesTitle = computed(() =>
+  excludeMatches.value ? "Include matches" : "Exclude matches",
 );
-const patternModeAriaLabel = computed(() =>
-  useRegex.value ? "Use regex pattern" : "Use wildcard pattern",
+const patternModeTitle = computed(() =>
+  useRegex.value ? "Use wildcard pattern" : "Use regex pattern",
 );
 
 const baseInput = useTemplateRef("baseInput");
@@ -77,7 +73,7 @@ defineExpose<KdsFormFieldExpose>({
       <BaseInput
         ref="baseInput"
         v-bind="slotProps"
-        v-model="uiValue"
+        v-model="modelValue"
         type="text"
         :placeholder="props.placeholder"
         :disabled="disabled"
@@ -85,7 +81,6 @@ defineExpose<KdsFormFieldExpose>({
         :autocomplete="props.autocomplete"
         leading-icon="filter"
         clearable
-        @update:model-value="rebuildRegexFromUi"
       >
         <template #trailing>
           <KdsToggleButton
@@ -93,10 +88,9 @@ defineExpose<KdsFormFieldExpose>({
             size="xsmall"
             variant="outlined"
             leading-icon="case-sensitive"
-            :title="caseSensitiveAriaLabel"
-            :ariaLabel="caseSensitiveAriaLabel"
+            :title="caseSensitiveTitle"
+            ariaLabel="Case sensitivity"
             :disabled="disabled"
-            @update:model-value="rebuildRegexFromUi"
           />
 
           <KdsToggleButton
@@ -104,10 +98,9 @@ defineExpose<KdsFormFieldExpose>({
             size="xsmall"
             variant="outlined"
             leading-icon="arrows-order"
-            :title="excludeMatchesAriaLabel"
-            :ariaLabel="excludeMatchesAriaLabel"
+            :title="excludeMatchesTitle"
+            ariaLabel="Exclude matches"
             :disabled="disabled"
-            @update:model-value="rebuildRegexFromUi"
           />
 
           <KdsToggleButton
@@ -115,10 +108,9 @@ defineExpose<KdsFormFieldExpose>({
             size="xsmall"
             variant="outlined"
             leading-icon="regex"
-            :title="patternModeAriaLabel"
-            :ariaLabel="patternModeAriaLabel"
+            :title="patternModeTitle"
+            ariaLabel="Regex mode"
             :disabled="disabled"
-            @update:model-value="rebuildRegexFromUi"
           />
         </template>
       </BaseInput>

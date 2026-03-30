@@ -36,6 +36,7 @@ export const useMultiSelectListBoxSelection = ({
   const isKeyboardNavigating = ref(false);
   const shiftStartIndex = ref(-1);
   const draggingStartIndex = ref(-1);
+  const draggingLastIndex = ref(-1);
   const draggingInverseMode = ref(false);
   const mouseTriggeredFocus = ref(false);
 
@@ -172,6 +173,7 @@ export const useMultiSelectListBoxSelection = ({
     const index = getDataOptionIndex(e.target as HTMLElement);
     if (index !== undefined) {
       draggingStartIndex.value = Number(index);
+      draggingLastIndex.value = Number(index);
     }
   };
 
@@ -183,9 +185,14 @@ export const useMultiSelectListBoxSelection = ({
     if (dataIndex === undefined) {
       return;
     }
+    const numericIndex = Number(dataIndex);
+    if (numericIndex === draggingLastIndex.value) {
+      return;
+    }
+    draggingLastIndex.value = numericIndex;
     let sectionValues = getPossibleValuesInSection(
       draggingStartIndex.value,
-      Number(dataIndex),
+      numericIndex,
     );
     if (draggingInverseMode.value) {
       sectionValues = modelValue.value.filter(
@@ -197,6 +204,7 @@ export const useMultiSelectListBoxSelection = ({
 
   const onStopDrag = () => {
     draggingStartIndex.value = -1;
+    draggingLastIndex.value = -1;
     draggingInverseMode.value = false;
   };
 

@@ -23,8 +23,8 @@ const meta: Meta<typeof KdsPatternInput> = {
     docs: {
       description: {
         component:
-          "An input field for pattern-based filtering. It exposes a single regex v-model and provides built-in toggles for case sensitivity, include/exclude matches, and wildcard/regex mode. " +
-          "Toggle changes are encoded into the emitted regex so consumers don't need separate option bindings.",
+          "An input field for pattern-based filtering. Its v-model always contains the visible input text, while the `update:regex` event emits a compiled regex string based on the current toggles. " +
+          "Consumers can use the optional toggle v-models for external control when needed.",
       },
     },
     design: {
@@ -35,7 +35,19 @@ const meta: Meta<typeof KdsPatternInput> = {
   argTypes: {
     modelValue: {
       control: "text",
-      description: "Regex string (v-model)",
+      description: "Visible pattern text",
+      table: { category: "model" },
+    },
+    caseSensitive: {
+      control: "boolean",
+      table: { category: "model" },
+    },
+    excludeMatches: {
+      control: "boolean",
+      table: { category: "model" },
+    },
+    useRegex: {
+      control: "boolean",
       table: { category: "model" },
     },
     ariaLabel: {
@@ -86,6 +98,9 @@ const meta: Meta<typeof KdsPatternInput> = {
   },
   args: {
     modelValue: "",
+    caseSensitive: false,
+    excludeMatches: false,
+    useRegex: false,
     label: "Pattern",
     description: "",
     ariaLabel: undefined,
@@ -103,13 +118,41 @@ const meta: Meta<typeof KdsPatternInput> = {
       components: { KdsPatternInput, PatternDemo },
       setup() {
         const modelValue = ref(args.modelValue);
+        const caseSensitive = ref(args.caseSensitive);
+        const excludeMatches = ref(args.excludeMatches);
+        const useRegex = ref(args.useRegex);
+        const regex = ref("");
         watchEffect(() => (modelValue.value = args.modelValue));
-        watchEffect(() => updateArgs({ modelValue: modelValue.value }));
-        return { args, modelValue };
+        watchEffect(() => (caseSensitive.value = args.caseSensitive));
+        watchEffect(() => (excludeMatches.value = args.excludeMatches));
+        watchEffect(() => (useRegex.value = args.useRegex));
+        watchEffect(() =>
+          updateArgs({
+            modelValue: modelValue.value,
+            caseSensitive: caseSensitive.value,
+            excludeMatches: excludeMatches.value,
+            useRegex: useRegex.value,
+          }),
+        );
+        return {
+          args,
+          modelValue,
+          caseSensitive,
+          excludeMatches,
+          useRegex,
+          regex,
+        };
       },
       template: `
-        <KdsPatternInput v-bind="args" v-model="modelValue" />
-        <PatternDemo :pattern="modelValue" />
+        <KdsPatternInput
+          v-bind="args"
+          v-model="modelValue"
+          v-model:case-sensitive="caseSensitive"
+          v-model:exclude-matches="excludeMatches"
+          v-model:use-regex="useRegex"
+          @update:regex="regex = $event"
+        />
+        <PatternDemo :pattern="regex" />
       `,
     };
   },
@@ -133,7 +176,7 @@ export const Default: Story = {
 
       await user.tab();
       const caseToggle = canvas.getByRole("button", {
-        name: "Match case-insensitive",
+        name: "Case sensitivity",
       });
       await expect(caseToggle).toHaveFocus();
     });
@@ -153,15 +196,12 @@ export const Default: Story = {
 
       // After clearing, the clear button disappears. Wait for toggle to be focusable.
       const caseToggle = await canvas.findByRole("button", {
-        name: "Match case-insensitive",
+        name: "Case sensitivity",
       });
       await user.click(caseToggle);
 
-      // Wait for toggle state to update - the name changes when pressed
-      const caseToggleActive = await canvas.findByRole("button", {
-        name: "Match case-sensitive",
-      });
-      await expect(caseToggleActive).toHaveAttribute("aria-pressed", "true");
+      // The accessible name stays the same; only aria-pressed changes
+      await expect(caseToggle).toHaveAttribute("aria-pressed", "true");
     });
   },
 };
@@ -169,6 +209,7 @@ export const Default: Story = {
 export const WithValue: Story = {
   args: {
     modelValue: "^column([1-9]|10)$",
+    useRegex: true,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -179,7 +220,9 @@ export const WithValue: Story = {
 
 export const WithEncodedOptions: Story = {
   args: {
-    modelValue: "^(?!.*^column([1-9]|10)$).*$",
+    modelValue: "^column([1-9]|10)$",
+    useRegex: true,
+    excludeMatches: true,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -191,6 +234,7 @@ export const WithEncodedOptions: Story = {
 export const Disabled: Story = {
   args: {
     modelValue: "^column([1-9]|10)$",
+    useRegex: true,
     disabled: true,
   },
   play: async ({ canvasElement }) => {
@@ -231,6 +275,7 @@ export const WithDescription: Story = {
 export const WithError: Story = {
   args: {
     modelValue: "(",
+    useRegex: true,
     error: true,
     subText: "Invalid pattern",
   },
@@ -243,6 +288,7 @@ export const WithError: Story = {
 export const Validating: Story = {
   args: {
     modelValue: "^column([1-9]|10)$",
+    useRegex: true,
     validating: true,
     subText: "Validating pattern",
   },
@@ -328,6 +374,9 @@ export const AllCombinations: Story = buildAllCombinationsStory({
       label: ["Pattern"],
       ariaLabel: [undefined],
       modelValue: ["", "^column([1-9]|10)$"],
+      useRegex: [false, true],
+      caseSensitive: [false],
+      excludeMatches: [false],
       placeholder: ["", "{pattern}"],
       disabled: [false],
       error: [false],
