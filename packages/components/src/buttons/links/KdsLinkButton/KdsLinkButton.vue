@@ -8,7 +8,7 @@ import type { KdsLinkButtonProps } from "./types";
 
 const {
   variant = "filled",
-  download,
+  download = undefined,
   rel = null,
   target = null,
   ...props
