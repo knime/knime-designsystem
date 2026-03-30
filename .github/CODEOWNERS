@@ -1,4 +1,5 @@
 # default owner unless a later match takes precedence
 * @knime/ui-core
+* @RainerSchmoeger
 
 /packages/styles/src/tokens @knime/ux
