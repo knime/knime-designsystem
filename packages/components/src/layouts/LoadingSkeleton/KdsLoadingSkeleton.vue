@@ -59,7 +59,7 @@ const {
             <KdsLoadingSkeletonItem
               shape="text"
               :height="
-                variant.startsWith('list-item-large')
+                variant == 'list-item-large'
                   ? 'var(--kds-dimension-component-height-0-88x)'
                   : 'var(--kds-dimension-component-height-0-75x)'
               "
@@ -68,7 +68,7 @@ const {
               v-if="variant.endsWith('subtext')"
               shape="text"
               :height="
-                variant.startsWith('list-item-large')
+                variant == 'list-item-large'
                   ? 'var(--kds-dimension-component-height-0-88x)'
                   : 'var(--kds-dimension-component-height-0-75x)'
               "
@@ -162,16 +162,17 @@ const {
         var(--kds-spacing-container-0-5x) - var(--kds-core-border-width-xs)
       )
       var(--kds-spacing-container-0-5x) var(--kds-spacing-container-0-25x);
+
+    & .kds-loading-skeleton-list-item-text {
+      justify-content: flex-start;
+    }
   }
 
   &.kds-loading-skeleton-list-item-large-with-subtext {
     align-items: center;
-  }
 
-  &.kds-loading-skeleton-list-item-large-with-subtext,
-  &.kds-loading-skeleton-list-item-small {
     & .kds-loading-skeleton-list-item-text {
-      justify-content: flex-start;
+      justify-content: center;
     }
   }
 }
