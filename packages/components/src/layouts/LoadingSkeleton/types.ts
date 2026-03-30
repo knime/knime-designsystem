@@ -19,7 +19,7 @@ export type LoadingSkeletonItemProps = {
   shape?: LoadingSkeletonItemShape;
 };
 
-export type KdsLoadingSkeletonProps = {
+type BaseProps = {
   /** Selects the rendered skeleton shapes/combined layout. */
   variant?: KdsLoadingSkeletonVariant;
 
@@ -34,7 +34,41 @@ export type KdsLoadingSkeletonProps = {
 
   /** Width in % or CSS token variable. Defaults to 100% or default shape width. */
   width?: CssLength;
+};
+
+type WithoutHeight = BaseProps & {
+  /** Height in % or CSS token variable. Only possible for `card` variant. */
+  height?: never;
+};
+
+type WithHeight = BaseProps & {
+  variant: "card";
 
   /** Height in % or CSS token variable. Only possible for `card` variant. */
-  height?: CssLength;
+  height?: string;
 };
+
+export type KdsLoadingSkeletonProps = WithoutHeight | WithHeight;
+
+/**
+ * Testers
+ */
+
+propTypeTester<KdsLoadingSkeletonProps>({
+  variant: "text",
+  loading: true,
+  repeat: 1,
+  repeatGap: "var(--kds-spacing-container-1x)",
+  width: "100%",
+});
+
+// @ts-expect-error - should not allow height for non-card variants
+propTypeTester<KdsLoadingSkeletonProps>({
+  variant: "button-medium",
+  height: "var(--kds-size-unit-1x)",
+});
+
+propTypeTester<KdsLoadingSkeletonProps>({
+  variant: "card",
+  height: "var(--kds-size-unit-1x)",
+});
