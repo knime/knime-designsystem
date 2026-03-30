@@ -1,5 +1,13 @@
 # @knime/kds-components
 
+## 0.21.1
+
+### Patch Changes
+
+- a6aeb00: Fix KdsMenuButton keyboard focus handling and add a reusable internal menu container.
+- 27e5a9a: Set download prop default to undefined
+  - @knime/kds-styles@0.21.1
+
 ## 0.21.0
 
 ### Minor Changes
