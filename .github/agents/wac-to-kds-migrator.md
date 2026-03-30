@@ -28,10 +28,86 @@ Your responsibilities:
 | `FunctionButton`                       | `KdsButton`           | `primary` → `variant="filled"`<br> otherwise `variant="transparent"`;<br> `compact` → `size="small"`                                                                                | Text in default slot → `label` prop<br> Icon in default slot → `icon` prop |
 | `FunctionButton` with `to`/`href` prop | `KdsLinkButton`       | see above                                                                                                                                                                           | see above                                                                  |
 | `FunctionButton` with `active` prop    | `KdsToggleButton`     | see above + `active` → `v-model`                                                                                                                                                    | see above                                                                  |
+| `SortList`                             | `KdsSortableListBox`  | See [SortList migration details](#sortlist--kdssortablelistbox) below. `v-model` semantics are the same (ordered IDs).                                                              | `#option` slot removed — use `accessory` on each option instead            |
 | `Checkbox`                             | `KdsCheckbox`         | `invalid` → `error`                                                                                                                                                                 | default slot → `label` prop                                                |
 | `Modal`                                | `KdsModal`            |                                                                                                                                                                                     |                                                                            |
 | `Label`                                | _(removed)_           | Do not use `KdsLabel` – it is internal and will be removed. Use the `label` prop on the KDS form field component directly (e.g. `KdsTextInput`, `KdsDropdown`, `KdsCheckboxGroup`). |                                                                            |
 | `SubText`                              | _(removed)_           | Do not use `KdsSubText` – it is internal and will be removed. Use the `subText`, `error`, `validating`, and `preserveSubTextSpace` props on the KDS form field component directly.  |                                                                            |
+
+### SortList → KdsSortableListBox
+
+The `SortList` and `KdsSortableListBox` have a **compatible data flow** — both use `v-model` for the ordered list of IDs:
+
+| Concern        | `SortList` (`@knime/components`)                            | `KdsSortableListBox` (`@knime/kds-components`)                                                  |
+| -------------- | ----------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Order          | `v-model` = ordered array of all IDs                        | `v-model` = ordered array of all IDs (same)                                                     |
+| Selection      | Internal `ref` (not exposed via v-model)                    | Internal (not exposed via v-model)                                                              |
+| Sort buttons   | None                                                        | Built-in A-Z / Z-A sort + "Reset all" (`@reset-order` event)                                    |
+| Form field     | No label/subText/description                                | Full form field wrapper (`label`, `ariaLabel`, `description`, `subText`, `error`, etc.)         |
+| Item type      | `PossibleValue & { id: string }` (`{ id, text, invalid? }`) | `KdsSortableListBoxOption` (`{ id, text, accessory?, missing? }`)                               |
+| Item rendering | `#option` slot for custom content                           | No slot; use `accessory` prop on each option (supports `dataType`, `icon`, `colorSwatch`, etc.) |
+| Resize         | Not supported                                               | `useResizeHandle` prop                                                                          |
+| Bottom value   | Not supported                                               | `bottomValue` prop (sticky pinned item)                                                         |
+| Keyboard move  | `Alt+Arrow`, `Alt+Home/End`                                 | `Alt+Arrow` (mac) / `Ctrl+Arrow` (win)                                                          |
+
+**Migration example:**
+
+```vue
+<!-- BEFORE: SortList -->
+<script setup>
+import { SortList } from "@knime/components";
+
+const orderedIds = ref(["col-a", "col-b", "col-c"]);
+const possibleValues = [
+  { id: "col-a", text: "Column A" },
+  { id: "col-b", text: "Column B" },
+  { id: "col-c", text: "Column C" },
+];
+</script>
+<template>
+  <SortList
+    v-model="orderedIds"
+    :possible-values="possibleValues"
+    aria-label="Sort columns"
+  />
+</template>
+```
+
+```vue
+<!-- AFTER: KdsSortableListBox -->
+<script setup>
+import { KdsSortableListBox } from "@knime/kds-components";
+import type { KdsSortableListBoxOption } from "@knime/kds-components";
+
+const possibleValues: KdsSortableListBoxOption[] = [
+  { id: "col-a", text: "Column A" },
+  { id: "col-b", text: "Column B" },
+  { id: "col-c", text: "Column C" },
+];
+const orderedIds = ref(["col-a", "col-b", "col-c"]);
+
+const onResetOrder = () => {
+  orderedIds.value = possibleValues.map((o) => o.id);
+};
+</script>
+<template>
+  <KdsSortableListBox
+    v-model="orderedIds"
+    :possible-values="possibleValues"
+    aria-label="Sort columns"
+    @reset-order="onResetOrder"
+  />
+</template>
+```
+
+**Key changes:**
+
+1. `v-model` keeps the same semantics — it represents the **ordered list of all item IDs**.
+2. `possibleValues` provides the full list of options with metadata (text, accessory, etc.). The component computes display order from `v-model`.
+3. Handle `@reset-order` to restore original order (the "Reset all" button is built in).
+4. Replace `PossibleValue.invalid` with `KdsSortableListBoxOption.missing`.
+5. Replace `#option` slot with `accessory` property on each option (e.g. `{ type: "dataType", name: "string-datatype" }`).
+6. Add `label` or `aria-label` prop (form field wrapper is built in).
 
 ## Icons
 
